@@ -1,9 +1,7 @@
-'use client';
-
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Search, X, BookOpen, Layers, ExternalLink, ArrowRight, CornerDownLeft } from 'lucide-react';
+import { Search, X, BookOpen, Layers, ArrowRight, CornerDownLeft } from 'lucide-react';
 import { searchGlobalCatalog, SearchResultItem } from '../../lib/search';
 
 interface GlobalSearchDialogProps {
@@ -65,11 +63,13 @@ export function GlobalSearchDialog({ isOpen, onClose }: GlobalSearchDialogProps)
     } else if (e.key === 'Enter') {
       e.preventDefault();
       if (results.length > 0 && results[selectedIndex]) {
-        router.push(results[selectedIndex].url);
+        const target = results[selectedIndex].url;
         onClose();
+        router.push(target);
       } else if (query.trim()) {
-        router.push(`/discover?q=${encodeURIComponent(query.trim())}`);
+        const target = `/discover?q=${encodeURIComponent(query.trim())}`;
         onClose();
+        router.push(target);
       }
     }
   };
@@ -103,6 +103,7 @@ export function GlobalSearchDialog({ isOpen, onClose }: GlobalSearchDialogProps)
           />
           {query ? (
             <button
+              type="button"
               onClick={() => setQuery('')}
               className="p-1 text-[#6b6b7b] hover:text-[#303055] dark:hover:text-[#f0f0f8]"
               aria-label="Clear search input"
@@ -136,7 +137,7 @@ export function GlobalSearchDialog({ isOpen, onClose }: GlobalSearchDialogProps)
                     href={item.url}
                     onClick={onClose}
                     onMouseEnter={() => setSelectedIndex(index)}
-                    className={`flex items-start gap-3 p-3 rounded-[6px] transition-colors ${
+                    className={`w-full text-left flex items-start gap-3 p-3 rounded-[6px] transition-colors ${
                       isSelected
                         ? 'bg-[#e8e8f2] dark:bg-[#222238] border border-[#d2d2dc] dark:border-[#383850]'
                         : 'hover:bg-[#f4f4f9] dark:hover:bg-[#1a1a2b] border border-transparent'
@@ -174,16 +175,14 @@ export function GlobalSearchDialog({ isOpen, onClose }: GlobalSearchDialogProps)
               <p className="text-xs font-mono text-[#6b6b7b]">
                 No direct matches for &ldquo;{query}&rdquo;
               </p>
-              <button
-                onClick={() => {
-                  router.push(`/discover?q=${encodeURIComponent(query.trim())}`);
-                  onClose();
-                }}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-[4px] bg-[#303055] dark:bg-[#6366f1] text-white text-xs font-medium"
+              <Link
+                href={`/discover?q=${encodeURIComponent(query.trim())}`}
+                onClick={onClose}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-[4px] bg-[#303055] dark:bg-[#6366f1] text-white text-xs font-medium cursor-pointer"
               >
                 Search catalog with filters
                 <ArrowRight className="w-3.5 h-3.5" />
-              </button>
+              </Link>
             </div>
           ) : (
             <div className="py-10 px-6 text-center space-y-2">
@@ -202,7 +201,7 @@ export function GlobalSearchDialog({ isOpen, onClose }: GlobalSearchDialogProps)
             <Link
               href={`/discover?q=${encodeURIComponent(query.trim())}`}
               onClick={onClose}
-              className="text-[#303055] dark:text-[#f0f0f8] hover:underline flex items-center gap-1 font-medium"
+              className="text-[#303055] dark:text-[#f0f0f8] hover:underline flex items-center gap-1 font-medium cursor-pointer"
             >
               View all results on Discover page
               <ArrowRight className="w-3 h-3" />
@@ -214,4 +213,3 @@ export function GlobalSearchDialog({ isOpen, onClose }: GlobalSearchDialogProps)
     </div>
   );
 }
-

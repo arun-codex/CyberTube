@@ -65,7 +65,7 @@ export function searchGlobalCatalog(query: string): SearchResultItem[] {
   // 3. Search Cybersecurity Domains
   for (const domain of CYBERSECURITY_DOMAINS) {
     const nameMatch = domain.name.toLowerCase().includes(cleanQuery);
-    const descMatch = domain.description.toLowerCase().includes(cleanQuery);
+    const descMatch = domain.shortDescription.toLowerCase().includes(cleanQuery);
     const idMatch = domain.id.toLowerCase().includes(cleanQuery);
 
     if (nameMatch || descMatch || idMatch) {
@@ -73,7 +73,7 @@ export function searchGlobalCatalog(query: string): SearchResultItem[] {
         id: `domain-${domain.id}`,
         type: 'domain',
         title: domain.name,
-        description: domain.description,
+        description: domain.shortDescription,
         url: `/discover?domain=${domain.id}`,
         badge: 'DOMAIN',
       });

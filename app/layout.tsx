@@ -18,7 +18,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={fontClassNames} suppressHydrationWarning>
-      <body className="bg-canvas text-text-secondary min-h-screen flex flex-col font-sans selection:bg-[#e8e8f2] dark:selection:bg-[#1e1e30] selection:text-[#303055] dark:selection:text-[#f0f0f8] transition-colors duration-150">
+      <body className="bg-white dark:bg-[#0e0e17] text-[#403f53] dark:text-[#c0c0d4] min-h-screen flex flex-col font-sans selection:bg-[#e8e8f2] dark:selection:bg-[#1e1e30] selection:text-[#303055] dark:selection:text-[#f0f0f8] transition-colors duration-150">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange={false}>
           <Header />
           <main className="flex-1 w-full flex flex-col">{children}</main>

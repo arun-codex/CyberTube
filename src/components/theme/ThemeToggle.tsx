@@ -10,7 +10,7 @@ interface ThemeToggleProps {
 
 export function ThemeToggle({ className = '' }: ThemeToggleProps) {
   const [mounted, setMounted] = useState(false);
-  const { theme, setTheme } = useTheme();
+  const { theme, setTheme, resolvedTheme } = useTheme();
 
   // Avoid hydration mismatch
   useEffect(() => {
@@ -20,40 +20,37 @@ export function ThemeToggle({ className = '' }: ThemeToggleProps) {
   if (!mounted) {
     return (
       <div
-        className={`w-8 h-8 rounded-[4px] border border-[#e4e4ed] dark:border-[#2e2e42] bg-[#f4f4f9] dark:bg-[#1c1c2c] ${className}`}
+        className={`w-9 h-9 rounded-[4px] border border-[#e4e4ed] dark:border-[#2e2e42] bg-[#f4f4f9] dark:bg-[#1c1c2c] ${className}`}
         aria-hidden="true"
       />
     );
   }
 
   const cycleTheme = () => {
-    if (theme === 'light') setTheme('dark');
-    else if (theme === 'dark') setTheme('system');
-    else setTheme('light');
+    // If currently dark or resolved as dark, switch to light
+    // If currently light or resolved as light, switch to dark
+    if (theme === 'dark' || (theme === 'system' && resolvedTheme === 'dark')) {
+      setTheme('light');
+    } else {
+      setTheme('dark');
+    }
   };
 
-  const getIcon = () => {
-    if (theme === 'dark') return <Moon className="w-4 h-4 text-[#a0a0b8]" />;
-    if (theme === 'light') return <Sun className="w-4 h-4 text-[#303055]" />;
-    return <Laptop className="w-4 h-4 text-[#6b6b7b] dark:text-[#a0a0b8]" />;
-  };
-
-  const getLabel = () => {
-    if (theme === 'dark') return 'Dark Theme (Click for System)';
-    if (theme === 'light') return 'Light Theme (Click for Dark)';
-    return 'System Theme (Click for Light)';
-  };
+  const isDark = resolvedTheme === 'dark';
 
   return (
     <button
       type="button"
       onClick={cycleTheme}
-      aria-label={`Toggle theme. Current: ${getLabel()}`}
-      title={getLabel()}
+      aria-label={`Toggle theme. Currently ${isDark ? 'dark' : 'light'} theme`}
+      title={`Toggle theme (current: ${theme || 'system'})`}
       className={`min-w-[36px] min-h-[36px] p-2 flex items-center justify-center rounded-[4px] border border-[#e4e4ed] dark:border-[#2e2e42] bg-[#f4f4f9] dark:bg-[#1c1c2c] hover:bg-[#e8e8f2] dark:hover:bg-[#252538] text-[#303055] dark:text-[#e8e8f2] transition-colors focus:outline-none focus:ring-2 focus:ring-[#303055] dark:focus:ring-[#6366f1] ${className}`}
     >
-      {getIcon()}
+      {isDark ? (
+        <Moon className="w-4 h-4 text-[#a0a0b8]" />
+      ) : (
+        <Sun className="w-4 h-4 text-[#303055]" />
+      )}
     </button>
   );
 }
-
