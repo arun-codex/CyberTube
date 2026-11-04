@@ -5,7 +5,7 @@ import { CYBERSECURITY_DOMAINS, RESOURCE_TYPES } from '../data/metadata';
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="border-t border-[#e4e4ed] bg-[#f4f4f9] text-[#767682] text-xs mt-auto">
+    <footer className="border-t border-[#e4e4ed] bg-[#f4f4f9] text-[#555566] text-xs mt-auto">
       <div className="container-max py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand Info */}
@@ -21,7 +21,7 @@ export const Footer: React.FC = () => {
             <p className="text-xs text-[#403f53] leading-relaxed">
               Curated cybersecurity video courses, packet inspection, and hardware security education.
             </p>
-            <p className="text-[11px] font-mono text-[#767682] pt-1">
+            <p className="text-[11px] font-mono text-[#555566] pt-1">
               Synchronized with verified technical channels.
             </p>
           </div>
@@ -83,7 +83,7 @@ export const Footer: React.FC = () => {
           </div>
         </div>
 
-        <div className="border-t border-[#e4e4ed] mt-10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] font-mono text-[#767682]">
+        <div className="border-t border-[#e4e4ed] mt-10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] font-mono text-[#555566]">
           <div>
             © {new Date().getFullYear()} CyberTube. Open Developer & Security Education.
           </div>

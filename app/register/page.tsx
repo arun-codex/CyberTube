@@ -49,7 +49,7 @@ export default function RegisterPage() {
             <Shield className="w-5 h-5 fill-white stroke-none" />
           </div>
           <h2 className="text-xl font-semibold text-[#303055]">Join CyberTube</h2>
-          <p className="text-xs text-[#767682]">
+          <p className="text-xs text-[#6b6b7b]">
             Create a practitioner profile to sync courses, bookmarks, and learning roadmaps.
           </p>
         </div>
@@ -88,7 +88,7 @@ export default function RegisterPage() {
 
             <div className="relative flex py-1 items-center">
               <div className="flex-grow border-t border-[#e4e4ed]"></div>
-              <span className="flex-shrink mx-3 text-[11px] font-mono text-[#767682] uppercase">
+              <span className="flex-shrink mx-3 text-[11px] font-mono text-[#6b6b7b] uppercase">
                 or register with email
               </span>
               <div className="flex-grow border-t border-[#e4e4ed]"></div>
@@ -96,65 +96,65 @@ export default function RegisterPage() {
 
             <form className="space-y-4" onSubmit={handleSubmit}>
               <div className="space-y-1.5">
-                <label className="block text-xs font-mono uppercase tracking-wider text-[#767682]">
+                <label className="block text-xs font-mono uppercase tracking-wider text-[#6b6b7b]">
                   Display Name
                 </label>
                 <div className="relative">
-                  <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#767682]" />
+                  <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#6b6b7b]" />
                   <input
                     name="displayName"
                     type="text"
                     required
                     placeholder="Practitioner / Analyst"
-                    className="w-full bg-[#f4f4f9] border border-[#e4e4ed] rounded-[4px] pl-9 pr-3 py-2 text-xs font-mono text-[#303055] placeholder-[#767682] focus:outline-none focus:border-[#303055] min-h-[38px]"
+                    className="w-full bg-[#f4f4f9] border border-[#e4e4ed] rounded-[4px] pl-9 pr-3 py-2 text-xs font-mono text-[#303055] placeholder-[#6b6b7b] focus:outline-none focus:border-[#303055] min-h-[38px]"
                   />
                 </div>
               </div>
 
               <div className="space-y-1.5">
-                <label className="block text-xs font-mono uppercase tracking-wider text-[#767682]">
+                <label className="block text-xs font-mono uppercase tracking-wider text-[#6b6b7b]">
                   Email Address
                 </label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#767682]" />
+                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#6b6b7b]" />
                   <input
                     name="email"
                     type="email"
                     required
                     placeholder="analyst@cybertube.local"
-                    className="w-full bg-[#f4f4f9] border border-[#e4e4ed] rounded-[4px] pl-9 pr-3 py-2 text-xs font-mono text-[#303055] placeholder-[#767682] focus:outline-none focus:border-[#303055] min-h-[38px]"
+                    className="w-full bg-[#f4f4f9] border border-[#e4e4ed] rounded-[4px] pl-9 pr-3 py-2 text-xs font-mono text-[#303055] placeholder-[#6b6b7b] focus:outline-none focus:border-[#303055] min-h-[38px]"
                   />
                 </div>
               </div>
 
               <div className="space-y-1.5">
-                <label className="block text-xs font-mono uppercase tracking-wider text-[#767682]">
+                <label className="block text-xs font-mono uppercase tracking-wider text-[#6b6b7b]">
                   Password
                 </label>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#767682]" />
+                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#6b6b7b]" />
                   <input
                     name="password"
                     type="password"
                     required
                     placeholder="••••••••••••"
-                    className="w-full bg-[#f4f4f9] border border-[#e4e4ed] rounded-[4px] pl-9 pr-3 py-2 text-xs font-mono text-[#303055] placeholder-[#767682] focus:outline-none focus:border-[#303055] min-h-[38px]"
+                    className="w-full bg-[#f4f4f9] border border-[#e4e4ed] rounded-[4px] pl-9 pr-3 py-2 text-xs font-mono text-[#303055] placeholder-[#6b6b7b] focus:outline-none focus:border-[#303055] min-h-[38px]"
                   />
                 </div>
               </div>
 
               <div className="space-y-1.5">
-                <label className="block text-xs font-mono uppercase tracking-wider text-[#767682]">
+                <label className="block text-xs font-mono uppercase tracking-wider text-[#6b6b7b]">
                   Confirm Password
                 </label>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#767682]" />
+                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#6b6b7b]" />
                   <input
                     name="confirmPassword"
                     type="password"
                     required
                     placeholder="••••••••••••"
-                    className="w-full bg-[#f4f4f9] border border-[#e4e4ed] rounded-[4px] pl-9 pr-3 py-2 text-xs font-mono text-[#303055] placeholder-[#767682] focus:outline-none focus:border-[#303055] min-h-[38px]"
+                    className="w-full bg-[#f4f4f9] border border-[#e4e4ed] rounded-[4px] pl-9 pr-3 py-2 text-xs font-mono text-[#303055] placeholder-[#6b6b7b] focus:outline-none focus:border-[#303055] min-h-[38px]"
                   />
                 </div>
               </div>
@@ -170,7 +170,7 @@ export default function RegisterPage() {
           </>
         )}
 
-        <div className="pt-3 border-t border-[#e4e4ed] text-center text-xs text-[#767682]">
+        <div className="pt-3 border-t border-[#e4e4ed] text-center text-xs text-[#6b6b7b]">
           Already have an account?{' '}
           <Link href="/login" className="text-[#303055] font-medium hover:underline">
             Sign in

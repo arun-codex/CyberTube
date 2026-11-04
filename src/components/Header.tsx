@@ -84,7 +84,7 @@ export function Header() {
                 <span className="font-orbitron font-bold text-base tracking-tight text-[#303055]">
                   CyberTube
                 </span>
-                <span className="text-[11px] font-mono text-[#767682] uppercase tracking-wider">
+                <span className="text-[11px] font-mono text-[#6b6b7b] uppercase tracking-wider">
                   edu
                 </span>
               </div>
@@ -134,11 +134,11 @@ export function Header() {
           <div className="hidden lg:flex items-center gap-3">
             <Link
               href="/discover"
-              className="flex items-center gap-2 px-3 py-1.5 rounded-[4px] text-xs font-mono text-[#767682] hover:text-[#303055] bg-[#f4f4f9] border border-[#e4e4ed] hover:border-[#d2d2dc] transition-colors"
+              className="flex items-center gap-2 px-3 py-1.5 rounded-[4px] text-xs font-mono text-[#6b6b7b] hover:text-[#303055] bg-[#f4f4f9] border border-[#e4e4ed] hover:border-[#d2d2dc] transition-colors"
             >
               <Search className="w-3.5 h-3.5" />
               <span>Search resources...</span>
-              <kbd className="hidden lg:inline-block px-1 py-0.2 text-[10px] font-mono rounded bg-white text-[#767682] border border-[#e4e4ed]">
+              <kbd className="hidden lg:inline-block px-1 py-0.2 text-[10px] font-mono rounded bg-white text-[#6b6b7b] border border-[#e4e4ed]">
                 /
               </kbd>
             </Link>
@@ -215,7 +215,7 @@ export function Header() {
                 onClick={() => setMobileMenuOpen(false)}
                 className="flex items-center gap-2 px-3 py-2.5 rounded-[4px] text-sm text-[#303055] font-medium bg-[#f4f4f9]"
               >
-                <User className="w-4 h-4 text-[#767682]" />
+                <User className="w-4 h-4 text-[#6b6b7b]" />
                 <span className="truncate">Account ({userEmail})</span>
               </Link>
             ) : (

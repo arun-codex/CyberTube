@@ -34,7 +34,7 @@ export const LessonNavigation: React.FC<LessonNavigationProps> = ({
             <span className="truncate max-w-[160px]">Prev: {prevLesson.title}</span>
           </Link>
         ) : (
-          <div className="text-xs font-mono text-[#767682] px-2 py-1 text-center sm:text-left">
+          <div className="text-xs font-mono text-[#6b6b7b] px-2 py-1 text-center sm:text-left">
             Course start
           </div>
         )}

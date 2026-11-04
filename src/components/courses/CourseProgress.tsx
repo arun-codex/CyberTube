@@ -46,7 +46,7 @@ export const CourseProgress: React.FC<CourseProgressProps> = ({ course, variant 
   return (
     <div className={`rounded-[8px] border border-[#e4e4ed] bg-[#f4f4f9] p-4 space-y-2.5 ${variant === 'compact' ? 'bg-white' : ''}`}>
       <div className="flex items-center justify-between">
-        <span className="text-xs font-mono font-medium uppercase tracking-wider text-[#767682] flex items-center gap-1.5">
+        <span className="text-xs font-mono font-medium uppercase tracking-wider text-[#6b6b7b] flex items-center gap-1.5">
           <CheckCircle2 className="w-3.5 h-3.5 text-[#303055]" />
           Progress
         </span>
@@ -61,7 +61,7 @@ export const CourseProgress: React.FC<CourseProgressProps> = ({ course, variant 
         />
       </div>
 
-      <div className="flex items-center justify-between text-xs font-mono text-[#767682]">
+      <div className="flex items-center justify-between text-xs font-mono text-[#6b6b7b]">
         <span>
           {completedCount}/{lessons.length} completed
         </span>

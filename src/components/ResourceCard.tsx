@@ -66,19 +66,21 @@ export const ResourceCard: React.FC<ResourceCardProps> = ({ resource }) => {
           <img
             src={resource.thumbnailUrl}
             alt={resource.title}
+            width={640}
+            height={360}
             className="w-full h-full object-cover"
             loading="lazy"
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center bg-[#f4f4f9]">
-            <TypeIcon className="w-8 h-8 text-[#767682]" />
+            <TypeIcon className="w-8 h-8 text-[#6b6b7b]" />
           </div>
         )}
 
         {/* Top Badges */}
         <div className="absolute top-2.5 left-2.5 right-2.5 flex items-center justify-between">
           <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-[4px] bg-white/95 border border-[#e4e4ed] text-[11px] font-mono text-[#303055] font-medium">
-            <TypeIcon className="w-3 h-3 text-[#767682]" />
+            <TypeIcon className="w-3 h-3 text-[#6b6b7b]" />
             {resource.resourceType}
           </span>
 
@@ -103,8 +105,8 @@ export const ResourceCard: React.FC<ResourceCardProps> = ({ resource }) => {
             {resource.difficulty}
           </span>
           {resource.estimatedDuration && (
-            <span className="flex items-center gap-1 px-1.5 py-0.5 rounded-[4px] bg-white/95 border border-[#e4e4ed] text-[#767682]">
-              <Clock className="w-3 h-3 text-[#767682]" />
+            <span className="flex items-center gap-1 px-1.5 py-0.5 rounded-[4px] bg-white/95 border border-[#e4e4ed] text-[#6b6b7b]">
+              <Clock className="w-3 h-3 text-[#6b6b7b]" />
               {resource.estimatedDuration}
             </span>
           )}
@@ -114,7 +116,7 @@ export const ResourceCard: React.FC<ResourceCardProps> = ({ resource }) => {
       {/* Content Area */}
       <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between space-y-3">
         <div className="space-y-1.5">
-          <div className="flex items-center justify-between text-xs text-[#767682] font-mono">
+          <div className="flex items-center justify-between text-xs text-[#6b6b7b] font-mono">
             <span className="truncate max-w-[180px] text-[#403f53]">
               {resource.provider}
             </span>
@@ -138,13 +140,13 @@ export const ResourceCard: React.FC<ResourceCardProps> = ({ resource }) => {
             {resource.domains.slice(0, 2).map((dom) => (
               <span
                 key={dom}
-                className="text-[10px] font-mono px-1.5 py-0.5 rounded-[4px] bg-[#f4f4f9] text-[#767682] border border-[#e4e4ed]"
+                className="text-[10px] font-mono px-1.5 py-0.5 rounded-[4px] bg-[#f4f4f9] text-[#6b6b7b] border border-[#e4e4ed]"
               >
                 {dom}
               </span>
             ))}
             {resource.domains.length > 2 && (
-              <span className="text-[10px] font-mono text-[#767682]">
+              <span className="text-[10px] font-mono text-[#6b6b7b]">
                 +{resource.domains.length - 2}
               </span>
             )}

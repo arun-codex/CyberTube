@@ -68,7 +68,7 @@ export default function DomainsPage() {
                   <div className="w-8 h-8 rounded-[4px] bg-[#f4f4f9] border border-[#e4e4ed] flex items-center justify-center text-[#303055]">
                     <Icon className="w-4 h-4 text-[#303055]" />
                   </div>
-                  <span className="font-mono text-xs px-2 py-0.5 rounded-[4px] bg-[#f4f4f9] text-[#767682] border border-[#e4e4ed]">
+                  <span className="font-mono text-xs px-2 py-0.5 rounded-[4px] bg-[#f4f4f9] text-[#6b6b7b] border border-[#e4e4ed]">
                     {count} items
                   </span>
                 </div>
@@ -77,7 +77,7 @@ export default function DomainsPage() {
                   <h2 className="font-rajdhani font-bold text-lg text-[#303055]">
                     {domain.name}
                   </h2>
-                  <p className="text-xs text-[#767682] mt-1">
+                  <p className="text-xs text-[#6b6b7b] mt-1">
                     {domain.shortDescription}
                   </p>
                 </div>
@@ -93,7 +93,7 @@ export default function DomainsPage() {
                   className="w-full inline-flex items-center justify-between px-3 py-2 rounded-[4px] bg-[#f4f4f9] hover:bg-[#e8e8f2] text-xs font-mono text-[#303055] transition-colors"
                 >
                   <span>Explore domain</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-[#767682]" />
+                  <ArrowRight className="w-3.5 h-3.5 text-[#6b6b7b]" />
                 </Link>
               </div>
             </div>

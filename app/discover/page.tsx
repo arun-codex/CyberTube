@@ -118,11 +118,11 @@ function DiscoverContent() {
             <h1 className="text-xl sm:text-2xl font-semibold text-[#303055]">
               Resource Directory
             </h1>
-            <p className="text-xs text-[#767682] mt-0.5">
+            <p className="text-xs text-[#6b6b7b] mt-0.5">
               Filter through verified technical cybersecurity publications and labs.
             </p>
           </div>
-          <span className="font-mono text-xs text-[#767682]">
+          <span className="font-mono text-xs text-[#6b6b7b]">
             {filteredResults.length} / {allResources.length} items
           </span>
         </div>
@@ -130,18 +130,19 @@ function DiscoverContent() {
         {/* Search input & Sort */}
         <form onSubmit={handleSearchSubmit} className="flex flex-col sm:flex-row gap-2">
           <div className="relative flex-1">
-            <Search className="w-4 h-4 text-[#767682] absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+            <Search className="w-4 h-4 text-[#6b6b7b] absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
             <input
               type="search"
               value={filters.query}
               onChange={(e) => setFilters({ ...filters, query: e.target.value })}
               placeholder="Search by vulnerability, tool, protocol, or provider..."
-              className="w-full pl-9 pr-3 py-2 text-xs font-mono rounded-[4px] bg-white border border-[#e4e4ed] text-[#303055] placeholder:text-[#767682] focus:outline-none focus:border-[#303055] min-h-[38px]"
+              className="w-full pl-9 pr-3 py-2 text-xs font-mono rounded-[4px] bg-white border border-[#e4e4ed] text-[#303055] placeholder:text-[#6b6b7b] focus:outline-none focus:border-[#303055] min-h-[38px]"
             />
           </div>
 
           <div className="flex items-center gap-2">
             <select
+              aria-label="Sort resources"
               value={filters.sortBy}
               onChange={(e) => handleFilterChange({ ...filters, sortBy: e.target.value as SortOption })}
               className="px-3 py-2 text-xs font-mono rounded-[4px] bg-white border border-[#e4e4ed] text-[#403f53] focus:outline-none focus:border-[#303055] min-h-[38px]"
@@ -213,7 +214,7 @@ function DiscoverContent() {
               </span>
               <button
                 onClick={() => setMobileFilterOpen(false)}
-                className="p-1 rounded text-[#767682] hover:text-[#303055]"
+                className="p-1 rounded text-[#6b6b7b] hover:text-[#303055]"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -243,7 +244,7 @@ function DiscoverContent() {
 
 export default function DiscoverPage() {
   return (
-    <Suspense fallback={<div className="container-max py-12 font-mono text-xs text-[#767682]">Loading directory...</div>}>
+    <Suspense fallback={<div className="container-max py-12 font-mono text-xs text-[#6b6b7b]">Loading directory...</div>}>
       <DiscoverContent />
     </Suspense>
   );

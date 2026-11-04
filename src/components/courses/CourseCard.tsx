@@ -36,6 +36,8 @@ export const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
         <img
           src={course.thumbnailUrl}
           alt={course.title}
+          width={640}
+          height={360}
           className="w-full h-full object-cover"
           loading="lazy"
         />
@@ -43,7 +45,7 @@ export const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
         {/* Badges */}
         <div className="absolute top-2.5 left-2.5 right-2.5 flex items-center justify-between">
           <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-[4px] bg-white/95 border border-[#e4e4ed] text-[11px] font-mono text-[#303055] font-medium">
-            <BookOpen className="w-3 h-3 text-[#767682]" />
+            <BookOpen className="w-3 h-3 text-[#6b6b7b]" />
             COURSE
           </span>
           <span className="px-1.5 py-0.5 rounded-[4px] bg-white/95 border border-[#e4e4ed] text-[11px] font-mono text-[#403f53]">
@@ -53,11 +55,11 @@ export const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
 
         {/* Footer in Thumbnail */}
         <div className="absolute bottom-2.5 left-2.5 right-2.5 flex items-center justify-between text-[11px] font-mono pointer-events-none">
-          <span className="flex items-center gap-1 px-1.5 py-0.5 rounded-[4px] bg-white/95 border border-[#e4e4ed] text-[#767682]">
-            <Clock className="w-3 h-3 text-[#767682]" />
+          <span className="flex items-center gap-1 px-1.5 py-0.5 rounded-[4px] bg-white/95 border border-[#e4e4ed] text-[#6b6b7b]">
+            <Clock className="w-3 h-3 text-[#6b6b7b]" />
             {course.estimatedDuration}
           </span>
-          <span className="px-1.5 py-0.5 rounded-[4px] bg-white/95 border border-[#e4e4ed] text-[#767682]">
+          <span className="px-1.5 py-0.5 rounded-[4px] bg-white/95 border border-[#e4e4ed] text-[#6b6b7b]">
             {lessons.length} {lessons.length === 1 ? 'lesson' : 'lessons'}
           </span>
         </div>
@@ -67,11 +69,11 @@ export const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
       <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between space-y-3">
         <div className="space-y-1.5">
           {/* Instructor */}
-          <div className="flex items-center gap-1.5 text-xs font-mono text-[#767682]">
-            <User className="w-3 h-3 text-[#767682]" />
+          <div className="flex items-center gap-1.5 text-xs font-mono text-[#6b6b7b]">
+            <User className="w-3 h-3 text-[#6b6b7b]" />
             <span className="text-[#403f53] truncate">{course.instructor.name}</span>
             {course.instructor.organization && (
-              <span className="text-[#767682] truncate">• {course.instructor.organization}</span>
+              <span className="text-[#6b6b7b] truncate">• {course.instructor.organization}</span>
             )}
           </div>
 
@@ -91,7 +93,7 @@ export const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
           {progressPercent > 0 ? (
             <div className="space-y-1">
               <div className="flex justify-between items-center text-[11px] font-mono">
-                <span className="text-[#767682] flex items-center gap-1">
+                <span className="text-[#6b6b7b] flex items-center gap-1">
                   <CheckCircle2 className="w-3 h-3 text-[#303055]" /> Progress
                 </span>
                 <span className="text-[#303055] font-medium">{progressPercent}%</span>
@@ -104,7 +106,7 @@ export const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
               </div>
             </div>
           ) : (
-            <div className="text-[11px] font-mono text-[#767682]">
+            <div className="text-[11px] font-mono text-[#6b6b7b]">
               Verified syllabus
             </div>
           )}
@@ -114,7 +116,7 @@ export const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
               {course.domains.slice(0, 2).map((dom) => (
                 <span
                   key={dom}
-                  className="text-[10px] font-mono px-1.5 py-0.5 rounded-[4px] bg-[#f4f4f9] text-[#767682] border border-[#e4e4ed]"
+                  className="text-[10px] font-mono px-1.5 py-0.5 rounded-[4px] bg-[#f4f4f9] text-[#6b6b7b] border border-[#e4e4ed]"
                 >
                   {dom}
                 </span>

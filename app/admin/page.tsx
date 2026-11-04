@@ -58,7 +58,7 @@ export default async function AdminDashboardPage() {
             Administrative Portal
           </div>
           <h1 className="text-2xl font-semibold text-[#303055]">CyberTube CMS</h1>
-          <p className="text-xs text-[#767682] mt-0.5">
+          <p className="text-xs text-[#6b6b7b] mt-0.5">
             Oversee educational records, approve community submissions, and curate taxonomies.
           </p>
         </div>
@@ -84,42 +84,42 @@ export default async function AdminDashboardPage() {
       {/* KPI Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <div className="bg-white border border-[#e4e4ed] rounded-[8px] p-5 space-y-1">
-          <div className="flex items-center justify-between text-xs font-mono text-[#767682]">
+          <div className="flex items-center justify-between text-xs font-mono text-[#6b6b7b]">
             <span>Published</span>
             <Database className="w-4 h-4 text-[#303055]" />
           </div>
           <p className="text-2xl font-semibold text-[#303055]">{publishedCount}</p>
-          <p className="text-[11px] font-mono text-[#767682] flex items-center gap-1">
+          <p className="text-[11px] font-mono text-[#6b6b7b] flex items-center gap-1">
             <CheckCircle2 className="w-3 h-3 text-[#303055]" />
             Across 11 domains
           </p>
         </div>
 
         <div className="bg-white border border-[#e4e4ed] rounded-[8px] p-5 space-y-1">
-          <div className="flex items-center justify-between text-xs font-mono text-[#767682]">
+          <div className="flex items-center justify-between text-xs font-mono text-[#6b6b7b]">
             <span>Drafts</span>
-            <Clock className="w-4 h-4 text-[#767682]" />
+            <Clock className="w-4 h-4 text-[#6b6b7b]" />
           </div>
           <p className="text-2xl font-semibold text-[#303055]">{draftCount}</p>
-          <p className="text-[11px] font-mono text-[#767682]">Pending review</p>
+          <p className="text-[11px] font-mono text-[#6b6b7b]">Pending review</p>
         </div>
 
         <div className="bg-white border border-[#e4e4ed] rounded-[8px] p-5 space-y-1">
-          <div className="flex items-center justify-between text-xs font-mono text-[#767682]">
+          <div className="flex items-center justify-between text-xs font-mono text-[#6b6b7b]">
             <span>Submissions</span>
-            <FileCheck className="w-4 h-4 text-[#767682]" />
+            <FileCheck className="w-4 h-4 text-[#6b6b7b]" />
           </div>
           <p className="text-2xl font-semibold text-[#303055]">{pendingSubmissions}</p>
-          <p className="text-[11px] font-mono text-[#767682]">Community contributions</p>
+          <p className="text-[11px] font-mono text-[#6b6b7b]">Community contributions</p>
         </div>
 
         <div className="bg-white border border-[#e4e4ed] rounded-[8px] p-5 space-y-1">
-          <div className="flex items-center justify-between text-xs font-mono text-[#767682]">
+          <div className="flex items-center justify-between text-xs font-mono text-[#6b6b7b]">
             <span>Domains</span>
-            <ArrowRight className="w-4 h-4 text-[#767682]" />
+            <ArrowRight className="w-4 h-4 text-[#6b6b7b]" />
           </div>
           <p className="text-2xl font-semibold text-[#303055]">{CYBERSECURITY_DOMAINS.length}</p>
-          <p className="text-[11px] font-mono text-[#767682]">Core security tracks</p>
+          <p className="text-[11px] font-mono text-[#6b6b7b]">Core security tracks</p>
         </div>
       </div>
     </div>

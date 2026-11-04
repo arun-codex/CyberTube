@@ -43,7 +43,7 @@ export default function ResourceDetailPage({ params }: PageProps) {
       <div>
         <Link
           href="/discover"
-          className="inline-flex items-center gap-1.5 text-xs font-mono text-[#767682] hover:text-[#303055] transition-colors"
+          className="inline-flex items-center gap-1.5 text-xs font-mono text-[#6b6b7b] hover:text-[#303055] transition-colors"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
           <span>Back to Discovery Directory</span>
@@ -61,12 +61,12 @@ export default function ResourceDetailPage({ params }: PageProps) {
             <span className="text-xs font-mono px-2 py-0.5 rounded-[4px] bg-[#f4f4f9] text-[#403f53] border border-[#e4e4ed] capitalize">
               {resource.difficulty}
             </span>
-            <span className="text-xs font-mono px-2 py-0.5 rounded-[4px] bg-[#f4f4f9] text-[#767682] border border-[#e4e4ed] uppercase">
+            <span className="text-xs font-mono px-2 py-0.5 rounded-[4px] bg-[#f4f4f9] text-[#6b6b7b] border border-[#e4e4ed] uppercase">
               {resource.pricingModel}
             </span>
             {resource.language && (
-              <span className="inline-flex items-center gap-1 text-xs font-mono px-2 py-0.5 rounded-[4px] bg-[#f4f4f9] text-[#767682] border border-[#e4e4ed]">
-                <Globe className="w-3 h-3 text-[#767682]" />
+              <span className="inline-flex items-center gap-1 text-xs font-mono px-2 py-0.5 rounded-[4px] bg-[#f4f4f9] text-[#6b6b7b] border border-[#e4e4ed]">
+                <Globe className="w-3 h-3 text-[#6b6b7b]" />
                 {resource.language}
               </span>
             )}
@@ -89,28 +89,28 @@ export default function ResourceDetailPage({ params }: PageProps) {
         {/* Key Metadata Bar */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-4 rounded-[8px] bg-[#f4f4f9] border border-[#e4e4ed] font-mono text-xs">
           <div>
-            <span className="text-[#767682] block text-[11px]">Provider:</span>
+            <span className="text-[#6b6b7b] block text-[11px]">Provider:</span>
             <span className="font-medium text-[#303055] mt-0.5 block truncate">
               {resource.provider}
             </span>
           </div>
           <div>
-            <span className="text-[#767682] block text-[11px]">Author / Source:</span>
+            <span className="text-[#6b6b7b] block text-[11px]">Author / Source:</span>
             <span className="font-medium text-[#303055] mt-0.5 block truncate">
               {resource.creator || 'Verified Contributor'}
             </span>
           </div>
           <div>
-            <span className="text-[#767682] block text-[11px]">Duration:</span>
+            <span className="text-[#6b6b7b] block text-[11px]">Duration:</span>
             <span className="font-medium text-[#303055] mt-0.5 flex items-center gap-1">
-              <Clock className="w-3 h-3 text-[#767682]" />
+              <Clock className="w-3 h-3 text-[#6b6b7b]" />
               {resource.estimatedDuration || 'Self-paced'}
             </span>
           </div>
           <div>
-            <span className="text-[#767682] block text-[11px]">Verified:</span>
+            <span className="text-[#6b6b7b] block text-[11px]">Verified:</span>
             <span className="font-medium text-[#303055] mt-0.5 flex items-center gap-1">
-              <Calendar className="w-3 h-3 text-[#767682]" />
+              <Calendar className="w-3 h-3 text-[#6b6b7b]" />
               {new Date(resource.lastVerifiedAt).toLocaleDateString()}
             </span>
           </div>
@@ -138,7 +138,7 @@ export default function ResourceDetailPage({ params }: PageProps) {
             <span>{resource.isVideo ? 'Watch on YouTube' : 'Visit Original Source'}</span>
             <ExternalLink className="w-4 h-4" />
           </a>
-          <span className="text-xs text-[#767682] font-mono text-center sm:text-left">
+          <span className="text-xs text-[#6b6b7b] font-mono text-center sm:text-left">
             Canonical domain: {new URL(resource.canonicalUrl).hostname}
           </span>
         </div>
@@ -168,13 +168,13 @@ export default function ResourceDetailPage({ params }: PageProps) {
           {resource.prerequisites && resource.prerequisites.length > 0 && (
             <div className="p-5 sm:p-6 rounded-[8px] border border-[#e4e4ed] bg-white space-y-3">
               <h2 className="text-sm font-semibold text-[#303055] flex items-center gap-2">
-                <BookOpen className="w-4 h-4 text-[#767682]" />
+                <BookOpen className="w-4 h-4 text-[#6b6b7b]" />
                 Recommended Prerequisites
               </h2>
               <ul className="space-y-1.5 text-xs text-[#403f53]">
                 {resource.prerequisites.map((req, idx) => (
                   <li key={idx} className="flex items-start gap-2">
-                    <span className="text-[#767682] font-mono shrink-0">•</span>
+                    <span className="text-[#6b6b7b] font-mono shrink-0">•</span>
                     <span>{req}</span>
                   </li>
                 ))}
@@ -188,7 +188,7 @@ export default function ResourceDetailPage({ params }: PageProps) {
               <AlertCircle className="w-3.5 h-3.5" />
               Educational & Ethical Use Notice
             </div>
-            <p className="leading-relaxed text-[#767682]">
+            <p className="leading-relaxed text-[#6b6b7b]">
               All tools, labs, and configurations featured in CyberTube are curated exclusively for authorized
               educational purposes and defensive auditing.
             </p>
@@ -199,7 +199,7 @@ export default function ResourceDetailPage({ params }: PageProps) {
         <div className="space-y-6">
           <div className="p-5 sm:p-6 rounded-[8px] border border-[#e4e4ed] bg-white space-y-4">
             <div>
-              <h3 className="text-xs font-mono font-medium uppercase tracking-wider text-[#767682] mb-2">
+              <h3 className="text-xs font-mono font-medium uppercase tracking-wider text-[#6b6b7b] mb-2">
                 Domains
               </h3>
               <div className="flex flex-wrap gap-1.5">
@@ -217,7 +217,7 @@ export default function ResourceDetailPage({ params }: PageProps) {
 
             {resource.skills && resource.skills.length > 0 && (
               <div className="pt-3 border-t border-[#e4e4ed]">
-                <h3 className="text-xs font-mono font-medium uppercase tracking-wider text-[#767682] mb-2">
+                <h3 className="text-xs font-mono font-medium uppercase tracking-wider text-[#6b6b7b] mb-2">
                   Skills Covered
                 </h3>
                 <div className="flex flex-wrap gap-1.5">
@@ -244,7 +244,7 @@ export default function ResourceDetailPage({ params }: PageProps) {
               <h3 className="text-base font-semibold text-[#303055]">
                 Related Resources
               </h3>
-              <p className="text-xs text-[#767682] mt-0.5">
+              <p className="text-xs text-[#6b6b7b] mt-0.5">
                 More content in {resource.domains[0]} and related topics.
               </p>
             </div>

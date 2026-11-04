@@ -75,7 +75,7 @@ export const CourseLearningExperience: React.FC<CourseLearningExperienceProps> =
 
   if (!activeLesson) {
     return (
-      <div className="container-max py-16 text-center text-[#767682] font-mono">
+      <div className="container-max py-16 text-center text-[#6b6b7b] font-mono">
         No lessons available in this course curriculum.
       </div>
     );
@@ -109,7 +109,7 @@ export const CourseLearningExperience: React.FC<CourseLearningExperienceProps> =
 
             {/* Lesson Title & Module Breadcrumb */}
             <div className="space-y-2 pt-1">
-              <div className="flex items-center gap-2 text-xs font-mono text-[#767682]">
+              <div className="flex items-center gap-2 text-xs font-mono text-[#6b6b7b]">
                 <span className="px-2 py-0.5 rounded-[4px] bg-[#f4f4f9] border border-[#e4e4ed] text-[#303055] font-medium">
                   Lesson #{activeLesson.order}
                 </span>
@@ -144,7 +144,7 @@ export const CourseLearningExperience: React.FC<CourseLearningExperienceProps> =
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* Objectives */}
             <div className="p-5 rounded-[8px] border border-[#e4e4ed] bg-white space-y-3">
-              <h3 className="text-xs font-mono font-medium uppercase tracking-wider text-[#767682] flex items-center gap-1.5">
+              <h3 className="text-xs font-mono font-medium uppercase tracking-wider text-[#6b6b7b] flex items-center gap-1.5">
                 <Target className="w-4 h-4 text-[#303055]" />
                 Lesson Objectives
               </h3>
@@ -160,7 +160,7 @@ export const CourseLearningExperience: React.FC<CourseLearningExperienceProps> =
 
             {/* Skills */}
             <div className="p-5 rounded-[8px] border border-[#e4e4ed] bg-white space-y-3">
-              <h3 className="text-xs font-mono font-medium uppercase tracking-wider text-[#767682] flex items-center gap-1.5">
+              <h3 className="text-xs font-mono font-medium uppercase tracking-wider text-[#6b6b7b] flex items-center gap-1.5">
                 <Award className="w-4 h-4 text-[#303055]" />
                 Skills Acquired
               </h3>
@@ -180,14 +180,14 @@ export const CourseLearningExperience: React.FC<CourseLearningExperienceProps> =
           {/* Course Prerequisites */}
           {course.prerequisites && course.prerequisites.length > 0 && (
             <div className="p-5 rounded-[8px] border border-[#e4e4ed] bg-white space-y-3">
-              <h3 className="text-xs font-mono font-medium uppercase tracking-wider text-[#767682] flex items-center gap-1.5">
-                <BookOpen className="w-4 h-4 text-[#767682]" />
+              <h3 className="text-xs font-mono font-medium uppercase tracking-wider text-[#6b6b7b] flex items-center gap-1.5">
+                <BookOpen className="w-4 h-4 text-[#6b6b7b]" />
                 Prerequisites
               </h3>
               <ul className="space-y-1.5 text-xs text-[#403f53]">
                 {course.prerequisites.map((prereq, i) => (
                   <li key={i} className="flex items-start gap-2">
-                    <span className="text-[#767682]">•</span>
+                    <span className="text-[#6b6b7b]">•</span>
                     <span>{prereq}</span>
                   </li>
                 ))}
@@ -217,7 +217,7 @@ export const CourseLearningExperience: React.FC<CourseLearningExperienceProps> =
               <h3 className="text-base font-semibold text-[#303055]">
                 Connected Labs & Reference Documentation
               </h3>
-              <p className="text-xs text-[#767682] mt-0.5">
+              <p className="text-xs text-[#6b6b7b] mt-0.5">
                 Extend this lesson with verified tools, packet captures, and specifications.
               </p>
             </div>

@@ -70,7 +70,7 @@ export default function SavedResourcesPage() {
               Saved Resources
             </h1>
           </div>
-          <p className="text-xs text-[#767682] mt-1">
+          <p className="text-xs text-[#6b6b7b] mt-1">
             Personal reading list and lab references saved on this device.
           </p>
         </div>
@@ -87,14 +87,14 @@ export default function SavedResourcesPage() {
       </div>
 
       {!isLoaded ? (
-        <div className="py-20 text-center font-mono text-xs text-[#767682]">
+        <div className="py-20 text-center font-mono text-xs text-[#6b6b7b]">
           Loading bookmarks...
         </div>
       ) : savedResources.length === 0 ? (
         <div className="text-center py-20 px-4 rounded-[8px] border border-[#e4e4ed] bg-[#f4f4f9] space-y-3">
-          <Bookmark className="w-8 h-8 text-[#767682] mx-auto stroke-1" />
+          <Bookmark className="w-8 h-8 text-[#6b6b7b] mx-auto stroke-1" />
           <h2 className="text-base font-semibold text-[#303055]">No saved resources yet</h2>
-          <p className="text-xs text-[#767682] max-w-sm mx-auto">
+          <p className="text-xs text-[#6b6b7b] max-w-sm mx-auto">
             Browse the discovery engine or video courses to bookmark talks and labs for later study.
           </p>
           <div className="pt-2">
@@ -111,7 +111,7 @@ export default function SavedResourcesPage() {
           {/* Filter Bar */}
           <div className="flex flex-col sm:flex-row gap-3">
             <div className="relative flex-1">
-              <Search className="w-4 h-4 text-[#767682] absolute left-3 top-1/2 -translate-y-1/2" />
+              <Search className="w-4 h-4 text-[#6b6b7b] absolute left-3 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
                 placeholder="Search saved resources..."

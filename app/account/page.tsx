@@ -43,6 +43,9 @@ export default async function AccountPage() {
             <img
               src={profile.avatar_url}
               alt={profile?.display_name || user.email || 'Avatar'}
+              width={48}
+              height={48}
+              loading="lazy"
               className="w-12 h-12 rounded-[4px] object-cover border border-[#e4e4ed]"
             />
           ) : (
@@ -59,7 +62,7 @@ export default async function AccountPage() {
                 {profile?.experience_level || 'Learner'}
               </span>
             </div>
-            <p className="text-xs font-mono text-[#767682] flex items-center gap-1.5 mt-0.5">
+            <p className="text-xs font-mono text-[#6b6b7b] flex items-center gap-1.5 mt-0.5">
               <Mail className="w-3.5 h-3.5" />
               {user.email}
             </p>
@@ -83,7 +86,7 @@ export default async function AccountPage() {
           <h2 className="text-base font-semibold text-[#303055]">
             Learner Profile & Preferences
           </h2>
-          <p className="text-xs text-[#767682] mt-0.5">
+          <p className="text-xs text-[#6b6b7b] mt-0.5">
             Manage your personal learning goals, experience level, and preferred domains.
           </p>
         </div>
@@ -91,7 +94,7 @@ export default async function AccountPage() {
         <form action={updateProfileAction} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-1.5">
-              <label className="block text-xs font-mono uppercase tracking-wider text-[#767682]">
+              <label className="block text-xs font-mono uppercase tracking-wider text-[#6b6b7b]">
                 Display Name
               </label>
               <input
@@ -103,7 +106,7 @@ export default async function AccountPage() {
             </div>
 
             <div className="space-y-1.5">
-              <label className="block text-xs font-mono uppercase tracking-wider text-[#767682]">
+              <label className="block text-xs font-mono uppercase tracking-wider text-[#6b6b7b]">
                 Username
               </label>
               <input
@@ -118,7 +121,7 @@ export default async function AccountPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="space-y-1.5">
-              <label className="block text-xs font-mono uppercase tracking-wider text-[#767682]">
+              <label className="block text-xs font-mono uppercase tracking-wider text-[#6b6b7b]">
                 Experience Level
               </label>
               <select
@@ -134,7 +137,7 @@ export default async function AccountPage() {
             </div>
 
             <div className="space-y-1.5">
-              <label className="block text-xs font-mono uppercase tracking-wider text-[#767682]">
+              <label className="block text-xs font-mono uppercase tracking-wider text-[#6b6b7b]">
                 Language
               </label>
               <input
@@ -146,7 +149,7 @@ export default async function AccountPage() {
             </div>
 
             <div className="space-y-1.5">
-              <label className="block text-xs font-mono uppercase tracking-wider text-[#767682]">
+              <label className="block text-xs font-mono uppercase tracking-wider text-[#6b6b7b]">
                 Country Code
               </label>
               <input
@@ -161,7 +164,7 @@ export default async function AccountPage() {
           </div>
 
           <div className="space-y-1.5">
-            <label className="block text-xs font-mono uppercase tracking-wider text-[#767682]">
+            <label className="block text-xs font-mono uppercase tracking-wider text-[#6b6b7b]">
               Primary Learning Goal
             </label>
             <input
@@ -174,7 +177,7 @@ export default async function AccountPage() {
           </div>
 
           <div className="space-y-1.5">
-            <label className="block text-xs font-mono uppercase tracking-wider text-[#767682]">
+            <label className="block text-xs font-mono uppercase tracking-wider text-[#6b6b7b]">
               Interests & Domains
             </label>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 pt-1">

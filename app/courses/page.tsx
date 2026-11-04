@@ -26,7 +26,7 @@ export default function CoursesPage() {
           Step-by-step modular curricula covering network analysis, hardware exploitation, and defensive architecture.
         </p>
 
-        <div className="flex flex-wrap items-center gap-4 pt-2 text-xs font-mono text-[#767682]">
+        <div className="flex flex-wrap items-center gap-4 pt-2 text-xs font-mono text-[#6b6b7b]">
           <span>{courses.length} courses</span>
           <span>•</span>
           <span>Zero paywalls</span>
@@ -41,7 +41,7 @@ export default function CoursesPage() {
           <h2 className="font-rajdhani text-xl sm:text-2xl font-bold text-[#303055] flex items-center gap-2">
             Available Curricula
           </h2>
-          <span className="text-xs font-mono text-[#767682]">
+          <span className="text-xs font-mono text-[#6b6b7b]">
             {courses.length} tracks
           </span>
         </div>

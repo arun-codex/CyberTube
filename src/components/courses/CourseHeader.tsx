@@ -20,7 +20,7 @@ export const CourseHeader: React.FC<CourseHeaderProps> = ({ course }) => {
       <div>
         <Link
           href="/courses"
-          className="inline-flex items-center gap-1.5 text-xs font-mono text-[#767682] hover:text-[#303055] transition-colors"
+          className="inline-flex items-center gap-1.5 text-xs font-mono text-[#6b6b7b] hover:text-[#303055] transition-colors"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
           <span>Back to All Courses</span>
@@ -34,7 +34,7 @@ export const CourseHeader: React.FC<CourseHeaderProps> = ({ course }) => {
             {/* Badges */}
             <div className="flex flex-wrap items-center gap-2">
               <span className="text-xs font-mono px-2 py-0.5 rounded-[4px] bg-[#f4f4f9] text-[#303055] border border-[#e4e4ed] flex items-center gap-1.5 font-medium">
-                <BookOpen className="w-3.5 h-3.5 text-[#767682]" /> Course
+                <BookOpen className="w-3.5 h-3.5 text-[#6b6b7b]" /> Course
               </span>
               <span className="text-xs font-mono px-2 py-0.5 rounded-[4px] bg-[#f4f4f9] text-[#403f53] border border-[#e4e4ed]">
                 {course.difficulty}
@@ -42,7 +42,7 @@ export const CourseHeader: React.FC<CourseHeaderProps> = ({ course }) => {
               {course.domains.map((dom) => (
                 <span
                   key={dom}
-                  className="text-xs font-mono px-2 py-0.5 rounded-[4px] bg-[#f4f4f9] text-[#767682] border border-[#e4e4ed]"
+                  className="text-xs font-mono px-2 py-0.5 rounded-[4px] bg-[#f4f4f9] text-[#6b6b7b] border border-[#e4e4ed]"
                 >
                   {dom}
                 </span>
@@ -60,20 +60,20 @@ export const CourseHeader: React.FC<CourseHeaderProps> = ({ course }) => {
             </p>
 
             {/* Meta Row */}
-            <div className="flex flex-wrap items-center gap-4 text-xs font-mono text-[#767682] pt-1">
+            <div className="flex flex-wrap items-center gap-4 text-xs font-mono text-[#6b6b7b] pt-1">
               <span className="flex items-center gap-1.5">
-                <User className="w-3.5 h-3.5 text-[#767682]" />
+                <User className="w-3.5 h-3.5 text-[#6b6b7b]" />
                 <span className="text-[#303055] font-medium">{course.instructor.name}</span>
                 {course.instructor.organization && <span>({course.instructor.organization})</span>}
               </span>
               <span>•</span>
               <span className="flex items-center gap-1">
-                <Clock className="w-3.5 h-3.5 text-[#767682]" />
+                <Clock className="w-3.5 h-3.5 text-[#6b6b7b]" />
                 {course.estimatedDuration}
               </span>
               <span>•</span>
               <span className="flex items-center gap-1">
-                <Layers className="w-3.5 h-3.5 text-[#767682]" />
+                <Layers className="w-3.5 h-3.5 text-[#6b6b7b]" />
                 {course.modules.length} {course.modules.length === 1 ? 'module' : 'modules'} ({lessons.length} lessons)
               </span>
             </div>

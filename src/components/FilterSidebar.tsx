@@ -82,7 +82,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
         {hasActiveFilters && (
           <button
             onClick={onReset}
-            className="text-[11px] font-mono text-[#767682] hover:text-[#303055] flex items-center gap-1"
+            className="text-[11px] font-mono text-[#6b6b7b] hover:text-[#303055] flex items-center gap-1"
           >
             <RotateCcw className="w-3 h-3" />
             Reset
@@ -92,7 +92,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
 
       {/* Difficulty */}
       <div className="space-y-2">
-        <h3 className="text-xs font-mono font-medium text-[#767682] uppercase tracking-wider">
+        <h3 className="text-xs font-mono font-medium text-[#6b6b7b] uppercase tracking-wider">
           Difficulty
         </h3>
         <div className="space-y-1.5">
@@ -113,7 +113,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
                   />
                   <span className="capitalize">{diff}</span>
                 </div>
-                <span className="font-mono text-[11px] text-[#767682]">{count}</span>
+                <span className="font-mono text-[11px] text-[#6b6b7b]">{count}</span>
               </label>
             );
           })}
@@ -122,7 +122,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
 
       {/* Resource Types */}
       <div className="space-y-2 pt-2 border-t border-[#e4e4ed]">
-        <h3 className="text-xs font-mono font-medium text-[#767682] uppercase tracking-wider">
+        <h3 className="text-xs font-mono font-medium text-[#6b6b7b] uppercase tracking-wider">
           Format
         </h3>
         <div className="space-y-1.5 max-h-48 overflow-y-auto pr-1">
@@ -143,7 +143,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
                   />
                   <span>{type.label}</span>
                 </div>
-                <span className="font-mono text-[11px] text-[#767682]">{count}</span>
+                <span className="font-mono text-[11px] text-[#6b6b7b]">{count}</span>
               </label>
             );
           })}
@@ -152,7 +152,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
 
       {/* Domains */}
       <div className="space-y-2 pt-2 border-t border-[#e4e4ed]">
-        <h3 className="text-xs font-mono font-medium text-[#767682] uppercase tracking-wider">
+        <h3 className="text-xs font-mono font-medium text-[#6b6b7b] uppercase tracking-wider">
           Domain
         </h3>
         <div className="space-y-1.5 max-h-56 overflow-y-auto pr-1">
@@ -173,7 +173,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
                   />
                   <span className="truncate">{domain.name}</span>
                 </div>
-                <span className="font-mono text-[11px] text-[#767682] shrink-0">{count}</span>
+                <span className="font-mono text-[11px] text-[#6b6b7b] shrink-0">{count}</span>
               </label>
             );
           })}
@@ -182,7 +182,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
 
       {/* Pricing */}
       <div className="space-y-2 pt-2 border-t border-[#e4e4ed]">
-        <h3 className="text-xs font-mono font-medium text-[#767682] uppercase tracking-wider">
+        <h3 className="text-xs font-mono font-medium text-[#6b6b7b] uppercase tracking-wider">
           Pricing
         </h3>
         <div className="space-y-1.5">
@@ -203,7 +203,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
                   />
                   <span className="capitalize">{price}</span>
                 </div>
-                <span className="font-mono text-[11px] text-[#767682]">{count}</span>
+                <span className="font-mono text-[11px] text-[#6b6b7b]">{count}</span>
               </label>
             );
           })}
