@@ -5,6 +5,7 @@ import { Mail, LogOut, User, Shield } from 'lucide-react';
 import { createClient } from '@/lib/supabase/server';
 import { logoutAction } from '@/app/actions/auth';
 import { AccountSettingsForm } from './AccountSettingsForm';
+import { UserAvatar } from '@/components/ui/UserAvatar';
 
 export default async function AccountPage() {
   const supabase = await createClient();
@@ -40,20 +41,14 @@ export default async function AccountPage() {
       {/* Account Settings Header */}
       <div className="bg-[#f4f4f9] dark:bg-[#141422] border border-[#e4e4ed] dark:border-[#26263b] rounded-[8px] p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 transition-colors">
         <div className="flex items-center gap-4">
-          {profile?.avatar_url ? (
-            <img
-              src={profile.avatar_url}
-              alt={profile?.display_name || user.email || 'Avatar'}
-              width={56}
-              height={56}
-              loading="lazy"
-              className="w-14 h-14 rounded-[4px] object-cover border border-[#e4e4ed] dark:border-[#26263b]"
-            />
-          ) : (
-            <div className="w-14 h-14 rounded-[4px] bg-[#303055] dark:bg-[#6366f1] text-white flex items-center justify-center font-mono font-semibold text-2xl">
-              {profile?.display_name ? profile.display_name.charAt(0).toUpperCase() : user.email?.charAt(0).toUpperCase()}
-            </div>
-          )}
+          <UserAvatar
+            customAvatarUrl={profile?.avatar_url}
+            providerAvatarUrl={profile?.avatar_url}
+            displayName={profile?.display_name}
+            email={user.email}
+            size={56}
+            className="w-14 h-14"
+          />
           <div>
             <div className="flex items-center gap-2.5">
               <h1 className="text-xl sm:text-2xl font-semibold text-[#303055] dark:text-[#f0f0f8]">

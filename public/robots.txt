@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /account
+Disallow: /profile
+Disallow: /api/
+
+Sitemap: https://cybertube.vercel.app/sitemap.xml
+

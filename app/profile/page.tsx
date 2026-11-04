@@ -5,6 +5,7 @@ import { Mail, Settings, Shield, BookOpen, Layers, Award, Terminal, ArrowRight, 
 import { createClient } from '@/lib/supabase/server';
 import { CYBERSECURITY_DOMAINS } from '@/data/metadata';
 import { EnrolledCoursesList } from './EnrolledCoursesList';
+import { UserAvatar } from '@/components/ui/UserAvatar';
 
 export default async function ProfilePage() {
   const supabase = await createClient();
@@ -33,7 +34,6 @@ export default async function ProfilePage() {
     .eq('id', user.id)
     .single() as { data: any };
 
-  const initial = (profile?.display_name || user.email || 'P').charAt(0).toUpperCase();
   const userInterests: string[] = profile?.interests || [];
 
   return (
@@ -57,20 +57,14 @@ export default async function ProfilePage() {
         {/* Profile Card Summary Body */}
         <div className="px-6 sm:px-8 pb-8 pt-0 relative flex flex-col md:flex-row md:items-end justify-between gap-6 -mt-12 sm:-mt-14">
           <div className="flex flex-col sm:flex-row items-start sm:items-end gap-5">
-            {profile?.avatar_url ? (
-              <img
-                src={profile.avatar_url}
-                alt={profile?.display_name || user.email || 'Avatar'}
-                width={88}
-                height={88}
-                loading="lazy"
-                className="w-20 h-20 sm:w-24 sm:h-24 rounded-[6px] object-cover border-4 border-white dark:border-[#0e0e17] shadow-md bg-[#141424]"
-              />
-            ) : (
-              <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-[6px] bg-[#303055] dark:bg-[#6366f1] text-white flex items-center justify-center font-mono font-bold text-3xl border-4 border-white dark:border-[#0e0e17] shadow-md">
-                {initial}
-              </div>
-            )}
+            <UserAvatar
+              customAvatarUrl={profile?.avatar_url}
+              providerAvatarUrl={profile?.avatar_url}
+              displayName={profile?.display_name}
+              email={user.email}
+              size={88}
+              className="w-20 h-20 sm:w-24 sm:h-24 rounded-[6px] border-4 border-white dark:border-[#0e0e17] shadow-md"
+            />
 
             <div className="space-y-1">
               <div className="flex flex-wrap items-center gap-2.5">
@@ -182,4 +176,3 @@ export default async function ProfilePage() {
     </div>
   );
 }
-
