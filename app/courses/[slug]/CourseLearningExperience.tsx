@@ -13,10 +13,8 @@ import {
   getAdjacentLessons,
   getRelatedResourcesForLesson,
 } from '../../../src/lib/courses';
-import {
-  localCourseProgressService,
-  onCourseProgressChange,
-} from '../../../src/lib/course-progress';
+import { onCourseProgressChange } from '../../../src/lib/course-progress';
+import { cloudCourseProgressService } from '../../../src/lib/cloud-course-progress';
 import {
   Target,
   Award,
@@ -51,7 +49,7 @@ export const CourseLearningExperience: React.FC<CourseLearningExperienceProps> =
 
   // Load progress
   useEffect(() => {
-    const state = localCourseProgressService.getProgress(course.id);
+    const state = cloudCourseProgressService.getProgress(course.id);
     setCompletedLessonIds(state.completedLessonIds);
 
     // If user has a last active lesson and no initialLessonSlug was passed in URL, resume it
@@ -78,7 +76,7 @@ export const CourseLearningExperience: React.FC<CourseLearningExperienceProps> =
   // Record lesson access on active lesson change
   useEffect(() => {
     if (activeLesson) {
-      localCourseProgressService.recordLessonAccess(course.id, activeLesson.id);
+      cloudCourseProgressService.recordLessonAccess(course.id, activeLesson.id);
     }
   }, [course.id, activeLesson]);
 
@@ -94,10 +92,7 @@ export const CourseLearningExperience: React.FC<CourseLearningExperienceProps> =
   const isLessonCompleted = completedLessonIds.includes(activeLesson.id);
 
   const handleToggleComplete = (lessonId = activeLesson.id) => {
-    const updated = localCourseProgressService.toggleLessonCompletion(course.id, lessonId);
-    if (updated && nextLesson && lessonId === activeLesson.id) {
-      // Optional subtle auto-advance or just update completed list
-    }
+    cloudCourseProgressService.toggleLessonCompletion(course.id, lessonId);
   };
 
   const relatedResources = getRelatedResourcesForLesson(activeLesson, course, 3);

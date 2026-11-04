@@ -1,0 +1,226 @@
+import { Course, CourseProgressState } from '../types/course';
+import { CourseProgressService, localCourseProgressService } from './course-progress';
+import { createClient } from './supabase/client';
+
+/**
+ * CloudCourseProgressService
+ *
+ * Implements the CourseProgressService interface backed by Supabase PostgreSQL
+ * with transparent local guest fallback and automatic session synchronization.
+ *
+ * Key behaviors:
+ * 1. Synchronous UI reads are served immediately from cached/localStorage state to avoid layout shift.
+ * 2. When authenticated with Supabase, completion changes and lesson access are persisted to `user_lesson_progress`.
+ * 3. On user sign-in or initialization, unauthenticated local guest progress is seamlessly merged
+ *    with cloud progress so completed lessons are never lost.
+ * 4. In offline/unauthenticated mode, local localStorage is used with zero interruption.
+ */
+export class CloudCourseProgressService implements CourseProgressService {
+  private supabase = createClient();
+  private syncAttempted = new Set<string>();
+
+  constructor() {
+    if (typeof window !== 'undefined' && this.supabase) {
+      // Listen to auth state changes to trigger guest progress merge on login
+      this.supabase.auth.onAuthStateChange((event, session) => {
+        if (event === 'SIGNED_IN' && session?.user) {
+          this.syncAttempted.clear();
+        }
+      });
+    }
+  }
+
+  /**
+   * Retrieves progress synchronously from local cache/storage, while initiating
+   * a background cloud sync if authenticated and not yet fetched for this course.
+   */
+  getProgress(courseId: string): CourseProgressState {
+    const localState = localCourseProgressService.getProgress(courseId);
+
+    // Trigger background sync if signed in and not yet synced in this session
+    if (typeof window !== 'undefined' && this.supabase && !this.syncAttempted.has(courseId)) {
+      this.syncAttempted.add(courseId);
+      this.syncCourseProgress(courseId).catch((err) => {
+        console.warn('Background course progress sync failed, using local state:', err);
+      });
+    }
+
+    return localState;
+  }
+
+  isLessonCompleted(courseId: string, lessonId: string): boolean {
+    return localCourseProgressService.isLessonCompleted(courseId, lessonId);
+  }
+
+  toggleLessonCompletion(courseId: string, lessonId: string): boolean {
+    // 1. Update local storage immediately for fast reactive UI update
+    const isNowCompleted = localCourseProgressService.toggleLessonCompletion(courseId, lessonId);
+
+    // 2. Persist to Supabase if authenticated
+    if (this.supabase) {
+      this.persistLessonProgressToCloud(courseId, lessonId, isNowCompleted).catch((err) => {
+        console.warn('Failed to persist lesson completion to cloud:', err);
+      });
+    }
+
+    return isNowCompleted;
+  }
+
+  setLessonCompleted(courseId: string, lessonId: string, completed: boolean): void {
+    localCourseProgressService.setLessonCompleted(courseId, lessonId, completed);
+
+    if (this.supabase) {
+      this.persistLessonProgressToCloud(courseId, lessonId, completed).catch((err) => {
+        console.warn('Failed to persist lesson completion to cloud:', err);
+      });
+    }
+  }
+
+  recordLessonAccess(courseId: string, lessonId: string): void {
+    localCourseProgressService.recordLessonAccess(courseId, lessonId);
+
+    if (this.supabase) {
+      this.persistLessonAccessToCloud(courseId, lessonId).catch((err) => {
+        console.warn('Failed to persist lesson access to cloud:', err);
+      });
+    }
+  }
+
+  getCourseCompletionPercentage(course: Course): number {
+    return localCourseProgressService.getCourseCompletionPercentage(course);
+  }
+
+  resetCourseProgress(courseId: string): void {
+    localCourseProgressService.resetCourseProgress(courseId);
+
+    if (this.supabase) {
+      this.deleteCourseProgressFromCloud(courseId).catch((err) => {
+        console.warn('Failed to clear course progress from cloud:', err);
+      });
+    }
+  }
+
+  /**
+   * Merges local guest progress with cloud user_lesson_progress rows.
+   */
+  private async syncCourseProgress(courseId: string): Promise<void> {
+    if (!this.supabase) return;
+
+    const { data: { user } } = await this.supabase.auth.getUser();
+    if (!user) return;
+
+    // Fetch cloud progress records for this user and course
+    const { data: cloudRows, error } = await (this.supabase
+      .from('user_lesson_progress') as any)
+      .select('lesson_id, is_completed, last_accessed_at, completed_at')
+      .eq('user_id', user.id)
+      .eq('course_id', courseId);
+
+    if (error || !cloudRows) {
+      // Table may not yet be migrated in live DB; gracefully fall back to local
+      return;
+    }
+
+    const localState = localCourseProgressService.getProgress(courseId);
+    const localCompletedSet = new Set<string>(localState.completedLessonIds);
+    const cloudCompletedSet = new Set<string>(
+      cloudRows.filter((r: any) => r.is_completed).map((r: any) => String(r.lesson_id))
+    );
+
+    // Union of completed lessons (never lose completed records)
+    const mergedCompleted: string[] = Array.from(new Set<string>([...Array.from(localCompletedSet), ...Array.from(cloudCompletedSet)]));
+
+    // Determine latest accessed lesson between cloud and local
+    let latestAccessDate = new Date(localState.lastAccessedAt || 0).getTime();
+    let bestActiveLessonId = localState.lastActiveLessonId;
+
+    cloudRows.forEach((r: any) => {
+      const rowAccessDate = new Date(r.last_accessed_at).getTime();
+      if (rowAccessDate > latestAccessDate) {
+        latestAccessDate = rowAccessDate;
+        bestActiveLessonId = r.lesson_id;
+      }
+    });
+
+    // Save merged state locally
+    const mergedState: CourseProgressState = {
+      courseId,
+      completedLessonIds: mergedCompleted,
+      lastCompletedLessonId: localState.lastCompletedLessonId,
+      lastActiveLessonId: bestActiveLessonId,
+      lastAccessedAt: new Date(latestAccessDate || Date.now()).toISOString(),
+    };
+
+    // Update local cache
+    if (typeof window !== 'undefined') {
+      localStorage.setItem(`cybertube_course_progress_v1_${courseId}`, JSON.stringify(mergedState));
+      window.dispatchEvent(
+        new CustomEvent('cybertube:course-progress-changed', { detail: mergedState })
+      );
+    }
+
+    // Push local-only completed lessons up to the cloud so cloud matches union
+    const localOnlyCompleted = Array.from(localCompletedSet).filter((id) => !cloudCompletedSet.has(id));
+    for (const lessonId of localOnlyCompleted) {
+      await this.persistLessonProgressToCloud(courseId, lessonId, true);
+    }
+  }
+
+  private async persistLessonProgressToCloud(
+    courseId: string,
+    lessonId: string,
+    completed: boolean
+  ): Promise<void> {
+    if (!this.supabase) return;
+    const { data: { user } } = await this.supabase.auth.getUser();
+    if (!user) return;
+
+    const payload = {
+      user_id: user.id,
+      course_id: courseId,
+      lesson_id: lessonId,
+      is_completed: completed,
+      completed_at: completed ? new Date().toISOString() : null,
+      last_accessed_at: new Date().toISOString(),
+    };
+
+    await (this.supabase
+      .from('user_lesson_progress') as any)
+      .upsert(payload, { onConflict: 'user_id,lesson_id' });
+  }
+
+  private async persistLessonAccessToCloud(courseId: string, lessonId: string): Promise<void> {
+    if (!this.supabase) return;
+    const { data: { user } } = await this.supabase.auth.getUser();
+    if (!user) return;
+
+    await (this.supabase
+      .from('user_lesson_progress') as any)
+      .upsert(
+        {
+          user_id: user.id,
+          course_id: courseId,
+          lesson_id: lessonId,
+          last_accessed_at: new Date().toISOString(),
+        },
+        { onConflict: 'user_id,lesson_id' }
+      );
+  }
+
+  private async deleteCourseProgressFromCloud(courseId: string): Promise<void> {
+    if (!this.supabase) return;
+    const { data: { user } } = await this.supabase.auth.getUser();
+    if (!user) return;
+
+    await (this.supabase
+      .from('user_lesson_progress') as any)
+      .delete()
+      .eq('user_id', user.id)
+      .eq('course_id', courseId);
+  }
+}
+
+/**
+ * Singleton instance of the CloudCourseProgressService
+ */
+export const cloudCourseProgressService = new CloudCourseProgressService();

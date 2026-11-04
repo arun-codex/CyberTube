@@ -297,6 +297,178 @@ export interface Database {
           updated_at?: string;
         };
       };
+      courses: {
+        Row: {
+          id: string;
+          slug: string;
+          title: string;
+          short_description: string;
+          description: string;
+          difficulty: 'beginner' | 'intermediate' | 'advanced';
+          status: 'draft' | 'published' | 'archived';
+          estimated_duration: string;
+          total_duration_minutes: number;
+          thumbnail_url: string | null;
+          instructor_name: string;
+          instructor_title: string | null;
+          instructor_org: string | null;
+          prerequisites: string[];
+          learning_objectives: string[];
+          domains: string[];
+          tags: string[];
+          featured: boolean;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          slug: string;
+          title: string;
+          short_description: string;
+          description: string;
+          difficulty: 'beginner' | 'intermediate' | 'advanced';
+          status?: 'draft' | 'published' | 'archived';
+          estimated_duration: string;
+          total_duration_minutes?: number;
+          thumbnail_url?: string | null;
+          instructor_name: string;
+          instructor_title?: string | null;
+          instructor_org?: string | null;
+          prerequisites?: string[];
+          learning_objectives?: string[];
+          domains?: string[];
+          tags?: string[];
+          featured?: boolean;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          slug?: string;
+          title?: string;
+          short_description?: string;
+          description?: string;
+          difficulty?: 'beginner' | 'intermediate' | 'advanced';
+          status?: 'draft' | 'published' | 'archived';
+          estimated_duration?: string;
+          total_duration_minutes?: number;
+          thumbnail_url?: string | null;
+          instructor_name?: string;
+          instructor_title?: string | null;
+          instructor_org?: string | null;
+          prerequisites?: string[];
+          learning_objectives?: string[];
+          domains?: string[];
+          tags?: string[];
+          featured?: boolean;
+          updated_at?: string;
+        };
+      };
+      course_modules: {
+        Row: {
+          id: string;
+          course_id: string;
+          title: string;
+          description: string | null;
+          order_index: number;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          course_id: string;
+          title: string;
+          description?: string | null;
+          order_index?: number;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          course_id?: string;
+          title?: string;
+          description?: string | null;
+          order_index?: number;
+        };
+      };
+      lessons: {
+        Row: {
+          id: string;
+          module_id: string;
+          course_id: string;
+          slug: string;
+          title: string;
+          description: string;
+          youtube_video_id: string;
+          duration_minutes: number;
+          order_index: number;
+          objectives: string[];
+          tags: string[];
+          skills_taught: string[];
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          module_id: string;
+          course_id: string;
+          slug: string;
+          title: string;
+          description: string;
+          youtube_video_id: string;
+          duration_minutes?: number;
+          order_index?: number;
+          objectives?: string[];
+          tags?: string[];
+          skills_taught?: string[];
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          module_id?: string;
+          course_id?: string;
+          slug?: string;
+          title?: string;
+          description?: string;
+          youtube_video_id?: string;
+          duration_minutes?: number;
+          order_index?: number;
+          objectives?: string[];
+          tags?: string[];
+          skills_taught?: string[];
+        };
+      };
+      user_lesson_progress: {
+        Row: {
+          id: string;
+          user_id: string;
+          course_id: string;
+          lesson_id: string;
+          is_completed: boolean;
+          completed_at: string | null;
+          last_accessed_at: string;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          user_id: string;
+          course_id: string;
+          lesson_id: string;
+          is_completed?: boolean;
+          completed_at?: string | null;
+          last_accessed_at?: string;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          user_id?: string;
+          course_id?: string;
+          lesson_id?: string;
+          is_completed?: boolean;
+          completed_at?: string | null;
+          last_accessed_at?: string;
+          updated_at?: string;
+        };
+      };
     };
   };
 }

@@ -5,7 +5,8 @@ import Link from 'next/link';
 import { Clock, BookOpen, User, CheckCircle2, Award, PlayCircle } from 'lucide-react';
 import { Course } from '../../types/course';
 import { Badge } from '../ui/Badge';
-import { localCourseProgressService, onCourseProgressChange } from '../../lib/course-progress';
+import { onCourseProgressChange } from '../../lib/course-progress';
+import { cloudCourseProgressService } from '../../lib/cloud-course-progress';
 import { getCourseLessons } from '../../lib/courses';
 
 interface CourseCardProps {
@@ -18,11 +19,11 @@ export const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
   const firstLesson = lessons[0];
 
   useEffect(() => {
-    setProgressPercent(localCourseProgressService.getCourseCompletionPercentage(course));
+    setProgressPercent(cloudCourseProgressService.getCourseCompletionPercentage(course));
 
     const unsub = onCourseProgressChange((state) => {
       if (state.courseId === course.id) {
-        setProgressPercent(localCourseProgressService.getCourseCompletionPercentage(course));
+        setProgressPercent(cloudCourseProgressService.getCourseCompletionPercentage(course));
       }
     });
 

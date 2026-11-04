@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { Course } from '../../types/course';
-import { localCourseProgressService, onCourseProgressChange } from '../../lib/course-progress';
+import { onCourseProgressChange } from '../../lib/course-progress';
+import { cloudCourseProgressService } from '../../lib/cloud-course-progress';
 import { getCourseLessons } from '../../lib/courses';
 import { CheckCircle2, RotateCcw } from 'lucide-react';
 
@@ -16,9 +17,9 @@ export const CourseProgress: React.FC<CourseProgressProps> = ({ course }) => {
   const lessons = getCourseLessons(course);
 
   const updateProgress = () => {
-    const p = localCourseProgressService.getCourseCompletionPercentage(course);
+    const p = cloudCourseProgressService.getCourseCompletionPercentage(course);
     setPercent(p);
-    const state = localCourseProgressService.getProgress(course.id);
+    const state = cloudCourseProgressService.getProgress(course.id);
     const count = lessons.filter((l) => state.completedLessonIds.includes(l.id)).length;
     setCompletedCount(count);
   };
@@ -36,7 +37,7 @@ export const CourseProgress: React.FC<CourseProgressProps> = ({ course }) => {
 
   const handleReset = () => {
     if (confirm('Reset your progress for this course?')) {
-      localCourseProgressService.resetCourseProgress(course.id);
+      cloudCourseProgressService.resetCourseProgress(course.id);
       updateProgress();
     }
   };
