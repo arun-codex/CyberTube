@@ -5,14 +5,20 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { Shield, Lock, Mail, AlertCircle } from 'lucide-react';
 import { loginAction } from '@/app/actions/auth';
+import { SocialAuthButtons } from '@/components/auth/SocialAuthButtons';
 
 function LoginForm() {
   const searchParams = useSearchParams();
-  const redirectPath = searchParams.get('redirect') || '/account';
+  const rawRedirect = searchParams.get('redirect') || searchParams.get('next') || '/account';
+  // Safely ensure redirect does not lead to external domain
+  const redirectPath = rawRedirect.startsWith('/') && !rawRedirect.startsWith('//')
+    ? rawRedirect
+    : '/account';
   const reason = searchParams.get('reason');
+  const urlError = searchParams.get('error');
 
   const [error, setError] = useState<string | null>(
-    reason === 'auth_required' ? 'Authentication is required to view this area.' : null
+    urlError || (reason === 'auth_required' ? 'Authentication is required to view this area.' : null)
   );
   const [loading, setLoading] = useState(false);
 
@@ -57,6 +63,21 @@ function LoginForm() {
           <span>{error}</span>
         </div>
       )}
+
+      {/* Social OAuth Buttons */}
+      <SocialAuthButtons
+        redirectPath={redirectPath}
+        onError={(msg: string) => setError(msg || null)}
+        disabled={loading}
+      />
+
+      <div className="relative flex py-1 items-center">
+        <div className="flex-grow border-t border-[#e4e4ed]"></div>
+        <span className="flex-shrink mx-3 text-[11px] font-mono text-[#767682] uppercase">
+          or continue with email
+        </span>
+        <div className="flex-grow border-t border-[#e4e4ed]"></div>
+      </div>
 
       <form className="space-y-4" onSubmit={handleSubmit}>
         <div className="space-y-1.5">

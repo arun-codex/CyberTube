@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { Shield, Lock, Mail, User, AlertCircle, CheckCircle2 } from 'lucide-react';
 import { registerAction } from '@/app/actions/auth';
+import { SocialAuthButtons } from '@/components/auth/SocialAuthButtons';
 
 export default function RegisterPage() {
   const [error, setError] = useState<string | null>(null);
@@ -77,79 +78,96 @@ export default function RegisterPage() {
         )}
 
         {!success && (
-          <form className="space-y-4" onSubmit={handleSubmit}>
-            <div className="space-y-1.5">
-              <label className="block text-xs font-mono uppercase tracking-wider text-[#767682]">
-                Display Name
-              </label>
-              <div className="relative">
-                <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#767682]" />
-                <input
-                  name="displayName"
-                  type="text"
-                  required
-                  placeholder="Practitioner / Analyst"
-                  className="w-full bg-[#f4f4f9] border border-[#e4e4ed] rounded-[4px] pl-9 pr-3 py-2 text-xs font-mono text-[#303055] placeholder-[#767682] focus:outline-none focus:border-[#303055] min-h-[38px]"
-                />
-              </div>
-            </div>
-
-            <div className="space-y-1.5">
-              <label className="block text-xs font-mono uppercase tracking-wider text-[#767682]">
-                Email Address
-              </label>
-              <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#767682]" />
-                <input
-                  name="email"
-                  type="email"
-                  required
-                  placeholder="analyst@cybertube.local"
-                  className="w-full bg-[#f4f4f9] border border-[#e4e4ed] rounded-[4px] pl-9 pr-3 py-2 text-xs font-mono text-[#303055] placeholder-[#767682] focus:outline-none focus:border-[#303055] min-h-[38px]"
-                />
-              </div>
-            </div>
-
-            <div className="space-y-1.5">
-              <label className="block text-xs font-mono uppercase tracking-wider text-[#767682]">
-                Password
-              </label>
-              <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#767682]" />
-                <input
-                  name="password"
-                  type="password"
-                  required
-                  placeholder="••••••••••••"
-                  className="w-full bg-[#f4f4f9] border border-[#e4e4ed] rounded-[4px] pl-9 pr-3 py-2 text-xs font-mono text-[#303055] placeholder-[#767682] focus:outline-none focus:border-[#303055] min-h-[38px]"
-                />
-              </div>
-            </div>
-
-            <div className="space-y-1.5">
-              <label className="block text-xs font-mono uppercase tracking-wider text-[#767682]">
-                Confirm Password
-              </label>
-              <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#767682]" />
-                <input
-                  name="confirmPassword"
-                  type="password"
-                  required
-                  placeholder="••••••••••••"
-                  className="w-full bg-[#f4f4f9] border border-[#e4e4ed] rounded-[4px] pl-9 pr-3 py-2 text-xs font-mono text-[#303055] placeholder-[#767682] focus:outline-none focus:border-[#303055] min-h-[38px]"
-                />
-              </div>
-            </div>
-
-            <button
-              type="submit"
+          <>
+            {/* Social OAuth Buttons */}
+            <SocialAuthButtons
+              redirectPath="/account"
+              onError={(msg: string) => setError(msg || null)}
               disabled={loading}
-              className="w-full py-2.5 px-4 rounded-[4px] bg-[#303055] hover:bg-[#252542] text-white text-xs font-medium transition-colors disabled:opacity-50 min-h-[44px]"
-            >
-              {loading ? 'Creating Account...' : 'Register Profile'}
-            </button>
-          </form>
+            />
+
+            <div className="relative flex py-1 items-center">
+              <div className="flex-grow border-t border-[#e4e4ed]"></div>
+              <span className="flex-shrink mx-3 text-[11px] font-mono text-[#767682] uppercase">
+                or register with email
+              </span>
+              <div className="flex-grow border-t border-[#e4e4ed]"></div>
+            </div>
+
+            <form className="space-y-4" onSubmit={handleSubmit}>
+              <div className="space-y-1.5">
+                <label className="block text-xs font-mono uppercase tracking-wider text-[#767682]">
+                  Display Name
+                </label>
+                <div className="relative">
+                  <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#767682]" />
+                  <input
+                    name="displayName"
+                    type="text"
+                    required
+                    placeholder="Practitioner / Analyst"
+                    className="w-full bg-[#f4f4f9] border border-[#e4e4ed] rounded-[4px] pl-9 pr-3 py-2 text-xs font-mono text-[#303055] placeholder-[#767682] focus:outline-none focus:border-[#303055] min-h-[38px]"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="block text-xs font-mono uppercase tracking-wider text-[#767682]">
+                  Email Address
+                </label>
+                <div className="relative">
+                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#767682]" />
+                  <input
+                    name="email"
+                    type="email"
+                    required
+                    placeholder="analyst@cybertube.local"
+                    className="w-full bg-[#f4f4f9] border border-[#e4e4ed] rounded-[4px] pl-9 pr-3 py-2 text-xs font-mono text-[#303055] placeholder-[#767682] focus:outline-none focus:border-[#303055] min-h-[38px]"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="block text-xs font-mono uppercase tracking-wider text-[#767682]">
+                  Password
+                </label>
+                <div className="relative">
+                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#767682]" />
+                  <input
+                    name="password"
+                    type="password"
+                    required
+                    placeholder="••••••••••••"
+                    className="w-full bg-[#f4f4f9] border border-[#e4e4ed] rounded-[4px] pl-9 pr-3 py-2 text-xs font-mono text-[#303055] placeholder-[#767682] focus:outline-none focus:border-[#303055] min-h-[38px]"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="block text-xs font-mono uppercase tracking-wider text-[#767682]">
+                  Confirm Password
+                </label>
+                <div className="relative">
+                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#767682]" />
+                  <input
+                    name="confirmPassword"
+                    type="password"
+                    required
+                    placeholder="••••••••••••"
+                    className="w-full bg-[#f4f4f9] border border-[#e4e4ed] rounded-[4px] pl-9 pr-3 py-2 text-xs font-mono text-[#303055] placeholder-[#767682] focus:outline-none focus:border-[#303055] min-h-[38px]"
+                  />
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full py-2.5 px-4 rounded-[4px] bg-[#303055] hover:bg-[#252542] text-white text-xs font-medium transition-colors disabled:opacity-50 min-h-[44px]"
+              >
+                {loading ? 'Creating Account...' : 'Register Profile'}
+              </button>
+            </form>
+          </>
         )}
 
         <div className="pt-3 border-t border-[#e4e4ed] text-center text-xs text-[#767682]">
