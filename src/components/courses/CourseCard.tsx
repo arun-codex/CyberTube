@@ -76,7 +76,7 @@ export const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
           </div>
 
           {/* Title */}
-          <h3 className="font-semibold text-base text-[#303055] group-hover:text-[#3b61b0] transition-colors line-clamp-2 leading-snug">
+          <h3 className="font-rajdhani font-bold text-lg text-[#303055] group-hover:text-[#3b61b0] transition-colors line-clamp-2 leading-snug">
             <Link href={`/courses/${course.slug}`}>{course.title}</Link>
           </h3>
 

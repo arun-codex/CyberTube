@@ -39,9 +39,17 @@ export default async function AccountPage() {
       {/* Header Profile Summary */}
       <div className="bg-[#f4f4f9] border border-[#e4e4ed] rounded-[8px] p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
         <div className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-[4px] bg-[#303055] text-white flex items-center justify-center font-mono font-semibold text-xl">
-            {profile?.display_name ? profile.display_name.charAt(0).toUpperCase() : user.email?.charAt(0).toUpperCase()}
-          </div>
+          {profile?.avatar_url ? (
+            <img
+              src={profile.avatar_url}
+              alt={profile?.display_name || user.email || 'Avatar'}
+              className="w-12 h-12 rounded-[4px] object-cover border border-[#e4e4ed]"
+            />
+          ) : (
+            <div className="w-12 h-12 rounded-[4px] bg-[#303055] text-white flex items-center justify-center font-mono font-semibold text-xl">
+              {profile?.display_name ? profile.display_name.charAt(0).toUpperCase() : user.email?.charAt(0).toUpperCase()}
+            </div>
+          )}
           <div>
             <div className="flex items-center gap-2">
               <h1 className="text-xl font-semibold text-[#303055]">

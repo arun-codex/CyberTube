@@ -44,7 +44,7 @@ export default function DomainsPage() {
           <Layers className="w-3.5 h-3.5 text-[#303055]" />
           <span>Taxonomy Architecture</span>
         </div>
-        <h1 className="text-2xl sm:text-3xl font-semibold text-[#303055] tracking-tight">
+        <h1 className="font-rajdhani text-3xl sm:text-4xl font-bold text-[#303055] tracking-tight">
           Cybersecurity Domain Directory
         </h1>
         <p className="text-sm text-[#403f53] max-w-2xl leading-relaxed">
@@ -74,7 +74,7 @@ export default function DomainsPage() {
                 </div>
 
                 <div>
-                  <h2 className="font-semibold text-base text-[#303055]">
+                  <h2 className="font-rajdhani font-bold text-lg text-[#303055]">
                     {domain.name}
                   </h2>
                   <p className="text-xs text-[#767682] mt-1">

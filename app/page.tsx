@@ -37,7 +37,7 @@ export default function HomePage() {
                 <span>Verified technical curriculum</span>
               </div>
 
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-[#303055] leading-[1.15]">
+              <h1 className="font-orbitron text-2xl sm:text-3xl md:text-4xl lg:text-[42px] font-bold tracking-tight text-[#303055] leading-[1.2]">
                 Cybersecurity education, deconstructed and structured.
               </h1>
 
@@ -132,7 +132,7 @@ export default function HomePage() {
             <div className="font-mono text-xs text-[#767682] uppercase tracking-wider mb-1">
               Curriculum
             </div>
-            <h2 className="text-xl sm:text-2xl font-semibold text-[#303055]">
+            <h2 className="font-rajdhani text-2xl sm:text-3xl font-bold tracking-tight text-[#303055]">
               Structured Video Courses
             </h2>
           </div>
@@ -158,7 +158,7 @@ export default function HomePage() {
             <div className="font-mono text-xs text-[#767682] uppercase tracking-wider mb-1">
               Catalog Selection
             </div>
-            <h2 className="text-xl sm:text-2xl font-semibold text-[#303055]">
+            <h2 className="font-rajdhani text-2xl sm:text-3xl font-bold tracking-tight text-[#303055]">
               Featured Resources
             </h2>
           </div>
@@ -184,7 +184,7 @@ export default function HomePage() {
             <div className="font-mono text-xs text-[#767682] uppercase tracking-wider mb-1">
               Taxonomy
             </div>
-            <h2 className="text-xl sm:text-2xl font-semibold text-[#303055]">
+            <h2 className="font-rajdhani text-2xl sm:text-3xl font-bold tracking-tight text-[#303055]">
               Core Knowledge Domains
             </h2>
           </div>

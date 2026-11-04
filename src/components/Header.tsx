@@ -72,7 +72,7 @@ export function Header() {
       <div className="container-max">
         <div className="flex items-center justify-between h-16">
           {/* Logo & Brand */}
-          <div className="flex items-center gap-8">
+          <div className="flex items-center gap-4 lg:gap-8">
             <Link
               href="/"
               className="flex items-center gap-2.5 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#303055] rounded-[4px] p-1"
@@ -81,7 +81,7 @@ export function Header() {
                 <Shield className="w-4 h-4 fill-white stroke-none" />
               </div>
               <div className="flex items-baseline gap-1.5">
-                <span className="font-semibold text-base tracking-tight text-[#303055]">
+                <span className="font-orbitron font-bold text-base tracking-tight text-[#303055]">
                   CyberTube
                 </span>
                 <span className="text-[11px] font-mono text-[#767682] uppercase tracking-wider">
@@ -91,7 +91,7 @@ export function Header() {
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center gap-1">
+            <nav className="hidden lg:flex items-center gap-1">
               {navLinks.map((link) => {
                 const isActive = pathname === link.href;
                 return (
@@ -131,7 +131,7 @@ export function Header() {
           </div>
 
           {/* Desktop Right Utilities */}
-          <div className="hidden md:flex items-center gap-3">
+          <div className="hidden lg:flex items-center gap-3">
             <Link
               href="/discover"
               className="flex items-center gap-2 px-3 py-1.5 rounded-[4px] text-xs font-mono text-[#767682] hover:text-[#303055] bg-[#f4f4f9] border border-[#e4e4ed] hover:border-[#d2d2dc] transition-colors"
@@ -166,7 +166,7 @@ export function Header() {
           </div>
 
           {/* Mobile Menu Trigger (min 44x44 touch target) */}
-          <div className="flex md:hidden items-center gap-1">
+          <div className="flex lg:hidden items-center gap-1">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label="Toggle mobile navigation menu"
@@ -180,7 +180,7 @@ export function Header() {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-b border-[#e4e4ed] bg-white px-4 pt-2 pb-4 space-y-1">
+        <div className="lg:hidden border-b border-[#e4e4ed] bg-white px-4 pt-2 pb-4 space-y-1">
           {navLinks.map((link) => (
             <Link
               key={link.href}

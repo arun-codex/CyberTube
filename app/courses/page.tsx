@@ -19,7 +19,7 @@ export default function CoursesPage() {
           <BookOpen className="w-3.5 h-3.5 text-[#303055]" />
           <span>Course Directory</span>
         </div>
-        <h1 className="text-2xl sm:text-3xl font-semibold text-[#303055] tracking-tight">
+        <h1 className="font-rajdhani text-3xl sm:text-4xl font-bold text-[#303055] tracking-tight">
           Cybersecurity Video Courses
         </h1>
         <p className="text-sm text-[#403f53] max-w-2xl leading-relaxed">
@@ -38,7 +38,7 @@ export default function CoursesPage() {
       {/* Courses Catalog Grid */}
       <div className="space-y-6">
         <div className="flex items-center justify-between border-b border-[#e4e4ed] pb-2">
-          <h2 className="text-lg font-semibold text-[#303055] flex items-center gap-2">
+          <h2 className="font-rajdhani text-xl sm:text-2xl font-bold text-[#303055] flex items-center gap-2">
             Available Curricula
           </h2>
           <span className="text-xs font-mono text-[#767682]">
