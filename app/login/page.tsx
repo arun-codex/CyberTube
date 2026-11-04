@@ -9,11 +9,11 @@ import { SocialAuthButtons } from '@/components/auth/SocialAuthButtons';
 
 function LoginForm() {
   const searchParams = useSearchParams();
-  const rawRedirect = searchParams.get('redirect') || searchParams.get('next') || '/account';
+  const rawRedirect = searchParams.get('redirect') || searchParams.get('next') || '/';
   // Safely ensure redirect does not lead to external domain
   const redirectPath = rawRedirect.startsWith('/') && !rawRedirect.startsWith('//')
     ? rawRedirect
-    : '/account';
+    : '/';
   const reason = searchParams.get('reason');
   const urlError = searchParams.get('error');
 

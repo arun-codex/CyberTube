@@ -7,7 +7,7 @@ import { createClient } from '@/lib/supabase/server';
 export async function loginAction(formData: FormData) {
   const email = formData.get('email') as string;
   const password = formData.get('password') as string;
-  const redirectPath = (formData.get('redirect') as string) || '/account';
+  const redirectPath = (formData.get('redirect') as string) || '/';
 
   if (!email || !password) {
     return { error: 'Please enter both email and password.' };

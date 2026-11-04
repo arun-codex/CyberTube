@@ -10,7 +10,7 @@ function getSafeRedirectUrl(nextParam: string | null, baseUrl: string): URL {
   if (nextParam && nextParam.startsWith('/') && !nextParam.startsWith('//')) {
     return new URL(nextParam, baseUrl);
   }
-  return new URL('/account', baseUrl);
+  return new URL('/', baseUrl);
 }
 
 export async function GET(request: NextRequest) {

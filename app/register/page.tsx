@@ -81,7 +81,7 @@ export default function RegisterPage() {
           <>
             {/* Social OAuth Buttons */}
             <SocialAuthButtons
-              redirectPath="/account"
+              redirectPath="/"
               onError={(msg: string) => setError(msg || null)}
               disabled={loading}
             />
