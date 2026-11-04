@@ -1,0 +1,679 @@
+{
+  "timestamp": "2026-11-04T18:05:08.837Z",
+  "desktop": {
+    "Home": {
+      "runs": [
+        {
+          "performance": 100,
+          "accessibility": 100,
+          "bestPractices": 96,
+          "seo": 100,
+          "fcp": 303,
+          "lcp": 303,
+          "cls": 0.002,
+          "tbt": 0,
+          "transferSize": 596
+        },
+        {
+          "performance": 100,
+          "accessibility": 100,
+          "bestPractices": 100,
+          "seo": 100,
+          "fcp": 297,
+          "lcp": 297,
+          "cls": 0.002,
+          "tbt": 0,
+          "transferSize": 589
+        },
+        {
+          "performance": 100,
+          "accessibility": 100,
+          "bestPractices": 100,
+          "seo": 100,
+          "fcp": 275,
+          "lcp": 275,
+          "cls": 0.002,
+          "tbt": 0,
+          "transferSize": 589
+        }
+      ],
+      "median": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100,
+        "fcp": 297,
+        "lcp": 297,
+        "cls": 0.002,
+        "tbt": 0,
+        "transferSizeKb": 589
+      }
+    },
+    "Courses": {
+      "runs": [
+        {
+          "performance": 98,
+          "accessibility": 100,
+          "bestPractices": 100,
+          "seo": 100,
+          "fcp": 252,
+          "lcp": 835,
+          "cls": 0,
+          "tbt": 104,
+          "transferSize": 465
+        },
+        {
+          "performance": 100,
+          "accessibility": 100,
+          "bestPractices": 100,
+          "seo": 100,
+          "fcp": 233,
+          "lcp": 674,
+          "cls": 0,
+          "tbt": 0,
+          "transferSize": 465
+        },
+        {
+          "performance": 100,
+          "accessibility": 100,
+          "bestPractices": 100,
+          "seo": 100,
+          "fcp": 221,
+          "lcp": 669,
+          "cls": 0,
+          "tbt": 0,
+          "transferSize": 466
+        }
+      ],
+      "median": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100,
+        "fcp": 233,
+        "lcp": 674,
+        "cls": 0,
+        "tbt": 0,
+        "transferSizeKb": 465
+      }
+    },
+    "Course Detail": {
+      "runs": [
+        {
+          "performance": 89,
+          "accessibility": 100,
+          "bestPractices": 96,
+          "seo": 100,
+          "fcp": 257,
+          "lcp": 257,
+          "cls": 0.213,
+          "tbt": 0,
+          "transferSize": 1638
+        },
+        {
+          "performance": 90,
+          "accessibility": 100,
+          "bestPractices": 96,
+          "seo": 100,
+          "fcp": 241,
+          "lcp": 241,
+          "cls": 0.212,
+          "tbt": 0,
+          "transferSize": 1633
+        },
+        {
+          "performance": 90,
+          "accessibility": 100,
+          "bestPractices": 96,
+          "seo": 100,
+          "fcp": 233,
+          "lcp": 233,
+          "cls": 0.212,
+          "tbt": 0,
+          "transferSize": 1632
+        }
+      ],
+      "median": {
+        "performance": 90,
+        "accessibility": 100,
+        "bestPractices": 96,
+        "seo": 100,
+        "fcp": 241,
+        "lcp": 241,
+        "cls": 0.212,
+        "tbt": 0,
+        "transferSizeKb": 1633
+      }
+    },
+    "Discover": {
+      "runs": [
+        {
+          "performance": 80,
+          "accessibility": 100,
+          "bestPractices": 100,
+          "seo": 100,
+          "fcp": 240,
+          "lcp": 891,
+          "cls": 0.41,
+          "tbt": 0,
+          "transferSize": 982
+        },
+        {
+          "performance": 81,
+          "accessibility": 100,
+          "bestPractices": 100,
+          "seo": 100,
+          "fcp": 222,
+          "lcp": 805,
+          "cls": 0.41,
+          "tbt": 0,
+          "transferSize": 983
+        },
+        {
+          "performance": 80,
+          "accessibility": 100,
+          "bestPractices": 100,
+          "seo": 100,
+          "fcp": 229,
+          "lcp": 832,
+          "cls": 0.41,
+          "tbt": 0,
+          "transferSize": 982
+        }
+      ],
+      "median": {
+        "performance": 80,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100,
+        "fcp": 229,
+        "lcp": 832,
+        "cls": 0.41,
+        "tbt": 0,
+        "transferSizeKb": 982
+      }
+    },
+    "Resource Detail": {
+      "runs": [
+        {
+          "performance": 100,
+          "accessibility": 100,
+          "bestPractices": 100,
+          "seo": 100,
+          "fcp": 222,
+          "lcp": 222,
+          "cls": 0,
+          "tbt": 0,
+          "transferSize": 464
+        },
+        {
+          "performance": 100,
+          "accessibility": 100,
+          "bestPractices": 100,
+          "seo": 100,
+          "fcp": 225,
+          "lcp": 225,
+          "cls": 0,
+          "tbt": 0,
+          "transferSize": 464
+        },
+        {
+          "performance": 100,
+          "accessibility": 100,
+          "bestPractices": 100,
+          "seo": 100,
+          "fcp": 223,
+          "lcp": 223,
+          "cls": 0,
+          "tbt": 0,
+          "transferSize": 465
+        }
+      ],
+      "median": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100,
+        "fcp": 223,
+        "lcp": 223,
+        "cls": 0,
+        "tbt": 0,
+        "transferSizeKb": 464
+      }
+    },
+    "Login": {
+      "runs": [
+        {
+          "performance": 100,
+          "accessibility": 100,
+          "bestPractices": 100,
+          "seo": 100,
+          "fcp": 226,
+          "lcp": 691,
+          "cls": 0,
+          "tbt": 0,
+          "transferSize": 377
+        },
+        {
+          "performance": 100,
+          "accessibility": 100,
+          "bestPractices": 100,
+          "seo": 100,
+          "fcp": 225,
+          "lcp": 623,
+          "cls": 0,
+          "tbt": 0,
+          "transferSize": 377
+        },
+        {
+          "performance": 100,
+          "accessibility": 100,
+          "bestPractices": 100,
+          "seo": 100,
+          "fcp": 223,
+          "lcp": 630,
+          "cls": 0,
+          "tbt": 0,
+          "transferSize": 377
+        }
+      ],
+      "median": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100,
+        "fcp": 225,
+        "lcp": 630,
+        "cls": 0,
+        "tbt": 0,
+        "transferSizeKb": 377
+      }
+    },
+    "Account": {
+      "runs": [
+        {
+          "performance": 100,
+          "accessibility": 100,
+          "bestPractices": 100,
+          "seo": 100,
+          "fcp": 268,
+          "lcp": 714,
+          "cls": 0,
+          "tbt": 0,
+          "transferSize": 381
+        },
+        {
+          "performance": 100,
+          "accessibility": 100,
+          "bestPractices": 100,
+          "seo": 100,
+          "fcp": 276,
+          "lcp": 737,
+          "cls": 0,
+          "tbt": 0,
+          "transferSize": 381
+        },
+        {
+          "performance": 100,
+          "accessibility": 100,
+          "bestPractices": 100,
+          "seo": 100,
+          "fcp": 276,
+          "lcp": 703,
+          "cls": 0,
+          "tbt": 0,
+          "transferSize": 381
+        }
+      ],
+      "median": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100,
+        "fcp": 276,
+        "lcp": 714,
+        "cls": 0,
+        "tbt": 0,
+        "transferSizeKb": 381
+      }
+    }
+  },
+  "mobile": {
+    "Home": {
+      "runs": [
+        {
+          "performance": 99,
+          "accessibility": 100,
+          "bestPractices": 100,
+          "seo": 100,
+          "fcp": 986,
+          "lcp": 986,
+          "cls": 0.031,
+          "tbt": 97,
+          "transferSize": 497
+        },
+        {
+          "performance": 99,
+          "accessibility": 100,
+          "bestPractices": 100,
+          "seo": 100,
+          "fcp": 1016,
+          "lcp": 1016,
+          "cls": 0.034,
+          "tbt": 93,
+          "transferSize": 497
+        },
+        {
+          "performance": 100,
+          "accessibility": 100,
+          "bestPractices": 100,
+          "seo": 100,
+          "fcp": 1019,
+          "lcp": 1019,
+          "cls": 0.031,
+          "tbt": 88,
+          "transferSize": 497
+        }
+      ],
+      "median": {
+        "performance": 99,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100,
+        "fcp": 1016,
+        "lcp": 1016,
+        "cls": 0.031,
+        "tbt": 93,
+        "transferSizeKb": 497
+      }
+    },
+    "Courses": {
+      "runs": [
+        {
+          "performance": 95,
+          "accessibility": 100,
+          "bestPractices": 100,
+          "seo": 100,
+          "fcp": 808,
+          "lcp": 2881,
+          "cls": 0,
+          "tbt": 102,
+          "transferSize": 375
+        },
+        {
+          "performance": 95,
+          "accessibility": 100,
+          "bestPractices": 100,
+          "seo": 100,
+          "fcp": 823,
+          "lcp": 2925,
+          "cls": 0,
+          "tbt": 91,
+          "transferSize": 375
+        },
+        {
+          "performance": 95,
+          "accessibility": 100,
+          "bestPractices": 100,
+          "seo": 100,
+          "fcp": 781,
+          "lcp": 2903,
+          "cls": 0,
+          "tbt": 58,
+          "transferSize": 374
+        }
+      ],
+      "median": {
+        "performance": 95,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100,
+        "fcp": 808,
+        "lcp": 2903,
+        "cls": 0,
+        "tbt": 91,
+        "transferSizeKb": 375
+      }
+    },
+    "Course Detail": {
+      "runs": [
+        {
+          "performance": 100,
+          "accessibility": 100,
+          "bestPractices": 96,
+          "seo": 100,
+          "fcp": 862,
+          "lcp": 862,
+          "cls": 0,
+          "tbt": 79,
+          "transferSize": 1502
+        },
+        {
+          "performance": 88,
+          "accessibility": 100,
+          "bestPractices": 96,
+          "seo": 100,
+          "fcp": 2998,
+          "lcp": 2998,
+          "cls": 0,
+          "tbt": 44,
+          "transferSize": 1503
+        },
+        {
+          "performance": 88,
+          "accessibility": 100,
+          "bestPractices": 96,
+          "seo": 100,
+          "fcp": 3004,
+          "lcp": 3004,
+          "cls": 0,
+          "tbt": 25,
+          "transferSize": 1502
+        }
+      ],
+      "median": {
+        "performance": 88,
+        "accessibility": 100,
+        "bestPractices": 96,
+        "seo": 100,
+        "fcp": 2998,
+        "lcp": 2998,
+        "cls": 0,
+        "tbt": 44,
+        "transferSizeKb": 1502
+      }
+    },
+    "Discover": {
+      "runs": [
+        {
+          "performance": 69,
+          "accessibility": 98,
+          "bestPractices": 100,
+          "seo": 100,
+          "fcp": 765,
+          "lcp": 3107,
+          "cls": 0.802,
+          "tbt": 102,
+          "transferSize": 617
+        },
+        {
+          "performance": 68,
+          "accessibility": 98,
+          "bestPractices": 100,
+          "seo": 100,
+          "fcp": 766,
+          "lcp": 3404,
+          "cls": 0.802,
+          "tbt": 88,
+          "transferSize": 616
+        },
+        {
+          "performance": 66,
+          "accessibility": 98,
+          "bestPractices": 100,
+          "seo": 100,
+          "fcp": 773,
+          "lcp": 3573,
+          "cls": 0.802,
+          "tbt": 105,
+          "transferSize": 688
+        }
+      ],
+      "median": {
+        "performance": 68,
+        "accessibility": 98,
+        "bestPractices": 100,
+        "seo": 100,
+        "fcp": 766,
+        "lcp": 3404,
+        "cls": 0.802,
+        "tbt": 102,
+        "transferSizeKb": 617
+      }
+    },
+    "Resource Detail": {
+      "runs": [
+        {
+          "performance": 100,
+          "accessibility": 100,
+          "bestPractices": 100,
+          "seo": 100,
+          "fcp": 828,
+          "lcp": 828,
+          "cls": 0.001,
+          "tbt": 31,
+          "transferSize": 431
+        },
+        {
+          "performance": 100,
+          "accessibility": 100,
+          "bestPractices": 100,
+          "seo": 100,
+          "fcp": 797,
+          "lcp": 797,
+          "cls": 0.001,
+          "tbt": 33,
+          "transferSize": 431
+        },
+        {
+          "performance": 100,
+          "accessibility": 100,
+          "bestPractices": 100,
+          "seo": 100,
+          "fcp": 793,
+          "lcp": 793,
+          "cls": 0.001,
+          "tbt": 17,
+          "transferSize": 431
+        }
+      ],
+      "median": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100,
+        "fcp": 797,
+        "lcp": 797,
+        "cls": 0.001,
+        "tbt": 31,
+        "transferSizeKb": 431
+      }
+    },
+    "Login": {
+      "runs": [
+        {
+          "performance": 95,
+          "accessibility": 100,
+          "bestPractices": 100,
+          "seo": 100,
+          "fcp": 766,
+          "lcp": 2989,
+          "cls": 0.002,
+          "tbt": 33,
+          "transferSize": 306
+        },
+        {
+          "performance": 95,
+          "accessibility": 100,
+          "bestPractices": 100,
+          "seo": 100,
+          "fcp": 766,
+          "lcp": 2935,
+          "cls": 0.002,
+          "tbt": 44,
+          "transferSize": 306
+        },
+        {
+          "performance": 95,
+          "accessibility": 100,
+          "bestPractices": 100,
+          "seo": 100,
+          "fcp": 766,
+          "lcp": 2824,
+          "cls": 0.002,
+          "tbt": 110,
+          "transferSize": 303
+        }
+      ],
+      "median": {
+        "performance": 95,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100,
+        "fcp": 766,
+        "lcp": 2935,
+        "cls": 0.002,
+        "tbt": 44,
+        "transferSizeKb": 306
+      }
+    },
+    "Account": {
+      "runs": [
+        {
+          "performance": 95,
+          "accessibility": 100,
+          "bestPractices": 100,
+          "seo": 100,
+          "fcp": 916,
+          "lcp": 2963,
+          "cls": 0.002,
+          "tbt": 62,
+          "transferSize": 303
+        },
+        {
+          "performance": 95,
+          "accessibility": 100,
+          "bestPractices": 100,
+          "seo": 100,
+          "fcp": 927,
+          "lcp": 2863,
+          "cls": 0.002,
+          "tbt": 45,
+          "transferSize": 303
+        },
+        {
+          "performance": 95,
+          "accessibility": 100,
+          "bestPractices": 100,
+          "seo": 100,
+          "fcp": 926,
+          "lcp": 2881,
+          "cls": 0.002,
+          "tbt": 103,
+          "transferSize": 303
+        }
+      ],
+      "median": {
+        "performance": 95,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100,
+        "fcp": 926,
+        "lcp": 2881,
+        "cls": 0.002,
+        "tbt": 62,
+        "transferSizeKb": 303
+      }
+    }
+  }
+}
