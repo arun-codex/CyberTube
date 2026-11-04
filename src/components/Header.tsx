@@ -71,6 +71,7 @@ export function Header() {
 
   const navLinks = [
     { label: 'Discover', href: '/discover' },
+    { label: 'Courses', href: '/courses' },
     { label: 'Domains', href: '/domains' },
     { label: 'Saved', href: '/saved', badge: savedCount > 0 ? savedCount : null },
   ];
