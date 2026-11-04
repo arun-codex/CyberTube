@@ -55,3 +55,4 @@ CyberTube Phase 2 introduces a PostgreSQL database backend, cookie-based session
    - Administrative endpoints verify verified user email addresses against a server-only allowlist (`CYBERTUBE_ADMIN_EMAILS`).
 4. **Air-Gapped REA Boundary**:
    - Local reverse-engineering analysis tools and MCP servers remain entirely offline developer tooling. No REA capabilities or file paths are exposed via Next.js or PostgreSQL.
+

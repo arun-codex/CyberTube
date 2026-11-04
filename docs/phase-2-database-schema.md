@@ -114,3 +114,4 @@ The CyberTube PostgreSQL database is normalized to support rich cybersecurity me
 - `moderator_notes`: `TEXT`
 - `created_at`: `TIMESTAMPTZ DEFAULT NOW()`
 - `updated_at`: `TIMESTAMPTZ DEFAULT NOW()`
+

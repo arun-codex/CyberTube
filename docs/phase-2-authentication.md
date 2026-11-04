@@ -27,3 +27,4 @@ CyberTube implements password-based authentication via Supabase Auth, integrated
 3. **Graceful Fallback Mode**:
    - When running in an unconfigured environment (no `NEXT_PUBLIC_SUPABASE_URL` in `.env.local`), all public browsing routes (`/`, `/discover`, `/domains`, `/resources/[slug]`, `/saved`) continue functioning without error.
    - Protected routes (`/account`, `/admin`) redirect cleanly to `/login` with an informational banner.
+

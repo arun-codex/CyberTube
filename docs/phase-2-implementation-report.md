@@ -70,3 +70,4 @@ Guest users retain 100% of the Phase 1 discovery, search, filtering, and local b
 - Security & RLS: [`docs/phase-2-security.md`](file:///c:/User/REA_Project/docs/phase-2-security.md)
 - Setup Guide: [`docs/phase-2-setup.md`](file:///c:/User/REA_Project/docs/phase-2-setup.md)
 - Testing Report: [`docs/phase-2-testing-report.md`](file:///c:/User/REA_Project/docs/phase-2-testing-report.md)
+

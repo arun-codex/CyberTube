@@ -39,3 +39,4 @@ Row Level Security is enabled across all public database tables. Separate polici
 3. **Secret Key Isolation**:
    - The `SUPABASE_SECRET_KEY` is referenced strictly within `src/lib/supabase/admin.ts` and never prefixed with `NEXT_PUBLIC_`.
    - Client bundles cannot access the secret key under any circumstances.
+
