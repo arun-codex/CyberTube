@@ -1,154 +1,198 @@
 import React from 'react';
 import Link from 'next/link';
 import {
-  Compass,
   ArrowRight,
   Shield,
   Layers,
-  Sparkles,
   BookOpen,
   Terminal,
   Search,
-  CheckCircle,
 } from 'lucide-react';
 import {
   getAllResources,
   getFeaturedResources,
   getFacetCounts,
 } from '../src/lib/catalog';
+import { getAllCourses } from '../src/lib/courses';
 import { CYBERSECURITY_DOMAINS, RESOURCE_TYPES } from '../src/data/metadata';
 import { ResourceCard } from '../src/components/ResourceCard';
-import { Button } from '../src/components/ui/Button';
+import { CourseCard } from '../src/components/courses/CourseCard';
 
 export default function HomePage() {
   const allResources = getAllResources();
   const featured = getFeaturedResources(6);
   const facetCounts = getFacetCounts(allResources);
-
-  // Recently added based on publishedAt
-  const recentlyAdded = [...allResources]
-    .sort((a, b) => {
-      const dateA = a.publishedAt ? new Date(a.publishedAt).getTime() : 0;
-      const dateB = b.publishedAt ? new Date(b.publishedAt).getTime() : 0;
-      return dateB - dateA;
-    })
-    .slice(0, 4);
-
-  // Curated starting points (beginner difficulty)
-  const startingPoints = allResources
-    .filter((r) => r.difficulty === 'beginner')
-    .slice(0, 4);
+  const courses = getAllCourses().slice(0, 3);
 
   return (
-    <div className="space-y-16 pb-16">
-      {/* 1. HERO SECTION */}
-      <section className="relative overflow-hidden pt-12 pb-16 md:pt-20 md:pb-24 border-b border-slate-200 dark:border-slate-800/80 bg-gradient-to-b from-slate-100/60 dark:from-[#0d1424] to-transparent">
-        {/* Subtle background glow */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-cyan-500/10 blur-[120px] pointer-events-none rounded-full" />
+    <div className="space-y-12 sm:space-y-16 pb-16">
+      {/* 1. TERMINAL-INSPIRED SST HERO SECTION */}
+      <section className="border-b border-[#e4e4ed] bg-[#f4f4f9] pt-12 pb-16 md:pt-16 md:pb-20">
+        <div className="container-max">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+            {/* Left Column: Heading, Prose & Actions */}
+            <div className="lg:col-span-7 space-y-6">
+              <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-[4px] bg-white border border-[#e4e4ed] text-xs font-mono text-[#303055]">
+                <Shield className="w-3.5 h-3.5 text-[#303055]" />
+                <span>Verified technical curriculum</span>
+              </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-700 dark:text-cyan-400 font-mono text-xs font-semibold">
-            <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
-            <span>Discover. Learn. Practice. Secure.</span>
-          </div>
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-[#303055] leading-[1.15]">
+                Cybersecurity education, deconstructed and structured.
+              </h1>
 
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white max-w-4xl mx-auto leading-tight">
-            The Centralized Learning Engine for{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-teal-400">
-              Cybersecurity
-            </span>
-          </h1>
+              <p className="text-sm sm:text-base text-[#403f53] max-w-xl leading-relaxed">
+                CyberTube organizes verified YouTube talks, Wireshark packet investigations,
+                x86 hardware reverse-engineering, and protocol blueprints into structured courses.
+              </p>
 
-          <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed">
-            Discover verified talks, interactive labs, CTF challenges, standards,
-            repositories, and research papers—structured across 11 core cybersecurity domains.
-          </p>
+              {/* Action Buttons */}
+              <div className="flex flex-wrap items-center gap-3 pt-1">
+                <Link
+                  href="/courses"
+                  className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-[4px] bg-[#303055] text-white hover:bg-[#252542] text-sm font-medium min-h-[44px] transition-colors"
+                >
+                  <BookOpen className="w-4 h-4" />
+                  Explore Courses
+                </Link>
+                <Link
+                  href="/discover"
+                  className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-[4px] bg-white text-[#303055] border border-[#e4e4ed] hover:border-[#303055] text-sm font-medium min-h-[44px] transition-colors"
+                >
+                  <Search className="w-4 h-4 text-[#767682]" />
+                  Search Catalog
+                </Link>
+              </div>
 
-          {/* Prominent Search Bar */}
-          <div className="max-w-2xl mx-auto pt-2">
-            <form
-              action="/discover"
-              method="GET"
-              className="relative flex items-center shadow-lg shadow-black/10 dark:shadow-black/40 rounded-xl"
-            >
-              <Search className="w-5 h-5 text-slate-400 absolute left-4 pointer-events-none" />
-              <input
-                type="search"
-                name="q"
-                placeholder="Search by vulnerability, tool, protocol, paper, or author..."
-                className="w-full pl-12 pr-28 py-3.5 text-sm rounded-xl bg-white dark:bg-[#111827] border border-slate-300 dark:border-[#1f293d] text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 transition-all font-sans"
-              />
-              <button
-                type="submit"
-                className="absolute right-2 px-4 py-2 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-semibold text-xs tracking-wide transition-colors"
-              >
-                Search
-              </button>
-            </form>
+              {/* Quick Metadata */}
+              <div className="flex flex-wrap items-center gap-6 pt-2 text-xs font-mono text-[#767682]">
+                <div>
+                  <strong className="text-[#303055] font-semibold">11</strong> Domains
+                </div>
+                <div>•</div>
+                <div>
+                  <strong className="text-[#303055] font-semibold">{courses.length}</strong> Structured Tracks
+                </div>
+                <div>•</div>
+                <div>
+                  <strong className="text-[#303055] font-semibold">{allResources.length}</strong> Verified Labs & Talks
+                </div>
+              </div>
+            </div>
 
-            {/* Quick Keyword Pills */}
-            <div className="flex flex-wrap items-center justify-center gap-2 pt-3 text-xs text-slate-500 font-mono">
-              <span className="text-slate-400">Popular:</span>
-              {['Burp Suite', 'Wireshark', 'Nmap', 'MITRE ATT&CK', 'x86 Assembly', 'OWASP'].map(
-                (term) => (
-                  <Link
-                    key={term}
-                    href={`/discover?q=${encodeURIComponent(term)}`}
-                    className="hover:text-cyan-400 underline decoration-slate-600 hover:decoration-cyan-400 transition-colors"
-                  >
-                    {term}
+            {/* Right Column: Clean Terminal Code Block with strictly scoped syntax colors */}
+            <div className="lg:col-span-5">
+              <div className="rounded-[8px] border border-[#e4e4ed] bg-[#ffffff] overflow-hidden shadow-sm">
+                {/* Terminal Header */}
+                <div className="flex items-center justify-between px-4 py-2.5 bg-[#f4f4f9] border-b border-[#e4e4ed]">
+                  <div className="flex items-center gap-1.5">
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#d2d2dc]" />
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#d2d2dc]" />
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#d2d2dc]" />
+                  </div>
+                  <span className="text-[11px] font-mono text-[#767682]">
+                    packet-triage.pcap
+                  </span>
+                </div>
+
+                {/* Terminal Body with strict syntax colors */}
+                <pre className="p-4 sm:p-5 text-xs font-mono leading-relaxed overflow-x-auto text-[#403f53] bg-white">
+                  <code>
+                    <span className="text-[#767682]">// 1. Capture stream metadata</span>{'\n'}
+                    <span className="text-[#8844ae]">tshark</span> -r session.pcap \<br />
+                    {'  '}-Y <span className="text-[#096e72]">&quot;tcp.flags.syn == 1 &amp;&amp; tcp.flags.ack == 0&quot;</span> \<br />
+                    {'  '}-T fields -e ip.src -e ip.dst -e tcp.dstport{'\n\n'}
+                    <span className="text-[#767682]">// 2. Anomaly detected in handshake</span>{'\n'}
+                    <span className="text-[#3b61b0]">SYN_SENT</span>: 192.168.1.45 -&gt; 10.0.0.1:443{'\n'}
+                    <span className="text-[#984e4d]">DELTA_TIME</span>: 0.000142s [Window: 65535]{'\n'}
+                    <span className="text-[#3b61b0]">STATUS</span>: Handshake Verified (TLS 1.3)
+                  </code>
+                </pre>
+
+                {/* Terminal Footer */}
+                <div className="px-4 py-2 bg-[#f4f4f9] border-t border-[#e4e4ed] flex items-center justify-between text-[11px] font-mono text-[#767682]">
+                  <span className="flex items-center gap-1.5">
+                    <Terminal className="w-3 h-3 text-[#767682]" />
+                    Wireshark Forensics Masterclass
+                  </span>
+                  <Link href="/courses/network-packet-analysis-masterclass" className="hover:text-[#303055] underline">
+                    inspect →
                   </Link>
-                )
-              )}
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 2. FEATURED RESOURCES SECTION */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+      {/* 2. STRUCTURED COURSES HIGHLIGHT */}
+      <section className="container-max space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
           <div>
-            <div className="flex items-center gap-2 font-mono text-xs font-bold text-cyan-600 dark:text-cyan-400 uppercase tracking-wider mb-1">
-              <Sparkles className="w-4 h-4 text-cyan-400" />
-              <span>Curated Selection</span>
+            <div className="font-mono text-xs text-[#767682] uppercase tracking-wider mb-1">
+              Curriculum
             </div>
-            <h2 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
+            <h2 className="text-xl sm:text-2xl font-semibold text-[#303055]">
+              Structured Video Courses
+            </h2>
+          </div>
+          <Link
+            href="/courses"
+            className="text-xs font-mono text-[#303055] hover:text-[#3b61b0] flex items-center gap-1"
+          >
+            All Courses →
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {courses.map((course) => (
+            <CourseCard key={course.id} course={course} />
+          ))}
+        </div>
+      </section>
+
+      {/* 3. FEATURED RESOURCES SECTION */}
+      <section className="container-max space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
+          <div>
+            <div className="font-mono text-xs text-[#767682] uppercase tracking-wider mb-1">
+              Catalog Selection
+            </div>
+            <h2 className="text-xl sm:text-2xl font-semibold text-[#303055]">
               Featured Resources
             </h2>
           </div>
           <Link
             href="/discover"
-            className="text-xs font-mono font-semibold text-cyan-600 dark:text-cyan-400 hover:underline flex items-center gap-1 self-start sm:self-auto"
+            className="text-xs font-mono text-[#303055] hover:text-[#3b61b0] flex items-center gap-1"
           >
             Explore all {allResources.length} resources →
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {featured.map((resource) => (
             <ResourceCard key={resource.id} resource={resource} />
           ))}
         </div>
       </section>
 
-      {/* 3. EXPLORE BY DOMAIN */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+      {/* 4. EXPLORE BY DOMAIN */}
+      <section className="container-max space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
           <div>
-            <div className="flex items-center gap-2 font-mono text-xs font-bold text-cyan-600 dark:text-cyan-400 uppercase tracking-wider mb-1">
-              <Layers className="w-4 h-4 text-cyan-400" />
-              <span>Knowledge Taxonomy</span>
+            <div className="font-mono text-xs text-[#767682] uppercase tracking-wider mb-1">
+              Taxonomy
             </div>
-            <h2 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
-              Explore by Cybersecurity Domain
+            <h2 className="text-xl sm:text-2xl font-semibold text-[#303055]">
+              Core Knowledge Domains
             </h2>
           </div>
           <Link
             href="/domains"
-            className="text-xs font-mono font-semibold text-cyan-600 dark:text-cyan-400 hover:underline flex items-center gap-1 self-start sm:self-auto"
+            className="text-xs font-mono text-[#303055] hover:text-[#3b61b0] flex items-center gap-1"
           >
-            Full domain guide →
+            Domain index →
           </Link>
         </div>
 
@@ -159,19 +203,19 @@ export default function HomePage() {
               <Link
                 key={domain.id}
                 href={`/discover?domain=${domain.id}`}
-                className="group p-4 rounded-xl border border-slate-200 dark:border-[#1f293d] bg-white dark:bg-[#111827] hover:border-cyan-500/50 hover:shadow-md transition-all flex flex-col justify-between space-y-3"
+                className="group p-4 rounded-[8px] border border-[#e4e4ed] bg-white hover:border-[#303055] transition-colors flex flex-col justify-between space-y-2"
               >
                 <div>
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="font-mono text-xs font-bold text-cyan-500">
-                      {count} {count === 1 ? 'resource' : 'resources'}
+                  <div className="flex items-center justify-between mb-1.5">
+                    <span className="font-mono text-xs text-[#767682]">
+                      {count} items
                     </span>
-                    <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-cyan-400 group-hover:translate-x-0.5 transition-all" />
+                    <ArrowRight className="w-3.5 h-3.5 text-[#767682] group-hover:text-[#303055] group-hover:translate-x-0.5 transition-transform" />
                   </div>
-                  <h3 className="font-semibold text-sm text-slate-900 dark:text-slate-100 group-hover:text-cyan-400 transition-colors">
+                  <h3 className="font-semibold text-sm text-[#303055] group-hover:text-[#3b61b0] transition-colors">
                     {domain.name}
                   </h3>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-2 mt-1 leading-relaxed">
+                  <p className="text-xs text-[#403f53] line-clamp-2 mt-1 leading-relaxed">
                     {domain.shortDescription}
                   </p>
                 </div>
@@ -180,120 +224,6 @@ export default function HomePage() {
           })}
         </div>
       </section>
-
-      {/* 4. BROWSE RESOURCE TYPES */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
-        <h2 className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">
-          Browse by Learning Format
-        </h2>
-        <div className="flex flex-wrap gap-2.5">
-          {RESOURCE_TYPES.map((type) => {
-            const count = facetCounts.typeCounts[type.id] || 0;
-            return (
-              <Link
-                key={type.id}
-                href={`/discover?type=${type.id}`}
-                className="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg border border-slate-200 dark:border-[#1f293d] bg-white dark:bg-[#111827] hover:border-cyan-500/50 hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors text-xs font-mono"
-              >
-                <span className="font-semibold text-slate-800 dark:text-slate-200">
-                  {type.pluralLabel}
-                </span>
-                <span className="px-1.5 py-0.2 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 text-[10px]">
-                  {count}
-                </span>
-              </Link>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* 5. STARTING POINTS & RECENTLY ADDED */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-8 pt-6">
-        {/* Curated Starting Points */}
-        <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <h2 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              <CheckCircle className="w-5 h-5 text-emerald-400" />
-              Beginner Starting Points
-            </h2>
-            <Link
-              href="/discover?difficulty=beginner"
-              className="text-xs font-mono text-cyan-500 hover:underline"
-            >
-              View all →
-            </Link>
-          </div>
-          <div className="space-y-3">
-            {startingPoints.map((res) => (
-              <Link
-                key={res.id}
-                href={`/resources/${res.slug}`}
-                className="block p-3.5 rounded-xl border border-slate-200 dark:border-[#1f293d] bg-white dark:bg-[#111827] hover:border-cyan-500/40 transition-colors"
-              >
-                <div className="flex items-start justify-between gap-3">
-                  <div>
-                    <span className="text-[10px] font-mono uppercase text-cyan-500 font-bold">
-                      {res.resourceType} · {res.provider}
-                    </span>
-                    <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100 hover:text-cyan-400 transition-colors">
-                      {res.title}
-                    </h3>
-                    <p className="text-xs text-slate-500 line-clamp-1 mt-0.5">
-                      {res.description}
-                    </p>
-                  </div>
-                  <span className="shrink-0 text-xs font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
-                    {res.pricingModel}
-                  </span>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-
-        {/* Recently Added Resources */}
-        <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <h2 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              <Compass className="w-5 h-5 text-cyan-400" />
-              Recently Verified
-            </h2>
-            <Link
-              href="/discover?sort=recently-added"
-              className="text-xs font-mono text-cyan-500 hover:underline"
-            >
-              Catalog index →
-            </Link>
-          </div>
-          <div className="space-y-3">
-            {recentlyAdded.map((res) => (
-              <Link
-                key={res.id}
-                href={`/resources/${res.slug}`}
-                className="block p-3.5 rounded-xl border border-slate-200 dark:border-[#1f293d] bg-white dark:bg-[#111827] hover:border-cyan-500/40 transition-colors"
-              >
-                <div className="flex items-start justify-between gap-3">
-                  <div>
-                    <span className="text-[10px] font-mono uppercase text-cyan-500 font-bold">
-                      {res.resourceType} · {res.provider}
-                    </span>
-                    <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100 hover:text-cyan-400 transition-colors">
-                      {res.title}
-                    </h3>
-                    <p className="text-xs text-slate-500 line-clamp-1 mt-0.5">
-                      {res.description}
-                    </p>
-                  </div>
-                  <span className="shrink-0 text-xs font-mono text-slate-400">
-                    {res.estimatedDuration || 'Self-paced'}
-                  </span>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
     </div>
   );
 }
-

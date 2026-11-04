@@ -5,17 +5,13 @@ import {
   ExternalLink,
   Clock,
   Globe,
-  Award,
   BookOpen,
   CheckCircle,
   AlertCircle,
   ArrowLeft,
   Calendar,
-  Layers,
-  Sparkles,
 } from 'lucide-react';
 import { getResourceBySlug, getRelatedResources, getAllResources } from '../../../src/lib/catalog';
-import { Badge } from '../../../src/components/ui/Badge';
 import { ResourceCard } from '../../../src/components/ResourceCard';
 import { ResourceDetailBookmarkButton } from './BookmarkButton';
 import { YouTubePlayer } from '../../../src/components/YouTubePlayer';
@@ -42,12 +38,12 @@ export default function ResourceDetailPage({ params }: PageProps) {
   const related = getRelatedResources(resource, 3);
 
   return (
-    <div className="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+    <div className="container-max py-8 space-y-8">
       {/* Back Link */}
       <div>
         <Link
           href="/discover"
-          className="inline-flex items-center gap-1.5 text-xs font-mono text-slate-500 hover:text-cyan-400 transition-colors"
+          className="inline-flex items-center gap-1.5 text-xs font-mono text-[#767682] hover:text-[#303055] transition-colors"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
           <span>Back to Discovery Directory</span>
@@ -55,72 +51,72 @@ export default function ResourceDetailPage({ params }: PageProps) {
       </div>
 
       {/* Main Header & Overview Card */}
-      <div className="rounded-2xl border border-slate-200 dark:border-[#1f293d] bg-white dark:bg-[#111827] p-6 sm:p-8 space-y-6 shadow-sm">
+      <div className="rounded-[8px] border border-[#e4e4ed] bg-white p-6 sm:p-8 space-y-6">
         <div className="flex flex-wrap items-center justify-between gap-3 pb-2">
           {/* Badge Cluster */}
           <div className="flex flex-wrap items-center gap-2">
-            <span className="text-xs font-mono font-bold uppercase px-2.5 py-1 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">
+            <span className="text-xs font-mono px-2 py-0.5 rounded-[4px] bg-[#f4f4f9] text-[#303055] border border-[#e4e4ed] uppercase font-medium">
               {resource.resourceType}
             </span>
-            <Badge variant="difficulty" difficulty={resource.difficulty} size="md">
+            <span className="text-xs font-mono px-2 py-0.5 rounded-[4px] bg-[#f4f4f9] text-[#403f53] border border-[#e4e4ed] capitalize">
               {resource.difficulty}
-            </Badge>
-            <Badge variant="pricing" pricing={resource.pricingModel} size="md">
+            </span>
+            <span className="text-xs font-mono px-2 py-0.5 rounded-[4px] bg-[#f4f4f9] text-[#767682] border border-[#e4e4ed] uppercase">
               {resource.pricingModel}
-            </Badge>
+            </span>
             {resource.language && (
-              <span className="inline-flex items-center gap-1 text-xs font-mono px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
-                <Globe className="w-3 h-3 text-slate-400" />
+              <span className="inline-flex items-center gap-1 text-xs font-mono px-2 py-0.5 rounded-[4px] bg-[#f4f4f9] text-[#767682] border border-[#e4e4ed]">
+                <Globe className="w-3 h-3 text-[#767682]" />
                 {resource.language}
               </span>
             )}
           </div>
 
-          {/* Interactive Bookmark Button (Client Component) */}
+          {/* Interactive Bookmark Button */}
           <ResourceDetailBookmarkButton resourceId={resource.id} />
         </div>
 
         {/* Title & Description */}
         <div className="space-y-3">
-          <h1 className="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
+          <h1 className="text-2xl sm:text-3xl font-semibold text-[#303055] tracking-tight leading-tight">
             {resource.title}
           </h1>
-          <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed max-w-4xl">
+          <p className="text-sm text-[#403f53] leading-relaxed max-w-4xl">
             {resource.description}
           </p>
         </div>
 
         {/* Key Metadata Bar */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800/80 font-mono text-xs">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-4 rounded-[8px] bg-[#f4f4f9] border border-[#e4e4ed] font-mono text-xs">
           <div>
-            <span className="text-slate-400 block text-[11px]">Provider:</span>
-            <span className="font-bold text-slate-800 dark:text-slate-200 mt-0.5 block truncate">
+            <span className="text-[#767682] block text-[11px]">Provider:</span>
+            <span className="font-medium text-[#303055] mt-0.5 block truncate">
               {resource.provider}
             </span>
           </div>
           <div>
-            <span className="text-slate-400 block text-[11px]">Creator / Author:</span>
-            <span className="font-bold text-slate-800 dark:text-slate-200 mt-0.5 block truncate">
-              {resource.creator || 'Verified Institution'}
+            <span className="text-[#767682] block text-[11px]">Author / Source:</span>
+            <span className="font-medium text-[#303055] mt-0.5 block truncate">
+              {resource.creator || 'Verified Contributor'}
             </span>
           </div>
           <div>
-            <span className="text-slate-400 block text-[11px]">Estimated Time:</span>
-            <span className="font-bold text-cyan-600 dark:text-cyan-400 mt-0.5 flex items-center gap-1">
-              <Clock className="w-3 h-3" />
+            <span className="text-[#767682] block text-[11px]">Duration:</span>
+            <span className="font-medium text-[#303055] mt-0.5 flex items-center gap-1">
+              <Clock className="w-3 h-3 text-[#767682]" />
               {resource.estimatedDuration || 'Self-paced'}
             </span>
           </div>
           <div>
-            <span className="text-slate-400 block text-[11px]">Last Verified:</span>
-            <span className="font-bold text-slate-800 dark:text-slate-200 mt-0.5 flex items-center gap-1">
-              <Calendar className="w-3 h-3 text-slate-400" />
+            <span className="text-[#767682] block text-[11px]">Verified:</span>
+            <span className="font-medium text-[#303055] mt-0.5 flex items-center gap-1">
+              <Calendar className="w-3 h-3 text-[#767682]" />
               {new Date(resource.lastVerifiedAt).toLocaleDateString()}
             </span>
           </div>
         </div>
 
-        {/* YouTube Embedded Player (for video resources only) */}
+        {/* YouTube Embedded Player */}
         {resource.isVideo && resource.youtubeVideoId && (
           <div className="pt-2">
             <YouTubePlayer
@@ -131,37 +127,37 @@ export default function ResourceDetailPage({ params }: PageProps) {
           </div>
         )}
 
-        {/* PRIMARY CTA: Visit Original Source */}
+        {/* PRIMARY CTA */}
         <div className="pt-2 flex flex-col sm:flex-row items-center gap-4">
           <a
             href={resource.canonicalUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-sm tracking-wide shadow-md shadow-cyan-500/20 transition-all"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-[4px] bg-[#303055] text-white hover:bg-[#252542] text-sm font-medium transition-colors min-h-[44px]"
           >
-            <span>{resource.isVideo ? 'View on YouTube' : 'Visit Original Provider Resource'}</span>
+            <span>{resource.isVideo ? 'Watch on YouTube' : 'Visit Original Source'}</span>
             <ExternalLink className="w-4 h-4" />
           </a>
-          <span className="text-xs text-slate-500 font-mono text-center sm:text-left">
-            Opens safely on external canonical domain ({new URL(resource.canonicalUrl).hostname})
+          <span className="text-xs text-[#767682] font-mono text-center sm:text-left">
+            Canonical domain: {new URL(resource.canonicalUrl).hostname}
           </span>
         </div>
       </div>
 
-      {/* Structured Details: Outcomes, Prerequisites, Skills, Domains */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      {/* Structured Details */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left Column: Learning Outcomes & Prerequisites */}
-        <div className="lg:col-span-2 space-y-8">
+        <div className="lg:col-span-2 space-y-6">
           {/* Learning Outcomes */}
-          <div className="p-6 rounded-xl border border-slate-200 dark:border-[#1f293d] bg-white dark:bg-[#111827] space-y-4">
-            <h2 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              <CheckCircle className="w-5 h-5 text-emerald-400" />
-              What You Will Learn
+          <div className="p-5 sm:p-6 rounded-[8px] border border-[#e4e4ed] bg-white space-y-3">
+            <h2 className="text-sm font-semibold text-[#303055] flex items-center gap-2">
+              <CheckCircle className="w-4 h-4 text-[#303055]" />
+              Key Learning Points
             </h2>
-            <ul className="space-y-2.5 text-xs sm:text-sm text-slate-600 dark:text-slate-300">
+            <ul className="space-y-2 text-xs text-[#403f53]">
               {resource.learningOutcomes.map((outcome, idx) => (
-                <li key={idx} className="flex items-start gap-2.5">
-                  <span className="text-cyan-400 font-bold font-mono shrink-0 mt-0.5">▸</span>
+                <li key={idx} className="flex items-start gap-2">
+                  <span className="text-[#303055] font-bold font-mono shrink-0 mt-0.5">•</span>
                   <span className="leading-relaxed">{outcome}</span>
                 </li>
               ))}
@@ -170,15 +166,15 @@ export default function ResourceDetailPage({ params }: PageProps) {
 
           {/* Prerequisites */}
           {resource.prerequisites && resource.prerequisites.length > 0 && (
-            <div className="p-6 rounded-xl border border-slate-200 dark:border-[#1f293d] bg-white dark:bg-[#111827] space-y-4">
-              <h2 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                <BookOpen className="w-5 h-5 text-cyan-400" />
+            <div className="p-5 sm:p-6 rounded-[8px] border border-[#e4e4ed] bg-white space-y-3">
+              <h2 className="text-sm font-semibold text-[#303055] flex items-center gap-2">
+                <BookOpen className="w-4 h-4 text-[#767682]" />
                 Recommended Prerequisites
               </h2>
-              <ul className="space-y-2 text-xs sm:text-sm text-slate-600 dark:text-slate-300">
+              <ul className="space-y-1.5 text-xs text-[#403f53]">
                 {resource.prerequisites.map((req, idx) => (
                   <li key={idx} className="flex items-start gap-2">
-                    <span className="text-slate-400 font-mono shrink-0">•</span>
+                    <span className="text-[#767682] font-mono shrink-0">•</span>
                     <span>{req}</span>
                   </li>
                 ))}
@@ -186,90 +182,77 @@ export default function ResourceDetailPage({ params }: PageProps) {
             </div>
           )}
 
-          {/* Stated Security & Content Disclaimer */}
-          <div className="p-5 rounded-xl border border-amber-500/20 bg-amber-500/5 text-xs text-amber-300/90 space-y-2">
-            <div className="font-bold flex items-center gap-1.5 font-mono uppercase tracking-wider text-amber-400">
-              <AlertCircle className="w-4 h-4" />
-              Educational & Ethical Use Policy
+          {/* Content Disclaimer */}
+          <div className="p-4 rounded-[8px] border border-[#e4e4ed] bg-[#f4f4f9] text-xs text-[#403f53] space-y-1.5">
+            <div className="font-semibold flex items-center gap-1.5 font-mono uppercase tracking-wider text-[#303055] text-[11px]">
+              <AlertCircle className="w-3.5 h-3.5" />
+              Educational & Ethical Use Notice
             </div>
-            <p className="leading-relaxed text-slate-600 dark:text-slate-400">
-              All tools, labs, and exploits featured in CyberTube are curated exclusively for authorized
-              educational purposes, defensive auditing, and professional skill enhancement. Never execute
-              offensive techniques against targets without explicit, documented authorization.
+            <p className="leading-relaxed text-[#767682]">
+              All tools, labs, and configurations featured in CyberTube are curated exclusively for authorized
+              educational purposes and defensive auditing.
             </p>
           </div>
         </div>
 
-        {/* Right Column: Taxonomy & Actionable Skills */}
+        {/* Right Column: Taxonomy, Skills & Tags */}
         <div className="space-y-6">
-          {/* Domains Covered */}
-          <div className="p-5 rounded-xl border border-slate-200 dark:border-[#1f293d] bg-white dark:bg-[#111827] space-y-3">
-            <h3 className="font-mono text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-              Related Domains
-            </h3>
-            <div className="flex flex-wrap gap-2">
-              {resource.domains.map((dom) => (
-                <Link
-                  key={dom}
-                  href={`/discover?domain=${dom}`}
-                  className="px-2.5 py-1 rounded-md text-xs font-mono bg-slate-100 dark:bg-slate-800/80 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 hover:border-cyan-500 hover:text-cyan-400 transition-colors"
-                >
-                  {dom}
-                </Link>
-              ))}
+          <div className="p-5 sm:p-6 rounded-[8px] border border-[#e4e4ed] bg-white space-y-4">
+            <div>
+              <h3 className="text-xs font-mono font-medium uppercase tracking-wider text-[#767682] mb-2">
+                Domains
+              </h3>
+              <div className="flex flex-wrap gap-1.5">
+                {resource.domains.map((dom) => (
+                  <Link
+                    key={dom}
+                    href={`/discover?domain=${dom}`}
+                    className="text-xs font-mono px-2 py-0.5 rounded-[4px] bg-[#f4f4f9] text-[#303055] border border-[#e4e4ed] hover:border-[#303055] transition-colors"
+                  >
+                    {dom}
+                  </Link>
+                ))}
+              </div>
             </div>
-          </div>
 
-          {/* Actionable Skills */}
-          <div className="p-5 rounded-xl border border-slate-200 dark:border-[#1f293d] bg-white dark:bg-[#111827] space-y-3">
-            <h3 className="font-mono text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-              Skills Acquired
-            </h3>
-            <div className="flex flex-wrap gap-1.5">
-              {resource.skills.map((skill, idx) => (
-                <span
-                  key={idx}
-                  className="px-2 py-0.5 rounded text-[11px] font-mono bg-cyan-500/10 text-cyan-400 border border-cyan-500/20"
-                >
-                  {skill}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          {/* Freeform Search Tags */}
-          <div className="p-5 rounded-xl border border-slate-200 dark:border-[#1f293d] bg-white dark:bg-[#111827] space-y-3">
-            <h3 className="font-mono text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-              Catalog Tags
-            </h3>
-            <div className="flex flex-wrap gap-1.5">
-              {resource.tags.map((tag) => (
-                <Link
-                  key={tag}
-                  href={`/discover?q=${encodeURIComponent(tag)}`}
-                  className="px-2 py-0.5 rounded text-[11px] font-mono text-slate-500 hover:text-cyan-400 hover:underline"
-                >
-                  #{tag}
-                </Link>
-              ))}
-            </div>
+            {resource.skillsCovered && resource.skillsCovered.length > 0 && (
+              <div className="pt-3 border-t border-[#e4e4ed]">
+                <h3 className="text-xs font-mono font-medium uppercase tracking-wider text-[#767682] mb-2">
+                  Skills Covered
+                </h3>
+                <div className="flex flex-wrap gap-1.5">
+                  {resource.skillsCovered.map((skill) => (
+                    <span
+                      key={skill}
+                      className="text-xs font-mono px-2 py-0.5 rounded-[4px] bg-[#f4f4f9] text-[#403f53] border border-[#e4e4ed]"
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
 
-      {/* Related Resources Grid */}
+      {/* Connected Resources */}
       {related.length > 0 && (
-        <div className="pt-8 space-y-6 border-t border-slate-200 dark:border-slate-800">
+        <div className="pt-8 border-t border-[#e4e4ed] space-y-6">
           <div className="flex items-center justify-between">
-            <h2 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              <Sparkles className="w-5 h-5 text-cyan-400" />
-              Related Cybersecurity Resources
-            </h2>
+            <div>
+              <h3 className="text-base font-semibold text-[#303055]">
+                Related Resources
+              </h3>
+              <p className="text-xs text-[#767682] mt-0.5">
+                More content in {resource.domains[0]} and related topics.
+              </p>
+            </div>
             <Link
               href="/discover"
-              className="text-xs font-mono text-cyan-500 hover:underline"
+              className="text-xs font-mono text-[#303055] hover:text-[#3b61b0]"
             >
-              Browse entire catalog →
+              All resources →
             </Link>
           </div>
 

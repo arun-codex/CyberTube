@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Shield, Lock, Mail, User, ArrowRight, AlertCircle, CheckCircle2 } from 'lucide-react';
+import { Shield, Lock, Mail, User, AlertCircle, CheckCircle2 } from 'lucide-react';
 import { registerAction } from '@/app/actions/auth';
 
 export default function RegisterPage() {
@@ -41,104 +41,103 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="min-h-[80vh] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8 bg-slate-900/60 border border-slate-800 rounded-2xl p-8 backdrop-blur-md">
-        <div className="text-center">
-          <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 mb-4">
-            <Shield className="w-8 h-8" />
+    <div className="min-h-[calc(100vh-140px)] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-[#ffffff]">
+      <div className="max-w-md w-full mx-auto space-y-6 bg-white border border-[#e4e4ed] rounded-[8px] p-6 sm:p-8">
+        <div className="text-center space-y-2">
+          <div className="inline-flex items-center justify-center w-10 h-10 rounded-[4px] bg-[#303055] text-white mx-auto">
+            <Shield className="w-5 h-5 fill-white stroke-none" />
           </div>
-          <h2 className="text-2xl font-bold tracking-tight text-white">Join CyberTube</h2>
-          <p className="mt-2 text-sm text-slate-400">
-            Create your practitioner profile to build custom collections and sync learning progress across devices.
+          <h2 className="text-xl font-semibold text-[#303055]">Join CyberTube</h2>
+          <p className="text-xs text-[#767682]">
+            Create a practitioner profile to sync courses, bookmarks, and learning roadmaps.
           </p>
         </div>
 
         {error && (
-          <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 text-sm flex items-start gap-3">
-            <AlertCircle className="w-5 h-5 shrink-0 mt-0.5" />
+          <div className="p-3 rounded-[4px] bg-[#fbeaea] border border-[#e8b5b5] text-[#984e4d] text-xs flex items-start gap-2 font-mono">
+            <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
             <span>{error}</span>
           </div>
         )}
 
         {success && (
-          <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-sm flex items-start gap-3">
-            <CheckCircle2 className="w-5 h-5 shrink-0 mt-0.5" />
-            <div>
-              <p className="font-semibold">Account Registered</p>
-              <p className="mt-1 text-emerald-300/90">{success}</p>
-              <Link
-                href="/login"
-                className="mt-3 inline-block font-semibold underline text-white hover:text-emerald-200"
-              >
-                Proceed to sign in →
-              </Link>
+          <div className="p-4 rounded-[4px] bg-[#f4f4f9] border border-[#e4e4ed] text-[#303055] text-xs space-y-2">
+            <div className="flex items-center gap-2 font-medium">
+              <CheckCircle2 className="w-4 h-4 text-[#303055]" />
+              <span>Registration Successful</span>
             </div>
+            <p className="text-[#403f53]">{success}</p>
+            <Link
+              href="/login"
+              className="inline-block mt-2 font-mono text-xs text-[#303055] font-semibold underline"
+            >
+              Proceed to Sign In →
+            </Link>
           </div>
         )}
 
         {!success && (
-          <form className="mt-8 space-y-5" onSubmit={handleSubmit}>
-            <div>
-              <label className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">
+          <form className="space-y-4" onSubmit={handleSubmit}>
+            <div className="space-y-1.5">
+              <label className="block text-xs font-mono uppercase tracking-wider text-[#767682]">
                 Display Name
               </label>
               <div className="relative">
-                <User className="absolute left-3.5 top-3.5 w-4 h-4 text-slate-500" />
+                <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#767682]" />
                 <input
                   name="displayName"
                   type="text"
                   required
-                  placeholder="Security Analyst / Researcher"
-                  className="w-full bg-slate-950/80 border border-slate-700/80 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-colors"
+                  placeholder="Practitioner / Analyst"
+                  className="w-full bg-[#f4f4f9] border border-[#e4e4ed] rounded-[4px] pl-9 pr-3 py-2 text-xs font-mono text-[#303055] placeholder-[#767682] focus:outline-none focus:border-[#303055] min-h-[38px]"
                 />
               </div>
             </div>
 
-            <div>
-              <label className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">
+            <div className="space-y-1.5">
+              <label className="block text-xs font-mono uppercase tracking-wider text-[#767682]">
                 Email Address
               </label>
               <div className="relative">
-                <Mail className="absolute left-3.5 top-3.5 w-4 h-4 text-slate-500" />
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#767682]" />
                 <input
                   name="email"
                   type="email"
                   required
-                  placeholder="analyst@domain.com"
-                  className="w-full bg-slate-950/80 border border-slate-700/80 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-colors"
+                  placeholder="analyst@cybertube.local"
+                  className="w-full bg-[#f4f4f9] border border-[#e4e4ed] rounded-[4px] pl-9 pr-3 py-2 text-xs font-mono text-[#303055] placeholder-[#767682] focus:outline-none focus:border-[#303055] min-h-[38px]"
                 />
               </div>
             </div>
 
-            <div>
-              <label className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">
+            <div className="space-y-1.5">
+              <label className="block text-xs font-mono uppercase tracking-wider text-[#767682]">
                 Password
               </label>
               <div className="relative">
-                <Lock className="absolute left-3.5 top-3.5 w-4 h-4 text-slate-500" />
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#767682]" />
                 <input
                   name="password"
                   type="password"
                   required
-                  minLength={8}
-                  placeholder="At least 8 characters"
-                  className="w-full bg-slate-950/80 border border-slate-700/80 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-colors"
+                  placeholder="••••••••••••"
+                  className="w-full bg-[#f4f4f9] border border-[#e4e4ed] rounded-[4px] pl-9 pr-3 py-2 text-xs font-mono text-[#303055] placeholder-[#767682] focus:outline-none focus:border-[#303055] min-h-[38px]"
                 />
               </div>
             </div>
 
-            <div>
-              <label className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">
+            <div className="space-y-1.5">
+              <label className="block text-xs font-mono uppercase tracking-wider text-[#767682]">
                 Confirm Password
               </label>
               <div className="relative">
-                <Lock className="absolute left-3.5 top-3.5 w-4 h-4 text-slate-500" />
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#767682]" />
                 <input
                   name="confirmPassword"
                   type="password"
                   required
-                  placeholder="Repeat password"
-                  className="w-full bg-slate-950/80 border border-slate-700/80 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-colors"
+                  placeholder="••••••••••••"
+                  className="w-full bg-[#f4f4f9] border border-[#e4e4ed] rounded-[4px] pl-9 pr-3 py-2 text-xs font-mono text-[#303055] placeholder-[#767682] focus:outline-none focus:border-[#303055] min-h-[38px]"
                 />
               </div>
             </div>
@@ -146,22 +145,20 @@ export default function RegisterPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl font-medium text-sm text-white bg-cyan-600 hover:bg-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 transition-all disabled:opacity-50 shadow-lg shadow-cyan-950/40"
+              className="w-full py-2.5 px-4 rounded-[4px] bg-[#303055] hover:bg-[#252542] text-white text-xs font-medium transition-colors disabled:opacity-50 min-h-[44px]"
             >
-              {loading ? 'Creating Account...' : 'Create Account'}
-              <ArrowRight className="w-4 h-4" />
+              {loading ? 'Creating Account...' : 'Register Profile'}
             </button>
-
-            <div className="text-center text-xs text-slate-400 pt-2">
-              Already have an account?{' '}
-              <Link href="/login" className="text-cyan-400 hover:text-cyan-300 font-medium">
-                Sign in
-              </Link>
-            </div>
           </form>
         )}
+
+        <div className="pt-3 border-t border-[#e4e4ed] text-center text-xs text-[#767682]">
+          Already have an account?{' '}
+          <Link href="/login" className="text-[#303055] font-medium hover:underline">
+            Sign in
+          </Link>
+        </div>
       </div>
     </div>
   );
 }
-

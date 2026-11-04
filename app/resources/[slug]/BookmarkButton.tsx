@@ -25,24 +25,23 @@ export const ResourceDetailBookmarkButton: React.FC<Props> = ({ resourceId }) =>
   return (
     <button
       onClick={handleToggle}
-      className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-mono font-bold border transition-all ${
+      className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-[4px] text-xs font-mono border transition-colors min-h-[38px] ${
         isSaved
-          ? 'bg-cyan-500 text-slate-950 border-cyan-400 shadow-sm shadow-cyan-500/20'
-          : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border-slate-300 dark:border-slate-700 hover:border-cyan-500 hover:text-cyan-500'
+          ? 'bg-[#303055] text-white border-[#303055]'
+          : 'bg-[#f4f4f9] text-[#403f53] border-[#e4e4ed] hover:border-[#303055] hover:text-[#303055]'
       }`}
     >
       {isSaved ? (
         <>
-          <Check className="w-4 h-4 stroke-[3]" />
-          <span>Saved to My Device</span>
+          <Check className="w-3.5 h-3.5" />
+          <span>Saved</span>
         </>
       ) : (
         <>
-          <Bookmark className="w-4 h-4" />
+          <Bookmark className="w-3.5 h-3.5" />
           <span>Save for Later</span>
         </>
       )}
     </button>
   );
 };
-

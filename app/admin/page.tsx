@@ -6,27 +6,25 @@ import {
   Database,
   FileCheck,
   PlusCircle,
-  Layers,
   CheckCircle2,
   Clock,
   ArrowRight,
-  TrendingUp,
 } from 'lucide-react';
 import { createClient } from '@/lib/supabase/server';
 import { isAuthorizedAdminEmail } from '@/lib/supabase/admin';
 import { getAllResources } from '@/lib/catalog';
-import { CYBERSECURITY_DOMAINS, RESOURCE_TYPES } from '@/data/metadata';
+import { CYBERSECURITY_DOMAINS } from '@/data/metadata';
 
 export default async function AdminDashboardPage() {
   const supabase = await createClient();
 
   if (!supabase) {
     return (
-      <div className="max-w-4xl mx-auto py-12 px-4">
-        <div className="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-6 text-amber-300">
-          <h2 className="text-xl font-bold mb-2">Supabase Database Unconfigured</h2>
-          <p className="text-sm text-slate-300">
-            The Admin Dashboard requires valid Supabase environment credentials in <code className="text-amber-200">.env.local</code>.
+      <div className="container-max py-12">
+        <div className="bg-[#fbeaea] border border-[#e8b5b5] rounded-[8px] p-6 text-[#984e4d] font-mono text-xs">
+          <h2 className="text-sm font-semibold mb-2">Supabase Database Unconfigured</h2>
+          <p className="text-[#403f53]">
+            The Admin Dashboard requires valid Supabase environment credentials in <code>.env.local</code>.
           </p>
         </div>
       </div>
@@ -38,7 +36,6 @@ export default async function AdminDashboardPage() {
     redirect('/?error=unauthorized_admin');
   }
 
-  // Fetch metrics
   const { data: dbResources } = await supabase
     .from('resources')
     .select('id, publication_status') as { data: Array<{ id: string; publication_status: string }> | null };
@@ -52,31 +49,31 @@ export default async function AdminDashboardPage() {
   const pendingSubmissions = submissions?.filter((s) => s.review_status === 'pending').length || 0;
 
   return (
-    <div className="max-w-7xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
+    <div className="container-max py-10 space-y-8">
       {/* Top Banner */}
-      <div className="bg-slate-900/60 border border-slate-800 rounded-3xl p-8 mb-8 backdrop-blur-md flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+      <div className="bg-[#f4f4f9] border border-[#e4e4ed] rounded-[8px] p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-red-500/10 text-red-400 border border-red-500/30 mb-3">
+          <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-[4px] text-xs font-mono bg-white border border-[#e8b5b5] text-[#984e4d] mb-2">
             <ShieldAlert className="w-3.5 h-3.5" />
             Administrative Portal
           </div>
-          <h1 className="text-3xl font-extrabold text-white tracking-tight">CyberTube CMS</h1>
-          <p className="text-sm text-slate-400 mt-1">
-            Manage educational catalog records, curate submissions, and oversee domain taxonomies.
+          <h1 className="text-2xl font-semibold text-[#303055]">CyberTube CMS</h1>
+          <p className="text-xs text-[#767682] mt-0.5">
+            Oversee educational records, approve community submissions, and curate taxonomies.
           </p>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-2">
           <Link
             href="/admin/resources/new"
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl font-medium text-sm text-white bg-emerald-600 hover:bg-emerald-500 transition-colors shadow-lg shadow-emerald-950/40"
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-[4px] text-xs font-medium text-white bg-[#303055] hover:bg-[#252542] transition-colors min-h-[38px]"
           >
             <PlusCircle className="w-4 h-4" />
             Add Resource
           </Link>
           <Link
             href="/admin/submissions"
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl font-medium text-sm text-slate-200 bg-slate-800 hover:bg-slate-700 border border-slate-700 transition-colors"
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-[4px] text-xs font-medium text-[#403f53] bg-white hover:bg-[#e8e8f2] border border-[#e4e4ed] transition-colors min-h-[38px]"
           >
             <FileCheck className="w-4 h-4" />
             Review Submissions ({pendingSubmissions})
@@ -85,92 +82,46 @@ export default async function AdminDashboardPage() {
       </div>
 
       {/* KPI Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-        <div className="bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6">
-          <div className="flex items-center justify-between mb-4">
-            <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">Published Resources</span>
-            <Database className="w-5 h-5 text-emerald-400" />
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="bg-white border border-[#e4e4ed] rounded-[8px] p-5 space-y-1">
+          <div className="flex items-center justify-between text-xs font-mono text-[#767682]">
+            <span>Published</span>
+            <Database className="w-4 h-4 text-[#303055]" />
           </div>
-          <p className="text-3xl font-extrabold text-white">{publishedCount}</p>
-          <p className="text-xs text-slate-500 mt-2 flex items-center gap-1">
-            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-            Active across 11 domains
+          <p className="text-2xl font-semibold text-[#303055]">{publishedCount}</p>
+          <p className="text-[11px] font-mono text-[#767682] flex items-center gap-1">
+            <CheckCircle2 className="w-3 h-3 text-[#303055]" />
+            Across 11 domains
           </p>
         </div>
 
-        <div className="bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6">
-          <div className="flex items-center justify-between mb-4">
-            <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">Pending Review</span>
-            <Clock className="w-5 h-5 text-amber-400" />
+        <div className="bg-white border border-[#e4e4ed] rounded-[8px] p-5 space-y-1">
+          <div className="flex items-center justify-between text-xs font-mono text-[#767682]">
+            <span>Drafts</span>
+            <Clock className="w-4 h-4 text-[#767682]" />
           </div>
-          <p className="text-3xl font-extrabold text-white">{pendingSubmissions}</p>
-          <p className="text-xs text-slate-500 mt-2">Community candidate submissions</p>
+          <p className="text-2xl font-semibold text-[#303055]">{draftCount}</p>
+          <p className="text-[11px] font-mono text-[#767682]">Pending review</p>
         </div>
 
-        <div className="bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6">
-          <div className="flex items-center justify-between mb-4">
-            <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">Draft Resources</span>
-            <FileCheck className="w-5 h-5 text-cyan-400" />
+        <div className="bg-white border border-[#e4e4ed] rounded-[8px] p-5 space-y-1">
+          <div className="flex items-center justify-between text-xs font-mono text-[#767682]">
+            <span>Submissions</span>
+            <FileCheck className="w-4 h-4 text-[#767682]" />
           </div>
-          <p className="text-3xl font-extrabold text-white">{draftCount}</p>
-          <p className="text-xs text-slate-500 mt-2">Unpublished editorial staging</p>
+          <p className="text-2xl font-semibold text-[#303055]">{pendingSubmissions}</p>
+          <p className="text-[11px] font-mono text-[#767682]">Community contributions</p>
         </div>
 
-        <div className="bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6">
-          <div className="flex items-center justify-between mb-4">
-            <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">Tracked Domains</span>
-            <Layers className="w-5 h-5 text-purple-400" />
+        <div className="bg-white border border-[#e4e4ed] rounded-[8px] p-5 space-y-1">
+          <div className="flex items-center justify-between text-xs font-mono text-[#767682]">
+            <span>Domains</span>
+            <ArrowRight className="w-4 h-4 text-[#767682]" />
           </div>
-          <p className="text-3xl font-extrabold text-white">{CYBERSECURITY_DOMAINS.length}</p>
-          <p className="text-xs text-slate-500 mt-2">Active security focus tracks</p>
+          <p className="text-2xl font-semibold text-[#303055]">{CYBERSECURITY_DOMAINS.length}</p>
+          <p className="text-[11px] font-mono text-[#767682]">Core security tracks</p>
         </div>
-      </div>
-
-      {/* Admin Modules Navigation */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <Link
-          href="/admin/resources"
-          className="group p-6 rounded-2xl bg-slate-900/30 border border-slate-800/70 hover:border-emerald-500/40 transition-all"
-        >
-          <Database className="w-8 h-8 text-emerald-400 mb-4 group-hover:scale-110 transition-transform" />
-          <h3 className="text-lg font-bold text-white mb-1">Resource Repository</h3>
-          <p className="text-xs text-slate-400 mb-4">
-            View, edit, archive, or draft learning resources in the database.
-          </p>
-          <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-400 group-hover:translate-x-1 transition-transform">
-            Manage Catalog <ArrowRight className="w-3.5 h-3.5" />
-          </span>
-        </Link>
-
-        <Link
-          href="/admin/submissions"
-          className="group p-6 rounded-2xl bg-slate-900/30 border border-slate-800/70 hover:border-cyan-500/40 transition-all"
-        >
-          <FileCheck className="w-8 h-8 text-cyan-400 mb-4 group-hover:scale-110 transition-transform" />
-          <h3 className="text-lg font-bold text-white mb-1">Review Submissions</h3>
-          <p className="text-xs text-slate-400 mb-4">
-            Evaluate, approve, or reject community submitted cybersecurity materials.
-          </p>
-          <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-cyan-400 group-hover:translate-x-1 transition-transform">
-            Moderation Queue <ArrowRight className="w-3.5 h-3.5" />
-          </span>
-        </Link>
-
-        <Link
-          href="/admin/domains"
-          className="group p-6 rounded-2xl bg-slate-900/30 border border-slate-800/70 hover:border-purple-500/40 transition-all"
-        >
-          <Layers className="w-8 h-8 text-purple-400 mb-4 group-hover:scale-110 transition-transform" />
-          <h3 className="text-lg font-bold text-white mb-1">Domain Taxonomy</h3>
-          <p className="text-xs text-slate-400 mb-4">
-            Inspect cybersecurity domains, track metadata, and verify resource tags.
-          </p>
-          <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-purple-400 group-hover:translate-x-1 transition-transform">
-            View Domains <ArrowRight className="w-3.5 h-3.5" />
-          </span>
-        </Link>
       </div>
     </div>
   );
 }
-

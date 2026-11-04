@@ -9,9 +9,10 @@ import { CheckCircle2, RotateCcw } from 'lucide-react';
 
 interface CourseProgressProps {
   course: Course;
+  variant?: 'default' | 'compact';
 }
 
-export const CourseProgress: React.FC<CourseProgressProps> = ({ course }) => {
+export const CourseProgress: React.FC<CourseProgressProps> = ({ course, variant = 'default' }) => {
   const [percent, setPercent] = useState<number>(0);
   const [completedCount, setCompletedCount] = useState<number>(0);
   const lessons = getCourseLessons(course);
@@ -43,31 +44,31 @@ export const CourseProgress: React.FC<CourseProgressProps> = ({ course }) => {
   };
 
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/80 p-5 space-y-3">
+    <div className={`rounded-[8px] border border-[#e4e4ed] bg-[#f4f4f9] p-4 space-y-2.5 ${variant === 'compact' ? 'bg-white' : ''}`}>
       <div className="flex items-center justify-between">
-        <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
-          <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-          Course Progress
+        <span className="text-xs font-mono font-medium uppercase tracking-wider text-[#767682] flex items-center gap-1.5">
+          <CheckCircle2 className="w-3.5 h-3.5 text-[#303055]" />
+          Progress
         </span>
-        <span className="text-sm font-mono font-bold text-emerald-400">{percent}%</span>
+        <span className="text-sm font-mono font-medium text-[#303055]">{percent}%</span>
       </div>
 
       {/* Progress Bar */}
-      <div className="w-full h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+      <div className="w-full h-1.5 bg-[#e8e8f2] rounded-full overflow-hidden">
         <div
-          className="h-full bg-emerald-500 rounded-full transition-all duration-500"
+          className="h-full bg-[#303055] rounded-full transition-all duration-300"
           style={{ width: `${percent}%` }}
         />
       </div>
 
-      <div className="flex items-center justify-between text-xs font-mono text-slate-500">
+      <div className="flex items-center justify-between text-xs font-mono text-[#767682]">
         <span>
-          {completedCount} of {lessons.length} lessons completed
+          {completedCount}/{lessons.length} completed
         </span>
         {completedCount > 0 && (
           <button
             onClick={handleReset}
-            className="hover:text-red-400 transition-colors flex items-center gap-1"
+            className="hover:text-[#984e4d] transition-colors flex items-center gap-1 text-[11px]"
             title="Reset progress"
           >
             <RotateCcw className="w-3 h-3" />
@@ -75,10 +76,6 @@ export const CourseProgress: React.FC<CourseProgressProps> = ({ course }) => {
           </button>
         )}
       </div>
-
-      <p className="text-[10px] text-slate-400 dark:text-slate-500 leading-tight">
-        * Provisional local progress saved on this device.
-      </p>
     </div>
   );
 };

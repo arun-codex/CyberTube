@@ -6,10 +6,7 @@ import {
   Search,
   Filter,
   X,
-  SlidersHorizontal,
-  Compass,
   RotateCcw,
-  Sparkles,
 } from 'lucide-react';
 import { getAllResources, filterResources, getFacetCounts } from '../../src/lib/catalog';
 import {
@@ -23,16 +20,13 @@ import {
 } from '../../src/types/resource';
 import { FilterSidebar } from '../../src/components/FilterSidebar';
 import { ResourceCard } from '../../src/components/ResourceCard';
-import { CYBERSECURITY_DOMAINS, RESOURCE_TYPES } from '../../src/data/metadata';
 
 function DiscoverContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  // All active resources
   const allResources = useMemo(() => getAllResources(), []);
 
-  // Parse filters from URL
   const [filters, setFilters] = useState<ResourceFilterOptions>({
     query: searchParams.get('q') || '',
     types: (searchParams.getAll('type') as ResourceType[]) || [],
@@ -45,7 +39,6 @@ function DiscoverContent() {
 
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
 
-  // Sync state when URL search params change externally
   useEffect(() => {
     setFilters({
       query: searchParams.get('q') || '',
@@ -58,17 +51,14 @@ function DiscoverContent() {
     });
   }, [searchParams]);
 
-  // Compute filtered results
   const filteredResults = useMemo(() => {
     return filterResources(allResources, filters);
   }, [allResources, filters]);
 
-  // Facet counts computed against all resources
   const facetCounts = useMemo(() => {
     return getFacetCounts(allResources);
   }, [allResources]);
 
-  // Update URL on filter changes
   const updateUrl = (newFilters: ResourceFilterOptions) => {
     const params = new URLSearchParams();
     if (newFilters.query) params.set('q', newFilters.query);
@@ -100,8 +90,13 @@ function DiscoverContent() {
     updateUrl(newFilters);
   };
 
-  const handleResetFilters = () => {
-    const emptyFilters: ResourceFilterOptions = {
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    updateUrl(filters);
+  };
+
+  const handleReset = () => {
+    const resetFilters: ResourceFilterOptions = {
       query: '',
       types: [],
       domains: [],
@@ -110,253 +105,99 @@ function DiscoverContent() {
       durationRanges: [],
       sortBy: 'relevance',
     };
-    setFilters(emptyFilters);
-    updateUrl(emptyFilters);
+    setFilters(resetFilters);
+    updateUrl(resetFilters);
   };
-
-  const removeFilterItem = (category: keyof ResourceFilterOptions, value: string) => {
-    if (category === 'query') {
-      handleFilterChange({ ...filters, query: '' });
-      return;
-    }
-    const currentList = (filters[category] as string[]) || [];
-    const updated = currentList.filter((item) => item !== value);
-    handleFilterChange({ ...filters, [category]: updated });
-  };
-
-  const activePillsCount =
-    (filters.query ? 1 : 0) +
-    (filters.types?.length || 0) +
-    (filters.domains?.length || 0) +
-    (filters.difficulty?.length || 0) +
-    (filters.pricing?.length || 0) +
-    (filters.durationRanges?.length || 0);
 
   return (
-    <div className="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
-      {/* Page Title & Search Bar */}
-      <div className="space-y-4">
+    <div className="container-max py-8 space-y-6">
+      {/* Search Header */}
+      <div className="rounded-[8px] border border-[#e4e4ed] bg-[#f4f4f9] p-5 sm:p-6 space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
-            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white flex items-center gap-2.5">
-              <Compass className="w-6 h-6 text-cyan-400" />
-              Resource Discovery Engine
+            <h1 className="text-xl sm:text-2xl font-semibold text-[#303055]">
+              Resource Directory
             </h1>
-            <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
-              Search and filter across {allResources.length} verified cybersecurity resources.
+            <p className="text-xs text-[#767682] mt-0.5">
+              Filter through verified technical cybersecurity publications and labs.
             </p>
           </div>
+          <span className="font-mono text-xs text-[#767682]">
+            {filteredResults.length} / {allResources.length} items
+          </span>
+        </div>
 
-          {/* Sort Selector */}
-          <div className="flex items-center gap-2 self-start sm:self-auto">
-            <label htmlFor="sort-select" className="text-xs font-mono text-slate-400 shrink-0">
-              Sort by:
-            </label>
+        {/* Search input & Sort */}
+        <form onSubmit={handleSearchSubmit} className="flex flex-col sm:flex-row gap-2">
+          <div className="relative flex-1">
+            <Search className="w-4 h-4 text-[#767682] absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+            <input
+              type="search"
+              value={filters.query}
+              onChange={(e) => setFilters({ ...filters, query: e.target.value })}
+              placeholder="Search by vulnerability, tool, protocol, or provider..."
+              className="w-full pl-9 pr-3 py-2 text-xs font-mono rounded-[4px] bg-white border border-[#e4e4ed] text-[#303055] placeholder:text-[#767682] focus:outline-none focus:border-[#303055] min-h-[38px]"
+            />
+          </div>
+
+          <div className="flex items-center gap-2">
             <select
-              id="sort-select"
-              value={filters.sortBy || 'relevance'}
-              onChange={(e) =>
-                handleFilterChange({ ...filters, sortBy: e.target.value as SortOption })
-              }
-              className="text-xs font-mono py-1.5 px-3 rounded-lg bg-white dark:bg-[#111827] border border-slate-300 dark:border-[#1f293d] text-slate-900 dark:text-slate-200 focus:outline-none focus:border-cyan-500"
+              value={filters.sortBy}
+              onChange={(e) => handleFilterChange({ ...filters, sortBy: e.target.value as SortOption })}
+              className="px-3 py-2 text-xs font-mono rounded-[4px] bg-white border border-[#e4e4ed] text-[#403f53] focus:outline-none focus:border-[#303055] min-h-[38px]"
             >
-              <option value="relevance">Relevance</option>
-              <option value="recently-added">Recently Added</option>
-              <option value="title">Title (A–Z)</option>
-              <option value="duration-asc">Shortest Duration</option>
+              <option value="relevance">Sort: Relevance</option>
+              <option value="newest">Sort: Newest</option>
+              <option value="popular">Sort: Popular</option>
             </select>
 
-            {/* Mobile Filter Trigger Button */}
+            {/* Mobile Filter toggle button */}
             <button
+              type="button"
               onClick={() => setMobileFilterOpen(true)}
-              className="lg:hidden flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-300 dark:border-[#1f293d] bg-white dark:bg-[#111827] text-xs font-mono text-slate-700 dark:text-slate-200"
+              className="lg:hidden flex items-center gap-1.5 px-3 py-2 rounded-[4px] bg-white border border-[#e4e4ed] text-xs font-mono text-[#303055] min-h-[38px]"
             >
-              <SlidersHorizontal className="w-3.5 h-3.5 text-cyan-400" />
-              <span>Filters ({activePillsCount})</span>
+              <Filter className="w-3.5 h-3.5" />
+              <span>Filters</span>
             </button>
           </div>
-        </div>
-
-        {/* Live Search Input */}
-        <div className="relative">
-          <Search className="w-5 h-5 text-slate-400 absolute left-3.5 top-3.5 pointer-events-none" />
-          <input
-            type="search"
-            value={filters.query || ''}
-            onChange={(e) => handleFilterChange({ ...filters, query: e.target.value })}
-            placeholder="Search keywords, tools (Nmap, Wireshark, Burp), protocols, CVEs, or authors..."
-            className="w-full pl-11 pr-10 py-3 text-sm rounded-xl bg-white dark:bg-[#111827] border border-slate-300 dark:border-[#1f293d] text-slate-900 dark:text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 font-sans shadow-sm"
-          />
-          {filters.query && (
-            <button
-              onClick={() => handleFilterChange({ ...filters, query: '' })}
-              className="absolute right-3.5 top-3.5 text-slate-400 hover:text-slate-200"
-              aria-label="Clear search"
-            >
-              <X className="w-4 h-4" />
-            </button>
-          )}
-        </div>
-
-        {/* Active Filter Pills Bar */}
-        {activePillsCount > 0 && (
-          <div className="flex flex-wrap items-center gap-2 pt-1">
-            <span className="text-xs font-mono text-slate-400">Active filters:</span>
-
-            {filters.query && (
-              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-mono bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">
-                Search: &quot;{filters.query}&quot;
-                <button
-                  onClick={() => removeFilterItem('query', '')}
-                  className="hover:text-cyan-200 ml-0.5"
-                >
-                  <X className="w-3 h-3" />
-                </button>
-              </span>
-            )}
-
-            {filters.types?.map((type) => (
-              <span
-                key={type}
-                className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-mono bg-slate-800 text-slate-200 border border-slate-700"
-              >
-                Type: {type}
-                <button
-                  onClick={() => removeFilterItem('types', type)}
-                  className="hover:text-rose-400 ml-0.5"
-                >
-                  <X className="w-3 h-3" />
-                </button>
-              </span>
-            ))}
-
-            {filters.domains?.map((domain) => {
-              const domMeta = CYBERSECURITY_DOMAINS.find((d) => d.id === domain);
-              return (
-                <span
-                  key={domain}
-                  className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-mono bg-slate-800 text-slate-200 border border-slate-700"
-                >
-                  Domain: {domMeta ? domMeta.name : domain}
-                  <button
-                    onClick={() => removeFilterItem('domains', domain)}
-                    className="hover:text-rose-400 ml-0.5"
-                  >
-                    <X className="w-3 h-3" />
-                  </button>
-                </span>
-              );
-            })}
-
-            {filters.difficulty?.map((diff) => (
-              <span
-                key={diff}
-                className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-mono bg-slate-800 text-slate-200 border border-slate-700"
-              >
-                Difficulty: {diff}
-                <button
-                  onClick={() => removeFilterItem('difficulty', diff)}
-                  className="hover:text-rose-400 ml-0.5"
-                >
-                  <X className="w-3 h-3" />
-                </button>
-              </span>
-            ))}
-
-            {filters.pricing?.map((price) => (
-              <span
-                key={price}
-                className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-mono bg-slate-800 text-slate-200 border border-slate-700"
-              >
-                Price: {price}
-                <button
-                  onClick={() => removeFilterItem('pricing', price)}
-                  className="hover:text-rose-400 ml-0.5"
-                >
-                  <X className="w-3 h-3" />
-                </button>
-              </span>
-            ))}
-
-            {filters.durationRanges?.map((range) => (
-              <span
-                key={range}
-                className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-mono bg-slate-800 text-slate-200 border border-slate-700"
-              >
-                Duration: {range}
-                <button
-                  onClick={() => removeFilterItem('durationRanges', range)}
-                  className="hover:text-rose-400 ml-0.5"
-                >
-                  <X className="w-3 h-3" />
-                </button>
-              </span>
-            ))}
-
-            <button
-              onClick={handleResetFilters}
-              className="text-xs font-mono text-cyan-500 hover:text-cyan-400 underline ml-2"
-            >
-              Clear all
-            </button>
-          </div>
-        )}
+        </form>
       </div>
 
-      {/* Main Grid: Sidebar + Cards */}
-      <div className="flex gap-8 items-start pt-2">
-        {/* Desktop Filter Sidebar */}
-        <div className="hidden lg:block w-72 shrink-0 p-4 rounded-xl border border-slate-200 dark:border-[#1f293d] bg-white dark:bg-[#111827] shadow-sm">
-          <FilterSidebar
-            filters={filters}
-            onFilterChange={handleFilterChange}
-            onReset={handleResetFilters}
-            facetCounts={facetCounts}
-          />
+      {/* Main Content Layout */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        {/* Left Column (Desktop 3): Filter Sidebar */}
+        <div className="hidden lg:block lg:col-span-3">
+          <div className="p-4 rounded-[8px] border border-[#e4e4ed] bg-white">
+            <FilterSidebar
+              filters={filters}
+              onFilterChange={handleFilterChange}
+              onReset={handleReset}
+              facetCounts={facetCounts}
+            />
+          </div>
         </div>
 
-        {/* Results Area */}
-        <div className="flex-1 min-w-0 space-y-4">
-          <div className="flex items-center justify-between text-xs font-mono text-slate-500 dark:text-slate-400 px-1">
-            <span>
-              Showing <strong className="text-slate-900 dark:text-slate-200">{filteredResults.length}</strong> of{' '}
-              {allResources.length} resources
-            </span>
-            {filteredResults.length === 0 && (
-              <span className="text-amber-500">No matching records</span>
-            )}
-          </div>
-
-          {/* Results Grid */}
-          {filteredResults.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+        {/* Right Column (Desktop 9 / Mobile full): Results Grid */}
+        <div className="lg:col-span-9 space-y-4">
+          {filteredResults.length === 0 ? (
+            <div className="text-center py-16 px-4 rounded-[8px] border border-[#e4e4ed] bg-white space-y-3">
+              <p className="text-sm text-[#403f53]">
+                No resources match your active filter criteria.
+              </p>
+              <button
+                onClick={handleReset}
+                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-[4px] text-xs font-mono bg-[#303055] text-white"
+              >
+                <RotateCcw className="w-3 h-3" />
+                Reset filters
+              </button>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
               {filteredResults.map((resource) => (
                 <ResourceCard key={resource.id} resource={resource} />
               ))}
-            </div>
-          ) : (
-            /* No Results Empty State */
-            <div className="text-center py-16 px-4 rounded-xl border border-dashed border-slate-300 dark:border-slate-800 bg-white/40 dark:bg-slate-900/30 space-y-4">
-              <div className="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center mx-auto text-slate-500">
-                <Search className="w-6 h-6" />
-              </div>
-              <div className="space-y-1">
-                <h3 className="font-semibold text-base text-slate-900 dark:text-slate-100">
-                  No resources matched your criteria
-                </h3>
-                <p className="text-xs text-slate-500 max-w-sm mx-auto">
-                  Try broadening your search term or unchecking some of the active facet filters.
-                </p>
-              </div>
-              <div className="pt-2">
-                <button
-                  onClick={handleResetFilters}
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-semibold text-xs font-mono transition-colors"
-                >
-                  <RotateCcw className="w-3.5 h-3.5" />
-                  Reset all filters
-                </button>
-              </div>
             </div>
           )}
         </div>
@@ -364,33 +205,34 @@ function DiscoverContent() {
 
       {/* Mobile Filters Slide-over / Modal */}
       {mobileFilterOpen && (
-        <div className="fixed inset-0 z-50 flex lg:hidden bg-black/70 backdrop-blur-sm">
-          <div className="relative ml-auto w-full max-w-xs h-full bg-white dark:bg-[#111827] border-l border-slate-200 dark:border-[#1f293d] p-5 overflow-y-auto flex flex-col justify-between space-y-4">
-            <div>
-              <div className="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-slate-800 mb-4">
-                <h2 className="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-2">
-                  <Filter className="w-4 h-4 text-cyan-400" />
-                  Filter Catalog
-                </h2>
-                <button
-                  onClick={() => setMobileFilterOpen(false)}
-                  className="p-1.5 rounded-lg text-slate-400 hover:text-white"
-                >
-                  <X className="w-5 h-5" />
-                </button>
-              </div>
-              <FilterSidebar
-                filters={filters}
-                onFilterChange={handleFilterChange}
-                onReset={handleResetFilters}
-                facetCounts={facetCounts}
-              />
+        <div className="fixed inset-0 z-50 flex bg-black/40 lg:hidden">
+          <div className="relative w-full max-w-xs bg-white h-full ml-auto p-5 overflow-y-auto space-y-6">
+            <div className="flex items-center justify-between pb-3 border-b border-[#e4e4ed]">
+              <span className="font-mono text-xs uppercase tracking-wider text-[#303055] font-semibold">
+                Filter Catalog
+              </span>
+              <button
+                onClick={() => setMobileFilterOpen(false)}
+                className="p-1 rounded text-[#767682] hover:text-[#303055]"
+              >
+                <X className="w-5 h-5" />
+              </button>
             </div>
+
+            <FilterSidebar
+              filters={filters}
+              onFilterChange={(f) => {
+                handleFilterChange(f);
+              }}
+              onReset={handleReset}
+              facetCounts={facetCounts}
+            />
+
             <button
               onClick={() => setMobileFilterOpen(false)}
-              className="w-full py-2.5 rounded-lg bg-cyan-500 text-slate-950 font-bold text-xs"
+              className="w-full py-2.5 rounded-[4px] bg-[#303055] text-white text-xs font-medium"
             >
-              Show {filteredResults.length} Results
+              Apply & Close
             </button>
           </div>
         </div>
@@ -401,15 +243,8 @@ function DiscoverContent() {
 
 export default function DiscoverPage() {
   return (
-    <Suspense
-      fallback={
-        <div className="max-w-7xl mx-auto px-4 py-16 text-center text-xs font-mono text-slate-500">
-          Loading discovery engine...
-        </div>
-      }
-    >
+    <Suspense fallback={<div className="container-max py-12 font-mono text-xs text-[#767682]">Loading directory...</div>}>
       <DiscoverContent />
     </Suspense>
   );
 }
-
