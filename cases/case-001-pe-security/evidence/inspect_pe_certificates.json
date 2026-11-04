@@ -1,0 +1,63 @@
+{
+  "evidence_id": "ev_fed1d0f0b677d97854e68733676b91abd4a7eef32bccbc3219e4f4cc45fb435a",
+  "subject": {
+    "name": "powershell.exe",
+    "digest": {
+      "sha256": "9785001b0dcf755eddb8af294a373c0b87b2498660f724e76c4d53f9c217c7a3"
+    },
+    "format": "pe",
+    "architecture": "x86_64"
+  },
+  "provider": {
+    "id": "rea-pe-certificates",
+    "name": "REA PE certificate parser",
+    "version": "1"
+  },
+  "analysis_profile": null,
+  "predicate_type": "rea.analysis",
+  "operation": "inspect_pe_certificates",
+  "parameters": {
+    "path": "<system>/powershell.exe",
+    "max_file_bytes": 67108864,
+    "max_entries": 8
+  },
+  "raw_result": null,
+  "normalized_result": {
+    "artifact": {
+      "path": "<system>/powershell.exe",
+      "sha256": "9785001b0dcf755eddb8af294a373c0b87b2498660f724e76c4d53f9c217c7a3",
+      "bytes": 455680
+    },
+    "format": "pe32-plus",
+    "machine": 34404,
+    "table": null,
+    "entries": [],
+    "coverage": {
+      "status": "complete",
+      "examined_entries": 0,
+      "certificates": 0
+    },
+    "limitations": [
+      "IMAGE_DIRECTORY_ENTRY_SECURITY is absent. That is not proof the image is unsigned in every catalog or overlay sense.",
+      "This workflow does not verify signatures, certificate chains, timestamps, or Authenticode digest coverage of image bytes."
+    ]
+  },
+  "confidence": "observed",
+  "authority": "shipped-artifact",
+  "environment": null,
+  "limitations": [
+    "IMAGE_DIRECTORY_ENTRY_SECURITY is absent. That is not proof the image is unsigned in every catalog or overlay sense.",
+    "This workflow does not verify signatures, certificate chains, timestamps, or Authenticode digest coverage of image bytes."
+  ],
+  "relationship_coverage": null,
+  "locations": [
+    {
+      "kind": "artifact-path",
+      "path": "<system>/powershell.exe"
+    }
+  ],
+  "evidence_links": [],
+  "case_id": "case-001-pe-security",
+  "created_at": "2026-11-04T07:15:26.132Z",
+  "residual_unknowns": []
+}

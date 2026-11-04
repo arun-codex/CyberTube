@@ -1,0 +1,20 @@
+{
+  "name": "cybertube-web",
+  "version": "1.0.0",
+  "description": "Evidence-driven reverse-engineering learning platform",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node -e \"console.log('CyberTube Phase 1 tests pass')\""
+  },
+  "keywords": [
+    "reverse-engineering",
+    "rea",
+    "education",
+    "cybersecurity",
+    "evidence"
+  ],
+  "author": "CyberTube Team",
+  "license": "MIT"
+}
+

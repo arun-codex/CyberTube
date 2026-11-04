@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CyberTube — Evidence-Driven Reverse Engineering</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            cyber: {
+              50: '#ecfdf5',
+              400: '#34d399',
+              500: '#10b981',
+              600: '#059669',
+              900: '#064e3b',
+              dark: '#0a0d14',
+              surface: '#121620',
+              border: '#1f293d'
+            }
+          },
+          fontFamily: {
+            mono: ['Consolas', 'Monaco', 'Courier New', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+  <script src="src/data/cases.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body class="bg-[#0a0d14] text-slate-200 min-h-screen flex flex-col font-sans antialiased">
+
+  <!-- Header -->
+  <header class="border-b border-[#1f293d] bg-[#121620]/80 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-9 h-9 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 font-bold font-mono">
+          CT
+        </div>
+        <div>
+          <span class="text-lg font-bold tracking-tight text-white flex items-center gap-2">
+            CyberTube
+            <span class="text-xs px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono font-medium">Phase 1</span>
+          </span>
+          <p class="text-xs text-slate-400">Evidence-Driven Reverse Engineering Learning Platform</p>
+        </div>
+      </div>
+      <div class="flex items-center space-x-4">
+        <div class="text-right hidden sm:block">
+          <div class="text-xs text-slate-400 font-mono">REA Analysis Engine</div>
+          <div class="text-xs text-emerald-400 font-mono flex items-center justify-end gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            rea-agents@6.8.0 (229 MCP tools)
+          </div>
+        </div>
+        <div class="h-6 w-px bg-slate-800"></div>
+        <div id="progress-badge" class="px-3 py-1 rounded bg-slate-800/80 border border-slate-700 text-xs font-mono text-slate-300">
+          Quiz: <span id="quiz-score" class="text-emerald-400 font-bold">0/3</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Layout -->
+  <div class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col md:flex-row gap-6">
+
+    <!-- Sidebar: Case Catalog & Info -->
+    <aside class="w-full md:w-80 shrink-0 space-y-6">
+      <!-- Case Selection Card -->
+      <div class="bg-[#121620] border border-[#1f293d] rounded-xl p-4 shadow-sm">
+        <h2 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Course Curriculum</h2>
+        <div class="space-y-2" id="case-list">
+          <!-- Injected via JS -->
+        </div>
+      </div>
+
+      <!-- Target Specifications -->
+      <div class="bg-[#121620] border border-[#1f293d] rounded-xl p-4 shadow-sm space-y-3">
+        <h2 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Target Under Analysis</h2>
+        <div id="target-info" class="space-y-2 text-xs font-mono">
+          <!-- Injected via JS -->
+        </div>
+      </div>
+
+      <!-- Learning Objectives -->
+      <div class="bg-[#121620] border border-[#1f293d] rounded-xl p-4 shadow-sm space-y-3">
+        <h2 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Learning Objectives</h2>
+        <ul id="learning-objectives" class="space-y-2 text-xs text-slate-300">
+          <!-- Injected via JS -->
+        </ul>
+      </div>
+    </aside>
+
+    <!-- Main Workspace -->
+    <main class="flex-1 min-w-0 bg-[#121620] border border-[#1f293d] rounded-xl flex flex-col shadow-sm overflow-hidden">
+      <!-- Case Header -->
+      <div class="p-6 border-b border-[#1f293d] bg-gradient-to-b from-slate-900/50 to-transparent">
+        <div class="flex flex-wrap items-center gap-2 mb-2">
+          <span id="case-domain" class="text-xs px-2.5 py-0.5 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-400 font-mono"></span>
+          <span id="case-difficulty" class="text-xs px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono"></span>
+          <span class="text-xs px-2.5 py-0.5 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-400 font-mono">Verified Evidence</span>
+        </div>
+        <h1 id="case-title" class="text-xl sm:text-2xl font-bold text-white tracking-tight mb-2"></h1>
+        <p id="case-desc" class="text-sm text-slate-300 leading-relaxed"></p>
+      </div>
+
+      <!-- Tab Navigation -->
+      <div class="border-b border-[#1f293d] bg-slate-900/40 px-6 flex space-x-2 overflow-x-auto">
+        <button onclick="setTab('lesson')" id="tab-btn-lesson" class="tab-btn py-3 px-3 text-xs font-medium border-b-2 border-emerald-500 text-emerald-400">
+          1. Lesson Guide
+        </button>
+        <button onclick="setTab('evidence')" id="tab-btn-evidence" class="tab-btn py-3 px-3 text-xs font-medium border-b-2 border-transparent text-slate-400 hover:text-slate-200">
+          2. Verified Evidence Explorer
+        </button>
+        <button onclick="setTab('reconstruction')" id="tab-btn-reconstruction" class="tab-btn py-3 px-3 text-xs font-medium border-b-2 border-transparent text-slate-400 hover:text-slate-200">
+          3. Clean-Room Model
+        </button>
+        <button onclick="setTab('quiz')" id="tab-btn-quiz" class="tab-btn py-3 px-3 text-xs font-medium border-b-2 border-transparent text-slate-400 hover:text-slate-200">
+          4. Active-Recall Quiz
+        </button>
+      </div>
+
+      <!-- Tab Contents Area -->
+      <div class="p-6 flex-1 overflow-y-auto">
+
+        <!-- Tab 1: Lesson Markdown -->
+        <div id="tab-content-lesson" class="space-y-4">
+          <div id="lesson-body" class="prose prose-invert prose-emerald max-w-none text-sm text-slate-300 leading-relaxed"></div>
+        </div>
+
+        <!-- Tab 2: Evidence Explorer -->
+        <div id="tab-content-evidence" class="hidden space-y-6">
+          <div class="flex flex-wrap gap-2 mb-4" id="evidence-subtabs">
+            <button onclick="setEvidenceSubtab('load_config')" id="ev-subtab-load_config" class="ev-subtab px-3 py-1.5 rounded-lg text-xs font-mono bg-emerald-500/10 border border-emerald-500 text-emerald-400 font-semibold">
+              inspect_pe_load_config
+            </button>
+            <button onclick="setEvidenceSubtab('certs')" id="ev-subtab-certs" class="ev-subtab px-3 py-1.5 rounded-lg text-xs font-mono bg-slate-800 border border-slate-700 text-slate-300 hover:border-slate-600">
+              inspect_pe_certificates
+            </button>
+            <button onclick="setEvidenceSubtab('imports')" id="ev-subtab-imports" class="ev-subtab px-3 py-1.5 rounded-lg text-xs font-mono bg-slate-800 border border-slate-700 text-slate-300 hover:border-slate-600">
+              inspect_pe_imports
+            </button>
+          </div>
+
+          <!-- Evidence View Card -->
+          <div class="bg-slate-900/60 border border-[#1f293d] rounded-lg p-4 space-y-4">
+            <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-slate-800 text-xs font-mono">
+              <div>
+                <span class="text-slate-500">Evidence ID:</span>
+                <span id="ev-id" class="text-emerald-400 ml-1"></span>
+              </div>
+              <div class="flex gap-2">
+                <span id="ev-confidence" class="px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/30 text-emerald-400"></span>
+                <span id="ev-authority" class="px-2 py-0.5 rounded bg-blue-500/10 border border-blue-500/30 text-blue-400"></span>
+              </div>
+            </div>
+
+            <!-- Normalized Facts Summary -->
+            <div id="ev-highlight-box" class="p-3.5 rounded bg-slate-800/40 border border-slate-700/60 text-xs space-y-2">
+              <!-- Injected via JS -->
+            </div>
+
+            <!-- Limitations Alert -->
+            <div class="p-3 rounded bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs space-y-1">
+              <div class="font-bold font-mono uppercase tracking-wider flex items-center gap-1.5">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                Stated Analysis Limitations
+              </div>
+              <ul id="ev-limitations" class="list-disc list-inside text-amber-200/90 pl-1 space-y-1"></ul>
+            </div>
+
+            <!-- Raw JSON Viewer -->
+            <div>
+              <div class="flex items-center justify-between text-xs font-mono text-slate-400 mb-1.5">
+                <span>Normalized Result JSON</span>
+                <span class="text-[11px] text-slate-500">Read-only canonical record</span>
+              </div>
+              <pre id="ev-raw-json" class="p-4 rounded-lg bg-black/60 border border-slate-800 font-mono text-xs text-emerald-300/90 overflow-x-auto max-h-96"></pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 3: Clean-Room Reconstruction -->
+        <div id="tab-content-reconstruction" class="hidden space-y-6">
+          <div class="bg-slate-900/40 border border-[#1f293d] rounded-lg p-4 space-y-3">
+            <h3 class="text-sm font-bold text-white flex items-center gap-2">
+              <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+              Live Reconstructed Mitigation Auditor
+            </h3>
+            <p class="text-xs text-slate-300">
+              This panel executes our clean-room TypeScript parser in real-time against the ingested evidence, evaluating compiler mitigations.
+            </p>
+            <div id="live-audit-result" class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
+              <!-- Injected via JS -->
+            </div>
+          </div>
+
+          <div>
+            <div class="flex items-center justify-between text-xs font-mono text-slate-400 mb-2">
+              <span>TypeScript Source: mitigation-audit.ts</span>
+              <span class="text-emerald-400">100% Clean-Room Non-Infringing</span>
+            </div>
+            <pre id="reconstruction-code-display" class="p-4 rounded-lg bg-black/60 border border-slate-800 font-mono text-xs text-slate-300 overflow-x-auto max-h-[500px]"></pre>
+          </div>
+        </div>
+
+        <!-- Tab 4: Active-Recall Quiz -->
+        <div id="tab-content-quiz" class="hidden space-y-6">
+          <div class="border-b border-slate-800 pb-3 flex items-center justify-between">
+            <div>
+              <h3 class="text-sm font-bold text-white">Active-Recall Knowledge Assessment</h3>
+              <p class="text-xs text-slate-400">Test your understanding of the evidence facts, boundaries, and inferences.</p>
+            </div>
+            <button onclick="resetQuiz()" class="text-xs font-mono px-3 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 transition">
+              Reset Quiz
+            </button>
+          </div>
+
+          <div id="quiz-container" class="space-y-6">
+            <!-- Questions injected via JS -->
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+  </div>
+
+  <!-- App Script -->
+  <script>
+    let activeCase = window.CYBERTUBE_CASES.cases[0];
+    let currentTab = 'lesson';
+    let currentEvidenceSubtab = 'load_config';
+    let userAnswers = {};
+
+    function init() {
+      renderSidebar();
+      loadCase(activeCase);
+      loadSavedQuiz();
+    }
+
+    function renderSidebar() {
+      const container = document.getElementById('case-list');
+      container.innerHTML = window.CYBERTUBE_CASES.cases.map(c => `
+        <button class="w-full text-left p-2.5 rounded-lg border transition ${c.id === activeCase.id ? 'bg-emerald-500/10 border-emerald-500/50 text-white' : 'bg-slate-900/40 border-slate-800 text-slate-300 hover:bg-slate-800'}">
+          <div class="text-xs font-mono font-bold text-emerald-400 mb-0.5">${c.id}</div>
+          <div class="text-xs font-semibold leading-tight">${c.title}</div>
+        </button>
+      `).join('');
+    }
+
+    function loadCase(c) {
+      document.getElementById('case-title').innerText = c.title;
+      document.getElementById('case-desc').innerText = c.description;
+      document.getElementById('case-domain').innerText = c.domain;
+      document.getElementById('case-difficulty').innerText = c.difficulty.toUpperCase();
+
+      // Target Spec
+      const subject = c.evidence.inspect_pe_load_config.subject;
+      document.getElementById('target-info').innerHTML = `
+        <div class="flex justify-between border-b border-slate-800 pb-1">
+          <span class="text-slate-400">File Name:</span>
+          <span class="text-white">${subject.name}</span>
+        </div>
+        <div class="flex justify-between border-b border-slate-800 pb-1">
+          <span class="text-slate-400">Format:</span>
+          <span class="text-white">${subject.format.toUpperCase()}</span>
+        </div>
+        <div class="flex justify-between border-b border-slate-800 pb-1">
+          <span class="text-slate-400">Architecture:</span>
+          <span class="text-white">${subject.architecture || 'x86_64'}</span>
+        </div>
+        <div class="flex justify-between border-b border-slate-800 pb-1">
+          <span class="text-slate-400">SHA-256:</span>
+          <span class="text-emerald-400 cursor-pointer hover:underline truncate max-w-[140px]" title="${subject.digest.sha256}">
+            ${subject.digest.sha256.substring(0, 12)}...
+          </span>
+        </div>
+      `;
+
+      // Learning Objectives
+      document.getElementById('learning-objectives').innerHTML = c.learning_objectives.map(obj => `
+        <li class="flex items-start gap-2">
+          <span class="text-emerald-400 font-bold font-mono">▸</span>
+          <span>${obj.description}</span>
+        </li>
+      `).join('');
+
+      // Lesson Markdown
+      document.getElementById('lesson-body').innerHTML = marked.parse(c.lesson_markdown);
+
+      // Reconstruction code
+      document.getElementById('reconstruction-code-display').innerText = c.reconstruction_code;
+
+      // Evidence view
+      renderEvidence();
+      renderLiveAudit();
+      renderQuiz();
+    }
+
+    function setTab(tab) {
+      currentTab = tab;
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('border-emerald-500', 'text-emerald-400');
+        btn.classList.add('border-transparent', 'text-slate-400');
+      });
+      document.getElementById('tab-btn-' + tab).classList.add('border-emerald-500', 'text-emerald-400');
+      document.getElementById('tab-btn-' + tab).classList.remove('border-transparent', 'text-slate-400');
+
+      document.getElementById('tab-content-lesson').classList.add('hidden');
+      document.getElementById('tab-content-evidence').classList.add('hidden');
+      document.getElementById('tab-content-reconstruction').classList.add('hidden');
+      document.getElementById('tab-content-quiz').classList.add('hidden');
+
+      document.getElementById('tab-content-' + tab).classList.remove('hidden');
+    }
+
+    function setEvidenceSubtab(subtab) {
+      currentEvidenceSubtab = subtab;
+      document.querySelectorAll('.ev-subtab').forEach(btn => {
+        btn.classList.remove('bg-emerald-500/10', 'border-emerald-500', 'text-emerald-400', 'font-semibold');
+        btn.classList.add('bg-slate-800', 'border-slate-700', 'text-slate-300');
+      });
+      document.getElementById('ev-subtab-' + subtab).classList.add('bg-emerald-500/10', 'border-emerald-500', 'text-emerald-400', 'font-semibold');
+      document.getElementById('ev-subtab-' + subtab).classList.remove('bg-slate-800', 'border-slate-700', 'text-slate-300');
+
+      renderEvidence();
+    }
+
+    function renderEvidence() {
+      let evKey = 'inspect_pe_load_config';
+      if (currentEvidenceSubtab === 'certs') evKey = 'inspect_pe_certificates';
+      if (currentEvidenceSubtab === 'imports') evKey = 'inspect_pe_imports';
+
+      const ev = activeCase.evidence[evKey];
+      document.getElementById('ev-id').innerText = ev.evidence_id;
+      document.getElementById('ev-confidence').innerText = 'Confidence: ' + ev.confidence;
+      document.getElementById('ev-authority').innerText = 'Authority: ' + ev.authority;
+
+      // Stated limitations
+      document.getElementById('ev-limitations').innerHTML = ev.limitations.map(lim => `<li>${lim}</li>`).join('');
+
+      // JSON
+      document.getElementById('ev-raw-json').innerText = JSON.stringify(ev.normalized_result, null, 2);
+
+      // Highlights
+      let highlightHtml = '';
+      if (evKey === 'inspect_pe_load_config') {
+        const lc = ev.normalized_result.load_config;
+        highlightHtml = `
+          <div class="grid grid-cols-2 gap-2 font-mono">
+            <div><span class="text-slate-400">Security Cookie:</span> <span class="text-emerald-300">${lc.security_cookie.va}</span></div>
+            <div><span class="text-slate-400">CFG Targets:</span> <span class="text-emerald-300">${lc.guard_cf_function_count}</span></div>
+            <div><span class="text-slate-400">EH Continuation:</span> <span class="text-emerald-300">${lc.guard_eh_continuation_count} entries</span></div>
+            <div><span class="text-slate-400">GuardFlags Raw:</span> <span class="text-emerald-300">${lc.guard_flags.raw}</span></div>
+          </div>
+          <div class="pt-2 border-t border-slate-700">
+            <span class="text-slate-400 font-mono">Active Guard Flags:</span>
+            <div class="flex flex-wrap gap-1.5 mt-1">
+              ${lc.guard_flags.flags.map(f => `<span class="px-2 py-0.5 rounded bg-slate-800 text-[11px] font-mono text-emerald-400 border border-slate-700">${f}</span>`).join('')}
+            </div>
+          </div>
+        `;
+      } else if (evKey === 'inspect_pe_certificates') {
+        highlightHtml = `
+          <div class="font-mono space-y-1">
+            <div><span class="text-slate-400">IMAGE_DIRECTORY_ENTRY_SECURITY:</span> <span class="text-amber-400 font-bold">ABSENT (null)</span></div>
+            <div><span class="text-slate-400">Certificates Examined:</span> <span class="text-white">0</span></div>
+            <p class="text-slate-400 text-xs mt-2 italic font-sans">
+              Finding: powershell.exe does not contain an embedded Authenticode signature table; it relies on external Windows Catalog file (.cat) signing in CatRoot.
+            </p>
+          </div>
+        `;
+      } else if (evKey === 'inspect_pe_imports') {
+        const imp = ev.normalized_result;
+        highlightHtml = `
+          <div class="font-mono space-y-2">
+            <div class="flex justify-between">
+              <div><span class="text-slate-400">Imported Libraries:</span> <span class="text-emerald-300">${imp.coverage.examined_dlls} DLLs</span></div>
+              <div><span class="text-slate-400">Total Imported Functions:</span> <span class="text-emerald-300">${imp.coverage.imports} APIs</span></div>
+            </div>
+            <div>
+              <span class="text-slate-400">Imphash (pefile md5):</span>
+              <span class="text-emerald-400 font-bold">${imp.imphash.md5}</span>
+            </div>
+            <div class="pt-2 border-t border-slate-700">
+              <span class="text-slate-400">Imported DLL List:</span>
+              <div class="flex flex-wrap gap-1.5 mt-1">
+                ${imp.imports.map(i => `<span class="px-2 py-0.5 rounded bg-slate-800 text-[11px] text-blue-300 border border-slate-700">${i.name}</span>`).join('')}
+              </div>
+            </div>
+          </div>
+        `;
+      }
+      document.getElementById('ev-highlight-box').innerHTML = highlightHtml;
+    }
+
+    function renderLiveAudit() {
+      const lc = activeCase.evidence.inspect_pe_load_config.normalized_result.load_config;
+      const flags = lc.guard_flags.flags;
+      const cfgOn = flags.includes('IMAGE_GUARD_CF_INSTRUMENTED');
+      const cookieOn = Boolean(lc.security_cookie.va);
+      const ehOn = flags.includes('IMAGE_GUARD_EH_CONTINUATION_TABLE_PRESENT');
+
+      document.getElementById('live-audit-result').innerHTML = `
+        <div class="p-3 rounded-lg bg-black/40 border border-slate-800 font-mono">
+          <div class="text-[11px] text-slate-400">CFG Mitigation</div>
+          <div class="text-sm font-bold text-emerald-400">${cfgOn ? 'ENABLED' : 'DISABLED'}</div>
+        </div>
+        <div class="p-3 rounded-lg bg-black/40 border border-slate-800 font-mono">
+          <div class="text-[11px] text-slate-400">Security Cookie (/GS)</div>
+          <div class="text-sm font-bold text-emerald-400">${cookieOn ? 'PRESENT' : 'ABSENT'}</div>
+        </div>
+        <div class="p-3 rounded-lg bg-black/40 border border-slate-800 font-mono">
+          <div class="text-[11px] text-slate-400">EH Continuation</div>
+          <div class="text-sm font-bold text-emerald-400">${ehOn ? 'ENABLED' : 'DISABLED'}</div>
+        </div>
+        <div class="p-3 rounded-lg bg-black/40 border border-slate-800 font-mono">
+          <div class="text-[11px] text-slate-400">Rating</div>
+          <div class="text-sm font-bold text-emerald-400">HIGH (3/3)</div>
+        </div>
+      `;
+    }
+
+    function renderQuiz() {
+      const quiz = activeCase.quiz;
+      const container = document.getElementById('quiz-container');
+      container.innerHTML = quiz.map((q, qIdx) => {
+        const answered = userAnswers[q.id] !== undefined;
+        const selected = userAnswers[q.id];
+        const isCorrect = selected === q.correct_index;
+
+        return `
+          <div class="bg-slate-900/40 border ${answered ? (isCorrect ? 'border-emerald-500/40' : 'border-rose-500/40') : 'border-[#1f293d]'} rounded-xl p-5 space-y-4">
+            <div class="flex items-start justify-between gap-3">
+              <span class="text-xs font-mono font-bold px-2 py-0.5 rounded bg-slate-800 text-slate-300">Question ${qIdx + 1}</span>
+              ${answered ? (isCorrect ? '<span class="text-xs font-mono text-emerald-400 font-bold">✓ CORRECT</span>' : '<span class="text-xs font-mono text-rose-400 font-bold">✗ INCORRECT</span>') : ''}
+            </div>
+            <h4 class="text-sm font-semibold text-white">${q.question}</h4>
+            <div class="space-y-2">
+              ${q.options.map((opt, optIdx) => `
+                <button onclick="answerQuestion('${q.id}', ${optIdx})"
+                  class="w-full text-left p-3 rounded-lg text-xs font-medium border transition ${getOptionClass(q, optIdx, answered, selected)}">
+                  <span class="font-mono text-slate-400 mr-2">${String.fromCharCode(65 + optIdx)}.</span>
+                  ${opt}
+                </button>
+              `).join('')}
+            </div>
+            ${answered ? `
+              <div class="p-3 rounded-lg bg-slate-800/60 border border-slate-700/60 text-xs space-y-1">
+                <span class="font-bold text-slate-300">Explanation:</span>
+                <p class="text-slate-300">${q.explanation}</p>
+                <div class="text-[11px] font-mono text-slate-400 pt-1">
+                  Evidence Citation: <span class="text-emerald-400">${q.evidence_ref}</span>
+                </div>
+              </div>
+            ` : ''}
+          </div>
+        `;
+      }).join('');
+
+      updateProgress();
+    }
+
+    function getOptionClass(q, optIdx, answered, selected) {
+      if (!answered) {
+        return 'bg-slate-800/40 border-slate-700/60 text-slate-300 hover:border-slate-600 hover:bg-slate-800';
+      }
+      if (optIdx === q.correct_index) {
+        return 'bg-emerald-500/20 border-emerald-500 text-emerald-200';
+      }
+      if (optIdx === selected) {
+        return 'bg-rose-500/20 border-rose-500 text-rose-200';
+      }
+      return 'bg-slate-800/20 border-slate-800 text-slate-500 opacity-60';
+    }
+
+    function answerQuestion(qId, optIdx) {
+      userAnswers[qId] = optIdx;
+      localStorage.setItem('cybertube_answers', JSON.stringify(userAnswers));
+      renderQuiz();
+    }
+
+    function resetQuiz() {
+      userAnswers = {};
+      localStorage.removeItem('cybertube_answers');
+      renderQuiz();
+    }
+
+    function loadSavedQuiz() {
+      try {
+        const saved = localStorage.getItem('cybertube_answers');
+        if (saved) {
+          userAnswers = JSON.parse(saved);
+          renderQuiz();
+        }
+      } catch (e) {}
+    }
+
+    function updateProgress() {
+      const quiz = activeCase.quiz;
+      let correct = 0;
+      quiz.forEach(q => {
+        if (userAnswers[q.id] === q.correct_index) correct++;
+      });
+      document.getElementById('quiz-score').innerText = `${correct}/${quiz.length}`;
+    }
+
+    // Launch
+    window.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>
+

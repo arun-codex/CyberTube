@@ -1,0 +1,197 @@
+{
+  "evidence_id": "ev_e20c10605115e8bcb5b82e6864fbc471d8043e37b7ba9c0265c7173fa882cac7",
+  "subject": {
+    "name": "powershell.exe",
+    "digest": {
+      "sha256": "9785001b0dcf755eddb8af294a373c0b87b2498660f724e76c4d53f9c217c7a3"
+    },
+    "format": "pe",
+    "architecture": "x86_64"
+  },
+  "provider": {
+    "id": "rea-pe-load-config",
+    "name": "REA PE TLS/load-config parser",
+    "version": "1"
+  },
+  "analysis_profile": null,
+  "predicate_type": "rea.analysis",
+  "operation": "inspect_pe_load_config",
+  "parameters": {
+    "path": "<system>/powershell.exe",
+    "max_file_bytes": 67108864,
+    "max_callbacks": 64
+  },
+  "raw_result": null,
+  "normalized_result": {
+    "artifact": {
+      "path": "<system>/powershell.exe",
+      "sha256": "9785001b0dcf755eddb8af294a373c0b87b2498660f724e76c4d53f9c217c7a3",
+      "bytes": 455680
+    },
+    "format": "pe32-plus",
+    "machine": 34404,
+    "bits": 64,
+    "architecture": "amd64",
+    "tls": {
+      "directory": {
+        "rva": 48360,
+        "size": 40,
+        "file_offset": 42728
+      },
+      "start_address_of_raw_data": "0x140014de0",
+      "end_address_of_raw_data": "0x140014de8",
+      "raw_data_size": 8,
+      "raw_data_file_offset": 79840,
+      "raw_data_section": ".rdata",
+      "address_of_index": {
+        "va": "0x140017c40",
+        "rva": 97344,
+        "file_offset": null,
+        "section": ".data"
+      },
+      "address_of_callbacks": "0x14000ee30",
+      "size_of_zero_fill": 0,
+      "characteristics": 3145728,
+      "alignment": 4,
+      "callbacks": [],
+      "callback_array_locations": [
+        {
+          "offset": 55344,
+          "bytes": 8
+        }
+      ]
+    },
+    "load_config": {
+      "directory": {
+        "rva": 48080,
+        "size": 280,
+        "file_offset": 42448
+      },
+      "size": 280,
+      "structure_location": {
+        "offset": 42448,
+        "bytes": 280
+      },
+      "security_cookie": {
+        "va": "0x140017648",
+        "rva": 95816,
+        "file_offset": 89672,
+        "section": ".data"
+      },
+      "se_handler_table": null,
+      "se_handler_count": null,
+      "guard_cf_check_function_pointer": {
+        "va": "0x14000edb8",
+        "rva": 60856,
+        "file_offset": 55224,
+        "section": ".rdata"
+      },
+      "guard_cf_dispatch_function_pointer": {
+        "va": "0x14000edc0",
+        "rva": 60864,
+        "file_offset": 55232,
+        "section": ".rdata"
+      },
+      "guard_cf_function_table": {
+        "va": "0x14000ee58",
+        "rva": 61016,
+        "file_offset": 55384,
+        "section": ".rdata"
+      },
+      "guard_cf_function_count": 59,
+      "guard_flags": {
+        "raw": 4289792,
+        "flags": [
+          "IMAGE_GUARD_CF_INSTRUMENTED",
+          "IMAGE_GUARD_CF_FUNCTION_TABLE_PRESENT",
+          "IMAGE_GUARD_PROTECT_DELAYLOAD_IAT",
+          "IMAGE_GUARD_DELAYLOAD_IAT_IN_ITS_OWN_SECTION",
+          "IMAGE_GUARD_CF_EXPORT_SUPPRESSION_INFO_PRESENT",
+          "IMAGE_GUARD_CF_LONGJUMP_TABLE_PRESENT",
+          "IMAGE_GUARD_EH_CONTINUATION_TABLE_PRESENT"
+        ],
+        "unrecognized": 0,
+        "cf_function_table_stride": 4
+      },
+      "guard_address_taken_iat_entry_table": {
+        "va": "0x14000ef44",
+        "rva": 61252,
+        "file_offset": 55620,
+        "section": ".rdata"
+      },
+      "guard_address_taken_iat_entry_count": 1,
+      "guard_long_jump_target_table": {
+        "va": "0x0",
+        "rva": null,
+        "file_offset": null,
+        "section": null
+      },
+      "guard_long_jump_target_count": 0,
+      "dynamic_value_reloc_table": "0x0",
+      "chpe_metadata_pointer": "0x0",
+      "dynamic_value_reloc_table_offset": 0,
+      "dynamic_value_reloc_table_section": 0,
+      "guard_eh_continuation_table": {
+        "va": "0x14000ee38",
+        "rva": 60984,
+        "file_offset": 55352,
+        "section": ".rdata"
+      },
+      "guard_eh_continuation_count": 8,
+      "guard_xfg_check_function_pointer": null,
+      "inferences": [
+        {
+          "id": "cfg_instrumented",
+          "evidence_kind": "inferred",
+          "basis": "GuardFlags has cfg_instrumented set. That bit is a linker claim; this inspection did not verify the corresponding instructions."
+        }
+      ]
+    },
+    "examined_callbacks": 0,
+    "limitations": [
+      "TLS callbacks and load-config fields reproduce IMAGE_DIRECTORY_ENTRY_TLS and IMAGE_DIRECTORY_ENTRY_LOAD_CONFIG. They do not establish that a callback runs or that a mitigation is enforced at load.",
+      "Claims such as CFG instrumentation are inferred from GuardFlags bits and are not observations of instrumented instructions.",
+      "A missing TLS or load-config directory is observed absence of that table, not proof the image never registered callbacks or mitigations through another mechanism.",
+      "SafeSEH table and count are reported only for PE32. PE32+ struct slots that share those names are not a SafeSEH table.",
+      "CHPE metadata and dynamic value relocation pointers are raw virtual addresses. Dynamic relocation table offset and section are separate source values; their target is not derived or decoded.",
+      "Load-config fields newer than GuardXFGCheckFunctionPointer stay unread. A Size larger than the fields this version knows does not fail the read."
+    ]
+  },
+  "confidence": "observed",
+  "authority": "shipped-artifact",
+  "environment": null,
+  "limitations": [
+    "TLS callbacks and load-config fields reproduce IMAGE_DIRECTORY_ENTRY_TLS and IMAGE_DIRECTORY_ENTRY_LOAD_CONFIG. They do not establish that a callback runs or that a mitigation is enforced at load.",
+    "Claims such as CFG instrumentation are inferred from GuardFlags bits and are not observations of instrumented instructions.",
+    "A missing TLS or load-config directory is observed absence of that table, not proof the image never registered callbacks or mitigations through another mechanism.",
+    "SafeSEH table and count are reported only for PE32. PE32+ struct slots that share those names are not a SafeSEH table.",
+    "CHPE metadata and dynamic value relocation pointers are raw virtual addresses. Dynamic relocation table offset and section are separate source values; their target is not derived or decoded.",
+    "Load-config fields newer than GuardXFGCheckFunctionPointer stay unread. A Size larger than the fields this version knows does not fail the read."
+  ],
+  "relationship_coverage": null,
+  "locations": [
+    {
+      "kind": "artifact-path",
+      "path": "<system>/powershell.exe"
+    },
+    {
+      "kind": "file-offset-range",
+      "start": 42728,
+      "end": 42768
+    },
+    {
+      "kind": "file-offset-range",
+      "start": 42448,
+      "end": 42728
+    },
+    {
+      "kind": "file-offset-range",
+      "start": 55344,
+      "end": 55352
+    }
+  ],
+  "evidence_links": [],
+  "case_id": "case-001-pe-security",
+  "created_at": "2026-11-04T07:15:26.295Z",
+  "residual_unknowns": []
+}

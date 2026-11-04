@@ -1,0 +1,103 @@
+{
+  "id": "case-001-pe-security",
+  "title": "Windows PE Security Posture: Auditing Authenticode & Control Flow Guard",
+  "slug": "pe-security-posture",
+  "description": "Analyze a Windows system binary (powershell.exe) using REA static inspection tools to determine its exploit mitigation posture, Authenticode signing structure, and runtime dependencies.",
+  "domain": "pe-static",
+  "difficulty": "beginner",
+  "status": "published",
+  "version": "1.0.0",
+  "created_at": "2026-11-04T12:45:00.000Z",
+  "updated_at": "2026-11-04T12:45:00.000Z",
+  "author": "CyberTube Research Team",
+  "tags": [
+    "windows",
+    "pe",
+    "control-flow-guard",
+    "authenticode",
+    "load-config",
+    "iat",
+    "exploit-mitigations"
+  ],
+  "learning_objectives": [
+    {
+      "id": "obj-1",
+      "description": "Extract and interpret PE Load Configuration directory to verify Control Flow Guard (CFG) instrumentation.",
+      "rea_tools": [
+        "inspect_pe_load_config"
+      ]
+    },
+    {
+      "id": "obj-2",
+      "description": "Distinguish between observed binary facts (linker flags) and runtime enforcement claims.",
+      "rea_tools": [
+        "inspect_pe_load_config"
+      ]
+    },
+    {
+      "id": "obj-3",
+      "description": "Inspect the Authenticode certificate table and understand catalog signing vs embedded signatures.",
+      "rea_tools": [
+        "inspect_pe_certificates"
+      ]
+    },
+    {
+      "id": "obj-4",
+      "description": "Analyze the Import Address Table (IAT) and compute the import hash (imphash).",
+      "rea_tools": [
+        "inspect_pe_imports"
+      ]
+    }
+  ],
+  "evidence_files": [
+    "evidence/inspect_pe_load_config.json",
+    "evidence/inspect_pe_certificates.json",
+    "evidence/inspect_pe_imports.json"
+  ],
+  "quiz": [
+    {
+      "id": "q1",
+      "question": "In inspect_pe_load_config, what does the presence of IMAGE_GUARD_CF_INSTRUMENTED in GuardFlags prove?",
+      "options": [
+        "It proves the operating system kernel is actively enforcing CFG checks at runtime.",
+        "It is a linker metadata claim indicating the binary was compiled with /guard:cf, but does not independently prove runtime enforcement.",
+        "It proves the binary is completely immune to return-oriented programming (ROP) exploits.",
+        "It indicates that SafeSEH structured exception handlers are registered."
+      ],
+      "correct_index": 1,
+      "explanation": "GuardFlags bits are declared linker characteristics within the IMAGE_LOAD_CONFIG_DIRECTORY. In REA's evidence methodology, this is classified as an inference based on linker claims, not an observation of runtime instruction execution.",
+      "evidence_ref": "ev_e20c10605115e8bcb5b82e6864fbc471d8043e37b7ba9c0265c7173fa882cac7"
+    },
+    {
+      "id": "q2",
+      "question": "When inspect_pe_certificates reports that IMAGE_DIRECTORY_ENTRY_SECURITY is absent, what conclusion is scientifically valid?",
+      "options": [
+        "The binary is definitely untrusted malware because it has no signature.",
+        "The file is missing an embedded Authenticode signature table, but may still be signed via a Windows Security Catalog (.cat).",
+        "The file cannot be executed on 64-bit Windows systems.",
+        "The binary has an expired X.509 certificate."
+      ],
+      "correct_index": 1,
+      "explanation": "Core Windows operating system binaries (such as powershell.exe) are frequently signed through external Windows Catalog files rather than embedded Authenticode tables. Absence of the embedded table is an observed fact, but is not proof of being unsigned.",
+      "evidence_ref": "ev_fed1d0f0b677d97854e68733676b91abd4a7eef32bccbc3219e4f4cc45fb435a"
+    },
+    {
+      "id": "q3",
+      "question": "What is the primary function of the imphash (Import Hash) calculated in inspect_pe_imports?",
+      "options": [
+        "To verify that the file bytes have not been modified since compilation.",
+        "To identify malware families or toolchain similarities by hashing the ordered list of imported DLLs and APIs.",
+        "To calculate the cryptographic SHA-256 digest of the export table.",
+        "To check if the binary uses delay-loaded imports."
+      ],
+      "correct_index": 1,
+      "explanation": "Imphash is an MD5 hash derived from the specific order and names of imported libraries and APIs. Binaries built from the same codebase or compiler toolchain often share identical imphash values, making it a valuable heuristic.",
+      "evidence_ref": "ev_515646196e03c6708c6276554247bd25b03a9936ebb0f4d848f64ef3ec0329e2"
+    }
+  ],
+  "prerequisites": [
+    "Basic understanding of PE header structure (DOS header, NT headers, Optional header)",
+    "Familiarity with software exploit mitigations (ASLR, DEP, CFG)"
+  ]
+}
+
