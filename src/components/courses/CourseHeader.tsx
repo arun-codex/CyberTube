@@ -89,3 +89,4 @@ export const CourseHeader: React.FC<CourseHeaderProps> = ({ course }) => {
     </div>
   );
 };
+

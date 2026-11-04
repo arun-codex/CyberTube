@@ -174,3 +174,4 @@ export function onCourseProgressChange(callback: (state: CourseProgressState) =>
     window.removeEventListener(PROGRESS_EVENT_NAME, handler);
   };
 }
+

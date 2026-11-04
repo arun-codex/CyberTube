@@ -52,3 +52,4 @@ export interface CourseProgressState {
   lastActiveLessonId?: string;
   lastAccessedAt: string;
 }
+

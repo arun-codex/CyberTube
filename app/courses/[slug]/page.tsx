@@ -36,3 +36,4 @@ export default function CourseDetailPage({ params, searchParams }: CourseDetailP
     />
   );
 }
+

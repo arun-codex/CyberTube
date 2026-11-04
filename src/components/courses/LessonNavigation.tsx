@@ -82,3 +82,4 @@ export const LessonNavigation: React.FC<LessonNavigationProps> = ({
     </div>
   );
 };
+

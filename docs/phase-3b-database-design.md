@@ -204,3 +204,4 @@ CREATE POLICY "Users can update their own lesson progress"
   USING ((SELECT auth.uid()) = user_id)
   WITH CHECK ((SELECT auth.uid()) = user_id);
 ```
+

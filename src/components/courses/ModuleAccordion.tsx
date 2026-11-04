@@ -160,3 +160,4 @@ export const ModuleAccordion: React.FC<ModuleAccordionProps> = ({
     </div>
   );
 };
+

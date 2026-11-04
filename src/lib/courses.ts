@@ -84,3 +84,4 @@ export function getRelatedResourcesForLesson(lesson: Lesson, course: Course, lim
     .slice(0, limit)
     .map((item) => item.resource);
 }
+
