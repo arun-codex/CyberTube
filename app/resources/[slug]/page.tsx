@@ -18,6 +18,7 @@ import { getResourceBySlug, getRelatedResources, getAllResources } from '../../.
 import { Badge } from '../../../src/components/ui/Badge';
 import { ResourceCard } from '../../../src/components/ResourceCard';
 import { ResourceDetailBookmarkButton } from './BookmarkButton';
+import { YouTubePlayer } from '../../../src/components/YouTubePlayer';
 
 interface PageProps {
   params: {
@@ -119,6 +120,17 @@ export default function ResourceDetailPage({ params }: PageProps) {
           </div>
         </div>
 
+        {/* YouTube Embedded Player (for video resources only) */}
+        {resource.isVideo && resource.youtubeVideoId && (
+          <div className="pt-2">
+            <YouTubePlayer
+              videoId={resource.youtubeVideoId}
+              title={resource.title}
+              channelName={resource.youtubeChannelName || resource.creator}
+            />
+          </div>
+        )}
+
         {/* PRIMARY CTA: Visit Original Source */}
         <div className="pt-2 flex flex-col sm:flex-row items-center gap-4">
           <a
@@ -127,7 +139,7 @@ export default function ResourceDetailPage({ params }: PageProps) {
             rel="noopener noreferrer"
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-sm tracking-wide shadow-md shadow-cyan-500/20 transition-all"
           >
-            <span>Visit Original Provider Resource</span>
+            <span>{resource.isVideo ? 'View on YouTube' : 'Visit Original Provider Resource'}</span>
             <ExternalLink className="w-4 h-4" />
           </a>
           <span className="text-xs text-slate-500 font-mono text-center sm:text-left">

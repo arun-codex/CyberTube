@@ -80,6 +80,15 @@ export const ResourceCard: React.FC<ResourceCardProps> = ({ resource }) => {
         {/* Gradient Overlay for Readability */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30 pointer-events-none" />
 
+        {/* Video Play Overlay (only for video resources) */}
+        {resource.isVideo && resource.youtubeVideoId && (
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <div className="w-14 h-14 rounded-full bg-red-600/90 flex items-center justify-center shadow-lg shadow-red-900/40 group-hover:scale-110 transition-transform duration-300">
+              <PlayCircle className="w-7 h-7 text-white fill-current" />
+            </div>
+          </div>
+        )}
+
         {/* Top Floating Badges */}
         <div className="absolute top-2.5 left-2.5 right-2.5 flex items-center justify-between">
           <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-black/70 backdrop-blur border border-white/10 text-[11px] font-mono text-cyan-300 uppercase tracking-wider font-semibold">

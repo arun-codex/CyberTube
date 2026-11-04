@@ -63,9 +63,6 @@ export interface Resource {
   status: 'active' | 'archived';
 }
 
-
-}
-
 export interface ResourceFilterOptions {
   query?: string;
   types?: ResourceType[];
