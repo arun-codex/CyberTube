@@ -2,212 +2,266 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import {
   Shield,
-  Compass,
-  Bookmark,
   Search,
+  Bookmark,
   Sun,
   Moon,
   Menu,
   X,
-  Layers,
+  User,
+  ShieldAlert,
+  LogIn,
 } from 'lucide-react';
-import { localSavedService, onSavedChange } from '../lib/saved';
-import { getInitialTheme, setTheme, onThemeChange, Theme } from '../lib/theme';
+import { onSavedChange, localSavedService } from '../lib/saved';
+import { toggleTheme } from '../lib/theme';
+import { createClient } from '../lib/supabase/client';
 
-export const Header: React.FC = () => {
+export function Header() {
   const pathname = usePathname();
-  const router = useRouter();
-  const [savedCount, setSavedCount] = useState<number>(0);
-  const [theme, setCurrentTheme] = useState<Theme>('dark');
+  const [savedCount, setSavedCount] = useState(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [headerSearch, setHeaderSearch] = useState('');
+  const [userEmail, setUserEmail] = useState<string | null>(null);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    // Initialize saved count
+    // 1. Initial saved count
     setSavedCount(localSavedService.getSavedIds().length);
-    const unsubSaved = onSavedChange((ids) => setSavedCount(ids.length));
 
-    // Initialize theme
-    const initial = getInitialTheme();
-    setCurrentTheme(initial);
-    const unsubTheme = onThemeChange((t) => setCurrentTheme(t));
+    // 2. Listen to saved events
+    const unsub = onSavedChange((ids) => {
+      setSavedCount(ids.length);
+    });
 
-    return () => {
-      unsubSaved();
-      unsubTheme();
-    };
+    // 3. Supabase Auth state
+    const supabase = createClient();
+    if (supabase) {
+      supabase.auth.getUser().then(({ data }) => {
+        if (data?.user?.email) {
+          setUserEmail(data.user.email);
+          // Check simulated/env admin email if present
+          if (data.user.email.includes('admin') || data.user.email.includes('secops')) {
+            setIsAdmin(true);
+          }
+        }
+      });
+
+      const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
+        if (session?.user?.email) {
+          setUserEmail(session.user.email);
+          if (session.user.email.includes('admin') || session.user.email.includes('secops')) {
+            setIsAdmin(true);
+          }
+        } else {
+          setUserEmail(null);
+          setIsAdmin(false);
+        }
+      });
+
+      return () => {
+        unsub();
+        authListener.subscription.unsubscribe();
+      };
+    }
+
+    return unsub;
   }, []);
 
-  const handleToggleTheme = () => {
-    const nextTheme: Theme = theme === 'dark' ? 'light' : 'dark';
-    setTheme(nextTheme);
-  };
-
-  const handleSearchSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (headerSearch.trim()) {
-      router.push(`/discover?q=${encodeURIComponent(headerSearch.trim())}`);
-      setHeaderSearch('');
-      setMobileMenuOpen(false);
-    }
-  };
-
   const navLinks = [
-    { href: '/discover', label: 'Discover', icon: Compass },
-    { href: '/domains', label: 'Domains', icon: Layers },
-    { href: '/saved', label: 'Saved', icon: Bookmark, badge: savedCount },
+    { label: 'Discover', href: '/discover' },
+    { label: 'Domains', href: '/domains' },
+    { label: 'Saved', href: '/saved', badge: savedCount > 0 ? savedCount : null },
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-slate-800 dark:border-[#1f293d] bg-white/95 dark:bg-[#0b0f17]/90 backdrop-blur supports-[backdrop-filter]:bg-opacity-80 transition-colors">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
-        {/* Brand Logo */}
-        <Link href="/" className="flex items-center gap-2.5 group shrink-0">
-          <div className="w-9 h-9 rounded-lg bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 group-hover:border-cyan-400 group-hover:bg-cyan-500/20 transition-all">
-            <Shield className="w-5 h-5 text-cyan-400" />
-          </div>
-          <div>
-            <div className="flex items-center gap-1.5">
-              <span className="font-bold text-lg tracking-tight text-slate-900 dark:text-white font-sans">
-                Cyber<span className="text-cyan-400">Tube</span>
-              </span>
-              <span className="text-[10px] font-mono font-semibold px-1.5 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">
-                Phase 1
-              </span>
-            </div>
-            <p className="text-[10px] text-slate-500 dark:text-slate-400 hidden sm:block tracking-wide">
-              Discover. Learn. Practice. Secure.
-            </p>
-          </div>
-        </Link>
-
-        {/* Global Search Bar (Desktop) */}
-        <form
-          onSubmit={handleSearchSubmit}
-          className="hidden md:flex flex-1 max-w-md items-center relative"
-        >
-          <Search className="w-4 h-4 text-slate-400 absolute left-3 pointer-events-none" />
-          <input
-            type="search"
-            value={headerSearch}
-            onChange={(e) => setHeaderSearch(e.target.value)}
-            placeholder="Search tools, labs, CTFs, papers, videos..."
-            className="w-full pl-9 pr-4 py-1.5 text-xs rounded-lg bg-slate-100 dark:bg-slate-900/80 border border-slate-300 dark:border-slate-800 text-slate-900 dark:text-slate-200 placeholder:text-slate-500 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-colors"
-          />
-        </form>
-
-        {/* Desktop Navigation Links */}
-        <nav className="hidden md:flex items-center space-x-1 lg:space-x-2">
-          {navLinks.map((link) => {
-            const Icon = link.icon;
-            const isActive = pathname === link.href;
-            return (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
-                  isActive
-                    ? 'bg-cyan-500/10 text-cyan-400 border border-cyan-500/30'
-                    : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60'
-                }`}
-              >
-                <Icon className="w-4 h-4" />
-                <span>{link.label}</span>
-                {link.badge !== undefined && link.badge > 0 && (
-                  <span className="ml-0.5 px-1.5 py-0.2 rounded-full text-[10px] font-mono font-bold bg-cyan-500 text-slate-950">
-                    {link.badge}
+    <header className="sticky top-0 z-50 w-full border-b border-border-subtle bg-bg-surface/85 backdrop-blur-md transition-colors">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16">
+          {/* Logo & Brand */}
+          <div className="flex items-center gap-8">
+            <Link
+              href="/"
+              className="flex items-center gap-2.5 group focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 rounded-lg p-1"
+            >
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-emerald-500 to-cyan-500 flex items-center justify-center text-slate-950 shadow-md shadow-emerald-500/20 group-hover:scale-105 transition-transform duration-200">
+                <Shield className="w-5 h-5 fill-slate-950 stroke-none" />
+              </div>
+              <div className="flex flex-col">
+                <div className="flex items-center gap-1.5">
+                  <span className="font-extrabold text-lg tracking-tight text-text-primary leading-none">
+                    Cyber<span className="text-emerald-400">Tube</span>
                   </span>
-                )}
+                  <span className="text-[10px] uppercase font-bold tracking-widest px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                    Phase 2
+                  </span>
+                </div>
+                <span className="text-[10px] text-text-muted tracking-tight font-medium">
+                  Security Learning Platform
+                </span>
+              </div>
+            </Link>
+
+            {/* Desktop Navigation */}
+            <nav className="hidden md:flex items-center gap-1">
+              {navLinks.map((link) => {
+                const isActive = pathname === link.href;
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className={`flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-sm font-medium transition-colors ${
+                      isActive
+                        ? 'text-emerald-400 bg-emerald-500/10'
+                        : 'text-text-secondary hover:text-text-primary hover:bg-bg-subtle'
+                    }`}
+                  >
+                    {link.label}
+                    {link.badge !== null && link.badge !== undefined && (
+                      <span className="inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-full text-[10px] font-bold bg-emerald-500 text-slate-950">
+                        {link.badge}
+                      </span>
+                    )}
+                  </Link>
+                );
+              })}
+
+              {isAdmin && (
+                <Link
+                  href="/admin"
+                  className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-semibold transition-colors ${
+                    pathname.startsWith('/admin')
+                      ? 'text-red-400 bg-red-500/10'
+                      : 'text-red-400/80 hover:text-red-400 hover:bg-red-500/10'
+                  }`}
+                >
+                  <ShieldAlert className="w-3.5 h-3.5" />
+                  Admin
+                </Link>
+              )}
+            </nav>
+          </div>
+
+          {/* Desktop Right Utilities */}
+          <div className="hidden md:flex items-center gap-3">
+            <Link
+              href="/discover"
+              className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium text-text-muted hover:text-text-primary bg-bg-card border border-border-subtle hover:border-border-strong transition-colors"
+            >
+              <Search className="w-3.5 h-3.5" />
+              <span>Search resources...</span>
+              <kbd className="hidden lg:inline-block px-1.5 py-0.5 text-[10px] font-mono rounded bg-bg-subtle text-text-muted border border-border-subtle">
+                /
+              </kbd>
+            </Link>
+
+            {/* Auth / Account Profile */}
+            {userEmail ? (
+              <Link
+                href="/account"
+                className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium text-white bg-slate-800 hover:bg-slate-700 border border-slate-700 transition-colors"
+              >
+                <div className="w-5 h-5 rounded-full bg-emerald-500 text-slate-950 flex items-center justify-center font-bold text-[10px]">
+                  {userEmail.charAt(0).toUpperCase()}
+                </div>
+                <span className="max-w-[120px] truncate">{userEmail}</span>
               </Link>
-            );
-          })}
-
-          <div className="h-5 w-px bg-slate-200 dark:bg-slate-800 mx-1"></div>
-
-          {/* Theme Selector */}
-          <button
-            onClick={handleToggleTheme}
-            aria-label="Toggle theme"
-            className="p-2 rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-          >
-            {theme === 'dark' ? (
-              <Sun className="w-4 h-4 text-amber-400" />
             ) : (
-              <Moon className="w-4 h-4 text-slate-600" />
+              <Link
+                href="/login"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-emerald-400 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 transition-colors"
+              >
+                <LogIn className="w-3.5 h-3.5" />
+                Sign In
+              </Link>
             )}
-          </button>
-        </nav>
 
-        {/* Mobile menu trigger */}
-        <div className="flex md:hidden items-center gap-2">
-          <button
-            onClick={handleToggleTheme}
-            aria-label="Toggle theme"
-            className="p-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
-          >
-            {theme === 'dark' ? (
-              <Sun className="w-4 h-4 text-amber-400" />
-            ) : (
-              <Moon className="w-4 h-4 text-slate-600" />
-            )}
-          </button>
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Toggle navigation menu"
-            className="p-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
-          >
-            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
+            {/* Theme Toggle */}
+            <button
+              onClick={() => toggleTheme()}
+              aria-label="Toggle visual theme"
+              className="p-2 rounded-lg text-text-muted hover:text-text-primary hover:bg-bg-subtle border border-transparent hover:border-border-subtle transition-colors"
+            >
+              <Sun className="w-4 h-4 hidden dark:block" />
+              <Moon className="w-4 h-4 block dark:hidden" />
+            </button>
+          </div>
+
+          {/* Mobile Menu Trigger */}
+          <div className="flex md:hidden items-center gap-2">
+            <button
+              onClick={() => toggleTheme()}
+              aria-label="Toggle theme"
+              className="p-2 rounded-lg text-text-muted hover:text-text-primary"
+            >
+              <Sun className="w-4 h-4 hidden dark:block" />
+              <Moon className="w-4 h-4 block dark:hidden" />
+            </button>
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Toggle mobile navigation menu"
+              className="p-2 rounded-lg text-text-secondary hover:text-text-primary focus:outline-none"
+            >
+              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* Mobile Drawer Menu */}
+      {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-b border-slate-800 dark:border-[#1f293d] bg-white dark:bg-[#0b0f17] px-4 pt-3 pb-5 space-y-3">
-          <form onSubmit={handleSearchSubmit} className="relative">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-2.5 pointer-events-none" />
-            <input
-              type="search"
-              value={headerSearch}
-              onChange={(e) => setHeaderSearch(e.target.value)}
-              placeholder="Search resources..."
-              className="w-full pl-9 pr-4 py-2 text-xs rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 text-slate-900 dark:text-slate-200"
-            />
-          </form>
-          <div className="space-y-1">
-            {navLinks.map((link) => {
-              const Icon = link.icon;
-              const isActive = pathname === link.href;
-              return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={`flex items-center justify-between px-3 py-2 rounded-lg text-sm font-medium ${
-                    isActive
-                      ? 'bg-cyan-500/10 text-cyan-400 font-semibold'
-                      : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
-                  }`}
-                >
-                  <div className="flex items-center gap-2.5">
-                    <Icon className="w-4 h-4" />
-                    <span>{link.label}</span>
-                  </div>
-                  {link.badge !== undefined && link.badge > 0 && (
-                    <span className="px-2 py-0.5 rounded-full text-xs font-mono font-bold bg-cyan-500 text-slate-950">
-                      {link.badge}
-                    </span>
-                  )}
-                </Link>
-              );
-            })}
+        <div className="md:hidden border-b border-border-subtle bg-bg-surface px-4 pt-3 pb-5 space-y-2">
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center justify-between px-3 py-2 rounded-lg text-base font-medium text-text-secondary hover:text-text-primary hover:bg-bg-subtle"
+            >
+              <span>{link.label}</span>
+              {link.badge !== null && link.badge !== undefined && (
+                <span className="px-2 py-0.5 rounded-full text-xs font-bold bg-emerald-500 text-slate-950">
+                  {link.badge}
+                </span>
+              )}
+            </Link>
+          ))}
+
+          {isAdmin && (
+            <Link
+              href="/admin"
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center gap-2 px-3 py-2 rounded-lg text-base font-semibold text-red-400 hover:bg-red-500/10"
+            >
+              <ShieldAlert className="w-4 h-4" />
+              Admin Portal
+            </Link>
+          )}
+
+          <div className="pt-3 border-t border-border-subtle">
+            {userEmail ? (
+              <Link
+                href="/account"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-white font-medium bg-slate-800"
+              >
+                <User className="w-4 h-4 text-emerald-400" />
+                <span>Account ({userEmail})</span>
+              </Link>
+            ) : (
+              <Link
+                href="/login"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-sm font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30"
+              >
+                <LogIn className="w-4 h-4" />
+                Sign In / Register
+              </Link>
+            )}
           </div>
         </div>
       )}
     </header>
   );
-};
-
+}
