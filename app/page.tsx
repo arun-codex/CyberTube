@@ -98,11 +98,11 @@ export default function HomePage() {
                 {/* Terminal Body with strict syntax colors */}
                 <pre className="p-4 sm:p-5 text-xs font-mono leading-relaxed overflow-x-auto text-[#403f53] bg-white">
                   <code>
-                    <span className="text-[#767682]">// 1. Capture stream metadata</span>{'\n'}
+                    <span className="text-[#767682]">{`// 1. Capture stream metadata\n`}</span>
                     <span className="text-[#8844ae]">tshark</span> -r session.pcap \<br />
                     {'  '}-Y <span className="text-[#096e72]">&quot;tcp.flags.syn == 1 &amp;&amp; tcp.flags.ack == 0&quot;</span> \<br />
                     {'  '}-T fields -e ip.src -e ip.dst -e tcp.dstport{'\n\n'}
-                    <span className="text-[#767682]">// 2. Anomaly detected in handshake</span>{'\n'}
+                    <span className="text-[#767682]">{`// 2. Anomaly detected in handshake\n`}</span>
                     <span className="text-[#3b61b0]">SYN_SENT</span>: 192.168.1.45 -&gt; 10.0.0.1:443{'\n'}
                     <span className="text-[#984e4d]">DELTA_TIME</span>: 0.000142s [Window: 65535]{'\n'}
                     <span className="text-[#3b61b0]">STATUS</span>: Handshake Verified (TLS 1.3)

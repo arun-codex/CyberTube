@@ -215,13 +215,13 @@ export default function ResourceDetailPage({ params }: PageProps) {
               </div>
             </div>
 
-            {resource.skillsCovered && resource.skillsCovered.length > 0 && (
+            {resource.skills && resource.skills.length > 0 && (
               <div className="pt-3 border-t border-[#e4e4ed]">
                 <h3 className="text-xs font-mono font-medium uppercase tracking-wider text-[#767682] mb-2">
                   Skills Covered
                 </h3>
                 <div className="flex flex-wrap gap-1.5">
-                  {resource.skillsCovered.map((skill) => (
+                  {resource.skills.map((skill: string) => (
                     <span
                       key={skill}
                       className="text-xs font-mono px-2 py-0.5 rounded-[4px] bg-[#f4f4f9] text-[#403f53] border border-[#e4e4ed]"
