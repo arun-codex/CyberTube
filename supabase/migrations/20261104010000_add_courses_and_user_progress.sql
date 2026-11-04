@@ -55,7 +55,8 @@ CREATE TABLE IF NOT EXISTS public.course_modules (
   description TEXT,
   order_index INT NOT NULL DEFAULT 1 CHECK (order_index > 0),
   created_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
-  CONSTRAINT unique_course_module_order UNIQUE (course_id, order_index)
+  CONSTRAINT unique_course_module_order UNIQUE (course_id, order_index),
+  CONSTRAINT unique_course_module_pair UNIQUE (course_id, id)
 );
 
 CREATE INDEX IF NOT EXISTS idx_course_modules_course_order ON public.course_modules(course_id, order_index);
@@ -65,7 +66,7 @@ CREATE INDEX IF NOT EXISTS idx_course_modules_course_order ON public.course_modu
 -- -----------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS public.lessons (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  module_id UUID NOT NULL REFERENCES public.course_modules(id) ON DELETE CASCADE,
+  module_id UUID NOT NULL,
   course_id UUID NOT NULL REFERENCES public.courses(id) ON DELETE CASCADE,
   slug TEXT NOT NULL,
   title TEXT NOT NULL,
@@ -78,8 +79,10 @@ CREATE TABLE IF NOT EXISTS public.lessons (
   skills_taught TEXT[] DEFAULT '{}',
   created_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
   CONSTRAINT unique_course_lesson_slug UNIQUE (course_id, slug),
-  CONSTRAINT unique_course_lesson_order UNIQUE (course_id, order_index),
-  CONSTRAINT unique_course_lesson_pair UNIQUE (course_id, id)
+  CONSTRAINT unique_module_lesson_order UNIQUE (module_id, order_index),
+  CONSTRAINT unique_course_lesson_pair UNIQUE (course_id, id),
+  CONSTRAINT fk_lessons_course_module FOREIGN KEY (course_id, module_id)
+    REFERENCES public.course_modules(course_id, id) ON DELETE CASCADE
 );
 
 CREATE INDEX IF NOT EXISTS idx_lessons_module_order ON public.lessons(module_id, order_index);
@@ -181,12 +184,19 @@ CREATE POLICY "Users can record their own lesson progress"
     )
   );
 
--- 3. UPDATE Policy (requires both USING and WITH CHECK to prevent reassigning ownership)
+-- 3. UPDATE Policy (requires both USING and WITH CHECK to prevent reassigning ownership and enforce published course status)
 CREATE POLICY "Users can update their own lesson progress"
   ON public.user_lesson_progress FOR UPDATE
   TO authenticated
   USING ((SELECT auth.uid()) = user_id)
-  WITH CHECK ((SELECT auth.uid()) = user_id);
+  WITH CHECK (
+    (SELECT auth.uid()) = user_id
+    AND EXISTS (
+      SELECT 1 FROM public.courses
+      WHERE courses.id = user_lesson_progress.course_id
+      AND courses.status = 'published'
+    )
+  );
 
 -- 4. DELETE Policy (users can remove their own progress record)
 CREATE POLICY "Users can delete their own lesson progress"
