@@ -5,6 +5,60 @@ import crypto from 'crypto';
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
 const ALLOWED_MIME_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
 
+export async function GET() {
+  try {
+    const supabase = await createClient();
+    if (!supabase) {
+      return NextResponse.json({ error: 'Database service unconfigured.' }, { status: 500 });
+    }
+
+    const {
+      data: { user },
+      error: authError,
+    } = await supabase.auth.getUser();
+
+    if (authError || !user) {
+      return NextResponse.json({ error: 'Unauthorized.' }, { status: 401 });
+    }
+
+    // Fetch profile to retrieve avatar_path
+    const { data: profile } = await (supabase.from('profiles') as any)
+      .select('avatar_path, avatar_url')
+      .eq('id', user.id)
+      .single();
+
+    if (!profile?.avatar_path) {
+      return NextResponse.json({
+        hasCustomAvatar: false,
+        avatarUrl: profile?.avatar_url || null,
+        avatarPath: null,
+      });
+    }
+
+    // Generate fresh signed URL (60-minute validity)
+    const { data: signedData, error: signedError } = await supabase.storage
+      .from('avatars')
+      .createSignedUrl(profile.avatar_path, 3600);
+
+    if (signedError || !signedData?.signedUrl) {
+      return NextResponse.json({
+        hasCustomAvatar: true,
+        avatarUrl: profile?.avatar_url || null,
+        avatarPath: profile.avatar_path,
+        signedUrlError: signedError?.message || 'Failed to refresh signed URL',
+      });
+    }
+
+    return NextResponse.json({
+      hasCustomAvatar: true,
+      avatarUrl: signedData.signedUrl,
+      avatarPath: profile.avatar_path,
+    });
+  } catch (err: any) {
+    return NextResponse.json({ error: err?.message || 'Server error.' }, { status: 500 });
+  }
+}
+
 export async function POST(request: NextRequest) {
   try {
     const supabase = await createClient();
@@ -63,13 +117,13 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Randomized safe path: avatars/{user_id}/{random_uuid}.{ext}
+    // Randomized safe path: {user_id}/{random_uuid}.{ext}
     const ext = file.type === 'image/jpeg' ? 'jpg' : file.type === 'image/png' ? 'png' : 'webp';
     const randomName = crypto.randomUUID();
     const filePath = `${user.id}/${randomName}.${ext}`;
 
     // Attempt upload to Supabase storage 'avatars' bucket
-    const { data: uploadData, error: uploadError } = await supabase.storage
+    const { error: uploadError } = await supabase.storage
       .from('avatars')
       .upload(filePath, buffer, {
         contentType: file.type,
@@ -77,7 +131,7 @@ export async function POST(request: NextRequest) {
       });
 
     if (uploadError) {
-      // If Storage bucket is unconfigured on remote, return clear message
+      // If Storage bucket is unconfigured on remote, return helpful error state
       return NextResponse.json(
         { error: `Storage configuration issue: ${uploadError.message}` },
         { status: 503 }
@@ -140,4 +194,3 @@ export async function DELETE() {
     return NextResponse.json({ error: err?.message || 'Server error.' }, { status: 500 });
   }
 }
-

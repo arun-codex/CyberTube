@@ -100,6 +100,7 @@ export function Header() {
   }, []);
 
   const navLinks = [
+    { label: 'Learning Paths', href: '/learning-paths' },
     { label: 'Discover', href: '/discover' },
     { label: 'Courses', href: '/courses' },
     { label: 'Domains', href: '/domains' },

@@ -35,10 +35,10 @@ test.describe('CyberTube Phase 5 — Themes, Search & Profile Verification', () 
     const results = searchModal.locator('a[href^="/courses/"], a[href^="/resources/"]');
     await expect(results.first()).toBeVisible();
 
-    // 3. Test keyboard Enter navigation
+    // 3. Test keyboard Enter navigation (can navigate to course, resource, or learning path)
     await page.keyboard.press('Enter');
-    await page.waitForURL(/\/(courses|resources)\//);
-    expect(page.url()).toMatch(/\/(courses|resources)\//);
+    await page.waitForURL(/\/(courses|resources|learning-paths)\//);
+    expect(page.url()).toMatch(/\/(courses|resources|learning-paths)\//);
 
     // 4. Test Escape key closes dialog
     await page.goto('/');

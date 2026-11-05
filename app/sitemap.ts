@@ -1,8 +1,10 @@
 import { MetadataRoute } from 'next';
 import { COURSES } from '@/data/courses';
 import { INITIAL_RESOURCES } from '@/data/resources';
+import { LEARNING_PATHS } from '@/data/learning-paths';
 import { Course } from '@/types/course';
 import { Resource } from '@/types/resource';
+import { LearningPath } from '@/types/learning-path';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://cybertube.vercel.app';
@@ -15,6 +17,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1.0,
     },
     {
+      url: `${baseUrl}/learning-paths`,
+      lastModified: new Date(),
+      changeFrequency: 'daily',
+      priority: 0.95,
+    },
+    {
       url: `${baseUrl}/courses`,
       lastModified: new Date(),
       changeFrequency: 'daily',
@@ -25,6 +33,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/ethics`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.7,
     },
     {
       url: `${baseUrl}/login`,
@@ -40,6 +54,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
+  const pathRoutes: MetadataRoute.Sitemap = LEARNING_PATHS.map((lp: LearningPath) => ({
+    url: `${baseUrl}/learning-paths/${lp.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly',
+    priority: 0.85,
+  }));
+
   const courseRoutes: MetadataRoute.Sitemap = COURSES.map((course: Course) => ({
     url: `${baseUrl}/courses/${course.slug}`,
     lastModified: new Date(),
@@ -54,5 +75,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  return [...staticRoutes, ...courseRoutes, ...resourceRoutes];
+  return [...staticRoutes, ...pathRoutes, ...courseRoutes, ...resourceRoutes];
 }
