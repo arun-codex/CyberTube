@@ -1,6 +1,6 @@
 import React from 'react';
 import { notFound } from 'next/navigation';
-import { getAllCourses, getCourseBySlug, getCourseLessons } from '../../../src/lib/courses';
+import { getAllCourses, getCourseBySlugWithDb, getCourseLessons } from '../../../src/lib/courses';
 import { CourseLearningExperience } from './CourseLearningExperience';
 
 interface CourseDetailPageProps {
@@ -21,7 +21,7 @@ export function generateStaticParams() {
 export default async function CourseDetailPage({ params, searchParams }: CourseDetailPageProps) {
   const { slug } = await params;
   const resolvedSearchParams = searchParams ? await searchParams : undefined;
-  const course = getCourseBySlug(slug);
+  const course = await getCourseBySlugWithDb(slug);
 
   if (!course) {
     notFound();

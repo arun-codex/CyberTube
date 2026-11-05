@@ -158,6 +158,7 @@ export async function syncAllEnabledPlaylists(options?: {
   }
 
   const allStats: SyncStats[] = [];
+  let hasFailure = false;
 
   for (const source of sources) {
     const stats: SyncStats = {
@@ -185,25 +186,43 @@ export async function syncAllEnabledPlaylists(options?: {
       // 3. Fetch verified video details
       const videoDetails = await fetchVideoDetailsFromYouTube(videoIds, apiKey);
 
-      // 4. Fetch existing lessons and default module for this course
-      const { data: existingLessons } = await (adminClient as any)
+      // 4. Fetch existing lessons and modules for this course with strict error checking
+      const { data: existingLessons, error: lessonsError } = await (adminClient as any)
         .from('lessons')
         .select('id, slug, youtube_video_id, order_index, module_id')
         .eq('course_id', source.course_id);
+
+      if (lessonsError) {
+        throw new Error(`Failed to query lessons: ${lessonsError.message}`);
+      }
 
       const lessonByVideoId = new Map<string, any>();
       (existingLessons || []).forEach((l: any) => {
         lessonByVideoId.set(l.youtube_video_id, l);
       });
 
-      // Find or verify default module
-      const { data: modules } = await (adminClient as any)
+      // Find or verify default module destination
+      const { data: modules, error: modulesError } = await (adminClient as any)
         .from('course_modules')
-        .select('id, order_index')
+        .select('id, title, order_index')
         .eq('course_id', source.course_id)
         .order('order_index', { ascending: true });
 
-      const defaultModuleId = modules?.[0]?.id;
+      if (modulesError) {
+        throw new Error(`Failed to query course_modules: ${modulesError.message}`);
+      }
+
+      // Priority for default module:
+      // 1. Explicitly configured source.default_module_id
+      // 2. Module named "New Playlist Additions"
+      // 3. Fallback to first module
+      let defaultModuleId: string | undefined = source.default_module_id;
+      if (!defaultModuleId && modules && modules.length > 0) {
+        const additionsModule = modules.find((m: any) =>
+          m.title && /new playlist additions/i.test(m.title)
+        );
+        defaultModuleId = additionsModule?.id || modules[0]?.id;
+      }
 
       // 5. Process each playlist item
       const seenVideoIdsInThisRun = new Set<string>();
@@ -218,10 +237,15 @@ export async function syncAllEnabledPlaylists(options?: {
 
         seenVideoIdsInThisRun.add(vid);
         const video = videoDetails.get(vid);
-        const isEmbeddable = video ? video.status.embeddable !== false : false;
-        const isAvailable = Boolean(video && video.status.privacyStatus !== 'private');
+        const isEmbeddable = video ? video.status?.embeddable !== false : false;
+        const isAvailable = Boolean(
+          video &&
+          video.status?.privacyStatus !== 'private' &&
+          (!video.status?.uploadStatus || video.status.uploadStatus === 'processed')
+        );
+        const isActive = isAvailable && isEmbeddable;
 
-        if (!isAvailable || !isEmbeddable) {
+        if (!isActive) {
           stats.unavailableVideos++;
         } else {
           stats.availableVideos++;
@@ -237,8 +261,8 @@ export async function syncAllEnabledPlaylists(options?: {
 
         if (existingLesson) {
           assignedLessonId = existingLesson.id;
-          // Update lesson metadata idempotently
-          await (adminClient as any)
+          // Update lesson metadata idempotently, preserving its existing module assignment
+          const { error: updateLessonError } = await (adminClient as any)
             .from('lessons')
             .update({
               title,
@@ -246,13 +270,19 @@ export async function syncAllEnabledPlaylists(options?: {
               order_index: seq,
             })
             .eq('id', existingLesson.id);
+
+          if (updateLessonError) {
+            throw new Error(`Failed to update lesson ${existingLesson.id}: ${updateLessonError.message}`);
+          }
           stats.updatedLessons++;
-        } else if (isAvailable && isEmbeddable && defaultModuleId) {
-          // Newly discovered playable lesson! Insert into lessons table
+        } else if (isActive && defaultModuleId) {
+          // Newly discovered playable lesson! Insert into configured default module
           const slug = `lesson-${seq}-${vid}`;
+          const newLessonId = crypto.randomUUID();
           const { data: newLesson, error: insertLessonError } = await (adminClient as any)
             .from('lessons')
             .insert({
+              id: newLessonId,
               course_id: source.course_id,
               module_id: defaultModuleId,
               slug,
@@ -262,20 +292,24 @@ export async function syncAllEnabledPlaylists(options?: {
               duration_minutes: minutes || 30,
               order_index: seq,
               objectives: ['Complete lesson viewing and practice exercises'],
-              tags: ['networking', 'cybersecurity'],
-              skills_taught: ['Networking fundamentals'],
+              tags: ['cybersecurity', 'networking'],
+              skills_taught: ['Network analysis & security'],
             })
             .select('id')
             .single();
 
-          if (!insertLessonError && newLesson) {
+          if (insertLessonError) {
+            throw new Error(`Failed to insert new lesson for video ${vid}: ${insertLessonError.message}`);
+          }
+
+          if (newLesson) {
             assignedLessonId = newLesson.id;
             stats.newlyInsertedLessons++;
           }
         }
 
         // Upsert into course_playlist_items mapping
-        await (adminClient as any)
+        const { error: upsertItemError } = await (adminClient as any)
           .from('course_playlist_items')
           .upsert(
             {
@@ -289,33 +323,45 @@ export async function syncAllEnabledPlaylists(options?: {
               duration_seconds: totalSeconds,
               is_embeddable: isEmbeddable,
               availability_status: isAvailable ? 'available' : 'unavailable',
-              is_active: isAvailable,
+              is_active: isActive,
               last_seen_at: new Date().toISOString(),
             },
             { onConflict: 'course_id,youtube_video_id' }
           );
+
+        if (upsertItemError) {
+          throw new Error(`Failed to upsert playlist item ${vid}: ${upsertItemError.message}`);
+        }
       }
 
       // Mark removed videos as is_active = FALSE without deleting lessons/progress
-      const { data: allMappedItems } = await (adminClient as any)
+      const { data: allMappedItems, error: queryMappedError } = await (adminClient as any)
         .from('course_playlist_items')
         .select('id, youtube_video_id, is_active')
         .eq('course_id', source.course_id);
 
+      if (queryMappedError) {
+        throw new Error(`Failed to query mapped playlist items: ${queryMappedError.message}`);
+      }
+
       if (allMappedItems) {
         for (const item of allMappedItems) {
           if (!seenVideoIdsInThisRun.has(item.youtube_video_id) && item.is_active) {
-            await (adminClient as any)
+            const { error: deactivateError } = await (adminClient as any)
               .from('course_playlist_items')
               .update({ is_active: false })
               .eq('id', item.id);
+
+            if (deactivateError) {
+              throw new Error(`Failed to deactivate removed item ${item.youtube_video_id}: ${deactivateError.message}`);
+            }
             stats.removedVideos++;
           }
         }
       }
 
-      // Update source status to success
-      await (adminClient as any)
+      // Update source status to success ONLY when all operations succeed
+      const { error: updateSourceError } = await (adminClient as any)
         .from('course_playlist_sources')
         .update({
           last_synced_at: stats.syncedAt,
@@ -325,9 +371,14 @@ export async function syncAllEnabledPlaylists(options?: {
         })
         .eq('id', source.id);
 
+      if (updateSourceError) {
+        throw new Error(`Failed to update source success state: ${updateSourceError.message}`);
+      }
+
       allStats.push(stats);
     } catch (err: any) {
-      // Record failure without deleting course
+      hasFailure = true;
+      // Record failure without deleting course or updating last_success_at
       await (adminClient as any)
         .from('course_playlist_sources')
         .update({
@@ -345,8 +396,9 @@ export async function syncAllEnabledPlaylists(options?: {
   }
 
   return {
-    success: true,
+    success: !hasFailure,
     environment: vercelEnv,
     stats: allStats,
+    error: hasFailure ? 'One or more playlist sources failed to synchronize cleanly.' : undefined,
   };
 }

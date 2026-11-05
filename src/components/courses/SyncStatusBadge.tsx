@@ -80,3 +80,4 @@ export const SyncStatusBadge: React.FC<SyncStatusBadgeProps> = ({ courseId }) =>
     </span>
   );
 };
+

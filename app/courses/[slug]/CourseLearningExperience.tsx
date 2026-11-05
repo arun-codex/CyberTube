@@ -19,6 +19,7 @@ import {
   Target,
   Award,
   BookOpen,
+  ShieldAlert,
 } from 'lucide-react';
 
 interface CourseLearningExperienceProps {
@@ -88,6 +89,13 @@ export const CourseLearningExperience: React.FC<CourseLearningExperienceProps> =
     cloudCourseProgressService.toggleLessonCompletion(course.id, lessonId);
   };
 
+  const handleSelectLesson = (slug: string) => {
+    setActiveLessonSlug(slug);
+    if (typeof window !== 'undefined') {
+      window.history.pushState(null, '', `/courses/${course.slug}?lesson=${slug}`);
+    }
+  };
+
   const relatedResources = getRelatedResourcesForLesson(activeLesson, course, 3);
 
   return (
@@ -106,6 +114,20 @@ export const CourseLearningExperience: React.FC<CourseLearningExperienceProps> =
               title={activeLesson.title}
               channelName={course.instructor.name}
             />
+
+            {/* Ethical and Safety Lab Notice */}
+            {(course.slug === 'wireshark-and-ethical-hacking' || course.domains.includes('network-security')) && (
+              <div
+                data-testid="ethical-use-notice"
+                className="flex items-start gap-2.5 p-3 rounded-[6px] bg-[#fffbeb] border border-[#fde68a] text-[#92400e] text-xs leading-relaxed"
+              >
+                <ShieldAlert className="w-4 h-4 shrink-0 mt-0.5 text-[#b45309]" />
+                <div>
+                  <span className="font-semibold text-[#78350f]">Ethical Lab Environment Notice: </span>
+                  Practice only on systems, networks, and devices you own or have explicit permission to test. Use isolated lab environments for traffic capture, credential analysis, and security demonstrations.
+                </div>
+              </div>
+            )}
 
             {/* Lesson Title & Module Breadcrumb */}
             <div className="space-y-2 pt-1">
@@ -137,6 +159,7 @@ export const CourseLearningExperience: React.FC<CourseLearningExperienceProps> =
               nextLesson={nextLesson}
               isCompleted={isLessonCompleted}
               onToggleComplete={() => handleToggleComplete(activeLesson.id)}
+              onSelectLesson={handleSelectLesson}
             />
           </div>
 
@@ -204,6 +227,7 @@ export const CourseLearningExperience: React.FC<CourseLearningExperienceProps> =
               activeLessonId={activeLesson.id}
               completedLessonIds={completedLessonIds}
               onToggleComplete={handleToggleComplete}
+              onSelectLesson={handleSelectLesson}
             />
           </div>
         </div>

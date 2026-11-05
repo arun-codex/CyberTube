@@ -192,9 +192,10 @@ BEGIN
     'Core concepts of modern computer networks, physical and logical topologies, and protocol stack dissection.',
     1
   )
-  ON CONFLICT (course_id, order_index) DO UPDATE SET
+  ON CONFLICT (id) DO UPDATE SET
     title = EXCLUDED.title,
-    description = EXCLUDED.description;
+    description = EXCLUDED.description,
+    order_index = EXCLUDED.order_index;
 
   -- C. Lessons
   -- Lesson 1
@@ -392,3 +393,4 @@ BEGIN
     last_seen_at = NOW();
 
 END $$;
+

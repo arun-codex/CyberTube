@@ -12,6 +12,7 @@ interface LessonNavigationProps {
   nextLesson?: Lesson;
   isCompleted: boolean;
   onToggleComplete: () => void;
+  onSelectLesson?: (slug: string) => void;
 }
 
 export const LessonNavigation: React.FC<LessonNavigationProps> = ({
@@ -20,6 +21,7 @@ export const LessonNavigation: React.FC<LessonNavigationProps> = ({
   nextLesson,
   isCompleted,
   onToggleComplete,
+  onSelectLesson,
 }) => {
   return (
     <div className="flex flex-col sm:flex-row items-center justify-between gap-3 py-3.5 px-4 sm:px-5 rounded-[8px] border border-[#e4e4ed] bg-white">
@@ -28,6 +30,7 @@ export const LessonNavigation: React.FC<LessonNavigationProps> = ({
         {prevLesson ? (
           <Link
             href={`/courses/${course.slug}?lesson=${prevLesson.slug}`}
+            onClick={() => onSelectLesson?.(prevLesson.slug)}
             className="inline-flex items-center gap-2 px-3 py-2 rounded-[4px] text-xs font-mono text-[#403f53] hover:text-[#303055] bg-[#f4f4f9] hover:bg-[#e8e8f2] border border-[#e4e4ed] transition-colors w-full sm:w-auto justify-center min-h-[44px] sm:min-h-[36px]"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
@@ -68,6 +71,7 @@ export const LessonNavigation: React.FC<LessonNavigationProps> = ({
         {nextLesson ? (
           <Link
             href={`/courses/${course.slug}?lesson=${nextLesson.slug}`}
+            onClick={() => onSelectLesson?.(nextLesson.slug)}
             className="inline-flex items-center gap-2 px-3 py-2 rounded-[4px] text-xs font-mono text-[#403f53] hover:text-[#303055] bg-[#f4f4f9] hover:bg-[#e8e8f2] border border-[#e4e4ed] transition-colors w-full sm:w-auto justify-center min-h-[44px] sm:min-h-[36px]"
           >
             <span className="truncate max-w-[160px]">Next: {nextLesson.title}</span>

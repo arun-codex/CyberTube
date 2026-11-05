@@ -82,7 +82,7 @@ test.describe('Phase 15 — MERN Full Stack Course Integration', () => {
 
     // Filter by Cybersecurity track
     await cyberTab.click();
-    await expect(page.locator('text=Showing 4 of')).toBeVisible();
+    await expect(page.locator('text=Showing 5 of')).toBeVisible();
     await expect(page.locator(`a[href="/courses/${mernSlug}"]`)).toHaveCount(0);
     // Existing cybersecurity course is visible
     await expect(page.locator('a[href="/courses/network-packet-analysis-masterclass"]').first()).toBeVisible();

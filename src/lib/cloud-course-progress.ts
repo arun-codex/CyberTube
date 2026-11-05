@@ -108,12 +108,12 @@ export class CloudCourseProgressService implements CourseProgressService {
     // 1. Update local storage immediately for fast reactive UI update
     const isNowCompleted = localCourseProgressService.toggleLessonCompletion(courseId, lessonId);
 
-    // 2. Persist to Supabase if authenticated
+    // 2. Persist to Supabase if authenticated and UUID valid
     if (this.supabase) {
       this.setSyncStatus(courseId, 'saving');
       this.persistLessonProgressToCloud(courseId, lessonId, isNowCompleted)
-        .then(() => {
-          this.setSyncStatus(courseId, 'saved');
+        .then((status) => {
+          this.setSyncStatus(courseId, status);
         })
         .catch((err) => {
           console.warn('Failed to persist lesson completion to cloud:', err);
@@ -132,8 +132,8 @@ export class CloudCourseProgressService implements CourseProgressService {
     if (this.supabase) {
       this.setSyncStatus(courseId, 'saving');
       this.persistLessonProgressToCloud(courseId, lessonId, completed)
-        .then(() => {
-          this.setSyncStatus(courseId, 'saved');
+        .then((status) => {
+          this.setSyncStatus(courseId, status);
         })
         .catch((err) => {
           console.warn('Failed to persist lesson completion to cloud:', err);
@@ -259,18 +259,16 @@ export class CloudCourseProgressService implements CourseProgressService {
     courseId: string,
     lessonId: string,
     completed: boolean
-  ): Promise<void> {
-    if (!this.supabase) return;
+  ): Promise<CloudSyncStatus> {
+    if (!this.supabase) return 'offline';
     const { data: { user } } = await this.supabase.auth.getUser();
     if (!user) {
-      this.setSyncStatus(courseId, 'offline');
-      return;
+      return 'offline';
     }
 
     if (!isUuid(courseId) || !isUuid(lessonId)) {
       // Non-UUID courses/lessons stay in local storage
-      this.setSyncStatus(courseId, 'offline');
-      return;
+      return 'offline';
     }
 
     const payload = {
@@ -289,6 +287,8 @@ export class CloudCourseProgressService implements CourseProgressService {
     if (error) {
       throw new Error(`Supabase progress upsert failed: ${error.message}`);
     }
+
+    return 'saved';
   }
 
   private async persistLessonAccessToCloud(courseId: string, lessonId: string): Promise<void> {

@@ -10,6 +10,7 @@ interface ModuleAccordionProps {
   activeLessonId?: string;
   completedLessonIds: string[];
   onToggleComplete?: (lessonId: string) => void;
+  onSelectLesson?: (slug: string) => void;
 }
 
 export const ModuleAccordion: React.FC<ModuleAccordionProps> = ({
@@ -17,6 +18,7 @@ export const ModuleAccordion: React.FC<ModuleAccordionProps> = ({
   activeLessonId,
   completedLessonIds,
   onToggleComplete,
+  onSelectLesson,
 }) => {
   const [openModuleIds, setOpenModuleIds] = useState<string[]>(() => {
     return course.modules.map((m) => m.id);
@@ -117,6 +119,7 @@ export const ModuleAccordion: React.FC<ModuleAccordionProps> = ({
                         <div className="flex-1 min-w-0">
                           <Link
                             href={`/courses/${course.slug}?lesson=${lesson.slug}`}
+                            onClick={() => onSelectLesson?.(lesson.slug)}
                             className={`text-xs block line-clamp-2 ${
                               isActive
                                 ? 'font-semibold text-[#303055]'

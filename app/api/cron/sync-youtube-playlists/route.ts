@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import { syncAllEnabledPlaylists } from '@/lib/server/youtube-sync';
 
 export const dynamic = 'force-dynamic';
@@ -47,6 +48,14 @@ export async function GET(request: NextRequest) {
         },
         { status: result.error?.includes('disabled on Vercel Preview') ? 403 : 500 }
       );
+    }
+
+    // Invalidate course pages cache so newly synced lessons appear on next request
+    try {
+      revalidatePath('/courses');
+      revalidatePath('/courses/[slug]', 'page');
+    } catch (revalErr) {
+      console.warn('[cron/sync-youtube-playlists] Cache revalidation warning:', revalErr);
     }
 
     return NextResponse.json({

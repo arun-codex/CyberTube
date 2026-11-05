@@ -124,3 +124,4 @@ The repository owner must configure the following in **Vercel Project → Settin
 - **Branch:** `feature/mern-full-stack-course-integration`
 - **Draft Pull Request:** [#8](https://github.com/arun-codex/CyberTube/pull/8) targeting `main` (Draft, unmerged)
 - **Course URL:** `https://cybertube-mu.vercel.app/courses/networking-for-hackers-2027`
+
