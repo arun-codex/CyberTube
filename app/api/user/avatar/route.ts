@@ -1,9 +1,65 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
+import { createAdminClient } from '@/lib/supabase/admin';
+import { isBucketAutoInitAllowed } from '@/lib/storageEnvironmentGuard';
 import crypto from 'crypto';
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
 const ALLOWED_MIME_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
+
+export async function GET() {
+  try {
+    const supabase = await createClient();
+    if (!supabase) {
+      return NextResponse.json({ error: 'Database service unconfigured.' }, { status: 500 });
+    }
+
+    const {
+      data: { user },
+      error: authError,
+    } = await supabase.auth.getUser();
+
+    if (authError || !user) {
+      return NextResponse.json({ error: 'Unauthorized.' }, { status: 401 });
+    }
+
+    // Fetch profile to retrieve avatar_path
+    const { data: profile } = await (supabase.from('profiles') as any)
+      .select('avatar_path, avatar_url')
+      .eq('id', user.id)
+      .single();
+
+    if (!profile?.avatar_path) {
+      return NextResponse.json({
+        hasCustomAvatar: false,
+        avatarUrl: profile?.avatar_url || null,
+        avatarPath: null,
+      });
+    }
+
+    // Generate fresh signed URL (60-minute validity)
+    const { data: signedData, error: signedError } = await supabase.storage
+      .from('avatars')
+      .createSignedUrl(profile.avatar_path, 3600);
+
+    if (signedError || !signedData?.signedUrl) {
+      return NextResponse.json({
+        hasCustomAvatar: true,
+        avatarUrl: profile?.avatar_url || null,
+        avatarPath: profile.avatar_path,
+        signedUrlError: signedError?.message || 'Failed to refresh signed URL',
+      });
+    }
+
+    return NextResponse.json({
+      hasCustomAvatar: true,
+      avatarUrl: signedData.signedUrl,
+      avatarPath: profile.avatar_path,
+    });
+  } catch (err: any) {
+    return NextResponse.json({ error: err?.message || 'Server error.' }, { status: 500 });
+  }
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -56,30 +112,81 @@ export async function POST(request: NextRequest) {
       buffer.toString('utf8', 0, 4) === 'RIFF' &&
       buffer.toString('utf8', 8, 12) === 'WEBP';
 
-    if (!isJpeg && !isPng && !isWebp) {
+    // Disallow GIF, SVG, HTML, XML, or unknown binaries
+    const isDisallowedFormat =
+      buffer.toString('utf8', 0, 3) === 'GIF' ||
+      buffer.toString('utf8', 0, 100).toLowerCase().includes('<svg') ||
+      buffer.toString('utf8', 0, 100).toLowerCase().includes('<?xml') ||
+      buffer.toString('utf8', 0, 100).toLowerCase().includes('<html') ||
+      buffer.toString('utf8', 0, 100).toLowerCase().includes('<!doctype');
+
+    if (isDisallowedFormat || (!isJpeg && !isPng && !isWebp)) {
       return NextResponse.json(
-        { error: 'File content does not match genuine image signature.' },
+        { error: 'File content does not match genuine image signature. SVG, GIF, HTML and raw scripts are rejected.' },
         { status: 400 }
       );
     }
 
-    // Randomized safe path: avatars/{user_id}/{random_uuid}.{ext}
-    const ext = file.type === 'image/jpeg' ? 'jpg' : file.type === 'image/png' ? 'png' : 'webp';
+    // Strict signature-to-declared-MIME matching (prevents spoofed MIME types)
+    const isMimeSignatureMatch =
+      (file.type === 'image/jpeg' && isJpeg) ||
+      (file.type === 'image/png' && isPng) ||
+      (file.type === 'image/webp' && isWebp);
+
+    if (!isMimeSignatureMatch) {
+      return NextResponse.json(
+        { error: 'Spoofed MIME type detected: payload bytes do not match declared Content-Type header.' },
+        { status: 400 }
+      );
+    }
+
+    // Randomized safe path matching verified binary signature:
+    // JPEG: .jpg, PNG: .png, WebP: .webp
+    const verifiedExt = isJpeg ? 'jpg' : isPng ? 'png' : 'webp';
     const randomName = crypto.randomUUID();
-    const filePath = `${user.id}/${randomName}.${ext}`;
+    const filePath = `${user.id}/${randomName}.${verifiedExt}`;
 
     // Attempt upload to Supabase storage 'avatars' bucket
-    const { data: uploadData, error: uploadError } = await supabase.storage
+    let uploadResult = await supabase.storage
       .from('avatars')
       .upload(filePath, buffer, {
         contentType: file.type,
         upsert: true,
       });
 
-    if (uploadError) {
-      // If Storage bucket is unconfigured on remote, return clear message
+    // In isolated preview or local environments where bucket was not pre-created, attempt admin auto-provisioning
+    // FAIL-CLOSED ENVIRONMENT GUARD: Default is DENY. Auto-init is only permitted in explicitly approved preview/dev.
+    if (
+      isBucketAutoInitAllowed() &&
+      uploadResult.error &&
+      (uploadResult.error.message.toLowerCase().includes('not found') ||
+       uploadResult.error.message.toLowerCase().includes('bucket'))
+    ) {
+      try {
+        const admin = createAdminClient();
+        if (admin) {
+          await admin.storage.createBucket('avatars', {
+            public: false,
+            fileSizeLimit: 5242880,
+            allowedMimeTypes: ALLOWED_MIME_TYPES,
+          });
+          // Retry upload once after bucket provisioning
+          uploadResult = await supabase.storage
+            .from('avatars')
+            .upload(filePath, buffer, {
+              contentType: file.type,
+              upsert: true,
+            });
+        }
+      } catch {
+        // Fall through to error response
+      }
+    }
+
+    if (uploadResult.error) {
+      // Failed uploads never report success
       return NextResponse.json(
-        { error: `Storage configuration issue: ${uploadError.message}` },
+        { error: `Storage configuration issue: ${uploadResult.error.message}` },
         { status: 503 }
       );
     }
@@ -140,4 +247,3 @@ export async function DELETE() {
     return NextResponse.json({ error: err?.message || 'Server error.' }, { status: 500 });
   }
 }
-

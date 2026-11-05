@@ -31,3 +31,9 @@ yarn-error.log*
 # System files
 .DS_Store
 Thumbs.db
+
+# Test reports & build artifacts
+playwright-report/
+test-results/
+*.tsbuildinfo
+

@@ -16,7 +16,7 @@ export async function middleware(request: NextRequest) {
   if (!supabaseUrl || !supabaseKey) {
     // Only protect /admin routes if credentials or simulated access is required
     const pathname = request.nextUrl.pathname;
-    if (pathname.startsWith('/admin') || pathname.startsWith('/account')) {
+    if (pathname.startsWith('/admin') || pathname.startsWith('/account') || pathname.startsWith('/profile')) {
       // In offline / unconfigured mode, redirect to /login with notification
       const loginUrl = request.nextUrl.clone();
       loginUrl.pathname = '/login';
@@ -53,8 +53,8 @@ export async function middleware(request: NextRequest) {
 
   const pathname = request.nextUrl.pathname;
 
-  // 1. Protected User Routes (/account, /account/collections, etc.)
-  if (pathname.startsWith('/account')) {
+  // 1. Protected User Routes (/account, /profile, /account/collections, etc.)
+  if (pathname.startsWith('/account') || pathname.startsWith('/profile')) {
     if (!user) {
       const loginUrl = request.nextUrl.clone();
       loginUrl.pathname = '/login';

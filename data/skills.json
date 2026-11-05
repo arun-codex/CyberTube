@@ -1,0 +1,207 @@
+[
+  {
+    "id": "skill-found-01",
+    "category": "Foundations",
+    "title": "IP Addressing, Subnetting & Network Layers",
+    "beginnerExplanation": "Understanding how data packets move from source to destination using IP addresses, CIDR notation, netmasks, and the OSI 7-layer / TCP-IP models.",
+    "whatGoodLooksLike": [
+      "Can calculate available host counts and network addresses from CIDR blocks (/24, /27, /30) without a calculator",
+      "Can explain the difference between Layer 2 (MAC/switch) and Layer 3 (IP/router) forwarding",
+      "Can trace a DNS request, TCP 3-way handshake, and TLS session setup in Wireshark"
+    ],
+    "linkedResourceIds": ["net-01", "net-02"]
+  },
+  {
+    "id": "skill-found-02",
+    "category": "Foundations",
+    "title": "Linux Terminal Navigation & File Permissions",
+    "beginnerExplanation": "Mastering command-line navigation, file creation, searching, text manipulation (grep, awk, sed), and POSIX octal/symbolic permissions (chmod, chown).",
+    "whatGoodLooksLike": [
+      "Navigates the filesystem comfortably without a GUI, editing configuration files in nano or vim",
+      "Correctly diagnoses permission denied errors and applies minimum required privileges (e.g. 640 vs 777)",
+      "Can pipeline terminal commands to extract specific fields from multi-gigabyte log files"
+    ],
+    "linkedResourceIds": ["lin-01", "lin-02"]
+  },
+  {
+    "id": "skill-found-03",
+    "category": "Foundations",
+    "title": "Operating System Architecture & Virtualization",
+    "beginnerExplanation": "Understanding the Linux and Windows kernels, user vs kernel space, processes, daemons/services, and deploying isolated virtual machines with VirtualBox or VMware.",
+    "whatGoodLooksLike": [
+      "Can configure host-only and NAT networking for secure virtual lab isolation",
+      "Inspects running processes, open network sockets, and handles with system diagnostic tools",
+      "Understands the difference between virtual machines (hypervisors) and containerized processes (Docker)"
+    ],
+    "linkedResourceIds": ["lin-01", "lab-01"]
+  },
+  {
+    "id": "skill-sec-01",
+    "category": "Security basics",
+    "title": "The CIA Triad & Threat Modeling",
+    "beginnerExplanation": "The foundational security philosophy balancing Confidentiality, Integrity, and Availability, alongside STRIDE threat modeling to identify architectural risks before deployment.",
+    "whatGoodLooksLike": [
+      "Identifies whether a given security control addresses Confidentiality, Integrity, or Availability",
+      "Can break down a web application into data flows, trust boundaries, and threat categories using STRIDE",
+      "Understands why security is a risk-reduction process rather than a binary state of absolute protection"
+    ],
+    "linkedResourceIds": ["sec-01", "sec-02"]
+  },
+  {
+    "id": "skill-sec-02",
+    "category": "Security basics",
+    "title": "Authentication vs. Authorization & Access Control",
+    "beginnerExplanation": "Distinguishing 'who you are' (Authentication: passwords, MFA, SAML, OAuth/OIDC) from 'what you are allowed to do' (Authorization: RBAC, ABAC, ACLs).",
+    "whatGoodLooksLike": [
+      "Implements multi-factor authentication (MFA) utilizing TOTP or FIDO2 hardware tokens over SMS",
+      "Designs role-based access control (RBAC) schemas adhering strictly to the Principle of Least Privilege",
+      "Understands Broken Object Level Authorization (BOLA) and how missing server-side checks cause data leaks"
+    ],
+    "linkedResourceIds": ["sec-01", "sec-03", "off-03"]
+  },
+  {
+    "id": "skill-sec-03",
+    "category": "Security basics",
+    "title": "Applied Cryptography & Public Key Infrastructure (PKI)",
+    "beginnerExplanation": "The practical mechanics of symmetric encryption (AES-GCM), asymmetric encryption (RSA, ECC), cryptographic hashing (SHA-256), and digital certificates/PKI.",
+    "whatGoodLooksLike": [
+      "Distinguishes between encryption (reversible with key), hashing (one-way integrity), and encoding (Base64)",
+      "Understands TLS handshakes, certificate authorities (CAs), root stores, and certificate expiration",
+      "Recognizes legacy deprecated algorithms (MD5, SHA-1, DES, ECB mode) and replaces them with secure standards"
+    ],
+    "linkedResourceIds": ["sec-01", "sec-02"]
+  },
+  {
+    "id": "skill-script-01",
+    "category": "Scripting",
+    "title": "Bash Scripting for Automation & Triaging",
+    "beginnerExplanation": "Writing shell scripts with variables, loops, conditional statements, exit codes, and robust error handling to automate repetitive system tasks.",
+    "whatGoodLooksLike": [
+      "Writes clean bash scripts featuring `set -euo pipefail` and meaningful logging",
+      "Automates log rotation, backup archiving, and automated user auditing tasks",
+      "Can parse system state and output formatted JSON or CSV reports for reporting"
+    ],
+    "linkedResourceIds": ["lin-01", "lin-02"]
+  },
+  {
+    "id": "skill-script-02",
+    "category": "Scripting",
+    "title": "Python for Security Tools & Data Parsing",
+    "beginnerExplanation": "Using Python scripts with standard libraries (socket, sys, os) and requests/httpx to interact with REST APIs, parse JSON, and scrape indicators of compromise.",
+    "whatGoodLooksLike": [
+      "Builds custom scripts to query threat intelligence APIs (VirusTotal, AbuseIPDB, AlienVault OTX)",
+      "Parses multi-megabyte JSON and CSV security telemetry with pandas or python stdlib",
+      "Automates port scanning or HTTP header security auditing using clean modular code"
+    ],
+    "linkedResourceIds": ["prog-01"]
+  },
+  {
+    "id": "skill-def-01",
+    "category": "Defensive",
+    "title": "Log Analysis & SIEM Investigation",
+    "beginnerExplanation": "Reading and querying security telemetry from Windows Event Logs, Linux syslog/auth.log, and web server logs within a SIEM (Splunk, Elastic, Microsoft Sentinel).",
+    "whatGoodLooksLike": [
+      "Recognizes critical Windows Event IDs (4624 successful logon, 4625 failed logon, 4688 process creation, 7045 service install)",
+      "Constructs targeted search queries to track lateral movement across multiple host machines",
+      "Distinguishes legitimate administrative tool execution (PsExec, PowerShell) from suspicious adversary activity"
+    ],
+    "linkedResourceIds": ["sec-01", "lab-04", "lab-05"]
+  },
+  {
+    "id": "skill-def-02",
+    "category": "Defensive",
+    "title": "Network Traffic Analysis & PCAP Inspection",
+    "beginnerExplanation": "Capturing and dissecting raw network packets with tcpdump and Wireshark to spot unencrypted protocols, beaconing behavior, and data exfiltration.",
+    "whatGoodLooksLike": [
+      "Applies advanced Wireshark display filters (`http.request.method == \"POST\"`, `dns.flags.response == 0`)",
+      "Identifies DNS tunneling, unusual TTL values, and beaconing intervals in captured PCAPs",
+      "Follows TCP and TLS streams to reconstruct application transactions and identify anomalies"
+    ],
+    "linkedResourceIds": ["net-01", "sec-01", "lab-04"]
+  },
+  {
+    "id": "skill-def-03",
+    "category": "Defensive",
+    "title": "Incident Triage & Response Lifecycle",
+    "beginnerExplanation": "Executing the NIST SP 800-61 / SANS incident response lifecycle: Preparation, Detection & Analysis, Containment, Eradication, Recovery, and Lessons Learned.",
+    "whatGoodLooksLike": [
+      "Applies proper host isolation without terminating volatile memory or destroying evidence",
+      "Documents chronological timelines with verified timestamps and preserved cryptographic hashes",
+      "Contributes meaningful root-cause analysis and preventive action items in post-incident reviews"
+    ],
+    "linkedResourceIds": ["sec-01", "sec-03", "lab-04"]
+  },
+  {
+    "id": "skill-off-01",
+    "category": "Offensive",
+    "title": "Active Reconnaissance & Port Scanning (Nmap)",
+    "beginnerExplanation": "Discovering live network hosts, open ports, running services, and operating system fingerprints legally within authorized test environments using Nmap.",
+    "whatGoodLooksLike": [
+      "Understands SYN stealth scan (-sS) vs TCP connect scan (-sT) and UDP scan (-sU) mechanics",
+      "Utilizes NSE (Nmap Scripting Engine) safely with focused script categories (default, banner, safe)",
+      "Documents network topology findings systematically and avoids scanning unauthorized ranges"
+    ],
+    "linkedResourceIds": ["off-01", "off-02", "lab-02"]
+  },
+  {
+    "id": "skill-off-02",
+    "category": "Offensive",
+    "title": "Web Application Security & OWASP Top 10",
+    "beginnerExplanation": "Testing web applications for injection flaws (SQLi), Cross-Site Scripting (XSS), Server-Side Request Forgery (SSRF), and broken access controls using Burp Suite.",
+    "whatGoodLooksLike": [
+      "Interceps and modifies HTTP/S requests in Burp Suite Proxy and Repeater to test boundary validation",
+      "Demonstrates impact with harmless proof-of-concepts rather than destructive payloads",
+      "Provides developers with concrete, language-specific code remediation recommendations"
+    ],
+    "linkedResourceIds": ["off-03", "lab-03", "lab-06"]
+  },
+  {
+    "id": "skill-cloud-01",
+    "category": "Cloud & AI security",
+    "title": "Cloud Identity & Access Management (IAM)",
+    "beginnerExplanation": "Configuring least-privilege policies, service account credentials, cross-account assume-role relationships, and guardrails in AWS, Azure, or GCP.",
+    "whatGoodLooksLike": [
+      "Eliminates wildcard (`*`) administrative permissions in cloud IAM JSON policies",
+      "Enforces temporary credential issuance via STS/OIDC over long-lived static API access keys",
+      "Detects and audits public object storage buckets (S3/GCS) and unencrypted storage volumes"
+    ],
+    "linkedResourceIds": ["sec-01", "adv-01"]
+  },
+  {
+    "id": "skill-cloud-02",
+    "category": "Cloud & AI security",
+    "title": "AI & LLM Application Security (OWASP Top 10 for LLMs)",
+    "beginnerExplanation": "Securing generative AI and LLM implementations against prompt injection, insecure output handling, training data poisoning, and sensitive data disclosure.",
+    "whatGoodLooksLike": [
+      "Treats untrusted LLM outputs as raw user input, sanitizing before rendering or evaluating in code",
+      "Implements strict tool-calling permission limits preventing autonomous file system or API tampering",
+      "Evaluates AI prompts for direct and indirect prompt injection vulnerabilities"
+    ],
+    "linkedResourceIds": ["sec-01", "adv-01"]
+  },
+  {
+    "id": "skill-soft-01",
+    "category": "Soft skills",
+    "title": "Technical Report Writing & Executive Briefings",
+    "beginnerExplanation": "Translating intricate technical vulnerabilities, exploit chains, and forensic evidence into clear, actionable executive summaries and developer remediation plans.",
+    "whatGoodLooksLike": [
+      "Structures findings with CVSS scores, business impact statements, and step-by-step reproduction steps",
+      "Explains complex technical risk clearly to non-technical C-suite stakeholders without hyperbole",
+      "Delivers constructive, respectful feedback that empowers engineering teams rather than blaming them"
+    ],
+    "linkedResourceIds": ["off-01", "sec-01"]
+  },
+  {
+    "id": "skill-soft-02",
+    "category": "Soft skills",
+    "title": "Ethical Decision-Making & Legal Compliance",
+    "beginnerExplanation": "Navigating the strict legal boundaries of cybersecurity (national cyber laws, GDPR), maintaining explicit written authorization scopes, and respecting responsible disclosure.",
+    "whatGoodLooksLike": [
+      "Never touches an external IP address, domain, or API without explicit written, verified authorization",
+      "Immediately pauses testing and reports out-of-scope discoveries or critical PII exposure to leadership",
+      "Follows coordinated vulnerability disclosure timelines (90 days) giving vendors time to remediate"
+    ],
+    "linkedResourceIds": ["sec-01", "off-01"]
+  }
+]
+

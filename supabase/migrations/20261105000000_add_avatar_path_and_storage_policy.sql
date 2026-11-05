@@ -1,6 +1,6 @@
 -- Migration: 20261105000000_add_avatar_path_and_storage_policy.sql
--- Description: Adds avatar_path column to profiles and documents the isolated avatars storage policies.
--- Safe, idempotent, non-destructive migration.
+-- Description: Adds avatar_path column to profiles and configures isolated avatars storage policies.
+-- Safe, idempotent, non-destructive migration compatible with Supabase managed storage schema.
 
 BEGIN;
 
@@ -18,7 +18,8 @@ BEGIN
 END $$;
 
 -- 2. Storage schema definitions and policies (Idempotent for storage-enabled environments)
--- Creates private 'avatars' bucket if storage.buckets table is present
+-- Note: Supabase manages storage.objects and storage.buckets. We never alter managed storage tables to toggle RLS.
+-- Instead, we ensure the 'avatars' bucket entry exists and create application-owned RLS policies.
 DO $$
 BEGIN
   IF EXISTS (
@@ -41,22 +42,21 @@ BEGIN
 END $$;
 
 -- 3. Storage Row Level Security Policies for 'avatars'
--- Ensures users can only insert, select, update, and delete their own avatars: avatars/{user_id}/*
+-- Enforces object-level tenant isolation: {user_id}/{filename}
+-- Users can only insert, select, update, and delete their own avatars: (storage.foldername(name))[1] = auth.uid()::text
 DO $$
 BEGIN
   IF EXISTS (
     SELECT 1 FROM information_schema.tables 
     WHERE table_schema = 'storage' AND table_name = 'objects'
   ) THEN
-    ALTER TABLE storage.objects ENABLE ROW LEVEL SECURITY;
-
-    -- Drop existing policies if any to ensure clean replacement
+    -- Drop existing policies if any to ensure clean idempotent replacement
     DROP POLICY IF EXISTS "Users can upload their own avatar" ON storage.objects;
     DROP POLICY IF EXISTS "Users can read their own avatar" ON storage.objects;
     DROP POLICY IF EXISTS "Users can update their own avatar" ON storage.objects;
     DROP POLICY IF EXISTS "Users can delete their own avatar" ON storage.objects;
 
-    -- Allow authenticated users to upload only into their own folder: avatars/{auth.uid()}/*
+    -- Allow authenticated users to upload only into their own folder: {auth.uid()}/*
     CREATE POLICY "Users can upload their own avatar"
     ON storage.objects FOR INSERT
     TO authenticated
@@ -81,6 +81,10 @@ BEGIN
     USING (
       bucket_id = 'avatars' AND
       (storage.foldername(name))[1] = auth.uid()::text
+    )
+    WITH CHECK (
+      bucket_id = 'avatars' AND
+      (storage.foldername(name))[1] = auth.uid()::text
     );
 
     -- Allow authenticated users to delete their own avatars
@@ -95,4 +99,3 @@ BEGIN
 END $$;
 
 COMMIT;
-

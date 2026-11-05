@@ -54,7 +54,7 @@ const config: Config = {
         mono: ['var(--font-ibm-plex-mono)', 'IBM Plex Mono', 'monospace'],
         orbitron: ['var(--font-orbitron)', 'Orbitron', 'system-ui', 'sans-serif'],
         rajdhani: ['var(--font-rajdhani)', 'Rajdhani', 'system-ui', 'sans-serif'],
-        cyberpunk: ['var(--font-cyberpunk)', 'var(--font-orbitron)', 'system-ui', 'sans-serif'],
+        cyberpunk: ['var(--font-orbitron)', 'Orbitron', 'system-ui', 'sans-serif'],
       },
       borderRadius: {
         button: '4px',

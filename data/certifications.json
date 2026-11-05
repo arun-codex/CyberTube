@@ -1,0 +1,178 @@
+[
+  {
+    "id": "cert-secplus",
+    "code": "SY0-701",
+    "title": "CompTIA Security+",
+    "issuer": "CompTIA",
+    "level": "Entry-Level",
+    "overview": "The global foundational cybersecurity baseline validating core technical knowledge across risk management, threat mitigation, security controls, and enterprise operations.",
+    "versionNotice": "Current Exam: SY0-701 (Released November 7, 2023; English version retirement: June 11, 2027. Successor SY0-801 expected launch: ~November 17, 2026). Ensure your study materials specifically target SY0-701 objectives.",
+    "domains": [
+      { "name": "General Security Concepts", "weight": "12%" },
+      { "name": "Threats, Vulnerabilities & Mitigations", "weight": "22%" },
+      { "name": "Security Architecture", "weight": "18%" },
+      { "name": "Security Operations", "weight": "28%" },
+      { "name": "Security Program Management & Oversight", "weight": "20%" }
+    ],
+    "examFormat": {
+      "duration": "90 Minutes",
+      "maxQuestions": "Maximum of 90 questions",
+      "questionTypes": "Multiple choice and performance-based simulation questions (PBQs)",
+      "passingScore": "750 (on a scale of 100-900)"
+    },
+    "preparationTips": [
+      "Review the official CompTIA SY0-701 exam objectives PDF line by line as a study checklist",
+      "Practice hands-on simulation questions (configuring firewall rules and ACLs) before exam day",
+      "Complete Professor Messer's free video playlist and practice exams for targeted domain mastery"
+    ],
+    "recommendedResourceIds": ["sec-01", "sec-02", "sec-03"],
+    "officialVendorUrl": "https://www.comptia.org/certifications/security"
+  },
+  {
+    "id": "cert-netplus",
+    "code": "N10-009",
+    "title": "CompTIA Network+",
+    "issuer": "CompTIA",
+    "level": "Entry-Level",
+    "overview": "Validates foundational technical knowledge required to establish, maintain, secure, and troubleshoot essential wired and wireless networks.",
+    "versionNotice": "Current Exam: N10-009 (Launched June 2024). Replaced N10-008 which retired in December 2024.",
+    "domains": [
+      { "name": "Networking Concepts", "weight": "23%" },
+      { "name": "Network Implementation", "weight": "20%" },
+      { "name": "Network Operations", "weight": "19%" },
+      { "name": "Network Security", "weight": "19%" },
+      { "name": "Network Troubleshooting", "weight": "19%" }
+    ],
+    "examFormat": {
+      "duration": "90 Minutes",
+      "maxQuestions": "Maximum of 90 questions",
+      "questionTypes": "Multiple choice and performance-based simulation questions",
+      "passingScore": "720 (on a scale of 100-900)"
+    },
+    "preparationTips": [
+      "Master CIDR subnet calculations until you can determine host ranges mentally within 30 seconds",
+      "Memorize standard port numbers and their corresponding RFC protocols",
+      "Use packet capturing tools (Wireshark) to inspect genuine TCP handshakes and DNS queries"
+    ],
+    "recommendedResourceIds": ["net-01", "net-02"],
+    "officialVendorUrl": "https://www.comptia.org/certifications/network"
+  },
+  {
+    "id": "cert-ccna",
+    "code": "200-301",
+    "title": "Cisco Certified Network Associate (CCNA)",
+    "issuer": "Cisco Systems",
+    "level": "Associate",
+    "overview": "Rigorous networking certification covering dual-stack IP addressing, Cisco IOS command line, routing protocols (OSPF), VLANs, STP, enterprise wireless, and network automation.",
+    "versionNotice": "Current Exam: 200-301 v1.1 (Updated August 2024 to include Generative AI networking concepts, cloud management, and API programmability).",
+    "domains": [
+      { "name": "Network Fundamentals", "weight": "20%" },
+      { "name": "Network Access (VLANs, Trunking, EtherChannel)", "weight": "20%" },
+      { "name": "IP Connectivity (Routing, OSPF)", "weight": "25%" },
+      { "name": "IP Services (DHCP, DNS, NAT, NTP)", "weight": "10%" },
+      { "name": "Security Fundamentals", "weight": "15%" },
+      { "name": "Automation & Programmability (REST APIs, Python, JSON)", "weight": "10%" }
+    ],
+    "examFormat": {
+      "duration": "120 Minutes",
+      "maxQuestions": "Approximately 100-105 questions",
+      "questionTypes": "Multiple choice, drag-and-drop, and interactive lab configurations (Packet Tracer style)",
+      "passingScore": "Variable (typically around 800-825 out of 1000)"
+    },
+    "preparationTips": [
+      "Build every topology in Cisco Packet Tracer or GNS3 alongside Jeremy's IT Lab video series",
+      "Use spaced repetition flashcards (Anki) daily for CLI syntax, command output, and subnetting",
+      "Practice diagnosing misconfigured subnet masks, overlapping ACLs, and mismatched VLAN tags"
+    ],
+    "recommendedResourceIds": ["net-01", "net-02"],
+    "officialVendorUrl": "https://www.cisco.com/c/en/us/training-events/training-certifications/certifications/associate/ccna.html"
+  },
+  {
+    "id": "cert-cysa",
+    "code": "CS0-003",
+    "title": "CompTIA Cybersecurity Analyst (CySA+)",
+    "issuer": "CompTIA",
+    "level": "Intermediate",
+    "overview": "Applies behavioral analytics to networks and devices to prevent, detect and combat cybersecurity threats through continuous security monitoring.",
+    "versionNotice": "Current Exam: CS0-003 (Active since 2023). Focuses heavily on threat intelligence, SIEM tools, and cloud environments.",
+    "domains": [
+      { "name": "Security Operations", "weight": "33%" },
+      { "name": "Vulnerability Management", "weight": "30%" },
+      { "name": "Incident Response & Management", "weight": "20%" },
+      { "name": "Reporting & Communication", "weight": "17%" }
+    ],
+    "examFormat": {
+      "duration": "165 Minutes",
+      "maxQuestions": "Maximum of 85 questions",
+      "questionTypes": "Multiple choice and performance-based questions",
+      "passingScore": "750 (on a scale of 100-900)"
+    },
+    "preparationTips": [
+      "Gain hands-on experience parsing SIEM alerts on platforms like LetsDefend or TryHackMe SOC rooms",
+      "Practice interpreting CVSS v3/v4 metrics and prioritizing CVE remediation",
+      "Analyze genuine firewall, IDS/IPS, and system event logs"
+    ],
+    "recommendedResourceIds": ["sec-01", "lab-04", "lab-05"],
+    "officialVendorUrl": "https://www.comptia.org/certifications/cybersecurity-analyst"
+  },
+  {
+    "id": "cert-oscp",
+    "code": "PEN-200",
+    "title": "OffSec Certified Professional (OSCP)",
+    "issuer": "OffSec",
+    "level": "Intermediate",
+    "overview": "The gold standard in hands-on ethical hacking. Candidates must independently compromise vulnerable machines in an isolated proctored 24-hour examination network and submit a formal report.",
+    "versionNotice": "PEN-200 incorporates updated Active Directory exploitation vectors, pivoting techniques, and modernized Linux/Windows privilege escalation methods.",
+    "domains": [
+      { "name": "Information Gathering & Enumeration", "weight": "Practical" },
+      { "name": "Vulnerability Assessment", "weight": "Practical" },
+      { "name": "Privilege Escalation (Linux & Windows)", "weight": "Practical" },
+      { "name": "Active Directory Exploitation & Lateral Movement", "weight": "Practical" },
+      { "name": "Professional Documentation & Reporting", "weight": "Practical" }
+    ],
+    "examFormat": {
+      "duration": "23 Hours 45 Minutes (Plus 24 hours for report submission)",
+      "maxQuestions": "Hands-on target hosts + Active Directory domain set",
+      "questionTypes": "Practical penetration testing lab and formal report writing",
+      "passingScore": "70 points out of 100 (Report submission mandatory)"
+    },
+    "preparationTips": [
+      "Complete the entire Path C on CyberTube before enrolling in PEN-200",
+      "Complete at least 30-40 retired Hack The Box and Proving Grounds machines independently",
+      "Develop meticulous note-taking habits using Obsidian or CherryTree with timestamped screenshots"
+    ],
+    "recommendedResourceIds": ["off-01", "off-02", "off-03", "lab-01", "lab-02"],
+    "officialVendorUrl": "https://www.offsec.com/courses/pen-200/"
+  },
+  {
+    "id": "cert-aws-sec",
+    "code": "SCS-C02",
+    "title": "AWS Certified Security - Specialty",
+    "issuer": "Amazon Web Services",
+    "level": "Intermediate",
+    "overview": "Validates technical mastery of securing AWS workloads, multi-account governance with AWS Organizations, KMS encryption, threat detection with GuardDuty, and incident response.",
+    "versionNotice": "Current Exam: SCS-C02 (Active). Validates modern multi-account security architectures and zero-trust IAM policies.",
+    "domains": [
+      { "name": "Threat Detection and Incident Response", "weight": "14%" },
+      { "name": "Security Logging and Monitoring", "weight": "18%" },
+      { "name": "Infrastructure Security", "weight": "20%" },
+      { "name": "Identity and Access Management", "weight": "16%" },
+      { "name": "Data Protection (KMS, Secrets Manager)", "weight": "18%" },
+      { "name": "Management and Security Governance", "weight": "14%" }
+    ],
+    "examFormat": {
+      "duration": "170 Minutes",
+      "maxQuestions": "65 questions",
+      "questionTypes": "Multiple choice and multiple response",
+      "passingScore": "750 (scaled score 100-1000)"
+    },
+    "preparationTips": [
+      "Deeply understand AWS KMS key policies, envelope encryption, and cross-account bucket policies",
+      "Build practical security pipelines using AWS Config rules, GuardDuty, and Security Hub",
+      "Audit cloud configurations using free open-source tools like Prowler and ScoutSuite"
+    ],
+    "recommendedResourceIds": ["sec-01", "adv-01"],
+    "officialVendorUrl": "https://aws.amazon.com/certification/certified-security-specialty/"
+  }
+]
+

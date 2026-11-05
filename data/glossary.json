@@ -1,0 +1,347 @@
+[
+  {
+    "id": "term-cia-triad",
+    "term": "CIA Triad",
+    "category": "Fundamentals",
+    "definition": "The foundational benchmark model in information security consisting of Confidentiality, Integrity, and Availability.",
+    "plainEnglishExplanation": "Confidentiality ensures only approved people see the data. Integrity ensures the data has not been secretly altered. Availability ensures the data and systems are accessible whenever authorized users need them.",
+    "exampleOrAnalogy": "A secure online banking system: Only you see your balance (Confidentiality), nobody can alter your deposit numbers without a record (Integrity), and the website works when you log in at 2 AM (Availability)."
+  },
+  {
+    "id": "term-least-privilege",
+    "term": "Principle of Least Privilege (PoLP)",
+    "category": "Fundamentals",
+    "definition": "The security concept where a user, process, or system is granted only the minimum clearance and access rights strictly necessary to perform its essential function.",
+    "plainEnglishExplanation": "Never give someone administrator rights if they only need to read a spreadsheet. By limiting permissions upfront, if an account gets hacked, the damage is strictly contained.",
+    "exampleOrAnalogy": "A hotel keycard only opens your specific room door and the elevator, not the master utility room or other guests' rooms."
+  },
+  {
+    "id": "term-defense-in-depth",
+    "term": "Defense-in-Depth",
+    "category": "Fundamentals",
+    "definition": "A layered security strategy that incorporates multiple defensive controls throughout an information technology network.",
+    "plainEnglishExplanation": "Never rely on a single defensive line. If a firewall fails, an intrusion detector catches the attacker; if that fails, endpoint antivirus stops them; if that fails, encryption protects the data.",
+    "exampleOrAnalogy": "A medieval castle protected by a moat, an outer curtain wall, an inner gatehouse, a drawbridge, and a fortified keep inside."
+  },
+  {
+    "id": "term-vuln-threat-risk",
+    "term": "Vulnerability vs Threat vs Risk",
+    "category": "Fundamentals",
+    "definition": "Three distinct elements of risk management: a vulnerability is a weakness, a threat is an actor or event capable of exploiting it, and risk is the likelihood and impact of that exploitation.",
+    "plainEnglishExplanation": "A flaw in your software is the vulnerability. A burglar looking for an open door is the threat. The chance of someone finding the open door and stealing your valuables is the risk.",
+    "exampleOrAnalogy": "Leaving your front door unlocked is a vulnerability. Burglars are the threat. Risk is the product of living in a high-crime neighborhood with that door unlocked."
+  },
+  {
+    "id": "term-threat-modeling",
+    "term": "Threat Modeling (STRIDE)",
+    "category": "Fundamentals",
+    "definition": "A structured engineering process for identifying, quantifying, and addressing potential security threats during software and architectural design.",
+    "plainEnglishExplanation": "Brainstorming all the ways an attacker could attack an application before you finish writing it, categorized into Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, and Elevation of Privilege.",
+    "exampleOrAnalogy": "Reviewing an architect's blueprint for a house specifically to identify blind spots in window sightlines and weak hinges before building."
+  },
+  {
+    "id": "term-firewall",
+    "term": "Firewall",
+    "category": "Networking",
+    "definition": "A network security device or software filter that monitors and controls incoming and outgoing network traffic based on predetermined security rules.",
+    "plainEnglishExplanation": "A security guard stationed at the border of your network that checks the destination port, IP address, and protocol of every message and blocks unapproved traffic.",
+    "exampleOrAnalogy": "A bouncer at a club checking government IDs against a strict guest list before letting anyone enter."
+  },
+  {
+    "id": "term-vpn",
+    "term": "Virtual Private Network (VPN)",
+    "category": "Networking",
+    "definition": "An encrypted network tunnel established over an untrusted public network (like the Internet) connecting a device securely to a private remote network.",
+    "plainEnglishExplanation": "Wrapping all your internet communications inside an encrypted envelope so that coffee shop Wi-Fi sniffers or internet service providers cannot inspect what websites you are visiting.",
+    "exampleOrAnalogy": "Driving an armored vehicle through a public subway tunnel rather than walking exposed with cash in hand."
+  },
+  {
+    "id": "term-port-scanning",
+    "term": "Port Scanning",
+    "category": "Networking",
+    "definition": "An automated probing method used to determine which network ports on a host are open, closed, or filtered by listening network services.",
+    "plainEnglishExplanation": "Checking every door and window on a building to see which ones are open, which ones are locked, and what signs are posted on them.",
+    "exampleOrAnalogy": "Knocking on every hotel room door along a hallway to see which rooms have guests inside answering."
+  },
+  {
+    "id": "term-packet-sniffing",
+    "term": "Packet Sniffing",
+    "category": "Networking",
+    "definition": "The practice of intercepting, capturing, and decoding data packets as they travel across a computer network using software like Wireshark.",
+    "plainEnglishExplanation": "Listening in on conversations traveling down the wire. If the traffic is plain text (like HTTP), anyone sniffing packets can read passwords directly.",
+    "exampleOrAnalogy": "Tapping a phone wire to record audio conversations between two parties."
+  },
+  {
+    "id": "term-dns-spoofing",
+    "term": "DNS Spoofing / Cache Poisoning",
+    "category": "Networking",
+    "definition": "An attack where corrupt Domain Name System data is injected into the DNS resolver cache, redirecting traffic to fraudulent servers.",
+    "plainEnglishExplanation": "Tampering with the internet phonebook so that when you type bank.com, you are invisibly routed to the scammer's computer instead.",
+    "exampleOrAnalogy": "Replacing the street signs in a neighborhood so that ambulances drive to the wrong hospital."
+  },
+  {
+    "id": "term-arp-spoofing",
+    "term": "ARP Spoofing / Poisoning",
+    "category": "Networking",
+    "definition": "An attack on a local subnet where an adversary sends falsified Address Resolution Protocol messages to link their MAC address with the default gateway IP.",
+    "plainEnglishExplanation": "Tricking your computer into thinking the attacker's laptop is the router, tricking the router into thinking the attacker is you, and intercepting all local network traffic in between.",
+    "exampleOrAnalogy": "A rogue mail carrier stepping between you and the post office, receiving your letters, copying them, and then dropping them off."
+  },
+  {
+    "id": "term-phishing",
+    "term": "Phishing",
+    "category": "Threats & Attacks",
+    "definition": "A social engineering attack where attackers impersonate trustworthy entities via email, SMS, or messaging to deceive victims into revealing credentials or installing malware.",
+    "plainEnglishExplanation": "Fake emails disguised as urgent messages from your bank, boss, or school that trick you into typing your password into a fake login screen.",
+    "exampleOrAnalogy": "A scammer dressed in a mail carrier uniform knocking on your door asking you to verify your bank PIN number."
+  },
+  {
+    "id": "term-spear-phishing",
+    "term": "Spear Phishing",
+    "category": "Threats & Attacks",
+    "definition": "A targeted phishing attack customized with personal intelligence about a specific individual or organization to dramatically increase deception success.",
+    "plainEnglishExplanation": "Unlike mass phishing spam, spear phishing references your real job title, your current projects, and your boss's name to fool you into trusting the sender.",
+    "exampleOrAnalogy": "A fraudster pretending to be your actual real estate agent emailing you revised wire transfer instructions on closing day."
+  },
+  {
+    "id": "term-malware",
+    "term": "Malware (Malicious Software)",
+    "category": "Threats & Attacks",
+    "definition": "Any software intentionally designed to cause damage to a computer, server, client, or computer network.",
+    "plainEnglishExplanation": "An umbrella term encompassing viruses, worms, spyware, trojans, ransomware, and adware designed to compromise your system.",
+    "exampleOrAnalogy": "A biological germ or virus that infects the body and disrupts normal biological functioning."
+  },
+  {
+    "id": "term-ransomware",
+    "term": "Ransomware",
+    "category": "Threats & Attacks",
+    "definition": "A malicious program that encrypts a victim's files and demands payment in cryptocurrency in exchange for the decryption key.",
+    "plainEnglishExplanation": "Extortion software that locks your personal photos, files, or company databases until you pay a ransom to the cybercriminals.",
+    "exampleOrAnalogy": "A criminal putting an unbreakable padlock on your storage unit and demanding cash to hand over the key combination."
+  },
+  {
+    "id": "term-trojan",
+    "term": "Trojan Horse",
+    "category": "Threats & Attacks",
+    "definition": "Malicious software that disguises itself as legitimate, harmless software to trick users into executing it.",
+    "plainEnglishExplanation": "Downloading a free video game or PDF editor that secretly installs a remote access backdoor on your computer in the background.",
+    "exampleOrAnalogy": "The mythical Greek wooden horse wheeled into Troy filled with concealed soldiers."
+  },
+  {
+    "id": "term-zero-day",
+    "term": "Zero-Day Vulnerability",
+    "category": "Threats & Attacks",
+    "definition": "A software vulnerability that is discovered before the developer is aware of it, meaning zero days have passed since a fix or patch could be deployed.",
+    "plainEnglishExplanation": "A secret flaw known to hackers before the software company even knows it exists, meaning there is no official security update available yet.",
+    "exampleOrAnalogy": "A manufacturer unknowingly shipping cars with doors that can be opened using any standard paperclip."
+  },
+  {
+    "id": "term-mitm",
+    "term": "Man-in-the-Middle (MitM) Attack",
+    "category": "Threats & Attacks",
+    "definition": "An attack where the adversary secretly relays and possibly alters communications between two parties who believe they are directly communicating with each other.",
+    "plainEnglishExplanation": "An eavesdropper sitting silently between you and a website, reading private messages or injecting fraudulent content into the session.",
+    "exampleOrAnalogy": "Two people whispering across a table, while a third person stands between them repeating altered words into both ears."
+  },
+  {
+    "id": "term-dos-ddos",
+    "term": "Denial of Service (DoS / DDoS)",
+    "category": "Threats & Attacks",
+    "definition": "An attack intended to shut down a machine or network resource, making it inaccessible to intended users by flooding it with overwhelming traffic.",
+    "plainEnglishExplanation": "Flooding a web server with millions of fake requests per second so real users get a connection timeout error.",
+    "exampleOrAnalogy": "A crowd of five thousand people packing through the doors of a small coffee shop all at once, blocking paying customers from ordering."
+  },
+  {
+    "id": "term-botnet",
+    "term": "Botnet",
+    "category": "Threats & Attacks",
+    "definition": "A network of private computers, servers, or IoT devices infected with malicious software and controlled as a group without the owners' knowledge.",
+    "plainEnglishExplanation": "An army of zombie computers controlled by a central hacker to blast spam, mine cryptocurrency, or launch massive DDoS attacks.",
+    "exampleOrAnalogy": "A hypnotist who secretly controls thousands of unsuspecting people with a single remote signal."
+  },
+  {
+    "id": "term-social-engineering",
+    "term": "Social Engineering",
+    "category": "Threats & Attacks",
+    "definition": "The psychological manipulation of people into performing actions or divulging confidential information.",
+    "plainEnglishExplanation": "Hacking the human instead of hacking the computer. Exploiting trust, fear, urgency, or curiosity to get passwords or access.",
+    "exampleOrAnalogy": "A con artist pretending to be IT support calling an employee to say their password must be verified immediately or their email will be deleted."
+  },
+  {
+    "id": "term-brute-force",
+    "term": "Brute Force Attack",
+    "category": "Threats & Attacks",
+    "definition": "A trial-and-error method used by application programs to decode encrypted data such as passwords or Data Encryption Standard keys through exhaustive effort.",
+    "plainEnglishExplanation": "Trying every possible password combination (a, b, c... aaaa, aaab) until the correct one opens the lock.",
+    "exampleOrAnalogy": "Spinning a 3-digit briefcase lock through 000, 001, 002 all the way to 999 until it clicks open."
+  },
+  {
+    "id": "term-buffer-overflow",
+    "term": "Buffer Overflow",
+    "category": "Threats & Attacks",
+    "definition": "An anomaly where a program writing data to a memory buffer overruns the buffer's boundary and overwrites adjacent memory locations.",
+    "plainEnglishExplanation": "Pouring a gallon of water into a half-cup glass. The spilled liquid overwrites critical instructions in memory, allowing attackers to execute their own code.",
+    "exampleOrAnalogy": "Writing past the edge of a paper test into the grading rubric and changing your score."
+  },
+  {
+    "id": "term-xss",
+    "term": "Cross-Site Scripting (XSS)",
+    "category": "Threats & Attacks",
+    "definition": "A web security vulnerability that allows an attacker to compromise the interactions that users have with a vulnerable application by executing malicious JavaScript in their browser.",
+    "plainEnglishExplanation": "Injecting malicious JavaScript code into a comment or profile field so that whenever another user views that page, their browser steals their session cookie.",
+    "exampleOrAnalogy": "Leaving a sticky note in a public library book with invisible ink that commands the next reader to empty their pockets."
+  },
+  {
+    "id": "term-sqli",
+    "term": "SQL Injection (SQLi)",
+    "category": "Threats & Attacks",
+    "definition": "A code injection technique used to attack data-driven applications, in which malicious SQL statements are inserted into entry fields for execution.",
+    "plainEnglishExplanation": "Tricking a database by typing database commands instead of your username (like `' OR 1=1 --`), causing the database to bypass password checks.",
+    "exampleOrAnalogy": "Signing a visitor logbook as 'Admit All Guests Please' and the automated door scanner follows it literally."
+  },
+  {
+    "id": "term-csrf",
+    "term": "Cross-Site Request Forgery (CSRF)",
+    "category": "Threats & Attacks",
+    "definition": "An attack that forces an end user to execute unwanted actions on a web application in which they are currently authenticated.",
+    "plainEnglishExplanation": "Tricking your logged-in browser into sending a secret money transfer request to your bank without your knowledge while you visit an unrelated webpage.",
+    "exampleOrAnalogy": "Handing an official signed check to someone and telling them to fill in their own name and amount."
+  },
+  {
+    "id": "term-ssrf",
+    "term": "Server-Side Request Forgery (SSRF)",
+    "category": "Threats & Attacks",
+    "definition": "A web vulnerability that allows an attacker to induce the server-side application to make HTTP requests to an arbitrary domain of the attacker's choosing.",
+    "plainEnglishExplanation": "Tricking a cloud server into fetching internal confidential metadata (like AWS IAM credentials at 169.254.169.254) that external internet users cannot reach directly.",
+    "exampleOrAnalogy": "Asking a bank teller to go into the private bank vault to grab a document that you are not allowed to see yourself."
+  },
+  {
+    "id": "term-siem",
+    "term": "Security Information & Event Management (SIEM)",
+    "category": "Defense & Monitoring",
+    "definition": "A security solution that aggregates, normalizes, and analyzes log and event data from applications, devices, and security systems across an enterprise.",
+    "plainEnglishExplanation": "A central brain that ingests millions of log entries from every computer, server, and firewall in the company, flagging suspicious correlations automatically.",
+    "exampleOrAnalogy": "A high-tech surveillance room monitoring hundreds of security cameras at once with automated motion alarms."
+  },
+  {
+    "id": "term-edr",
+    "term": "Endpoint Detection and Response (EDR)",
+    "category": "Defense & Monitoring",
+    "definition": "An integrated endpoint security solution that combines real-time continuous monitoring and collection of endpoint data with rules-based automated response capabilities.",
+    "plainEnglishExplanation": "A flight data recorder installed on every laptop and server that continuously records process executions, file writes, and network connections.",
+    "exampleOrAnalogy": "A private security guard assigned to stand next to every individual employee workstation."
+  },
+  {
+    "id": "term-ids-ips",
+    "term": "IDS vs. IPS",
+    "category": "Defense & Monitoring",
+    "definition": "Intrusion Detection Systems (IDS) passively inspect traffic and alert on signatures. Intrusion Prevention Systems (IPS) actively sit in-line and block malicious packets immediately.",
+    "plainEnglishExplanation": "An IDS sounds the alarm when a burglar enters. An IPS trips the burglar and locks the security gate before they can take a step.",
+    "exampleOrAnalogy": "A smoke detector (IDS) alerts everyone to a fire, while an automatic overhead sprinkler system (IPS) actively extinguishes the flames."
+  },
+  {
+    "id": "term-honeypot",
+    "term": "Honeypot",
+    "category": "Defense & Monitoring",
+    "definition": "A decoy computer system intended to mimic likely targets of cyberattacks to detect, deflect, or study adversary techniques.",
+    "plainEnglishExplanation": "A fake server intentionally left open with fake confidential files so defenders can study what tools and exploits attackers use when they break in.",
+    "exampleOrAnalogy": "A bait car with keys in the ignition left by police to catch auto thieves on video."
+  },
+  {
+    "id": "term-iocs",
+    "term": "Indicators of Compromise (IOCs)",
+    "category": "Defense & Monitoring",
+    "definition": "Pieces of forensic data, such as system log entries or files, that identify potentially malicious activity on a system or network.",
+    "plainEnglishExplanation": "The digital fingerprints left behind at a crime scene: known malicious IP addresses, domain names, file hashes, or registry keys.",
+    "exampleOrAnalogy": "Muddy footprints and a broken lock left on a kitchen floor indicating someone broke into the house."
+  },
+  {
+    "id": "term-sandboxing",
+    "term": "Sandboxing",
+    "category": "Defense & Monitoring",
+    "definition": "An isolated computing environment in which potentially malicious programs or untrusted code can be executed safely without risking the host machine.",
+    "plainEnglishExplanation": "Running a suspicious email attachment inside a disposable virtual container to observe if it acts like malware before letting the user open it.",
+    "exampleOrAnalogy": "A hazmat bio-containment glove box used by scientists to examine dangerous viruses safely."
+  },
+  {
+    "id": "term-mfa",
+    "term": "Multi-Factor Authentication (MFA)",
+    "category": "Defense & Monitoring",
+    "definition": "An electronic authentication method in which a user is granted access to a website or application only after successfully presenting two or more pieces of evidence.",
+    "plainEnglishExplanation": "Requiring more than just a password: something you know (password), something you have (phone authenticator app or hardware key), or something you are (fingerprint).",
+    "exampleOrAnalogy": "An ATM requiring both your physical debit card and your secret 4-digit PIN."
+  },
+  {
+    "id": "term-rbac",
+    "term": "Role-Based Access Control (RBAC)",
+    "category": "Defense & Monitoring",
+    "definition": "A security approach that restricts system access based on the roles of individual users within an enterprise.",
+    "plainEnglishExplanation": "Assigning permissions to job titles instead of individuals. When you hire an accountant, they get the 'Accounting' permissions automatically.",
+    "exampleOrAnalogy": "Doctors in a hospital can access medical records, while billing staff can only see billing receipts."
+  },
+  {
+    "id": "term-symmetric-enc",
+    "term": "Symmetric Encryption",
+    "category": "Cryptography",
+    "definition": "A type of encryption where the exact same cryptographic key is used for both encrypting the plaintext and decrypting the ciphertext.",
+    "plainEnglishExplanation": "A single secret key that locks and unlocks a strongbox. Both sender and receiver must already know this secret key.",
+    "exampleOrAnalogy": "A physical house key that both you and your partner share to unlock the front door."
+  },
+  {
+    "id": "term-asymmetric-enc",
+    "term": "Asymmetric Encryption (Public Key Cryptography)",
+    "category": "Cryptography",
+    "definition": "A cryptographic system that uses pairs of keys: public keys which may be disseminated widely, and private keys which are known only to the owner.",
+    "plainEnglishExplanation": "Anyone can use your public key to lock a message in a box, but only your private key can open it and read the contents.",
+    "exampleOrAnalogy": "A public mailbox drop slot: anyone can drop a letter in, but only the postal worker with the private key can unlock the door to retrieve mail."
+  },
+  {
+    "id": "term-hashing",
+    "term": "Cryptographic Hash Function",
+    "category": "Cryptography",
+    "definition": "A mathematical algorithm that maps data of arbitrary size to a bit array of a fixed size, designed to be a one-way function.",
+    "plainEnglishExplanation": "A digital fingerprint. You can turn any file into a unique 64-character hash (SHA-256), but you can never reconstruct the file from the hash.",
+    "exampleOrAnalogy": "A blender that turns a strawberry into a red smoothie. You can easily make the smoothie, but you can never turn the smoothie back into a strawberry."
+  },
+  {
+    "id": "term-salt",
+    "term": "Salt (Password Hashing)",
+    "category": "Cryptography",
+    "definition": "Random data that is used as an additional input to a one-way function that hashes data, a password, or passphrase to defend against precomputed attacks.",
+    "plainEnglishExplanation": "Adding a unique random string to every user's password before hashing it, preventing attackers from using precomputed tables (rainbow tables) to crack common passwords.",
+    "exampleOrAnalogy": "Adding a unique dash of spices to every dish so two orders of scrambled eggs don't look or taste identical."
+  },
+  {
+    "id": "term-pki",
+    "term": "Public Key Infrastructure (PKI)",
+    "category": "Cryptography",
+    "definition": "A framework consisting of hardware, software, policies, and standards to manage digital certificates and public-key encryption.",
+    "plainEnglishExplanation": "The trusted ecosystem that validates who owns which public key, ensuring your browser knows it is talking to google.com rather than an impostor.",
+    "exampleOrAnalogy": "The government passport agency that issues tamper-proof photo IDs and verifies citizen identities worldwide."
+  },
+  {
+    "id": "term-tls",
+    "term": "Transport Layer Security (TLS)",
+    "category": "Cryptography",
+    "definition": "A cryptographic protocol designed to provide communications security and privacy over a computer network.",
+    "plainEnglishExplanation": "The padlock icon in your browser (HTTPS). It encrypts the conversation between your web browser and the web server so no one can snoop or tamper with it.",
+    "exampleOrAnalogy": "Speaking a secret, complex language with a friend that only you two can decode while sitting in a loud cafeteria."
+  },
+  {
+    "id": "term-cloud-iam",
+    "term": "Cloud IAM (Identity & Access Management)",
+    "category": "Cloud & Architecture",
+    "definition": "A cloud security framework that defines and manages the roles and access privileges of individual network entities across cloud provider resources.",
+    "plainEnglishExplanation": "The rulebook in AWS, Azure, or GCP determining which services, virtual machines, and employees are allowed to read or write specific cloud resources.",
+    "exampleOrAnalogy": "A master security badge that programs which specific elevator floors, server rooms, and executive suites each employee can enter."
+  },
+  {
+    "id": "term-air-gap",
+    "term": "Air Gap",
+    "category": "Cloud & Architecture",
+    "definition": "A network security measure employed on one or more computers to ensure that a secure computer network is physically isolated from unsecured networks.",
+    "plainEnglishExplanation": "A computer with no physical cable connection, no Wi-Fi card, and no Bluetooth radio, physically separated by empty air from the internet.",
+    "exampleOrAnalogy": "A top-secret archive kept on an un-networked island that can only be accessed by physically traveling there in person."
+  }
+]
+

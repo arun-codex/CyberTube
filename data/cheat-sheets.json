@@ -1,0 +1,381 @@
+{
+  "linux": [
+    {
+      "category": "File Navigation & System Inspection",
+      "description": "Fundamental commands for moving through the filesystem and checking machine identity.",
+      "commands": [
+        {
+          "command": "pwd",
+          "description": "Print working directory path",
+          "example": "pwd",
+          "flagExplanation": "Outputs the absolute path of the current directory"
+        },
+        {
+          "command": "ls -la",
+          "description": "List all directory entries including hidden files with long details",
+          "example": "ls -la /var/log",
+          "flagExplanation": "-l enables long listing (permissions, owner, size, timestamp); -a displays hidden files beginning with ."
+        },
+        {
+          "command": "uname -a",
+          "description": "Print complete system and kernel architecture information",
+          "example": "uname -a",
+          "flagExplanation": "Crucial during enumeration to identify Linux kernel version for vulnerability matching"
+        },
+        {
+          "command": "cat /etc/os-release",
+          "description": "Display Linux distribution release details and version",
+          "example": "cat /etc/os-release",
+          "flagExplanation": "Shows whether host is Ubuntu, Debian, RedHat, CentOS, or Alpine"
+        },
+        {
+          "command": "whoami && id",
+          "description": "Print current username, UID, primary GID, and supplemental groups",
+          "example": "whoami && id",
+          "flagExplanation": "Verifies whether current shell belongs to root, www-data, or a standard user"
+        }
+      ]
+    },
+    {
+      "category": "File Permissions & Privilege Control",
+      "description": "Managing POSIX permissions, ownership, and special SUID bits.",
+      "commands": [
+        {
+          "command": "chmod",
+          "description": "Change file access permissions",
+          "example": "chmod 600 id_rsa && chmod 755 run.sh",
+          "flagExplanation": "600 grants owner read/write only (essential for SSH keys); 755 grants owner rwx and others r-x"
+        },
+        {
+          "command": "chown",
+          "description": "Change file owner and group",
+          "example": "sudo chown -R www-data:www-data /var/www/html",
+          "flagExplanation": "-R applies ownership recursively across all subdirectories and files"
+        },
+        {
+          "command": "find / -perm -4000 -type f 2>/dev/null",
+          "description": "Locate files with SUID bit set across the entire system",
+          "example": "find / -perm -u=s -type f 2>/dev/null",
+          "flagExplanation": "SUID binaries execute with file owner privileges (often root), a primary vector for privilege escalation"
+        },
+        {
+          "command": "sudo -l",
+          "description": "List allowed sudo commands for the current user",
+          "example": "sudo -l",
+          "flagExplanation": "Inspects /etc/sudoers to see if current user can run binaries as root without password (NOPASSWD)"
+        }
+      ]
+    },
+    {
+      "category": "Text Searching & Log Filtering",
+      "description": "Rapid extraction of indicators, credentials, and error patterns from logs.",
+      "commands": [
+        {
+          "command": "grep -rnE \"(password|token|apikey)\" /etc/ /var/www/ 2>/dev/null",
+          "description": "Recursively search files for sensitive secrets or credentials",
+          "example": "grep -ri \"api_key\" .",
+          "flagExplanation": "-r recursive, -n prints line numbers, -i ignores case, -E enables extended regex"
+        },
+        {
+          "command": "tail -f /var/log/auth.log",
+          "description": "Stream authentication attempts and sudo executions in real time",
+          "example": "tail -n 100 -f /var/log/auth.log",
+          "flagExplanation": "-f follows log file changes dynamically as events occur; use /var/log/secure on RHEL/CentOS"
+        },
+        {
+          "command": "awk '{print $1}' access.log | sort | uniq -c | sort -nr | head -10",
+          "description": "Extract the top 10 most frequent client IP addresses from an Apache or NGINX access log",
+          "example": "awk '{print $1}' /var/log/nginx/access.log | sort | uniq -c | sort -nr | head",
+          "flagExplanation": "awk extracts first column (IP), sort arranges, uniq -c counts duplicates, sort -nr sorts numerically descending"
+        }
+      ]
+    },
+    {
+      "category": "Processes, Services & System Monitoring",
+      "description": "Inspecting running processes, daemons, and system resources.",
+      "commands": [
+        {
+          "command": "ps aux",
+          "description": "Snapshot of every running process on the system",
+          "example": "ps aux | grep python",
+          "flagExplanation": "a displays all users, u displays user-oriented format with CPU/MEM %, x displays processes without terminal"
+        },
+        {
+          "command": "systemctl status <service>",
+          "description": "Check operational state and recent logs of a systemd unit",
+          "example": "systemctl status sshd",
+          "flagExplanation": "Shows if service is active, enabled on boot, PID, and recent journal entries"
+        },
+        {
+          "command": "journalctl -xeu <service>",
+          "description": "Inspect detailed systemd execution logs for a specific service",
+          "example": "journalctl -xeu ssh --no-pager",
+          "flagExplanation": "-x adds explanatory help, -e jumps to end of log, -u filters by unit name"
+        },
+        {
+          "command": "kill -9 <PID>",
+          "description": "Forcefully terminate an unkillable or rogue process",
+          "example": "kill -15 1234 (graceful SIGTERM) or kill -9 1234 (forced SIGKILL)",
+          "flagExplanation": "Signal 9 immediately drops process without cleanup"
+        }
+      ]
+    },
+    {
+      "category": "Networking & Socket Inspection",
+      "description": "Diagnosing active connections, listening sockets, and DNS resolution.",
+      "commands": [
+        {
+          "command": "ss -tulpn",
+          "description": "Display all listening TCP and UDP sockets with owning process PID and name",
+          "example": "ss -tulpn",
+          "flagExplanation": "-t TCP, -u UDP, -l listening only, -p process info (requires sudo), -n numeric ports"
+        },
+        {
+          "command": "ip a && ip r",
+          "description": "Display all network interfaces, IP addresses, and routing tables",
+          "example": "ip addr show eth0",
+          "flagExplanation": "Modern replacement for deprecated ifconfig and route commands"
+        },
+        {
+          "command": "curl -Iv https://example.com",
+          "description": "Inspect HTTP headers and TLS handshake details without downloading payload",
+          "example": "curl -Iv https://example.com",
+          "flagExplanation": "-I sends HEAD request, -v enables verbose mode showing SSL certificate and negotiation"
+        },
+        {
+          "command": "dig +short example.com ANY",
+          "description": "Query DNS records for a domain name",
+          "example": "dig +trace google.com",
+          "flagExplanation": "+short outputs concise answers; +trace follows delegation from root servers"
+        }
+      ]
+    }
+  ],
+  "ports": [
+    {
+      "port": 21,
+      "protocol": "TCP",
+      "service": "FTP (File Transfer Protocol)",
+      "description": "Transfers files between client and server. Control channel runs on port 21.",
+      "securityImplication": "Sends credentials and data in unencrypted plaintext. Highly vulnerable to packet sniffing and anonymous login misconfigurations."
+    },
+    {
+      "port": 22,
+      "protocol": "TCP",
+      "service": "SSH (Secure Shell) & SFTP",
+      "description": "Encrypted remote terminal management and secure file transfer.",
+      "securityImplication": "Frequent target of automated password brute-force bots. Recommended to enforce public key authentication, disable root login, and rate-limit with Fail2ban."
+    },
+    {
+      "port": 23,
+      "protocol": "TCP",
+      "service": "Telnet",
+      "description": "Legacy unencrypted command-line interface.",
+      "securityImplication": "Entire session including passwords transmitted in cleartext. Deprecated everywhere in production; replace immediately with SSH."
+    },
+    {
+      "port": 25,
+      "protocol": "TCP",
+      "service": "SMTP (Simple Mail Transfer Protocol)",
+      "description": "Server-to-server email routing and delivery.",
+      "securityImplication": "Open mail relays can be hijacked to send spam. Modern secure mail submission uses port 587 with STARTTLS."
+    },
+    {
+      "port": 53,
+      "protocol": "TCP/UDP",
+      "service": "DNS (Domain Name System)",
+      "description": "Resolves domain names to IP addresses. UDP 53 handles standard queries; TCP 53 handles zone transfers and responses > 512 bytes.",
+      "securityImplication": "Vulnerable to DNS amplification DDoS, cache poisoning, and DNS tunneling for data exfiltration."
+    },
+    {
+      "port": 67,
+      "protocol": "UDP",
+      "service": "DHCP Server",
+      "description": "Dynamically assigns IP addresses to client hosts on local subnets.",
+      "securityImplication": "Rogue DHCP servers can distribute malicious default gateway IPs or DNS servers to perform MITM attacks."
+    },
+    {
+      "port": 69,
+      "protocol": "UDP",
+      "service": "TFTP (Trivial File Transfer Protocol)",
+      "description": "Simplified file transfer without authentication, used for network booting (PXE) and router configuration backups.",
+      "securityImplication": "Zero authentication mechanism. Anyone with network access can download or overwrite files if not firewalled."
+    },
+    {
+      "port": 80,
+      "protocol": "TCP",
+      "service": "HTTP (HyperText Transfer Protocol)",
+      "description": "Unencrypted World Wide Web traffic.",
+      "securityImplication": "All web traffic, cookies, and login credentials can be snooped or altered by in-path network devices. Always redirect to HTTPS (port 443)."
+    },
+    {
+      "port": 88,
+      "protocol": "TCP/UDP",
+      "service": "Kerberos",
+      "description": "Ticket-based network authentication protocol used by Microsoft Active Directory.",
+      "securityImplication": "Target of Kerberoasting (requesting TGS tickets and cracking service account password hashes offline) and AS-REP roasting."
+    },
+    {
+      "port": 110,
+      "protocol": "TCP",
+      "service": "POP3 (Post Office Protocol v3)",
+      "description": "Legacy client email retrieval.",
+      "securityImplication": "Sends usernames and passwords in cleartext. Use POP3S on port 995 with SSL/TLS instead."
+    },
+    {
+      "port": 123,
+      "protocol": "UDP",
+      "service": "NTP (Network Time Protocol)",
+      "description": "Synchronizes system clocks across computer systems over variable latency data networks.",
+      "securityImplication": "Historically abused in massive UDP reflection/amplification DDoS attacks (monlist command)."
+    },
+    {
+      "port": 135,
+      "protocol": "TCP",
+      "service": "Microsoft RPC Endpoint Mapper",
+      "description": "Assigns dynamic ports for Microsoft Windows Remote Procedure Call services.",
+      "securityImplication": "Assists attackers in enumerating running Windows services and Active Directory domain controllers. Never expose to public internet."
+    },
+    {
+      "port": 139,
+      "protocol": "TCP",
+      "service": "NetBIOS Session Service",
+      "description": "Legacy Windows file and printer sharing over NetBIOS.",
+      "securityImplication": "Provides unauthenticated null session enumeration of Windows users, shares, and policies."
+    },
+    {
+      "port": 143,
+      "protocol": "TCP",
+      "service": "IMAP (Internet Message Access Protocol)",
+      "description": "Retrieves and manages email messages directly on the mail server.",
+      "securityImplication": "Unencrypted authentication. Must be replaced with IMAPS (port 993) using TLS."
+    },
+    {
+      "port": 161,
+      "protocol": "UDP",
+      "service": "SNMP (Simple Network Management Protocol)",
+      "description": "Monitors network-attached devices for conditions requiring administrative attention.",
+      "securityImplication": "SNMP v1 and v2c use cleartext 'community strings' (often default 'public' or 'private') that reveal complete network topologies. Require SNMPv3 with encryption."
+    },
+    {
+      "port": 389,
+      "protocol": "TCP/UDP",
+      "service": "LDAP (Lightweight Directory Access Protocol)",
+      "description": "Directory services querying for users, computers, and groups across networks.",
+      "securityImplication": "Transmits queries and directory credentials in cleartext if not protected by LDAPS (port 636) or StartTLS."
+    },
+    {
+      "port": 443,
+      "protocol": "TCP",
+      "service": "HTTPS (HTTP Secure / TLS)",
+      "description": "Encrypted web communications protecting privacy and integrity between browser and server.",
+      "securityImplication": "Inspect certificate expiration, deprecated cipher suites (TLS 1.0/1.1), and web application vulnerabilities (SQLi, XSS) operating inside the encrypted channel."
+    },
+    {
+      "port": 445,
+      "protocol": "TCP",
+      "service": "Microsoft SMB (Server Message Block)",
+      "description": "Native Windows file, printer, and IPC sharing directly over TCP/IP.",
+      "securityImplication": "Critical target for lateral movement, Pass-the-Hash, and historical wormable exploits (EternalBlue / MS17-010, WannaCry). Never expose to the public internet."
+    },
+    {
+      "port": 465,
+      "protocol": "TCP",
+      "service": "SMTPS (SMTP over SSL)",
+      "description": "Secure encrypted email submission directly over a TLS-wrapped connection.",
+      "securityImplication": "Requires validated TLS certificates; protects outgoing email against eavesdropping."
+    },
+    {
+      "port": 587,
+      "protocol": "TCP",
+      "service": "SMTP Submission (STARTTLS)",
+      "description": "Standard modern port for mail client submission with opportunistic TLS encryption.",
+      "securityImplication": "Vulnerable to STRIPTLS downgrade attacks if the mail client does not strictly enforce TLS encryption."
+    },
+    {
+      "port": 636,
+      "protocol": "TCP",
+      "service": "LDAPS (LDAP over TLS/SSL)",
+      "description": "Encrypted directory service access preventing credential sniffing across the enterprise.",
+      "securityImplication": "Enforce LDAPS channel binding and signing on Windows Domain Controllers to prevent relay attacks."
+    },
+    {
+      "port": 993,
+      "protocol": "TCP",
+      "service": "IMAPS (IMAP over TLS/SSL)",
+      "description": "Secure, encrypted email retrieval keeping user credentials and message bodies private.",
+      "securityImplication": "Industry standard for desktop and mobile email clients."
+    },
+    {
+      "port": 995,
+      "protocol": "TCP",
+      "service": "POP3S (POP3 over TLS/SSL)",
+      "description": "Encrypted POP3 email retrieval.",
+      "securityImplication": "Protects legacy POP3 mail clients against credential interception."
+    },
+    {
+      "port": 1433,
+      "protocol": "TCP",
+      "service": "Microsoft SQL Server (MSSQL)",
+      "description": "Relational database server listening port.",
+      "securityImplication": "Frequent target for SA account brute-force and xp_cmdshell command execution for full host compromise."
+    },
+    {
+      "port": 1521,
+      "protocol": "TCP",
+      "service": "Oracle Database Listener",
+      "description": "Listens for incoming client database connections to Oracle instances.",
+      "securityImplication": "Default SID enumeration (TNS listener) and brute-force attacks if left accessible across untrusted network zones."
+    },
+    {
+      "port": 3306,
+      "protocol": "TCP",
+      "service": "MySQL Database",
+      "description": "Default port for MySQL and MariaDB relational databases.",
+      "securityImplication": "Never bind to 0.0.0.0 publicly without firewall restrictions and mutual TLS authentication."
+    },
+    {
+      "port": 3389,
+      "protocol": "TCP/UDP",
+      "service": "RDP (Remote Desktop Protocol)",
+      "description": "Microsoft proprietary graphical remote desktop access protocol.",
+      "securityImplication": "One of the number one initial access vectors in enterprise ransomware attacks when exposed without MFA or VPN."
+    },
+    {
+      "port": 5432,
+      "protocol": "TCP",
+      "service": "PostgreSQL Database",
+      "description": "Default port for PostgreSQL open-source object-relational database.",
+      "securityImplication": "Audit pg_hba.conf to ensure only authorized application subnets can initiate connections."
+    },
+    {
+      "port": 5900,
+      "protocol": "TCP",
+      "service": "VNC (Virtual Network Computing)",
+      "description": "Graphical desktop sharing system across platforms.",
+      "securityImplication": "VNC passwords are limited to 8 characters and often unencrypted. Must be tunneled through SSH or VPN."
+    },
+    {
+      "port": 6379,
+      "protocol": "TCP",
+      "service": "Redis In-Memory Data Store",
+      "description": "In-memory key-value cache and message broker.",
+      "securityImplication": "By default lacks authentication and binds to all interfaces. Attackers routinely overwrite SSH authorized_keys or crontabs via Redis config commands."
+    },
+    {
+      "port": 8080,
+      "protocol": "TCP",
+      "service": "HTTP Alternate / Web Proxy",
+      "description": "Widely used for development web servers, Tomcat, Jenkins, and HTTP proxy listeners (Burp Suite).",
+      "securityImplication": "Frequently hosts unauthenticated management dashboards and internal microservices."
+    },
+    {
+      "port": 8443,
+      "protocol": "TCP",
+      "service": "HTTPS Alternate",
+      "description": "Common secondary port for secure administrative web consoles and management panels.",
+      "securityImplication": "Ensure production self-signed certificates are replaced and management access is restricted by IP whitelist."
+    }
+  ]
+}
+

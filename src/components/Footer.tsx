@@ -1,101 +1,168 @@
 import React from 'react';
 import Link from 'next/link';
 import { Shield } from 'lucide-react';
-import { CYBERSECURITY_DOMAINS, RESOURCE_TYPES } from '../data/metadata';
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="border-t border-[#e4e4ed] dark:border-[#26263b] bg-[#f4f4f9] dark:bg-[#0e0e17] text-[#555566] dark:text-[#8c8ca6] text-xs mt-auto transition-colors">
+    <footer className="border-t border-[#E2E8F0] dark:border-[#243044] bg-[#F8FAFC] dark:bg-[#0B1018] text-[#475569] dark:text-[#9BA8B7] text-xs mt-auto transition-colors">
       <div className="container-max py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Brand Info */}
-          <div className="md:col-span-1 space-y-3">
+          <div className="lg:col-span-1 space-y-3">
             <Link href="/" className="flex items-center gap-2">
-              <div className="w-6 h-6 rounded-[4px] bg-[#303055] dark:bg-[#6366f1] flex items-center justify-center text-white">
-                <Shield className="w-3.5 h-3.5 fill-white stroke-none" />
+              <div className="w-6 h-6 rounded-[4px] bg-[#0E7490] dark:bg-[#22D3EE] flex items-center justify-center text-white dark:text-[#0B1018]">
+                <Shield className="w-3.5 h-3.5 fill-current stroke-none" />
               </div>
-              <span className="font-semibold text-sm text-[#303055] dark:text-[#f0f0f8]">
+              <span className="font-semibold text-sm text-[#0F172A] dark:text-[#E6EDF3]">
                 CyberTube
               </span>
             </Link>
-            <p className="text-xs text-[#403f53] dark:text-[#c0c0d4] leading-relaxed">
-              Curated cybersecurity video courses, packet inspection, and hardware security education.
+            <p className="text-xs text-[#475569] dark:text-[#9BA8B7] leading-relaxed">
+              Curated free cybersecurity video courses, roadmaps, and legal practice labs.
             </p>
-            <p className="text-[11px] font-mono text-[#555566] dark:text-[#8c8ca6] pt-1">
-              Synchronized with verified technical channels.
+            <p className="text-[11px] font-mono text-[#475569] dark:text-[#9BA8B7] pt-1">
+              Videos belong to their creators. This site is not affiliated with them. Links last checked Nov 2026.
             </p>
           </div>
 
-          {/* Domains Column 1 */}
+          {/* Navigation Links */}
           <div>
-            <h3 className="font-mono text-[11px] font-medium uppercase tracking-wider text-[#303055] dark:text-[#f0f0f8] mb-3">
-              Core Tracks
+            <h3 className="font-mono text-[11px] font-medium uppercase tracking-wider text-[#0F172A] dark:text-[#E6EDF3] mb-3">
+              Learning Paths
             </h3>
-            <ul className="space-y-2">
-              {CYBERSECURITY_DOMAINS.slice(0, 5).map((d) => (
-                <li key={d.id}>
-                  <Link
-                    href={`/discover?domain=${d.id}`}
-                    className="hover:text-[#303055] dark:hover:text-white transition-colors"
-                  >
-                    {d.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Domains Column 2 */}
-          <div>
-            <h3 className="font-mono text-[11px] font-medium uppercase tracking-wider text-[#303055] dark:text-[#f0f0f8] mb-3">
-              Specialized Labs
-            </h3>
-            <ul className="space-y-2">
-              {CYBERSECURITY_DOMAINS.slice(5, 10).map((d) => (
-                <li key={d.id}>
-                  <Link
-                    href={`/discover?domain=${d.id}`}
-                    className="hover:text-[#303055] dark:hover:text-white transition-colors"
-                  >
-                    {d.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Formats */}
-          <div>
-            <h3 className="font-mono text-[11px] font-medium uppercase tracking-wider text-[#303055] dark:text-[#f0f0f8] mb-3">
-              Formats
-            </h3>
-            <div className="flex flex-wrap gap-1.5">
-              {RESOURCE_TYPES.slice(0, 8).map((t) => (
-                <Link
-                  key={t.id}
-                  href={`/discover?type=${t.id}`}
-                  className="px-2 py-1 rounded-[4px] bg-white dark:bg-[#141422] border border-[#e4e4ed] dark:border-[#26263b] text-[11px] font-mono text-[#403f53] dark:text-[#c0c0d4] hover:border-[#303055] dark:hover:border-[#6366f1] hover:text-[#303055] dark:hover:text-white transition-colors"
-                >
-                  {t.label}
+            <ul className="space-y-2 text-xs">
+              <li>
+                <Link href="/learning-paths/foundations" className="hover:text-[#0E7490] dark:hover:text-[#22D3EE] transition-colors">
+                  Path A — Foundations
                 </Link>
-              ))}
+              </li>
+              <li>
+                <Link href="/learning-paths/security-plus" className="hover:text-[#0E7490] dark:hover:text-[#22D3EE] transition-colors">
+                  Path B — Security+ Track
+                </Link>
+              </li>
+              <li>
+                <Link href="/learning-paths/ethical-hacking" className="hover:text-[#0E7490] dark:hover:text-[#22D3EE] transition-colors">
+                  Path C — Ethical Hacking
+                </Link>
+              </li>
+              <li>
+                <Link href="/learning-paths/web-application-security" className="hover:text-[#0E7490] dark:hover:text-[#22D3EE] transition-colors">
+                  Path D — Web App Security
+                </Link>
+              </li>
+              <li>
+                <Link href="/learning-paths/coming-soon" className="hover:text-[#0E7490] dark:hover:text-[#22D3EE] transition-colors">
+                  Path E — Emerging Tracks
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Platform & Practice */}
+          <div>
+            <h3 className="font-mono text-[11px] font-medium uppercase tracking-wider text-[#0F172A] dark:text-[#E6EDF3] mb-3">
+              Platform & Labs
+            </h3>
+            <ul className="space-y-2 text-xs">
+              <li>
+                <Link href="/library" className="hover:text-[#0E7490] dark:hover:text-[#22D3EE] transition-colors">
+                  Course Library (21 Resources)
+                </Link>
+              </li>
+              <li>
+                <Link href="/labs" className="hover:text-[#0E7490] dark:hover:text-[#22D3EE] transition-colors">
+                  Legal Practice Labs
+                </Link>
+              </li>
+              <li>
+                <Link href="/ethics" className="hover:text-[#0E7490] dark:hover:text-[#22D3EE] transition-colors">
+                  Rules of Engagement & Ethics
+                </Link>
+              </li>
+              <li>
+                <Link href="/about" className="hover:text-[#0E7490] dark:hover:text-[#22D3EE] transition-colors">
+                  About & Suggest a Resource
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Skills & Reference */}
+          <div>
+            <h3 className="font-mono text-[11px] font-medium uppercase tracking-wider text-[#0F172A] dark:text-[#E6EDF3] mb-3">
+              Skills & Reference
+            </h3>
+            <ul className="space-y-2 text-xs">
+              <li>
+                <Link href="/skills" className="hover:text-[#0E7490] dark:hover:text-[#22D3EE] transition-colors">
+                  Skills Map & Checklist
+                </Link>
+              </li>
+              <li>
+                <Link href="/certifications" className="hover:text-[#0E7490] dark:hover:text-[#22D3EE] transition-colors">
+                  Certifications Guide
+                </Link>
+              </li>
+              <li>
+                <Link href="/careers" className="hover:text-[#0E7490] dark:hover:text-[#22D3EE] transition-colors">
+                  Career Pathways & Roles
+                </Link>
+              </li>
+              <li>
+                <Link href="/glossary" className="hover:text-[#0E7490] dark:hover:text-[#22D3EE] transition-colors">
+                  Cybersecurity Glossary
+                </Link>
+              </li>
+              <li>
+                <Link href="/cheat-sheets" className="hover:text-[#0E7490] dark:hover:text-[#22D3EE] transition-colors">
+                  Linux & Ports Cheat Sheets
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Standards & Transparency */}
+          <div>
+            <h3 className="font-mono text-[11px] font-medium uppercase tracking-wider text-[#0F172A] dark:text-[#E6EDF3] mb-3">
+              Governance & Integrity
+            </h3>
+            <p className="text-xs text-[#475569] dark:text-[#9BA8B7] leading-relaxed mb-3">
+              Zero telemetry ads. Strict click-to-load embeds. All practice exercises must be executed within authorized boundaries.
+            </p>
+            <div className="flex flex-wrap gap-2">
+              <span className="px-2 py-1 rounded bg-white dark:bg-[#121A26] border border-[#E2E8F0] dark:border-[#243044] text-[11px] font-mono text-[#0E7490] dark:text-[#22D3EE]">
+                Open Education
+              </span>
+              <span className="px-2 py-1 rounded bg-white dark:bg-[#121A26] border border-[#E2E8F0] dark:border-[#243044] text-[11px] font-mono text-[#0E7490] dark:text-[#22D3EE]">
+                Strictly Legal
+              </span>
+              <span className="px-2 py-1 rounded bg-white dark:bg-[#121A26] border border-[#E2E8F0] dark:border-[#243044] text-[11px] font-mono text-[#0E7490] dark:text-[#22D3EE]">
+                WCAG 2.2 AA
+              </span>
+              <span className="px-2 py-1 rounded bg-white dark:bg-[#121A26] border border-[#E2E8F0] dark:border-[#243044] text-[11px] font-mono text-[#047857] dark:text-[#34D399]">
+                Verified 2026-11
+              </span>
             </div>
           </div>
         </div>
 
-        <div className="border-t border-[#e4e4ed] dark:border-[#26263b] mt-10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] font-mono text-[#555566] dark:text-[#8c8ca6]">
+        <div className="border-t border-[#E2E8F0] dark:border-[#243044] mt-10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] font-mono text-[#475569] dark:text-[#9BA8B7]">
           <div>
-            © {new Date().getFullYear()} CyberTube. Open Developer & Security Education.
+            © {new Date().getFullYear()} CyberTube. Open Practical Cybersecurity Education.
           </div>
           <div className="flex items-center gap-4">
-            <Link href="/courses" className="hover:text-[#303055] dark:hover:text-white transition-colors">
-              Courses
+            <Link href="/ethics" className="hover:text-[#0E7490] dark:hover:text-[#22D3EE] transition-colors">
+              Ethics
             </Link>
-            <Link href="/domains" className="hover:text-[#303055] dark:hover:text-white transition-colors">
-              Domains
+            <Link href="/about" className="hover:text-[#0E7490] dark:hover:text-[#22D3EE] transition-colors">
+              About
             </Link>
-            <Link href="/discover" className="hover:text-[#303055] dark:hover:text-white transition-colors">
-              Discover
+            <Link href="/library" className="hover:text-[#0E7490] dark:hover:text-[#22D3EE] transition-colors">
+              Library
+            </Link>
+            <Link href="/learning-paths" className="hover:text-[#0E7490] dark:hover:text-[#22D3EE] transition-colors">
+              Paths
             </Link>
           </div>
         </div>

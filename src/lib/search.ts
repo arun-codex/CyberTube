@@ -1,10 +1,11 @@
 import { getAllResources } from './catalog';
 import { COURSES as courses } from '../data/courses';
 import { CYBERSECURITY_DOMAINS } from '../data/metadata';
+import { LEARNING_PATHS } from '../data/learning-paths';
 
 export interface SearchResultItem {
   id: string;
-  type: 'course' | 'resource' | 'domain';
+  type: 'learning-path' | 'course' | 'resource' | 'domain';
   title: string;
   description: string;
   url: string;
@@ -19,12 +20,32 @@ export function searchGlobalCatalog(query: string): SearchResultItem[] {
 
   const results: SearchResultItem[] = [];
 
-  // 1. Search Courses
+  // 1. Search Learning Paths
+  for (const path of LEARNING_PATHS) {
+    const titleMatch = path.title.toLowerCase().includes(cleanQuery);
+    const descMatch = path.description.toLowerCase().includes(cleanQuery);
+    const tagMatch = path.tagline.toLowerCase().includes(cleanQuery);
+
+    if (titleMatch || descMatch || tagMatch) {
+      results.push({
+        id: `path-${path.id}`,
+        type: 'learning-path',
+        title: path.title,
+        description: path.description,
+        url: `/learning-paths/${path.slug}`,
+        badge: 'LEARNING PATH',
+        category: path.domain,
+        tags: [path.difficulty, `${path.stages.length} stages`],
+      });
+    }
+  }
+
+  // 2. Search Courses
   for (const course of courses) {
     const titleMatch = course.title.toLowerCase().includes(cleanQuery);
     const descMatch = course.description.toLowerCase().includes(cleanQuery);
-    const domainMatch = course.domains.some(d => d.toLowerCase().includes(cleanQuery));
-    const tagMatch = course.tags.some(t => t.toLowerCase().includes(cleanQuery));
+    const domainMatch = course.domains.some((d) => d.toLowerCase().includes(cleanQuery));
+    const tagMatch = course.tags.some((t) => t.toLowerCase().includes(cleanQuery));
 
     if (titleMatch || descMatch || domainMatch || tagMatch) {
       results.push({
@@ -40,13 +61,13 @@ export function searchGlobalCatalog(query: string): SearchResultItem[] {
     }
   }
 
-  // 2. Search Resources
+  // 3. Search Resources
   const resources = getAllResources();
   for (const res of resources) {
     const titleMatch = res.title.toLowerCase().includes(cleanQuery);
     const descMatch = res.description.toLowerCase().includes(cleanQuery);
-    const domainMatch = res.domains.some(d => d.toLowerCase().includes(cleanQuery));
-    const tagMatch = res.tags.some(t => t.toLowerCase().includes(cleanQuery));
+    const domainMatch = res.domains.some((d) => d.toLowerCase().includes(cleanQuery));
+    const tagMatch = res.tags.some((t) => t.toLowerCase().includes(cleanQuery));
 
     if (titleMatch || descMatch || domainMatch || tagMatch) {
       results.push({
@@ -62,7 +83,7 @@ export function searchGlobalCatalog(query: string): SearchResultItem[] {
     }
   }
 
-  // 3. Search Cybersecurity Domains
+  // 4. Search Cybersecurity Domains
   for (const domain of CYBERSECURITY_DOMAINS) {
     const nameMatch = domain.name.toLowerCase().includes(cleanQuery);
     const descMatch = domain.shortDescription.toLowerCase().includes(cleanQuery);

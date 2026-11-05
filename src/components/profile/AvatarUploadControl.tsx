@@ -79,6 +79,9 @@ export function AvatarUploadControl({
 
       const data = await res.json();
       if (!res.ok) {
+        if (res.status === 503) {
+          throw new Error('Avatar cloud storage is currently being initialized in the database. Please try again shortly or use your provider avatar.');
+        }
         throw new Error(data.error || 'Failed to upload image.');
       }
 

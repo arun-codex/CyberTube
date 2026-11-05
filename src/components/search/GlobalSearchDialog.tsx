@@ -17,15 +17,23 @@ export function GlobalSearchDialog({ isOpen, onClose }: GlobalSearchDialogProps)
   const [isLoading, setIsLoading] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Focus input on open
+  // Focus input on open and handle window Escape key
   useEffect(() => {
     if (isOpen) {
       setQuery('');
       setResults([]);
       setSelectedIndex(0);
       setTimeout(() => inputRef.current?.focus(), 50);
+
+      const handleGlobalEscape = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') {
+          onClose();
+        }
+      };
+      window.addEventListener('keydown', handleGlobalEscape);
+      return () => window.removeEventListener('keydown', handleGlobalEscape);
     }
-  }, [isOpen]);
+  }, [isOpen, onClose]);
 
   // Debounced search
   useEffect(() => {
