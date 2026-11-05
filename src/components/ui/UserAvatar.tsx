@@ -29,13 +29,23 @@ function isSafeHttpsUrl(url: string): boolean {
       return true;
     }
     if (parsed.protocol !== 'https:') return false;
-    return ALLOWED_REMOTE_HOSTS.some(
-      (host) => parsed.hostname === host || parsed.hostname.endsWith(`.${host}`)
-    );
+    // Allow any supabase cloud/local instance, vercel preview domain, or standard OAuth avatar hosts
+    if (
+      parsed.hostname.includes('supabase.co') ||
+      parsed.hostname.includes('vercel.app') ||
+      ALLOWED_REMOTE_HOSTS.some(
+        (host) => parsed.hostname === host || parsed.hostname.endsWith(`.${host}`)
+      )
+    ) {
+      return true;
+    }
+    return false;
   } catch {
     return false;
   }
 }
+
+export const isSafeAvatarUrl = isSafeHttpsUrl;
 
 export function UserAvatar({
   customAvatarUrl,
@@ -46,17 +56,25 @@ export function UserAvatar({
   className = '',
   priority = false,
 }: UserAvatarProps) {
-  const [imageError, setImageError] = useState(false);
-
-  // Compute fallback initial
-  const initial = (displayName || email || 'P').trim().charAt(0).toUpperCase();
-
   // Avatar selection priority:
   // 1. User-uploaded custom image
   // 2. Current Google/GitHub provider picture
   // 3. Profile initial fallback
   const rawTargetUrl = customAvatarUrl || providerAvatarUrl;
-  const isCandidateValid = rawTargetUrl && isSafeHttpsUrl(rawTargetUrl);
+
+  const [imageError, setImageError] = useState(false);
+  const [prevTargetUrl, setPrevTargetUrl] = useState<string | null | undefined>(rawTargetUrl);
+
+  // Synchronously reset imageError whenever target URL changes (new upload, refresh, or reset)
+  if (rawTargetUrl !== prevTargetUrl) {
+    setPrevTargetUrl(rawTargetUrl);
+    setImageError(false);
+  }
+
+  // Compute fallback initial
+  const initial = (displayName || email || 'P').trim().charAt(0).toUpperCase();
+
+  const isCandidateValid = rawTargetUrl && isSafeAvatarUrl(rawTargetUrl);
   const showImage = !imageError && Boolean(isCandidateValid);
 
   if (showImage && rawTargetUrl) {
@@ -94,4 +112,3 @@ export function UserAvatar({
     </div>
   );
 }
-

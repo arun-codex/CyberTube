@@ -7,11 +7,20 @@ import crypto from 'crypto';
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
 const ALLOWED_MIME_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
 
+const NO_CACHE_HEADERS = {
+  'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+  Pragma: 'no-cache',
+  Expires: '0',
+};
+
 export async function GET() {
   try {
     const supabase = await createClient();
     if (!supabase) {
-      return NextResponse.json({ error: 'Database service unconfigured.' }, { status: 500 });
+      return NextResponse.json(
+        { error: 'Database service unconfigured.' },
+        { status: 500, headers: NO_CACHE_HEADERS }
+      );
     }
 
     const {
@@ -20,44 +29,66 @@ export async function GET() {
     } = await supabase.auth.getUser();
 
     if (authError || !user) {
-      return NextResponse.json({ error: 'Unauthorized.' }, { status: 401 });
+      return NextResponse.json(
+        { error: 'Unauthorized.' },
+        { status: 401, headers: NO_CACHE_HEADERS }
+      );
     }
 
-    // Fetch profile to retrieve avatar_path
-    const { data: profile } = await (supabase.from('profiles') as any)
+    // Fetch profile to retrieve permanent avatar_path and provider avatar_url
+    const { data: profile, error: profileError } = await (supabase.from('profiles') as any)
       .select('avatar_path, avatar_url')
       .eq('id', user.id)
       .single();
 
-    if (!profile?.avatar_path) {
-      return NextResponse.json({
-        hasCustomAvatar: false,
-        avatarUrl: profile?.avatar_url || null,
-        avatarPath: null,
-      });
+    if (profileError) {
+      return NextResponse.json(
+        { error: `Failed to retrieve profile record: ${profileError.message}` },
+        { status: 500, headers: NO_CACHE_HEADERS }
+      );
     }
 
-    // Generate fresh signed URL (60-minute validity)
+    if (!profile?.avatar_path) {
+      return NextResponse.json(
+        {
+          hasCustomAvatar: false,
+          avatarUrl: profile?.avatar_url || null,
+          avatarPath: null,
+        },
+        { headers: NO_CACHE_HEADERS }
+      );
+    }
+
+    // Generate fresh signed URL (60-minute validity) using user's authenticated client
     const { data: signedData, error: signedError } = await supabase.storage
       .from('avatars')
       .createSignedUrl(profile.avatar_path, 3600);
 
     if (signedError || !signedData?.signedUrl) {
-      return NextResponse.json({
-        hasCustomAvatar: true,
-        avatarUrl: profile?.avatar_url || null,
-        avatarPath: profile.avatar_path,
-        signedUrlError: signedError?.message || 'Failed to refresh signed URL',
-      });
+      return NextResponse.json(
+        {
+          hasCustomAvatar: true,
+          avatarUrl: profile?.avatar_url || null, // fallback to provider avatar
+          avatarPath: profile.avatar_path,
+          signedUrlError: signedError?.message || 'Failed to refresh signed URL',
+        },
+        { headers: NO_CACHE_HEADERS }
+      );
     }
 
-    return NextResponse.json({
-      hasCustomAvatar: true,
-      avatarUrl: signedData.signedUrl,
-      avatarPath: profile.avatar_path,
-    });
+    return NextResponse.json(
+      {
+        hasCustomAvatar: true,
+        avatarUrl: signedData.signedUrl,
+        avatarPath: profile.avatar_path,
+      },
+      { headers: NO_CACHE_HEADERS }
+    );
   } catch (err: any) {
-    return NextResponse.json({ error: err?.message || 'Server error.' }, { status: 500 });
+    return NextResponse.json(
+      { error: err?.message || 'Server error.' },
+      { status: 500, headers: NO_CACHE_HEADERS }
+    );
   }
 }
 
@@ -197,16 +228,41 @@ export async function POST(request: NextRequest) {
       .createSignedUrl(filePath, 3600);
 
     if (signedError || !signedData?.signedUrl) {
+      // Clean up uploaded file if URL signing fails
+      try {
+        await supabase.storage.from('avatars').remove([filePath]);
+      } catch {
+        // Best effort
+      }
       return NextResponse.json({ error: 'Failed to generate signed URL.' }, { status: 500 });
     }
 
-    // Store permanent avatar_path in profile
-    await (supabase.from('profiles') as any)
+    // Store permanent avatar_path in profile and verify row update
+    const { data: updatedRows, error: updateError } = await (supabase.from('profiles') as any)
       .update({
         avatar_path: filePath,
         updated_at: new Date().toISOString(),
       })
-      .eq('id', user.id);
+      .eq('id', user.id)
+      .select('id, avatar_path');
+
+    if (updateError || !updatedRows || updatedRows.length === 0) {
+      // Database persistence failed: clean up uploaded storage object to prevent orphan storage
+      try {
+        await supabase.storage.from('avatars').remove([filePath]);
+      } catch {
+        // Best effort
+      }
+
+      return NextResponse.json(
+        {
+          error: updateError?.message
+            ? `Failed to persist avatar in profile: ${updateError.message}`
+            : 'Database update failed: authenticated profile row was not updated.',
+        },
+        { status: 500 }
+      );
+    }
 
     return NextResponse.json({
       success: true,
@@ -234,13 +290,49 @@ export async function DELETE() {
       return NextResponse.json({ error: 'Unauthorized.' }, { status: 401 });
     }
 
-    // Reset avatar_path to null in profiles
-    await (supabase.from('profiles') as any)
+    // Retrieve current avatar_path before clearing
+    const { data: profile, error: fetchError } = await (supabase.from('profiles') as any)
+      .select('avatar_path')
+      .eq('id', user.id)
+      .single();
+
+    if (fetchError) {
+      return NextResponse.json(
+        { error: `Failed to retrieve profile: ${fetchError.message}` },
+        { status: 500 }
+      );
+    }
+
+    const currentPath = profile?.avatar_path;
+
+    // Reset avatar_path to null in profiles and verify database update
+    const { data: updatedRows, error: updateError } = await (supabase.from('profiles') as any)
       .update({
         avatar_path: null,
         updated_at: new Date().toISOString(),
       })
-      .eq('id', user.id);
+      .eq('id', user.id)
+      .select('id, avatar_path');
+
+    if (updateError || !updatedRows || updatedRows.length === 0) {
+      return NextResponse.json(
+        {
+          error: updateError?.message
+            ? `Failed to reset profile avatar: ${updateError.message}`
+            : 'Database update failed: profile row was not reset.',
+        },
+        { status: 500 }
+      );
+    }
+
+    // If an existing avatar file belonged to this user, remove it from storage
+    if (currentPath && currentPath.startsWith(`${user.id}/`)) {
+      try {
+        await supabase.storage.from('avatars').remove([currentPath]);
+      } catch {
+        // Storage cleanup best effort
+      }
+    }
 
     return NextResponse.json({ success: true });
   } catch (err: any) {

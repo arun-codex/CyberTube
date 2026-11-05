@@ -4,6 +4,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { User, Settings, LogOut, ChevronDown, Award } from 'lucide-react';
 import { logoutAction } from '@/app/actions/auth';
+import { UserAvatar } from '@/components/ui/UserAvatar';
 
 interface UserNavDropdownProps {
   userEmail: string;
@@ -14,8 +15,6 @@ interface UserNavDropdownProps {
 export function UserNavDropdown({ userEmail, avatarUrl, displayName }: UserNavDropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-
-  const initial = (displayName || userEmail).charAt(0).toUpperCase();
 
   // Close on outside click
   useEffect(() => {
@@ -38,19 +37,13 @@ export function UserNavDropdown({ userEmail, avatarUrl, displayName }: UserNavDr
         aria-label="User profile options menu"
         className="flex items-center gap-2 px-2.5 py-1.5 rounded-[4px] text-xs font-medium text-[#303055] dark:text-[#f0f0f8] bg-[#f4f4f9] dark:bg-[#1c1c2c] hover:bg-[#e8e8f2] dark:hover:bg-[#252538] border border-[#e4e4ed] dark:border-[#2e2e42] transition-colors min-h-[38px] focus:outline-none focus:ring-2 focus:ring-[#303055] dark:focus:ring-[#6366f1]"
       >
-        {avatarUrl ? (
-          <img
-            src={avatarUrl}
-            alt={displayName || userEmail}
-            width={24}
-            height={24}
-            className="w-6 h-6 rounded-[3px] object-cover border border-[#e4e4ed] dark:border-[#2e2e42]"
-          />
-        ) : (
-          <div className="w-6 h-6 rounded-[3px] bg-[#303055] dark:bg-[#6366f1] text-white flex items-center justify-center font-mono text-[11px] font-bold">
-            {initial}
-          </div>
-        )}
+        <UserAvatar
+          customAvatarUrl={avatarUrl}
+          displayName={displayName}
+          email={userEmail}
+          size={24}
+          className="w-6 h-6 rounded-[3px]"
+        />
         <span className="max-w-[120px] truncate hidden sm:inline-block">
           {displayName || userEmail}
         </span>
@@ -122,4 +115,3 @@ export function UserNavDropdown({ userEmail, avatarUrl, displayName }: UserNavDr
     </div>
   );
 }
-

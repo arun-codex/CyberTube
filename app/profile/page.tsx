@@ -6,6 +6,7 @@ import { createClient } from '@/lib/supabase/server';
 import { CYBERSECURITY_DOMAINS } from '@/data/metadata';
 import { EnrolledCoursesList } from './EnrolledCoursesList';
 import { UserAvatar } from '@/components/ui/UserAvatar';
+import { resolveProfileAvatarUrl } from '@/lib/avatar';
 
 export default async function ProfilePage() {
   const supabase = await createClient();
@@ -24,6 +25,8 @@ export default async function ProfilePage() {
     .select('*')
     .eq('id', user.id)
     .single() as { data: any };
+
+  const resolvedAvatarUrl = await resolveProfileAvatarUrl(supabase, profile);
 
   const userInterests: string[] = profile?.interests || [];
 
@@ -51,7 +54,7 @@ export default async function ProfilePage() {
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5">
               <UserAvatar
-                customAvatarUrl={profile?.avatar_url}
+                customAvatarUrl={resolvedAvatarUrl}
                 providerAvatarUrl={profile?.avatar_url}
                 displayName={profile?.display_name}
                 email={user.email}

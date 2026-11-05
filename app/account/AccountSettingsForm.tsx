@@ -8,10 +8,15 @@ import { AvatarUploadControl } from '@/components/profile/AvatarUploadControl';
 
 interface AccountSettingsFormProps {
   initialProfile: any;
+  initialAvatarUrl?: string | null;
   userEmail: string;
 }
 
-export function AccountSettingsForm({ initialProfile, userEmail }: AccountSettingsFormProps) {
+export function AccountSettingsForm({
+  initialProfile,
+  initialAvatarUrl,
+  userEmail,
+}: AccountSettingsFormProps) {
   const [loading, setLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -50,7 +55,7 @@ export function AccountSettingsForm({ initialProfile, userEmail }: AccountSettin
     <div className="space-y-8">
       {/* Avatar Upload Control */}
       <AvatarUploadControl
-        initialAvatarUrl={initialProfile?.avatar_url}
+        initialAvatarUrl={initialAvatarUrl || initialProfile?.avatar_url}
         providerAvatarUrl={initialProfile?.avatar_url}
         displayName={initialProfile?.display_name}
         email={userEmail}

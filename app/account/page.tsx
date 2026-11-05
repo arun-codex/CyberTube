@@ -6,6 +6,7 @@ import { createClient } from '@/lib/supabase/server';
 import { logoutAction } from '@/app/actions/auth';
 import { AccountSettingsForm } from './AccountSettingsForm';
 import { UserAvatar } from '@/components/ui/UserAvatar';
+import { resolveProfileAvatarUrl } from '@/lib/avatar';
 
 export default async function AccountPage() {
   const supabase = await createClient();
@@ -28,12 +29,14 @@ export default async function AccountPage() {
     redirect('/login?redirect=/account');
   }
 
-  const { data: profile } = await supabase
-    .from('profiles')
+  const { data: profile } = await (supabase
+    .from('profiles') as any)
     .select('*')
     .eq('id', user.id)
     .single() as { data: any };
 
+  // Resolve private custom avatar signed URL or provider fallback
+  const resolvedAvatarUrl = await resolveProfileAvatarUrl(supabase, profile);
   const provider = user.app_metadata?.provider || 'email';
 
   return (
@@ -42,7 +45,7 @@ export default async function AccountPage() {
       <div className="bg-[#f4f4f9] dark:bg-[#141422] border border-[#e4e4ed] dark:border-[#26263b] rounded-[8px] p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 transition-colors">
         <div className="flex items-center gap-4">
           <UserAvatar
-            customAvatarUrl={profile?.avatar_url}
+            customAvatarUrl={resolvedAvatarUrl}
             providerAvatarUrl={profile?.avatar_url}
             displayName={profile?.display_name}
             email={user.email}
@@ -103,7 +106,11 @@ export default async function AccountPage() {
           </p>
         </div>
 
-        <AccountSettingsForm initialProfile={profile} userEmail={user.email || ''} />
+        <AccountSettingsForm
+          initialProfile={profile}
+          initialAvatarUrl={resolvedAvatarUrl}
+          userEmail={user.email || ''}
+        />
       </div>
     </div>
   );
