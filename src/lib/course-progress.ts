@@ -14,6 +14,11 @@ import { Course, CourseProgressState } from '../types/course';
 const STORAGE_KEY_PREFIX = 'cybertube_course_progress_v1_';
 const PROGRESS_EVENT_NAME = 'cybertube:course-progress-changed';
 
+export const LEGACY_PACKET_ANALYSIS_LESSON_IDS = [
+  'les-wireshark-deep-dive',
+  'les-wireshark-troubleshooting',
+];
+
 export interface CourseProgressService {
   getProgress(courseId: string): CourseProgressState;
   isLessonCompleted(courseId: string, lessonId: string): boolean;
@@ -22,6 +27,8 @@ export interface CourseProgressService {
   recordLessonAccess(courseId: string, lessonId: string): void;
   getCourseCompletionPercentage(course: Course): number;
   resetCourseProgress(courseId: string): void;
+  recordQuizScore?(courseId: string, quizId: string, scorePercent: number): void;
+  recordCapstoneScore?(courseId: string, score: number): void;
 }
 
 function getStorageKey(courseId: string): string {
@@ -47,12 +54,52 @@ function loadState(courseId: string): CourseProgressState {
       };
     }
     const parsed = JSON.parse(raw);
+    const completedLessonIds: string[] = Array.isArray(parsed.completedLessonIds)
+      ? parsed.completedLessonIds
+      : [];
+
+    let archivedLegacyLessonIds: string[] = Array.isArray(parsed.archivedLegacyLessonIds)
+      ? parsed.archivedLegacyLessonIds
+      : [];
+
+    // Safe backwards-compatible migration for upgraded Network Packet Analysis masterclass
+    if (courseId === 'course-packet-analysis-wireshark') {
+      const foundLegacy = completedLessonIds.filter((id) =>
+        LEGACY_PACKET_ANALYSIS_LESSON_IDS.includes(id)
+      );
+      if (foundLegacy.length > 0) {
+        archivedLegacyLessonIds = Array.from(
+          new Set([...archivedLegacyLessonIds, ...foundLegacy])
+        );
+        const filteredCompleted = completedLessonIds.filter(
+          (id) => !LEGACY_PACKET_ANALYSIS_LESSON_IDS.includes(id)
+        );
+
+        const migratedState: CourseProgressState = {
+          courseId,
+          completedLessonIds: filteredCompleted,
+          archivedLegacyLessonIds,
+          lastCompletedLessonId: filteredCompleted.length > 0 ? filteredCompleted[filteredCompleted.length - 1] : undefined,
+          lastActiveLessonId: parsed.lastActiveLessonId,
+          lastAccessedAt: parsed.lastAccessedAt || new Date().toISOString(),
+          quizScores: parsed.quizScores || {},
+          capstoneScore: parsed.capstoneScore,
+        };
+
+        saveState(migratedState);
+        return migratedState;
+      }
+    }
+
     return {
       courseId,
-      completedLessonIds: Array.isArray(parsed.completedLessonIds) ? parsed.completedLessonIds : [],
+      completedLessonIds,
+      archivedLegacyLessonIds,
       lastCompletedLessonId: parsed.lastCompletedLessonId,
       lastActiveLessonId: parsed.lastActiveLessonId,
       lastAccessedAt: parsed.lastAccessedAt || new Date().toISOString(),
+      quizScores: parsed.quizScores || {},
+      capstoneScore: parsed.capstoneScore,
     };
   } catch (err) {
     console.error('Failed to read course progress from localStorage:', err);
@@ -155,6 +202,25 @@ export const localCourseProgressService: CourseProgressService = {
     } catch (err) {
       console.error('Failed to clear course progress from localStorage:', err);
     }
+  },
+
+  recordQuizScore(courseId: string, quizId: string, scorePercent: number): void {
+    const state = loadState(courseId);
+    const quizScores = { ...(state.quizScores || {}), [quizId]: scorePercent };
+    saveState({
+      ...state,
+      quizScores,
+      lastAccessedAt: new Date().toISOString(),
+    });
+  },
+
+  recordCapstoneScore(courseId: string, score: number): void {
+    const state = loadState(courseId);
+    saveState({
+      ...state,
+      capstoneScore: score,
+      lastAccessedAt: new Date().toISOString(),
+    });
   },
 };
 

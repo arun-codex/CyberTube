@@ -169,6 +169,18 @@ export class CloudCourseProgressService implements CourseProgressService {
     }
   }
 
+  recordQuizScore(courseId: string, quizId: string, scorePercent: number): void {
+    if (typeof localCourseProgressService.recordQuizScore === 'function') {
+      localCourseProgressService.recordQuizScore(courseId, quizId, scorePercent);
+    }
+  }
+
+  recordCapstoneScore(courseId: string, score: number): void {
+    if (typeof localCourseProgressService.recordCapstoneScore === 'function') {
+      localCourseProgressService.recordCapstoneScore(courseId, score);
+    }
+  }
+
   /**
    * Merges local guest progress with cloud user_lesson_progress rows.
    */

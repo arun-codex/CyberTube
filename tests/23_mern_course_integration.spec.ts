@@ -187,11 +187,11 @@ test.describe('Phase 15 — MERN Full Stack Course Integration', () => {
   });
 
   test('7. Existing Cybersecurity Courses Remain Unbroken', async ({ page }) => {
-    await page.goto('/courses/network-packet-analysis-masterclass');
+    await page.goto('/courses/network-packet-analysis-masterclass?lesson=advanced-investigation-workflow');
     await page.waitForLoadState('domcontentloaded');
 
     await expect(page.locator('h1')).toHaveText('Network Packet Analysis & Forensics Masterclass');
     await expect(page.locator('text=Cybersecurity').first()).toBeVisible();
-    await expect(page.locator('iframe[src*="youtube.com/embed/lb1Dw0elw0Q"]')).toBeVisible({ timeout: 10000 });
+    await expect(page.locator('iframe[src*="youtube.com/embed/e_dsGhvq9CU"]')).toBeVisible({ timeout: 10000 });
   });
 });

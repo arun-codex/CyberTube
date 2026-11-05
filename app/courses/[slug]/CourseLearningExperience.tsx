@@ -8,6 +8,11 @@ import { ModuleAccordion } from '../../../src/components/courses/ModuleAccordion
 import { LessonNavigation } from '../../../src/components/courses/LessonNavigation';
 import { YouTubePlayer } from '../../../src/components/YouTubePlayer';
 import { ResourceCard } from '../../../src/components/ResourceCard';
+import { LessonContentRenderer } from '../../../src/components/courses/LessonContentRenderer';
+import { PracticalLabView } from '../../../src/components/courses/PracticalLabView';
+import { ModuleQuizView } from '../../../src/components/courses/ModuleQuizView';
+import { CapstoneAssessmentView } from '../../../src/components/courses/CapstoneAssessmentView';
+import { PCAPResourceList } from '../../../src/components/courses/PCAPResourceList';
 import {
   getCourseLessons,
   getAdjacentLessons,
@@ -20,6 +25,11 @@ import {
   Award,
   BookOpen,
   ShieldAlert,
+  ExternalLink,
+  FlaskConical,
+  HelpCircle,
+  HardDrive,
+  FileCheck2,
 } from 'lucide-react';
 
 interface CourseLearningExperienceProps {
@@ -37,6 +47,8 @@ export const CourseLearningExperience: React.FC<CourseLearningExperienceProps> =
   );
 
   const [completedLessonIds, setCompletedLessonIds] = useState<string[]>([]);
+  const [archivedLegacyLessonIds, setArchivedLegacyLessonIds] = useState<string[]>([]);
+  const [activeTab, setActiveTab] = useState<'content' | 'lab' | 'quiz' | 'capstone' | 'pcaps'>('content');
 
   useEffect(() => {
     if (initialLessonSlug) {
@@ -47,6 +59,7 @@ export const CourseLearningExperience: React.FC<CourseLearningExperienceProps> =
   useEffect(() => {
     const state = cloudCourseProgressService.getProgress(course.id);
     setCompletedLessonIds(state.completedLessonIds);
+    setArchivedLegacyLessonIds(state.archivedLegacyLessonIds || []);
 
     if (!initialLessonSlug && state.lastActiveLessonId) {
       const match = allLessons.find((l) => l.id === state.lastActiveLessonId);
@@ -58,6 +71,7 @@ export const CourseLearningExperience: React.FC<CourseLearningExperienceProps> =
     const unsub = onCourseProgressChange((updatedState) => {
       if (updatedState.courseId === course.id) {
         setCompletedLessonIds(updatedState.completedLessonIds);
+        setArchivedLegacyLessonIds(updatedState.archivedLegacyLessonIds || []);
       }
     });
 
@@ -68,9 +82,18 @@ export const CourseLearningExperience: React.FC<CourseLearningExperienceProps> =
   const activeLesson: Lesson | undefined =
     allLessons.find((l) => l.slug === activeLessonSlug) || allLessons[0];
 
+  const activeModule = activeLesson
+    ? course.modules.find((m) => m.lessons.some((l) => l.id === activeLesson.id))
+    : undefined;
+
   useEffect(() => {
     if (activeLesson) {
       cloudCourseProgressService.recordLessonAccess(course.id, activeLesson.id);
+      if (activeLesson.id === 'les-08-1-capstone-investigation' || activeLesson.slug === 'operation-blackout-beacon-capstone') {
+        setActiveTab('capstone');
+      } else {
+        setActiveTab('content');
+      }
     }
   }, [course.id, activeLesson]);
 
@@ -98,32 +121,91 @@ export const CourseLearningExperience: React.FC<CourseLearningExperienceProps> =
 
   const relatedResources = getRelatedResourcesForLesson(activeLesson, course, 3);
 
+  const hasRichContent = !!activeLesson.richContent;
+  const hasModuleLab = !!activeModule?.practicalLab;
+  const hasModuleQuiz = !!activeModule?.quiz;
+  const hasCapstone = !!course.capstone && (activeLesson.id === 'les-08-1-capstone-investigation' || activeLesson.slug === 'operation-blackout-beacon-capstone' || activeModule?.id === 'mod-08-soc-forensics-capstone');
+  const hasPcaps = !!course.pcapResources && course.pcapResources.length > 0;
+
   return (
     <div className="container-max py-8 space-y-8">
       {/* Course Overview Header */}
       <CourseHeader course={course} />
 
+      {/* Legacy Progress Banner */}
+      {archivedLegacyLessonIds.length > 0 && (
+        <div
+          data-testid="legacy-progress-banner"
+          className="p-4 rounded-[8px] bg-[#f0f9ff] dark:bg-[#0c4a6e]/20 border border-[#bae6fd] dark:border-[#0284c7]/40 text-[#0369a1] dark:text-[#38bdf8] flex items-start gap-3 text-xs leading-relaxed"
+        >
+          <ShieldAlert className="w-5 h-5 shrink-0 text-[#0284c7] mt-0.5" />
+          <div className="space-y-1">
+            <div className="font-semibold text-[#0c4a6e] dark:text-[#e0f2fe]">
+              Legacy Course Progress Archived
+            </div>
+            <div>
+              You previously completed {archivedLegacyLessonIds.length} lesson{archivedLegacyLessonIds.length > 1 ? 's' : ''} in the prototype curriculum. Your historical progress has been safely archived, and the comprehensive 37-lesson Network Packet Forensics Masterclass is now active.
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Main Learning Hub Layout (Player + Curriculum) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        {/* Left Column (Desktop 8 / Mobile full): Video Player + Lesson Meta */}
+        {/* Left Column (Desktop 8 / Mobile full): Video/Theory Header + Content */}
         <div className="lg:col-span-8 space-y-6">
-          <div className="rounded-[8px] border border-[#e4e4ed] bg-white p-4 sm:p-6 space-y-5">
-            {/* Embedded YouTube Player */}
-            <YouTubePlayer
-              videoId={activeLesson.youtubeVideoId}
-              title={activeLesson.title}
-              channelName={course.instructor.name}
-            />
+          <div className="rounded-[8px] border border-[#e4e4ed] dark:border-[#243044] bg-white dark:bg-[#121A26] p-4 sm:p-6 space-y-5">
+            {/* Embedded YouTube Player OR Interactive Theory Banner */}
+            {activeLesson.youtubeVideoId ? (
+              <YouTubePlayer
+                videoId={activeLesson.youtubeVideoId}
+                title={activeLesson.title}
+                channelName={course.instructor.name}
+              />
+            ) : (
+              <div
+                data-testid="theory-lesson-banner"
+                className="rounded-[8px] border border-[#e4e4ed] dark:border-[#243044] bg-gradient-to-br from-[#f8fafc] to-[#f1f5f9] dark:from-[#0b1320] dark:to-[#162234] p-6 sm:p-8 space-y-4"
+              >
+                <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#e2e8f0] dark:border-[#243044] pb-4">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2.5 rounded-[6px] bg-[#0E7490]/10 dark:bg-[#22D3EE]/10 text-[#0E7490] dark:text-[#22D3EE]">
+                      <BookOpen className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <span className="font-mono text-xs uppercase tracking-wider text-[#0E7490] dark:text-[#22D3EE] font-semibold">
+                        Forensics Curriculum & Practical Lab Guide
+                      </span>
+                      <div className="text-xs text-[#64748B] dark:text-[#94A3B8]">
+                        Estimated Duration: {activeLesson.durationMinutes} mins
+                      </div>
+                    </div>
+                  </div>
+                  <a
+                    href="https://www.youtube.com/@NetsecExplained"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[6px] bg-[#dc2626]/10 hover:bg-[#dc2626]/20 text-[#dc2626] dark:text-[#ef4444] text-xs font-medium transition-colors"
+                  >
+                    <span>Netsec Explained Series</span>
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
+                </div>
+                <div className="text-sm text-[#475569] dark:text-[#9BA8B7] leading-relaxed">
+                  This masterclass lesson is focused on protocol theory, packet disassembly, and Wireshark filter workflows. Study the detailed technical breakdown below, experiment with the display filters, and verify your findings in the assessed lab.
+                </div>
+              </div>
+            )}
 
             {/* Ethical and Safety Lab Notice */}
             {(course.slug === 'wireshark-and-ethical-hacking' || course.domains.includes('network-security')) && (
               <div
                 data-testid="ethical-use-notice"
-                className="flex items-start gap-2.5 p-3 rounded-[6px] bg-[#fffbeb] border border-[#fde68a] text-[#92400e] text-xs leading-relaxed"
+                className="flex items-start gap-2.5 p-3 rounded-[6px] bg-[#fffbeb] dark:bg-[#78350f]/20 border border-[#fde68a] dark:border-[#b45309]/30 text-[#92400e] dark:text-[#fbbf24] text-xs leading-relaxed"
               >
-                <ShieldAlert className="w-4 h-4 shrink-0 mt-0.5 text-[#b45309]" />
+                <ShieldAlert className="w-4 h-4 shrink-0 mt-0.5 text-[#b45309] dark:text-[#f59e0b]" />
                 <div>
-                  <span className="font-semibold text-[#78350f]">Ethical Lab Environment Notice: </span>
+                  <span className="font-semibold text-[#78350f] dark:text-[#fde68a]">Ethical Lab Environment Notice: </span>
                   Practice only on systems, networks, and devices you own or have explicit permission to test. Use isolated lab environments for traffic capture, credential analysis, and security demonstrations.
                 </div>
               </div>
@@ -131,8 +213,8 @@ export const CourseLearningExperience: React.FC<CourseLearningExperienceProps> =
 
             {/* Lesson Title & Module Breadcrumb */}
             <div className="space-y-2 pt-1">
-              <div className="flex items-center gap-2 text-xs font-mono text-[#6b6b7b]">
-                <span className="px-2 py-0.5 rounded-[4px] bg-[#f4f4f9] border border-[#e4e4ed] text-[#303055] font-medium">
+              <div className="flex items-center gap-2 text-xs font-mono text-[#6b6b7b] dark:text-[#9BA8B7]">
+                <span className="px-2 py-0.5 rounded-[4px] bg-[#f4f4f9] dark:bg-[#1A2638] border border-[#e4e4ed] dark:border-[#243044] text-[#303055] dark:text-[#E6EDF3] font-medium">
                   Lesson #{activeLesson.order}
                 </span>
                 {activeLesson.moduleTitle && (
@@ -142,11 +224,11 @@ export const CourseLearningExperience: React.FC<CourseLearningExperienceProps> =
                 )}
               </div>
 
-              <h2 className="text-xl sm:text-2xl font-semibold text-[#303055]">
+              <h2 className="text-xl sm:text-2xl font-semibold text-[#303055] dark:text-[#E6EDF3]">
                 {activeLesson.title}
               </h2>
 
-              <p className="text-sm text-[#403f53] leading-relaxed">
+              <p className="text-sm text-[#403f53] dark:text-[#9BA8B7] leading-relaxed">
                 {activeLesson.description}
               </p>
             </div>
@@ -166,15 +248,15 @@ export const CourseLearningExperience: React.FC<CourseLearningExperienceProps> =
           {/* Lesson Learning Objectives & Acquired Skills */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* Objectives */}
-            <div className="p-5 rounded-[8px] border border-[#e4e4ed] bg-white space-y-3">
-              <h3 className="text-xs font-mono font-medium uppercase tracking-wider text-[#6b6b7b] flex items-center gap-1.5">
-                <Target className="w-4 h-4 text-[#303055]" />
+            <div className="p-5 rounded-[8px] border border-[#e4e4ed] dark:border-[#243044] bg-white dark:bg-[#121A26] space-y-3">
+              <h3 className="text-xs font-mono font-medium uppercase tracking-wider text-[#6b6b7b] dark:text-[#9BA8B7] flex items-center gap-1.5">
+                <Target className="w-4 h-4 text-[#303055] dark:text-[#22D3EE]" />
                 Lesson Objectives
               </h3>
-              <ul className="space-y-2 text-xs text-[#403f53]">
+              <ul className="space-y-2 text-xs text-[#403f53] dark:text-[#CBD5E1]">
                 {activeLesson.objectives.map((obj, i) => (
                   <li key={i} className="flex items-start gap-2">
-                    <span className="text-[#303055] font-bold shrink-0 mt-0.5">•</span>
+                    <span className="text-[#303055] dark:text-[#22D3EE] font-bold shrink-0 mt-0.5">•</span>
                     <span>{obj}</span>
                   </li>
                 ))}
@@ -182,16 +264,16 @@ export const CourseLearningExperience: React.FC<CourseLearningExperienceProps> =
             </div>
 
             {/* Skills */}
-            <div className="p-5 rounded-[8px] border border-[#e4e4ed] bg-white space-y-3">
-              <h3 className="text-xs font-mono font-medium uppercase tracking-wider text-[#6b6b7b] flex items-center gap-1.5">
-                <Award className="w-4 h-4 text-[#303055]" />
+            <div className="p-5 rounded-[8px] border border-[#e4e4ed] dark:border-[#243044] bg-white dark:bg-[#121A26] space-y-3">
+              <h3 className="text-xs font-mono font-medium uppercase tracking-wider text-[#6b6b7b] dark:text-[#9BA8B7] flex items-center gap-1.5">
+                <Award className="w-4 h-4 text-[#303055] dark:text-[#22D3EE]" />
                 Skills Acquired
               </h3>
               <div className="flex flex-wrap gap-1.5">
                 {activeLesson.skillsTaught.map((skill, i) => (
                   <span
                     key={i}
-                    className="px-2 py-0.5 rounded-[4px] text-xs font-mono bg-[#f4f4f9] text-[#403f53] border border-[#e4e4ed]"
+                    className="px-2 py-0.5 rounded-[4px] text-xs font-mono bg-[#f4f4f9] dark:bg-[#1A2638] text-[#403f53] dark:text-[#9BA8B7] border border-[#e4e4ed] dark:border-[#243044]"
                   >
                     {skill}
                   </span>
@@ -200,17 +282,131 @@ export const CourseLearningExperience: React.FC<CourseLearningExperienceProps> =
             </div>
           </div>
 
+          {/* Interactive Lesson & Module Workspace Tabs */}
+          {(hasRichContent || hasModuleLab || hasModuleQuiz || hasCapstone || hasPcaps) && (
+            <div className="space-y-6">
+              {/* Tab Selector Bar */}
+              <div className="flex items-center gap-2 border-b border-[#e4e4ed] dark:border-[#243044] pb-2 overflow-x-auto">
+                {hasRichContent && (
+                  <button
+                    type="button"
+                    onClick={() => setActiveTab('content')}
+                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[6px] text-xs font-mono font-medium transition-colors cursor-pointer ${
+                      activeTab === 'content'
+                        ? 'bg-[#0E7490] text-white shadow-sm'
+                        : 'text-[#64748B] dark:text-[#9BA8B7] hover:bg-[#f4f4f9] dark:hover:bg-[#1A2638]'
+                    }`}
+                  >
+                    <BookOpen className="w-3.5 h-3.5" />
+                    <span>Lesson Guide</span>
+                  </button>
+                )}
+
+                {hasModuleLab && activeModule?.practicalLab && (
+                  <button
+                    type="button"
+                    onClick={() => setActiveTab('lab')}
+                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[6px] text-xs font-mono font-medium transition-colors cursor-pointer ${
+                      activeTab === 'lab'
+                        ? 'bg-[#0E7490] text-white shadow-sm'
+                        : 'text-[#64748B] dark:text-[#9BA8B7] hover:bg-[#f4f4f9] dark:hover:bg-[#1A2638]'
+                    }`}
+                  >
+                    <FlaskConical className="w-3.5 h-3.5" />
+                    <span>Module Lab ({activeModule.practicalLab.tasks.length} tasks)</span>
+                  </button>
+                )}
+
+                {hasModuleQuiz && activeModule?.quiz && (
+                  <button
+                    type="button"
+                    onClick={() => setActiveTab('quiz')}
+                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[6px] text-xs font-mono font-medium transition-colors cursor-pointer ${
+                      activeTab === 'quiz'
+                        ? 'bg-[#0E7490] text-white shadow-sm'
+                        : 'text-[#64748B] dark:text-[#9BA8B7] hover:bg-[#f4f4f9] dark:hover:bg-[#1A2638]'
+                    }`}
+                  >
+                    <HelpCircle className="w-3.5 h-3.5" />
+                    <span>Module Quiz ({activeModule.quiz.questions.length} Qs)</span>
+                  </button>
+                )}
+
+                {hasCapstone && course.capstone && (
+                  <button
+                    type="button"
+                    onClick={() => setActiveTab('capstone')}
+                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[6px] text-xs font-mono font-medium transition-colors cursor-pointer ${
+                      activeTab === 'capstone'
+                        ? 'bg-[#0E7490] text-white shadow-sm'
+                        : 'text-[#64748B] dark:text-[#9BA8B7] hover:bg-[#f4f4f9] dark:hover:bg-[#1A2638]'
+                    }`}
+                  >
+                    <FileCheck2 className="w-3.5 h-3.5" />
+                    <span>SOC Capstone (100 Marks)</span>
+                  </button>
+                )}
+
+                {hasPcaps && course.pcapResources && (
+                  <button
+                    type="button"
+                    onClick={() => setActiveTab('pcaps')}
+                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[6px] text-xs font-mono font-medium transition-colors cursor-pointer ${
+                      activeTab === 'pcaps'
+                        ? 'bg-[#0E7490] text-white shadow-sm'
+                        : 'text-[#64748B] dark:text-[#9BA8B7] hover:bg-[#f4f4f9] dark:hover:bg-[#1A2638]'
+                    }`}
+                  >
+                    <HardDrive className="w-3.5 h-3.5" />
+                    <span>PCAP Library ({course.pcapResources.length})</span>
+                  </button>
+                )}
+              </div>
+
+              {/* Tab Panels */}
+              {activeTab === 'content' && (
+                <LessonContentRenderer
+                  content={activeLesson.richContent}
+                  pcapResources={course.pcapResources}
+                />
+              )}
+
+              {activeTab === 'lab' && activeModule?.practicalLab && (
+                <PracticalLabView lab={activeModule.practicalLab} />
+              )}
+
+              {activeTab === 'quiz' && activeModule?.quiz && (
+                <ModuleQuizView
+                  quiz={activeModule.quiz}
+                  moduleId={activeModule.id}
+                  courseId={course.id}
+                />
+              )}
+
+              {activeTab === 'capstone' && course.capstone && (
+                <CapstoneAssessmentView
+                  capstone={course.capstone}
+                  courseId={course.id}
+                />
+              )}
+
+              {activeTab === 'pcaps' && course.pcapResources && (
+                <PCAPResourceList resources={course.pcapResources} />
+              )}
+            </div>
+          )}
+
           {/* Course Prerequisites */}
           {course.prerequisites && course.prerequisites.length > 0 && (
-            <div className="p-5 rounded-[8px] border border-[#e4e4ed] bg-white space-y-3">
-              <h3 className="text-xs font-mono font-medium uppercase tracking-wider text-[#6b6b7b] flex items-center gap-1.5">
-                <BookOpen className="w-4 h-4 text-[#6b6b7b]" />
+            <div className="p-5 rounded-[8px] border border-[#e4e4ed] dark:border-[#243044] bg-white dark:bg-[#121A26] space-y-3">
+              <h3 className="text-xs font-mono font-medium uppercase tracking-wider text-[#6b6b7b] dark:text-[#9BA8B7] flex items-center gap-1.5">
+                <BookOpen className="w-4 h-4 text-[#6b6b7b] dark:text-[#22D3EE]" />
                 Prerequisites
               </h3>
-              <ul className="space-y-1.5 text-xs text-[#403f53]">
+              <ul className="space-y-1.5 text-xs text-[#403f53] dark:text-[#CBD5E1]">
                 {course.prerequisites.map((prereq, i) => (
                   <li key={i} className="flex items-start gap-2">
-                    <span className="text-[#6b6b7b]">•</span>
+                    <span className="text-[#6b6b7b] dark:text-[#22D3EE]">•</span>
                     <span>{prereq}</span>
                   </li>
                 ))}
@@ -221,7 +417,7 @@ export const CourseLearningExperience: React.FC<CourseLearningExperienceProps> =
 
         {/* Right Column (Desktop 4 / Mobile underneath): Curriculum Navigation */}
         <div className="lg:col-span-4 space-y-6">
-          <div className="p-4 sm:p-5 rounded-[8px] border border-[#e4e4ed] bg-white">
+          <div className="p-4 sm:p-5 rounded-[8px] border border-[#e4e4ed] dark:border-[#243044] bg-white dark:bg-[#121A26]">
             <ModuleAccordion
               course={course}
               activeLessonId={activeLesson.id}
@@ -235,19 +431,19 @@ export const CourseLearningExperience: React.FC<CourseLearningExperienceProps> =
 
       {/* Connected Practice & Deep Dive */}
       {relatedResources.length > 0 && (
-        <div className="pt-8 border-t border-[#e4e4ed] space-y-6">
+        <div className="pt-8 border-t border-[#e4e4ed] dark:border-[#243044] space-y-6">
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="text-base font-semibold text-[#303055]">
+              <h3 className="text-base font-semibold text-[#303055] dark:text-[#E6EDF3]">
                 Connected Labs & Reference Documentation
               </h3>
-              <p className="text-xs text-[#6b6b7b] mt-0.5">
+              <p className="text-xs text-[#6b6b7b] dark:text-[#9BA8B7] mt-0.5">
                 Extend this lesson with verified tools, packet captures, and specifications.
               </p>
             </div>
             <Link
               href="/discover"
-              className="text-xs font-mono text-[#303055] hover:text-[#3b61b0]"
+              className="text-xs font-mono text-[#303055] dark:text-[#22D3EE] hover:underline"
             >
               Discover catalog →
             </Link>
