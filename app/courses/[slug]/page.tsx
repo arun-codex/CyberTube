@@ -4,12 +4,12 @@ import { getAllCourses, getCourseBySlug, getCourseLessons } from '../../../src/l
 import { CourseLearningExperience } from './CourseLearningExperience';
 
 interface CourseDetailPageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
-  searchParams?: {
+  }>;
+  searchParams?: Promise<{
     lesson?: string;
-  };
+  }>;
 }
 
 export function generateStaticParams() {
@@ -18,15 +18,17 @@ export function generateStaticParams() {
   }));
 }
 
-export default function CourseDetailPage({ params, searchParams }: CourseDetailPageProps) {
-  const course = getCourseBySlug(params.slug);
+export default async function CourseDetailPage({ params, searchParams }: CourseDetailPageProps) {
+  const { slug } = await params;
+  const resolvedSearchParams = searchParams ? await searchParams : undefined;
+  const course = getCourseBySlug(slug);
 
   if (!course) {
     notFound();
   }
 
   const allLessons = getCourseLessons(course);
-  const activeLessonSlug = searchParams?.lesson || allLessons[0]?.slug;
+  const activeLessonSlug = resolvedSearchParams?.lesson || allLessons[0]?.slug;
   const activeLesson = allLessons.find((l) => l.slug === activeLessonSlug) || allLessons[0];
 
   return (

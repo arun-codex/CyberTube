@@ -7,9 +7,9 @@ import { getAllAuthoritativePaths, getAuthoritativePathBySlug } from '@/lib/auth
 import { PathDetailClientView } from '@/components/paths/PathDetailClientView';
 
 interface PathDetailPageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 export async function generateStaticParams() {
@@ -20,7 +20,8 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: PathDetailPageProps): Promise<Metadata> {
-  const path = getAuthoritativePathBySlug(params.slug);
+  const { slug } = await params;
+  const path = getAuthoritativePathBySlug(slug);
   if (!path) return { title: 'Learning Path Not Found | CyberTube' };
 
   return {
@@ -29,8 +30,9 @@ export async function generateMetadata({ params }: PathDetailPageProps): Promise
   };
 }
 
-export default function PathDetailPage({ params }: PathDetailPageProps) {
-  const path = getAuthoritativePathBySlug(params.slug);
+export default async function PathDetailPage({ params }: PathDetailPageProps) {
+  const { slug } = await params;
+  const path = getAuthoritativePathBySlug(slug);
 
   if (!path) {
     notFound();

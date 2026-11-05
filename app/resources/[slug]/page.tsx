@@ -17,9 +17,9 @@ import { ResourceDetailBookmarkButton } from './BookmarkButton';
 import { YouTubePlayer } from '../../../src/components/YouTubePlayer';
 
 interface PageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 export function generateStaticParams() {
@@ -28,8 +28,9 @@ export function generateStaticParams() {
   }));
 }
 
-export default function ResourceDetailPage({ params }: PageProps) {
-  const resource = getResourceBySlug(params.slug);
+export default async function ResourceDetailPage({ params }: PageProps) {
+  const { slug } = await params;
+  const resource = getResourceBySlug(slug);
 
   if (!resource) {
     notFound();

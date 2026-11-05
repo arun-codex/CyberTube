@@ -7,7 +7,7 @@ import { Database } from '@/types/database';
  * and Route Handlers, persisting sessions via Next.js cookie store.
  */
 export async function createClient() {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 

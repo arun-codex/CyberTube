@@ -41,16 +41,16 @@ test.describe('Phase 13.3 — Independent Storage Security Certification', () =>
     expect(content).toContain('Spoofed MIME type detected');
   });
 
-  test('Avatar upload endpoint strictly enforces 5 MiB size ceiling and randomized .webp path', () => {
+  test('Avatar upload endpoint strictly enforces 5 MiB size ceiling and verified format path', () => {
     const routePath = path.join(rootDir, 'app', 'api', 'user', 'avatar', 'route.ts');
     const content = fs.readFileSync(routePath, 'utf8');
 
     expect(content).toContain('const MAX_FILE_SIZE = 5 * 1024 * 1024');
     expect(content).toContain('file.size > MAX_FILE_SIZE');
-    expect(content).toContain('${user.id}/${randomName}.webp');
+    expect(content).toContain('${user.id}/${randomName}.${verifiedExt}');
   });
 
-  test('Admin client and bucket auto-initialization have strict production and server-only guards', () => {
+  test('Admin client and bucket auto-initialization have strict fail-closed guards', () => {
     const adminPath = path.join(rootDir, 'src', 'lib', 'supabase', 'admin.ts');
     const adminContent = fs.readFileSync(adminPath, 'utf8');
 
@@ -61,11 +61,8 @@ test.describe('Phase 13.3 — Independent Storage Security Certification', () =>
     const routePath = path.join(rootDir, 'app', 'api', 'user', 'avatar', 'route.ts');
     const routeContent = fs.readFileSync(routePath, 'utf8');
 
-    // Production environment guard (Production must NEVER automatically create or modify Storage buckets)
-    expect(routeContent).toContain("process.env.NODE_ENV === 'production' &&");
-    expect(routeContent).toContain("process.env.VERCEL_ENV === 'production'");
-    expect(routeContent).toContain('!isProduction');
-    expect(routeContent).toContain('isPreviewOrDev');
+    // Fail-closed storage environment guard
+    expect(routeContent).toContain('isBucketAutoInitAllowed()');
   });
 
   test('Avatar API rejects unauthenticated requests with 401 across all HTTP methods', async ({ request }) => {

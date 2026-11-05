@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { createAdminClient } from '@/lib/supabase/admin';
+import { isBucketAutoInitAllowed } from '@/lib/storageEnvironmentGuard';
 import crypto from 'crypto';
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
@@ -139,9 +140,11 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Randomized safe path strictly following: {user_id}/{random_filename}.webp
+    // Randomized safe path matching verified binary signature:
+    // JPEG: .jpg, PNG: .png, WebP: .webp
+    const verifiedExt = isJpeg ? 'jpg' : isPng ? 'png' : 'webp';
     const randomName = crypto.randomUUID();
-    const filePath = `${user.id}/${randomName}.webp`;
+    const filePath = `${user.id}/${randomName}.${verifiedExt}`;
 
     // Attempt upload to Supabase storage 'avatars' bucket
     let uploadResult = await supabase.storage
@@ -152,19 +155,9 @@ export async function POST(request: NextRequest) {
       });
 
     // In isolated preview or local environments where bucket was not pre-created, attempt admin auto-provisioning
-    // PRODUCTION ENVIRONMENT GUARD: Production must NEVER automatically create or modify Storage buckets.
-    const isProduction =
-      process.env.NODE_ENV === 'production' &&
-      process.env.VERCEL_ENV === 'production';
-
-    const isPreviewOrDev =
-      process.env.NODE_ENV === 'development' ||
-      process.env.VERCEL_ENV === 'preview' ||
-      process.env.CYBERTUBE_ALLOW_PREVIEW_BUCKET_INIT === 'true';
-
+    // FAIL-CLOSED ENVIRONMENT GUARD: Default is DENY. Auto-init is only permitted in explicitly approved preview/dev.
     if (
-      !isProduction &&
-      isPreviewOrDev &&
+      isBucketAutoInitAllowed() &&
       uploadResult.error &&
       (uploadResult.error.message.toLowerCase().includes('not found') ||
        uploadResult.error.message.toLowerCase().includes('bucket'))

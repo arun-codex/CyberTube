@@ -7,9 +7,9 @@ import { getAllAuthoritativeResources, getAuthoritativeResourceById, getYouTubeE
 import { ClickToLoadEmbed } from '@/components/library/ClickToLoadEmbed';
 
 interface ResourceDetailPageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 export async function generateStaticParams() {
@@ -20,7 +20,8 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: ResourceDetailPageProps): Promise<Metadata> {
-  const resource = getAuthoritativeResourceById(params.id);
+  const { id } = await params;
+  const resource = getAuthoritativeResourceById(id);
   if (!resource) return { title: 'Resource Not Found | CyberTube' };
 
   return {
@@ -29,8 +30,9 @@ export async function generateMetadata({ params }: ResourceDetailPageProps): Pro
   };
 }
 
-export default function ResourceDetailPage({ params }: ResourceDetailPageProps) {
-  const resource = getAuthoritativeResourceById(params.id);
+export default async function ResourceDetailPage({ params }: ResourceDetailPageProps) {
+  const { id } = await params;
+  const resource = getAuthoritativeResourceById(id);
 
   if (!resource) {
     notFound();

@@ -78,11 +78,11 @@ test.describe('Phase 13.2 — Storage Configuration, Avatar Policy & Two-User Is
     const deleteRes = await request.delete('/api/user/avatar');
     expect(deleteRes.status()).toBe(401);
 
-    // Inspect route code for strict {user_id}/{random_filename}.webp path pattern
+    // Inspect route code for strict {user_id}/{random_filename}.{ext} path pattern
     const routePath = path.join(rootDir, 'app', 'api', 'user', 'avatar', 'route.ts');
     const routeContent = fs.readFileSync(routePath, 'utf8');
 
-    expect(routeContent).toContain('${user.id}/${randomName}.webp');
+    expect(routeContent).toContain('${user.id}/${randomName}.${verifiedExt}');
     expect(routeContent).toContain('createSignedUrl');
     expect(routeContent).toContain('createAdminClient');
   });
