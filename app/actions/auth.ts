@@ -3,6 +3,7 @@
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
+import { getSiteOrigin } from '@/lib/canonicalUrl';
 
 export async function loginAction(formData: FormData) {
   const email = formData.get('email') as string;
@@ -53,10 +54,12 @@ export async function registerAction(formData: FormData) {
     };
   }
 
+  const origin = getSiteOrigin();
   const { error } = await supabase.auth.signUp({
     email,
     password,
     options: {
+      emailRedirectTo: `${origin}/auth/callback?next=/account`,
       data: {
         display_name: displayName || email.split('@')[0],
       },
@@ -96,8 +99,9 @@ export async function forgotPasswordAction(formData: FormData) {
     };
   }
 
+  const origin = getSiteOrigin();
   const { error } = await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/reset-password`,
+    redirectTo: `${origin}/reset-password`,
   });
 
   if (error) {
@@ -150,4 +154,3 @@ export async function updateProfileAction(formData: FormData): Promise<void> {
 
   revalidatePath('/account');
 }
-

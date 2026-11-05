@@ -5,9 +5,10 @@ import { LEARNING_PATHS } from '@/data/learning-paths';
 import { Course } from '@/types/course';
 import { Resource } from '@/types/resource';
 import { LearningPath } from '@/types/learning-path';
+import { CANONICAL_ORIGIN } from '@/lib/canonicalUrl';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://cybertube.vercel.app';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || CANONICAL_ORIGIN;
 
   const staticRoutes: MetadataRoute.Sitemap = [
     {
@@ -84,6 +85,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${baseUrl}/about`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/privacy`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/terms`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.7,

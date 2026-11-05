@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
+import { getAuthCallbackUrl, getSafeRedirectPath } from '@/lib/canonicalUrl';
 
 interface SocialAuthButtonsProps {
   redirectPath?: string;
@@ -17,9 +18,7 @@ export function SocialAuthButtons({
   const [loadingProvider, setLoadingProvider] = useState<'google' | 'github' | null>(null);
 
   // Validate redirect path to prevent external redirects
-  const safeRedirect = redirectPath.startsWith('/') && !redirectPath.startsWith('//')
-    ? redirectPath
-    : '/account';
+  const safeRedirect = getSafeRedirectPath(redirectPath, '/account');
 
   async function handleOAuthSignIn(provider: 'google' | 'github') {
     try {
@@ -31,7 +30,10 @@ export function SocialAuthButtons({
         throw new Error('Supabase configuration is not available.');
       }
 
-      const callbackUrl = `${window.location.origin}/auth/callback?next=${encodeURIComponent(safeRedirect)}`;
+      // Canonical OAuth callback URL: https://cybertube-mu.vercel.app/auth/callback?next=...
+      // Automatically resolves to production canonical origin when configured, or preserves
+      // current development/preview origin in local or preview environments.
+      const callbackUrl = getAuthCallbackUrl(safeRedirect);
 
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider,

@@ -1,8 +1,35 @@
 import { createServerClient } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
 import { Database } from '@/types/database';
+import { CANONICAL_ORIGIN, isLegacyDomain } from '@/lib/canonicalUrl';
 
 export async function middleware(request: NextRequest) {
+  // ---------------------------------------------------------------------------
+  // 0. Canonical Production Host Enforcement (Legacy Domain Redirection)
+  // ---------------------------------------------------------------------------
+  // Detect incoming hostname (port stripped, lowercase)
+  const hostHeader = request.headers.get('host') || request.nextUrl.host || '';
+  const incomingHost = hostHeader.split(':')[0].trim().toLowerCase();
+  const nextHost = request.nextUrl.hostname.trim().toLowerCase();
+
+  if (isLegacyDomain(incomingHost) || isLegacyDomain(nextHost)) {
+    const pathname = request.nextUrl.pathname;
+
+    // Special OAuth callback handling:
+    // If an old-domain request reaches /auth/callback, do not forward its authorization code,
+    // state, error, or PKCE-related parameters to the canonical host.
+    // Instead redirect to /login?reason=canonical_domain_required so the user safely restarts
+    // authentication directly on the canonical host with the proper PKCE code verifier cookie.
+    if (pathname === '/auth/callback' || pathname.startsWith('/auth/callback/')) {
+      const canonicalLoginUrl = new URL('/login?reason=canonical_domain_required', CANONICAL_ORIGIN);
+      return NextResponse.redirect(canonicalLoginUrl, 308);
+    }
+
+    // Preserve original pathname and ordinary search query parameters on canonical destination
+    const targetUrl = new URL(`${pathname}${request.nextUrl.search}`, CANONICAL_ORIGIN);
+    return NextResponse.redirect(targetUrl, 308);
+  }
+
   let response = NextResponse.next({
     request: {
       headers: request.headers,
@@ -96,4 +123,3 @@ export const config = {
     '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
   ],
 };
-
