@@ -16,6 +16,7 @@ test.describe('Phase 7 — Security, Authorization & Data Integrity Verification
   });
 
   test('Public routes allow anonymous access without credentials', async ({ page }) => {
+    test.slow();
     const publicRoutes = [
       '/',
       '/courses',
@@ -23,13 +24,15 @@ test.describe('Phase 7 — Security, Authorization & Data Integrity Verification
       '/discover',
       '/resources/portswigger-sql-injection-lab',
       '/login',
-      '/register'
+      '/register',
+      '/privacy',
+      '/terms',
     ];
 
     for (const route of publicRoutes) {
       const response = await page.goto(route);
       expect(response?.status()).toBeLessThan(400);
-      await expect(page.locator('header')).toBeVisible();
+      await expect(page.getByRole('banner')).toBeVisible();
     }
   });
 
@@ -54,4 +57,3 @@ test.describe('Phase 7 — Security, Authorization & Data Integrity Verification
     await expect(page).toHaveURL(/.*login.*/);
   });
 });
-
