@@ -21,10 +21,21 @@ export async function GET(request: NextRequest) {
 
   const safeRedirectUrl = getSafeRedirectUrl(next, requestUrl.origin);
 
-  // If OAuth provider returned an error query param directly
-  if (errorDescription) {
+  // Supabase can reject automatic provider linking when verified provider emails
+  // resolve to more than one account. Do not expose the raw provider/Auth error to the
+  // browser; send the user to the safe recovery flow instead.
+  const authError =
+    errorDescription ||
+    requestUrl.searchParams.get('error') ||
+    requestUrl.searchParams.get('message');
+
+  if (authError) {
     const loginErrorUrl = new URL('/login', requestUrl.origin);
-    loginErrorUrl.searchParams.set('error', errorDescription);
+    if (/multiple accounts with the same email address in the same linking domain/i.test(authError)) {
+      loginErrorUrl.searchParams.set('reason', 'identity_link_conflict');
+    } else {
+      loginErrorUrl.searchParams.set('error', authError);
+    }
     return NextResponse.redirect(loginErrorUrl);
   }
 
