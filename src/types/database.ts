@@ -15,6 +15,7 @@ export interface Database {
           username: string | null;
           display_name: string | null;
           avatar_url: string | null;
+          avatar_path: string | null;
           bio: string | null;
           experience_level: 'beginner' | 'intermediate' | 'advanced' | 'professional' | null;
           preferred_language: string;
@@ -29,6 +30,7 @@ export interface Database {
           username?: string | null;
           display_name?: string | null;
           avatar_url?: string | null;
+          avatar_path?: string | null;
           bio?: string | null;
           experience_level?: 'beginner' | 'intermediate' | 'advanced' | 'professional' | null;
           preferred_language?: string;
@@ -43,6 +45,7 @@ export interface Database {
           username?: string | null;
           display_name?: string | null;
           avatar_url?: string | null;
+          avatar_path?: string | null;
           bio?: string | null;
           experience_level?: 'beginner' | 'intermediate' | 'advanced' | 'professional' | null;
           preferred_language?: string;

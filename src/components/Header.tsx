@@ -19,6 +19,7 @@ import { createClient } from '../lib/supabase/client';
 import { ThemeToggle } from './theme/ThemeToggle';
 import { GlobalSearchDialog } from './search/GlobalSearchDialog';
 import { UserNavDropdown } from './navigation/UserNavDropdown';
+import { AVATAR_UPDATED_EVENT, AvatarUpdatedDetail } from '../lib/avatar';
 
 export function Header() {
   const pathname = usePathname();
@@ -52,6 +53,35 @@ export function Header() {
       setSavedCount(ids.length);
     });
 
+    const refreshAvatar = () => {
+      fetch('/api/user/avatar', { cache: 'no-store' })
+        .then((res) => {
+          if (res.ok) return res.json();
+          return null;
+        })
+        .then((avatarData) => {
+          if (avatarData?.avatarUrl !== undefined) {
+            setUserProfile((prev) => ({
+              displayName: prev?.displayName || null,
+              avatarUrl: avatarData.avatarUrl,
+            }));
+          }
+        })
+        .catch(() => {});
+    };
+
+    // Listen for avatar updates from anywhere in the application
+    const handleAvatarUpdated = (e: Event) => {
+      const customEvent = e as CustomEvent<AvatarUpdatedDetail>;
+      if (customEvent.detail?.avatarUrl !== undefined) {
+        setUserProfile((prev) => ({
+          displayName: prev?.displayName || null,
+          avatarUrl: customEvent.detail.avatarUrl,
+        }));
+      }
+    };
+    window.addEventListener(AVATAR_UPDATED_EVENT, handleAvatarUpdated);
+
     const supabase = createClient();
     if (supabase) {
       supabase.auth.getUser().then(({ data }) => {
@@ -73,6 +103,8 @@ export function Header() {
                   avatarUrl: profileData.avatar_url,
                 });
               }
+              // Immediately resolve fresh signed avatar URL from /api/user/avatar
+              refreshAvatar();
             });
         }
       });
@@ -83,6 +115,7 @@ export function Header() {
           if (session.user.email.includes('admin') || session.user.email.includes('secops')) {
             setIsAdmin(true);
           }
+          refreshAvatar();
         } else {
           setUserEmail(null);
           setUserProfile(null);
@@ -93,10 +126,14 @@ export function Header() {
       return () => {
         unsub();
         authListener.subscription.unsubscribe();
+        window.removeEventListener(AVATAR_UPDATED_EVENT, handleAvatarUpdated);
       };
     }
 
-    return unsub;
+    return () => {
+      unsub();
+      window.removeEventListener(AVATAR_UPDATED_EVENT, handleAvatarUpdated);
+    };
   }, []);
 
   const navLinks = [

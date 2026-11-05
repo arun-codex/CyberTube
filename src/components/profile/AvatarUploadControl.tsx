@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Upload, X, RotateCcw, AlertCircle, Check, Loader2, Image as ImageIcon } from 'lucide-react';
 import { UserAvatar } from '@/components/ui/UserAvatar';
+import { dispatchAvatarUpdated, AVATAR_UPDATED_EVENT, AvatarUpdatedDetail } from '@/lib/avatar';
 
 interface AvatarUploadControlProps {
   initialAvatarUrl?: string | null;
@@ -29,6 +30,42 @@ export function AvatarUploadControl({
   const [success, setSuccess] = useState<string | null>(null);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Sync state if initialAvatarUrl changes
+  useEffect(() => {
+    if (initialAvatarUrl) {
+      setCurrentAvatarUrl(initialAvatarUrl);
+    }
+  }, [initialAvatarUrl]);
+
+  // If no avatar was passed in props, query /api/user/avatar to resolve saved avatar_path
+  useEffect(() => {
+    if (!currentAvatarUrl && !initialAvatarUrl) {
+      fetch('/api/user/avatar', { cache: 'no-store' })
+        .then((res) => {
+          if (res.ok) return res.json();
+          return null;
+        })
+        .then((data) => {
+          if (data?.avatarUrl) {
+            setCurrentAvatarUrl(data.avatarUrl);
+          }
+        })
+        .catch(() => {});
+    }
+  }, [currentAvatarUrl, initialAvatarUrl]);
+
+  // Listen for external avatar updates
+  useEffect(() => {
+    const handleAvatarUpdated = (e: Event) => {
+      const customEvent = e as CustomEvent<AvatarUpdatedDetail>;
+      if (customEvent.detail?.avatarUrl !== undefined) {
+        setCurrentAvatarUrl(customEvent.detail.avatarUrl);
+      }
+    };
+    window.addEventListener(AVATAR_UPDATED_EVENT, handleAvatarUpdated);
+    return () => window.removeEventListener(AVATAR_UPDATED_EVENT, handleAvatarUpdated);
+  }, []);
 
   // File selection validation
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -70,8 +107,6 @@ export function AvatarUploadControl({
       const formData = new FormData();
       formData.append('avatar', file);
 
-      // In environments with Supabase storage configured, upload occurs here.
-      // If storage is unconfigured on remote, graceful fallback is demonstrated.
       const res = await fetch('/api/user/avatar', {
         method: 'POST',
         body: formData,
@@ -88,6 +123,9 @@ export function AvatarUploadControl({
       setCurrentAvatarUrl(data.avatarUrl);
       setPreviewUrl(null);
       setSuccess('Profile picture updated successfully.');
+
+      // Broadcast update across the entire app
+      dispatchAvatarUpdated(data.avatarUrl);
       if (onAvatarUpdated) onAvatarUpdated(data.avatarUrl);
     } catch (err: any) {
       setError(err?.message || 'Avatar upload service is currently offline.');
@@ -111,6 +149,9 @@ export function AvatarUploadControl({
       setCurrentAvatarUrl(null);
       setPreviewUrl(null);
       setSuccess('Restored OAuth provider picture.');
+
+      // Broadcast reset across the entire app
+      dispatchAvatarUpdated(null);
       if (onAvatarUpdated) onAvatarUpdated(null);
     } catch (err: any) {
       setError(err?.message || 'Failed to restore default.');
@@ -216,4 +257,3 @@ export function AvatarUploadControl({
     </div>
   );
 }
-

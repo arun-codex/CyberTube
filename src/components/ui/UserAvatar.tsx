@@ -13,29 +13,47 @@ interface UserAvatarProps {
   priority?: boolean;
 }
 
-const ALLOWED_REMOTE_HOSTS = [
+const ALLOWED_EXACT_HOSTS = new Set([
   'avatars.githubusercontent.com',
   'lh3.googleusercontent.com',
-  'googleusercontent.com',
   'github.com',
   'supabase.co',
+]);
+
+const ALLOWED_SUFFIX_DOMAINS = [
+  '.supabase.co',
+  '.googleusercontent.com',
 ];
 
-function isSafeHttpsUrl(url: string): boolean {
+export function isSafeHttpsUrl(url: string): boolean {
   if (!url || typeof url !== 'string') return false;
   try {
     const parsed = new URL(url);
-    if (parsed.protocol === 'http:' && (parsed.hostname === 'localhost' || parsed.hostname === '127.0.0.1')) {
+    // Allow HTTP only for local development on localhost or 127.0.0.1
+    if (parsed.protocol === 'http:') {
+      return parsed.hostname === 'localhost' || parsed.hostname === '127.0.0.1';
+    }
+    // All remote URLs must be HTTPS
+    if (parsed.protocol !== 'https:') {
+      return false;
+    }
+
+    const host = parsed.hostname.toLowerCase();
+
+    // 1. Exact match on approved hosts
+    if (ALLOWED_EXACT_HOSTS.has(host)) {
       return true;
     }
-    if (parsed.protocol !== 'https:') return false;
-    return ALLOWED_REMOTE_HOSTS.some(
-      (host) => parsed.hostname === host || parsed.hostname.endsWith(`.${host}`)
-    );
+
+    // 2. Strict dot-boundary suffix matching (e.g. `*.supabase.co`, `*.googleusercontent.com`)
+    // Prevents lookalikes like supabase.co.attacker.example or attacker-supabase.co
+    return ALLOWED_SUFFIX_DOMAINS.some((suffix) => host.endsWith(suffix));
   } catch {
     return false;
   }
 }
+
+export const isSafeAvatarUrl = isSafeHttpsUrl;
 
 export function UserAvatar({
   customAvatarUrl,
@@ -46,17 +64,25 @@ export function UserAvatar({
   className = '',
   priority = false,
 }: UserAvatarProps) {
-  const [imageError, setImageError] = useState(false);
-
-  // Compute fallback initial
-  const initial = (displayName || email || 'P').trim().charAt(0).toUpperCase();
-
   // Avatar selection priority:
   // 1. User-uploaded custom image
   // 2. Current Google/GitHub provider picture
   // 3. Profile initial fallback
   const rawTargetUrl = customAvatarUrl || providerAvatarUrl;
-  const isCandidateValid = rawTargetUrl && isSafeHttpsUrl(rawTargetUrl);
+
+  const [imageError, setImageError] = useState(false);
+  const [prevTargetUrl, setPrevTargetUrl] = useState<string | null | undefined>(rawTargetUrl);
+
+  // Synchronously reset imageError whenever target URL changes (new upload, refresh, or reset)
+  if (rawTargetUrl !== prevTargetUrl) {
+    setPrevTargetUrl(rawTargetUrl);
+    setImageError(false);
+  }
+
+  // Compute fallback initial
+  const initial = (displayName || email || 'P').trim().charAt(0).toUpperCase();
+
+  const isCandidateValid = rawTargetUrl && isSafeAvatarUrl(rawTargetUrl);
   const showImage = !imageError && Boolean(isCandidateValid);
 
   if (showImage && rawTargetUrl) {
@@ -94,4 +120,3 @@ export function UserAvatar({
     </div>
   );
 }
-
