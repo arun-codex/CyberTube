@@ -195,7 +195,7 @@
     "id": "skill-soft-02",
     "category": "Soft skills",
     "title": "Ethical Decision-Making & Legal Compliance",
-    "beginnerExplanation": "Navigating the strict legal boundaries of cybersecurity (CFAA, Computer Misuse Act, GDPR), maintaining authorization scopes, and respecting responsible disclosure.",
+    "beginnerExplanation": "Navigating the strict legal boundaries of cybersecurity (national cyber laws, GDPR), maintaining explicit written authorization scopes, and respecting responsible disclosure.",
     "whatGoodLooksLike": [
       "Never touches an external IP address, domain, or API without explicit written, verified authorization",
       "Immediately pauses testing and reports out-of-scope discoveries or critical PII exposure to leadership",

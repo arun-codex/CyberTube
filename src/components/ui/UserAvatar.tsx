@@ -23,10 +23,12 @@ const ALLOWED_REMOTE_HOSTS = [
 
 function isSafeHttpsUrl(url: string): boolean {
   if (!url || typeof url !== 'string') return false;
-  if (!url.startsWith('https://')) return false;
-
   try {
     const parsed = new URL(url);
+    if (parsed.protocol === 'http:' && (parsed.hostname === 'localhost' || parsed.hostname === '127.0.0.1')) {
+      return true;
+    }
+    if (parsed.protocol !== 'https:') return false;
     return ALLOWED_REMOTE_HOSTS.some(
       (host) => parsed.hostname === host || parsed.hostname.endsWith(`.${host}`)
     );

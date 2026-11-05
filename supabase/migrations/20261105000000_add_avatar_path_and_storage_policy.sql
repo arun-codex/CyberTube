@@ -18,7 +18,7 @@ BEGIN
 END $$;
 
 -- 2. Storage schema definitions and policies (Idempotent for storage-enabled environments)
--- Note: Supabase manages storage.objects and storage.buckets. We do NOT run ALTER TABLE storage.objects ENABLE ROW LEVEL SECURITY.
+-- Note: Supabase manages storage.objects and storage.buckets. We never alter managed storage tables to toggle RLS.
 -- Instead, we ensure the 'avatars' bucket entry exists and create application-owned RLS policies.
 DO $$
 BEGIN

@@ -155,7 +155,7 @@
       "Path A (Foundations)",
       "Strong command of Linux command line and TCP/IP networking"
     ],
-    "legalReminder": "Strict Legal Rule: Only test systems you own or have explicit, prior written permission to test. Unauthorized access is illegal under CFAA, Computer Misuse Act, and international law.",
+    "legalReminder": "Strict Legal Rule: Only test systems you own or have explicit, prior written permission to test. Unauthorized access is strictly illegal under applicable national and international cyber laws. Always require explicit prior written authorization.",
     "companionLabs": ["lab-02", "lab-03", "lab-04"],
     "steps": [
       {

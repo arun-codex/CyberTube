@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
+import { createAdminClient } from '@/lib/supabase/admin';
 import crypto from 'crypto';
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
@@ -117,23 +118,45 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Randomized safe path: {user_id}/{random_uuid}.{ext}
-    const ext = file.type === 'image/jpeg' ? 'jpg' : file.type === 'image/png' ? 'png' : 'webp';
+    // Randomized safe path strictly following: {user_id}/{random_filename}.webp
     const randomName = crypto.randomUUID();
-    const filePath = `${user.id}/${randomName}.${ext}`;
+    const filePath = `${user.id}/${randomName}.webp`;
 
     // Attempt upload to Supabase storage 'avatars' bucket
-    const { error: uploadError } = await supabase.storage
+    let uploadResult = await supabase.storage
       .from('avatars')
       .upload(filePath, buffer, {
         contentType: file.type,
         upsert: true,
       });
 
-    if (uploadError) {
-      // If Storage bucket is unconfigured on remote, return helpful error state
+    // In isolated preview or local environments where bucket was not pre-created, attempt admin auto-provisioning
+    if (uploadResult.error && (uploadResult.error.message.toLowerCase().includes('not found') || uploadResult.error.message.toLowerCase().includes('bucket'))) {
+      try {
+        const admin = createAdminClient();
+        if (admin) {
+          await admin.storage.createBucket('avatars', {
+            public: false,
+            fileSizeLimit: 5242880,
+            allowedMimeTypes: ALLOWED_MIME_TYPES,
+          });
+          // Retry upload once after bucket provisioning
+          uploadResult = await supabase.storage
+            .from('avatars')
+            .upload(filePath, buffer, {
+              contentType: file.type,
+              upsert: true,
+            });
+        }
+      } catch {
+        // Fall through to error response
+      }
+    }
+
+    if (uploadResult.error) {
+      // Failed uploads never report success
       return NextResponse.json(
-        { error: `Storage configuration issue: ${uploadError.message}` },
+        { error: `Storage configuration issue: ${uploadResult.error.message}` },
         { status: 503 }
       );
     }

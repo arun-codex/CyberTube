@@ -6,7 +6,7 @@
     "issuer": "CompTIA",
     "level": "Entry-Level",
     "overview": "The global foundational cybersecurity baseline validating core technical knowledge across risk management, threat mitigation, security controls, and enterprise operations.",
-    "versionNotice": "Current Exam: SY0-701 (Released November 7, 2023, active through 2026/2027). The legacy SY0-601 retired in July 2024. Ensure your study materials specifically target SY0-701 objectives.",
+    "versionNotice": "Current Exam: SY0-701 (Released November 7, 2023; English version retirement: June 11, 2027. Successor SY0-801 expected launch: ~November 17, 2026). Ensure your study materials specifically target SY0-701 objectives.",
     "domains": [
       { "name": "General Security Concepts", "weight": "12%" },
       { "name": "Threats, Vulnerabilities & Mitigations", "weight": "22%" },
