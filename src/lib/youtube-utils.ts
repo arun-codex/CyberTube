@@ -70,6 +70,7 @@ export interface SyncStats {
   unavailableVideos: number;
   removedVideos: number;
   failedItems: number;
+  duplicatesSkipped: number;
   syncedAt: string;
 }
 

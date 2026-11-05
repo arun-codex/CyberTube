@@ -301,23 +301,22 @@ test.describe('Phase 17 — David Bombal Wireshark Course & Sync Integration', (
 
     const mockDb = {
       from: (table: string) => ({
-        select: () => ({
-          eq: (col: string, val: any) => ({
-            eq: () => ({
-              maybeSingle: async () => ({
-                data: {
-                  id: courseUuid,
-                  slug: courseSlug,
-                  title: 'Wireshark and Ethical Hacking Course',
-                  status: 'published',
-                  instructor_org: 'David Bombal',
-                  difficulty: 'beginner',
-                  track: 'cybersecurity',
-                  domains: ['network-security'],
-                  source_playlist_id: 'PLhfrWIlLOoKMBv50Y8NH6Dtfge_MrHYnl',
-                },
-                error: null,
-              }),
+        select: () => {
+          const handler: any = {
+            eq: () => handler,
+            maybeSingle: async () => ({
+              data: {
+                id: courseUuid,
+                slug: courseSlug,
+                title: 'Wireshark and Ethical Hacking Course',
+                status: 'published',
+                instructor_org: 'David Bombal',
+                difficulty: 'beginner',
+                track: 'cybersecurity',
+                domains: ['network-security'],
+                source_playlist_id: 'PLhfrWIlLOoKMBv50Y8NH6Dtfge_MrHYnl',
+              },
+              error: null,
             }),
             order: () => {
               if (table === 'course_modules') {
@@ -350,8 +349,9 @@ test.describe('Phase 17 — David Bombal Wireshark Course & Sync Integration', (
                 resolve({ data: [], error: null });
               }
             },
-          }),
-        }),
+          };
+          return handler;
+        },
       }),
     };
 
@@ -473,7 +473,7 @@ test.describe('Phase 17 — David Bombal Wireshark Course & Sync Integration', (
   });
 
   test('16. Cron endpoint readiness check and authorization enforcement', async ({ request }) => {
-    // 1. Safe readiness inspection
+    // 1. Safe readiness inspection via live server
     const resReadiness = await request.get('/api/cron/sync-youtube-playlists?check=readiness');
     expect(resReadiness.status()).toBe(200);
     const readyBody = await resReadiness.json();
@@ -482,16 +482,76 @@ test.describe('Phase 17 — David Bombal Wireshark Course & Sync Integration', (
     expect(typeof readyBody.youtubeConfigured).toBe('boolean');
     expect(typeof readyBody.supabaseConfigured).toBe('boolean');
 
-    // 2. Missing authorization credentials
-    const resNoAuth = await request.get('/api/cron/sync-youtube-playlists');
-    expect([401, 500]).toContain(resNoAuth.status());
-    const noAuthBody = await resNoAuth.json();
-    expect(noAuthBody.success).toBe(false);
+    // 2. Deterministic live endpoint assertions (no [401, 500] tolerance)
+    if (!readyBody.cronConfigured) {
+      // When CRON_SECRET is not configured on the server, endpoint must return exact 500
+      const resNoConfig = await request.get('/api/cron/sync-youtube-playlists');
+      expect(resNoConfig.status()).toBe(500);
+      const noConfigBody = await resNoConfig.json();
+      expect(noConfigBody.success).toBe(false);
+      expect(noConfigBody.error).toBe('CRON_SECRET is not configured on this server environment.');
+    } else {
+      // When CRON_SECRET is configured, missing Authorization header must return exact 401
+      const resNoAuth = await request.get('/api/cron/sync-youtube-playlists');
+      expect(resNoAuth.status()).toBe(401);
+      const noAuthBody = await resNoAuth.json();
+      expect(noAuthBody.success).toBe(false);
+      expect(noAuthBody.error).toBe('Unauthorized: Missing authorization credentials.');
 
-    // 3. Invalid Bearer credentials
-    const resBadAuth = await request.get('/api/cron/sync-youtube-playlists', {
-      headers: { Authorization: 'Bearer totally-invalid-secret-key' },
-    });
-    expect([401, 500]).toContain(resBadAuth.status());
+      // When CRON_SECRET is configured, invalid Bearer credentials must return exact 401
+      const resBadAuth = await request.get('/api/cron/sync-youtube-playlists', {
+        headers: { Authorization: 'Bearer totally-invalid-secret-key' },
+      });
+      expect(resBadAuth.status()).toBe(401);
+      const badAuthBody = await resBadAuth.json();
+      expect(badAuthBody.error).toBe('Unauthorized: Invalid authorization credentials.');
+    }
+
+    // 3. Direct route handler security matrix verification
+    // Deterministically verifies exact 500, exact 401s, and valid-token sync dispatch
+    const { GET: cronRouteHandler } = await import('../app/api/cron/sync-youtube-playlists/route');
+    const { NextRequest } = require('next/server');
+    const origCronSecret = process.env.CRON_SECRET;
+    const origYouTube = process.env.YOUTUBE_API_KEY;
+
+    try {
+      // Exact 500: missing CRON_SECRET configuration
+      delete process.env.CRON_SECRET;
+      const reqNoConf = new NextRequest('http://localhost:3000/api/cron/sync-youtube-playlists');
+      const resNoConf = await cronRouteHandler(reqNoConf);
+      expect(resNoConf.status).toBe(500);
+      const jsonNoConf = await resNoConf.json();
+      expect(jsonNoConf.error).toBe('CRON_SECRET is not configured on this server environment.');
+
+      // Exact 401: configured secret, missing authorization header
+      process.env.CRON_SECRET = 'test-cron-secret-exact-verification';
+      const reqMissingAuth = new NextRequest('http://localhost:3000/api/cron/sync-youtube-playlists');
+      const resMissingAuth = await cronRouteHandler(reqMissingAuth);
+      expect(resMissingAuth.status).toBe(401);
+      const jsonMissingAuth = await resMissingAuth.json();
+      expect(jsonMissingAuth.error).toBe('Unauthorized: Missing authorization credentials.');
+
+      // Exact 401: configured secret, invalid bearer token
+      const reqInvalidAuth = new NextRequest('http://localhost:3000/api/cron/sync-youtube-playlists', {
+        headers: { authorization: 'Bearer invalid-token-xyz' },
+      });
+      const resInvalidAuth = await cronRouteHandler(reqInvalidAuth);
+      expect(resInvalidAuth.status).toBe(401);
+      const jsonInvalidAuth = await resInvalidAuth.json();
+      expect(jsonInvalidAuth.error).toBe('Unauthorized: Invalid authorization credentials.');
+
+      // Valid token reaches sync execution (without YOUTUBE_API_KEY, safely returns 500 from syncAllEnabledPlaylists)
+      delete process.env.YOUTUBE_API_KEY;
+      const reqValidAuth = new NextRequest('http://localhost:3000/api/cron/sync-youtube-playlists', {
+        headers: { authorization: 'Bearer test-cron-secret-exact-verification' },
+      });
+      const resValidAuth = await cronRouteHandler(reqValidAuth);
+      expect(resValidAuth.status).toBe(500);
+      const jsonValidAuth = await resValidAuth.json();
+      expect(jsonValidAuth.error).toContain('YOUTUBE_API_KEY environment variable is not configured');
+    } finally {
+      process.env.CRON_SECRET = origCronSecret;
+      process.env.YOUTUBE_API_KEY = origYouTube;
+    }
   });
 });

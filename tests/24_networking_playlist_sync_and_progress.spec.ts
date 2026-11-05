@@ -188,17 +188,29 @@ test.describe('Phase 16 — Database-Backed Networking Course & Playlist Sync', 
   });
 
   test('8. Daily Cron Endpoint Security & Auth Guard', async ({ request }) => {
-    // Unauthorized request without Bearer token
-    const resUnauthorized = await request.get('/api/cron/sync-youtube-playlists');
-    // Either 401 Unauthorized or 500 (if CRON_SECRET not configured locally)
-    expect([401, 500]).toContain(resUnauthorized.status());
+    // 1. Safe readiness inspection
+    const resReadiness = await request.get('/api/cron/sync-youtube-playlists?check=readiness');
+    expect(resReadiness.status()).toBe(200);
+    const readyBody = await resReadiness.json();
 
-    // Request with invalid Bearer token
-    const resInvalid = await request.get('/api/cron/sync-youtube-playlists', {
-      headers: {
-        Authorization: 'Bearer invalid-token-xyz-123',
-      },
-    });
-    expect([401, 500]).toContain(resInvalid.status());
+    if (!readyBody.cronConfigured) {
+      // Unconfigured environment returns exact 500
+      const resNoConfig = await request.get('/api/cron/sync-youtube-playlists');
+      expect(resNoConfig.status()).toBe(500);
+      const noConfigBody = await resNoConfig.json();
+      expect(noConfigBody.error).toBe('CRON_SECRET is not configured on this server environment.');
+    } else {
+      // Configured environment returns exact 401 when unauthorized
+      const resUnauthorized = await request.get('/api/cron/sync-youtube-playlists');
+      expect(resUnauthorized.status()).toBe(401);
+
+      // Request with invalid Bearer token returns exact 401
+      const resInvalid = await request.get('/api/cron/sync-youtube-playlists', {
+        headers: {
+          Authorization: 'Bearer invalid-token-xyz-123',
+        },
+      });
+      expect(resInvalid.status()).toBe(401);
+    }
   });
 });

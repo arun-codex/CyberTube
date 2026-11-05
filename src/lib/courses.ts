@@ -101,15 +101,17 @@ export function getRelatedResourcesForLesson(lesson: Lesson, course: Course, lim
 }
 
 /**
- * Returns a course by its unique slug, merging with Supabase database state
- * for database-backed courses to ensure newly synced modules and lessons appear dynamically.
+ * Returns a course by its unique slug, merging with Supabase database state.
+ * Fails closed if playlist mapping cannot be verified for playlist-managed courses.
  * Inactive or unavailable playlist items are excluded from active curriculum presentation.
+ * Draft and archived courses are strictly excluded and never bypassed via static catalog.
  */
 export async function getCourseBySlugWithDb(slug: string): Promise<Course | undefined> {
   const staticCourse = getCourseBySlug(slug);
+  const isStaticPlaylistManaged = Boolean(staticCourse?.sourcePlaylistId);
 
-  // If not a playlist-managed or database-backed course, return static course directly
-  if (staticCourse && !staticCourse.sourcePlaylistId && !staticCourse.id.includes('-')) {
+  // If pure static-only course with no playlist association or UUID, return static definition directly
+  if (staticCourse && !isStaticPlaylistManaged && !staticCourse.id.includes('-')) {
     return staticCourse;
   }
 
@@ -123,7 +125,6 @@ export async function getCourseBySlugWithDb(slug: string): Promise<Course | unde
       .from('courses')
       .select('*')
       .eq('slug', slug)
-      .eq('status', 'published')
       .maybeSingle();
 
     if (courseError) {
@@ -131,9 +132,19 @@ export async function getCourseBySlugWithDb(slug: string): Promise<Course | unde
       return staticCourse;
     }
 
+    // If not found in database: return static course as fallback
     if (!dbCourse) {
       return staticCourse;
     }
+
+    // Exclude database-managed draft and archived courses
+    if (dbCourse.status !== 'published') {
+      return undefined;
+    }
+
+    const isPlaylistManaged = Boolean(
+      dbCourse.source_playlist_id || dbCourse.source_platform === 'youtube' || isStaticPlaylistManaged
+    );
 
     const { data: dbModules, error: modError } = await (supabase as any)
       .from('course_modules')
@@ -143,11 +154,11 @@ export async function getCourseBySlugWithDb(slug: string): Promise<Course | unde
 
     if (modError) {
       console.error(`[courses] Database error querying modules for course "${slug}":`, modError.message || modError);
-      return staticCourse;
+      return undefined;
     }
 
     if (!dbModules || dbModules.length === 0) {
-      return staticCourse;
+      return undefined;
     }
 
     const { data: dbLessons, error: lessonError } = await (supabase as any)
@@ -158,11 +169,11 @@ export async function getCourseBySlugWithDb(slug: string): Promise<Course | unde
 
     if (lessonError) {
       console.error(`[courses] Database error querying lessons for course "${slug}":`, lessonError.message || lessonError);
-      return staticCourse;
+      return undefined;
     }
 
     if (!dbLessons || dbLessons.length === 0) {
-      return staticCourse;
+      return undefined;
     }
 
     // Query playlist items to identify any deactivated or unavailable items
@@ -171,8 +182,14 @@ export async function getCourseBySlugWithDb(slug: string): Promise<Course | unde
       .select('lesson_id, is_active, is_embeddable, availability_status')
       .eq('course_id', dbCourse.id);
 
-    if (playlistItemsError) {
-      console.warn(`[courses] Warning querying playlist items for course "${slug}":`, playlistItemsError.message || playlistItemsError);
+    // Fail closed: For playlist-managed courses, if playlist mappings cannot be loaded,
+    // do NOT render unfiltered database lessons or fall back to an unverified static catalog.
+    if (isPlaylistManaged && playlistItemsError) {
+      console.error(
+        `[courses] Security fail-closed: Unable to verify playlist item mappings for playlist-managed course "${slug}". Refusing to render unfiltered lessons:`,
+        playlistItemsError.message || playlistItemsError
+      );
+      return undefined;
     }
 
     const inactiveLessonIds = new Set<string>();
@@ -250,8 +267,9 @@ export async function getCourseBySlugWithDb(slug: string): Promise<Course | unde
 }
 
 /**
- * Returns all active courses, delivering database-backed courses with dynamic Supabase data,
- * with the static catalog serving as a deliberate fallback.
+ * Returns all active courses, delivering published database-backed courses with dynamic Supabase data.
+ * Excludes database-managed draft and archived courses, and never appends them from the static catalog.
+ * The static catalog serves as a deliberate fallback only for pure static-only courses or Supabase query failure.
  */
 export async function getAllCoursesWithDb(): Promise<Course[]> {
   const staticCourses = getAllCourses();
@@ -259,34 +277,50 @@ export async function getAllCoursesWithDb(): Promise<Course[]> {
   if (!supabase) return staticCourses;
 
   try {
-    const { data: dbCourses, error: coursesError } = await (supabase as any)
+    // 1. Query all courses in database to accurately categorize published vs draft vs archived
+    const { data: allDbCourses, error: coursesError } = await (supabase as any)
       .from('courses')
-      .select('slug')
-      .eq('status', 'published');
+      .select('id, slug, status');
 
     if (coursesError) {
-      console.error('[courses] Database error querying published courses in getAllCoursesWithDb:', coursesError.message || coursesError);
+      console.error(
+        '[courses] Database error querying courses in getAllCoursesWithDb, falling back to static catalog:',
+        coursesError.message || coursesError
+      );
       return staticCourses;
     }
 
-    if (!dbCourses || dbCourses.length === 0) {
+    if (!allDbCourses || allDbCourses.length === 0) {
       return staticCourses;
     }
 
-    const loadedSlugs = new Set<string>();
+    // Categorize database-managed courses
+    const allDbSlugs = new Set<string>();
+    const publishedDbSlugs = new Set<string>();
+
+    for (const c of allDbCourses) {
+      if (c.slug) {
+        allDbSlugs.add(c.slug);
+        if (c.status === 'published') {
+          publishedDbSlugs.add(c.slug);
+        }
+      }
+    }
+
     const mergedCourses: Course[] = [];
 
-    for (const c of dbCourses) {
-      loadedSlugs.add(c.slug);
-      const hydrated = await getCourseBySlugWithDb(c.slug);
+    // 2. Hydrate published database courses
+    for (const slug of publishedDbSlugs) {
+      const hydrated = await getCourseBySlugWithDb(slug);
       if (hydrated) {
         mergedCourses.push(hydrated);
       }
     }
 
-    // Append any static courses not found in database published query
+    // 3. Append legitimate static-only courses that are NOT managed in the database.
+    // Crucial safety rule: Never append draft or archived database-managed courses from static definitions.
     for (const sc of staticCourses) {
-      if (!loadedSlugs.has(sc.slug)) {
+      if (!allDbSlugs.has(sc.slug)) {
         mergedCourses.push(sc);
       }
     }

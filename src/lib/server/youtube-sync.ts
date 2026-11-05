@@ -109,30 +109,35 @@ export async function fetchVideoDetailsFromYouTube(
 }
 
 /**
- * Executes idempotent synchronization of enabled YouTube playlists.
+ * Executes idempotent, duplicate-safe synchronization of enabled YouTube playlists.
  * Validates playlist completeness before executing any deactivation logic.
  * Preserves curated ordering and never mutates existing lesson order indexes.
  */
 export async function syncAllEnabledPlaylists(options?: SyncOptions): Promise<SyncResult> {
-  const vercelEnv = process.env.VERCEL_ENV || process.env.NODE_ENV || 'development';
+  const vercelEnv = process.env.VERCEL_ENV;
+  const isVerifiedVercelProduction = vercelEnv === 'production';
+  const environmentLabel = vercelEnv || (process.env.NODE_ENV === 'production' ? 'standalone-production' : 'development');
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
   const isCloudSupabase = supabaseUrl.includes('.supabase.co');
 
-  // Guard against non-production preview deployments writing to production Supabase
+  // Guard: Vercel Preview deployments are strictly prevented from writing to production database
   if (vercelEnv === 'preview' && !options?.allowPreview) {
     return {
       success: false,
-      environment: vercelEnv,
+      environment: environmentLabel,
       error: 'Playlist sync is disabled on Vercel Preview deployments to prevent modifying production database state.',
     };
   }
 
-  // Guard: Local development or non-production environment targeting cloud Supabase must not write without explicit opt-in
-  if (isCloudSupabase && vercelEnv !== 'production' && !options?.allowProductionWrite) {
+  // Guard: Fail closed when targeting cloud Supabase.
+  // Never treat NODE_ENV === 'production' as proof of running in Vercel Production.
+  // Only explicitly verified VERCEL_ENV === 'production' may authorize cloud Supabase writes,
+  // unless explicit test dependency injection (options?.allowProductionWrite) is provided.
+  if (isCloudSupabase && !isVerifiedVercelProduction && !options?.allowProductionWrite) {
     return {
       success: false,
-      environment: vercelEnv,
-      error: 'Refusing to execute playlist sync: non-production environment targeting cloud Supabase. Production writes require production deployment or explicit opt-in.',
+      environment: environmentLabel,
+      error: 'Refusing to execute playlist sync: cloud Supabase target requires verified VERCEL_ENV === "production" deployment. Standalone, local, or preview environments are rejected to protect production data.',
     };
   }
 
@@ -140,7 +145,7 @@ export async function syncAllEnabledPlaylists(options?: SyncOptions): Promise<Sy
   if (!apiKey && !options?.fetchPlaylistItemsFn) {
     return {
       success: false,
-      environment: vercelEnv,
+      environment: environmentLabel,
       error: 'YOUTUBE_API_KEY environment variable is not configured. Please set YOUTUBE_API_KEY in Vercel project settings.',
     };
   }
@@ -149,7 +154,7 @@ export async function syncAllEnabledPlaylists(options?: SyncOptions): Promise<Sy
   if (!adminClient) {
     return {
       success: false,
-      environment: vercelEnv,
+      environment: environmentLabel,
       error: 'Supabase admin client could not be initialized. Missing SUPABASE_SERVICE_ROLE_KEY or NEXT_PUBLIC_SUPABASE_URL.',
     };
   }
@@ -163,7 +168,7 @@ export async function syncAllEnabledPlaylists(options?: SyncOptions): Promise<Sy
   if (sourcesError) {
     return {
       success: false,
-      environment: vercelEnv,
+      environment: environmentLabel,
       error: `Failed to query course_playlist_sources: ${sourcesError.message}`,
     };
   }
@@ -171,7 +176,7 @@ export async function syncAllEnabledPlaylists(options?: SyncOptions): Promise<Sy
   if (!sources || sources.length === 0) {
     return {
       success: true,
-      environment: vercelEnv,
+      environment: environmentLabel,
       stats: [],
     };
   }
@@ -193,6 +198,7 @@ export async function syncAllEnabledPlaylists(options?: SyncOptions): Promise<Sy
       unavailableVideos: 0,
       removedVideos: 0,
       failedItems: 0,
+      duplicatesSkipped: 0,
       syncedAt: new Date().toISOString(),
     };
 
@@ -256,10 +262,18 @@ export async function syncAllEnabledPlaylists(options?: SyncOptions): Promise<Sy
       const currentModuleLessons = (existingLessons || []).filter((l: any) => l.module_id === defaultModuleId);
       let nextAvailableOrder = currentModuleLessons.reduce((max: number, l: any) => Math.max(max, l.order_index || 0), 0) + 1;
 
-      // Track valid seen video IDs in this run
+      // Track seen video IDs to guarantee duplicate safety
       const seenVideoIdsInThisRun = new Set<string>();
 
       // 5. Process each playlist item
+      // =========================================================================
+      // Documented Duplicate-Safety Policy:
+      // A course curriculum maintains at most ONE lesson per unique YouTube video ID.
+      // The first valid occurrence in the playlist defines the authoritative position
+      // and metadata. Subsequent occurrences of the same video ID in the same playlist run
+      // are recognized as duplicates and skipped cleanly, incrementing `duplicatesSkipped`
+      // without failing the sync, inserting duplicate lessons, or altering curated ordering.
+      // =========================================================================
       for (let i = 0; i < playlistItems.length; i++) {
         const item = playlistItems[i];
         const vid = item.contentDetails?.videoId || item.snippet?.resourceId?.videoId;
@@ -268,7 +282,13 @@ export async function syncAllEnabledPlaylists(options?: SyncOptions): Promise<Sy
           continue;
         }
 
+        // Duplicate-safety check: skip repeated occurrences of the same video ID in this run
+        if (seenVideoIdsInThisRun.has(vid)) {
+          stats.duplicatesSkipped++;
+          continue;
+        }
         seenVideoIdsInThisRun.add(vid);
+
         const video = videoDetails.get(vid);
         const isEmbeddable = video ? video.status?.embeddable !== false : false;
         const isAvailable = Boolean(
@@ -340,6 +360,15 @@ export async function syncAllEnabledPlaylists(options?: SyncOptions): Promise<Sy
           if (newLesson) {
             assignedLessonId = newLesson.id;
             stats.newlyInsertedLessons++;
+            // Update in-memory mapping immediately so subsequent processing recognizes the lesson
+            lessonByVideoId.set(vid, {
+              id: newLesson.id,
+              slug,
+              youtube_video_id: vid,
+              order_index: lessonOrder,
+              module_id: defaultModuleId,
+              duration_minutes: minutes || 30,
+            });
           }
         }
 
@@ -447,7 +476,7 @@ export async function syncAllEnabledPlaylists(options?: SyncOptions): Promise<Sy
 
   return {
     success: !hasFailure,
-    environment: vercelEnv,
+    environment: environmentLabel,
     stats: allStats,
     error: hasFailure ? 'One or more playlist sources encountered failures or malformed items during synchronization.' : undefined,
   };
