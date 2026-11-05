@@ -18,6 +18,7 @@ test.describe('CyberTube Phase 5 — Themes, Search & Profile Verification', () 
 
   test('P1: Functional global search dialog opens with / key, debounces hits, and supports navigation', async ({ page }) => {
     await page.goto('/');
+    await page.waitForLoadState('networkidle');
 
     // 1. Press '/' key to open search
     await page.keyboard.press('/');
