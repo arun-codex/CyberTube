@@ -1,64 +1,105 @@
-import { Rubik, IBM_Plex_Mono, Orbitron, Rajdhani } from 'next/font/google';
 import localFont from 'next/font/local';
 
 /**
- * 1. Orbitron (Google Font)
+ * 1. Orbitron (Self-hosted WOFF2)
  * Applied to: Brand wordmark, homepage hero title and selected major headings.
- * Optimization: Explicit Latin subset, preload enabled, display swap, strictly necessary weights (600, 700).
+ * Optimization: Self-hosted WOFF2, display swap, strictly necessary weights (600, 700).
+ * Prevents CI/CD network build failures and Google Fonts API parsing flakes.
  */
-export const orbitron = Orbitron({
-  subsets: ['latin'],
+export const orbitron = localFont({
+  src: [
+    {
+      path: './orbitron-600.woff2',
+      weight: '600',
+      style: 'normal',
+    },
+    {
+      path: './orbitron-700.woff2',
+      weight: '700',
+      style: 'normal',
+    },
+  ],
   variable: '--font-orbitron',
   display: 'swap',
-  weight: ['600', '700'],
-  preload: true,
   fallback: ['system-ui', 'sans-serif'],
-  adjustFontFallback: true,
+  adjustFontFallback: 'Arial',
 });
 
 /**
- * 2. Rajdhani (Google Font)
+ * 2. Rajdhani (Self-hosted WOFF2)
  * Applied to: Course titles, domain headings, dashboard metrics, technical labels and compact section headings.
- * Optimization: Explicit Latin subset, preload enabled, display swap, strictly necessary weights (600, 700).
+ * Optimization: Self-hosted WOFF2, display swap, strictly necessary weights (600, 700).
  */
-export const rajdhani = Rajdhani({
-  subsets: ['latin'],
+export const rajdhani = localFont({
+  src: [
+    {
+      path: './rajdhani-600.woff2',
+      weight: '600',
+      style: 'normal',
+    },
+    {
+      path: './rajdhani-700.woff2',
+      weight: '700',
+      style: 'normal',
+    },
+  ],
   variable: '--font-rajdhani',
   display: 'swap',
-  weight: ['600', '700'],
-  preload: true,
   fallback: ['system-ui', 'sans-serif'],
-  adjustFontFallback: true,
+  adjustFontFallback: 'Arial',
 });
 
 /**
- * 3. Rubik (Google Font)
+ * 3. Rubik (Self-hosted WOFF2)
  * Applied to: All body text, navigation, buttons, forms, descriptions and standard UI.
- * Optimization: Explicit Latin subset, primary UI font preloaded, display swap, essential weights (400, 500, 600).
+ * Optimization: Self-hosted WOFF2, primary UI font, display swap, essential weights (400, 500, 600).
  */
-export const rubik = Rubik({
-  subsets: ['latin'],
+export const rubik = localFont({
+  src: [
+    {
+      path: './rubik-400.woff2',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: './rubik-500.woff2',
+      weight: '500',
+      style: 'normal',
+    },
+    {
+      path: './rubik-600.woff2',
+      weight: '600',
+      style: 'normal',
+    },
+  ],
   variable: '--font-rubik',
   display: 'swap',
-  weight: ['400', '500', '600'],
-  preload: true,
   fallback: ['system-ui', '-apple-system', 'sans-serif'],
-  adjustFontFallback: true,
+  adjustFontFallback: 'Arial',
 });
 
 /**
- * 4. IBM Plex Mono (Google Font)
+ * 4. IBM Plex Mono (Self-hosted WOFF2)
  * Applied to: Terminal blocks, source code, commands, network addresses, hashes, logs and technical identifiers.
- * Optimization: Explicit Latin subset, display swap, developer telemetry weights (400, 500).
+ * Optimization: Self-hosted WOFF2, display swap, developer telemetry weights (400, 500).
  */
-export const ibmPlexMono = IBM_Plex_Mono({
-  subsets: ['latin'],
+export const ibmPlexMono = localFont({
+  src: [
+    {
+      path: './ibm-plex-mono-400.woff2',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: './ibm-plex-mono-500.woff2',
+      weight: '500',
+      style: 'normal',
+    },
+  ],
   variable: '--font-ibm-plex-mono',
   display: 'swap',
-  weight: ['400', '500'],
-  preload: false, // Lazy loaded on pages requiring code/terminal blocks to save initial LCP bandwidth
   fallback: ['monospace'],
-  adjustFontFallback: true,
+  adjustFontFallback: false,
 });
 
 /**
@@ -71,7 +112,6 @@ export const cyberpunk = localFont({
   variable: '--font-cyberpunk',
   display: 'swap',
   weight: '400',
-  preload: false,
   fallback: ['var(--font-orbitron)', 'system-ui', 'sans-serif'],
 });
 
