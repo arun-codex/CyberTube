@@ -99,7 +99,7 @@ export const CourseHeader: React.FC<CourseHeaderProps> = ({ course }) => {
                   <span>Original YouTube Playlist ({course.sourcePlaylistId})</span>
                 </a>
                 <span className="text-[#6b6b7b]">•</span>
-                <span className="text-[#6b6b7b]">Unlisted Playlist</span>
+                <span className="text-[#6b6b7b]">Creator: <strong className="text-[#303055]">{course.instructor.name}</strong></span>
               </div>
             )}
           </div>

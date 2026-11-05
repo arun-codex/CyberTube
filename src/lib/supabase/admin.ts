@@ -3,7 +3,7 @@ import { createClient } from '@supabase/supabase-js';
 import { Database } from '@/types/database';
 
 /**
- * Creates a server-only Supabase admin client using the SUPABASE_SECRET_KEY.
+ * Creates a server-only Supabase admin client using the SUPABASE_SERVICE_ROLE_KEY or SUPABASE_SECRET_KEY.
  * This client bypasses Row Level Security (RLS) for privileged background tasks
  * and verified administrative routes.
  *
@@ -15,7 +15,7 @@ export function createAdminClient() {
   }
 
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const secretKey = process.env.SUPABASE_SECRET_KEY;
+  const secretKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_SECRET_KEY;
 
   if (!supabaseUrl || !secretKey) {
     return null;
@@ -48,4 +48,3 @@ export function isAuthorizedAdminEmail(email?: string | null): boolean {
 export async function verifyAdminStatus(userEmail?: string | null): Promise<boolean> {
   return isAuthorizedAdminEmail(userEmail);
 }
-
