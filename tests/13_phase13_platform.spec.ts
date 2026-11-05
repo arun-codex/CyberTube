@@ -75,6 +75,13 @@ test.describe('CyberTube Phase 13 — Complete Learning Platform & Curriculum Ve
     await expect(fallbackLink).toHaveAttribute('href', 'https://www.youtube.com/playlist?list=PLxbwE86jKRgMpuZuLBivzlM8s2Dk5lXBQ');
   });
 
+  test('HackerSploit resources display 2025 inactive channel warning', async ({ page }) => {
+    await page.goto('/library/off-04');
+    await expect(page.locator('h1')).toContainText('Web App Sec');
+    await expect(page.locator('body')).toContainText('HackerSploit');
+    await expect(page.locator('body')).toContainText('Channel inactive since 2025. Verify commands against current tool documentation.');
+  });
+
   test('Learning Paths A–E are rendered with correct milestones and official notices', async ({ page }) => {
     // 1. Index page
     await page.goto('/learning-paths');
@@ -84,16 +91,42 @@ test.describe('CyberTube Phase 13 — Complete Learning Platform & Curriculum Ve
     await expect(page.locator('body')).toContainText('Path D — Web Application Security');
     await expect(page.locator('body')).toContainText('Path E — Emerging Tracks (Coming Soon)');
 
-    // 2. Check Path B Security+ official exam notice
+    // 2. Check Path A reconciled steps (net-01/02 -> lin-01 -> lin-02 -> sec-01 -> prog-01)
+    await page.goto('/learning-paths/foundations');
+    await expect(page.locator('body')).toContainText('Networking Fundamentals');
+    await expect(page.locator('body')).toContainText('Linux Fundamentals (Part 1 — Command Line)');
+    await expect(page.locator('body')).toContainText('Linux Fundamentals (Part 2 — Permissions & Administration)');
+    await expect(page.locator('body')).toContainText('Core Security Principles');
+    await expect(page.locator('body')).toContainText('Python for Security Automation');
+
+    // 3. Check Path B Security+ official exam notice
     await page.goto('/learning-paths/security-plus');
     await expect(page.locator('body')).toContainText('This course covers exam SY0-701. The English SY0-701 exam retires on 11 June 2027.');
     await expect(page.locator('body')).toContainText('The new SY0-801 exam launches around 17 Nov 2026.');
 
-    // 3. Check Path C Ethical Hacking legal reminder
+    // 4. Check Path C Ethical Hacking sequence & legal reminder
     await page.goto('/learning-paths/ethical-hacking');
     await expect(page.locator('body')).toContainText('Strict Legal Rule: Only test systems you own or have explicit, prior written permission to test.');
+    await expect(page.locator('body')).toContainText('Practical Network Penetration Testing');
+    await expect(page.locator('body')).toContainText('Hands-on CTF Problem Solving (picoCTF)');
+    await expect(page.locator('body')).toContainText('Linux Target Exploitation & Privilege Escalation (Hack The Box)');
 
-    // 4. Milestone completion persists in localStorage
+    // 5. Check Path D Web App Security lab-first sequence
+    await page.goto('/learning-paths/web-application-security');
+    await expect(page.locator('body')).toContainText('Web Security Academy Interactive Labs');
+    await expect(page.locator('body')).toContainText('Local Vulnerable Application Testing (OWASP Juice Shop)');
+    await expect(page.locator('body')).toContainText('Classic PHP/MySQL Vulnerabilities (DVWA)');
+    await expect(page.locator('body')).toContainText('Web App Sec Video Curriculum');
+
+    // 6. Check Path E Coming Soon tracks
+    await page.goto('/learning-paths/coming-soon');
+    await expect(page.locator('body')).toContainText('SOC, SIEM & Incident Response');
+    await expect(page.locator('body')).toContainText('Cloud Security (AWS, Azure & GCP)');
+    await expect(page.locator('body')).toContainText('AI & LLM Application Security');
+    await expect(page.locator('body')).toContainText('Governance, Risk & Compliance (GRC)');
+
+    // 7. Milestone completion persists in localStorage
+    await page.goto('/learning-paths/foundations');
     const markDoneBtn = page.locator('button:has-text("Mark Done")').first();
     await markDoneBtn.click();
     await expect(page.locator('button:has-text("Done")').first()).toBeVisible();

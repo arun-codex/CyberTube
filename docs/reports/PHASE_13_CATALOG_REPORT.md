@@ -39,3 +39,4 @@ As part of Phase 13, CyberTube established an authoritative, centralized resourc
 - Automated test: `Resource Library (/library) renders all 21 items with search, filter, and sorting` (`PASS`).
 - Automated test: `Resource Detail (/library/[id]) provides click-to-load embed and YouTube fallback` (`PASS`).
 - Zod runtime validation: 100% type-checked, guaranteed non-null fields.
+

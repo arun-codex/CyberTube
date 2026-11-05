@@ -30,3 +30,4 @@ Breaks down 6 distinct cybersecurity careers:
 ## 5. Security Cheat Sheets (`/cheat-sheets`)
 - **Tab 1 — Linux Security Commands:** Navigation, permissions, SUID hunting (`find / -perm -4000`), text parsing (`grep`, `awk`), socket inspection (`ss -tulpn`), and system logging (`tail -f /var/log/auth.log`). Includes one-click copy and flag breakdowns.
 - **Tab 2 — Common Ports & Protocols:** 30+ well-known and registered ports (TCP & UDP) with protocol mechanics, description, and concrete security implications (e.g. unencrypted credentials on ports 21/23/80, SMB lateral movement on 445, RDP brute force on 3389).
+

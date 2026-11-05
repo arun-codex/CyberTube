@@ -35,3 +35,4 @@ Directory of 7 legal targets and wargames:
 - **Legal Boundaries:** Highlights CFAA (Computer Fraud and Abuse Act), UK Computer Misuse Act, and international statutes.
 - **Coordinated Disclosure:** 90-day notification timeline guidelines for vendors.
 - **Reporting & Integrity:** Guidance on immediately halting testing upon encountering sensitive out-of-scope personal data.
+

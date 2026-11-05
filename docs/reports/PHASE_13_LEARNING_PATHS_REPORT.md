@@ -51,3 +51,4 @@ The learning pathways on CyberTube were restructured into five authoritative tra
 - Individual milestones feature checkboxes backed by `src/lib/progress.ts`.
 - Uses resilient `localStorage` caching with cross-tab custom events (`cybertube-progress-update`).
 - Dynamically computes pathway progress percentage and overall platform completion without requiring login.
+
