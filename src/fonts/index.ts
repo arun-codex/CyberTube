@@ -2,9 +2,9 @@ import localFont from 'next/font/local';
 
 /**
  * 1. Orbitron (Self-hosted WOFF2)
- * Applied to: Brand wordmark, homepage hero title and selected major headings.
+ * Applied to: Brand wordmark, homepage hero title, cyberpunk accents, and selected major headings.
  * Optimization: Self-hosted WOFF2, display swap, strictly necessary weights (600, 700).
- * Prevents CI/CD network build failures and Google Fonts API parsing flakes.
+ * License: SIL Open Font License 1.1 (src/fonts/licenses/OFL-Orbitron.txt)
  */
 export const orbitron = localFont({
   src: [
@@ -29,6 +29,7 @@ export const orbitron = localFont({
  * 2. Rajdhani (Self-hosted WOFF2)
  * Applied to: Course titles, domain headings, dashboard metrics, technical labels and compact section headings.
  * Optimization: Self-hosted WOFF2, display swap, strictly necessary weights (600, 700).
+ * License: SIL Open Font License 1.1 (src/fonts/licenses/OFL-Rajdhani.txt)
  */
 export const rajdhani = localFont({
   src: [
@@ -53,6 +54,7 @@ export const rajdhani = localFont({
  * 3. Rubik (Self-hosted WOFF2)
  * Applied to: All body text, navigation, buttons, forms, descriptions and standard UI.
  * Optimization: Self-hosted WOFF2, primary UI font, display swap, essential weights (400, 500, 600).
+ * License: SIL Open Font License 1.1 (src/fonts/licenses/OFL-Rubik.txt)
  */
 export const rubik = localFont({
   src: [
@@ -82,6 +84,7 @@ export const rubik = localFont({
  * 4. IBM Plex Mono (Self-hosted WOFF2)
  * Applied to: Terminal blocks, source code, commands, network addresses, hashes, logs and technical identifiers.
  * Optimization: Self-hosted WOFF2, display swap, developer telemetry weights (400, 500).
+ * License: SIL Open Font License 1.1 (src/fonts/licenses/OFL-IBMPlexMono.txt)
  */
 export const ibmPlexMono = localFont({
   src: [
@@ -103,22 +106,15 @@ export const ibmPlexMono = localFont({
 });
 
 /**
- * 5. Optional / Local: Cyberpunk-Regular
- * Optimization: Canonical location src/fonts/Cyberpunk-Regular.ttf (16.6 KB).
- * Lazy loaded without blocking root LCP, display swap with Orbitron fallback.
+ * 5. Cyberpunk display alias
+ * Mapped to Orbitron (verified SIL Open Font License 1.1) to ensure 100% license compliance
+ * after decommissioning unverified legacy Cyberpunk-Regular.ttf.
  */
-export const cyberpunk = localFont({
-  src: './Cyberpunk-Regular.ttf',
-  variable: '--font-cyberpunk',
-  display: 'swap',
-  weight: '400',
-  fallback: ['var(--font-orbitron)', 'system-ui', 'sans-serif'],
-});
+export const cyberpunk = orbitron;
 
 export const fontClassNames = [
   rubik.variable,
   ibmPlexMono.variable,
   orbitron.variable,
   rajdhani.variable,
-  cyberpunk.variable,
 ].join(' ');

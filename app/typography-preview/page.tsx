@@ -18,7 +18,7 @@ export default function TypographyPreviewPage() {
           CyberTube Multi-Font Typography System
         </h1>
         <p className="text-sm text-[#403f53] max-w-2xl leading-relaxed">
-          Integrated Next.js 14 font optimization showcase verifying Orbitron, Rajdhani, Rubik, IBM Plex Mono, and the local Cyberpunk font across sizes, weights, and SST tokens.
+          Integrated font optimization showcase verifying Orbitron, Rajdhani, Rubik, IBM Plex Mono, and Cyberpunk display styling across sizes, weights, and SST tokens.
         </p>
         <Link
           href="/"
@@ -36,30 +36,30 @@ export default function TypographyPreviewPage() {
             <h2 className="font-orbitron text-xl font-bold text-[#303055]">Orbitron</h2>
           </div>
           <span className="text-xs font-mono bg-[#f4f4f9] px-2 py-1 rounded text-[#303055] border border-[#e4e4ed]">
-            Weights: 500, 600, 700
+            Weights: 600, 700 (OFL 1.1)
           </span>
         </div>
         <p className="text-xs text-[#6b6b7b]">
-          Assigned to: Brand wordmark, homepage hero title, major milestones.
+          Used for brand wordmarks, homepage hero title and selected major headings.
         </p>
 
         <div className="space-y-4">
-          <div>
-            <span className="font-mono text-[10px] text-[#6b6b7b]">42px Bold (700)</span>
+          <div className="space-y-1">
+            <span className="text-xs font-mono text-[#6b6b7b]">Bold 700</span>
             <div className="font-orbitron font-bold text-3xl sm:text-4xl text-[#303055]">
-              CYBERTUBE SECURE PROTOCOL
+              CYBERTUBE // SECURITY INTELLIGENCE
             </div>
           </div>
-          <div>
-            <span className="font-mono text-[10px] text-[#6b6b7b]">28px SemiBold (600)</span>
+          <div className="space-y-1">
+            <span className="text-xs font-mono text-[#6b6b7b]">SemiBold 600</span>
             <div className="font-orbitron font-semibold text-2xl sm:text-3xl text-[#303055]">
-              Threat Surface & Offensive Matrix
+              ADVANCED PENETRATION TESTING & HARDWARE LABS
             </div>
           </div>
-          <div>
-            <span className="font-mono text-[10px] text-[#6b6b7b]">18px Medium (500)</span>
+          <div className="space-y-1">
+            <span className="text-xs font-mono text-[#6b6b7b]">Display Heading (H2)</span>
             <div className="font-orbitron font-medium text-lg text-[#303055]">
-              Decentralized Intelligence Network Verification
+              DEFENSIVE ARCHITECTURE & THREAT MODELLING
             </div>
           </div>
         </div>
@@ -69,34 +69,34 @@ export default function TypographyPreviewPage() {
       <section className="rounded-[8px] border border-[#e4e4ed] bg-white p-6 sm:p-8 space-y-6">
         <div className="flex items-center justify-between border-b border-[#e4e4ed] pb-3">
           <div>
-            <span className="font-mono text-xs uppercase text-[#6b6b7b]">Font 2 — Technical Display</span>
+            <span className="font-mono text-xs uppercase text-[#6b6b7b]">Font 2 — Technical Headings</span>
             <h2 className="font-rajdhani text-2xl font-bold text-[#303055]">Rajdhani</h2>
           </div>
           <span className="text-xs font-mono bg-[#f4f4f9] px-2 py-1 rounded text-[#303055] border border-[#e4e4ed]">
-            Weights: 500, 600, 700
+            Weights: 600, 700 (OFL 1.1)
           </span>
         </div>
         <p className="text-xs text-[#6b6b7b]">
-          Assigned to: Course titles, domain headings, dashboard metrics, compact section titles.
+          Used for course titles, domain headings, dashboard metrics, technical labels and compact section headings.
         </p>
 
         <div className="space-y-4">
-          <div>
-            <span className="font-mono text-[10px] text-[#6b6b7b]">32px Bold (700)</span>
-            <div className="font-rajdhani font-bold text-3xl text-[#303055]">
-              Network Packet Analysis & Dissection Masterclass
+          <div className="space-y-1">
+            <span className="text-xs font-mono text-[#6b6b7b]">Bold 700 — Course Title</span>
+            <div className="font-rajdhani font-bold text-2xl sm:text-3xl text-[#303055] tracking-tight">
+              Network Packet Analysis Masterclass: Wireshark & BPF
             </div>
           </div>
-          <div>
-            <span className="font-mono text-[10px] text-[#6b6b7b]">24px SemiBold (600)</span>
-            <div className="font-rajdhani font-semibold text-2xl text-[#303055]">
-              Hardware Backdoors & CPU Ring-0 Kernel Internals
+          <div className="space-y-1">
+            <span className="text-xs font-mono text-[#6b6b7b]">SemiBold 600 — Metric / Status</span>
+            <div className="font-rajdhani font-semibold text-xl text-[#303055]">
+              STATUS: 24/24 LESSONS COMPLETED [100% VERIFIED]
             </div>
           </div>
-          <div>
-            <span className="font-mono text-[10px] text-[#6b6b7b]">18px Medium (500)</span>
-            <div className="font-rajdhani font-medium text-lg text-[#303055]">
-              SOC Blue Team • Reverse Engineering • Cryptographic Hash Verification
+          <div className="space-y-1">
+            <span className="text-xs font-mono text-[#6b6b7b]">Compact Section Header</span>
+            <div className="font-rajdhani font-medium text-lg text-[#403f53] uppercase tracking-wider">
+              Cryptographic Primitives // Elliptic Curve Diffie-Hellman
             </div>
           </div>
         </div>
@@ -106,34 +106,35 @@ export default function TypographyPreviewPage() {
       <section className="rounded-[8px] border border-[#e4e4ed] bg-white p-6 sm:p-8 space-y-6">
         <div className="flex items-center justify-between border-b border-[#e4e4ed] pb-3">
           <div>
-            <span className="font-mono text-xs uppercase text-[#6b6b7b]">Font 3 — Primary UI & Body</span>
-            <h2 className="text-xl font-semibold text-[#303055]">Rubik</h2>
+            <span className="font-mono text-xs uppercase text-[#6b6b7b]">Font 3 — Body & UI Font</span>
+            <h2 className="font-sans text-xl font-bold text-[#303055]">Rubik (font-sans)</h2>
           </div>
           <span className="text-xs font-mono bg-[#f4f4f9] px-2 py-1 rounded text-[#303055] border border-[#e4e4ed]">
-            Weights: 400, 500, 600, 700
+            Weights: 400, 500, 600 (OFL 1.1)
           </span>
         </div>
         <p className="text-xs text-[#6b6b7b]">
-          Assigned to: Body copy, navigation links, form inputs, buttons, instructional prose.
+          Primary UI font for all body text, navigation items, buttons, form controls and descriptions.
         </p>
 
         <div className="space-y-4">
-          <div>
-            <span className="font-mono text-[10px] text-[#6b6b7b]">16px Regular (400) Body Paragraph</span>
-            <p className="text-base text-[#403f53] leading-relaxed max-w-3xl">
-              CyberTube provides comprehensive, verifiable developer education. All concepts are demonstrated on live packet captures, real network traces, and open-source threat analysis frameworks with zero commercial obfuscation.
+          <div className="space-y-1">
+            <span className="text-xs font-mono text-[#6b6b7b]">Regular 400 — Body Text</span>
+            <p className="font-sans text-sm sm:text-base text-[#403f53] leading-relaxed max-w-2xl">
+              CyberTube curates high-signal cybersecurity education. Dive deep into x86 assembly, reverse engineering,
+              protocol dissection, and active defense strategies designed for developers and security analysts.
             </p>
           </div>
-          <div className="flex items-center gap-4">
-            <button
-              type="button"
-              className="px-4 py-2 rounded-[4px] bg-[#303055] text-white text-xs font-medium min-h-[38px]"
-            >
-              Rubik Medium (500) Button
-            </button>
-            <span className="text-xs font-semibold text-[#303055]">
-              Rubik SemiBold (600) Status Text
-            </span>
+          <div className="space-y-1">
+            <span className="text-xs font-mono text-[#6b6b7b]">Medium 500 — Interactive / Button</span>
+            <div className="flex items-center gap-3 pt-1">
+              <button className="px-4 py-2 bg-[#303055] text-white rounded-[4px] font-sans font-medium text-sm">
+                Explore Curriculum
+              </button>
+              <button className="px-4 py-2 border border-[#e4e4ed] text-[#303055] rounded-[4px] font-sans font-medium text-sm">
+                Bookmark Module
+              </button>
+            </div>
           </div>
         </div>
       </section>
@@ -143,36 +144,38 @@ export default function TypographyPreviewPage() {
         <div className="flex items-center justify-between border-b border-[#e4e4ed] pb-3">
           <div>
             <span className="font-mono text-xs uppercase text-[#6b6b7b]">Font 4 — Code & Telemetry</span>
-            <h2 className="font-mono text-lg font-bold text-[#303055]">IBM Plex Mono</h2>
+            <h2 className="font-mono text-xl font-bold text-[#303055]">IBM Plex Mono</h2>
           </div>
           <span className="text-xs font-mono bg-[#f4f4f9] px-2 py-1 rounded text-[#303055] border border-[#e4e4ed]">
-            Weights: 400, 500, 600
+            Weights: 400, 500 (OFL 1.1)
           </span>
         </div>
         <p className="text-xs text-[#6b6b7b]">
-          Assigned to: Terminal outputs, IP addresses, sha256 hashes, shell snippets.
+          Used for terminal outputs, source code snippets, hash displays, memory addresses and telemetry metrics.
         </p>
 
-        <div className="p-4 rounded-[4px] bg-[#f4f4f9] border border-[#e4e4ed] font-mono text-xs space-y-1 text-[#303055]">
-          <div>$ tcpdump -nnvv -i eth0 &apos;tcp[tcpflags] & (tcp-syn) != 0&apos;</div>
-          <div className="text-[#6b6b7b]">192.168.1.105.49214 &gt; 10.0.0.1.443: Flags [S], seq 382910291</div>
-          <div className="text-[#3b61b0]">SHA256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855</div>
+        <div className="space-y-4">
+          <div className="p-4 rounded-[4px] bg-[#141424] text-[#b0b0c6] font-mono text-xs sm:text-sm space-y-1 border border-[#303055]">
+            <div className="text-[#3b61b0]">$ tshark -i eth0 -Y &quot;tcp.port == 443&quot; -T fields -e ip.src -e ip.dst</div>
+            <div className="text-emerald-400">192.168.1.105 -&gt; 104.244.42.1 [TLSv1.3 Application Data]</div>
+            <div className="text-[#76769a]">SHA-256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855</div>
+          </div>
         </div>
       </section>
 
-      {/* 5. Local Cyberpunk Accent */}
+      {/* 5. Cyberpunk Display Face */}
       <section className="rounded-[8px] border border-[#e4e4ed] bg-white p-6 sm:p-8 space-y-6">
         <div className="flex items-center justify-between border-b border-[#e4e4ed] pb-3">
           <div>
-            <span className="font-mono text-xs uppercase text-[#6b6b7b]">Optional Local Font</span>
-            <h2 className="font-cyberpunk text-2xl text-[#303055]">Cyberpunk Regular</h2>
+            <span className="font-mono text-xs uppercase text-[#6b6b7b]">Cyberpunk Display Face</span>
+            <h2 className="font-cyberpunk text-2xl text-[#303055]">Cyberpunk Display (Orbitron OFL-1.1)</h2>
           </div>
           <span className="text-xs font-mono bg-[#f4f4f9] px-2 py-1 rounded text-[#303055] border border-[#e4e4ed]">
-            Local Font: next/font/local (400)
+            OFL-1.1 Verified
           </span>
         </div>
         <p className="text-xs text-[#6b6b7b]">
-          Verified self-hosted font via <code>next/font/local</code> registered under <code>--font-cyberpunk</code>.
+          Verified self-hosted OFL-1.1 display face registered under <code>--font-orbitron</code> / <code>font-cyberpunk</code>.
         </p>
 
         <div className="p-4 rounded-[4px] bg-[#f4f4f9] border border-[#e4e4ed]">
@@ -184,4 +187,3 @@ export default function TypographyPreviewPage() {
     </div>
   );
 }
-
