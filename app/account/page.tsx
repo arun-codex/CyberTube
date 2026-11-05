@@ -7,6 +7,7 @@ import { logoutAction } from '@/app/actions/auth';
 import { AccountSettingsForm } from './AccountSettingsForm';
 import { UserAvatar } from '@/components/ui/UserAvatar';
 import { resolveProfileAvatarUrl } from '@/lib/avatar';
+import { ConnectedAccounts } from '@/components/auth/ConnectedAccounts';
 
 export default async function AccountPage() {
   const supabase = await createClient();
@@ -38,6 +39,15 @@ export default async function AccountPage() {
   // Resolve private custom avatar signed URL or provider fallback
   const resolvedAvatarUrl = await resolveProfileAvatarUrl(supabase, profile);
   const provider = user.app_metadata?.provider || 'email';
+  const connectedIdentities = (user.identities || []).map((identity) => ({
+    provider: identity.provider,
+    label: String(
+      identity.identity_data?.user_name ||
+      identity.identity_data?.preferred_username ||
+      identity.identity_data?.name ||
+      identity.provider
+    ),
+  }));
 
   return (
     <div className="container-max py-10 space-y-8">
@@ -105,6 +115,8 @@ export default async function AccountPage() {
             Update your profile identity, experience tier, and target security specializations.
           </p>
         </div>
+
+        <ConnectedAccounts identities={connectedIdentities} />
 
         <AccountSettingsForm
           initialProfile={profile}
