@@ -111,9 +111,30 @@ export async function POST(request: NextRequest) {
       buffer.toString('utf8', 0, 4) === 'RIFF' &&
       buffer.toString('utf8', 8, 12) === 'WEBP';
 
-    if (!isJpeg && !isPng && !isWebp) {
+    // Disallow GIF, SVG, HTML, XML, or unknown binaries
+    const isDisallowedFormat =
+      buffer.toString('utf8', 0, 3) === 'GIF' ||
+      buffer.toString('utf8', 0, 100).toLowerCase().includes('<svg') ||
+      buffer.toString('utf8', 0, 100).toLowerCase().includes('<?xml') ||
+      buffer.toString('utf8', 0, 100).toLowerCase().includes('<html') ||
+      buffer.toString('utf8', 0, 100).toLowerCase().includes('<!doctype');
+
+    if (isDisallowedFormat || (!isJpeg && !isPng && !isWebp)) {
       return NextResponse.json(
-        { error: 'File content does not match genuine image signature.' },
+        { error: 'File content does not match genuine image signature. SVG, GIF, HTML and raw scripts are rejected.' },
+        { status: 400 }
+      );
+    }
+
+    // Strict signature-to-declared-MIME matching (prevents spoofed MIME types)
+    const isMimeSignatureMatch =
+      (file.type === 'image/jpeg' && isJpeg) ||
+      (file.type === 'image/png' && isPng) ||
+      (file.type === 'image/webp' && isWebp);
+
+    if (!isMimeSignatureMatch) {
+      return NextResponse.json(
+        { error: 'Spoofed MIME type detected: payload bytes do not match declared Content-Type header.' },
         { status: 400 }
       );
     }
@@ -131,7 +152,23 @@ export async function POST(request: NextRequest) {
       });
 
     // In isolated preview or local environments where bucket was not pre-created, attempt admin auto-provisioning
-    if (uploadResult.error && (uploadResult.error.message.toLowerCase().includes('not found') || uploadResult.error.message.toLowerCase().includes('bucket'))) {
+    // PRODUCTION ENVIRONMENT GUARD: Production must NEVER automatically create or modify Storage buckets.
+    const isProduction =
+      process.env.NODE_ENV === 'production' &&
+      process.env.VERCEL_ENV === 'production';
+
+    const isPreviewOrDev =
+      process.env.NODE_ENV === 'development' ||
+      process.env.VERCEL_ENV === 'preview' ||
+      process.env.CYBERTUBE_ALLOW_PREVIEW_BUCKET_INIT === 'true';
+
+    if (
+      !isProduction &&
+      isPreviewOrDev &&
+      uploadResult.error &&
+      (uploadResult.error.message.toLowerCase().includes('not found') ||
+       uploadResult.error.message.toLowerCase().includes('bucket'))
+    ) {
       try {
         const admin = createAdminClient();
         if (admin) {

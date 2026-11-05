@@ -9,6 +9,10 @@ import { Database } from '@/types/database';
  * CAUTION: This client must NEVER be called or imported from client components.
  */
 export function createAdminClient() {
+  if (typeof window !== 'undefined') {
+    throw new Error('createAdminClient can only be called on the server.');
+  }
+
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const secretKey = process.env.SUPABASE_SECRET_KEY;
 
