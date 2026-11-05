@@ -130,6 +130,23 @@ export const Footer: React.FC = () => {
             <p className="text-xs text-[#475569] dark:text-[#9BA8B7] leading-relaxed mb-3">
               Zero telemetry ads. Strict click-to-load embeds. All practice exercises must be executed within authorized boundaries.
             </p>
+            <ul className="space-y-1.5 text-xs mb-3">
+              <li>
+                <Link href="/privacy" className="hover:text-[#0E7490] dark:hover:text-[#22D3EE] transition-colors flex items-center gap-1 font-medium">
+                  Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link href="/terms" className="hover:text-[#0E7490] dark:hover:text-[#22D3EE] transition-colors flex items-center gap-1 font-medium">
+                  Terms of Service
+                </Link>
+              </li>
+              <li>
+                <Link href="/ethics" className="hover:text-[#0E7490] dark:hover:text-[#22D3EE] transition-colors flex items-center gap-1">
+                  Rules of Engagement & Ethics
+                </Link>
+              </li>
+            </ul>
             <div className="flex flex-wrap gap-2">
               <span className="px-2 py-1 rounded bg-white dark:bg-[#121A26] border border-[#E2E8F0] dark:border-[#243044] text-[11px] font-mono text-[#0E7490] dark:text-[#22D3EE]">
                 Open Education
@@ -151,7 +168,13 @@ export const Footer: React.FC = () => {
           <div>
             © {new Date().getFullYear()} CyberTube. Open Practical Cybersecurity Education.
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex flex-wrap items-center gap-4">
+            <Link href="/privacy" className="hover:text-[#0E7490] dark:hover:text-[#22D3EE] transition-colors">
+              Privacy
+            </Link>
+            <Link href="/terms" className="hover:text-[#0E7490] dark:hover:text-[#22D3EE] transition-colors">
+              Terms
+            </Link>
             <Link href="/ethics" className="hover:text-[#0E7490] dark:hover:text-[#22D3EE] transition-colors">
               Ethics
             </Link>

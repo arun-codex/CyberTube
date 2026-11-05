@@ -121,6 +121,18 @@ function LoginForm() {
         </button>
       </form>
 
+      <p className="text-[11px] text-center text-[#6b6b7b] leading-relaxed">
+        By continuing, you agree to our{' '}
+        <Link href="/terms" className="text-[#303055] underline hover:opacity-80 font-medium">
+          Terms of Service
+        </Link>{' '}
+        and{' '}
+        <Link href="/privacy" className="text-[#303055] underline hover:opacity-80 font-medium">
+          Privacy Policy
+        </Link>
+        .
+      </p>
+
       <div className="pt-3 border-t border-[#e4e4ed] text-center text-xs text-[#6b6b7b]">
         Don&apos;t have an account?{' '}
         <Link href="/register" className="text-[#303055] font-medium hover:underline">
