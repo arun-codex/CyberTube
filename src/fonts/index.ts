@@ -108,7 +108,7 @@ export const ibmPlexMono = localFont({
 /**
  * 5. Cyberpunk display alias
  * Mapped to Orbitron (verified SIL Open Font License 1.1) to ensure 100% license compliance
- * after decommissioning unverified legacy Cyberpunk-Regular.ttf.
+ * after decommissioning unverified legacy asset.
  */
 export const cyberpunk = orbitron;
 

@@ -12,18 +12,19 @@
 
 ## 1. Executive Summary & Verification Matrix
 
-Phase 13.9 concludes the rigorous verification of CyberTube's release candidacy. This phase addressed font copyright and licensing compliance, decommissioned unverified binary font assets, audited remote Vercel preview deployments, re-verified Supabase GitHub integration state, evaluated historical PostgreSQL migrations, and executed full quality gates.
+Phase 13.9 concludes the rigorous verification of CyberTube's release candidacy. This phase addressed font copyright and licensing compliance, decommissioned unverified binary font assets, applied the Phase 13.9.1 Typography Alias hotfix, audited remote Vercel preview deployments, re-verified Supabase GitHub integration state, evaluated historical PostgreSQL migrations, and executed full quality gates.
 
 | Verification Item | Target | Status | Outcome / Evidence |
 | :--- | :--- | :---: | :--- |
-| **Git & PR Setup** | Confirm starting commit & draft PR | **PASS** | Starting commit `789bf47` verified; PR #3 opened in draft state carrying commit `0bafefa`; PR #1 and PR #2 preserved unchanged. |
+| **Git & PR Setup** | Confirm starting commit & draft PR | **PASS** | Starting commit `789bf47` verified; PR #3 opened in draft state carrying Phase 13.9 commits; PR #1 and PR #2 preserved unchanged. |
 | **Font Licensing** | Audit and document all self-hosted font licenses | **PASS** | Orbitron, Rajdhani, Rubik, and IBM Plex Mono verified under SIL Open Font License 1.1 with full attribution in `src/fonts/licenses/`. |
 | **Asset Decommissioning** | Audit and remediate `Cyberpunk-Regular.ttf` | **PASS** | Binary inspection revealed missing author/license fields; file removed from repository; display face aliased to Orbitron (OFL 1.1). |
+| **Phase 13.9.1 Hotfix** | Tailwind cyberpunk font family alias | **PASS** | Configured `cyberpunk: ['var(--font-orbitron)', 'Orbitron', 'system-ui', 'sans-serif']` directly resolving to loaded CSS variable. |
 | **Vercel Deployment** | Remote preview build reliability | **PASS** | Vercel deployment `dpl_5JQ5UQcnnektBYbxTz8fVWxym2uX` verified **● Ready** with 78 static/dynamic routes compiled in 1m 2s. |
 | **Supabase Preview Setup** | Verify isolated preview branching | **RECORDED (DISABLED)** | Check-run completed: `"Creating a new preview branch per PR is disabled. You can re-enable it in Project Integrations Settings."` |
 | **Migration Investigation** | Investigate `MIGRATIONS_FAILED` on `main` | **INVESTIGATED** | Historical artifact (`2026-11-04`): `must be owner of table objects (SQLSTATE 42501)`. Remediated in current branch migration. |
 | **Two-User Storage Tests** | Live 2-user storage isolation tests | **BLOCKED** | Honest BLOCKED status. Ephemeral preview branch unavailable; production strictly safeguarded against synthetic test data. |
-| **Quality Gates** | Build, lint, types, tests, Playwright | **PASS** | TypeScript: 0 errors; Lint: 0 errors; Build: 78 routes compiled; Catalog tests: 8/8 pass; Playwright: **99/99 passed**. |
+| **Quality Gates** | Build, lint, types, tests, Playwright | **PASS** | TypeScript: 0 errors; Lint: 0 errors; Build: 78 routes compiled; Catalog tests: 8/8 pass; Playwright: **103/103 passed** across 18 test suites. |
 | **Final Verdict** | Release readiness certification | **CONDITIONAL** | Application code, dependency graph, and font assets are 100% verified, legal, and vulnerability-free; live preview tests blocked until admin enables preview branching. |
 
 ---
@@ -44,7 +45,6 @@ Phase 13.9 concludes the rigorous verification of CyberTube's release candidacy.
 - **PR URL:** `https://github.com/arun-codex/CyberTube/pull/3`
 - **PR Title:** `chore(release): CyberTube Phase 13.9 — Preview Integration & Final Security Verification`
 - **Head Branch:** `feature/phase-13-9-preview-integration-final-verification`
-- **Head Commit SHA:** `0bafefade980b5d47e2c1cc938397495b6196e2d`
 - **Base Branch:** `main`
 - **Mode:** Draft (Open, never merged into `main`)
 
@@ -100,6 +100,23 @@ All self-hosted web fonts deployed in CyberTube are licensed under the **SIL Ope
   - In `src/fonts/index.ts`, `cyberpunk` is aliased directly to `orbitron` (the verified OFL-1.1 futuristic face).
   - Updated `app/typography-preview/page.tsx` to reference verified OFL-1.1 assets.
   - Fully documented in `src/fonts/licenses/FONTS_LICENSING.md`.
+
+### 3.3 Phase 13.9.1 Hotfix: Direct Tailwind Font Family Alias
+To prevent broken font variable references, `tailwind.config.ts` was updated to reference `--font-orbitron` directly without requiring `--font-cyberpunk`:
+```typescript
+fontFamily: {
+  sans: ['var(--font-rubik)', 'Rubik', 'system-ui', '-apple-system', 'sans-serif'],
+  mono: ['var(--font-ibm-plex-mono)', 'IBM Plex Mono', 'monospace'],
+  orbitron: ['var(--font-orbitron)', 'Orbitron', 'system-ui', 'sans-serif'],
+  rajdhani: ['var(--font-rajdhani)', 'Rajdhani', 'system-ui', 'sans-serif'],
+  cyberpunk: ['var(--font-orbitron)', 'Orbitron', 'system-ui', 'sans-serif'],
+}
+```
+A dedicated regression spec (`tests/18_phase13_9_1_typography_alias.spec.ts`) was added to verify:
+1. Complete decommissioning of `Cyberpunk-Regular.ttf`.
+2. Tailwind `cyberpunk` configuration maps directly to `var(--font-orbitron)`.
+3. `src/fonts/index.ts` aliases `cyberpunk` without registering `--font-cyberpunk`.
+4. Browser runtime on `/typography-preview` computes `.font-cyberpunk` font family to Orbitron.
 
 ---
 
@@ -169,9 +186,9 @@ Inspection of `npx supabase branches list` confirmed the `main` branch record:
 | :--- | :--- | :---: | :--- |
 | **Linting** | `npm run lint` | 0 | 0 errors across all routes and components |
 | **Type Check** | `npx tsc --noEmit` | 0 | 0 TypeScript errors |
-| **Production Build** | `npm run build` | 0 | 78 static and dynamic routes compiled in 21.5s |
+| **Production Build** | `npm run build` | 0 | 78 static and dynamic routes compiled in 12.2s |
 | **Unit & HTTP Tests** | `npm test` | 0 | 8 catalog tests + 7 live HTTP route checks passed |
-| **Playwright E2E** | `npx playwright test` | 0 | **99/99 passed** (2.0m duration) across 17 test suites |
+| **Playwright E2E** | `npx playwright test` | 0 | **103/103 passed** (2.1m duration) across 18 test suites |
 | **Production Audit** | `npm audit --omit=dev --json` | 0 | **0 vulnerabilities in production** |
 | **Vercel Preview Deploy** | Cloud Build (`dpl_5JQ5UQcnnektBYbxTz8fVWxym2uX`) | 0 | **● Ready** (1m 2s duration, 78 static/dynamic routes) |
 
@@ -184,5 +201,5 @@ Inspection of `npx supabase branches list` confirmed the `main` branch record:
 2. **Production Safeguarding:** Production project `iwcbuvutqhwxgovkecfa` must remain protected from synthetic test traffic and destructive migrations.
 
 ### 9.2 Final Verdict: **CONDITIONAL (APPROVE WITH CONDITIONS)**
-- **Application Software, Security & Licensing:** **PASS**. Next.js 15.5.29, PostCSS 8.5.32, React 18, Sharp 0.35.5, and all font assets are 100% verified, legal, and vulnerability-free. All 99 Playwright tests and Vercel cloud builds pass.
+- **Application Software, Security & Licensing:** **PASS**. Next.js 15.5.29, PostCSS 8.5.32, React 18, Sharp 0.35.5, and all font assets are 100% verified, legal, and vulnerability-free. All 103 Playwright tests and Vercel cloud builds pass.
 - **Preview Storage Verification:** **CONDITIONAL**. Live two-user storage API execution is blocked until an administrator enables preview branching in the Supabase Dashboard.
