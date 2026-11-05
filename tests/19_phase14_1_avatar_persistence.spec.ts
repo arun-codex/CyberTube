@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test';
 import fs from 'fs';
 import path from 'path';
 import { resolveProfileAvatarUrl } from '../src/lib/avatar';
+import { isSafeHttpsUrl } from '../src/components/ui/UserAvatar';
 
 test.describe('Phase 14.1 — Avatar Persistence & Cross-Component Synchronization', () => {
   const rootDir = process.cwd();
@@ -171,6 +172,45 @@ test.describe('Phase 14.1 — Avatar Persistence & Cross-Component Synchronizati
   test('resolveProfileAvatarUrl returns null when profile is undefined or null', async () => {
     const resolved = await resolveProfileAvatarUrl(null, null);
     expect(resolved).toBe(null);
+  });
+
+  // ---------------------------------------------------------------------------
+  // 4. PHASE 14.1.1 — STRICT AVATAR URL VALIDATION CONTRACTS
+  // ---------------------------------------------------------------------------
+
+  test('isSafeHttpsUrl accepts valid Supabase Storage signed URLs', () => {
+    expect(isSafeHttpsUrl('https://iwcbuvutqhwxgovkecfa.supabase.co/storage/v1/object/sign/avatars/user/pic.webp?token=xyz')).toBe(true);
+    expect(isSafeHttpsUrl('https://project-ref.supabase.co/storage/v1/object/sign/avatars/uid/test.png')).toBe(true);
+  });
+
+  test('isSafeHttpsUrl accepts valid GitHub and Google avatar hosts', () => {
+    expect(isSafeHttpsUrl('https://avatars.githubusercontent.com/u/1234567?v=4')).toBe(true);
+    expect(isSafeHttpsUrl('https://lh3.googleusercontent.com/a/ACg8ocK-abc123xyz')).toBe(true);
+  });
+
+  test('isSafeHttpsUrl accepts approved local development URLs', () => {
+    expect(isSafeHttpsUrl('http://localhost:54321/storage/v1/object/sign/avatars/pic.png')).toBe(true);
+    expect(isSafeHttpsUrl('http://127.0.0.1:54321/storage/v1/object/sign/avatars/pic.png')).toBe(true);
+  });
+
+  test('isSafeHttpsUrl rejects attacker-controlled and lookalike domains', () => {
+    // Suffix / lookalike attacks
+    expect(isSafeHttpsUrl('https://supabase.co.attacker.example/evil.png')).toBe(false);
+    expect(isSafeHttpsUrl('https://attacker-supabase.co/evil.png')).toBe(false);
+    expect(isSafeHttpsUrl('https://evil-avatars.githubusercontent.com.attacker.example/pic.png')).toBe(false);
+    expect(isSafeHttpsUrl('https://vercel.app.attacker.example/pic.png')).toBe(false);
+
+    // Removed vercel.app allowance
+    expect(isSafeHttpsUrl('https://cybertube.vercel.app/avatar.png')).toBe(false);
+
+    // Insecure HTTP on remote hosts
+    expect(isSafeHttpsUrl('http://iwcbuvutqhwxgovkecfa.supabase.co/pic.png')).toBe(false);
+    expect(isSafeHttpsUrl('http://avatars.githubusercontent.com/pic.png')).toBe(false);
+
+    // Invalid or script protocols
+    expect(isSafeHttpsUrl('javascript:alert(1)')).toBe(false);
+    expect(isSafeHttpsUrl('data:image/png;base64,AAAA')).toBe(false);
+    expect(isSafeHttpsUrl('')).toBe(false);
   });
 });
 
