@@ -1,90 +1,117 @@
 import React from 'react';
+import { Metadata } from 'next';
 import Link from 'next/link';
-import { Shield, AlertTriangle, CheckCircle2, FileText, ArrowRight } from 'lucide-react';
+import { Shield, AlertTriangle, CheckCircle, Scale, FileText } from 'lucide-react';
 
-export const metadata = {
-  title: 'Ethics & Responsible Learning Policy | CyberTube',
-  description: 'CyberTube policy and code of ethics on legal, authorized, and responsible security research.',
+export const metadata: Metadata = {
+  title: 'Ethics & Legal Guidelines | CyberTube',
+  description: 'CyberTube rules of engagement and ethical framework for cybersecurity students and practitioners.',
 };
 
 export default function EthicsPage() {
   return (
-    <div className="container-max py-12 max-w-4xl space-y-10">
-      {/* Title Header */}
-      <div className="space-y-3 border-b border-[#e4e4ed] dark:border-[#1E293B] pb-6">
-        <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-[4px] bg-[#f4f4f9] dark:bg-[#1E293B] border border-[#e4e4ed] dark:border-[#334155] text-xs font-mono text-[#303055] dark:text-[#22D3EE]">
-          <Shield className="w-3.5 h-3.5 text-[#303055] dark:text-[#22D3EE]" />
-          <span>Professional Code of Conduct</span>
+    <div className="container-max py-10 space-y-10 max-w-4xl">
+      {/* Header */}
+      <div className="space-y-3">
+        <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-[#0E7490] dark:text-[#22D3EE]">
+          <Shield className="w-4 h-4" />
+          <span>Rules of Engagement</span>
         </div>
-        <h1 className="font-orbitron text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-[#303055] dark:text-[#E6EDF3]">
-          Ethics & Responsible Learning
+        <h1 className="text-3xl sm:text-4xl font-bold font-space-grotesk text-[#0F172A] dark:text-[#E6EDF3]">
+          Ethics & Responsible Learning — Hack Legally & Responsibly
         </h1>
-        <p className="text-sm sm:text-base text-[#403f53] dark:text-[#94A3B8] leading-relaxed">
-          CyberTube provides educational resources and curriculum for defensive security practitioners, forensic analysts, and ethical penetration testers. All technical concepts must be applied strictly within lawful boundaries.
+        <p className="text-sm sm:text-base text-[#475569] dark:text-[#9BA8B7] leading-relaxed">
+          Cybersecurity skills grant significant capability. With that power comes the strict legal and professional obligation to operate ethically, transparently, and only within authorized boundaries.
         </p>
       </div>
 
-      {/* Core Rules Section */}
-      <div className="space-y-6">
-        <div className="p-6 rounded-[8px] border border-[#e4e4ed] dark:border-[#1E293B] bg-white dark:bg-[#121A26] space-y-4">
-          <div className="flex items-center gap-3">
-            <CheckCircle2 className="w-5 h-5 text-[#2e7d32] dark:text-[#34D399] shrink-0" />
-            <h2 className="font-rajdhani text-xl font-bold text-[#303055] dark:text-[#E6EDF3]">
-              1. Explicit Written Authorization
-            </h2>
-          </div>
-          <p className="text-xs sm:text-sm text-[#403f53] dark:text-[#94A3B8] leading-relaxed">
-            Never perform port scans, network vulnerability assessments, penetration tests, or exploitation against any host, server, API, or network without unambiguous, written authorization from the system owner. Scoped rules of engagement must clearly define boundaries, target IP ranges, test timeframes, and emergency contact procedures.
-          </p>
-        </div>
+      {/* Core Rules */}
+      <div className="rounded-xl border border-[#E2E8F0] dark:border-[#243044] bg-white dark:bg-[#121A26] p-6 sm:p-8 space-y-6">
+        <h2 className="text-xl font-bold font-space-grotesk text-[#0F172A] dark:text-[#E6EDF3] flex items-center gap-2">
+          <Scale className="w-5 h-5 text-[#0E7490] dark:text-[#22D3EE]" />
+          <span>Explicit Written Authorization & Responsible Disclosure Guidelines</span>
+        </h2>
 
-        <div className="p-6 rounded-[8px] border border-[#e4e4ed] dark:border-[#1E293B] bg-white dark:bg-[#121A26] space-y-4">
-          <div className="flex items-center gap-3">
-            <CheckCircle2 className="w-5 h-5 text-[#2e7d32] dark:text-[#34D399] shrink-0" />
-            <h2 className="font-rajdhani text-xl font-bold text-[#303055] dark:text-[#E6EDF3]">
-              2. Use Isolated Practice Environments
-            </h2>
+        <div className="space-y-4">
+          <div className="flex items-start gap-3 p-4 rounded-lg bg-[#F8FAFC] dark:bg-[#1A2433]">
+            <CheckCircle className="w-5 h-5 text-[#34D399] shrink-0 mt-0.5" />
+            <div>
+              <h3 className="text-sm font-semibold text-[#0F172A] dark:text-[#E6EDF3]">
+                1. Only test systems you own or have explicit written permission to test
+              </h3>
+              <p className="text-xs text-[#475569] dark:text-[#9BA8B7] mt-1 leading-relaxed">
+                Verbal permission is never sufficient. In professional engagements, written scopes of work and contracts define exact target IP ranges, time windows, and boundaries.
+              </p>
+            </div>
           </div>
-          <p className="text-xs sm:text-sm text-[#403f53] dark:text-[#94A3B8] leading-relaxed">
-            Practice exclusively in legal, purpose-built environments such as PortSwigger Web Security Academy, TryHackMe, Hack The Box, or locally hosted virtual machines (e.g., OWASP Juice Shop, Metasploitable, DVWA). Never test payloads on production internet applications or services.
-          </p>
-        </div>
 
-        <div className="p-6 rounded-[8px] border border-[#e4e4ed] dark:border-[#1E293B] bg-white dark:bg-[#121A26] space-y-4">
-          <div className="flex items-center gap-3">
-            <CheckCircle2 className="w-5 h-5 text-[#2e7d32] dark:text-[#34D399] shrink-0" />
-            <h2 className="font-rajdhani text-xl font-bold text-[#303055] dark:text-[#E6EDF3]">
-              3. Responsible Disclosure Guidelines
-            </h2>
+          <div className="flex items-start gap-3 p-4 rounded-lg bg-[#F8FAFC] dark:bg-[#1A2433]">
+            <CheckCircle className="w-5 h-5 text-[#34D399] shrink-0 mt-0.5" />
+            <div>
+              <h3 className="text-sm font-semibold text-[#0F172A] dark:text-[#E6EDF3]">
+                2. Use the curated legal lab platforms for all practice
+              </h3>
+              <p className="text-xs text-[#475569] dark:text-[#9BA8B7] mt-1 leading-relaxed">
+                Platforms such as PortSwigger Web Security Academy, TryHackMe, picoCTF, Hack The Box, OverTheWire, OWASP Juice Shop, and DVWA exist precisely to provide legal targets. Practise there.
+              </p>
+            </div>
           </div>
-          <p className="text-xs sm:text-sm text-[#403f53] dark:text-[#94A3B8] leading-relaxed">
-            If a security vulnerability or sensitive data exposure is discovered inadvertently during normal operations, notify the affected vendor or organization through their established vulnerability disclosure policy (VDP) or <code>security.txt</code> contact. Allow reasonable remediation time before public discussion.
-          </p>
-        </div>
 
-        <div className="p-6 rounded-[8px] border border-[#e8b5b5] dark:border-[#6a2929] bg-[#fbeaea]/40 dark:bg-[#341818]/40 space-y-4">
-          <div className="flex items-center gap-3">
-            <AlertTriangle className="w-5 h-5 text-[#984e4d] dark:text-[#F87171] shrink-0" />
-            <h2 className="font-rajdhani text-xl font-bold text-[#984e4d] dark:text-[#F87171]">
-              4. Prohibition of Malicious Activity
-            </h2>
+          <div className="flex items-start gap-3 p-4 rounded-lg bg-[#F8FAFC] dark:bg-[#1A2433]">
+            <CheckCircle className="w-5 h-5 text-[#34D399] shrink-0 mt-0.5" />
+            <div>
+              <h3 className="text-sm font-semibold text-[#0F172A] dark:text-[#E6EDF3]">
+                3. Never attack real websites, public services, or individuals
+              </h3>
+              <p className="text-xs text-[#475569] dark:text-[#9BA8B7] mt-1 leading-relaxed">
+                Port-scanning, fuzzing, or sending automated requests to websites without a documented bug bounty scope or authorized penetration testing contract is illegal and unethical.
+              </p>
+            </div>
           </div>
-          <p className="text-xs sm:text-sm text-[#403f53] dark:text-[#94A3B8] leading-relaxed">
-            Unauthorized access, data exfiltration, service disruption (DoS/DDoS), deployment of malware, and credential harvesting are illegal under global cybercrime statutes (such as the CFAA in the United States and the Computer Misuse Act in the United Kingdom). CyberTube strictly forbids using platform materials for malicious objectives.
-          </p>
+
+          <div className="flex items-start gap-3 p-4 rounded-lg bg-[#F8FAFC] dark:bg-[#1A2433]">
+            <CheckCircle className="w-5 h-5 text-[#34D399] shrink-0 mt-0.5" />
+            <div>
+              <h3 className="text-sm font-semibold text-[#0F172A] dark:text-[#E6EDF3]">
+                4. Protect sensitive data and respect privacy
+              </h3>
+              <p className="text-xs text-[#475569] dark:text-[#9BA8B7] mt-1 leading-relaxed">
+                If you legitimately discover sensitive information during an authorized engagement, halt immediately, protect the data, and report it to the system owner. Never download, share, or monetize user data.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-start gap-3 p-4 rounded-lg bg-[#F8FAFC] dark:bg-[#1A2433]">
+            <CheckCircle className="w-5 h-5 text-[#34D399] shrink-0 mt-0.5" />
+            <div>
+              <h3 className="text-sm font-semibold text-[#0F172A] dark:text-[#E6EDF3]">
+                5. Follow responsible disclosure standards
+              </h3>
+              <p className="text-xs text-[#475569] dark:text-[#9BA8B7] mt-1 leading-relaxed">
+                Give vendors reasonable time to patch vulnerabilities before public discussion. Coordinate through certified security contacts (`security.txt` or authorized vulnerability disclosure policies).
+              </p>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Return Action */}
-      <div className="pt-4 flex items-center justify-between">
+      {/* Lab links callout */}
+      <div className="p-6 rounded-xl border border-[#22D3EE]/30 bg-[#22D3EE]/5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div>
+          <h3 className="text-sm font-bold text-[#0F172A] dark:text-[#E6EDF3]">
+            Ready to test hands-on legally?
+          </h3>
+          <p className="text-xs text-[#475569] dark:text-[#9BA8B7]">
+            Visit our legal lab directory to start practising in safe environments right away.
+          </p>
+        </div>
         <Link
-          href="/learning-paths"
-          className="inline-flex items-center gap-2 text-xs font-mono text-[#303055] dark:text-[#22D3EE] hover:underline"
+          href="/labs"
+          className="px-4 py-2 rounded-lg bg-[#0E7490] dark:bg-[#22D3EE] text-white dark:text-[#0B1018] font-semibold text-xs whitespace-nowrap"
         >
-          <span>← Back to Learning Paths</span>
+          Explore Legal Practice Labs →
         </Link>
       </div>
     </div>
   );
 }
-

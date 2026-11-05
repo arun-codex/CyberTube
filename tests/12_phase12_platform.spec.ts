@@ -6,26 +6,25 @@ test.describe('Phase 12 — Learning Paths, Ethics, Dark Mode & Avatar Storage',
     await expect(page).toHaveURL('/learning-paths');
 
     const heading = page.locator('h1');
-    await expect(heading).toContainText(/Learning Pathways/i);
+    await expect(heading).toContainText(/Learning Paths/i);
 
-    // Verify presence of the 3 primary pathways
-    await expect(page.locator('text=Cybersecurity Practitioner Foundations')).toBeVisible();
-    await expect(page.locator('text=Web & Application Security Specialist')).toBeVisible();
-    await expect(page.locator('text=Ethical Hacking & Offensive Security Operations')).toBeVisible();
+    // Verify presence of the authoritative learning pathways
+    await expect(page.locator('text=Path A — Foundations').first()).toBeVisible();
+    await expect(page.locator('text=Path B — Security+ Certification Track').first()).toBeVisible();
+    await expect(page.locator('text=Path C — Ethical Hacking & Practical Pentesting').first()).toBeVisible();
   });
 
   test('Learning path detail route (/learning-paths/[slug]) displays stages, playlists and exercises', async ({ page }) => {
-    await page.goto('/learning-paths/cybersecurity-foundations');
-    await expect(page).toHaveURL('/learning-paths/cybersecurity-foundations');
+    await page.goto('/learning-paths/foundations');
+    await expect(page).toHaveURL('/learning-paths/foundations');
 
     const title = page.locator('h1');
-    await expect(title).toContainText('Cybersecurity Practitioner Foundations');
+    await expect(title).toContainText('Path A — Foundations');
 
-    // Check Stage 01, exercises and verified playlist sections
-    await expect(page.locator('text=Stage 01')).toBeVisible();
-    await expect(page.locator('text=Networking Fundamentals')).toBeVisible();
-    await expect(page.locator('text=Capture and Dissect a Three-Way Handshake')).toBeVisible();
-    await expect(page.locator('text=CCNA 200-301 Networking Master Course')).toBeVisible();
+    // Check STEP 1, checklist and verified study materials
+    await expect(page.locator('text=STEP 1').first()).toBeVisible();
+    await expect(page.locator('text=Networking Fundamentals').first()).toBeVisible();
+    await expect(page.locator('text=Free CCNA 200-301 Complete Course').first()).toBeVisible();
   });
 
   test('Ethics and Responsible Learning page (/ethics) renders conduct policy', async ({ page }) => {

@@ -101,22 +101,29 @@ export function Header() {
 
   const navLinks = [
     { label: 'Learning Paths', href: '/learning-paths' },
-    { label: 'Discover', href: '/discover' },
+    { label: 'Library', href: '/library' },
+    { label: 'Skills', href: '/skills', xlOnly: true },
+    { label: 'Certs', href: '/certifications', xlOnly: true },
+    { label: 'Careers', href: '/careers', xlOnly: true },
+    { label: 'Labs', href: '/labs' },
+    { label: 'Cheat Sheets', href: '/cheat-sheets', xlOnly: true },
+    { label: 'Glossary', href: '/glossary', xlOnly: true },
     { label: 'Courses', href: '/courses' },
+    { label: 'Discover', href: '/discover' },
     { label: 'Domains', href: '/domains' },
     { label: 'Saved', href: '/saved', badge: savedCount > 0 ? savedCount : null },
   ];
 
   return (
     <>
-      <header className="sticky top-0 z-40 w-full bg-white/95 dark:bg-[#0e0e17]/95 backdrop-blur-sm border-b border-[#e4e4ed] dark:border-[#26263b] transition-colors">
+      <header className="sticky top-0 z-40 w-full bg-white/95 dark:bg-[#0e0e17]/95 backdrop-blur-sm border-b border-[#e4e4ed] dark:border-[#26263b] transition-colors overflow-x-clip">
         <div className="container-max">
-          <div className="flex items-center justify-between h-16">
+          <div className="flex items-center justify-between h-16 min-w-0">
             {/* Logo & Brand */}
-            <div className="flex items-center gap-4 lg:gap-8">
+            <div className="flex items-center gap-3 lg:gap-6 min-w-0">
               <Link
                 href="/"
-                className="flex items-center gap-2.5 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#303055] dark:focus-visible:ring-[#6366f1] rounded-[4px] p-1"
+                className="flex items-center gap-2.5 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#303055] dark:focus-visible:ring-[#6366f1] rounded-[4px] p-1 flex-shrink-0"
               >
                 <div className="w-8 h-8 rounded-[4px] bg-[#303055] dark:bg-[#6366f1] flex items-center justify-center text-white">
                   <Shield className="w-4 h-4 fill-white stroke-none" />
@@ -132,14 +139,16 @@ export function Header() {
               </Link>
 
               {/* Desktop Navigation */}
-              <nav className="hidden lg:flex items-center gap-1">
+              <nav className="hidden lg:flex items-center gap-0.5 min-w-0">
                 {navLinks.map((link) => {
                   const isActive = pathname === link.href;
                   return (
                     <Link
                       key={link.href}
                       href={link.href}
-                      className={`flex items-center gap-1.5 px-3 py-1.5 rounded-[4px] text-sm font-medium transition-colors ${
+                      className={`items-center gap-1 px-2.5 py-1 rounded-[4px] text-xs font-medium whitespace-nowrap transition-colors ${
+                        link.xlOnly ? 'hidden xl:flex' : 'flex'
+                      } ${
                         isActive
                           ? 'text-[#303055] dark:text-white bg-[#e8e8f2] dark:bg-[#1e1e30]'
                           : 'text-[#403f53] dark:text-[#c0c0d4] hover:text-[#303055] dark:hover:text-white hover:bg-[#f4f4f9] dark:hover:bg-[#141422]'

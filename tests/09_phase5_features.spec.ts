@@ -42,6 +42,7 @@ test.describe('CyberTube Phase 5 — Themes, Search & Profile Verification', () 
 
     // 4. Test Escape key closes dialog
     await page.goto('/');
+    await page.waitForLoadState('networkidle');
     await page.keyboard.press('/');
     await expect(searchModal).toBeVisible();
     await page.keyboard.press('Escape');

@@ -1,0 +1,281 @@
+[
+  {
+    "id": "path-a",
+    "slug": "foundations",
+    "title": "Path A — Foundations",
+    "subtitle": "Network Protocols, Linux Terminal Mastery, Core Security & Python Automation",
+    "duration": "Months 1–2 (1–2 hrs/day)",
+    "level": "beginner",
+    "description": "The mandatory baseline for all cybersecurity specializations. Master TCP/IP networking, Linux terminal operations, core security theory, and defensive Python scripting.",
+    "prerequisites": ["Basic computer literacy", "Curiosity to learn command-line interfaces"],
+    "companionLabs": ["lab-05", "lab-02"],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Networking Fundamentals",
+        "goal": "Understand how computers route packets, negotiate handshakes, resolve domains, and segment subnets.",
+        "resourceIds": ["net-01", "net-02"],
+        "resourceChoice": "Select either Jeremy's IT Lab (thorough, with Packet Tracer) or NetworkChuck (faster-paced). You do not need to follow both.",
+        "companionLabId": "lab-02",
+        "estimatedTime": "3–4 weeks",
+        "checklist": [
+          "Explain the OSI 7-layer model and TCP/IP stack mapping",
+          "Calculate IPv4 subnet masks and CIDR prefixes (/24, /26, /30)",
+          "Describe the TCP three-way handshake (SYN, SYN-ACK, ACK)",
+          "Inspect DNS lookups and DHCP address leasing",
+          "Identify common port numbers (22, 53, 80, 443, 445, 3389)"
+        ]
+      },
+      {
+        "stepNumber": 2,
+        "title": "Linux Terminal Fundamentals",
+        "goal": "Gain comfort navigating the Linux filesystem, editing config files, and piping commands.",
+        "resourceIds": ["lin-01"],
+        "companionLabId": "lab-05",
+        "estimatedTime": "1–2 weeks",
+        "checklist": [
+          "Navigate folders, create, move, and edit text files with nano or vim",
+          "Use pipes (|), grep, cut, awk, and sort to filter log files",
+          "Understand absolute and relative paths"
+        ]
+      },
+      {
+        "stepNumber": 3,
+        "title": "Linux Permissions & Process Management",
+        "goal": "Master permissions, user management, and service operations for security environments.",
+        "resourceIds": ["lin-02"],
+        "companionLabId": "lab-05",
+        "estimatedTime": "1–2 weeks",
+        "checklist": [
+          "Modify permissions with chmod (octal and symbolic) and chown",
+          "Inspect running processes with ps, top, and kill",
+          "Manage system services with systemctl (start, status, enable)",
+          "Complete OverTheWire Bandit levels 0 to 10"
+        ]
+      },
+      {
+        "stepNumber": 4,
+        "title": "Core Security Principles",
+        "goal": "Internalize defense fundamentals before learning offensive exploitation techniques.",
+        "resourceIds": ["sec-01"],
+        "companionLabId": "lab-02",
+        "estimatedTime": "1 week",
+        "checklist": [
+          "Explain the CIA Triad (Confidentiality, Integrity, Availability)",
+          "Differentiate authentication vs authorization",
+          "Explain Defense-in-Depth, least privilege, and zero trust models"
+        ]
+      },
+      {
+        "stepNumber": 5,
+        "title": "Python Scripting for Security",
+        "goal": "Build small automated utility scripts for hash verification, socket probing, and log parsing.",
+        "resourceIds": ["prog-01"],
+        "companionLabId": "lab-02",
+        "estimatedTime": "1–2 weeks (~4.5h video + practice)",
+        "checklist": [
+          "Write Python scripts using functions, loops, dictionaries, and file I/O",
+          "Create a hash verifier using hashlib (MD5, SHA-256)",
+          "Build a basic TCP banner-grabber using the socket library",
+          "Parse an Apache or Nginx access log to identify 404/500 anomaly bursts"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "path-b",
+    "slug": "security-plus",
+    "title": "Path B — Security+ Certification Track",
+    "subtitle": "CompTIA SY0-701 Exam Objectives & Practical Cryptography",
+    "duration": "Months 2–4 (1–2 hrs/day)",
+    "level": "beginner",
+    "description": "Structured preparation for the industry-standard entry-level certification. Covers threat vectors, security architecture, risk management, and cryptographic primitives.",
+    "prerequisites": ["Completion of Path A Foundations or equivalent knowledge"],
+    "companionLabs": ["lab-02"],
+    "versionNotice": "This course covers exam SY0-701. The English SY0-701 exam retires on 11 June 2027. The new SY0-801 exam launches around 17 Nov 2026. Check CompTIA's official page for the latest.",
+    "versionNoticeVerified": "2026-11",
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "CompTIA SY0-701 Comprehensive Preparation",
+        "goal": "Master the 5 core domains of Security+ (General Security Concepts, Threats & Vulnerabilities, Security Architecture, Security Operations, Security Program Management).",
+        "resourceIds": ["sec-02"],
+        "companionLabId": "lab-02",
+        "estimatedTime": "6–8 weeks",
+        "checklist": [
+          "Identify social engineering tactics (phishing, vishing, pretexting)",
+          "Compare symmetric vs asymmetric cryptography implementations",
+          "Describe network security appliances (firewalls, IDS/IPS, proxies)",
+          "Understand incident response lifecycle phases",
+          "Score 85%+ on full-length domain practice quizzes"
+        ]
+      },
+      {
+        "stepNumber": 2,
+        "title": "Deep-Dive Cryptography & Security Mechanisms",
+        "goal": "Develop an intuitive grasp of mathematical security principles, ciphers, hashing, and key exchange.",
+        "resourceIds": ["sec-03"],
+        "companionLabId": "lab-02",
+        "estimatedTime": "2–3 weeks",
+        "checklist": [
+          "Explain the difference between encoding, encryption, and hashing",
+          "Describe RSA public/private key pairs and Diffie-Hellman key exchange",
+          "Explain how TLS handshakes establish forward secrecy",
+          "Identify hashing collision vulnerabilities (MD5, SHA-1 vs SHA-256)"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "path-c",
+    "slug": "ethical-hacking",
+    "title": "Path C — Ethical Hacking & Practical Pentesting",
+    "subtitle": "Network Penetration Testing, CTFs & Methodology",
+    "duration": "Months 4–10 (1–2 hrs/day)",
+    "level": "beginner-intermediate",
+    "description": "Learn hands-on offensive security methodologies, reconnaissance, vulnerability exploitation, and CTF challenge solving strictly within authorized lab environments.",
+    "prerequisites": ["Path A Foundations", "Basic TCP/IP and Linux command fluency"],
+    "companionLabs": ["lab-02", "lab-03", "lab-04"],
+    "legalReminder": "Strict Legal Rule: Only test systems you own or have explicit, prior written permission to test. Never target unauthorized third-party infrastructure. All skills must be applied solely within designated lab environments or authorized engagements.",
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "Practical Network Penetration Testing",
+        "goal": "Execute end-to-end authorized penetration tests following standard methodology.",
+        "resourceIds": ["off-01"],
+        "companionLabId": "lab-02",
+        "estimatedTime": "6–8 weeks",
+        "checklist": [
+          "Perform passive and active information gathering",
+          "Scan and enumerate open ports with Nmap without alerting rate-limiters",
+          "Identify vulnerable software versions against public CVE databases",
+          "Safely execute basic exploits in local lab VMs",
+          "Document findings with reproduction steps and executive remediation guidance"
+        ]
+      },
+      {
+        "stepNumber": 2,
+        "title": "PicoCTF Hands-on Problem Solving",
+        "goal": "Develop critical thinking and reverse-engineering instincts through guided beginner challenges.",
+        "resourceIds": ["off-02"],
+        "companionLabId": "lab-03",
+        "estimatedTime": "4–6 weeks",
+        "checklist": [
+          "Solve binary exploitation, web exploitation, and cryptography rooms",
+          "Try solving each challenge independently before viewing walkthroughs",
+          "Maintain personal technical writeups explaining the root cause of every vulnerability"
+        ]
+      },
+      {
+        "stepNumber": 3,
+        "title": "Hack The Box Easy Linux Targets",
+        "goal": "Transition to realistic target systems featuring complex multi-step attack chains.",
+        "resourceIds": ["off-03"],
+        "companionLabId": "lab-04",
+        "estimatedTime": "6–8 weeks",
+        "checklist": [
+          "Enumerate web services and local cron jobs on target Linux hosts",
+          "Establish initial shell access and upgrade to interactive TTY",
+          "Perform Linux local privilege escalation using SUID binaries and sudo privileges",
+          "Capture user and root flags legitimately"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "path-d",
+    "slug": "web-application-security",
+    "title": "Path D — Web Application Security",
+    "subtitle": "OWASP Top 10, PortSwigger Web Security Academy & Vulnerable Web Labs",
+    "duration": "Months 4–8 (1–2 hrs/day)",
+    "level": "intermediate",
+    "description": "Lab-first curriculum focused on detecting and mitigating vulnerabilities in modern web applications, APIs, and client-server architectures.",
+    "prerequisites": ["HTTP protocol basics", "Familiarity with HTML, JavaScript, and SQL syntax"],
+    "companionLabs": ["lab-01", "lab-06", "lab-07"],
+    "steps": [
+      {
+        "stepNumber": 1,
+        "title": "PortSwigger Web Security Academy Core Labs",
+        "goal": "Hands-on mastery of high-impact web vulnerabilities in an enterprise-grade simulator.",
+        "resourceIds": ["lab-01"],
+        "companionLabId": "lab-01",
+        "estimatedTime": "6–10 weeks",
+        "checklist": [
+          "Execute SQL Injection: UNION attacks, error-based, and blind time-delay attacks",
+          "Identify and exploit Cross-Site Scripting (Reflected, Stored, and DOM XSS)",
+          "Bypass broken authentication mechanisms and test JWT signing flaws",
+          "Test for Insecure Direct Object References (IDOR / BOLA)",
+          "Inspect Server-Side Request Forgery (SSRF) access to metadata endpoints"
+        ]
+      },
+      {
+        "stepNumber": 2,
+        "title": "Local Vulnerable Apps: OWASP Juice Shop & DVWA",
+        "goal": "Deploy and test web attack vectors against full-featured modern SPA and classic PHP architectures.",
+        "resourceIds": ["lab-06", "lab-07"],
+        "companionLabId": "lab-06",
+        "estimatedTime": "3–4 weeks",
+        "checklist": [
+          "Spin up OWASP Juice Shop via Docker or Node.js locally",
+          "Configure Burp Suite Community Edition proxy and CA certificate",
+          "Intercept and manipulate HTTP requests, headers, and JSON payloads",
+          "Complete low-to-medium difficulty challenges on DVWA"
+        ]
+      },
+      {
+        "stepNumber": 3,
+        "title": "Web Application Pentesting Methodologies",
+        "goal": "Structured web testing workflow using industry command-line tooling.",
+        "resourceIds": ["off-04"],
+        "companionLabId": "lab-01",
+        "estimatedTime": "2–3 weeks",
+        "specialNote": "HackerSploit channel inactive since 2025. Verify commands against current tool documentation.",
+        "checklist": [
+          "Enumerate subdomains and web directories using dirsearch/gobuster",
+          "Inspect API endpoints for improper authorization checks",
+          "Understand secure coding practices and WAF mitigation techniques"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "path-e",
+    "slug": "coming-soon",
+    "title": "Path E — Emerging Tracks (Coming Soon)",
+    "subtitle": "Specialized Cybersecurity Tracks in Active Development",
+    "duration": "Roadmap Tracks",
+    "level": "intermediate-advanced",
+    "description": "We are curating and independently verifying top-tier free playlists for specialized domains. No unverified URLs are published.",
+    "isComingSoon": true,
+    "tracks": [
+      {
+        "title": "SOC / SIEM / Incident Response (Blue Team)",
+        "level": "intermediate",
+        "summary": "Log analysis, SIEM event correlation (Splunk, Elastic), triage, memory forensics, and threat hunting.",
+        "skillsCovered": ["SIEM Querying", "MITRE ATT&CK Mapping", "Suricata/Snort Rules", "Incident Triage", "Memory Forensics"],
+        "suggestAction": "mailto:curriculum@cybertube.org?subject=Suggest%20SOC%20Resource"
+      },
+      {
+        "title": "Cloud Security (AWS, Azure & GCP)",
+        "level": "intermediate",
+        "summary": "Cloud IAM permission boundaries, S3 bucket exposure, Terraform posture management, and container isolation.",
+        "skillsCovered": ["Cloud IAM Least Privilege", "AWS CloudTrail Auditing", "K8s RBAC", "CSPM Posture Checks"],
+        "suggestAction": "mailto:curriculum@cybertube.org?subject=Suggest%20Cloud%20Security%20Resource"
+      },
+      {
+        "title": "AI & LLM Security",
+        "level": "advanced",
+        "summary": "Prompt injection, indirect prompt tampering, insecure output handling, model theft, and RAG data exfiltration.",
+        "skillsCovered": ["Direct Prompt Injection", "Indirect Prompt Leaks", "OWASP Top 10 for LLMs", "Adversarial Robustness"],
+        "suggestAction": "mailto:curriculum@cybertube.org?subject=Suggest%20AI%20Security%20Resource"
+      },
+      {
+        "title": "Governance, Risk & Compliance (GRC)",
+        "level": "beginner-intermediate",
+        "summary": "ISO 27001 controls, NIST Cybersecurity Framework (CSF 2.0), SOC 2 compliance, and vendor risk assessments.",
+        "skillsCovered": ["NIST CSF 2.0", "ISO 27001:2022", "Risk Registers", "Security Auditing", "Vendor Risk Assessments"],
+        "suggestAction": "mailto:curriculum@cybertube.org?subject=Suggest%20GRC%20Resource"
+      }
+    ]
+  }
+]
