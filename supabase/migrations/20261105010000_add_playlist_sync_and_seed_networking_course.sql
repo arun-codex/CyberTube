@@ -40,6 +40,7 @@ CREATE INDEX IF NOT EXISTS idx_playlist_sources_course ON public.course_playlist
 CREATE INDEX IF NOT EXISTS idx_playlist_sources_playlist ON public.course_playlist_sources(playlist_id);
 
 -- Trigger: auto-update updated_at
+DROP TRIGGER IF EXISTS on_playlist_source_updated ON public.course_playlist_sources;
 CREATE TRIGGER on_playlist_source_updated
   BEFORE UPDATE ON public.course_playlist_sources
   FOR EACH ROW EXECUTE FUNCTION public.handle_updated_at();
@@ -71,6 +72,7 @@ CREATE INDEX IF NOT EXISTS idx_playlist_items_lesson ON public.course_playlist_i
 CREATE INDEX IF NOT EXISTS idx_playlist_items_active ON public.course_playlist_items(is_active);
 
 -- Trigger: auto-update updated_at
+DROP TRIGGER IF EXISTS on_playlist_item_updated ON public.course_playlist_items;
 CREATE TRIGGER on_playlist_item_updated
   BEFORE UPDATE ON public.course_playlist_items
   FOR EACH ROW EXECUTE FUNCTION public.handle_updated_at();
@@ -82,10 +84,12 @@ ALTER TABLE public.course_playlist_sources ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.course_playlist_items ENABLE ROW LEVEL SECURITY;
 
 -- Public can read playlist sources and items (read-only)
+DROP POLICY IF EXISTS "Public can view playlist sources" ON public.course_playlist_sources;
 CREATE POLICY "Public can view playlist sources"
   ON public.course_playlist_sources FOR SELECT
   USING (true);
 
+DROP POLICY IF EXISTS "Public can view playlist items" ON public.course_playlist_items;
 CREATE POLICY "Public can view playlist items"
   ON public.course_playlist_items FOR SELECT
   USING (true);

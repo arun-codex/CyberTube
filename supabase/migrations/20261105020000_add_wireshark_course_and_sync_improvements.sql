@@ -47,8 +47,8 @@ BEGIN
     thumbnail_url,
     instructor_name,
     instructor_title,
-    instructor_organization,
-    published,
+    instructor_org,
+    status,
     tags,
     prerequisites,
     learning_objectives,
@@ -70,7 +70,7 @@ BEGIN
     'David Bombal',
     'Network Engineer & Cybersecurity Educator',
     'David Bombal',
-    TRUE,
+    'published',
     ARRAY['wireshark', 'packet-analysis', 'ethical-hacking', 'display-filters', 'tshark', 'network-forensics', 'david-bombal'],
     ARRAY[
       'Curiosity about computer networking, protocols, and ethical hacking',
@@ -99,8 +99,8 @@ BEGIN
     thumbnail_url = EXCLUDED.thumbnail_url,
     instructor_name = EXCLUDED.instructor_name,
     instructor_title = EXCLUDED.instructor_title,
-    instructor_organization = EXCLUDED.instructor_organization,
-    published = EXCLUDED.published,
+    instructor_org = EXCLUDED.instructor_org,
+    status = EXCLUDED.status,
     tags = EXCLUDED.tags,
     prerequisites = EXCLUDED.prerequisites,
     learning_objectives = EXCLUDED.learning_objectives,
@@ -1046,7 +1046,7 @@ BEGIN
     id,
     course_id,
     playlist_id,
-    playlist_url,
+    source_playlist_url,
     default_module_id,
     sync_enabled,
     last_synced_at,
@@ -1065,7 +1065,7 @@ BEGIN
   )
   ON CONFLICT (playlist_id) DO UPDATE SET
     course_id = EXCLUDED.course_id,
-    playlist_url = EXCLUDED.playlist_url,
+    source_playlist_url = EXCLUDED.source_playlist_url,
     default_module_id = EXCLUDED.default_module_id,
     sync_enabled = EXCLUDED.sync_enabled;
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { getAllCourses } from '../../src/lib/courses';
+import { getAllCoursesWithDb } from '../../src/lib/courses';
 import { CoursesDirectoryView } from '../../src/components/courses/CoursesDirectoryView';
 
 export const metadata = {
@@ -7,8 +7,8 @@ export const metadata = {
   description: 'Structured video-based modular curricula across cybersecurity and modern software engineering tracks with progress tracking.',
 };
 
-export default function CoursesPage() {
-  const courses = getAllCourses();
+export default async function CoursesPage() {
+  const courses = await getAllCoursesWithDb();
 
   return (
     <div className="container-max py-10">

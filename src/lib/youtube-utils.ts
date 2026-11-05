@@ -98,13 +98,16 @@ export function parseIso8601Duration(duration: string): { totalSeconds: number; 
 
 /**
  * Parses learning sequence number from video title if present.
+ * Ensures sequence numbers are strictly positive (>= 1).
  * E.g., 'Networking for Hackers #1 | Introduction' -> 1
+ * E.g., 'Free Wireshark Course: Video #0' -> 1 (guarded against zero/negative)
  */
 export function parseLearningSequence(title: string): number | null {
   if (!title) return null;
   const match = title.match(/#(\d+)/);
   if (match) {
-    return parseInt(match[1], 10);
+    const val = parseInt(match[1], 10);
+    return val > 0 ? val : 1;
   }
   return null;
 }

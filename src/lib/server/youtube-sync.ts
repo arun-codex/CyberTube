@@ -19,6 +19,14 @@ export type {
 
 export { parseIso8601Duration, parseLearningSequence } from '@/lib/youtube-utils';
 
+export interface SyncOptions {
+  allowPreview?: boolean;
+  allowProductionWrite?: boolean;
+  adminClient?: any;
+  fetchPlaylistItemsFn?: (playlistId: string, apiKey: string) => Promise<YouTubePlaylistItem[]>;
+  fetchVideoDetailsFn?: (videoIds: string[], apiKey: string) => Promise<Map<string, YouTubeVideoItem>>;
+}
+
 /**
  * Fetches all items from a YouTube playlist following pagination tokens.
  */
@@ -102,11 +110,13 @@ export async function fetchVideoDetailsFromYouTube(
 
 /**
  * Executes idempotent synchronization of enabled YouTube playlists.
+ * Validates playlist completeness before executing any deactivation logic.
+ * Preserves curated ordering and never mutates existing lesson order indexes.
  */
-export async function syncAllEnabledPlaylists(options?: {
-  allowPreview?: boolean;
-}): Promise<SyncResult> {
+export async function syncAllEnabledPlaylists(options?: SyncOptions): Promise<SyncResult> {
   const vercelEnv = process.env.VERCEL_ENV || process.env.NODE_ENV || 'development';
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
+  const isCloudSupabase = supabaseUrl.includes('.supabase.co');
 
   // Guard against non-production preview deployments writing to production Supabase
   if (vercelEnv === 'preview' && !options?.allowPreview) {
@@ -117,8 +127,17 @@ export async function syncAllEnabledPlaylists(options?: {
     };
   }
 
+  // Guard: Local development or non-production environment targeting cloud Supabase must not write without explicit opt-in
+  if (isCloudSupabase && vercelEnv !== 'production' && !options?.allowProductionWrite) {
+    return {
+      success: false,
+      environment: vercelEnv,
+      error: 'Refusing to execute playlist sync: non-production environment targeting cloud Supabase. Production writes require production deployment or explicit opt-in.',
+    };
+  }
+
   const apiKey = process.env.YOUTUBE_API_KEY;
-  if (!apiKey) {
+  if (!apiKey && !options?.fetchPlaylistItemsFn) {
     return {
       success: false,
       environment: vercelEnv,
@@ -126,7 +145,7 @@ export async function syncAllEnabledPlaylists(options?: {
     };
   }
 
-  const adminClient = createAdminClient();
+  const adminClient = options?.adminClient || createAdminClient();
   if (!adminClient) {
     return {
       success: false,
@@ -160,6 +179,9 @@ export async function syncAllEnabledPlaylists(options?: {
   const allStats: SyncStats[] = [];
   let hasFailure = false;
 
+  const fetchPlaylistItems = options?.fetchPlaylistItemsFn || fetchPlaylistItemsFromYouTube;
+  const fetchVideoDetails = options?.fetchVideoDetailsFn || fetchVideoDetailsFromYouTube;
+
   for (const source of sources) {
     const stats: SyncStats = {
       playlistId: source.playlist_id,
@@ -174,22 +196,32 @@ export async function syncAllEnabledPlaylists(options?: {
       syncedAt: new Date().toISOString(),
     };
 
+    let sourceHasMalformedOrFailedItems = false;
+
     try {
       // 2. Fetch raw playlist items from YouTube
-      const playlistItems = await fetchPlaylistItemsFromYouTube(source.playlist_id, apiKey);
+      const playlistItems = await fetchPlaylistItems(source.playlist_id, apiKey || 'test-key');
       stats.totalPlaylistItems = playlistItems.length;
 
-      const videoIds = playlistItems
-        .map((p) => p.contentDetails?.videoId || p.snippet?.resourceId?.videoId)
-        .filter((id): id is string => Boolean(id && /^[a-zA-Z0-9_-]{11}$/.test(id)));
+      // Validate playlist entries before processing
+      const validVideoIds: string[] = [];
+      for (const item of playlistItems) {
+        const vid = item.contentDetails?.videoId || item.snippet?.resourceId?.videoId;
+        if (!vid || typeof vid !== 'string' || !/^[a-zA-Z0-9_-]{11}$/.test(vid)) {
+          stats.failedItems++;
+          sourceHasMalformedOrFailedItems = true;
+        } else {
+          validVideoIds.push(vid);
+        }
+      }
 
       // 3. Fetch verified video details
-      const videoDetails = await fetchVideoDetailsFromYouTube(videoIds, apiKey);
+      const videoDetails = await fetchVideoDetails(validVideoIds, apiKey || 'test-key');
 
-      // 4. Fetch existing lessons and modules for this course with strict error checking
+      // 4. Fetch existing lessons and modules for this course
       const { data: existingLessons, error: lessonsError } = await (adminClient as any)
         .from('lessons')
-        .select('id, slug, youtube_video_id, order_index, module_id')
+        .select('id, slug, youtube_video_id, order_index, module_id, duration_minutes')
         .eq('course_id', source.course_id);
 
       if (lessonsError) {
@@ -212,10 +244,6 @@ export async function syncAllEnabledPlaylists(options?: {
         throw new Error(`Failed to query course_modules: ${modulesError.message}`);
       }
 
-      // Priority for default module:
-      // 1. Explicitly configured source.default_module_id
-      // 2. Module named "New Playlist Additions"
-      // 3. Fallback to first module
       let defaultModuleId: string | undefined = source.default_module_id;
       if (!defaultModuleId && modules && modules.length > 0) {
         const additionsModule = modules.find((m: any) =>
@@ -224,14 +252,19 @@ export async function syncAllEnabledPlaylists(options?: {
         defaultModuleId = additionsModule?.id || modules[0]?.id;
       }
 
-      // 5. Process each playlist item
+      // Track next available order_index in default module for new insertions
+      const currentModuleLessons = (existingLessons || []).filter((l: any) => l.module_id === defaultModuleId);
+      let nextAvailableOrder = currentModuleLessons.reduce((max: number, l: any) => Math.max(max, l.order_index || 0), 0) + 1;
+
+      // Track valid seen video IDs in this run
       const seenVideoIdsInThisRun = new Set<string>();
 
+      // 5. Process each playlist item
       for (let i = 0; i < playlistItems.length; i++) {
         const item = playlistItems[i];
         const vid = item.contentDetails?.videoId || item.snippet?.resourceId?.videoId;
-        if (!vid) {
-          stats.failedItems++;
+        if (!vid || typeof vid !== 'string' || !/^[a-zA-Z0-9_-]{11}$/.test(vid)) {
+          // Already counted under failedItems
           continue;
         }
 
@@ -253,7 +286,8 @@ export async function syncAllEnabledPlaylists(options?: {
 
         const position = item.snippet?.position ?? i + 1;
         const title = video?.snippet?.title || item.snippet?.title || `Lesson ${position}`;
-        const seq = parseLearningSequence(title) ?? (position + 1);
+        const parsedSeq = parseLearningSequence(title);
+        const seq = parsedSeq !== null ? Math.max(1, parsedSeq) : Math.max(1, position + 1);
         const { totalSeconds, minutes } = parseIso8601Duration(video?.contentDetails?.duration || '');
 
         let assignedLessonId: string | null = null;
@@ -261,13 +295,12 @@ export async function syncAllEnabledPlaylists(options?: {
 
         if (existingLesson) {
           assignedLessonId = existingLesson.id;
-          // Update lesson metadata idempotently, preserving its existing module assignment
+          // Update lesson metadata idempotently, strictly preserving its existing module assignment and order_index
           const { error: updateLessonError } = await (adminClient as any)
             .from('lessons')
             .update({
               title,
               duration_minutes: minutes || existingLesson.duration_minutes,
-              order_index: seq,
             })
             .eq('id', existingLesson.id);
 
@@ -279,6 +312,8 @@ export async function syncAllEnabledPlaylists(options?: {
           // Newly discovered playable lesson! Insert into configured default module
           const slug = `lesson-${seq}-${vid}`;
           const newLessonId = crypto.randomUUID();
+          const lessonOrder = Math.max(1, nextAvailableOrder++);
+
           const { data: newLesson, error: insertLessonError } = await (adminClient as any)
             .from('lessons')
             .insert({
@@ -290,7 +325,7 @@ export async function syncAllEnabledPlaylists(options?: {
               description: video?.snippet?.description || `Playable lesson from playlist ${source.playlist_id}.`,
               youtube_video_id: vid,
               duration_minutes: minutes || 30,
-              order_index: seq,
+              order_index: lessonOrder,
               objectives: ['Complete lesson viewing and practice exercises'],
               tags: ['cybersecurity', 'networking'],
               skills_taught: ['Network analysis & security'],
@@ -334,51 +369,66 @@ export async function syncAllEnabledPlaylists(options?: {
         }
       }
 
-      // Mark removed videos as is_active = FALSE without deleting lessons/progress
-      const { data: allMappedItems, error: queryMappedError } = await (adminClient as any)
-        .from('course_playlist_items')
-        .select('id, youtube_video_id, is_active')
-        .eq('course_id', source.course_id);
+      // DEACTIVATION SAFETY:
+      // Only run deactivation logic if the playlist fetch and validation was 100% complete and valid!
+      // If there were any malformed or failed items, do NOT deactivate previously valid items!
+      if (!sourceHasMalformedOrFailedItems && stats.failedItems === 0) {
+        const { data: allMappedItems, error: queryMappedError } = await (adminClient as any)
+          .from('course_playlist_items')
+          .select('id, youtube_video_id, is_active')
+          .eq('course_id', source.course_id);
 
-      if (queryMappedError) {
-        throw new Error(`Failed to query mapped playlist items: ${queryMappedError.message}`);
-      }
+        if (queryMappedError) {
+          throw new Error(`Failed to query mapped playlist items: ${queryMappedError.message}`);
+        }
 
-      if (allMappedItems) {
-        for (const item of allMappedItems) {
-          if (!seenVideoIdsInThisRun.has(item.youtube_video_id) && item.is_active) {
-            const { error: deactivateError } = await (adminClient as any)
-              .from('course_playlist_items')
-              .update({ is_active: false })
-              .eq('id', item.id);
+        if (allMappedItems) {
+          for (const item of allMappedItems) {
+            if (!seenVideoIdsInThisRun.has(item.youtube_video_id) && item.is_active) {
+              const { error: deactivateError } = await (adminClient as any)
+                .from('course_playlist_items')
+                .update({ is_active: false })
+                .eq('id', item.id);
 
-            if (deactivateError) {
-              throw new Error(`Failed to deactivate removed item ${item.youtube_video_id}: ${deactivateError.message}`);
+              if (deactivateError) {
+                throw new Error(`Failed to deactivate removed item ${item.youtube_video_id}: ${deactivateError.message}`);
+              }
+              stats.removedVideos++;
             }
-            stats.removedVideos++;
           }
         }
-      }
 
-      // Update source status to success ONLY when all operations succeed
-      const { error: updateSourceError } = await (adminClient as any)
-        .from('course_playlist_sources')
-        .update({
-          last_synced_at: stats.syncedAt,
-          last_success_at: stats.syncedAt,
-          last_sync_status: 'success',
-          last_sync_error: null,
-        })
-        .eq('id', source.id);
+        // Update source status to success ONLY when all operations succeed cleanly with 0 failed items
+        const { error: updateSourceError } = await (adminClient as any)
+          .from('course_playlist_sources')
+          .update({
+            last_synced_at: stats.syncedAt,
+            last_success_at: stats.syncedAt,
+            last_sync_status: 'success',
+            last_sync_error: null,
+          })
+          .eq('id', source.id);
 
-      if (updateSourceError) {
-        throw new Error(`Failed to update source success state: ${updateSourceError.message}`);
+        if (updateSourceError) {
+          throw new Error(`Failed to update source success state: ${updateSourceError.message}`);
+        }
+      } else {
+        // Partial failure occurred (e.g. malformed or invalid entries in playlist)
+        hasFailure = true;
+        await (adminClient as any)
+          .from('course_playlist_sources')
+          .update({
+            last_synced_at: stats.syncedAt,
+            last_sync_status: 'error',
+            last_sync_error: 'Encountered malformed or failed items during playlist synchronization.',
+          })
+          .eq('id', source.id);
       }
 
       allStats.push(stats);
     } catch (err: any) {
       hasFailure = true;
-      // Record failure without deleting course or updating last_success_at
+      // Record failure without deleting course, items, or updating last_success_at
       await (adminClient as any)
         .from('course_playlist_sources')
         .update({
@@ -399,6 +449,6 @@ export async function syncAllEnabledPlaylists(options?: {
     success: !hasFailure,
     environment: vercelEnv,
     stats: allStats,
-    error: hasFailure ? 'One or more playlist sources failed to synchronize cleanly.' : undefined,
+    error: hasFailure ? 'One or more playlist sources encountered failures or malformed items during synchronization.' : undefined,
   };
 }

@@ -31,15 +31,16 @@ export function isUuid(id: string): boolean {
  * 5. Emits distinct sync states ('saved', 'saving', 'offline', 'error') for user transparency.
  */
 export class CloudCourseProgressService implements CourseProgressService {
-  private supabase = createClient();
+  private supabase: any;
   private syncAttempted = new Set<string>();
   private syncStatuses = new Map<string, CloudSyncStatus>();
   private statusListeners = new Set<(event: SyncStatusEvent) => void>();
 
-  constructor() {
-    if (typeof window !== 'undefined' && this.supabase) {
+  constructor(customClient?: any) {
+    this.supabase = customClient !== undefined ? customClient : createClient();
+    if (typeof window !== 'undefined' && this.supabase && typeof this.supabase.auth?.onAuthStateChange === 'function') {
       // Listen to auth state changes to trigger guest progress merge on login
-      this.supabase.auth.onAuthStateChange((event, session) => {
+      this.supabase.auth.onAuthStateChange((event: any, session: any) => {
         if (event === 'SIGNED_IN' && session?.user) {
           this.syncAttempted.clear();
         } else if (event === 'SIGNED_OUT') {
@@ -171,7 +172,7 @@ export class CloudCourseProgressService implements CourseProgressService {
   /**
    * Merges local guest progress with cloud user_lesson_progress rows.
    */
-  private async syncCourseProgress(courseId: string): Promise<void> {
+  async syncCourseProgress(courseId: string): Promise<void> {
     if (!this.supabase) {
       this.setSyncStatus(courseId, 'offline');
       return;
@@ -255,7 +256,7 @@ export class CloudCourseProgressService implements CourseProgressService {
     }
   }
 
-  private async persistLessonProgressToCloud(
+  async persistLessonProgressToCloud(
     courseId: string,
     lessonId: string,
     completed: boolean
@@ -291,7 +292,7 @@ export class CloudCourseProgressService implements CourseProgressService {
     return 'saved';
   }
 
-  private async persistLessonAccessToCloud(courseId: string, lessonId: string): Promise<void> {
+  async persistLessonAccessToCloud(courseId: string, lessonId: string): Promise<void> {
     if (!this.supabase) return;
     const { data: { user } } = await this.supabase.auth.getUser();
     if (!user) return;
@@ -311,7 +312,7 @@ export class CloudCourseProgressService implements CourseProgressService {
       );
   }
 
-  private async deleteCourseProgressFromCloud(courseId: string): Promise<void> {
+  async deleteCourseProgressFromCloud(courseId: string): Promise<void> {
     if (!this.supabase) return;
     const { data: { user } } = await this.supabase.auth.getUser();
     if (!user) return;

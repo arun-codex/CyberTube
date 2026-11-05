@@ -8,12 +8,26 @@ export const maxDuration = 60; // 60 seconds allowed on Vercel Hobby
 /**
  * Daily Vercel Cron handler for synchronizing enabled YouTube playlists.
  * Requires Bearer token matching CRON_SECRET.
+ * Supports non-sensitive readiness inspection via ?check=readiness.
  */
 export async function GET(request: NextRequest) {
-  const authHeader = request.headers.get('authorization') || '';
+  // Safe readiness check (does not leak secret values)
+  if (request.nextUrl.searchParams.get('check') === 'readiness') {
+    const isCronConfigured = Boolean(process.env.CRON_SECRET);
+    const isYouTubeConfigured = Boolean(process.env.YOUTUBE_API_KEY);
+    const isSupabaseConfigured = Boolean(process.env.SUPABASE_SERVICE_ROLE_KEY && process.env.NEXT_PUBLIC_SUPABASE_URL);
+
+    return NextResponse.json({
+      ready: isCronConfigured && isYouTubeConfigured && isSupabaseConfigured,
+      cronConfigured: isCronConfigured,
+      youtubeConfigured: isYouTubeConfigured,
+      supabaseConfigured: isSupabaseConfigured,
+    });
+  }
+
   const expectedSecret = process.env.CRON_SECRET;
 
-  // 1. Validate Cron Secret
+  // 1. Validate Cron Secret Configuration
   if (!expectedSecret) {
     return NextResponse.json(
       {
@@ -24,18 +38,32 @@ export async function GET(request: NextRequest) {
     );
   }
 
-  const expectedHeader = `Bearer ${expectedSecret}`;
-  if (authHeader !== expectedHeader) {
+  const authHeader = request.headers.get('authorization');
+
+  // 2. Validate Authorization Header presence
+  if (!authHeader) {
     return NextResponse.json(
       {
         success: false,
-        error: 'Unauthorized: Invalid or missing authorization credentials.',
+        error: 'Unauthorized: Missing authorization credentials.',
       },
       { status: 401 }
     );
   }
 
-  // 2. Execute Synchronization
+  // 3. Validate Bearer Token
+  const expectedHeader = `Bearer ${expectedSecret}`;
+  if (authHeader !== expectedHeader) {
+    return NextResponse.json(
+      {
+        success: false,
+        error: 'Unauthorized: Invalid authorization credentials.',
+      },
+      { status: 401 }
+    );
+  }
+
+  // 4. Execute Synchronization
   try {
     const result = await syncAllEnabledPlaylists();
 
