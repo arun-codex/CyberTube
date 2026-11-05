@@ -17,9 +17,13 @@ function LoginForm() {
   const reason = searchParams.get('reason');
   const urlError = searchParams.get('error');
 
-  const [error, setError] = useState<string | null>(
-    urlError || (reason === 'auth_required' ? 'Authentication is required to view this area.' : null)
-  );
+  const initialError = reason === 'identity_link_conflict'
+    ? 'GitHub authorization completed, but Supabase could not safely match the returned verified email addresses to one CyberTube account. Your existing account and learning data have not been changed.'
+    : reason === 'auth_required'
+      ? 'Authentication is required to view this area.'
+      : urlError;
+
+  const [error, setError] = useState<string | null>(initialError);
   const [loading, setLoading] = useState(false);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -62,6 +66,11 @@ function LoginForm() {
           <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
           <span>{error}</span>
         </div>
+      )}
+      {reason === 'identity_link_conflict' && (
+        <p className="rounded-[4px] border border-[#d7d7e4] bg-[#f4f4f9] p-3 text-xs leading-5 text-[#403f53]">
+          First sign in with your working Google or email account. Then open Account Settings → Connected sign-in accounts and connect the intended GitHub account. If Supabase reports that manual linking is disabled, the project owner must enable “Allow manual linking” under Supabase Authentication settings. Do not create a second CyberTube account.
+        </p>
       )}
 
       {/* Social OAuth Buttons */}
