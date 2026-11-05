@@ -1,0 +1,70 @@
+{
+  "playlistId": "PLQl7ZDyS2qk8",
+  "playlistUrl": "https://www.youtube.com/playlist?list=PLQl7ZDyS2qk8",
+  "title": "MERN Full Stack Course - React, Node & MongoDB with AI",
+  "visibility": "unlisted",
+  "visibilityNotice": "This playlist is Unlisted on YouTube. Embedding this playlist in the public CyberTube course catalog allows visitors of the CyberTube course page to access and watch these unlisted videos.",
+  "extractedAt": "2026-11-05T20:25:38Z",
+  "channel": "Codex Arun",
+  "totalEntriesFound": 4,
+  "playableLessonsCount": 3,
+  "unavailableEntriesCount": 1,
+  "totalPlayableDurationSeconds": 10177,
+  "totalPlayableDurationMinutes": 169,
+  "estimatedDuration": "2 hours 49 mins",
+  "entries": [
+    {
+      "position": 1,
+      "videoId": "fFVZ9xbyBlc",
+      "title": "01 MERN Full Stack Course   React Node MongoDB with AI",
+      "durationSeconds": 1436,
+      "durationMinutes": 24,
+      "channel": "Codex Arun",
+      "url": "https://www.youtube.com/watch?v=fFVZ9xbyBlc",
+      "thumbnail": "https://i.ytimg.com/vi/fFVZ9xbyBlc/maxresdefault.jpg",
+      "status": "playable",
+      "embeddable": true,
+      "availability": "unlisted"
+    },
+    {
+      "position": 2,
+      "videoId": "aqtA2zHURbg",
+      "title": "02 Fullstack dev Live 69Foundation Session",
+      "durationSeconds": 1579,
+      "durationMinutes": 26,
+      "channel": "Codex Arun",
+      "url": "https://www.youtube.com/watch?v=aqtA2zHURbg",
+      "thumbnail": "https://i.ytimg.com/vi/aqtA2zHURbg/maxresdefault.jpg",
+      "status": "playable",
+      "embeddable": true,
+      "availability": "unlisted"
+    },
+    {
+      "position": 3,
+      "videoId": "PNQiabb5ZjY",
+      "title": "03  Fullstack dev Live 69L1Introduction to Web Basics",
+      "durationSeconds": 7162,
+      "durationMinutes": 119,
+      "channel": "Codex Arun",
+      "url": "https://www.youtube.com/watch?v=PNQiabb5ZjY",
+      "thumbnail": "https://i.ytimg.com/vi/PNQiabb5ZjY/maxresdefault.jpg",
+      "status": "playable",
+      "embeddable": true,
+      "availability": "unlisted"
+    },
+    {
+      "position": 4,
+      "videoId": "G9ONQ8XosN8",
+      "title": null,
+      "durationSeconds": null,
+      "durationMinutes": null,
+      "channel": null,
+      "url": "https://www.youtube.com/watch?v=G9ONQ8XosN8",
+      "thumbnail": null,
+      "status": "unavailable_processing",
+      "embeddable": false,
+      "reason": "We're processing this video. Check back later.",
+      "availability": "unavailable"
+    }
+  ]
+}

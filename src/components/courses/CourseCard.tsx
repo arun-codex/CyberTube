@@ -29,6 +29,13 @@ export const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
     return unsub;
   }, [course]);
 
+  const trackBadgeLabel =
+    course.track === 'web-development'
+      ? 'WEB DEV'
+      : course.track === 'general-technology'
+      ? 'TECH'
+      : 'SECURITY';
+
   return (
     <div className="group rounded-[8px] border border-[#e4e4ed] bg-white hover:border-[#303055] transition-colors duration-150 flex flex-col overflow-hidden">
       {/* Thumbnail Area */}
@@ -46,9 +53,9 @@ export const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
         <div className="absolute top-2.5 left-2.5 right-2.5 flex items-center justify-between">
           <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-[4px] bg-white/95 border border-[#e4e4ed] text-[11px] font-mono text-[#303055] font-medium">
             <BookOpen className="w-3 h-3 text-[#6b6b7b]" />
-            COURSE
+            {trackBadgeLabel}
           </span>
-          <span className="px-1.5 py-0.5 rounded-[4px] bg-white/95 border border-[#e4e4ed] text-[11px] font-mono text-[#403f53]">
+          <span className="px-1.5 py-0.5 rounded-[4px] bg-white/95 border border-[#e4e4ed] text-[11px] font-mono text-[#403f53] capitalize">
             {course.difficulty}
           </span>
         </div>
@@ -113,7 +120,12 @@ export const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
 
           <div className="flex items-center justify-between pt-1">
             <div className="flex flex-wrap gap-1">
-              {course.domains.slice(0, 2).map((dom) => (
+              {course.track === 'web-development' ? (
+                <span className="text-[10px] font-mono px-1.5 py-0.5 rounded-[4px] bg-[#f4f4f9] text-[#303055] border border-[#e4e4ed] font-medium">
+                  Web Development
+                </span>
+              ) : null}
+              {course.domains && course.domains.slice(0, 2).map((dom) => (
                 <span
                   key={dom}
                   className="text-[10px] font-mono px-1.5 py-0.5 rounded-[4px] bg-[#f4f4f9] text-[#6b6b7b] border border-[#e4e4ed]"

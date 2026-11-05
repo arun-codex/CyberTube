@@ -47,7 +47,7 @@ export function EnrolledCoursesList({ userId }: EnrolledCoursesProps) {
               <div className="flex items-center justify-between mb-2">
                 <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-[4px] bg-[#f4f4f9] dark:bg-[#1e1e30] border border-[#e4e4ed] dark:border-[#26263b] text-[11px] font-mono text-[#303055] dark:text-[#a0a0c0]">
                   <BookOpen className="w-3 h-3" />
-                  {course.domains[0]?.toUpperCase() || "TRACK"}
+                  {course.track === 'web-development' ? 'WEB DEV' : (course.domains?.[0]?.toUpperCase() || "TRACK")}
                 </span>
                 <span className="text-xs font-mono font-medium text-[#303055] dark:text-[#f0f0f8]">
                   {stats.percentage}%
@@ -68,20 +68,18 @@ export function EnrolledCoursesList({ userId }: EnrolledCoursesProps) {
                   style={{ width: `${stats.percentage}%` }}
                 />
               </div>
-
-              <div className="flex items-center justify-between text-[11px] font-mono text-[#6b6b7b] dark:text-[#8c8ca6] mt-2">
-                <span>{stats.completedCount} / {stats.totalCount} completed</span>
-                <span>{course.estimatedDuration}</span>
-              </div>
             </div>
 
-            <div className="pt-4 mt-4 border-t border-[#e4e4ed] dark:border-[#26263b]">
+            <div className="flex items-center justify-between pt-4 mt-4 border-t border-[#e4e4ed] dark:border-[#26263b] text-xs font-mono text-[#6b6b7b] dark:text-[#8c8ca6]">
+              <span className="flex items-center gap-1">
+                <Clock className="w-3.5 h-3.5" />
+                {stats.completedCount}/{stats.totalCount} lessons
+              </span>
               <Link
                 href={`/courses/${course.slug}`}
-                className="inline-flex items-center justify-center gap-1.5 w-full py-2 rounded-[4px] text-xs font-medium text-[#303055] dark:text-[#f0f0f8] bg-[#f4f4f9] dark:bg-[#1e1e30] hover:bg-[#e8e8f2] dark:hover:bg-[#252538] transition-colors"
+                className="inline-flex items-center gap-1 text-[#303055] dark:text-[#f0f0f8] font-medium hover:underline"
               >
-                <span>{stats.percentage > 0 ? 'Resume Course' : 'Start Track'}</span>
-                <ArrowRight className="w-3 h-3" />
+                Continue <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>
           </div>

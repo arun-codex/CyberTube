@@ -29,6 +29,7 @@ export const COURSES: Course[] = [
       'Extract unencrypted malware payloads and anomalous HTTP/DNS artifacts',
     ],
     featured: true,
+    track: 'cybersecurity',
     modules: [
       {
         id: 'mod-wireshark-foundations',
@@ -109,6 +110,7 @@ export const COURSES: Course[] = [
       'Understand microcode updates, shadow registers, and silicon boundary enforcement',
     ],
     featured: true,
+    track: 'cybersecurity',
     modules: [
       {
         id: 'mod-x86-internals',
@@ -163,6 +165,7 @@ export const COURSES: Course[] = [
       'Trace client-to-server connection flows over DNS, HTTP, and TCP',
     ],
     featured: false,
+    track: 'cybersecurity',
     modules: [
       {
         id: 'mod-hi-net-foundations',
@@ -191,5 +194,106 @@ export const COURSES: Course[] = [
       },
     ],
   },
+  {
+    id: 'course-mern-full-stack-ai',
+    slug: 'mern-full-stack-course-with-ai',
+    title: 'MERN Full Stack Course - React, Node & MongoDB with AI',
+    shortDescription: 'Master full-stack development with MongoDB, Express, React, and Node.js integrated with modern AI tooling.',
+    description: 'A structured multi-lesson full-stack curriculum led by Codex Arun. Master end-to-end web engineering spanning frontend component architecture in React, backend API development with Node.js and Express, database modeling in MongoDB, and intelligent AI-augmented features.',
+    domains: [],
+    tags: ['mern', 'react', 'node', 'mongodb', 'ai', 'full-stack', 'web-development', 'javascript'],
+    difficulty: 'beginner',
+    thumbnailUrl: 'https://i.ytimg.com/vi/fFVZ9xbyBlc/maxresdefault.jpg',
+    estimatedDuration: '2 hours 49 mins',
+    totalDurationMinutes: 169,
+    instructor: {
+      name: 'Codex Arun',
+      title: 'Full-Stack Developer & Educator',
+      organization: 'Codex Arun',
+    },
+    prerequisites: [
+      'Basic computer literacy and code editor familiarity (e.g., VS Code)',
+      'Curiosity about building modern full-stack web applications',
+    ],
+    learningObjectives: [
+      'Understand end-to-end MERN architecture and client-server workflows',
+      'Set up a full-stack JavaScript development environment',
+      'Grasp foundational web protocols and browser mechanics',
+      'Prepare to build and deploy database-backed React applications with AI capabilities',
+    ],
+    featured: false,
+    track: 'web-development',
+    sourcePlatform: 'youtube',
+    sourcePlaylistId: 'PLQl7ZDyS2qk8',
+    sourcePlaylistUrl: 'https://www.youtube.com/playlist?list=PLQl7ZDyS2qk8',
+    modules: [
+      {
+        id: 'mod-mern-foundations',
+        title: 'Module 1: Course Overview & Full-Stack Foundations',
+        description: 'Orientation to the MERN stack curriculum, architecture roadmap, and foundational full-stack setup.',
+        order: 1,
+        lessons: [
+          {
+            id: 'les-mern-course-intro',
+            slug: '01-mern-course-overview',
+            title: '01 MERN Full Stack Course   React Node MongoDB with AI',
+            description: 'Comprehensive introduction and roadmap for the full-stack MERN course covering React, Node.js, Express, MongoDB, and AI integration.',
+            youtubeVideoId: 'fFVZ9xbyBlc',
+            durationMinutes: 24,
+            order: 1,
+            moduleTitle: 'Module 1: Course Overview & Full-Stack Foundations',
+            objectives: [
+              'Understand the full-stack architecture of MERN applications',
+              'Explore the course roadmap covering React, Node.js, MongoDB, and AI enhancements',
+              'Review the project milestones and full-stack development workflow',
+            ],
+            tags: ['mern', 'react', 'node', 'mongodb', 'ai', 'full-stack'],
+            skillsTaught: ['Full-stack architecture overview', 'MERN stack roadmap analysis'],
+          },
+          {
+            id: 'les-mern-foundation-session',
+            slug: '02-fullstack-dev-foundation-session',
+            title: '02 Fullstack dev Live 69Foundation Session',
+            description: 'Live foundation session establishing full-stack development prerequisites, developer workflow, and environment orientation.',
+            youtubeVideoId: 'aqtA2zHURbg',
+            durationMinutes: 26,
+            order: 2,
+            moduleTitle: 'Module 1: Course Overview & Full-Stack Foundations',
+            objectives: [
+              'Set up the foundational full-stack developer environment',
+              'Understand full-stack prerequisites and core tooling',
+              'Prepare workspace for live hands-on coding sessions',
+            ],
+            tags: ['full-stack', 'foundations', 'development-setup', 'javascript'],
+            skillsTaught: ['Development environment configuration', 'Full-stack workflow preparation'],
+          },
+        ],
+      },
+      {
+        id: 'mod-mern-web-basics',
+        title: 'Module 2: Web Basics & Core Technologies',
+        description: 'In-depth exploration of core web building blocks, client-server concepts, and web fundamentals.',
+        order: 2,
+        lessons: [
+          {
+            id: 'les-mern-web-basics',
+            slug: '03-introduction-to-web-basics',
+            title: '03  Fullstack dev Live 69L1Introduction to Web Basics',
+            description: 'Comprehensive deep-dive lecture introducing core web architecture, browser mechanics, and foundational web development concepts.',
+            youtubeVideoId: 'PNQiabb5ZjY',
+            durationMinutes: 119,
+            order: 1,
+            moduleTitle: 'Module 2: Web Basics & Core Technologies',
+            objectives: [
+              'Explore foundational web protocols, browser rendering, and document structure',
+              'Understand client-server interactions in modern web applications',
+              'Establish the technical groundwork for building React frontends and Node.js backends',
+            ],
+            tags: ['web-basics', 'html', 'css', 'javascript', 'http', 'client-server'],
+            skillsTaught: ['Web fundamentals', 'Browser client-server interaction analysis'],
+          },
+        ],
+      },
+    ],
+  },
 ];
-

@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { Course } from '../../types/course';
-import { ArrowLeft, Clock, User, BookOpen, Layers } from 'lucide-react';
+import { ArrowLeft, Clock, User, BookOpen, Layers, ExternalLink } from 'lucide-react';
 import { CourseProgress } from './CourseProgress';
 import { getCourseLessons } from '../../lib/courses';
 
@@ -13,6 +13,13 @@ interface CourseHeaderProps {
 
 export const CourseHeader: React.FC<CourseHeaderProps> = ({ course }) => {
   const lessons = getCourseLessons(course);
+
+  const trackBadgeLabel =
+    course.track === 'web-development'
+      ? 'Web Development'
+      : course.track === 'general-technology'
+      ? 'General Technology'
+      : 'Cybersecurity';
 
   return (
     <div className="space-y-4">
@@ -34,12 +41,13 @@ export const CourseHeader: React.FC<CourseHeaderProps> = ({ course }) => {
             {/* Badges */}
             <div className="flex flex-wrap items-center gap-2">
               <span className="text-xs font-mono px-2 py-0.5 rounded-[4px] bg-[#f4f4f9] text-[#303055] border border-[#e4e4ed] flex items-center gap-1.5 font-medium">
-                <BookOpen className="w-3.5 h-3.5 text-[#6b6b7b]" /> Course
+                <BookOpen className="w-3.5 h-3.5 text-[#6b6b7b]" />
+                {trackBadgeLabel}
               </span>
-              <span className="text-xs font-mono px-2 py-0.5 rounded-[4px] bg-[#f4f4f9] text-[#403f53] border border-[#e4e4ed]">
+              <span className="text-xs font-mono px-2 py-0.5 rounded-[4px] bg-[#f4f4f9] text-[#403f53] border border-[#e4e4ed] capitalize">
                 {course.difficulty}
               </span>
-              {course.domains.map((dom) => (
+              {course.domains && course.domains.map((dom) => (
                 <span
                   key={dom}
                   className="text-xs font-mono px-2 py-0.5 rounded-[4px] bg-[#f4f4f9] text-[#6b6b7b] border border-[#e4e4ed]"
@@ -77,6 +85,23 @@ export const CourseHeader: React.FC<CourseHeaderProps> = ({ course }) => {
                 {course.modules.length} {course.modules.length === 1 ? 'module' : 'modules'} ({lessons.length} lessons)
               </span>
             </div>
+
+            {/* Source Playlist Attribution and External Link */}
+            {course.sourcePlaylistUrl && (
+              <div className="flex flex-wrap items-center gap-3 pt-2 text-xs font-mono">
+                <a
+                  href={course.sourcePlaylistUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-[#303055] hover:text-[#3b61b0] underline transition-colors"
+                >
+                  <ExternalLink className="w-3.5 h-3.5" />
+                  <span>Original YouTube Playlist ({course.sourcePlaylistId})</span>
+                </a>
+                <span className="text-[#6b6b7b]">•</span>
+                <span className="text-[#6b6b7b]">Unlisted Playlist</span>
+              </div>
+            )}
           </div>
 
           {/* Quick Progress summary box on header */}

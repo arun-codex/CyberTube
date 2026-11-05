@@ -38,19 +38,21 @@ export const YouTubePlayer: React.FC<YouTubePlayerProps> = ({ videoId, title, ch
           className="absolute top-0 left-0 w-full h-full border-0"
         />
       </div>
-      {channelName && (
-        <div className="mt-2 text-xs font-mono text-[#6b6b7b] flex items-center justify-between">
+      <div className="mt-2 text-xs font-mono text-[#6b6b7b] flex items-center justify-between">
+        {channelName ? (
           <span>Source: <strong className="text-[#303055] font-medium">{channelName}</strong></span>
-          <a
-            href={`https://www.youtube.com/watch?v=${videoId}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-[#303055] underline transition-colors"
-          >
-            Watch on YouTube
-          </a>
-        </div>
-      )}
+        ) : (
+          <span>YouTube Video</span>
+        )}
+        <a
+          href={`https://www.youtube.com/watch?v=${videoId}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hover:text-[#303055] underline transition-colors"
+        >
+          Watch on YouTube
+        </a>
+      </div>
     </div>
   );
 };

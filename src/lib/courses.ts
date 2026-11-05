@@ -62,8 +62,8 @@ export function getAdjacentLessons(
  */
 export function getRelatedResourcesForLesson(lesson: Lesson, course: Course, limit = 4): Resource[] {
   const allResources = getAllResources();
-  const lessonTags = new Set(lesson.tags.map((t) => t.toLowerCase()));
-  const courseDomains = new Set(course.domains);
+  const lessonTags = new Set((lesson.tags || []).map((t) => t.toLowerCase()));
+  const courseDomains = new Set(course.domains || []);
 
   const scored = allResources.map((res) => {
     let score = 0;
@@ -84,4 +84,3 @@ export function getRelatedResourcesForLesson(lesson: Lesson, course: Course, lim
     .slice(0, limit)
     .map((item) => item.resource);
 }
-

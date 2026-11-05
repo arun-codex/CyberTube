@@ -1,5 +1,10 @@
 import { CybersecurityDomain, DifficultyLevel } from './resource';
 
+export type CourseTrack =
+  | 'cybersecurity'
+  | 'web-development'
+  | 'general-technology';
+
 export interface Lesson {
   id: string; // e.g., 'lesson-intro-wireshark'
   slug: string; // e.g., 'intro-to-wireshark'
@@ -43,6 +48,10 @@ export interface Course {
   learningObjectives: string[];
   modules: CourseModule[];
   featured?: boolean;
+  track?: CourseTrack;
+  sourcePlatform?: 'youtube' | string;
+  sourcePlaylistId?: string;
+  sourcePlaylistUrl?: string;
 }
 
 export interface CourseProgressState {
@@ -52,4 +61,3 @@ export interface CourseProgressState {
   lastActiveLessonId?: string;
   lastAccessedAt: string;
 }
-
