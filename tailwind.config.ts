@@ -9,21 +9,26 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        canvas: '#ffffff',
+        canvas: 'var(--canvas)',
         surface: {
-          DEFAULT: '#e8e8f2',
-          subtle: '#f4f4f9',
-          elevated: '#ffffff',
+          DEFAULT: 'var(--surface)',
+          subtle: 'var(--surface-subtle)',
+          elevated: 'var(--card-bg)',
+        },
+        card: {
+          DEFAULT: 'var(--card-bg)',
+          bg: 'var(--card-bg)',
         },
         border: {
-          DEFAULT: '#e4e4ed',
-          subtle: '#ebebef',
-          strong: '#d2d2dc',
+          DEFAULT: 'var(--border)',
+          subtle: 'var(--border)',
+          strong: 'var(--border-strong)',
         },
         text: {
-          primary: '#303055',
-          secondary: '#403f53',
-          muted: '#767682',
+          DEFAULT: 'var(--text-primary)',
+          primary: 'var(--text-primary)',
+          secondary: 'var(--text-secondary)',
+          muted: 'var(--text-muted)',
         },
         syntax: {
           purple: '#8844ae',
@@ -42,11 +47,11 @@ const config: Config = {
           700: '#252542',
           800: '#1c1c32',
           900: '#141424',
-          dark: '#ffffff',
-          surface: '#f4f4f9',
-          card: '#ffffff',
-          border: '#e4e4ed',
-          hover: '#e8e8f2',
+          dark: 'var(--canvas)',
+          surface: 'var(--surface-subtle)',
+          card: 'var(--card-bg)',
+          border: 'var(--border)',
+          hover: 'var(--surface)',
         },
       },
       fontFamily: {

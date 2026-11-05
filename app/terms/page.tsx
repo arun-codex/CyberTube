@@ -91,7 +91,7 @@ export default function TermsOfServicePage() {
             <li>You agree to provide accurate and truthful profile information.</li>
             <li>You are responsible for maintaining the confidentiality of your session credentials and connected OAuth accounts.</li>
             <li>You accept responsibility for all actions that occur under your account.</li>
-            <li>You agree to notify us immediately at <a href="mailto:support@cybertube.local" className="text-[#0E7490] dark:text-[#22D3EE] underline">support@cybertube.local</a> if you suspect any unauthorized access or security breach involving your account.</li>
+            <li>You agree to notify us immediately at <a href="mailto:privacy@cybertube.org" className="text-[#0E7490] dark:text-[#22D3EE] underline">privacy@cybertube.org</a> if you suspect any unauthorized access or security breach involving your account.</li>
           </ul>
         </section>
 
@@ -184,7 +184,7 @@ export default function TermsOfServicePage() {
           </p>
           <div className="p-4 rounded-lg bg-[#F8FAFC] dark:bg-[#1A2433] space-y-1 text-xs sm:text-sm text-[#475569] dark:text-[#9BA8B7]">
             <p className="text-[#0F172A] dark:text-[#E6EDF3] font-medium">Questions regarding these Terms:</p>
-            <p>Email: <a href="mailto:support@cybertube.local" className="text-[#0E7490] dark:text-[#22D3EE] underline">support@cybertube.local</a> or <a href="mailto:privacy@cybertube.org" className="text-[#0E7490] dark:text-[#22D3EE] underline">privacy@cybertube.org</a></p>
+            <p>Email: <a href="mailto:privacy@cybertube.org" className="text-[#0E7490] dark:text-[#22D3EE] underline">privacy@cybertube.org</a></p>
             <p>GitHub Repository: <a href="https://github.com/arun-codex/CyberTube" target="_blank" rel="noopener noreferrer" className="text-[#0E7490] dark:text-[#22D3EE] underline">github.com/arun-codex/CyberTube</a></p>
           </div>
         </section>
