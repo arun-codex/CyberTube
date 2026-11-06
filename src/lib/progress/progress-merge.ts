@@ -117,3 +117,4 @@ export function mergeVideoProgressRecords(
 
   return merged;
 }
+

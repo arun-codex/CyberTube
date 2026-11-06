@@ -435,6 +435,7 @@ test.describe('Phase 20 — Video Watch Progress, Cloud Sync & Course Catalog Re
       durationSeconds: 3466,
       completionPercentage: 44,
       isCompleted: false,
+      lastWatchedAt: new Date().toISOString(),
     };
 
     const success = await upsertCloudVideoProgress(mockSupabase, mockUserId, testProgress);
@@ -536,6 +537,7 @@ test.describe('Phase 20 — Video Watch Progress, Cloud Sync & Course Catalog Re
       durationSeconds: 3466,
       completionPercentage: 44,
       isCompleted: false,
+      lastWatchedAt: new Date().toISOString(),
     });
 
     expect(cloudDatabaseState.lessonProgress.length).toBe(1);
@@ -596,6 +598,7 @@ test.describe('Phase 20 — Video Watch Progress, Cloud Sync & Course Catalog Re
       durationSeconds: 3466,
       completionPercentage: 44,
       isCompleted: false,
+      lastWatchedAt: new Date().toISOString(),
     });
 
     const userAVideo = getVideoProgressRecord(networkingCourseUuid, 'lesson-1', sampleVideoId);

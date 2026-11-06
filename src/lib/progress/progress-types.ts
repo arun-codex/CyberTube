@@ -63,3 +63,4 @@ export interface ProgressContextValue {
   refreshProgress: () => Promise<void>;
   syncPendingProgress: () => Promise<void>;
 }
+

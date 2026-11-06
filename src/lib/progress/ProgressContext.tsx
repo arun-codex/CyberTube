@@ -630,3 +630,4 @@ export function useAllCoursesProgress() {
     isAuthenticated: ctx.isAuthenticated,
   };
 }
+

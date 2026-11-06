@@ -92,3 +92,4 @@ export function calculateVideoProgress(
     lastWatchedAt: new Date().toISOString(),
   };
 }
+
