@@ -30,14 +30,14 @@ export function toCourseLearningViewModel(course: Course): CourseLearningViewMod
           let videos: NormalizedLessonVideo[] = [];
 
           if (manifestVideos && manifestVideos.length > 0) {
-            videos = manifestVideos.map((r) => ({
+            videos = manifestVideos.map((r, idx) => ({
               videoId: r.videoId,
               title: r.title,
               creator: r.creator,
               durationSeconds: r.durationSeconds,
               difficulty: r.difficulty,
               description: r.description,
-              isPrimary: r.isPrimary,
+              isPrimary: idx === 0,
             }));
           } else if (lesson.youtubeVideoId) {
             // 2. Standard single-video lesson (e.g. Networking for Hackers, Wireshark)
