@@ -25,6 +25,7 @@ export default defineConfig({
     timeout: 120000,
     env: {
       CYBERTUBE_ENABLE_TEST_AUTH: 'true',
+      CYBERTUBE_TEST_AUTH_SECRET: 'playwright-local-ephemeral-secret-9b2f8c7e1a3d',
     },
   },
 });

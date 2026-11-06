@@ -4,76 +4,130 @@ import {
   isTestAuthSimulationAllowed,
   signTestUserPayload,
   verifyAndParseTestUserCookie,
-  DEFAULT_LOCAL_TEST_SECRET,
 } from '../src/lib/testAuthGuard';
 import { NextRequest } from 'next/server';
 import { middleware } from '../middleware';
+import { createClient } from '@supabase/supabase-js';
 
-test('Security Hardening — isTestAuthSimulationAllowed fail-closed rules', () => {
+const EXPLICIT_TEST_SECRET = 'unit-test-secret-explicit-abc123-secure';
+
+test('Security Hardening — isTestAuthSimulationAllowed fail-closed rules & mandatory secret', () => {
   // 1. Default without env is strictly DENIED
   assert.equal(isTestAuthSimulationAllowed({}), false, 'Empty env must fail closed');
 
   // 2. Denied when CYBERTUBE_ENABLE_TEST_AUTH is not 'true'
   assert.equal(
-    isTestAuthSimulationAllowed({ CYBERTUBE_ENABLE_TEST_AUTH: 'false' }),
+    isTestAuthSimulationAllowed({
+      CYBERTUBE_ENABLE_TEST_AUTH: 'false',
+      CYBERTUBE_TEST_AUTH_SECRET: EXPLICIT_TEST_SECRET,
+    }),
     false,
     'Must deny when CYBERTUBE_ENABLE_TEST_AUTH is false'
   );
 
-  // 3. Strictly DENIED on Vercel Production
+  // 3. Denied when CYBERTUBE_TEST_AUTH_SECRET is MISSING (fail closed, no fallback)
   assert.equal(
     isTestAuthSimulationAllowed({
       CYBERTUBE_ENABLE_TEST_AUTH: 'true',
+    }),
+    false,
+    'Must deny when CYBERTUBE_TEST_AUTH_SECRET is missing'
+  );
+
+  // 4. Denied when CYBERTUBE_TEST_AUTH_SECRET is empty string
+  assert.equal(
+    isTestAuthSimulationAllowed({
+      CYBERTUBE_ENABLE_TEST_AUTH: 'true',
+      CYBERTUBE_TEST_AUTH_SECRET: '   ',
+    }),
+    false,
+    'Must deny when CYBERTUBE_TEST_AUTH_SECRET is whitespace'
+  );
+
+  // 5. Strictly DENIED on Vercel Production
+  assert.equal(
+    isTestAuthSimulationAllowed({
+      CYBERTUBE_ENABLE_TEST_AUTH: 'true',
+      CYBERTUBE_TEST_AUTH_SECRET: EXPLICIT_TEST_SECRET,
       VERCEL_ENV: 'production',
     }),
     false,
-    'Must strictly deny on Vercel Production even if opt-in is passed'
+    'Must strictly deny on Vercel Production even if opt-in and secret are provided'
   );
 
-  // 4. Strictly DENIED on Vercel Preview
+  // 6. Strictly DENIED on Vercel Preview
   assert.equal(
     isTestAuthSimulationAllowed({
       CYBERTUBE_ENABLE_TEST_AUTH: 'true',
+      CYBERTUBE_TEST_AUTH_SECRET: EXPLICIT_TEST_SECRET,
       VERCEL_ENV: 'preview',
     }),
     false,
-    'Must strictly deny on Vercel Preview even if opt-in is passed'
+    'Must strictly deny on Vercel Preview even if opt-in and secret are provided'
   );
 
-  // 5. Strictly DENIED on any Vercel deployment (VERCEL === '1')
+  // 7. Strictly DENIED on any Vercel deployment (VERCEL === '1')
   assert.equal(
     isTestAuthSimulationAllowed({
       CYBERTUBE_ENABLE_TEST_AUTH: 'true',
+      CYBERTUBE_TEST_AUTH_SECRET: EXPLICIT_TEST_SECRET,
       VERCEL: '1',
     }),
     false,
     'Must strictly deny whenever VERCEL === 1'
   );
 
-  // 6. Strictly DENIED on Vercel dev deployment
+  // 8. Strictly DENIED on Vercel dev deployment
   assert.equal(
     isTestAuthSimulationAllowed({
       CYBERTUBE_ENABLE_TEST_AUTH: 'true',
+      CYBERTUBE_TEST_AUTH_SECRET: EXPLICIT_TEST_SECRET,
       VERCEL_ENV: 'development',
     }),
     false,
     'Must strictly deny on Vercel dev deployment'
   );
 
-  // 7. Allowed ONLY in explicit local test environment
+  // 9. Allowed ONLY in explicit local test environment with explicit secret
   assert.equal(
     isTestAuthSimulationAllowed({
       CYBERTUBE_ENABLE_TEST_AUTH: 'true',
+      CYBERTUBE_TEST_AUTH_SECRET: EXPLICIT_TEST_SECRET,
     }),
     true,
-    'Must allow only when explicitly enabled in local test environment'
+    'Must allow only when explicitly enabled with secret in local test environment'
+  );
+});
+
+test('Security Hardening — signTestUserPayload throws when secret is missing', async () => {
+  const user = { id: 'test-user', email: 'test@local' };
+  await assert.rejects(
+    async () => {
+      await signTestUserPayload(user, '');
+    },
+    /CYBERTUBE_TEST_AUTH_SECRET must be explicitly provided/,
+    'Must throw when secret is missing'
   );
 });
 
 test('Security Hardening — verifyAndParseTestUserCookie HMAC integrity and anti-forgery', async () => {
-  const localTestEnv = { CYBERTUBE_ENABLE_TEST_AUTH: 'true' };
-  const previewEnv = { CYBERTUBE_ENABLE_TEST_AUTH: 'true', VERCEL_ENV: 'preview' };
-  const prodEnv = { CYBERTUBE_ENABLE_TEST_AUTH: 'true', VERCEL_ENV: 'production' };
+  const localTestEnv = {
+    CYBERTUBE_ENABLE_TEST_AUTH: 'true',
+    CYBERTUBE_TEST_AUTH_SECRET: EXPLICIT_TEST_SECRET,
+  };
+  const previewEnv = {
+    CYBERTUBE_ENABLE_TEST_AUTH: 'true',
+    CYBERTUBE_TEST_AUTH_SECRET: EXPLICIT_TEST_SECRET,
+    VERCEL_ENV: 'preview',
+  };
+  const prodEnv = {
+    CYBERTUBE_ENABLE_TEST_AUTH: 'true',
+    CYBERTUBE_TEST_AUTH_SECRET: EXPLICIT_TEST_SECRET,
+    VERCEL_ENV: 'production',
+  };
+  const missingSecretEnv = {
+    CYBERTUBE_ENABLE_TEST_AUTH: 'true',
+  };
 
   const validUser = {
     id: 'test-user-id-1234',
@@ -82,7 +136,7 @@ test('Security Hardening — verifyAndParseTestUserCookie HMAC integrity and ant
   };
 
   // Valid signature in local test environment parses successfully
-  const signedCookie = await signTestUserPayload(validUser);
+  const signedCookie = await signTestUserPayload(validUser, EXPLICIT_TEST_SECRET);
   const parsed = await verifyAndParseTestUserCookie(signedCookie, localTestEnv);
   assert.deepEqual(parsed, validUser, 'Valid signed cookie must parse in local test environment');
 
@@ -118,11 +172,19 @@ test('Security Hardening — verifyAndParseTestUserCookie HMAC integrity and ant
     null,
     'Signed test cookie must be rejected in Production'
   );
+
+  // Forgery Attempt 5: Missing secret environment
+  assert.equal(
+    await verifyAndParseTestUserCookie(signedCookie, missingSecretEnv),
+    null,
+    'Signed test cookie must be rejected when secret is missing'
+  );
 });
 
 test('Security Hardening — middleware rejects forged test cookies on Preview and Production', async () => {
   const originalVercelEnv = process.env.VERCEL_ENV;
   const originalTestAuth = process.env.CYBERTUBE_ENABLE_TEST_AUTH;
+  const originalSecret = process.env.CYBERTUBE_TEST_AUTH_SECRET;
 
   try {
     const forgedUser = {
@@ -130,11 +192,12 @@ test('Security Hardening — middleware rejects forged test cookies on Preview a
       email: 'attacker@evil.com',
       role: 'authenticated',
     };
-    const signedCookie = await signTestUserPayload(forgedUser);
+    const signedCookie = await signTestUserPayload(forgedUser, EXPLICIT_TEST_SECRET);
 
     // 1. Preview environment test targeting /account
     process.env.VERCEL_ENV = 'preview';
-    process.env.CYBERTUBE_ENABLE_TEST_AUTH = 'true'; // Attacker attempts to spoof env flag
+    process.env.CYBERTUBE_ENABLE_TEST_AUTH = 'true';
+    process.env.CYBERTUBE_TEST_AUTH_SECRET = EXPLICIT_TEST_SECRET;
 
     const previewAccountReq = new NextRequest('https://cybertube-preview.vercel.app/account', {
       headers: {
@@ -210,6 +273,202 @@ test('Security Hardening — middleware rejects forged test cookies on Preview a
   } finally {
     process.env.VERCEL_ENV = originalVercelEnv;
     process.env.CYBERTUBE_ENABLE_TEST_AUTH = originalTestAuth;
+    process.env.CYBERTUBE_TEST_AUTH_SECRET = originalSecret;
   }
 });
 
+function createMockJwt(userId: string = 'test-user-id', expiresInSec: number = 3600): string {
+  const header = Buffer.from(JSON.stringify({ alg: 'HS256', typ: 'JWT' })).toString('base64url');
+  const payload = Buffer.from(
+    JSON.stringify({
+      sub: userId,
+      role: 'authenticated',
+      aud: 'authenticated',
+      exp: Math.floor(Date.now() / 1000) + expiresInSec,
+    })
+  ).toString('base64url');
+  return `${header}.${payload}.mock-sig`;
+}
+
+test('Security Hardening — Supabase JS SDK current-password enforcement & payload verification', async () => {
+  let interceptedPayload: any = null;
+  const mockFetch: typeof fetch = async (input: RequestInfo | URL, init?: RequestInit) => {
+    const urlStr = String(input);
+    if (urlStr.includes('/auth/v1/user') && init?.method === 'GET') {
+      return new Response(
+        JSON.stringify({
+          id: 'test-user-id',
+          email: 'analyst@cybertube.local',
+        }),
+        { status: 200, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+    if (urlStr.includes('/auth/v1/user') && init?.method === 'PUT') {
+      interceptedPayload = JSON.parse(String(init.body));
+      if (interceptedPayload.current_password === 'WrongCurrentPass!') {
+        return new Response(
+          JSON.stringify({
+            code: 'invalid_credentials',
+            message: 'Invalid current password',
+          }),
+          { status: 400, headers: { 'Content-Type': 'application/json' } }
+        );
+      }
+      return new Response(
+        JSON.stringify({
+          id: 'test-user-id',
+          email: 'analyst@cybertube.local',
+        }),
+        { status: 200, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+    return new Response('Not Found', { status: 404 });
+  };
+
+  const client = createClient('https://mock-proj.supabase.co', 'mock-anon-key', {
+    auth: {
+      persistSession: false,
+      autoRefreshToken: false,
+    },
+    global: {
+      fetch: mockFetch,
+    },
+  });
+
+  // Populate active authenticated session with valid JWT structure
+  await client.auth.setSession({
+    access_token: createMockJwt('test-user-id', 3600),
+    refresh_token: 'valid-refresh-token',
+  });
+
+  // 1. Verify invalid current_password is rejected by GoTrue
+  const { data: failData, error: failError } = await client.auth.updateUser({
+    password: 'NewSecurePassword123!',
+    current_password: 'WrongCurrentPass!',
+  });
+  assert.equal(failData.user, null);
+  assert.ok(failError);
+  assert.equal(failError?.message, 'Invalid current password');
+  assert.equal(interceptedPayload.current_password, 'WrongCurrentPass!');
+
+  // 2. Verify valid current_password passes correct payload
+  const { data: okData, error: okError } = await client.auth.updateUser({
+    password: 'NewSecurePassword123!',
+    current_password: 'ValidCurrentPass123!',
+    data: { password_changed_at: '2026-11-06T12:00:00Z' },
+  });
+  assert.equal(okError, null);
+  assert.ok(okData.user);
+  assert.equal(interceptedPayload.current_password, 'ValidCurrentPass123!');
+  assert.equal(interceptedPayload.data.password_changed_at, '2026-11-06T12:00:00Z');
+});
+
+test('Security Hardening — OAuth reauthentication: stale session (>24h) and incorrect OTP reject password update', async () => {
+  let interceptedNonce: string | null = null;
+  const mockFetch: typeof fetch = async (input: RequestInfo | URL, init?: RequestInit) => {
+    const urlStr = String(input);
+
+    if (urlStr.includes('/auth/v1/user') && init?.method === 'GET') {
+      return new Response(
+        JSON.stringify({
+          id: 'test-oauth-user',
+          email: 'oauth.practitioner@cybertube.local',
+        }),
+        { status: 200, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+
+    // Expired reauthentication check
+    if (urlStr.includes('/auth/v1/reauthenticate')) {
+      const authHeader = (init?.headers as any)?.Authorization || '';
+      if (authHeader.includes('stale-token-24h')) {
+        return new Response(
+          JSON.stringify({
+            code: 'session_expired',
+            message: 'Auth session missing!',
+          }),
+          { status: 401, headers: { 'Content-Type': 'application/json' } }
+        );
+      }
+      return new Response(JSON.stringify({}), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+
+    // Password update with OTP nonce check
+    if (urlStr.includes('/auth/v1/user') && init?.method === 'PUT') {
+      const body = JSON.parse(String(init.body));
+      interceptedNonce = body.nonce || null;
+
+      if (body.nonce === '000000' || body.nonce === 'wrong-otp') {
+        return new Response(
+          JSON.stringify({
+            code: 'invalid_otp',
+            message: 'Invalid or expired OTP',
+          }),
+          { status: 400, headers: { 'Content-Type': 'application/json' } }
+        );
+      }
+      return new Response(
+        JSON.stringify({
+          id: 'test-oauth-user',
+          email: 'oauth.practitioner@cybertube.local',
+        }),
+        { status: 200, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+    return new Response('Not Found', { status: 404 });
+  };
+
+  const client = createClient('https://mock-proj.supabase.co', 'mock-anon-key', {
+    auth: {
+      persistSession: false,
+      autoRefreshToken: false,
+    },
+    global: {
+      fetch: mockFetch,
+    },
+  });
+
+  // Populate active authenticated session with valid JWT structure
+  await client.auth.setSession({
+    access_token: createMockJwt('test-oauth-user', 3600),
+    refresh_token: 'valid-oauth-refresh',
+  });
+
+  // 1. Stale session (>24h) attempting reauthenticate
+  const staleClient = createClient('https://mock-proj.supabase.co', 'mock-anon-key', {
+    auth: {
+      persistSession: false,
+      autoRefreshToken: false,
+    },
+    global: {
+      headers: { Authorization: 'Bearer stale-token-24h' },
+      fetch: mockFetch,
+    },
+  });
+
+  const { error: staleReauthError } = await staleClient.auth.reauthenticate();
+  assert.ok(staleReauthError);
+  assert.equal(staleReauthError.message, 'Auth session missing!');
+
+  // 2. Incorrect OTP nonce cannot update password
+  const { data: wrongOtpData, error: wrongOtpError } = await client.auth.updateUser({
+    password: 'NewStrongOAuthPass999!',
+    nonce: '000000',
+  });
+  assert.equal(wrongOtpData.user, null, 'User must be null when OTP is invalid');
+  assert.ok(wrongOtpError, 'Error must be returned for invalid OTP');
+  assert.equal(wrongOtpError.message, 'Invalid or expired OTP');
+  assert.equal(interceptedNonce, '000000');
+
+  // 3. Valid OTP nonce succeeds
+  const { data: okOtpData, error: okOtpError } = await client.auth.updateUser({
+    password: 'NewStrongOAuthPass999!',
+    nonce: '123456',
+  });
+  assert.equal(okOtpError, null);
+  assert.ok(okOtpData.user);
+  assert.equal(interceptedNonce, '123456');
+});

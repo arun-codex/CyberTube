@@ -21,6 +21,8 @@ const OAUTH_USER: MockAuthUser = {
   isOAuthOnly: true,
 };
 
+const PLAYWRIGHT_TEST_AUTH_SECRET = 'playwright-local-ephemeral-secret-9b2f8c7e1a3d';
+
 async function setupAccountMocks(page: Page, targetUser: MockAuthUser = TEST_USER) {
   // Set test user cookie for Server Components & Middleware in test environment
   const mockUserPayload = {
@@ -47,7 +49,7 @@ async function setupAccountMocks(page: Page, targetUser: MockAuthUser = TEST_USE
   await page.context().addCookies([
     {
       name: 'cybertube_test_user',
-      value: await signTestUserPayload(mockUserPayload),
+      value: await signTestUserPayload(mockUserPayload, PLAYWRIGHT_TEST_AUTH_SECRET),
       path: '/',
       domain: 'localhost',
     },

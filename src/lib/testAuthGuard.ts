@@ -4,16 +4,18 @@
  *
  * Test user simulation for Server Components and Middleware may ONLY occur when ALL conditions are met:
  * 1. An explicit opt-in environment variable CYBERTUBE_ENABLE_TEST_AUTH is strictly set to 'true'.
- * 2. The deployment is NOT running on any Vercel environment:
+ * 2. An explicit test authentication secret CYBERTUBE_TEST_AUTH_SECRET is provided (NO default/fallback secret).
+ * 3. The deployment is NOT running on any Vercel environment:
  *    - VERCEL is NOT '1'
  *    - VERCEL_ENV is undefined / empty (strictly forbids 'production', 'preview', and 'development' on Vercel)
- * 3. The cookie includes a valid HMAC-SHA256 signature matching the local test secret.
+ * 4. The cookie includes a valid HMAC-SHA256 signature matching the local test secret.
  *
  * It is strictly FORBIDDEN and DENIED for:
  * - Vercel Production (VERCEL_ENV === 'production')
  * - Vercel Preview (VERCEL_ENV === 'preview')
  * - Any Vercel deployment (VERCEL === '1')
  * - Standard production builds (NODE_ENV === 'production' without CYBERTUBE_ENABLE_TEST_AUTH === 'true')
+ * - Missing CYBERTUBE_TEST_AUTH_SECRET (fails closed)
  * - Missing or ambiguous environment configurations
  */
 
@@ -26,20 +28,23 @@ export interface TestAuthEnvConfig {
   [key: string]: string | undefined;
 }
 
-export const DEFAULT_LOCAL_TEST_SECRET = 'local-playwright-auth-secret-key-2026';
-
 export function isTestAuthSimulationAllowed(env: TestAuthEnvConfig = process.env): boolean {
   // 1. Mandatory opt-in guard: default is strictly DENY
   if (env.CYBERTUBE_ENABLE_TEST_AUTH !== 'true') {
     return false;
   }
 
-  // 2. Strict rejection of ANY Vercel deployment (Production, Preview, or Vercel dev)
+  // 2. Mandatory secret guard: missing or empty secret must FAIL CLOSED (no fallback)
+  if (!env.CYBERTUBE_TEST_AUTH_SECRET || env.CYBERTUBE_TEST_AUTH_SECRET.trim().length === 0) {
+    return false;
+  }
+
+  // 3. Strict rejection of ANY Vercel deployment (Production, Preview, or Vercel dev)
   if (env.VERCEL === '1' || Boolean(env.VERCEL_ENV)) {
     return false;
   }
 
-  // 3. Reject if VERCEL_ENV is any known string
+  // 4. Reject if VERCEL_ENV is any known string
   if (
     env.VERCEL_ENV === 'production' ||
     env.VERCEL_ENV === 'preview' ||
@@ -84,19 +89,23 @@ function constantTimeEqual(a: string, b: string): boolean {
 
 /**
  * Signs a test user payload with HMAC-SHA256 for local test integrity.
+ * Requires an explicit secret; throws if secret is missing or empty.
  */
 export async function signTestUserPayload(
   payload: any,
-  secret: string = process.env.CYBERTUBE_TEST_AUTH_SECRET || DEFAULT_LOCAL_TEST_SECRET
+  secret: string = process.env.CYBERTUBE_TEST_AUTH_SECRET || ''
 ): Promise<string> {
+  if (!secret || secret.trim().length === 0) {
+    throw new Error('CYBERTUBE_TEST_AUTH_SECRET must be explicitly provided; fail-closed.');
+  }
   const json = JSON.stringify(payload);
-  const signature = await computeHmacSha256(json, secret);
+  const signature = await computeHmacSha256(json, secret.trim());
   return JSON.stringify({ payload, signature });
 }
 
 /**
  * Verifies and parses a signed test user cookie value.
- * Returns null if test auth is not allowed or signature is invalid.
+ * Returns null if test auth is not allowed, secret is missing, or signature is invalid.
  */
 export async function verifyAndParseTestUserCookie(
   cookieValue: string | undefined | null,
@@ -109,13 +118,15 @@ export async function verifyAndParseTestUserCookie(
     return null;
   }
 
+  const secret = env.CYBERTUBE_TEST_AUTH_SECRET?.trim();
+  if (!secret) return null;
+
   try {
     const parsed = JSON.parse(cookieValue);
     if (!parsed || typeof parsed !== 'object') return null;
 
     // Check signed wrapper
     if (parsed.payload && typeof parsed.signature === 'string') {
-      const secret = env.CYBERTUBE_TEST_AUTH_SECRET || DEFAULT_LOCAL_TEST_SECRET;
       const expectedSig = await computeHmacSha256(JSON.stringify(parsed.payload), secret);
 
       if (!constantTimeEqual(parsed.signature, expectedSig)) {
