@@ -1,12 +1,11 @@
 /**
  * CyberTube — Theme Management Service
- *
- * Defaults to Dark theme, with accessible Light theme toggle.
+ * next-themes uses the same "theme" storage key by default.
  */
 
 export type Theme = 'dark' | 'light';
 
-const THEME_KEY = 'cybertube_theme_v1';
+const THEME_KEY = 'theme';
 const THEME_EVENT = 'cybertube:theme-changed';
 
 export function getInitialTheme(): Theme {
@@ -15,7 +14,7 @@ export function getInitialTheme(): Theme {
     const saved = localStorage.getItem(THEME_KEY) as Theme | null;
     if (saved === 'dark' || saved === 'light') return saved;
   } catch (e) {}
-  return 'dark'; // Dark default
+  return 'dark';
 }
 
 export function setTheme(theme: Theme): void {
@@ -51,4 +50,3 @@ export function onThemeChange(callback: (theme: Theme) => void): () => void {
     window.removeEventListener(THEME_EVENT, handler);
   };
 }
-
