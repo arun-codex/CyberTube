@@ -1,70 +1,60 @@
 // src/lib/discovery/discovery-types.ts
-// Core types used by the Discover platform backend.
 
-// Types for the Discover platform
-export interface DiscoveryCategory {
-  id: string; // UUID
+export type ContentType = 'article' | 'video' | 'podcast' | 'event' | 'paper' | 'release';
+
+export interface CategorySummary {
+  id: string; // UUID in database, or fallback slug
   slug: string;
   name: string;
-  description?: string;
-  icon?: string;
+  description: string | null;
+  icon: string | null;
   enabled: boolean;
-  created_at: string;
-  updated_at?: string;
+  item_count?: number;
 }
 
-export interface DiscoveryTopic {
-  id: string;
-  category_id: string;
+export interface TopicSummary {
+  id: string; // UUID in database, or fallback slug
+  category_id: string; // category UUID or slug
+  category_slug?: string;
   slug: string;
   name: string;
-  description?: string;
+  description: string | null;
   keywords: string[];
+  priority: number;
   enabled: boolean;
-  created_at: string;
-  updated_at?: string;
 }
 
-export interface DiscoverySource {
+export interface FeedItem {
   id: string;
-  name: string;
-  type: string; // e.g., 'rss', 'github', 'cisa', 'youtube'
-  url: string;
-  enabled: boolean;
-  fetch_interval_minutes: number;
-  last_fetched_at?: string;
-  created_at: string;
-}
-
-export interface DiscoveryItem {
-  id: string;
-  source_id: string;
-  external_id: string;
   title: string;
-  description?: string;
+  description: string | null;
   url: string;
-  thumbnail_url?: string;
+  thumbnail_url: string | null;
   published_at: string;
-  category_id?: string;
-  topic_id?: string;
-  author?: string;
-  content_type?: "article" | "video" | "podcast" | "event";
-  created_at: string;
-  updated_at?: string;
+  category_slug: string | null;
+  category_name?: string | null;
+  topic_slug: string | null;
+  topic_name?: string | null;
+  author: string | null;
+  content_type: ContentType;
+  source_name: string | null;
 }
 
-export interface DiscoveryFeedResponse {
-  items: DiscoveryItem[];
+export interface FeedResponse {
+  items: FeedItem[];
   total: number;
   page: number;
   pageSize: number;
+  hasMore: boolean;
 }
 
-export interface DiscoveryRefreshStatus {
-  sourceId: string;
-  lastFetchedAt?: string;
-  status: "idle" | "running" | "failed";
-  errorMessage?: string;
+export interface DiscoveryStatus {
+  enabled: boolean;
+  automatedRefreshEnabled: boolean;
+  automatedYouTubeDiscoveryEnabled: boolean;
+  allowPaidServices: boolean;
+  lastRefreshAt: string | null;
+  totalCategories: number;
+  totalTopics: number;
+  totalItems: number;
 }
-
-
