@@ -65,17 +65,14 @@ export const LessonVideoSection: React.FC<LessonVideoSectionProps> = ({
   // Case 2: Lesson has a video stream (single or multi-video topic)
   return (
     <div className="space-y-4">
-      {/* 100% Width 16:9 Aspect Ratio Container */}
-      <div className="relative w-full rounded-[8px] overflow-hidden border border-[#e4e4ed] dark:border-[#243044] bg-[#0B1018]">
-        <YouTubePlayer
-          videoId={activeVideo.videoId}
-          title={activeVideo.title}
-          channelName={activeVideo.creator}
-          courseId={courseId}
-          moduleId={activeLesson.moduleId}
-          lessonId={activeLesson.id}
-        />
-      </div>
+      <YouTubePlayer
+        videoId={activeVideo.videoId}
+        title={activeVideo.title}
+        channelName={activeVideo.creator}
+        courseId={courseId}
+        moduleId={activeLesson.moduleId}
+        lessonId={activeLesson.id}
+      />
 
       {/* Standard Video Metadata Bar */}
       <LessonVideoMetadata

@@ -123,15 +123,6 @@ export const LessonVideoMetadata: React.FC<LessonVideoMetadataProps> = ({
               </button>
             </div>
           )}
-
-          <a
-            href={`https://www.youtube.com/watch?v=${activeVideo.videoId}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-[#0E7490] dark:hover:text-[#22D3EE] underline transition-colors"
-          >
-            Watch on YouTube
-          </a>
         </div>
       </div>
     </div>

@@ -378,6 +378,7 @@ export const YouTubePlayer: React.FC<YouTubePlayerProps> = ({
       {/* 16:9 Responsive Player Wrapper */}
       <div
         ref={containerRef}
+        data-testid="youtube-player-container"
         className="relative w-full rounded-[8px] overflow-hidden border border-[#e4e4ed] dark:border-[#243044] bg-[#141424]"
         style={{ paddingBottom: '56.25%' }}
       >
