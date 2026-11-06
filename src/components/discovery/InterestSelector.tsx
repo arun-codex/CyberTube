@@ -1,6 +1,8 @@
+'use client';
+
 // src/components/discovery/InterestSelector.tsx
 import { useEffect, useState } from "react";
-import { useSession } from "@supabase/auth-helpers-react";
+import { createClient } from "@/lib/supabase/client";
 
 interface Topic {
   id: string;
@@ -8,11 +10,35 @@ interface Topic {
 }
 
 export default function InterestSelector() {
-  const session = useSession();
+  const [userId, setUserId] = useState<string | null>(null);
   const [topics, setTopics] = useState<Topic[]>([]);
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  // Check auth state using the project's native Supabase client
+  useEffect(() => {
+    const supabase = createClient();
+    if (!supabase) {
+      setLoading(false);
+      return;
+    }
+
+    supabase.auth.getUser().then(({ data }: { data: any }) => {
+      if (data?.user?.id) {
+        setUserId(data.user.id);
+      }
+      setLoading(false);
+    });
+
+    const { data: authListener } = supabase.auth.onAuthStateChange((_event: any, session: any) => {
+      setUserId(session?.user?.id ?? null);
+    });
+
+    return () => {
+      authListener?.subscription?.unsubscribe();
+    };
+  }, []);
 
   // Fetch available topics
   useEffect(() => {
@@ -29,9 +55,9 @@ export default function InterestSelector() {
     load();
   }, []);
 
-  // Fetch user interests
+  // Fetch user interests if logged in
   useEffect(() => {
-    if (!session?.user?.id) return;
+    if (!userId) return;
     async function load() {
       try {
         const r = await fetch("/api/discover/interests");
@@ -40,15 +66,13 @@ export default function InterestSelector() {
         setSelected(new Set(d.interests ?? []));
       } catch (e: any) {
         setError(e.message);
-      } finally {
-        setLoading(false);
       }
     }
     load();
-  }, [session]);
+  }, [userId]);
 
   const toggle = async (id: string) => {
-    if (!session?.user?.id) {
+    if (!userId) {
       setError("Sign in required to modify interests");
       return;
     }
