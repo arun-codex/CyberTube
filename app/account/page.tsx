@@ -8,6 +8,7 @@ import { AccountSettingsForm } from './AccountSettingsForm';
 import { UserAvatar } from '@/components/ui/UserAvatar';
 import { resolveProfileAvatarUrl } from '@/lib/avatar';
 import { ConnectedAccounts } from '@/components/auth/ConnectedAccounts';
+import { AccountSecuritySection } from '@/components/auth/AccountSecuritySection';
 
 export default async function AccountPage() {
   const supabase = await createClient();
@@ -124,6 +125,17 @@ export default async function AccountPage() {
           userEmail={user.email || ''}
         />
       </div>
+
+      {/* Account Security: Password & Security */}
+      <AccountSecuritySection
+        userEmail={user.email || ''}
+        isOAuthOnly={Boolean(
+          connectedIdentities.length > 0 &&
+          !connectedIdentities.some((i) => i.provider === 'email') &&
+          provider !== 'email'
+        )}
+        lastPasswordChange={user.updated_at || null}
+      />
     </div>
   );
 }

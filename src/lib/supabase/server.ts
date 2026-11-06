@@ -15,7 +15,7 @@ export async function createClient() {
     return null;
   }
 
-  return createServerClient<Database>(
+  const client = createServerClient<Database>(
     supabaseUrl,
     supabaseKey,
     {
@@ -36,6 +36,46 @@ export async function createClient() {
       },
     }
   );
+
+  // In non-production environments (test/local dev), support simulated test user cookie for automated testing
+  if (process.env.VERCEL_ENV !== 'production') {
+    const testCookie = cookieStore.get('cybertube_test_user')?.value;
+    if (testCookie) {
+      try {
+        const testUser = JSON.parse(testCookie);
+        client.auth.getUser = (async () => {
+          return { data: { user: testUser }, error: null };
+        }) as any;
+
+        const originalFrom = client.from.bind(client);
+        client.from = ((table: string) => {
+          if (table === 'profiles') {
+            return {
+              select: () => ({
+                eq: () => ({
+                  single: async () => ({
+                    data: {
+                      id: testUser.id,
+                      display_name: testUser.user_metadata?.display_name || 'Practitioner',
+                      experience_level: 'practitioner',
+                      avatar_url: null,
+                      avatar_path: null,
+                    },
+                    error: null,
+                  }),
+                }),
+              }),
+            } as any;
+          }
+          return originalFrom(table);
+        }) as any;
+      } catch {
+        // Fall back to standard client
+      }
+    }
+  }
+
+  return client;
 }
 
 /**

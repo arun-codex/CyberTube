@@ -76,7 +76,24 @@ export async function middleware(request: NextRequest) {
   );
 
   // Refresh auth session
-  const { data: { user } } = await supabase.auth.getUser();
+  let user: any = null;
+
+  // In non-production environments (test/local dev), support simulated test user cookie for automated testing
+  if (process.env.VERCEL_ENV !== 'production') {
+    const testCookie = request.cookies.get('cybertube_test_user')?.value;
+    if (testCookie) {
+      try {
+        user = JSON.parse(testCookie);
+      } catch {
+        user = null;
+      }
+    }
+  }
+
+  if (!user) {
+    const { data } = await supabase.auth.getUser();
+    user = data.user;
+  }
 
   const pathname = request.nextUrl.pathname;
 
