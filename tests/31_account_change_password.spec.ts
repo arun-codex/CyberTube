@@ -21,7 +21,11 @@ const OAUTH_USER: MockAuthUser = {
   isOAuthOnly: true,
 };
 
-const PLAYWRIGHT_TEST_AUTH_SECRET = 'playwright-local-ephemeral-secret-9b2f8c7e1a3d';
+const PLAYWRIGHT_TEST_AUTH_SECRET = process.env.CYBERTUBE_TEST_AUTH_SECRET;
+
+if (!PLAYWRIGHT_TEST_AUTH_SECRET) {
+  throw new Error('Playwright test auth secret was not initialized by playwright.config.ts');
+}
 
 async function setupAccountMocks(page: Page, targetUser: MockAuthUser = TEST_USER) {
   // Set test user cookie for Server Components & Middleware in test environment
