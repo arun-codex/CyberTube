@@ -4,6 +4,7 @@
 
 @layer base {
   :root {
+    color-scheme: light;
     --canvas: #ffffff;
     --text-primary: #303055;
     --text-secondary: #403f53;
@@ -14,7 +15,7 @@
     --border-strong: #d2d2dc;
     --card-bg: #ffffff;
 
-    /* Semantic Status & Accents */
+    /* Semantic status and accent colors */
     --accent-cyan: #0891b2;
     --accent-beginner: #059669;
     --accent-intermediate: #d97706;
@@ -22,17 +23,18 @@
   }
 
   .dark {
+    color-scheme: dark;
     --canvas: #0B1018;
     --text-primary: #E6EDF3;
-    --text-secondary: #94A3B8;
-    --text-muted: #64748B;
+    --text-secondary: #B7C4D2;
+    --text-muted: #8291A5;
     --surface: #1E293B;
-    --surface-subtle: #121A26;
-    --border: #1E293B;
-    --border-strong: #334155;
+    --surface-subtle: #162131;
+    --border: #273449;
+    --border-strong: #3A4A61;
     --card-bg: #121A26;
 
-    /* Semantic Status & Accents */
+    /* Semantic status and accent colors */
     --accent-cyan: #22D3EE;
     --accent-beginner: #34D399;
     --accent-intermediate: #FBBF24;
@@ -60,6 +62,153 @@
   code, pre, kbd {
     font-family: var(--font-ibm-plex-mono), 'IBM Plex Mono', monospace;
   }
+}
+
+::selection {
+  background: var(--surface);
+  color: var(--text-primary);
+}
+
+/*
+ * Theme compatibility layer
+ * Older routes contain fixed light-theme Tailwind colors. Map those neutral
+ * utilities to the active design tokens so every route follows the same theme.
+ * Keep status/brand colors untouched.
+ */
+.dark [class~="bg-white"],
+.dark [class~="bg-white/95"],
+.dark [class~="bg-white/90"],
+.dark [class~="bg-[#ffffff]"],
+.dark [class~="bg-[#fff]"] {
+  background-color: var(--card-bg) !important;
+}
+
+.dark [class~="bg-[#f4f4f9]"],
+.dark [class~="bg-[#F8FAFC]"],
+.dark [class~="bg-[#f5f5fa]"],
+.dark [class~="bg-slate-50"],
+.dark [class~="bg-gray-50"],
+.dark [class~="bg-zinc-50"] {
+  background-color: var(--surface-subtle) !important;
+}
+
+.dark [class~="bg-[#e8e8f2]"],
+.dark [class~="bg-[#E8E8F2]"],
+.dark [class~="bg-slate-100"],
+.dark [class~="bg-gray-100"],
+.dark [class~="bg-zinc-100"] {
+  background-color: var(--surface) !important;
+}
+
+.dark [class~="text-[#303055]"],
+.dark [class~="text-[#0F172A]"],
+.dark [class~="text-slate-900"],
+.dark [class~="text-gray-900"],
+.dark [class~="text-zinc-900"] {
+  color: var(--text-primary) !important;
+}
+
+.dark [class~="text-[#403f53]"],
+.dark [class~="text-[#475569]"],
+.dark [class~="text-slate-700"],
+.dark [class~="text-slate-600"],
+.dark [class~="text-gray-700"],
+.dark [class~="text-gray-600"],
+.dark [class~="text-zinc-700"],
+.dark [class~="text-zinc-600"] {
+  color: var(--text-secondary) !important;
+}
+
+.dark [class~="text-[#6b6b7b]"],
+.dark [class~="text-[#767682]"],
+.dark [class~="text-slate-500"],
+.dark [class~="text-gray-500"],
+.dark [class~="text-zinc-500"] {
+  color: var(--text-muted) !important;
+}
+
+.dark [class~="border-[#e4e4ed]"],
+.dark [class~="border-[#E2E8F0]"],
+.dark [class~="border-[#ebebef]"],
+.dark [class~="border-slate-200"],
+.dark [class~="border-gray-200"],
+.dark [class~="border-zinc-200"] {
+  border-color: var(--border) !important;
+}
+
+.dark [class~="border-[#d2d2dc]"],
+.dark [class~="border-slate-300"],
+.dark [class~="border-gray-300"],
+.dark [class~="border-zinc-300"] {
+  border-color: var(--border-strong) !important;
+}
+
+.dark [class~="hover:bg-[#f4f4f9]"]:hover,
+.dark [class~="hover:bg-[#F8FAFC]"]:hover,
+.dark [class~="hover:bg-slate-50"]:hover,
+.dark [class~="hover:bg-gray-50"]:hover {
+  background-color: var(--surface-subtle) !important;
+}
+
+.dark [class~="hover:bg-[#e8e8f2]"]:hover,
+.dark [class~="hover:bg-slate-100"]:hover,
+.dark [class~="hover:bg-gray-100"]:hover {
+  background-color: var(--surface) !important;
+}
+
+/* Normalize existing dark-specific neutral utilities to the same palette. */
+.dark [class~="dark:bg-[#0e0e17]"],
+.dark [class~="dark:bg-[#0B1018]"] {
+  background-color: var(--canvas) !important;
+}
+
+.dark [class~="dark:bg-[#141422]"],
+.dark [class~="dark:bg-[#141424]"],
+.dark [class~="dark:bg-[#121A26]"],
+.dark [class~="dark:bg-[#1c1c2c]"] {
+  background-color: var(--card-bg) !important;
+}
+
+.dark [class~="dark:bg-[#1e1e30]"],
+.dark [class~="dark:bg-[#252538]"] {
+  background-color: var(--surface) !important;
+}
+
+.dark [class~="dark:border-[#26263b]"],
+.dark [class~="dark:border-[#2e2e42]"],
+.dark [class~="dark:border-[#243044]"] {
+  border-color: var(--border) !important;
+}
+
+.dark [class~="dark:border-[#383854]"] {
+  border-color: var(--border-strong) !important;
+}
+
+.dark [class~="dark:text-[#f0f0f8]"],
+.dark [class~="dark:text-[#e8e8f2]"],
+.dark [class~="dark:text-[#E6EDF3]"] {
+  color: var(--text-primary) !important;
+}
+
+.dark [class~="dark:text-[#c0c0d4]"],
+.dark [class~="dark:text-[#94A3B8]"],
+.dark [class~="dark:text-[#9BA8B7]"] {
+  color: var(--text-secondary) !important;
+}
+
+.dark [class~="dark:text-[#a0a0b8]"],
+.dark [class~="dark:text-[#8c8ca6]"],
+.dark [class~="dark:text-[#64748B]"] {
+  color: var(--text-muted) !important;
+}
+
+.dark [class~="dark:hover:bg-[#141422]"]:hover,
+.dark [class~="dark:hover:bg-[#1c1c2c]"]:hover {
+  background-color: var(--card-bg) !important;
+}
+
+.dark [class~="dark:hover:bg-[#252538]"]:hover {
+  background-color: var(--surface) !important;
 }
 
 /* Custom crisp scrollbars */
