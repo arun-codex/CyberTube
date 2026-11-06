@@ -39,6 +39,131 @@ interface CourseLearningExperienceProps {
   initialLessonSlug?: string;
 }
 
+
+const PACKET_FORENSICS_MASTERCLASSES = [
+  {
+    videoId: 'e_dsGhvq9CU',
+    title: 'Advanced Wireshark Network Forensics — Part 1/3',
+    focus: 'Start an unfamiliar PCAP investigation: triage, host discovery, and conversation analysis.',
+  },
+  {
+    videoId: 'ZJZlRGLN2_s',
+    title: 'Advanced Wireshark Network Forensics — Part 2/3',
+    focus: 'Investigate malware activity using packet captures and reconstruct a host activity timeline.',
+  },
+  {
+    videoId: 'HR_sLcW4xz0',
+    title: 'Advanced Wireshark Network Forensics — Part 3/3',
+    focus: 'Investigate DoS activity, reconnaissance, FTP authentication, and file transfers.',
+  },
+] as const;
+
+interface PacketForensicsVideoLibraryProps {
+  activeVideoId?: string;
+}
+
+const PacketForensicsVideoLibrary: React.FC<PacketForensicsVideoLibraryProps> = ({
+  activeVideoId,
+}) => {
+  const [selectedVideoId, setSelectedVideoId] = useState<string>(() => {
+    return (
+      PACKET_FORENSICS_MASTERCLASSES.find((video) => video.videoId === activeVideoId)?.videoId ||
+      PACKET_FORENSICS_MASTERCLASSES[0].videoId
+    );
+  });
+
+  useEffect(() => {
+    if (
+      activeVideoId &&
+      PACKET_FORENSICS_MASTERCLASSES.some((video) => video.videoId === activeVideoId)
+    ) {
+      setSelectedVideoId(activeVideoId);
+    }
+  }, [activeVideoId]);
+
+  const selectedVideo =
+    PACKET_FORENSICS_MASTERCLASSES.find((video) => video.videoId === selectedVideoId) ||
+    PACKET_FORENSICS_MASTERCLASSES[0];
+
+  return (
+    <section
+      data-testid="course-video-library"
+      className="rounded-[8px] border border-[#e4e4ed] dark:border-[#243044] bg-[#f8fafc] dark:bg-[#0B1320] p-4 sm:p-5 space-y-4"
+    >
+      <div className="flex flex-wrap items-start justify-between gap-3 border-b border-[#e2e8f0] dark:border-[#243044] pb-3">
+        <div className="space-y-1">
+          <p className="font-mono text-[10px] uppercase tracking-wider font-semibold text-[#0E7490] dark:text-[#22D3EE]">
+            In-course video player
+          </p>
+          <h3 className="text-sm font-semibold text-[#303055] dark:text-[#E6EDF3]">
+            Official Netsec Explained Masterclasses
+          </h3>
+          <p className="text-xs text-[#64748B] dark:text-[#9BA8B7] leading-relaxed">
+            All three verified course videos play here inside CyberTube. Choose a part without opening the YouTube channel.
+          </p>
+        </div>
+        <span className="shrink-0 rounded-[4px] border border-[#bae6fd] dark:border-[#155e75] bg-[#e0f2fe] dark:bg-[#0c3445] px-2 py-1 text-[10px] font-mono text-[#075985] dark:text-[#67e8f9]">
+          3 embedded videos
+        </span>
+      </div>
+
+      <div className="grid grid-cols-1 xl:grid-cols-[minmax(0,1.55fr)_minmax(240px,0.9fr)] gap-4 items-start">
+        <div className="min-w-0">
+          <YouTubePlayer
+            videoId={selectedVideo.videoId}
+            title={selectedVideo.title}
+            channelName="Netsec Explained"
+          />
+        </div>
+
+        <div className="space-y-2" aria-label="Choose a masterclass video">
+          {PACKET_FORENSICS_MASTERCLASSES.map((video, index) => {
+            const isSelected = selectedVideoId === video.videoId;
+            return (
+              <button
+                key={video.videoId}
+                type="button"
+                data-testid={'masterclass-video-option-' + video.videoId}
+                aria-pressed={isSelected}
+                onClick={() => setSelectedVideoId(video.videoId)}
+                className={
+                  'w-full rounded-[6px] border p-3 text-left transition-colors ' +
+                  (isSelected
+                    ? 'border-[#0E7490] dark:border-[#22D3EE] bg-[#e0f2fe] dark:bg-[#0c3445]'
+                    : 'border-[#e2e8f0] dark:border-[#243044] bg-white dark:bg-[#121A26] hover:border-[#94a3b8] dark:hover:border-[#3b526e]')
+                }
+              >
+                <div className="flex items-center justify-between gap-2 mb-1">
+                  <span className="font-mono text-[10px] uppercase tracking-wider text-[#0E7490] dark:text-[#22D3EE]">
+                    Part {index + 1} of 3
+                  </span>
+                  {isSelected && (
+                    <span className="text-[10px] font-semibold text-[#075985] dark:text-[#67e8f9]">
+                      Selected
+                    </span>
+                  )}
+                </div>
+                <span className="block text-xs font-semibold text-[#303055] dark:text-[#E6EDF3] leading-snug">
+                  {video.title}
+                </span>
+                <span className="block mt-1 text-[11px] text-[#64748B] dark:text-[#9BA8B7] leading-relaxed">
+                  {video.focus}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      <p className="text-[11px] text-[#64748B] dark:text-[#9BA8B7] leading-relaxed">
+        {activeVideoId
+          ? 'The video assigned to this lesson is selected automatically. You can switch to either of the other masterclasses above.'
+          : 'This lesson is a theory/lab lesson and has no dedicated video in the supplied 37-lesson curriculum. The complete three-part masterclass series remains playable above.'}
+      </p>
+    </section>
+  );
+};
+
 export const CourseLearningExperience: React.FC<CourseLearningExperienceProps> = ({
   course,
   initialLessonSlug,
@@ -255,47 +380,47 @@ export const CourseLearningExperience: React.FC<CourseLearningExperienceProps> =
         {/* Left Column (Desktop 8 / Mobile full): Video/Theory Header + Content */}
         <div className="lg:col-span-8 space-y-6">
           <div className="rounded-[8px] border border-[#e4e4ed] dark:border-[#243044] bg-white dark:bg-[#121A26] p-4 sm:p-6 space-y-5">
-            {/* Embedded YouTube Player OR Interactive Theory Banner */}
-            {activeLesson.youtubeVideoId ? (
-              <YouTubePlayer
-                videoId={activeLesson.youtubeVideoId}
-                title={activeLesson.title}
-                channelName={course.instructor.name}
-              />
-            ) : (
-              <div
-                data-testid="theory-lesson-banner"
-                className="rounded-[8px] border border-[#e4e4ed] dark:border-[#243044] bg-gradient-to-br from-[#f8fafc] to-[#f1f5f9] dark:from-[#0b1320] dark:to-[#162234] p-6 sm:p-8 space-y-4"
-              >
-                <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#e2e8f0] dark:border-[#243044] pb-4">
-                  <div className="flex items-center gap-3">
-                    <div className="p-2.5 rounded-[6px] bg-[#0E7490]/10 dark:bg-[#22D3EE]/10 text-[#0E7490] dark:text-[#22D3EE]">
-                      <BookOpen className="w-6 h-6" />
-                    </div>
-                    <div>
-                      <span className="font-mono text-xs uppercase tracking-wider text-[#0E7490] dark:text-[#22D3EE] font-semibold">
-                        Forensics Curriculum & Practical Lab Guide
-                      </span>
-                      <div className="text-xs text-[#64748B] dark:text-[#94A3B8]">
-                        Estimated Duration: {activeLesson.durationMinutes} mins
+            {/* Embedded lesson video library + theory/lab guide */}
+            <div className="space-y-4">
+              {!activeLesson.youtubeVideoId && (
+                <div
+                  data-testid="theory-lesson-banner"
+                  className="rounded-[8px] border border-[#e4e4ed] dark:border-[#243044] bg-gradient-to-br from-[#f8fafc] to-[#f1f5f9] dark:from-[#0b1320] dark:to-[#162234] p-5 sm:p-6 space-y-3"
+                >
+                  <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#e2e8f0] dark:border-[#243044] pb-3">
+                    <div className="flex items-center gap-3">
+                      <div className="p-2.5 rounded-[6px] bg-[#0E7490]/10 dark:bg-[#22D3EE]/10 text-[#0E7490] dark:text-[#22D3EE]">
+                        <BookOpen className="w-6 h-6" />
+                      </div>
+                      <div>
+                        <span className="font-mono text-xs uppercase tracking-wider text-[#0E7490] dark:text-[#22D3EE] font-semibold">
+                          Forensics Curriculum & Practical Lab Guide
+                        </span>
+                        <div className="text-xs text-[#64748B] dark:text-[#94A3B8]">
+                          Estimated Duration: {activeLesson.durationMinutes} mins
+                        </div>
                       </div>
                     </div>
+                    <span className="rounded-[4px] border border-[#bae6fd] dark:border-[#155e75] bg-[#e0f2fe] dark:bg-[#0c3445] px-2 py-1 text-[10px] font-mono text-[#075985] dark:text-[#67e8f9]">
+                      Theory + practical lesson
+                    </span>
                   </div>
-                  <a
-                    href="https://www.youtube.com/@NetsecExplained"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[6px] bg-[#dc2626]/10 hover:bg-[#dc2626]/20 text-[#dc2626] dark:text-[#ef4444] text-xs font-medium transition-colors"
-                  >
-                    <span>Netsec Explained Series</span>
-                    <ExternalLink className="w-3.5 h-3.5" />
-                  </a>
+                  <div className="text-sm text-[#475569] dark:text-[#9BA8B7] leading-relaxed">
+                    This lesson is built around original protocol theory, packet disassembly, and Wireshark exercises. Its dedicated video field is empty, so the official three-part Netsec Explained masterclass is available in the in-page player below instead of sending you to the channel.
+                  </div>
                 </div>
-                <div className="text-sm text-[#475569] dark:text-[#9BA8B7] leading-relaxed">
-                  This masterclass lesson is focused on protocol theory, packet disassembly, and Wireshark filter workflows. Study the detailed technical breakdown below, experiment with the display filters, and verify your findings in the assessed lab.
-                </div>
-              </div>
-            )}
+              )}
+
+              {course.id === 'course-packet-analysis-wireshark' ? (
+                <PacketForensicsVideoLibrary activeVideoId={activeLesson.youtubeVideoId} />
+              ) : activeLesson.youtubeVideoId ? (
+                <YouTubePlayer
+                  videoId={activeLesson.youtubeVideoId}
+                  title={activeLesson.title}
+                  channelName={course.instructor.name}
+                />
+              ) : null}
+            </div>
 
             {/* Ethical and Safety Lab Notice */}
             {(course.slug === 'wireshark-and-ethical-hacking' || course.domains.includes('network-security')) && (
