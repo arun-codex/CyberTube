@@ -42,7 +42,7 @@ export const LessonVideoSection: React.FC<LessonVideoSectionProps> = ({
             </div>
             <div>
               <span className="font-mono text-xs uppercase tracking-wider text-[#0E7490] dark:text-[#22D3EE] font-semibold">
-                Curriculum & Practical Lab Guide
+                Forensics Curriculum & Practical Lab Guide
               </span>
               <div className="text-xs text-[#64748B] dark:text-[#94A3B8]">
                 Estimated Duration: {activeLesson.durationMinutes} mins

@@ -97,3 +97,4 @@ export const CurriculumLesson: React.FC<CurriculumLessonProps> = ({
     </div>
   );
 };
+

@@ -98,3 +98,4 @@ export const CourseLearningHeader: React.FC<CourseLearningHeaderProps> = ({ cour
     </div>
   );
 };
+

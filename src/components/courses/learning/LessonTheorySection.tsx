@@ -20,3 +20,4 @@ export const LessonTheorySection: React.FC<LessonTheorySectionProps> = ({
     </div>
   );
 };
+

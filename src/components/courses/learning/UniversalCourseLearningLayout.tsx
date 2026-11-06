@@ -77,7 +77,10 @@ export const UniversalCourseLearningLayout: React.FC<UniversalCourseLearningLayo
 
   // Active lesson lookup
   const activeLesson: NormalizedLesson | undefined = useMemo(() => {
-    return allLessons.find((l) => l.slug === activeLessonSlug) || allLessons[0];
+    return (
+      allLessons.find((l) => l.slug === activeLessonSlug || l.id === activeLessonSlug) ||
+      allLessons[0]
+    );
   }, [allLessons, activeLessonSlug]);
 
   // Synchronize active lesson with cloud progress and reset selected video
@@ -233,28 +236,41 @@ export const UniversalCourseLearningLayout: React.FC<UniversalCourseLearningLayo
           />
         }
       >
-        {/* 1. Main Video Player Area (100% width of 70% column, 16:9 ratio) */}
-        <LessonVideoSection
-          courseId={course.courseId}
-          activeLesson={activeLesson}
-          activeVideo={activeVideo}
-          currentIndex={currentIndex}
-          videoProgress={activeVideoProgress}
-          onToggleWatched={handleToggleVideoWatched}
-          onPrevVideo={handlePrevVideo}
-          onNextVideo={handleNextVideo}
-        />
-
-        {/* 2. Video Resource Library (Placed BELOW primary player) */}
-        {activeLesson.videos && activeLesson.videos.length > 0 && (
-          <LessonResourceLibrary
-            videos={activeLesson.videos}
-            selectedVideoId={activeVideo?.videoId || ''}
-            onSelectVideo={handleSelectVideo}
-            videoProgressMap={videoProgressMap}
+        {/* 1 & 2. Main Video Player Area & Supplemental Resource Library */}
+        {activeLesson.videos && activeLesson.videos.length > 0 ? (
+          <div data-testid="lesson-video-resources" className="space-y-6">
+            <LessonVideoSection
+              courseId={course.courseId}
+              activeLesson={activeLesson}
+              activeVideo={activeVideo}
+              currentIndex={currentIndex}
+              videoProgress={activeVideoProgress}
+              onToggleWatched={handleToggleVideoWatched}
+              onPrevVideo={handlePrevVideo}
+              onNextVideo={handleNextVideo}
+            />
+            {activeLesson.videos.length > 1 && (
+              <LessonResourceLibrary
+                videos={activeLesson.videos}
+                selectedVideoId={activeVideo?.videoId || ''}
+                onSelectVideo={handleSelectVideo}
+                videoProgressMap={videoProgressMap}
+                onToggleWatched={handleToggleVideoWatched}
+                lessonTitle={activeLesson.title}
+                moduleTitle={activeLesson.moduleTitle}
+              />
+            )}
+          </div>
+        ) : (
+          <LessonVideoSection
+            courseId={course.courseId}
+            activeLesson={activeLesson}
+            activeVideo={activeVideo}
+            currentIndex={currentIndex}
+            videoProgress={activeVideoProgress}
             onToggleWatched={handleToggleVideoWatched}
-            lessonTitle={activeLesson.title}
-            moduleTitle={activeLesson.moduleTitle}
+            onPrevVideo={handlePrevVideo}
+            onNextVideo={handleNextVideo}
           />
         )}
 

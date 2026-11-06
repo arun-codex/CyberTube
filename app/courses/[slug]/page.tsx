@@ -36,7 +36,7 @@ export default async function CourseDetailPage({ params, searchParams }: CourseD
 
   const allLessons = getCourseLessons(course);
   const activeLessonSlug = resolvedSearchParams?.lesson || allLessons[0]?.slug;
-  const activeLesson = allLessons.find((l) => l.slug === activeLessonSlug) || allLessons[0];
+  const activeLesson = allLessons.find((l) => l.slug === activeLessonSlug || l.id === activeLessonSlug) || allLessons[0];
 
   return (
     <CourseLearningExperience

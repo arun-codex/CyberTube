@@ -30,7 +30,7 @@ export const LessonResourceLibrary: React.FC<LessonResourceLibraryProps> = ({
 
   return (
     <section
-      data-testid="lesson-video-resources"
+      data-testid="lesson-resource-library"
       className="rounded-[8px] border border-[#e4e4ed] dark:border-[#243044] bg-[#f8fafc] dark:bg-[#0B1320] p-5 sm:p-6 space-y-4"
     >
       {/* Section Header */}
@@ -126,7 +126,7 @@ export const LessonResourceLibrary: React.FC<LessonResourceLibraryProps> = ({
                 <div className="flex items-center gap-2">
                   <button
                     type="button"
-                    data-testid={`toggle-video-watched-${video.videoId}`}
+                    data-testid={`topic-card-toggle-watched-${video.videoId}`}
                     onClick={(e) => {
                       e.stopPropagation();
                       onToggleWatched(video);
@@ -165,3 +165,4 @@ export const LessonResourceLibrary: React.FC<LessonResourceLibraryProps> = ({
     </section>
   );
 };
+

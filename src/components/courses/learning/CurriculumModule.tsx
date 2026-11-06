@@ -98,3 +98,4 @@ export const CurriculumModule: React.FC<CurriculumModuleProps> = ({
     </div>
   );
 };
+

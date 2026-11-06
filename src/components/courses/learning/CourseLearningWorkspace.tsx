@@ -25,3 +25,4 @@ export const CourseLearningWorkspace: React.FC<CourseLearningWorkspaceProps> = (
     </div>
   );
 };
+

@@ -27,3 +27,4 @@ export const LessonObjectives: React.FC<LessonObjectivesProps> = ({ objectives }
     </div>
   );
 };
+

@@ -25,7 +25,7 @@ export const CourseLearningExperience: React.FC<CourseLearningExperienceProps> =
 
   const allLessons = getCourseLessons(course);
   const activeLesson =
-    allLessons.find((l) => l.slug === initialLessonSlug) || allLessons[0];
+    allLessons.find((l) => l.slug === initialLessonSlug || l.id === initialLessonSlug) || allLessons[0];
   const relatedResources = activeLesson
     ? getRelatedResourcesForLesson(activeLesson, course, 3)
     : [];

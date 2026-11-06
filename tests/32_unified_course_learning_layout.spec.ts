@@ -151,7 +151,7 @@ test.describe('CYBERTUBE PHASE 21 — UNIVERSAL COURSE LEARNING EXPERIENCE', () 
       await page.waitForLoadState('domcontentloaded');
 
       const player = page.locator('[data-testid="youtube-player-container"]').first();
-      const resourceLibrary = page.locator('[data-testid="lesson-video-resources"]');
+      const resourceLibrary = page.locator('[data-testid="lesson-resource-library"]');
 
       await expect(player).toBeVisible();
       await expect(resourceLibrary).toBeVisible();
@@ -187,8 +187,8 @@ test.describe('CYBERTUBE PHASE 21 — UNIVERSAL COURSE LEARNING EXPERIENCE', () 
 
     test('Procedural theory lesson cleanly displays theory banner without broken player', async ({ page }) => {
       await page.setViewportSize({ width: 1440, height: 900 });
-      // Lesson without external video
-      await page.goto(`/courses/${forensicsSlug}?lesson=packet-carving-forensics-workflow`);
+      // Lesson without external video (Module 07 Lesson 1: Evidence Admissibility)
+      await page.goto(`/courses/${forensicsSlug}?lesson=evidence-admissibility-chain-of-custody`);
       await page.waitForLoadState('domcontentloaded');
 
       const theoryBanner = page.locator('[data-testid="theory-lesson-banner"]');

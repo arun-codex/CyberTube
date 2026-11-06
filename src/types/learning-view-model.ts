@@ -63,3 +63,4 @@ export interface CourseLearningViewModel {
   domains: string[];
   track?: string;
 }
+

@@ -17,3 +17,4 @@ export const LessonLabSection: React.FC<LessonLabSectionProps> = ({ lab, courseI
     </div>
   );
 };
+
