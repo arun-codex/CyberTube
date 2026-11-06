@@ -14,6 +14,8 @@
     --border: #e4e4ed;
     --border-strong: #d2d2dc;
     --card-bg: #ffffff;
+
+    /* Semantic status and accent colors */
     --accent-cyan: #0891b2;
     --accent-beginner: #059669;
     --accent-intermediate: #d97706;
@@ -31,6 +33,8 @@
     --border: #273449;
     --border-strong: #3A4A61;
     --card-bg: #121A26;
+
+    /* Semantic status and accent colors */
     --accent-cyan: #22D3EE;
     --accent-beginner: #34D399;
     --accent-intermediate: #FBBF24;
@@ -65,7 +69,12 @@
   color: var(--text-primary);
 }
 
-/* Compatibility for older pages that still use fixed light neutral Tailwind classes. */
+/*
+ * Theme compatibility layer
+ * Older routes contain fixed light-theme Tailwind colors. Map those neutral
+ * utilities to the active design tokens so every route follows the same theme.
+ * Keep status/brand colors untouched.
+ */
 .dark [class~="bg-white"],
 .dark [class~="bg-white/95"],
 .dark [class~="bg-white/90"],
@@ -147,7 +156,7 @@
   background-color: var(--surface) !important;
 }
 
-/* Keep all pre-existing dark neutral variants on the same global palette. */
+/* Normalize existing dark-specific neutral utilities to the same palette. */
 .dark [class~="dark:bg-[#0e0e17]"],
 .dark [class~="dark:bg-[#0B1018]"] {
   background-color: var(--canvas) !important;
@@ -202,6 +211,7 @@
   background-color: var(--surface) !important;
 }
 
+/* Custom crisp scrollbars */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
