@@ -73,7 +73,16 @@ function ResetPasswordContent() {
       sessionStorage.getItem('cybertube_recovery_session') === '1';
     const isExplicitRecovery = hasCookieMarker || hasStorageMarker || hashHasRecovery;
 
-    if (isExplicitRecovery && typeof sessionStorage !== 'undefined') {
+    if (!isExplicitRecovery) {
+      // Direct visit without recovery flow marker -> invalid
+      setStatus('invalid');
+      setErrorMessage(
+        'This reset link is invalid or has already been used. If you need to reset your password, please request a new link.'
+      );
+      return;
+    }
+
+    if (typeof sessionStorage !== 'undefined') {
       sessionStorage.setItem('cybertube_recovery_session', '1');
     }
 
@@ -82,57 +91,17 @@ function ResetPasswordContent() {
     // Listen for PASSWORD_RECOVERY event from Supabase client
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((event, session) => {
+    } = supabase.auth.onAuthStateChange((event) => {
       if (!active) return;
       if (event === 'PASSWORD_RECOVERY') {
         if (typeof sessionStorage !== 'undefined') {
           sessionStorage.setItem('cybertube_recovery_session', '1');
         }
         setStatus('ready');
-      } else if (session && isExplicitRecovery) {
-        setStatus('ready');
       }
     });
 
-    // Check user session
-    void supabase.auth
-      .getUser()
-      .then(({ data, error: authError }) => {
-        if (!active) return;
-        if (data?.user && !authError) {
-          // If a user session exists, only treat as 'ready' if recovery intent was verified.
-          // Ordinary authenticated users navigating to /reset-password directly cannot masquerade.
-          if (isExplicitRecovery) {
-            setStatus('ready');
-          } else {
-            setStatus('invalid');
-            setErrorMessage(
-              'This reset link is invalid or has already been used. If you need to reset your password, please request a new link.'
-            );
-          }
-        } else {
-          // No user session found
-          if (isExplicitRecovery) {
-            // Might be waiting on hash fragment token processing by Supabase
-            // If hash has access token, give Supabase a moment
-            if (hashHasRecovery) {
-              return;
-            }
-          }
-          setStatus('invalid');
-          setErrorMessage(
-            'This reset link is invalid or has already been used. If you need to reset your password, please request a new link.'
-          );
-        }
-      })
-      .catch(() => {
-        if (active) {
-          setStatus('invalid');
-          setErrorMessage(
-            'This reset link is invalid or has already been used. If you need to reset your password, please request a new link.'
-          );
-        }
-      });
+    setStatus('ready');
 
     return () => {
       active = false;

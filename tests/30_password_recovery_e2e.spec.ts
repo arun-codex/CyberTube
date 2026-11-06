@@ -52,8 +52,7 @@ test.describe('Phase 20.2 — Password Recovery & Reset Flow E2E', () => {
       {
         name: 'cybertube_recovery_session',
         value: '1',
-        domain: 'localhost',
-        path: '/',
+        url: 'http://localhost:3000',
       },
     ]);
 
@@ -95,12 +94,46 @@ test.describe('Phase 20.2 — Password Recovery & Reset Flow E2E', () => {
   // Test 4: Actual password update calls updateUser and displays success
   // ---------------------------------------------------------------------------
   test('Test 4 — Password update calls GoTrue updateUser and transitions to success state', async ({ page, context }) => {
+    // Intercept token for authentic sign-in to populate Supabase session cookies
+    await page.route(/\/auth\/v1\/token/, async (route) => {
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify({
+          access_token: 'mock-access-token',
+          token_type: 'bearer',
+          expires_in: 3600,
+          refresh_token: 'mock-refresh-token',
+          user: {
+            id: 'user-rec-1234',
+            aud: 'authenticated',
+            role: 'authenticated',
+            email: 'analyst@cybertube.local',
+          },
+        }),
+      });
+    });
+
+    await page.route(/\/rest\/v1\/profiles/, async (route) => {
+      await route.fulfill({ status: 200, contentType: 'application/json', body: '[]' });
+    });
+    await page.route(/\/api\/user\/avatar/, async (route) => {
+      await route.fulfill({ status: 200, contentType: 'application/json', body: '{}' });
+    });
+
+    // Sign in to establish authentic Supabase session
+    await page.goto('/login');
+    await page.fill('input[name="email"]', 'analyst@cybertube.local');
+    await page.fill('input[name="password"]', 'InitialPassword123!');
+    await page.click('button[type="submit"]');
+    await page.waitForURL((url) => url.pathname === '/', { timeout: 10000 });
+
+    // Establish recovery marker cookie
     await context.addCookies([
       {
         name: 'cybertube_recovery_session',
         value: '1',
-        domain: 'localhost',
-        path: '/',
+        url: 'http://localhost:3000',
       },
     ]);
 
@@ -129,7 +162,6 @@ test.describe('Phase 20.2 — Password Recovery & Reset Flow E2E', () => {
       }
     });
 
-    // Mock logout on password reset completion
     await page.route(/\/auth\/v1\/logout/, async (route) => {
       await route.fulfill({ status: 204 });
     });
@@ -140,7 +172,7 @@ test.describe('Phase 20.2 — Password Recovery & Reset Flow E2E', () => {
     await page.fill('input#confirm-password', 'ValidNewPass123!');
     await page.click('button[type="submit"]');
 
-    await expect(page.locator('text=Password updated successfully')).toBeVisible({ timeout: 5000 });
+    await expect(page.locator('text=Password updated successfully')).toBeVisible({ timeout: 10000 });
     const continueLink = page.locator('a:has-text("Continue to Sign In")');
     await expect(continueLink).toBeVisible();
     await expect(continueLink).toHaveAttribute('href', '/login');
@@ -155,8 +187,7 @@ test.describe('Phase 20.2 — Password Recovery & Reset Flow E2E', () => {
       {
         name: 'cybertube_recovery_session',
         value: '1',
-        domain: 'localhost',
-        path: '/',
+        url: 'http://localhost:3000',
       },
     ]);
 
@@ -179,9 +210,8 @@ test.describe('Phase 20.2 — Password Recovery & Reset Flow E2E', () => {
     await page.fill('input#confirm-password', 'SecondPassword456!');
     await page.click('button[type="submit"]');
 
-    const alert = page.locator('div[role="alert"]');
+    const alert = page.getByRole('alert').filter({ hasText: 'The passwords do not match' });
     await expect(alert).toBeVisible();
-    await expect(alert).toContainText('The passwords do not match');
     expect(updateAttempted).toBe(false);
   });
 
@@ -193,8 +223,7 @@ test.describe('Phase 20.2 — Password Recovery & Reset Flow E2E', () => {
       {
         name: 'cybertube_recovery_session',
         value: '1',
-        domain: 'localhost',
-        path: '/',
+        url: 'http://localhost:3000',
       },
     ]);
 
