@@ -1,4 +1,4 @@
-import { Course, CourseProgressState } from '../types/course';
+import { Course, CourseProgressState, UserVideoProgress } from '../types/course';
 import { CourseProgressService, localCourseProgressService } from './course-progress';
 import { createClient } from './supabase/client';
 
@@ -361,6 +361,52 @@ export class CloudCourseProgressService implements CourseProgressService {
       .delete()
       .eq('user_id', user.id)
       .eq('course_id', courseId);
+  }
+
+  recordVideoProgress(progress: UserVideoProgress): void {
+    localCourseProgressService.recordVideoProgress?.(progress);
+
+    if (this.supabase) {
+      this.persistVideoProgressToCloud(progress).catch((err) => {
+        console.warn('Failed to sync video progress to cloud:', err);
+      });
+    }
+  }
+
+  getVideoProgress(courseId: string, videoId: string): UserVideoProgress | undefined {
+    return localCourseProgressService.getVideoProgress?.(courseId, videoId);
+  }
+
+  getAllVideoProgress(courseId: string): Record<string, UserVideoProgress> {
+    return localCourseProgressService.getAllVideoProgress?.(courseId) || {};
+  }
+
+  async persistVideoProgressToCloud(progress: UserVideoProgress): Promise<void> {
+    if (!this.supabase) return;
+    try {
+      const { data: { user } } = await this.supabase.auth.getUser();
+      if (!user) return;
+
+      const payload = {
+        user_id: user.id,
+        course_id: progress.courseId,
+        module_id: progress.moduleId || null,
+        lesson_id: progress.lessonId,
+        video_id: progress.videoId,
+        last_watched_seconds: progress.lastWatchedSeconds,
+        duration_seconds: progress.durationSeconds,
+        completion_percentage: progress.completionPercentage,
+        is_completed: progress.isCompleted,
+        last_watched_at: progress.lastWatchedAt || new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+      };
+
+      await (this.supabase
+        .from('user_lesson_video_progress') as any)
+        .upsert(payload, { onConflict: 'user_id,course_id,lesson_id,video_id' });
+    } catch (err) {
+      console.warn('Could not persist video progress to Supabase:', err);
+    }
   }
 }
 

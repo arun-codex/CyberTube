@@ -5,6 +5,7 @@ import {
   PracticalLabProgress,
   CapstoneSubmissionState,
   ComprehensiveCourseCompletion,
+  UserVideoProgress,
 } from '../types/course';
 
 /**
@@ -37,6 +38,9 @@ export interface CourseProgressService {
   recordCapstoneSubmission?(courseId: string, submission: CapstoneSubmissionState): void;
   recordCapstoneScore?(courseId: string, score: number): void;
   getComprehensiveCourseCompletion?(course: Course): ComprehensiveCourseCompletion;
+  recordVideoProgress?(progress: UserVideoProgress): void;
+  getVideoProgress?(courseId: string, videoId: string): UserVideoProgress | undefined;
+  getAllVideoProgress?(courseId: string): Record<string, UserVideoProgress>;
 }
 
 function getStorageKey(courseId: string): string {
@@ -95,6 +99,7 @@ function loadState(courseId: string): CourseProgressState {
           labProgress: parsed.labProgress || {},
           capstoneSubmission: parsed.capstoneSubmission,
           capstoneScore: parsed.capstoneScore,
+          videoProgress: parsed.videoProgress || {},
         };
 
         saveState(migratedState);
@@ -114,6 +119,7 @@ function loadState(courseId: string): CourseProgressState {
       labProgress: parsed.labProgress || {},
       capstoneSubmission: parsed.capstoneSubmission,
       capstoneScore: parsed.capstoneScore,
+      videoProgress: parsed.videoProgress || {},
     };
   } catch (err) {
     console.error('Failed to read course progress from localStorage:', err);
@@ -373,6 +379,26 @@ export const localCourseProgressService: CourseProgressService = {
       capstoneScore: score,
       lastAccessedAt: new Date().toISOString(),
     });
+  },
+
+  recordVideoProgress(progress: UserVideoProgress): void {
+    const state = loadState(progress.courseId);
+    const videoProgress = { ...(state.videoProgress || {}), [progress.videoId]: progress };
+    saveState({
+      ...state,
+      videoProgress,
+      lastAccessedAt: new Date().toISOString(),
+    });
+  },
+
+  getVideoProgress(courseId: string, videoId: string): UserVideoProgress | undefined {
+    const state = loadState(courseId);
+    return state.videoProgress?.[videoId];
+  },
+
+  getAllVideoProgress(courseId: string): Record<string, UserVideoProgress> {
+    const state = loadState(courseId);
+    return state.videoProgress || {};
   },
 };
 

@@ -251,6 +251,56 @@ export interface Course {
   sourcePlaylistUrl?: string;
   pcapResources?: PCAPResource[];
   capstone?: CapstoneAssessment;
+  videoResources?: LessonVideoResource[];
+}
+
+export type VideoResourceStatus =
+  | 'verified'
+  | 'pending_verification'
+  | 'unavailable'
+  | 'non_embeddable';
+
+export type VideoEmbeddingStatus =
+  | 'embeddable'
+  | 'restricted'
+  | 'blocked'
+  | 'unknown';
+
+export interface LessonVideoResource {
+  resourceId: string;
+  videoId: string;
+  title: string;
+  youtubeUrl: string;
+  embedUrl: string;
+  creator: string;
+  instructor?: string;
+  sourcePlatform: 'youtube';
+  sourcePlaylistId?: string;
+  moduleId: string;
+  lessonId: string;
+  topicTags: string[];
+  description: string;
+  durationSeconds: number;
+  difficulty?: 'beginner' | 'intermediate' | 'advanced';
+  resourceStatus: VideoResourceStatus;
+  embeddingStatus: VideoEmbeddingStatus;
+  verificationMethod: string;
+  lastVerifiedAt: string;
+}
+
+export interface UserVideoProgress {
+  id?: string;
+  userId?: string;
+  courseId: string;
+  moduleId?: string;
+  lessonId: string;
+  videoId: string;
+  lastWatchedSeconds: number;
+  durationSeconds: number;
+  completionPercentage: number;
+  isCompleted: boolean;
+  lastWatchedAt: string;
+  updatedAt?: string;
 }
 
 export interface CourseProgressState {
@@ -265,4 +315,5 @@ export interface CourseProgressState {
   labProgress?: Record<string, PracticalLabProgress>;
   capstoneSubmission?: CapstoneSubmissionState;
   capstoneScore?: number;
+  videoProgress?: Record<string, UserVideoProgress>;
 }

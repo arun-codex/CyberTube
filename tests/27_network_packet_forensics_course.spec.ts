@@ -113,28 +113,82 @@ test.describe('Phase 18 — Network Packet Forensics Masterclass Integration', (
     expect(lessonsWithoutVideo.length).toBe(34);
   });
 
-  test('9. Video-less lessons keep the official masterclass series playable inside CyberTube', async ({ page }) => {
+  test('9. Phase 19: Topic-wise video learning: active lesson receives its own mapped video resources', async ({ page }) => {
     await page.goto(`/courses/${courseSlug}?lesson=osi-vs-tcpip-encapsulation`);
     await page.waitForLoadState('domcontentloaded');
 
+    const videoSection = page.locator('[data-testid="lesson-video-resources"]');
+    await expect(videoSection).toBeVisible();
+    await expect(videoSection).toContainText('OSI 7-Layer vs. TCP/IP Model');
+
+    // The active player should embed the OSI model video (LkolbURrtTs)
+    const iframe = videoSection.locator('iframe[src*="youtube.com/embed"]');
+    await expect(iframe).toHaveCount(1);
+    await expect(iframe).toHaveAttribute('src', /LkolbURrtTs/);
+
+    // Switching video in the topic playlist updates the player without changing lesson URL
+    await videoSection.locator('[data-testid="topic-video-item-0aGqGKrRE0g"]').click();
+    await expect(iframe).toHaveAttribute('src', /0aGqGKrRE0g/);
+    await expect(page).toHaveURL(/lesson=osi-vs-tcpip-encapsulation/);
+  });
+
+  test('9b. Phase 19: Topic isolation: TShark lesson displays dedicated TShark video and isolates from OSI', async ({ page }) => {
+    await page.goto(`/courses/${courseSlug}?lesson=introduction-to-tshark-cli-forensics`);
+    await page.waitForLoadState('domcontentloaded');
+    const tsharkSection = page.locator('[data-testid="lesson-video-resources"]');
+    await expect(tsharkSection).toBeVisible();
+    await expect(tsharkSection.locator('iframe[src*="youtube.com/embed"]')).toHaveAttribute('src', /HoYgPlmOZgo/);
+    await expect(tsharkSection).not.toContainText('OSI Model');
+  });
+
+  test('9d. Phase 19: Netsec Explained Parts 1, 2, and 3 remain assigned to their designated lessons', async ({ page }) => {
+    test.setTimeout(90000);
+    // Netsec Part 1 on les-03-2
+    await page.goto(`/courses/${courseSlug}?lesson=advanced-investigation-workflow`);
+    await page.waitForLoadState('domcontentloaded');
+    const part1Section = page.locator('[data-testid="lesson-video-resources"]');
+    await expect(part1Section.locator('iframe[src*="youtube.com/embed"]')).toHaveAttribute('src', /e_dsGhvq9CU/);
+
+    // Netsec Part 2 on les-04-2
+    await page.goto(`/courses/${courseSlug}?lesson=malware-traffic-analysis-part2`);
+    await page.waitForLoadState('domcontentloaded');
+    const part2Section = page.locator('[data-testid="lesson-video-resources"]');
+    await expect(part2Section.locator('iframe[src*="youtube.com/embed"]')).toHaveAttribute('src', /ZJZlRGLN2_s/);
+
+    // Netsec Part 3 on les-05-2
+    await page.goto(`/courses/${courseSlug}?lesson=dos-recon-ftp-forensics-part3`);
+    await page.waitForLoadState('domcontentloaded');
+    const part3Section = page.locator('[data-testid="lesson-video-resources"]');
+    await expect(part3Section.locator('iframe[src*="youtube.com/embed"]')).toHaveAttribute('src', /HR_sLcW4xz0/);
+  });
+
+  test('9e. Phase 19: Theory fallback on Module 07 procedural lessons without external videos', async ({ page }) => {
+    await page.goto(`/courses/${courseSlug}?lesson=evidence-admissibility-chain-of-custody`);
+    await page.waitForLoadState('domcontentloaded');
     const theoryBanner = page.locator('[data-testid="theory-lesson-banner"]');
     await expect(theoryBanner).toBeVisible();
     await expect(theoryBanner).toContainText('Forensics Curriculum & Practical Lab Guide');
+    expect(await page.locator('iframe[src*="youtube.com/embed"]').count()).toBe(0);
+  });
 
-    const videoLibrary = page.locator('[data-testid="course-video-library"]');
-    await expect(videoLibrary).toBeVisible();
-    await expect(videoLibrary).toContainText('Official Netsec Explained Masterclasses');
+  test('9c. Phase 19: Per-video watch progress persists independently in localStorage across reload', async ({ page }) => {
+    await page.goto(`/courses/${courseSlug}?lesson=osi-vs-tcpip-encapsulation`);
+    await page.waitForLoadState('domcontentloaded');
 
-    // The lesson page must embed a real video instead of sending learners to the channel.
-    const iframe = videoLibrary.locator('iframe[src*="youtube.com/embed"]');
-    await expect(iframe).toHaveCount(1);
-    await expect(iframe).toHaveAttribute('src', /e_dsGhvq9CU/);
-    await expect(theoryBanner.locator('a[href*="youtube.com/@NetsecExplained"]')).toHaveCount(0);
+    const videoSection = page.locator('[data-testid="lesson-video-resources"]');
+    const markWatchedBtn = videoSection.locator('[data-testid="toggle-video-watched-LkolbURrtTs"]');
+    await expect(markWatchedBtn).toBeVisible();
+    await expect(markWatchedBtn).toContainText('Mark as Watched');
 
-    // Switching masterclasses must update the embedded player without navigating away.
-    await videoLibrary.locator('[data-testid="masterclass-video-option-ZJZlRGLN2_s"]').click();
-    await expect(iframe).toHaveAttribute('src', /ZJZlRGLN2_s/);
-    await expect(page).toHaveURL(/lesson=osi-vs-tcpip-encapsulation/);
+    // Click Mark as Watched
+    await markWatchedBtn.click();
+    await expect(markWatchedBtn).toContainText('Watched');
+
+    // Reload and verify status survives
+    await page.reload();
+    await page.waitForLoadState('domcontentloaded');
+    const reloadedBtn = page.locator('[data-testid="toggle-video-watched-LkolbURrtTs"]');
+    await expect(reloadedBtn).toContainText('Watched');
   });
 
   test('10. PCAP links: official repository links & SHA256 hashes present', async ({ page }) => {
