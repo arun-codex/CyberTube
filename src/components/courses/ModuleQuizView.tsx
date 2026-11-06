@@ -1,13 +1,14 @@
 'use client';
 
-import React, { useState } from 'react';
-import { LessonQuiz } from '../../types/course';
+import React, { useState, useEffect } from 'react';
+import { LessonQuiz, QuizAttempt } from '../../types/course';
 import {
   HelpCircle,
   CheckCircle2,
   AlertCircle,
   RotateCcw,
   ArrowRight,
+  History,
 } from 'lucide-react';
 import { cloudCourseProgressService } from '../../lib/cloud-course-progress';
 
@@ -24,8 +25,24 @@ export const ModuleQuizView: React.FC<ModuleQuizViewProps> = ({
 }) => {
   const [selectedAnswers, setSelectedAnswers] = useState<Record<number, number>>({});
   const [submitted, setSubmitted] = useState(false);
+  const [attempts, setAttempts] = useState<QuizAttempt[]>([]);
+  const [activeScore, setActiveScore] = useState<number>(0);
 
   const passingScorePercent = quiz.passingScorePercent || 70;
+
+  // Restore saved attempts on mount
+  useEffect(() => {
+    const progress = cloudCourseProgressService.getProgress(courseId);
+    const existingAttempts = progress.quizAttempts?.[moduleId] || [];
+    setAttempts(existingAttempts);
+
+    if (existingAttempts.length > 0) {
+      const latest = existingAttempts[existingAttempts.length - 1];
+      setSelectedAnswers(latest.selectedAnswers || {});
+      setActiveScore(latest.score);
+      setSubmitted(true);
+    }
+  }, [courseId, moduleId]);
 
   const handleSelect = (qIdx: number, optIdx: number) => {
     if (submitted) return;
@@ -43,21 +60,38 @@ export const ModuleQuizView: React.FC<ModuleQuizViewProps> = ({
   };
 
   const handleSubmit = () => {
-    setSubmitted(true);
     const score = calculateScore();
-    if (score >= passingScorePercent) {
-      cloudCourseProgressService.recordQuizScore?.(courseId, moduleId, score);
+    const passed = score >= passingScorePercent;
+    const attemptNumber = attempts.length + 1;
+
+    const newAttempt: QuizAttempt = {
+      attemptNumber,
+      selectedAnswers,
+      score,
+      passed,
+      submittedAt: new Date().toISOString(),
+    };
+
+    const nextAttempts = [...attempts, newAttempt];
+    setAttempts(nextAttempts);
+    setActiveScore(score);
+    setSubmitted(true);
+
+    if (cloudCourseProgressService.recordQuizAttempt) {
+      cloudCourseProgressService.recordQuizAttempt(courseId, moduleId, newAttempt);
+    } else if (score >= passingScorePercent && cloudCourseProgressService.recordQuizScore) {
+      cloudCourseProgressService.recordQuizScore(courseId, moduleId, score);
     }
   };
 
-  const handleReset = () => {
+  const handleRetake = () => {
     setSelectedAnswers({});
     setSubmitted(false);
   };
 
-  const scorePercent = submitted ? calculateScore() : 0;
-  const isPassed = scorePercent >= passingScorePercent;
+  const isPassed = activeScore >= passingScorePercent;
   const isComplete = Object.keys(selectedAnswers).length === quiz.questions.length;
+  const hasPreviousPass = attempts.some((a) => a.passed);
 
   return (
     <div className="p-5 sm:p-6 rounded-[8px] border border-[#e4e4ed] dark:border-[#243044] bg-white dark:bg-[#121A26] space-y-6">
@@ -65,15 +99,22 @@ export const ModuleQuizView: React.FC<ModuleQuizViewProps> = ({
         <div>
           <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-[4px] bg-[#0E7490]/10 dark:bg-[#22D3EE]/10 text-[#0E7490] dark:text-[#22D3EE] border border-[#0E7490]/20 dark:border-[#22D3EE]/20 text-xs font-mono">
             <HelpCircle className="w-3.5 h-3.5" />
-            <span>Module Knowledge Assessment</span>
+            <span>Module Knowledge Assessment ({quiz.questions.length} Questions)</span>
           </div>
           <h3 className="font-rajdhani font-bold text-xl text-[#0F172A] dark:text-[#E6EDF3] mt-1">
             {quiz.title || 'Module Assessment Quiz'}
           </h3>
         </div>
 
-        <div className="font-mono text-xs text-[#64748B] dark:text-[#9BA8B7]">
-          Passing score: {passingScorePercent}%
+        <div className="flex items-center gap-2 font-mono text-xs">
+          <span className="text-[#64748B] dark:text-[#9BA8B7]">
+            Passing threshold: <strong className="text-[#0F172A] dark:text-[#E6EDF3]">{passingScorePercent}%</strong> (Requires {Math.ceil((passingScorePercent / 100) * quiz.questions.length)}/{quiz.questions.length})
+          </span>
+          {hasPreviousPass && (
+            <span className="px-2 py-0.5 rounded-[4px] bg-[#10B981]/10 text-[#065F46] dark:text-[#34D399] border border-[#10B981]/20 font-semibold">
+              ✓ Passed
+            </span>
+          )}
         </div>
       </div>
 
@@ -149,29 +190,57 @@ export const ModuleQuizView: React.FC<ModuleQuizViewProps> = ({
       </div>
 
       {submitted ? (
-        <div
-          className={`p-4 rounded-[6px] border flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${
-            isPassed
-              ? 'bg-[#10B981]/10 border-[#10B981]/30 text-[#065F46] dark:text-[#34D399]'
-              : 'bg-[#EF4444]/10 border-[#EF4444]/30 text-[#991B1B] dark:text-[#F87171]'
-          }`}
-        >
-          <div>
-            <div className="font-bold text-sm">
-              {isPassed ? 'Quiz Passed!' : 'Quiz Incomplete'}
-            </div>
-            <div className="font-mono text-xs">
-              Score: {scorePercent}% (Required: {passingScorePercent}%)
-            </div>
-          </div>
-          <button
-            type="button"
-            onClick={handleReset}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[4px] bg-white dark:bg-[#1A2433] border border-[#e4e4ed] dark:border-[#243044] text-xs font-mono text-[#0F172A] dark:text-[#E6EDF3] transition-colors self-start sm:self-auto cursor-pointer"
+        <div className="space-y-4">
+          <div
+            className={`p-4 rounded-[6px] border flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${
+              isPassed
+                ? 'bg-[#10B981]/10 border-[#10B981]/30 text-[#065F46] dark:text-[#34D399]'
+                : 'bg-[#EF4444]/10 border-[#EF4444]/30 text-[#991B1B] dark:text-[#F87171]'
+            }`}
           >
-            <RotateCcw className="w-3.5 h-3.5" />
-            <span>Retake Quiz</span>
-          </button>
+            <div>
+              <div className="font-bold text-sm">
+                {isPassed ? 'Quiz Assessment Passed!' : 'Passing Threshold Not Met'}
+              </div>
+              <div className="font-mono text-xs">
+                Score: {activeScore}% ({Math.round((activeScore / 100) * quiz.questions.length)}/{quiz.questions.length} Correct) — Required: {passingScorePercent}%
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={handleRetake}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[4px] bg-white dark:bg-[#1A2433] border border-[#e4e4ed] dark:border-[#243044] text-xs font-mono text-[#0F172A] dark:text-[#E6EDF3] transition-colors self-start sm:self-auto cursor-pointer"
+            >
+              <RotateCcw className="w-3.5 h-3.5" />
+              <span>Retake Quiz</span>
+            </button>
+          </div>
+
+          {/* Attempt History List */}
+          {attempts.length > 0 && (
+            <div className="p-4 rounded-[6px] bg-[#fbfbfe] dark:bg-[#1A2433]/30 border border-[#e4e4ed] dark:border-[#243044] space-y-2">
+              <div className="flex items-center gap-1.5 text-xs font-mono text-[#64748B] dark:text-[#9BA8B7] font-semibold uppercase tracking-wider">
+                <History className="w-3.5 h-3.5" />
+                <span>Recorded Attempt History ({attempts.length})</span>
+              </div>
+              <div className="space-y-1">
+                {attempts.map((att) => (
+                  <div
+                    key={att.attemptNumber}
+                    className="flex items-center justify-between text-xs font-mono py-1 border-b border-[#e4e4ed]/40 dark:border-[#243044]/40 last:border-0"
+                  >
+                    <span>Attempt #{att.attemptNumber}</span>
+                    <span className={att.passed ? 'text-[#10B981] font-semibold' : 'text-[#EF4444]'}>
+                      {att.score}% — {att.passed ? 'Passed' : 'Failed'}
+                    </span>
+                    <span className="text-[#64748B] dark:text-[#9BA8B7] text-[11px]">
+                      {new Date(att.submittedAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       ) : (
         <button
@@ -187,4 +256,3 @@ export const ModuleQuizView: React.FC<ModuleQuizViewProps> = ({
     </div>
   );
 };
-

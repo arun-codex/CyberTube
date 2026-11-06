@@ -28,8 +28,7 @@ export const NETWORK_PACKET_FORENSICS_COURSE: Course = {
   "totalDurationMinutes": 1410,
   "instructor": {
     "name": "Netsec Explained",
-    "title": "Senior Network Security & Forensics Researcher",
-    "organization": "Netsec Explained Forensics Initiative"
+    "title": "Network Security & Forensics Researcher"
   },
   "prerequisites": [
     "Basic understanding of IPv4 addressing and subnet masks",
@@ -67,7 +66,9 @@ export const NETWORK_PACKET_FORENSICS_COURSE: Course = {
         "Launch Wireshark and open the capture with a forensic inspection profile.",
         "Apply display filters to isolate anomalous IP conversations."
       ],
-      "sha256": "9f228b37ad582a9394f71a0642751f8dc974be42d0719ef7dfc33bb3e24a49db"
+      "sha256": "b2bd9a8b484f4ded72a4ce7de1335198d5ae6e81ace89fe6e6d5a071e1391cd9",
+      "verificationDate": "2026-11-06",
+      "verificationMethod": "Direct SHA-256 computation from upstream git master raw source"
     },
     {
       "id": "pcap-scenario-1",
@@ -84,7 +85,9 @@ export const NETWORK_PACKET_FORENSICS_COURSE: Course = {
         "Filter for HTTP and TLS streams to identify external connections.",
         "Practice stream reassembly to inspect conversation content."
       ],
-      "sha256": "7c81d86d634ebbbd6174a8894101e19485bb24a0d92298e82ef45b721245b73d"
+      "sha256": "3d15daea9d46ee8aa6a3a111a3ee37e2e5be009d509d57a249dd850d510b07d8",
+      "verificationDate": "2026-11-06",
+      "verificationMethod": "Direct SHA-256 computation from upstream git master raw source"
     },
     {
       "id": "pcap-scenario-2",
@@ -101,7 +104,9 @@ export const NETWORK_PACKET_FORENSICS_COURSE: Course = {
         "Filter for ftp or ftp-data to recover unencrypted authentication credentials.",
         "Inspect TCP SYN packets without ACK responses to quantify port scanning behavior."
       ],
-      "sha256": "3d8a57e3240212f43cbffbe2d625d9921606d2c4187e14be26f5d52ad5813b35"
+      "sha256": "f664404d592d4fd647ebdf8117eb91b91a868fad1b54888e2117d1b271ba5b11",
+      "verificationDate": "2026-11-06",
+      "verificationMethod": "Direct SHA-256 computation from upstream git master raw source"
     },
     {
       "id": "pcap-wireshark-wiki-samples",
@@ -117,17 +122,18 @@ export const NETWORK_PACKET_FORENSICS_COURSE: Course = {
         "Browse the wiki for target protocols discussed in each module.",
         "Download individual protocol samples to compare against anomalous traffic.",
         "Use for protocol header validation and custom filter creation."
-      ]
+      ],
+      "verificationMethod": "External community capture index; individual protocol capture hashes maintained upstream"
     }
   ],
   "capstone": {
     "id": "capstone-operation-blackout-beacon",
     "title": "Operation Blackout Beacon \u2014 SOC Enterprise Intrusion Forensics",
-    "scenario": "On October 14, at 03:22 UTC, the Enterprise Security Operations Center (SOC) detected unusual outbound traffic surges and high-frequency internal connection attempts originating from an accounting workstation (10.0.4.152). A 45-minute continuous packet capture was preserved from the core switch SPAN port. As the Lead Network Forensics Specialist, you have been tasked with investigating the unknown capture, identifying the initial access vector, extracting the deployed secondary payload, evaluating command-and-control (C2) communication frequencies, mapping lateral movement attempts, and producing an executive and technical incident report.",
+    "scenario": "Simulated Incident Scenario: In this capstone scenario, an enterprise SOC analyst is presented with a realistic intrusion investigation narrative. Note: The scenario narrative, timestamps, and IP addresses below serve as an illustrative forensic challenge framework, while the analysis is conducted against the real multi-stage capture 'Hackers on the Network.pcapng' created by Netsec Explained. As the Lead Network Forensics Specialist, you have been tasked with investigating the capture, identifying anomalous protocol flows, isolating secondary payloads and beacons, evaluating command-and-control (C2) communication patterns, mapping connection attempts, and compiling a structured technical and executive report.",
     "pcapSource": {
       "fileName": "Hackers on the Network.pcapng",
       "fileUrl": "https://raw.githubusercontent.com/NetsecExplained/Advanced-Wireshark-Network-Forensics/master/Hackers%20on%20the%20Network.pcapng",
-      "sha256": "9f228b37ad582a9394f71a0642751f8dc974be42d0719ef7dfc33bb3e24a49db"
+      "sha256": "b2bd9a8b484f4ded72a4ce7de1335198d5ae6e81ace89fe6e6d5a071e1391cd9"
     },
     "totalMarks": 100,
     "passingScore": 75,
@@ -847,7 +853,7 @@ export const NETWORK_PACKET_FORENSICS_COURSE: Course = {
           "fileName": "Scenario 1.pcapng",
           "fileUrl": "https://raw.githubusercontent.com/NetsecExplained/Advanced-Wireshark-Network-Forensics/master/Scenario%201.pcapng",
           "repositoryUrl": "https://github.com/NetsecExplained/Advanced-Wireshark-Network-Forensics",
-          "sha256": "7c81d86d634ebbbd6174a8894101e19485bb24a0d92298e82ef45b721245b73d"
+          "sha256": "3d15daea9d46ee8aa6a3a111a3ee37e2e5be009d509d57a249dd850d510b07d8"
         },
         "difficulty": "beginner",
         "estimatedMinutes": 45,
@@ -949,6 +955,30 @@ export const NETWORK_PACKET_FORENSICS_COURSE: Course = {
             ],
             "correctAnswerIndex": 2,
             "explanation": "Address Resolution Protocol (ARP) translates known Layer 3 logical IP addresses into Layer 2 physical MAC addresses for delivery within the local broadcast domain.",
+            "difficulty": "beginner"
+          },
+          {
+            "question": "How does an operating system multiplex and distinguish between multiple simultaneous TCP connections between the same client and server host?",
+            "options": [
+              "By matching the Ethernet MAC address and IP Time-to-Live (TTL)",
+              "By using the 4-tuple: Source IP, Source Port, Destination IP, and Destination Port",
+              "By assigning distinct Subnet Masks to each connection",
+              "By negotiating different Maximum Transmission Unit (MTU) sizes per socket"
+            ],
+            "correctAnswerIndex": 1,
+            "explanation": "TCP demultiplexes socket connections using the 4-tuple (Source IP, Source Port, Destination IP, Destination Port). Even when connecting to the same server IP and port, the client operating system allocates a unique ephemeral source port for each connection.",
+            "difficulty": "intermediate"
+          },
+          {
+            "question": "What is the correct 4-step message sequence for dynamic IPv4 client address configuration in the DHCP protocol?",
+            "options": [
+              "DHCP Request -> DHCP Acknowledge -> DHCP Discover -> DHCP Offer",
+              "DHCP Discover -> DHCP Offer -> DHCP Request -> DHCP Acknowledge (DORA)",
+              "DHCP Probe -> DHCP Assign -> DHCP Confirm -> DHCP Lease",
+              "DHCP SYN -> DHCP SYN-ACK -> DHCP ACK -> DHCP FIN"
+            ],
+            "correctAnswerIndex": 1,
+            "explanation": "DHCP allocation follows the DORA sequence: Discover (broadcast client search), Offer (server lease proposal), Request (client lease acceptance), and Acknowledge (server confirmation with IP parameters).",
             "difficulty": "beginner"
           }
         ]
@@ -1381,7 +1411,7 @@ export const NETWORK_PACKET_FORENSICS_COURSE: Course = {
           "fileName": "Scenario 1.pcapng",
           "fileUrl": "https://raw.githubusercontent.com/NetsecExplained/Advanced-Wireshark-Network-Forensics/master/Scenario%201.pcapng",
           "repositoryUrl": "https://github.com/NetsecExplained/Advanced-Wireshark-Network-Forensics",
-          "sha256": "7c81d86d634ebbbd6174a8894101e19485bb24a0d92298e82ef45b721245b73d"
+          "sha256": "3d15daea9d46ee8aa6a3a111a3ee37e2e5be009d509d57a249dd850d510b07d8"
         },
         "difficulty": "intermediate",
         "estimatedMinutes": 45,
@@ -1479,6 +1509,30 @@ export const NETWORK_PACKET_FORENSICS_COURSE: Course = {
             "correctAnswerIndex": 1,
             "explanation": "The field tcp.time_delta measures elapsed time specifically between consecutive packets of the same TCP conversation stream.",
             "difficulty": "intermediate"
+          },
+          {
+            "question": "Which Wireshark feature allows analysts to switch between customized column layouts, color rules, and protocol decode preferences tailored for specific protocols like VoIP or Malware triage?",
+            "options": [
+              "Configuration Profiles",
+              "BPF Filter Presets",
+              "Capture Interface Options",
+              "Macro Shortcuts"
+            ],
+            "correctAnswerIndex": 0,
+            "explanation": "Wireshark Configuration Profiles allow creating dedicated environments (e.g., Forensics, VoIP, TLS Decryption) that store specific columns, custom color rules, and protocol preference settings independently.",
+            "difficulty": "beginner"
+          },
+          {
+            "question": "How does Wireshark display packet data in the lower 'Packet Bytes' pane by default?",
+            "options": [
+              "Base64 encoded strings with hexadecimal offsets",
+              "Hexadecimal bytes dump on the left with corresponding ASCII interpretation on the right",
+              "JSON formatted key-value pairs representing protocol fields",
+              "Raw binary bitstreams represented in 8-bit octet blocks"
+            ],
+            "correctAnswerIndex": 1,
+            "explanation": "The Packet Bytes pane renders a classic canonical hex dump: packet byte offset on the far left, hexadecimal byte values in the center, and printable ASCII representations on the right.",
+            "difficulty": "beginner"
           }
         ]
       }
@@ -2016,7 +2070,7 @@ export const NETWORK_PACKET_FORENSICS_COURSE: Course = {
           "fileName": "Scenario 1.pcapng",
           "fileUrl": "https://raw.githubusercontent.com/NetsecExplained/Advanced-Wireshark-Network-Forensics/master/Scenario%201.pcapng",
           "repositoryUrl": "https://github.com/NetsecExplained/Advanced-Wireshark-Network-Forensics",
-          "sha256": "7c81d86d634ebbbd6174a8894101e19485bb24a0d92298e82ef45b721245b73d"
+          "sha256": "3d15daea9d46ee8aa6a3a111a3ee37e2e5be009d509d57a249dd850d510b07d8"
         },
         "difficulty": "intermediate",
         "estimatedMinutes": 50,
@@ -2119,6 +2173,30 @@ export const NETWORK_PACKET_FORENSICS_COURSE: Course = {
             "correctAnswerIndex": 0,
             "explanation": "Slice notation protocol[offset:length] enables precise low-level matching of raw bytes, such as checking specific header fields or magic bytes.",
             "difficulty": "advanced"
+          },
+          {
+            "question": "In network packet analysis, what does an ICMP Type 3, Code 3 error packet indicate?",
+            "options": [
+              "Network Unreachable: Gateway router lacks a route to the destination network",
+              "Host Unreachable: Destination IP did not reply to ARP resolution",
+              "Port Unreachable: Destination host received UDP traffic for a port without an active listening process",
+              "Fragmentation Needed: Packet DF flag is set and payload exceeds path MTU"
+            ],
+            "correctAnswerIndex": 2,
+            "explanation": "ICMP Type 3 (Destination Unreachable), Code 3 specifically indicates 'Port Unreachable', typically generated when a UDP datagram arrives at a host that has no listening service on the destination port.",
+            "difficulty": "intermediate"
+          },
+          {
+            "question": "What primary efficiency benefit does the HTTP Keep-Alive header provide as observed in TCP packet streams?",
+            "options": [
+              "It compresses all HTTP payload data using GZIP by default",
+              "It permits multiple HTTP requests and responses to reuse a single established TCP three-way handshake",
+              "It forces intermediate routers to prioritize HTTP packets over background UDP traffic",
+              "It automatically encrypts HTTP plaintext headers using TLS 1.3"
+            ],
+            "correctAnswerIndex": 1,
+            "explanation": "HTTP Keep-Alive (persistent connections) reuses a single underlying TCP connection for multiple sequential requests and responses, eliminating the latency overhead of repeated three-way handshakes and teardowns.",
+            "difficulty": "beginner"
           }
         ]
       }
@@ -2674,7 +2752,7 @@ export const NETWORK_PACKET_FORENSICS_COURSE: Course = {
           "fileName": "Hackers on the Network.pcapng",
           "fileUrl": "https://raw.githubusercontent.com/NetsecExplained/Advanced-Wireshark-Network-Forensics/master/Hackers%20on%20the%20Network.pcapng",
           "repositoryUrl": "https://github.com/NetsecExplained/Advanced-Wireshark-Network-Forensics",
-          "sha256": "9f228b37ad582a9394f71a0642751f8dc974be42d0719ef7dfc33bb3e24a49db"
+          "sha256": "b2bd9a8b484f4ded72a4ce7de1335198d5ae6e81ace89fe6e6d5a071e1391cd9"
         },
         "difficulty": "intermediate",
         "estimatedMinutes": 55,
@@ -2777,6 +2855,30 @@ export const NETWORK_PACKET_FORENSICS_COURSE: Course = {
             "correctAnswerIndex": 1,
             "explanation": "File -> Export Objects allows automatic extraction and reassembly of files transferred over HTTP, SMB, IMF, and TFTP.",
             "difficulty": "beginner"
+          },
+          {
+            "question": "Which Wireshark diagnostic window provides calculated summary metrics including total packets, total bytes, duration, and bidirectional bandwidth between all communicating endpoint pairs?",
+            "options": [
+              "Protocol Hierarchy Statistics",
+              "Conversations Window (Statistics -> Conversations)",
+              "Capture File Properties",
+              "Flow Graph / Sequence Diagram"
+            ],
+            "correctAnswerIndex": 1,
+            "explanation": "The Statistics -> Conversations window aggregates packet counts, byte volumes, and start/duration timestamps for Ethernet, IPv4, IPv6, and TCP/UDP conversation pairs.",
+            "difficulty": "beginner"
+          },
+          {
+            "question": "What is the critical semantic difference in Wireshark display filters between 'ip.addr != 10.0.0.1' and '!(ip.addr == 10.0.0.1)'?",
+            "options": [
+              "They are syntactically and logically identical in all scenarios",
+              "'ip.addr != 10.0.0.1' evaluates true if EITHER source OR destination is not 10.0.0.1, whereas '!(ip.addr == 10.0.0.1)' strictly excludes packets where NEITHER address is 10.0.0.1",
+              "'ip.addr !=' only applies to broadcast packets, whereas '!(' applies to unicast",
+              "'!(ip.addr == 10.0.0.1)' triggers a syntax error in modern Wireshark"
+            ],
+            "correctAnswerIndex": 1,
+            "explanation": "Because IP packets have two addresses (src and dst), 'ip.addr != X' tests if ANY address field is not X (which is almost always true). '!(ip.addr == X)' negates the condition, matching only packets where NEITHER the source nor destination is X.",
+            "difficulty": "advanced"
           }
         ]
       }
@@ -3237,7 +3339,7 @@ export const NETWORK_PACKET_FORENSICS_COURSE: Course = {
           "fileName": "Hackers on the Network.pcapng",
           "fileUrl": "https://raw.githubusercontent.com/NetsecExplained/Advanced-Wireshark-Network-Forensics/master/Hackers%20on%20the%20Network.pcapng",
           "repositoryUrl": "https://github.com/NetsecExplained/Advanced-Wireshark-Network-Forensics",
-          "sha256": "9f228b37ad582a9394f71a0642751f8dc974be42d0719ef7dfc33bb3e24a49db"
+          "sha256": "b2bd9a8b484f4ded72a4ce7de1335198d5ae6e81ace89fe6e6d5a071e1391cd9"
         },
         "difficulty": "advanced",
         "estimatedMinutes": 60,
@@ -3341,6 +3443,30 @@ export const NETWORK_PACKET_FORENSICS_COURSE: Course = {
             "correctAnswerIndex": 1,
             "explanation": "The Referer header identifies the specific URL of the webpage that linked to the requested URL, enabling investigators to map multi-hop redirection funnels.",
             "difficulty": "beginner"
+          },
+          {
+            "question": "Which Wireshark visualization tool is most effective for distinguishing regular automated C2 beacon pulses from interactive human adversary activity?",
+            "options": [
+              "IO Graphs (Statistics -> IO Graphs) with 1-second interval filtered on suspected C2 stream",
+              "Expert Info error counter",
+              "Packet Lengths distribution histogram",
+              "TCP Stream Graphs -> Round Trip Time graph"
+            ],
+            "correctAnswerIndex": 0,
+            "explanation": "Wireshark's I/O Graphs with granular time intervals (e.g. 1 second or 0.1s) visually expose recurring periodic spikes representing automated beacon heartbeats, whereas interactive operator sessions exhibit irregular burst patterns.",
+            "difficulty": "intermediate"
+          },
+          {
+            "question": "What characteristic DNS pattern in enterprise network capture files indicates the presence of a Domain Generation Algorithm (DGA) malware family?",
+            "options": [
+              "A large burst of DNS queries returning NXDOMAIN (No Such Name) followed by a successful resolution to an external IP",
+              "Single DNS queries to well-known search engines with high TTL values",
+              "Continuous DNS PTR reverse lookup requests for local subnet hosts",
+              "DNS queries with oversized EDNS0 buffer options exceeding 4096 bytes"
+            ],
+            "correctAnswerIndex": 0,
+            "explanation": "DGA malware generates hundreds of pseudo-random domain names daily. Most generated domains are unregistered, resulting in high volumes of NXDOMAIN responses until the active attacker-registered domain resolves successfully.",
+            "difficulty": "intermediate"
           }
         ]
       }
@@ -3902,7 +4028,7 @@ export const NETWORK_PACKET_FORENSICS_COURSE: Course = {
           "fileName": "Scenario 2.pcap",
           "fileUrl": "https://raw.githubusercontent.com/NetsecExplained/Advanced-Wireshark-Network-Forensics/master/Scenario%202.pcap",
           "repositoryUrl": "https://github.com/NetsecExplained/Advanced-Wireshark-Network-Forensics",
-          "sha256": "3d8a57e3240212f43cbffbe2d625d9921606d2c4187e14be26f5d52ad5813b35"
+          "sha256": "f664404d592d4fd647ebdf8117eb91b91a868fad1b54888e2117d1b271ba5b11"
         },
         "difficulty": "intermediate",
         "estimatedMinutes": 50,
@@ -4009,6 +4135,30 @@ export const NETWORK_PACKET_FORENSICS_COURSE: Course = {
             ],
             "correctAnswerIndex": 1,
             "explanation": "Direct workstation-to-workstation SMB connections are rare in standard corporate architectures and strongly indicate lateral movement, remote service creation, or internal share scanning.",
+            "difficulty": "intermediate"
+          },
+          {
+            "question": "How does a Slowloris application-layer Denial of Service (DoS) attack uniquely manifest in packet captures?",
+            "options": [
+              "High-volume UDP reflection floods exceeding 100 Gbps",
+              "Hundreds of persistent TCP connections that transmit incomplete HTTP request headers with periodic trailing bytes at long intervals to exhaust web server worker threads",
+              "ICMP Echo Request floods with spoofed broadcast addresses",
+              "Rapid TCP SYN-ACK floods targeting intermediate stateful firewalls"
+            ],
+            "correctAnswerIndex": 1,
+            "explanation": "Slowloris opens numerous TCP connections to a web server and sends partial HTTP headers (e.g., 'X-a: b\\r\\n') at prolonged intervals (every 10-15 seconds), holding connection threads open indefinitely until server worker capacity is exhausted.",
+            "difficulty": "intermediate"
+          },
+          {
+            "question": "What diagnostic indicator in packet captures confirms unauthorized data exfiltration concealed within ICMP Echo Request (ping) packets?",
+            "options": [
+              "The ICMP Sequence Number resets to zero on every packet",
+              "The ICMP payload data contains dynamic file headers, base64 strings, or data volumes varying across packets instead of standard static OS padding bytes",
+              "The ICMP Type is set to 8 and Code is set to 0",
+              "The ICMP packet has an IP Time-to-Live (TTL) of 64"
+            ],
+            "correctAnswerIndex": 1,
+            "explanation": "Standard OS ping utilities transmit fixed default payload patterns (e.g., repeating alphabet strings or static timestamps). ICMP tunneling exfiltration embeds dynamic file data, encrypted bytes, or non-standard payload lengths within the ICMP data field.",
             "difficulty": "intermediate"
           }
         ]
@@ -4436,7 +4586,7 @@ export const NETWORK_PACKET_FORENSICS_COURSE: Course = {
           "fileName": "Scenario 2.pcap",
           "fileUrl": "https://raw.githubusercontent.com/NetsecExplained/Advanced-Wireshark-Network-Forensics/master/Scenario%202.pcap",
           "repositoryUrl": "https://github.com/NetsecExplained/Advanced-Wireshark-Network-Forensics",
-          "sha256": "3d8a57e3240212f43cbffbe2d625d9921606d2c4187e14be26f5d52ad5813b35"
+          "sha256": "f664404d592d4fd647ebdf8117eb91b91a868fad1b54888e2117d1b271ba5b11"
         },
         "difficulty": "intermediate",
         "estimatedMinutes": 50,
@@ -4538,6 +4688,30 @@ export const NETWORK_PACKET_FORENSICS_COURSE: Course = {
             ],
             "correctAnswerIndex": 1,
             "explanation": "The '-T fields' format directs TShark to output only the specific protocol fields selected using '-e <fieldname>', formatted as tabular text.",
+            "difficulty": "beginner"
+          },
+          {
+            "question": "Which TShark command-line option specifies statistics tree generation to output conversation lists, HTTP request distributions, or protocol hierarchies directly in the terminal?",
+            "options": [
+              "-z (e.g., -z conv,ip or -z io,phs)",
+              "-e (field extraction)",
+              "-s (snapshot length)",
+              "-T (output format)"
+            ],
+            "correctAnswerIndex": 0,
+            "explanation": "The -z option in TShark generates statistical summaries such as protocol hierarchy stats (-z io,phs), IP conversations (-z conv,ip), or HTTP request URI counts (-z http,tree).",
+            "difficulty": "intermediate"
+          },
+          {
+            "question": "Which command-line utility bundled with Wireshark is designed specifically to split large PCAP files by packet count or extract packets within a specified start and end timestamp window?",
+            "options": [
+              "mergecap",
+              "editcap",
+              "capinfos",
+              "reordercap"
+            ],
+            "correctAnswerIndex": 1,
+            "explanation": "editcap is Wireshark's capture file editing tool. It is used to split captures by size or packet count (-c), trim packets by time window (-A and -B), and truncate payload bytes (-s).",
             "difficulty": "beginner"
           }
         ]
@@ -4972,7 +5146,7 @@ export const NETWORK_PACKET_FORENSICS_COURSE: Course = {
           "fileName": "Hackers on the Network.pcapng",
           "fileUrl": "https://raw.githubusercontent.com/NetsecExplained/Advanced-Wireshark-Network-Forensics/master/Hackers%20on%20the%20Network.pcapng",
           "repositoryUrl": "https://github.com/NetsecExplained/Advanced-Wireshark-Network-Forensics",
-          "sha256": "9f228b37ad582a9394f71a0642751f8dc974be42d0719ef7dfc33bb3e24a49db"
+          "sha256": "b2bd9a8b484f4ded72a4ce7de1335198d5ae6e81ace89fe6e6d5a071e1391cd9"
         },
         "difficulty": "intermediate",
         "estimatedMinutes": 55,
@@ -5075,6 +5249,30 @@ export const NETWORK_PACKET_FORENSICS_COURSE: Course = {
             "correctAnswerIndex": 2,
             "explanation": "Operating systems allocate unique ephemeral source ports (49152-65535) for each outbound TCP/UDP socket. Matching the ephemeral port and timestamp links the network packet to the specific host process socket in Sysmon Event 3.",
             "difficulty": "advanced"
+          },
+          {
+            "question": "Before sharing packet captures with external threat intelligence vendors or public repositories, what critical step must be executed to protect organizational privacy while preserving protocol analysis validity?",
+            "options": [
+              "Compress the file using standard ZIP encryption with a shared password",
+              "Sanitize and anonymize internal IP addresses, MAC addresses, and proprietary credentials using tools like TraceWrangler or Bittwiste",
+              "Convert the capture file into a plaintext CSV dump and delete the raw PCAP",
+              "Zero out all TCP payload bytes regardless of protocol layer"
+            ],
+            "correctAnswerIndex": 1,
+            "explanation": "Capture file sanitization (using tools like TraceWrangler) anonymizes sensitive internal IP subnets, hardware MACs, and proprietary payloads while preserving protocol handshakes, relative packet timings, and anomalies required for forensic analysis.",
+            "difficulty": "intermediate"
+          },
+          {
+            "question": "What is the primary forensic consequence if network capture tap appliances do not maintain accurate NTP/PTP time synchronization?",
+            "options": [
+              "Wireshark will refuse to parse TCP sequence numbers correctly",
+              "Packet timestamps cannot be accurately correlated against host EDR timelines, authentication logs, and firewall event records during multi-source incident reconstruction",
+              "The PCAP file's cryptographic hash will change every time it is read",
+              "Display filters using time operators will throw fatal syntax exceptions"
+            ],
+            "correctAnswerIndex": 1,
+            "explanation": "Accurate clock synchronization (via NTP/PTP) on packet capture devices is paramount for Digital Forensics and Incident Response (DFIR). Timestamp skew prevents cross-correlating network packets with host event logs, SIEM alerts, and firewall connection records.",
+            "difficulty": "intermediate"
           }
         ]
       }
@@ -5202,11 +5400,11 @@ export const NETWORK_PACKET_FORENSICS_COURSE: Course = {
       "capstoneAssessment": {
         "id": "capstone-operation-blackout-beacon",
         "title": "Operation Blackout Beacon \u2014 SOC Enterprise Intrusion Forensics",
-        "scenario": "On October 14, at 03:22 UTC, the Enterprise Security Operations Center (SOC) detected unusual outbound traffic surges and high-frequency internal connection attempts originating from an accounting workstation (10.0.4.152). A 45-minute continuous packet capture was preserved from the core switch SPAN port. As the Lead Network Forensics Specialist, you have been tasked with investigating the unknown capture, identifying the initial access vector, extracting the deployed secondary payload, evaluating command-and-control (C2) communication frequencies, mapping lateral movement attempts, and producing an executive and technical incident report.",
+        "scenario": "Simulated Incident Scenario: In this capstone scenario, an enterprise SOC analyst is presented with a realistic intrusion investigation narrative. Note: The scenario narrative, timestamps, and IP addresses below serve as an illustrative forensic challenge framework, while the analysis is conducted against the real multi-stage capture 'Hackers on the Network.pcapng' created by Netsec Explained. As the Lead Network Forensics Specialist, you have been tasked with investigating the capture, identifying anomalous protocol flows, isolating secondary payloads and beacons, evaluating command-and-control (C2) communication patterns, mapping connection attempts, and compiling a structured technical and executive report.",
         "pcapSource": {
           "fileName": "Hackers on the Network.pcapng",
           "fileUrl": "https://raw.githubusercontent.com/NetsecExplained/Advanced-Wireshark-Network-Forensics/master/Hackers%20on%20the%20Network.pcapng",
-          "sha256": "9f228b37ad582a9394f71a0642751f8dc974be42d0719ef7dfc33bb3e24a49db"
+          "sha256": "b2bd9a8b484f4ded72a4ce7de1335198d5ae6e81ace89fe6e6d5a071e1391cd9"
         },
         "totalMarks": 100,
         "passingScore": 75,

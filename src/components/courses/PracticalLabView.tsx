@@ -1,34 +1,90 @@
 'use client';
 
-import React, { useState } from 'react';
-import { PracticalLab } from '../../types/course';
+import React, { useState, useEffect } from 'react';
+import { PracticalLab, PracticalLabProgress } from '../../types/course';
 import {
   FlaskConical,
   Clock,
   CheckCircle2,
   HardDrive,
   Download,
-  AlertCircle,
   ChevronDown,
   ChevronUp,
+  BookOpen,
 } from 'lucide-react';
 import { CopyableFilter } from './LessonContentRenderer';
+import { cloudCourseProgressService } from '../../lib/cloud-course-progress';
 
 interface PracticalLabViewProps {
   lab: PracticalLab;
+  courseId: string;
 }
 
-export const PracticalLabView: React.FC<PracticalLabViewProps> = ({ lab }) => {
+export const PracticalLabView: React.FC<PracticalLabViewProps> = ({ lab, courseId }) => {
+  const [completedTaskIds, setCompletedTaskIds] = useState<string[]>([]);
   const [worksheetValues, setWorksheetValues] = useState<Record<string, string>>({});
   const [expandedHints, setExpandedHints] = useState<Record<string, boolean>>({});
 
+  // Restore saved state from course progress
+  useEffect(() => {
+    const progress = cloudCourseProgressService.getProgress(courseId);
+    const savedLab = progress.labProgress?.[lab.id];
+    if (savedLab) {
+      setCompletedTaskIds(savedLab.completedTaskIds || []);
+      setWorksheetValues(savedLab.worksheetAnswers || {});
+    }
+  }, [courseId, lab.id]);
+
+  const saveProgress = (taskIds: string[], sheetVals: Record<string, string>) => {
+    const tasksDone = taskIds.length;
+    const worksheetDone = Object.values(sheetVals).filter((v) => (v || '').trim().length > 0).length;
+    const isCompleted = tasksDone === lab.tasks.length && worksheetDone === (lab.evidenceWorksheet?.length || 0);
+
+    const progressRecord: PracticalLabProgress = {
+      labId: lab.id,
+      completedTaskIds: taskIds,
+      worksheetAnswers: sheetVals,
+      isCompleted,
+      lastUpdated: new Date().toISOString(),
+    };
+
+    if (cloudCourseProgressService.recordLabProgress) {
+      cloudCourseProgressService.recordLabProgress(courseId, lab.id, progressRecord);
+    }
+  };
+
+  const handleTaskToggle = (taskId: string) => {
+    setCompletedTaskIds((prev) => {
+      const next = prev.includes(taskId)
+        ? prev.filter((id) => id !== taskId)
+        : [...prev, taskId];
+      saveProgress(next, worksheetValues);
+      return next;
+    });
+  };
+
   const handleInputChange = (field: string, val: string) => {
-    setWorksheetValues((prev) => ({ ...prev, [field]: val }));
+    setWorksheetValues((prev) => {
+      const next = { ...prev, [field]: val };
+      saveProgress(completedTaskIds, next);
+      return next;
+    });
   };
 
   const toggleHint = (taskId: string) => {
     setExpandedHints((prev) => ({ ...prev, [taskId]: !prev[taskId] }));
   };
+
+  const totalTasks = lab.tasks.length;
+  const totalWorksheetFields = lab.evidenceWorksheet?.length || 0;
+  const totalItems = totalTasks + totalWorksheetFields;
+  const completedTasksCount = completedTaskIds.length;
+  const filledWorksheetCount = Object.values(worksheetValues).filter((v) => (v || '').trim().length > 0).length;
+  const completionPercent = totalItems > 0
+    ? Math.round(((completedTasksCount + filledWorksheetCount) / totalItems) * 100)
+    : 0;
+
+  const isLabFullyComplete = completedTasksCount === totalTasks && filledWorksheetCount === totalWorksheetFields && totalItems > 0;
 
   return (
     <div className="p-5 sm:p-6 rounded-[8px] border border-[#e4e4ed] dark:border-[#243044] bg-white dark:bg-[#121A26] space-y-6">
@@ -58,6 +114,49 @@ export const PracticalLabView: React.FC<PracticalLabViewProps> = ({ lab }) => {
         </div>
       </div>
 
+      {/* Lab Completion Progress Bar */}
+      <div className="p-4 rounded-[6px] bg-[#fbfbfe] dark:bg-[#1A2433]/40 border border-[#e4e4ed] dark:border-[#243044] space-y-2">
+        <div className="flex items-center justify-between text-xs font-mono">
+          <span className="text-[#64748B] dark:text-[#9BA8B7] flex items-center gap-1.5">
+            <CheckCircle2 className={`w-3.5 h-3.5 ${isLabFullyComplete ? 'text-[#10B981]' : 'text-[#0E7490] dark:text-[#22D3EE]'}`} />
+            <span>Lab Completion Status:</span>
+            <strong className="text-[#0F172A] dark:text-[#E6EDF3]">{completedTasksCount}/{totalTasks} Tasks, {filledWorksheetCount}/{totalWorksheetFields} Fields</strong>
+          </span>
+          <span className={`px-2 py-0.5 rounded-[4px] font-bold ${
+            isLabFullyComplete
+              ? 'bg-[#10B981]/10 text-[#065F46] dark:text-[#34D399] border border-[#10B981]/20'
+              : 'bg-[#0E7490]/10 text-[#0E7490] dark:text-[#22D3EE]'
+          }`}>
+            {completionPercent}%
+          </span>
+        </div>
+        <div className="w-full h-1.5 bg-[#e2e8f0] dark:bg-[#243044] rounded-full overflow-hidden">
+          <div
+            className={`h-full rounded-full transition-all duration-300 ${
+              isLabFullyComplete ? 'bg-[#10B981]' : 'bg-[#0E7490] dark:bg-[#22D3EE]'
+            }`}
+            style={{ width: `${completionPercent}%` }}
+          />
+        </div>
+      </div>
+
+      {/* Lab Instructions & Methodology */}
+      {lab.instructions && lab.instructions.length > 0 && (
+        <div className="p-4 rounded-[6px] bg-[#fbfbfe] dark:bg-[#1A2433]/30 border border-[#e4e4ed] dark:border-[#243044] space-y-2">
+          <h4 className="font-mono text-xs font-semibold text-[#0E7490] dark:text-[#22D3EE] uppercase tracking-wider flex items-center gap-1.5">
+            <BookOpen className="w-3.5 h-3.5" />
+            <span>Lab Instructions & Workflow</span>
+          </h4>
+          <ol className="list-decimal list-inside space-y-1 text-xs text-[#475569] dark:text-[#CBD5E1]">
+            {lab.instructions.map((inst, idx) => (
+              <li key={idx} className="leading-relaxed">
+                {inst}
+              </li>
+            ))}
+          </ol>
+        </div>
+      )}
+
       {/* Target PCAP Card */}
       <div className="p-4 rounded-[6px] bg-[#fbfbfe] dark:bg-[#1A2433]/50 border border-[#e4e4ed] dark:border-[#243044] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="flex items-center gap-2.5">
@@ -84,30 +183,48 @@ export const PracticalLabView: React.FC<PracticalLabViewProps> = ({ lab }) => {
         </a>
       </div>
 
-      {/* Lab Tasks */}
+      {/* Lab Tasks as Interactive Checkboxes */}
       <div className="space-y-3">
         <h4 className="font-mono text-xs font-semibold text-[#0F172A] dark:text-[#E6EDF3] uppercase tracking-wider">
           Lab Investigation Tasks
         </h4>
         <div className="space-y-2.5">
           {lab.tasks.map((task, idx) => {
+            const isChecked = completedTaskIds.includes(task.id);
             const hasHint = Boolean(task.hint || task.filterSuggestion);
             const isHintOpen = expandedHints[task.id];
 
             return (
               <div
                 key={task.id}
-                className="p-3.5 rounded-[6px] border border-[#e4e4ed] dark:border-[#243044] bg-[#fbfbfe] dark:bg-[#121A26] space-y-2"
+                className={`p-3.5 rounded-[6px] border transition-colors ${
+                  isChecked
+                    ? 'border-[#10B981]/40 bg-[#10B981]/5 dark:bg-[#10B981]/5'
+                    : 'border-[#e4e4ed] dark:border-[#243044] bg-[#fbfbfe] dark:bg-[#121A26]'
+                } space-y-2`}
               >
-                <div className="flex items-start justify-between gap-2">
-                  <div className="flex items-start gap-2">
-                    <span className="font-mono font-bold text-xs text-[#0E7490] dark:text-[#22D3EE] shrink-0 mt-0.5">
-                      Task {idx + 1}:
-                    </span>
-                    <span className="text-xs sm:text-sm text-[#0F172A] dark:text-[#E6EDF3] leading-snug">
-                      {task.description}
-                    </span>
-                  </div>
+                <div className="flex items-start justify-between gap-3">
+                  <label className="flex items-start gap-2.5 cursor-pointer select-none grow">
+                    <input
+                      type="checkbox"
+                      checked={isChecked}
+                      onChange={() => handleTaskToggle(task.id)}
+                      className="mt-0.5 w-4 h-4 rounded-[3px] accent-[#10B981] cursor-pointer shrink-0"
+                    />
+                    <div>
+                      <span className="font-mono font-bold text-xs text-[#0E7490] dark:text-[#22D3EE] mr-1.5">
+                        Task {idx + 1}:
+                      </span>
+                      <span className={`text-xs sm:text-sm ${
+                        isChecked
+                          ? 'line-through text-[#64748B] dark:text-[#64748B]'
+                          : 'text-[#0F172A] dark:text-[#E6EDF3]'
+                      }`}>
+                        {task.description}
+                      </span>
+                    </div>
+                  </label>
+
                   {hasHint && (
                     <button
                       type="button"
@@ -121,7 +238,7 @@ export const PracticalLabView: React.FC<PracticalLabViewProps> = ({ lab }) => {
                 </div>
 
                 {hasHint && isHintOpen && (
-                  <div className="p-3 rounded-[4px] bg-white dark:bg-[#1A2433] border border-[#e4e4ed] dark:border-[#243044] text-xs space-y-2">
+                  <div className="p-3 rounded-[4px] bg-white dark:bg-[#1A2433] border border-[#e4e4ed] dark:border-[#243044] text-xs space-y-2 ml-6">
                     {task.hint && (
                       <p className="text-[#475569] dark:text-[#9BA8B7]">{task.hint}</p>
                     )}
@@ -187,4 +304,3 @@ export const PracticalLabView: React.FC<PracticalLabViewProps> = ({ lab }) => {
     </div>
   );
 };
-

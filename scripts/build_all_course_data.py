@@ -66,8 +66,7 @@ COURSE = {
     "totalDurationMinutes": total_minutes,
     "instructor": {
         "name": "Netsec Explained",
-        "title": "Senior Network Security & Forensics Researcher",
-        "organization": "Netsec Explained Forensics Initiative"
+        "title": "Network Security & Forensics Researcher"
     },
     "prerequisites": [
         "Basic understanding of IPv4 addressing and subnet masks",
@@ -109,6 +108,11 @@ MANIFEST = {
     "regularLessonCount": regular_lessons,
     "capstoneCount": capstone_lessons,
     "totalLessonCount": total_lessons,
+    "videoLessonCount": 3,
+    "theoryLessonCount": 34,
+    "regularTheoryLessonCount": 33,
+    "practicalLabCount": 8,
+    "quizQuestionCount": 40,
     "totalDurationMinutes": total_minutes,
     "estimatedDuration": duration_formatted,
     "track": COURSE["track"],

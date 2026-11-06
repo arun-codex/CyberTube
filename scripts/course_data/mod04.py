@@ -16,15 +16,36 @@ MODULE_04 = {
                 "Trace HTTP 302 redirections and malicious Referer headers leading to payload delivery",
                 "Analyze HTTP POST and GET check-in requests used by initial stage implants"
             ],
-            "tags": ["malware-analysis", "c2", "delivery-mechanics", "exploit-kits", "http-traffic"],
-            "skillsTaught": ["Redirection chain tracing", "HTTP payload drop analysis", "C2 check-in identification"],
+            "tags": [
+                "malware-analysis",
+                "c2",
+                "delivery-mechanics",
+                "exploit-kits",
+                "http-traffic"
+            ],
+            "skillsTaught": [
+                "Redirection chain tracing",
+                "HTTP payload drop analysis",
+                "C2 check-in identification"
+            ],
             "richContent": {
                 "introduction": "Modern cyber attacks rarely deliver monolithic payloads in a single packet. Instead, adversaries use multi-stage infection funnels: an initial lure (phishing email link) triggers an HTTP 302 redirection chain, landing on an exploit delivery server that delivers a lightweight stage-0 loader, which then connects to Command-and-Control (C2) infrastructure to download stage-1 implants.",
-                "prerequisites": ["Module 03: Advanced Wireshark Investigation Workflow"],
+                "prerequisites": [
+                    "Module 03: Advanced Wireshark Investigation Workflow"
+                ],
                 "keyTerminology": [
-                    {"term": "Command-and-Control (C2)", "definition": "Infrastructure controlled by an attacker used to send commands to compromised systems and receive exfiltrated data."},
-                    {"term": "Stager vs. Stageless", "definition": "A stager is a tiny loader that connects back to retrieve the full payload; a stageless binary contains all functionality embedded directly."},
-                    {"term": "Referer Header", "definition": "HTTP request header indicating the originating web page that linked to the requested resource, critical for mapping infection chains."}
+                    {
+                        "term": "Command-and-Control (C2)",
+                        "definition": "Infrastructure controlled by an attacker used to send commands to compromised systems and receive exfiltrated data."
+                    },
+                    {
+                        "term": "Stager vs. Stageless",
+                        "definition": "A stager is a tiny loader that connects back to retrieve the full payload; a stageless binary contains all functionality embedded directly."
+                    },
+                    {
+                        "term": "Referer Header",
+                        "definition": "HTTP request header indicating the originating web page that linked to the requested resource, critical for mapping infection chains."
+                    }
                 ],
                 "theorySections": [
                     {
@@ -53,8 +74,16 @@ MODULE_04 = {
                     }
                 ],
                 "displayFilters": [
-                    {"filter": "http.request.uri contains \".exe\" or http.request.uri contains \".dll\"", "description": "Detects cleartext executable file downloads", "purpose": "Locate stage downloads"},
-                    {"filter": "http.user_agent contains \"PowerShell\" or http.user_agent contains \"Wget\"", "description": "Identifies script-based programmatic downloads", "purpose": "Detect automated loader activity"}
+                    {
+                        "filter": "http.request.uri contains \".exe\" or http.request.uri contains \".dll\"",
+                        "description": "Detects cleartext executable file downloads",
+                        "purpose": "Locate stage downloads"
+                    },
+                    {
+                        "filter": "http.user_agent contains \"PowerShell\" or http.user_agent contains \"Wget\"",
+                        "description": "Identifies script-based programmatic downloads",
+                        "purpose": "Detect automated loader activity"
+                    }
                 ],
                 "expectedObservations": [
                     "Adversaries frequently use random alphanumeric URIs (e.g. /gate.php, /api/v1/update?id=82736) for C2 check-ins."
@@ -65,14 +94,22 @@ MODULE_04 = {
                 "securityRelevance": "Documenting the complete delivery chain identifies both initial phishing infrastructure and persistent C2 servers for enterprise firewall blacklisting.",
                 "knowledgeCheck": {
                     "question": "Which HTTP request header reveals the originating web page that redirected or linked a victim to a malicious download URL?",
-                    "options": ["User-Agent", "Referer", "Host", "Accept-Encoding"],
+                    "options": [
+                        "User-Agent",
+                        "Referer",
+                        "Host",
+                        "Accept-Encoding"
+                    ],
                     "correctAnswerIndex": 1,
                     "explanation": "The HTTP Referer header contains the address of the webpage from which the current request originated, allowing analysts to trace the preceding redirection jump.",
                     "difficulty": "beginner"
                 },
                 "summary": "Analyzing multi-stage malware delivery requires tracking redirection sequences, identifying abnormal User-Agent strings, and decoding C2 check-in telemetry.",
                 "furtherReading": [
-                    {"title": "MITRE ATT&CK — T1071: Application Layer Protocol (C2)", "url": "https://attack.mitre.org/techniques/T1071/"}
+                    {
+                        "title": "MITRE ATT&CK \u2014 T1071: Application Layer Protocol (C2)",
+                        "url": "https://attack.mitre.org/techniques/T1071/"
+                    }
                 ]
             }
         },
@@ -96,14 +133,31 @@ MODULE_04 = {
                 "Observe how Netsec Explained isolates suspicious IP conversations and analyzes C2 payloads",
                 "Replicate malware traffic analysis workflows in your local Wireshark installation"
             ],
-            "tags": ["netsec-explained", "video-walkthrough", "malware-traffic-analysis", "c2-hunting"],
-            "skillsTaught": ["Malware traffic analysis", "C2 pattern identification", "Expert workflow execution"],
+            "tags": [
+                "netsec-explained",
+                "video-walkthrough",
+                "malware-traffic-analysis",
+                "c2-hunting"
+            ],
+            "skillsTaught": [
+                "Malware traffic analysis",
+                "C2 pattern identification",
+                "Expert workflow execution"
+            ],
             "richContent": {
                 "introduction": "In Part 2 of the Advanced Wireshark Network Forensics series by Netsec Explained, the investigation shifts from broad baseline triage to surgical malware traffic analysis. Watch how anomalous endpoints are systematically isolated, observe how beaconing patterns emerge across TCP and HTTP conversations, and learn how to extract critical indicators for threat reports.",
-                "prerequisites": ["Lesson 4.1: Malware Delivery Mechanics"],
+                "prerequisites": [
+                    "Lesson 4.1: Malware Delivery Mechanics"
+                ],
                 "keyTerminology": [
-                    {"term": "Beaconing", "definition": "Repeated network communication by an implant to its C2 server at regular or jittered intervals to check for tasking."},
-                    {"term": "Malware Traffic Analysis (MTA)", "definition": "The specialized discipline of inspecting network captures to identify malware infections, exploit kits, and adversary behavior."}
+                    {
+                        "term": "Beaconing",
+                        "definition": "Repeated network communication by an implant to its C2 server at regular or jittered intervals to check for tasking."
+                    },
+                    {
+                        "term": "Malware Traffic Analysis (MTA)",
+                        "definition": "The specialized discipline of inspecting network captures to identify malware infections, exploit kits, and adversary behavior."
+                    }
                 ],
                 "theorySections": [
                     {
@@ -131,8 +185,16 @@ MODULE_04 = {
                     }
                 ],
                 "displayFilters": [
-                    {"filter": "ip.src == 10.0.4.152 && tcp.flags.syn == 1 && tcp.flags.ack == 0", "description": "All outbound connection attempts from compromised host", "purpose": "Map target destination IPs"},
-                    {"filter": "http.request and ip.src == 10.0.4.152", "description": "Web requests made by the infected system", "purpose": "Identify web-based C2 channels"}
+                    {
+                        "filter": "ip.src == 10.0.4.152 && tcp.flags.syn == 1 && tcp.flags.ack == 0",
+                        "description": "All outbound connection attempts from compromised host",
+                        "purpose": "Map target destination IPs"
+                    },
+                    {
+                        "filter": "http.request and ip.src == 10.0.4.152",
+                        "description": "Web requests made by the infected system",
+                        "purpose": "Identify web-based C2 channels"
+                    }
                 ],
                 "expectedObservations": [
                     "A single infected machine will repeatedly initiate outbound connections to a small set of external IP addresses on fixed ports."
@@ -155,7 +217,10 @@ MODULE_04 = {
                 },
                 "summary": "Part 2 of Netsec Explained demonstrates how to track an active infection in packet captures, isolating C2 channels and mapping compromised endpoints.",
                 "furtherReading": [
-                    {"title": "Malware-Traffic-Analysis.net Exercises by Brad Duncan", "url": "https://www.malware-traffic-analysis.net/"}
+                    {
+                        "title": "Malware-Traffic-Analysis.net Exercises by Brad Duncan",
+                        "url": "https://www.malware-traffic-analysis.net/"
+                    }
                 ]
             }
         },
@@ -171,15 +236,36 @@ MODULE_04 = {
                 "Identify randomized jitter implementations (e.g., 60s sleep with 20% jitter = 48s to 72s)",
                 "Use Wireshark Conversations and IO Graphs to visually identify periodic heartbeat rhythms"
             ],
-            "tags": ["c2-beaconing", "jitter", "heartbeat", "timing-analysis", "threat-hunting"],
-            "skillsTaught": ["Beacon frequency calculation", "Jitter modeling", "Automated heartbeat detection"],
+            "tags": [
+                "c2-beaconing",
+                "jitter",
+                "heartbeat",
+                "timing-analysis",
+                "threat-hunting"
+            ],
+            "skillsTaught": [
+                "Beacon frequency calculation",
+                "Jitter modeling",
+                "Automated heartbeat detection"
+            ],
             "richContent": {
                 "introduction": "Adversary implants maintain contact with command servers by sending periodic 'heartbeats' or 'beacons' to query for queued tasks. While naive implants beacon at exact intervals (e.g. exactly every 60 seconds), mature frameworks (Cobalt Strike, Mythic, Sliver) introduce sleep jitter to randomize connection intervals and evade static threshold detection.",
-                "prerequisites": ["Lesson 1.4: Timestamps & Delta Timing Analysis"],
+                "prerequisites": [
+                    "Lesson 1.4: Timestamps & Delta Timing Analysis"
+                ],
                 "keyTerminology": [
-                    {"term": "Sleep Time", "definition": "The base duration an implant remains inactive between outbound communication attempts."},
-                    {"term": "Jitter", "definition": "A randomized percentage applied to the sleep time (e.g. 60s +/- 20% = 48s to 72s) to prevent exact periodic cadence on the network."},
-                    {"term": "Heartbeat", "definition": "A short status message transmitted by an implant confirming it is still active and awaiting instructions."}
+                    {
+                        "term": "Sleep Time",
+                        "definition": "The base duration an implant remains inactive between outbound communication attempts."
+                    },
+                    {
+                        "term": "Jitter",
+                        "definition": "A randomized percentage applied to the sleep time (e.g. 60s +/- 20% = 48s to 72s) to prevent exact periodic cadence on the network."
+                    },
+                    {
+                        "term": "Heartbeat",
+                        "definition": "A short status message transmitted by an implant confirming it is still active and awaiting instructions."
+                    }
                 ],
                 "theorySections": [
                     {
@@ -207,8 +293,16 @@ MODULE_04 = {
                     }
                 ],
                 "displayFilters": [
-                    {"filter": "tcp.flags.syn == 1 and tcp.flags.ack == 0 and ip.dst == 198.51.100.25", "description": "Isolates SYN initiations to specific C2 target", "purpose": "Beacon interval extraction"},
-                    {"filter": "http.request and ip.dst == 198.51.100.25", "description": "Isolates web-based polling requests to C2", "purpose": "HTTP heartbeat timing analysis"}
+                    {
+                        "filter": "tcp.flags.syn == 1 and tcp.flags.ack == 0 and ip.dst == 198.51.100.25",
+                        "description": "Isolates SYN initiations to specific C2 target",
+                        "purpose": "Beacon interval extraction"
+                    },
+                    {
+                        "filter": "http.request and ip.dst == 198.51.100.25",
+                        "description": "Isolates web-based polling requests to C2",
+                        "purpose": "HTTP heartbeat timing analysis"
+                    }
                 ],
                 "expectedObservations": [
                     "A consistent sequence of delta times (e.g. ~60 seconds) confirming automated software polling."
@@ -219,14 +313,22 @@ MODULE_04 = {
                 "securityRelevance": "Calculating exact beaconing sleep and jitter values allows defenders to write Sigma, Snort, and Zeek rules that hunt for the same implant cadence across other enterprise segments.",
                 "knowledgeCheck": {
                     "question": "If an adversary implant is configured with a 120-second sleep interval and 25% jitter, what is the valid time window between consecutive beacons?",
-                    "options": ["90 seconds to 150 seconds", "100 seconds to 140 seconds", "Exactly 120 seconds", "0 seconds to 120 seconds"],
+                    "options": [
+                        "90 seconds to 150 seconds",
+                        "100 seconds to 140 seconds",
+                        "Exactly 120 seconds",
+                        "0 seconds to 120 seconds"
+                    ],
                     "correctAnswerIndex": 0,
                     "explanation": "25% of 120 seconds is 30 seconds. Applying +/- 25% jitter results in intervals ranging between 120 - 30 = 90 seconds and 120 + 30 = 150 seconds.",
                     "difficulty": "intermediate"
                 },
                 "summary": "Analyzing connection delta times and statistical clustering uncovers automated C2 beaconing heartbeats even when disguised by randomized jitter.",
                 "furtherReading": [
-                    {"title": "Active Countermeasures — Finding C2 Beacons with Network Traffic Analysis", "url": "https://www.activecountermeasures.com/"}
+                    {
+                        "title": "Active Countermeasures \u2014 Finding C2 Beacons with Network Traffic Analysis",
+                        "url": "https://www.activecountermeasures.com/"
+                    }
                 ]
             }
         },
@@ -243,15 +345,36 @@ MODULE_04 = {
                 "Identify Domain Generation Algorithm (DGA) query bursts and high NXDomain error rates",
                 "Reconstruct exfiltrated data by extracting and decoding encoded subdomain strings"
             ],
-            "tags": ["dns-tunneling", "exfiltration", "dga", "fast-flux", "covert-channels"],
-            "skillsTaught": ["DNS tunneling detection", "DGA domain identification", "Subdomain payload reassembly"],
+            "tags": [
+                "dns-tunneling",
+                "exfiltration",
+                "dga",
+                "fast-flux",
+                "covert-channels"
+            ],
+            "skillsTaught": [
+                "DNS tunneling detection",
+                "DGA domain identification",
+                "Subdomain payload reassembly"
+            ],
             "richContent": {
                 "introduction": "DNS is frequently permitted outbound through corporate firewalls without proxy inspection. Attackers abuse this trust by encoding sensitive files or C2 instructions directly inside DNS queries (e.g. v2-payload-data.attacker.com), converting the global recursive DNS resolution hierarchy into a covert data exfiltration and command pipeline.",
-                "prerequisites": ["Lesson 0.5: UDP, ICMP & Core Infrastructure Protocols"],
+                "prerequisites": [
+                    "Lesson 0.5: UDP, ICMP & Core Infrastructure Protocols"
+                ],
                 "keyTerminology": [
-                    {"term": "DNS Tunneling", "definition": "A technique that encapsulates non-DNS traffic (IP, HTTP, shell commands) inside standard DNS query and response packets."},
-                    {"term": "DGA (Domain Generation Algorithm)", "definition": "An algorithm used by malware to dynamically generate hundreds of pseudo-random domain names daily to find an active C2 server."},
-                    {"term": "Fast-Flux", "definition": "A DNS technique where A record IP addresses are swapped every few minutes using ultra-low TTLs to hide resilient C2 backend servers."}
+                    {
+                        "term": "DNS Tunneling",
+                        "definition": "A technique that encapsulates non-DNS traffic (IP, HTTP, shell commands) inside standard DNS query and response packets."
+                    },
+                    {
+                        "term": "DGA (Domain Generation Algorithm)",
+                        "definition": "An algorithm used by malware to dynamically generate hundreds of pseudo-random domain names daily to find an active C2 server."
+                    },
+                    {
+                        "term": "Fast-Flux",
+                        "definition": "A DNS technique where A record IP addresses are swapped every few minutes using ultra-low TTLs to hide resilient C2 backend servers."
+                    }
                 ],
                 "theorySections": [
                     {
@@ -280,8 +403,16 @@ MODULE_04 = {
                     }
                 ],
                 "displayFilters": [
-                    {"filter": "dns.qry.type in {16, 10}", "description": "Filters for DNS TXT (16) and NULL (10) record queries", "purpose": "Detect bulk data exfiltration over DNS"},
-                    {"filter": "dns.flags.response == 0 and dns.qry.name contains \"c2\"", "description": "Queries containing specific indicator keywords", "purpose": "Adversary name resolution tracking"}
+                    {
+                        "filter": "dns.qry.type in {16, 10}",
+                        "description": "Filters for DNS TXT (16) and NULL (10) record queries",
+                        "purpose": "Detect bulk data exfiltration over DNS"
+                    },
+                    {
+                        "filter": "dns.flags.response == 0 and dns.qry.name contains \"c2\"",
+                        "description": "Queries containing specific indicator keywords",
+                        "purpose": "Adversary name resolution tracking"
+                    }
                 ],
                 "expectedObservations": [
                     "Tunneling tools like dnscat2 generate massive continuous streams of TXT record queries carrying Base32-encoded data."
@@ -304,7 +435,10 @@ MODULE_04 = {
                 },
                 "summary": "Detecting DNS covert channels requires monitoring query length, character entropy, record type distributions, and NXDomain error frequencies across enterprise DNS resolvers.",
                 "furtherReading": [
-                    {"title": "SANS Reading Room — Detecting DNS Tunneling", "url": "https://www.sans.org/white-papers/34370/"}
+                    {
+                        "title": "SANS Reading Room \u2014 Detecting DNS Tunneling",
+                        "url": "https://www.sans.org/white-papers/34370/"
+                    }
                 ]
             }
         }
@@ -313,12 +447,14 @@ MODULE_04 = {
         "id": "lab-04-c2-beacon-analysis",
         "title": "Lab 04: Command-and-Control (C2) Identification & Beacon Timing Analysis",
         "objective": "Isolate the primary C2 communication channel in Hackers on the Network PCAP, calculate the beacon interval and jitter, and identify any DNS exfiltration attempts.",
-        "toolsRequired": ["Wireshark 4.x or higher"],
+        "toolsRequired": [
+            "Wireshark 4.x or higher"
+        ],
         "pcapSource": {
             "fileName": "Hackers on the Network.pcapng",
             "fileUrl": "https://raw.githubusercontent.com/NetsecExplained/Advanced-Wireshark-Network-Forensics/master/Hackers%20on%20the%20Network.pcapng",
             "repositoryUrl": "https://github.com/NetsecExplained/Advanced-Wireshark-Network-Forensics",
-            "sha256": "9f228b37ad582a9394f71a0642751f8dc974be42d0719ef7dfc33bb3e24a49db"
+            "sha256": "b2bd9a8b484f4ded72a4ce7de1335198d5ae6e81ace89fe6e6d5a071e1391cd9"
         },
         "difficulty": "advanced",
         "estimatedMinutes": 60,
@@ -331,14 +467,38 @@ MODULE_04 = {
             "Check for anomalous DNS queries with unusually long subdomains."
         ],
         "tasks": [
-            {"id": "task-04-1", "description": "Identify external C2 server IP address and target port", "hint": "Inspect outbound TCP connections from 10.0.4.152"},
-            {"id": "task-04-2", "description": "Measure 5 consecutive beacon delta timings in seconds", "hint": "Filter tcp.flags.syn == 1 and view delta times"},
-            {"id": "task-04-3", "description": "Verify whether DNS tunneling was utilized", "hint": "Filter dns.qry.name.len > 40"}
+            {
+                "id": "task-04-1",
+                "description": "Identify external C2 server IP address and target port",
+                "hint": "Inspect outbound TCP connections from 10.0.4.152"
+            },
+            {
+                "id": "task-04-2",
+                "description": "Measure 5 consecutive beacon delta timings in seconds",
+                "hint": "Filter tcp.flags.syn == 1 and view delta times"
+            },
+            {
+                "id": "task-04-3",
+                "description": "Verify whether DNS tunneling was utilized",
+                "hint": "Filter dns.qry.name.len > 40"
+            }
         ],
         "evidenceWorksheet": [
-            {"field": "C2 Destination IP", "prompt": "Enter the remote C2 IP address:", "expectedEvidenceType": "IPv4 address"},
-            {"field": "C2 Destination Port", "prompt": "Enter the remote C2 port:", "expectedEvidenceType": "Integer port (e.g. 443, 8080)"},
-            {"field": "Calculated Average Beacon Interval", "prompt": "Average seconds between beacons:", "expectedEvidenceType": "Seconds (e.g. 60.5s)"}
+            {
+                "field": "C2 Destination IP",
+                "prompt": "Enter the remote C2 IP address:",
+                "expectedEvidenceType": "IPv4 address"
+            },
+            {
+                "field": "C2 Destination Port",
+                "prompt": "Enter the remote C2 port:",
+                "expectedEvidenceType": "Integer port (e.g. 443, 8080)"
+            },
+            {
+                "field": "Calculated Average Beacon Interval",
+                "prompt": "Average seconds between beacons:",
+                "expectedEvidenceType": "Seconds (e.g. 60.5s)"
+            }
         ],
         "questions": [
             {
@@ -365,7 +525,12 @@ MODULE_04 = {
         "questions": [
             {
                 "question": "Which DNS query record type is most commonly abused by attackers for large outbound data exfiltration payloads due to its generous text payload capacity?",
-                "options": ["A (Host Address)", "PTR (Pointer)", "TXT (Text)", "MX (Mail Exchange)"],
+                "options": [
+                    "A (Host Address)",
+                    "PTR (Pointer)",
+                    "TXT (Text)",
+                    "MX (Mail Exchange)"
+                ],
                 "correctAnswerIndex": 2,
                 "explanation": "TXT records can return up to 255 bytes per string (and multiple strings per record), making them the preferred vehicle for returning large payloads over DNS.",
                 "difficulty": "intermediate"
@@ -384,12 +549,40 @@ MODULE_04 = {
             },
             {
                 "question": "Which HTTP header is most valuable for tracing the chain of website redirections that led a user from an email click to an exploit kit landing page?",
-                "options": ["Accept", "Referer", "Host", "Cookie"],
+                "options": [
+                    "Accept",
+                    "Referer",
+                    "Host",
+                    "Cookie"
+                ],
                 "correctAnswerIndex": 1,
                 "explanation": "The Referer header identifies the specific URL of the webpage that linked to the requested URL, enabling investigators to map multi-hop redirection funnels.",
                 "difficulty": "beginner"
+            },
+            {
+                "question": "Which Wireshark visualization tool is most effective for distinguishing regular automated C2 beacon pulses from interactive human adversary activity?",
+                "options": [
+                    "IO Graphs (Statistics -> IO Graphs) with 1-second interval filtered on suspected C2 stream",
+                    "Expert Info error counter",
+                    "Packet Lengths distribution histogram",
+                    "TCP Stream Graphs -> Round Trip Time graph"
+                ],
+                "correctAnswerIndex": 0,
+                "explanation": "Wireshark's I/O Graphs with granular time intervals (e.g. 1 second or 0.1s) visually expose recurring periodic spikes representing automated beacon heartbeats, whereas interactive operator sessions exhibit irregular burst patterns.",
+                "difficulty": "intermediate"
+            },
+            {
+                "question": "What characteristic DNS pattern in enterprise network capture files indicates the presence of a Domain Generation Algorithm (DGA) malware family?",
+                "options": [
+                    "A large burst of DNS queries returning NXDOMAIN (No Such Name) followed by a successful resolution to an external IP",
+                    "Single DNS queries to well-known search engines with high TTL values",
+                    "Continuous DNS PTR reverse lookup requests for local subnet hosts",
+                    "DNS queries with oversized EDNS0 buffer options exceeding 4096 bytes"
+                ],
+                "correctAnswerIndex": 0,
+                "explanation": "DGA malware generates hundreds of pseudo-random domain names daily. Most generated domains are unregistered, resulting in high volumes of NXDOMAIN responses until the active attacker-registered domain resolves successfully.",
+                "difficulty": "intermediate"
             }
         ]
     }
 }
-

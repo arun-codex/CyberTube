@@ -2,9 +2,11 @@
 
 ## 1. Executive Summary
 
-This engineering phase completely upgrades the existing Network Packet Analysis course in CyberTube into the 9-module, 37-lesson **Network Packet Analysis & Forensics Masterclass** created in partnership with Netsec Explained.
+This engineering phase completely upgrades the existing Network Packet Analysis course in CyberTube into the 9-module, 37-lesson **Network Packet Analysis & Forensics Masterclass** integrating educational material from Netsec Explained.
 
-The implementation preserves the canonical course identifier (`course-packet-analysis-wireshark`), upgrades the curriculum in-place without adding duplicate catalog entries, establishes a seamless 308 redirect from the proposed slug alias (`network-packet-analysis-forensics-masterclass`) to the canonical slug (`network-packet-analysis-masterclass`), safely archives legacy prototype progress, and equips learners with rich theoretical content, copyable Wireshark display filters, interactive knowledge checks, module labs, module quizzes, verified PCAP scenarios, and a 100-mark enterprise intrusion capstone investigation.
+The implementation preserves the canonical course identifier (`course-packet-analysis-wireshark`), upgrades the curriculum in-place without adding duplicate catalog entries, establishes a seamless 308 redirect from the proposed slug alias (`network-packet-analysis-forensics-masterclass`) to the canonical slug (`network-packet-analysis-masterclass`), safely archives legacy prototype progress, and equips learners with rich theoretical content, copyable Wireshark display filters, interactive knowledge checks, module labs, module quizzes (40 questions across 8 modules), verified PCAP scenarios, and a comprehensive 100-mark enterprise intrusion capstone investigation.
+
+Phase 18.1 hardens assessment integrity, removes text-length heuristics in favor of honest structured student reporting and rubric self-assessment, computes cryptographic digests directly from upstream captures, implements 4-dimensional certification gating, and stores full quiz attempt histories.
 
 ---
 
@@ -12,9 +14,10 @@ The implementation preserves the canonical course identifier (`course-packet-ana
 
 | Safety Constraint | Status | Notes |
 | :--- | :--- | :--- |
-| Baseline commit verified | Preserved | Based on `bc99615deac2cad9e80acac57082fddb621d14f3` |
+| Baseline commit verified | Preserved | Based on `d820dd0da74f47fc2d155c3c8b71285d9dce4cb3` |
 | Working branch | Compliant | Dedicated branch `feature/network-packet-forensics-course` |
 | PR #8 untouched | Preserved | Branch `feature/mern-full-stack-course-integration` and PR #8 untouched in Draft state |
+| PR #9 maintained | Compliant | Kept in Draft state; no merging or premature closing |
 | Production deployment | Avoided | No production build or deployment executed |
 | Production database migrations | Avoided | No Supabase cloud migrations executed |
 | Production env vars / secrets | Unchanged | No env files or secrets committed |
@@ -39,7 +42,7 @@ The implementation preserves the canonical course identifier (`course-packet-ana
   - `les-03-2-video-part1` (`e_dsGhvq9CU`): Advanced Wireshark Network Forensics — Part 1/3 (Mod 03)
   - `les-04-2-video-part2` (`ZJZlRGLN2_s`): Advanced Wireshark Network Forensics — Part 2/3 (Mod 04)
   - `les-05-2-video-part3` (`HR_sLcW4xz0`): Advanced Wireshark Network Forensics — Part 3/3 (Mod 05)
-- **Theory & Practical Lessons**: 34 lessons do not have `youtubeVideoId`. The player area displays an interactive Forensics Curriculum & Practical Lab Guide banner with direct attribution and links to Netsec Explained.
+- **Theory & Practical Lessons**: 34 lessons do not have `youtubeVideoId` (33 regular lessons + 1 capstone). The player area displays an interactive Forensics Curriculum & Practical Lab Guide banner with direct attribution and links to Netsec Explained.
 
 ---
 
@@ -54,37 +57,46 @@ The implementation preserves the canonical course identifier (`course-packet-ana
 2. **`PracticalLabView.tsx`**:
    - Outlines lab objectives, required tools (Wireshark, tshark, Zeek), and target PCAP files.
    - Expandable task cards with display filter suggestions and hints.
-   - Interactive evidence worksheet allowing learners to record findings.
+   - Interactive task checkboxes with persistent checked state across sessions.
+   - Evidence worksheet with persistent user responses across page reloads.
+   - Real-time completion progress tracking based on completed tasks and completed worksheet fields.
 
 3. **`ModuleQuizView.tsx`**:
-   - 5-question multiple choice quizzes for each module.
-   - Automated scoring engine calculating percentage with a 70% threshold.
-   - Persists quiz scores in course progress state.
+   - 5-question multiple choice quizzes for each module (40 questions total across 8 modules).
+   - Automated scoring engine calculating percentage with a 70% passing threshold (minimum 4/5 correct).
+   - Records full attempt history (attempt number, timestamps, answer selections, scores) and preserves highest achieved score.
+   - Real-time feedback displaying explanations and correct answers upon submission.
 
 4. **`CapstoneAssessmentView.tsx`**:
    - *Operation Blackout Beacon* enterprise intrusion investigation.
-   - 6 graded report sections worth 100 total marks (Pass mark: 75/100).
-   - Real-time scoring analysis and evaluation feedback.
+   - 6 graded report sections: Executive Summary, Initial Access, C2 Beaconing, Lateral Movement, Exfiltration, Remediation Roadmap.
+   - Automated completeness check verifying substantive content across all 6 sections (minimum 20 words each) and domain technical terms.
+   - Learner rubric self-assessment (0–100 marks) requiring ≥75/100 to pass. Prevents auto-passing via length heuristics.
+   - Persists submission draft, completeness checks, and self-assessment scores in localStorage across sessions.
 
 5. **`PCAPResourceList.tsx`**:
-   - Download links for official Netsec Explained and Wireshark Foundation captures.
-   - SHA-256 copyable checksums for cryptographic integrity.
+   - Download links for verified captures from Netsec Explained upstream repo and Wireshark Foundation.
+   - Live-verified SHA-256 checksums matching upstream GitHub files.
    - Lab safety guidance on analyzing potentially malicious traffic in isolated environments.
 
 6. **`CourseLearningExperience.tsx`**:
    - Tabbed workspace organizing Lesson Guide, Module Lab, Module Quiz, SOC Capstone, and PCAP Library.
+   - Dedicated 4-dimension certification progress overview (`data-testid="masterclass-assessment-progress"`) displaying status for lessons, quizzes, labs, and capstone.
    - Handles legacy progress archival banner.
    - Safe fallback when `youtubeVideoId` is not present.
 
 ---
 
-## 5. Progress Persistence & Legacy Migration
+## 5. Multi-Dimensional Progress Engine & Certification Gates
 
-- In `src/lib/course-progress.ts`, `loadState` scans stored records for legacy lesson IDs:
-  `['les-wireshark-deep-dive', 'les-wireshark-troubleshooting']`.
-- When encountered, these IDs are safely migrated to `archivedLegacyLessonIds` and stripped from active `completedLessonIds`.
-- The user's historical record is preserved without skewing the 37-lesson masterclass progress percentage.
-- The UI surfaces an alert banner informing the learner of the migration.
+- In `src/lib/course-progress.ts`, progress calculation enforces all 4 required gates for certification:
+  1. All 37 lessons completed.
+  2. All 8 module quizzes passed (≥70%).
+  3. All 8 practical labs completed (all tasks checked + evidence worksheet answered).
+  4. Capstone submitted and self-assessed with a score of ≥75/100.
+- Ordinary completion toggle on the capstone lesson alone cannot award 100% course completion without satisfying all 4 assessment gates.
+- Legacy progress archival continues to migrate old prototype lessons (`les-wireshark-deep-dive`, `les-wireshark-troubleshooting`) safely into `archivedLegacyLessonIds`.
+- Standard courses (MERN Full Stack, Networking for Hackers 2027, Wireshark and Ethical Hacking) retain their standard lesson-based completion semantics without disruption.
 
 ---
 

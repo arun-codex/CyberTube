@@ -16,15 +16,36 @@ MODULE_06 = {
                 "Apply capture filters (-f) and display filters (-Y) from terminal environments",
                 "Integrate TShark into automated SOC alert response pipelines"
             ],
-            "tags": ["tshark", "cli", "command-line", "headless-analysis", "automation"],
-            "skillsTaught": ["TShark CLI navigation", "Terminal filter execution", "Headless triage"],
+            "tags": [
+                "tshark",
+                "cli",
+                "command-line",
+                "headless-analysis",
+                "automation"
+            ],
+            "skillsTaught": [
+                "TShark CLI navigation",
+                "Terminal filter execution",
+                "Headless triage"
+            ],
             "richContent": {
                 "introduction": "While Wireshark's GUI is unmatched for visual exploration, it struggles when analyzing 50-gigabyte captures across remote headless Linux sensors. TShark is the command-line equivalent of Wireshark, sharing the exact same dissection engine, display filter syntax, and Wiretap libraries, but operating with minimal memory overhead.",
-                "prerequisites": ["Module 02: Packet Analysis & Protocol Investigation"],
+                "prerequisites": [
+                    "Module 02: Packet Analysis & Protocol Investigation"
+                ],
                 "keyTerminology": [
-                    {"term": "TShark", "definition": "The terminal-oriented version of Wireshark designed for automated scripts, remote SSH sessions, and pipeline integration."},
-                    {"term": "-r flag", "definition": "Reads an existing capture file (e.g. tshark -r capture.pcap)."},
-                    {"term": "-Y flag", "definition": "Specifies a Wireshark display filter to evaluate against packets (e.g. tshark -r file.pcap -Y 'http')."}
+                    {
+                        "term": "TShark",
+                        "definition": "The terminal-oriented version of Wireshark designed for automated scripts, remote SSH sessions, and pipeline integration."
+                    },
+                    {
+                        "term": "-r flag",
+                        "definition": "Reads an existing capture file (e.g. tshark -r capture.pcap)."
+                    },
+                    {
+                        "term": "-Y flag",
+                        "definition": "Specifies a Wireshark display filter to evaluate against packets (e.g. tshark -r file.pcap -Y 'http')."
+                    }
                 ],
                 "theorySections": [
                     {
@@ -53,7 +74,11 @@ MODULE_06 = {
                     }
                 ],
                 "displayFilters": [
-                    {"filter": "tshark -r capture.pcap -Y \"tcp.flags.reset == 1\"", "description": "CLI command to list all reset packets", "purpose": "Rapid terminal error check"}
+                    {
+                        "filter": "tshark -r capture.pcap -Y \"tcp.flags.reset == 1\"",
+                        "description": "CLI command to list all reset packets",
+                        "purpose": "Rapid terminal error check"
+                    }
                 ],
                 "expectedObservations": [
                     "TShark outputs standard ANSI text suitable for piping into grep, awk, sort, and uniq."
@@ -64,14 +89,22 @@ MODULE_06 = {
                 "securityRelevance": "TShark is the foundation of automated threat detection scripts running in Linux SOC environments and cloud container clusters.",
                 "knowledgeCheck": {
                     "question": "Which TShark command-line option specifies a Wireshark display filter for filtering packets from a file?",
-                    "options": ["-f", "-Y", "-d", "-s"],
+                    "options": [
+                        "-f",
+                        "-Y",
+                        "-d",
+                        "-s"
+                    ],
                     "correctAnswerIndex": 1,
                     "explanation": "The -Y option specifies a display filter (evaluated post-dissection), while -f specifies a BPF capture filter (evaluated pre-capture).",
                     "difficulty": "beginner"
                 },
                 "summary": "TShark delivers the full analytical power of Wireshark directly to the terminal, enabling headless, automated forensic workflows.",
                 "furtherReading": [
-                    {"title": "Wireshark Man Pages — TShark", "url": "https://www.wireshark.org/docs/man-pages/tshark.html"}
+                    {
+                        "title": "Wireshark Man Pages \u2014 TShark",
+                        "url": "https://www.wireshark.org/docs/man-pages/tshark.html"
+                    }
                 ]
             }
         },
@@ -87,15 +120,36 @@ MODULE_06 = {
                 "Export clean CSV, TSV, and JSON formatted records for SIEM ingestion",
                 "Chain TShark with Linux utilities (sort, uniq -c, awk) to compute top talker statistics"
             ],
-            "tags": ["tshark", "field-extraction", "csv-export", "json-output", "automation"],
-            "skillsTaught": ["Field extraction scripting", "JSON/CSV formatting", "Command-line aggregation"],
+            "tags": [
+                "tshark",
+                "field-extraction",
+                "csv-export",
+                "json-output",
+                "automation"
+            ],
+            "skillsTaught": [
+                "Field extraction scripting",
+                "JSON/CSV formatting",
+                "Command-line aggregation"
+            ],
             "richContent": {
                 "introduction": "The true forensic superpower of TShark is targeted field extraction (-T fields). Instead of dumping full packet text, analysts specify the exact fields of interest (e.g. timestamp, source IP, DNS query, HTTP user-agent) and format the output as tab-delimited or comma-separated values for instant bash parsing.",
-                "prerequisites": ["Lesson 6.1: Introduction to TShark"],
+                "prerequisites": [
+                    "Lesson 6.1: Introduction to TShark"
+                ],
                 "keyTerminology": [
-                    {"term": "-T fields", "definition": "TShark output format mode that outputs only explicitly specified field values."},
-                    {"term": "-e <field>", "definition": "Specifies a protocol field name to output (can be repeated multiple times)."},
-                    {"term": "-E header=y", "definition": "Includes a header line displaying field names in the output table."}
+                    {
+                        "term": "-T fields",
+                        "definition": "TShark output format mode that outputs only explicitly specified field values."
+                    },
+                    {
+                        "term": "-e <field>",
+                        "definition": "Specifies a protocol field name to output (can be repeated multiple times)."
+                    },
+                    {
+                        "term": "-E header=y",
+                        "definition": "Includes a header line displaying field names in the output table."
+                    }
                 ],
                 "theorySections": [
                     {
@@ -117,7 +171,11 @@ MODULE_06 = {
                     }
                 ],
                 "displayFilters": [
-                    {"filter": "tshark -r capture.pcap -Y \"http.request\" -T fields -e ip.src -e http.host -e http.request.uri", "description": "Extract all HTTP requests as tabular data", "purpose": "Web traffic audit"}
+                    {
+                        "filter": "tshark -r capture.pcap -Y \"http.request\" -T fields -e ip.src -e http.host -e http.request.uri",
+                        "description": "Extract all HTTP requests as tabular data",
+                        "purpose": "Web traffic audit"
+                    }
                 ],
                 "expectedObservations": [
                     "Instant generation of tabular data ready for import into spreadsheets, databases, or Splunk."
@@ -128,14 +186,22 @@ MODULE_06 = {
                 "securityRelevance": "Fast field extraction allows analysts to sweep 50 PCAPs for a single suspicious domain or hash in seconds.",
                 "knowledgeCheck": {
                     "question": "Which TShark option specifies individual field names to display when using '-T fields' mode?",
-                    "options": ["-f", "-e", "-i", "-s"],
+                    "options": [
+                        "-f",
+                        "-e",
+                        "-i",
+                        "-s"
+                    ],
                     "correctAnswerIndex": 1,
                     "explanation": "The -e flag is used to specify field names (e.g. -e ip.src -e ip.dst). Each -e flag creates an additional column in the output.",
                     "difficulty": "beginner"
                 },
                 "summary": "TShark's -T fields capability enables forensic investigators to extract high-fidelity telemetry and pipe structured data directly into automated analysis tools.",
                 "furtherReading": [
-                    {"title": "TShark Documentation — Output Options", "url": "https://www.wireshark.org/docs/man-pages/tshark.html#output-options"}
+                    {
+                        "title": "TShark Documentation \u2014 Output Options",
+                        "url": "https://www.wireshark.org/docs/man-pages/tshark.html#output-options"
+                    }
                 ]
             }
         },
@@ -151,15 +217,36 @@ MODULE_06 = {
                 "Slice large captures by packet count or timestamp range using editcap",
                 "Combine multiple sensor captures into chronological order using mergecap"
             ],
-            "tags": ["capinfos", "editcap", "mergecap", "pcap-slicing", "cli-utilities"],
-            "skillsTaught": ["Capture metadata reporting", "PCAP slicing", "Multi-sensor file merging"],
+            "tags": [
+                "capinfos",
+                "editcap",
+                "mergecap",
+                "pcap-slicing",
+                "cli-utilities"
+            ],
+            "skillsTaught": [
+                "Capture metadata reporting",
+                "PCAP slicing",
+                "Multi-sensor file merging"
+            ],
             "richContent": {
                 "introduction": "Beyond Wireshark and TShark, the Wireshark distribution includes powerful standalone utility binaries: `capinfos` (instant capture statistics), `editcap` (packet slicing, trimming, and time-shifting), and `mergecap` (chronological consolidation of multiple captures). Mastering these utilities solves common data management hurdles.",
-                "prerequisites": ["Lesson 6.1: Introduction to TShark"],
+                "prerequisites": [
+                    "Lesson 6.1: Introduction to TShark"
+                ],
                 "keyTerminology": [
-                    {"term": "capinfos", "definition": "CLI tool that prints detailed metadata (packet count, byte size, start/end time, data rate, hashes) without reading whole packet trees."},
-                    {"term": "editcap", "definition": "CLI tool used to select specific packet ranges, strip encapsulation, adjust timestamps, or split large captures into manageable chunks."},
-                    {"term": "mergecap", "definition": "CLI tool that merges multiple capture files into a single chronologically sorted output PCAP."}
+                    {
+                        "term": "capinfos",
+                        "definition": "CLI tool that prints detailed metadata (packet count, byte size, start/end time, data rate, hashes) without reading whole packet trees."
+                    },
+                    {
+                        "term": "editcap",
+                        "definition": "CLI tool used to select specific packet ranges, strip encapsulation, adjust timestamps, or split large captures into manageable chunks."
+                    },
+                    {
+                        "term": "mergecap",
+                        "definition": "CLI tool that merges multiple capture files into a single chronologically sorted output PCAP."
+                    }
                 ],
                 "theorySections": [
                     {
@@ -188,7 +275,11 @@ MODULE_06 = {
                     }
                 ],
                 "displayFilters": [
-                    {"filter": "capinfos -c -d -u \"Scenario 1.pcapng\"", "description": "Prints packet count, duration, and data rate", "purpose": "Quick scriptable metrics"}
+                    {
+                        "filter": "capinfos -c -d -u \"Scenario 1.pcapng\"",
+                        "description": "Prints packet count, duration, and data rate",
+                        "purpose": "Quick scriptable metrics"
+                    }
                 ],
                 "expectedObservations": [
                     "capinfos completes in milliseconds even on large captures by reading PCAP file block headers directly."
@@ -199,15 +290,26 @@ MODULE_06 = {
                 "securityRelevance": "Trimming multi-gigabyte captures down to targeted incident windows makes evidence transfer, team sharing, and automated sandbox analysis feasible.",
                 "knowledgeCheck": {
                     "question": "Which command-line utility bundled with Wireshark is designed to extract a specific timestamp window from a large capture file?",
-                    "options": ["capinfos", "editcap", "mergecap", "reordercap"],
+                    "options": [
+                        "capinfos",
+                        "editcap",
+                        "mergecap",
+                        "reordercap"
+                    ],
                     "correctAnswerIndex": 1,
                     "explanation": "The editcap utility provides the -A (start time) and -B (stop time) options to slice specific time intervals from large capture files.",
                     "difficulty": "intermediate"
                 },
                 "summary": "The Wireshark utility suite (capinfos, editcap, mergecap) provides high-performance metadata extraction, capture slicing, and chronological consolidation.",
                 "furtherReading": [
-                    {"title": "Wireshark Man Pages — editcap", "url": "https://www.wireshark.org/docs/man-pages/editcap.html"},
-                    {"title": "Wireshark Man Pages — mergecap", "url": "https://www.wireshark.org/docs/man-pages/mergecap.html"}
+                    {
+                        "title": "Wireshark Man Pages \u2014 editcap",
+                        "url": "https://www.wireshark.org/docs/man-pages/editcap.html"
+                    },
+                    {
+                        "title": "Wireshark Man Pages \u2014 mergecap",
+                        "url": "https://www.wireshark.org/docs/man-pages/mergecap.html"
+                    }
                 ]
             }
         },
@@ -223,14 +325,32 @@ MODULE_06 = {
                 "Parse packet structures programmatically using Python and PyShark",
                 "Automate extraction of file hashes, URLs, and external IP connections for SIEM reporting"
             ],
-            "tags": ["scripting", "python", "pyshark", "bash", "threat-hunting"],
-            "skillsTaught": ["Automated IOC sweeps", "Python pyshark parsing", "Batch pipeline development"],
+            "tags": [
+                "scripting",
+                "python",
+                "pyshark",
+                "bash",
+                "threat-hunting"
+            ],
+            "skillsTaught": [
+                "Automated IOC sweeps",
+                "Python pyshark parsing",
+                "Batch pipeline development"
+            ],
             "richContent": {
                 "introduction": "When a new threat intelligence report releases 50 adversary domain names, IP addresses, and file hashes, checking each PCAP manually in the GUI is inefficient. By combining TShark with Bash scripts or Python libraries like PyShark, investigators can scan terabytes of historical PCAPs automatically and alert on matches.",
-                "prerequisites": ["Lesson 6.2: TShark Field Extraction"],
+                "prerequisites": [
+                    "Lesson 6.2: TShark Field Extraction"
+                ],
                 "keyTerminology": [
-                    {"term": "PyShark", "definition": "A Python wrapper for TShark that exposes Wireshark's protocol dissectors as Python object trees."},
-                    {"term": "IOC Sweep", "definition": "Automated matching of known Indicators of Compromise (IPs, hashes, domains) against network data repositories."}
+                    {
+                        "term": "PyShark",
+                        "definition": "A Python wrapper for TShark that exposes Wireshark's protocol dissectors as Python object trees."
+                    },
+                    {
+                        "term": "IOC Sweep",
+                        "definition": "Automated matching of known Indicators of Compromise (IPs, hashes, domains) against network data repositories."
+                    }
                 ],
                 "theorySections": [
                     {
@@ -252,7 +372,11 @@ MODULE_06 = {
                     }
                 ],
                 "displayFilters": [
-                    {"filter": "tshark -r file.pcap -Y \"http.request.uri contains \".php\"\" -T fields -e ip.src -e http.host -e http.request.uri", "description": "Automated web probe extraction", "purpose": "Scriptable web audit"}
+                    {
+                        "filter": "tshark -r file.pcap -Y \"http.request.uri contains \".php\"\" -T fields -e ip.src -e http.host -e http.request.uri",
+                        "description": "Automated web probe extraction",
+                        "purpose": "Scriptable web audit"
+                    }
                 ],
                 "expectedObservations": [
                     "Scripting completes analysis in seconds without opening GUI windows or consuming graphics memory."
@@ -275,7 +399,10 @@ MODULE_06 = {
                 },
                 "summary": "Automating network forensic triage through Bash and Python scripts scales investigative capabilities from single PCAP inspection to enterprise-wide continuous threat hunting.",
                 "furtherReading": [
-                    {"title": "PyShark GitHub Repository", "url": "https://github.com/KimiNewt/pyshark"}
+                    {
+                        "title": "PyShark GitHub Repository",
+                        "url": "https://github.com/KimiNewt/pyshark"
+                    }
                 ]
             }
         }
@@ -284,12 +411,16 @@ MODULE_06 = {
         "id": "lab-06-tshark-pipeline",
         "title": "Lab 06: Headless TShark Pipeline & Automated Field Extraction",
         "objective": "Use TShark to headlessly process Scenario 2 PCAP, extract all FTP authentication attempts as CSV, slice the attack window with editcap, and verify metadata with capinfos.",
-        "toolsRequired": ["TShark CLI", "capinfos", "editcap"],
+        "toolsRequired": [
+            "TShark CLI",
+            "capinfos",
+            "editcap"
+        ],
         "pcapSource": {
             "fileName": "Scenario 2.pcap",
             "fileUrl": "https://raw.githubusercontent.com/NetsecExplained/Advanced-Wireshark-Network-Forensics/master/Scenario%202.pcap",
             "repositoryUrl": "https://github.com/NetsecExplained/Advanced-Wireshark-Network-Forensics",
-            "sha256": "3d8a57e3240212f43cbffbe2d625d9921606d2c4187e14be26f5d52ad5813b35"
+            "sha256": "f664404d592d4fd647ebdf8117eb91b91a868fad1b54888e2117d1b271ba5b11"
         },
         "difficulty": "intermediate",
         "estimatedMinutes": 50,
@@ -301,19 +432,48 @@ MODULE_06 = {
             "Verify the carved file packet count with capinfos."
         ],
         "tasks": [
-            {"id": "task-06-1", "description": "Execute capinfos on Scenario 2.pcap", "hint": "capinfos \"Scenario 2.pcap\""},
-            {"id": "task-06-2", "description": "Extract FTP USER and PASS packets with TShark", "hint": "tshark -r \"Scenario 2.pcap\" -Y \"ftp.command\" -T fields -e ip.src -e ftp.command -e ftp.command_arg"},
-            {"id": "task-06-3", "description": "Slice first 50 packets with editcap", "hint": "editcap -r \"Scenario 2.pcap\" slice.pcap 1-50"}
+            {
+                "id": "task-06-1",
+                "description": "Execute capinfos on Scenario 2.pcap",
+                "hint": "capinfos \"Scenario 2.pcap\""
+            },
+            {
+                "id": "task-06-2",
+                "description": "Extract FTP USER and PASS packets with TShark",
+                "hint": "tshark -r \"Scenario 2.pcap\" -Y \"ftp.command\" -T fields -e ip.src -e ftp.command -e ftp.command_arg"
+            },
+            {
+                "id": "task-06-3",
+                "description": "Slice first 50 packets with editcap",
+                "hint": "editcap -r \"Scenario 2.pcap\" slice.pcap 1-50"
+            }
         ],
         "evidenceWorksheet": [
-            {"field": "capinfos Total Packets", "prompt": "Packet count reported by capinfos:", "expectedEvidenceType": "Integer count"},
-            {"field": "Extracted FTP Command Argument", "prompt": "Argument passed to USER command in TShark output:", "expectedEvidenceType": "String username"},
-            {"field": "Sliced File Packet Count", "prompt": "Verified packet count of sliced PCAP:", "expectedEvidenceType": "Integer count (50)"}
+            {
+                "field": "capinfos Total Packets",
+                "prompt": "Packet count reported by capinfos:",
+                "expectedEvidenceType": "Integer count"
+            },
+            {
+                "field": "Extracted FTP Command Argument",
+                "prompt": "Argument passed to USER command in TShark output:",
+                "expectedEvidenceType": "String username"
+            },
+            {
+                "field": "Sliced File Packet Count",
+                "prompt": "Verified packet count of sliced PCAP:",
+                "expectedEvidenceType": "Integer count (50)"
+            }
         ],
         "questions": [
             {
                 "question": "What flag in TShark includes a header row displaying field names in the output table?",
-                "options": ["-E header=y", "-H", "-v", "--title"],
+                "options": [
+                    "-E header=y",
+                    "-H",
+                    "-v",
+                    "--title"
+                ],
                 "correctAnswerIndex": 0,
                 "explanation": "The -E header=y option includes column headers naming each extracted field in the terminal output.",
                 "difficulty": "beginner"
@@ -330,14 +490,24 @@ MODULE_06 = {
         "questions": [
             {
                 "question": "Which TShark option specifies the input capture file to be analyzed?",
-                "options": ["-i", "-r", "-w", "-f"],
+                "options": [
+                    "-i",
+                    "-r",
+                    "-w",
+                    "-f"
+                ],
                 "correctAnswerIndex": 1,
                 "explanation": "The -r option tells TShark to read from an existing file on disk, while -i specifies a live network interface.",
                 "difficulty": "beginner"
             },
             {
                 "question": "Which utility from the Wireshark suite is specifically designed to merge multiple capture files chronologically into a single output file?",
-                "options": ["mergecap", "editcap", "reordercap", "capinfos"],
+                "options": [
+                    "mergecap",
+                    "editcap",
+                    "reordercap",
+                    "capinfos"
+                ],
                 "correctAnswerIndex": 0,
                 "explanation": "mergecap combines multiple input capture files into a single output file, preserving the chronological sequence of packets based on their timestamps.",
                 "difficulty": "beginner"
@@ -353,8 +523,31 @@ MODULE_06 = {
                 "correctAnswerIndex": 1,
                 "explanation": "The '-T fields' format directs TShark to output only the specific protocol fields selected using '-e <fieldname>', formatted as tabular text.",
                 "difficulty": "beginner"
+            },
+            {
+                "question": "Which TShark command-line option specifies statistics tree generation to output conversation lists, HTTP request distributions, or protocol hierarchies directly in the terminal?",
+                "options": [
+                    "-z (e.g., -z conv,ip or -z io,phs)",
+                    "-e (field extraction)",
+                    "-s (snapshot length)",
+                    "-T (output format)"
+                ],
+                "correctAnswerIndex": 0,
+                "explanation": "The -z option in TShark generates statistical summaries such as protocol hierarchy stats (-z io,phs), IP conversations (-z conv,ip), or HTTP request URI counts (-z http,tree).",
+                "difficulty": "intermediate"
+            },
+            {
+                "question": "Which command-line utility bundled with Wireshark is designed specifically to split large PCAP files by packet count or extract packets within a specified start and end timestamp window?",
+                "options": [
+                    "mergecap",
+                    "editcap",
+                    "capinfos",
+                    "reordercap"
+                ],
+                "correctAnswerIndex": 1,
+                "explanation": "editcap is Wireshark's capture file editing tool. It is used to split captures by size or packet count (-c), trim packets by time window (-A and -B), and truncate payload bytes (-s).",
+                "difficulty": "beginner"
             }
         ]
     }
 }
-

@@ -16,15 +16,37 @@ MODULE_00 = {
                 "Trace protocol data units (PDUs) through encapsulation and decapsulation stages",
                 "Correlate Wireshark packet detail tree nodes directly with corresponding protocol layers"
             ],
-            "tags": ["osi-model", "tcp-ip", "encapsulation", "pdu", "networking-basics"],
-            "skillsTaught": ["Layer-by-layer dissection", "Encapsulation tracing", "PDU mapping"],
+            "tags": [
+                "osi-model",
+                "tcp-ip",
+                "encapsulation",
+                "pdu",
+                "networking-basics"
+            ],
+            "skillsTaught": [
+                "Layer-by-layer dissection",
+                "Encapsulation tracing",
+                "PDU mapping"
+            ],
             "richContent": {
                 "introduction": "Every packet traversing an Ethernet network represents the end result of hierarchical protocol encapsulation. Understanding how application data is packaged into transport segments, wrapped in network datagrams, framed by link-layer headers, and transmitted as physical signals is the fundamental prerequisite of all network forensics.",
-                "prerequisites": ["Basic computer literacy", "Understanding of client-server architecture"],
+                "prerequisites": [
+                    "Basic computer literacy",
+                    "Understanding of client-server architecture"
+                ],
                 "keyTerminology": [
-                    {"term": "PDU (Protocol Data Unit)", "definition": "The specific unit of data processed at a given layer: Data (Layer 7-5), Segment (Layer 4), Packet (Layer 3), Frame (Layer 2), Bits (Layer 1)."},
-                    {"term": "Encapsulation", "definition": "The process whereby higher-layer protocols add header and trailer metadata as data descends the network stack."},
-                    {"term": "MTU (Maximum Transmission Unit)", "definition": "The largest packet or frame size (typically 1500 bytes for standard Ethernet) that can be transmitted on a network link without fragmentation."}
+                    {
+                        "term": "PDU (Protocol Data Unit)",
+                        "definition": "The specific unit of data processed at a given layer: Data (Layer 7-5), Segment (Layer 4), Packet (Layer 3), Frame (Layer 2), Bits (Layer 1)."
+                    },
+                    {
+                        "term": "Encapsulation",
+                        "definition": "The process whereby higher-layer protocols add header and trailer metadata as data descends the network stack."
+                    },
+                    {
+                        "term": "MTU (Maximum Transmission Unit)",
+                        "definition": "The largest packet or frame size (typically 1500 bytes for standard Ethernet) that can be transmitted on a network link without fragmentation."
+                    }
                 ],
                 "theorySections": [
                     {
@@ -43,7 +65,20 @@ MODULE_00 = {
                         "protocol": "Ethernet II / IP / TCP Stack",
                         "layer": "Layers 2 through 4",
                         "details": "Standard IPv4 over Ethernet frame layout: 14-byte Ethernet header, 20-byte minimum IPv4 header, 20-byte minimum TCP header, followed by application payload.",
-                        "headerFields": ["Destination MAC (6B)", "Source MAC (6B)", "EtherType (2B)", "IP Version/IHL (1B)", "Total Length (2B)", "TTL (1B)", "Protocol (1B)", "Source/Dest IP (8B)", "Source/Dest Port (4B)", "Seq/Ack Num (8B)", "Flags (12b)", "Window Size (2B)"]
+                        "headerFields": [
+                            "Destination MAC (6B)",
+                            "Source MAC (6B)",
+                            "EtherType (2B)",
+                            "IP Version/IHL (1B)",
+                            "Total Length (2B)",
+                            "TTL (1B)",
+                            "Protocol (1B)",
+                            "Source/Dest IP (8B)",
+                            "Source/Dest Port (4B)",
+                            "Seq/Ack Num (8B)",
+                            "Flags (12b)",
+                            "Window Size (2B)"
+                        ]
                     }
                 ],
                 "stepByStepProcedures": [
@@ -62,8 +97,16 @@ MODULE_00 = {
                     }
                 ],
                 "displayFilters": [
-                    {"filter": "frame.len > 1514", "description": "Detects oversized frames (Jumbo frames or segmentation offload artifacts)", "purpose": "Encapsulation & MTU diagnostics"},
-                    {"filter": "eth.type == 0x0800", "description": "Filters for IPv4 frames exclusively", "purpose": "Protocol layer isolation"}
+                    {
+                        "filter": "frame.len > 1514",
+                        "description": "Detects oversized frames (Jumbo frames or segmentation offload artifacts)",
+                        "purpose": "Encapsulation & MTU diagnostics"
+                    },
+                    {
+                        "filter": "eth.type == 0x0800",
+                        "description": "Filters for IPv4 frames exclusively",
+                        "purpose": "Protocol layer isolation"
+                    }
                 ],
                 "expectedObservations": [
                     "Packet Details pane visually mirrors the protocol stack from bottom (physical/frame) to top (application).",
@@ -87,15 +130,26 @@ MODULE_00 = {
                 },
                 "knowledgeCheck": {
                     "question": "Which Layer of the OSI Model is responsible for end-to-end logical packet routing across distinct networks?",
-                    "options": ["Data Link Layer (Layer 2)", "Network Layer (Layer 3)", "Transport Layer (Layer 4)", "Session Layer (Layer 5)"],
+                    "options": [
+                        "Data Link Layer (Layer 2)",
+                        "Network Layer (Layer 3)",
+                        "Transport Layer (Layer 4)",
+                        "Session Layer (Layer 5)"
+                    ],
                     "correctAnswerIndex": 1,
                     "explanation": "The Network Layer (Layer 3), implemented by protocols such as IPv4 and IPv6, provides logical addressing (IP addresses) and routing across routed network boundaries. Layer 2 handles hop-by-hop local framing via MAC addresses.",
                     "difficulty": "beginner"
                 },
                 "summary": "Protocol encapsulation adds structured metadata at each network layer. Forensics analysts must fluently dissect Layer 2 framing, Layer 3 addressing, and Layer 4 transport semantics to uncover anomalous behavior embedded within raw packet captures.",
                 "furtherReading": [
-                    {"title": "RFC 1122 — Requirements for Internet Hosts: Communication Layers", "url": "https://datatracker.ietf.org/doc/html/rfc1122"},
-                    {"title": "Wireshark User Guide: Packet Dissection", "url": "https://www.wireshark.org/docs/wsug_html_chunked/ChDissectView.html"}
+                    {
+                        "title": "RFC 1122 \u2014 Requirements for Internet Hosts: Communication Layers",
+                        "url": "https://datatracker.ietf.org/doc/html/rfc1122"
+                    },
+                    {
+                        "title": "Wireshark User Guide: Packet Dissection",
+                        "url": "https://www.wireshark.org/docs/wsug_html_chunked/ChDissectView.html"
+                    }
                 ]
             }
         },
@@ -111,15 +165,36 @@ MODULE_00 = {
                 "Decode Address Resolution Protocol (ARP) requests and replies",
                 "Detect gratuitous ARP anomalies, ARP spoofing, and poisoning patterns"
             ],
-            "tags": ["ethernet", "mac-address", "arp", "arp-spoofing", "layer-2"],
-            "skillsTaught": ["MAC OUI lookup", "ARP conversation tracing", "Spoofing detection"],
+            "tags": [
+                "ethernet",
+                "mac-address",
+                "arp",
+                "arp-spoofing",
+                "layer-2"
+            ],
+            "skillsTaught": [
+                "MAC OUI lookup",
+                "ARP conversation tracing",
+                "Spoofing detection"
+            ],
             "richContent": {
                 "introduction": "Within local broadcast domains, network interfaces do not communicate using IP addresses; they resolve Layer 3 logical addresses to Layer 2 48-bit Media Access Control (MAC) addresses using the Address Resolution Protocol (ARP). Because ARP lacks cryptographic authentication, it is historically vulnerable to spoofing, poisoning, and man-in-the-middle attacks.",
-                "prerequisites": ["Lesson 0.1: OSI & TCP/IP Encapsulation"],
+                "prerequisites": [
+                    "Lesson 0.1: OSI & TCP/IP Encapsulation"
+                ],
                 "keyTerminology": [
-                    {"term": "MAC Address", "definition": "A 48-bit physical hardware identifier formatted as 6 hexadecimal octets (e.g. 00:1A:2B:3C:4D:5E). The first 24 bits represent the Organizationally Unique Identifier (OUI)."},
-                    {"term": "ARP Request", "definition": "A broadcast frame (Destination MAC ff:ff:ff:ff:ff:ff) asking 'Who has IP X.X.X.X? Tell IP Y.Y.Y.Y'."},
-                    {"term": "ARP Reply", "definition": "A unicast frame responding 'IP X.X.X.X is at MAC AA:BB:CC:DD:EE:FF'."}
+                    {
+                        "term": "MAC Address",
+                        "definition": "A 48-bit physical hardware identifier formatted as 6 hexadecimal octets (e.g. 00:1A:2B:3C:4D:5E). The first 24 bits represent the Organizationally Unique Identifier (OUI)."
+                    },
+                    {
+                        "term": "ARP Request",
+                        "definition": "A broadcast frame (Destination MAC ff:ff:ff:ff:ff:ff) asking 'Who has IP X.X.X.X? Tell IP Y.Y.Y.Y'."
+                    },
+                    {
+                        "term": "ARP Reply",
+                        "definition": "A unicast frame responding 'IP X.X.X.X is at MAC AA:BB:CC:DD:EE:FF'."
+                    }
                 ],
                 "theorySections": [
                     {
@@ -149,8 +224,16 @@ MODULE_00 = {
                     }
                 ],
                 "displayFilters": [
-                    {"filter": "arp.opcode == 2", "description": "Filters for ARP reply packets", "purpose": "Identify IP-to-MAC resolution responses"},
-                    {"filter": "arp.duplicate-address-frame", "description": "Detects duplicate IP addresses or ARP poisoning attacks", "purpose": "ARP anomaly and spoofing triage"}
+                    {
+                        "filter": "arp.opcode == 2",
+                        "description": "Filters for ARP reply packets",
+                        "purpose": "Identify IP-to-MAC resolution responses"
+                    },
+                    {
+                        "filter": "arp.duplicate-address-frame",
+                        "description": "Detects duplicate IP addresses or ARP poisoning attacks",
+                        "purpose": "ARP anomaly and spoofing triage"
+                    }
                 ],
                 "expectedObservations": [
                     "ARP requests always use Ethernet destination address ff:ff:ff:ff:ff:ff (Broadcast).",
@@ -171,14 +254,22 @@ MODULE_00 = {
                 },
                 "knowledgeCheck": {
                     "question": "What is the destination MAC address utilized by a standard ARP Request frame?",
-                    "options": ["00:00:00:00:00:00", "127.0.0.1", "ff:ff:ff:ff:ff:ff", "01:00:5e:00:00:01"],
+                    "options": [
+                        "00:00:00:00:00:00",
+                        "127.0.0.1",
+                        "ff:ff:ff:ff:ff:ff",
+                        "01:00:5e:00:00:01"
+                    ],
                     "correctAnswerIndex": 2,
                     "explanation": "ARP Request frames must reach every host on the local Ethernet collision/broadcast domain, requiring the all-ones broadcast MAC address ff:ff:ff:ff:ff:ff.",
                     "difficulty": "beginner"
                 },
                 "summary": "Ethernet frames deliver packets between local hardware nodes using MAC addresses. ARP binds Layer 3 IPs to Layer 2 MACs, making its inspection crucial for identifying local network impersonation and MITM attacks.",
                 "furtherReading": [
-                    {"title": "RFC 826 — An Ethernet Address Resolution Protocol", "url": "https://datatracker.ietf.org/doc/html/rfc826"}
+                    {
+                        "title": "RFC 826 \u2014 An Ethernet Address Resolution Protocol",
+                        "url": "https://datatracker.ietf.org/doc/html/rfc826"
+                    }
                 ]
             }
         },
@@ -194,14 +285,32 @@ MODULE_00 = {
                 "Contrast IPv4 with the streamlined 40-byte fixed header of IPv6",
                 "Calculate subnet boundaries, network IDs, and broadcast addresses from CIDR notation"
             ],
-            "tags": ["ipv4", "ipv6", "ttl", "fragmentation", "subnetting"],
-            "skillsTaught": ["Header field decoding", "TTL hop counting", "Fragmentation reassembly analysis"],
+            "tags": [
+                "ipv4",
+                "ipv6",
+                "ttl",
+                "fragmentation",
+                "subnetting"
+            ],
+            "skillsTaught": [
+                "Header field decoding",
+                "TTL hop counting",
+                "Fragmentation reassembly analysis"
+            ],
             "richContent": {
                 "introduction": "The Internet Protocol (IP) provides host-to-host delivery across routed internetworks. Understanding header fields such as Time-to-Live (TTL) allows analysts to infer the operating system of remote endpoints and estimate the number of intermediate router hops traversed.",
-                "prerequisites": ["Lesson 0.1: OSI & TCP/IP Encapsulation"],
+                "prerequisites": [
+                    "Lesson 0.1: OSI & TCP/IP Encapsulation"
+                ],
                 "keyTerminology": [
-                    {"term": "TTL (Time to Live)", "definition": "An 8-bit counter decremented by 1 at each router hop to prevent forwarding loops. Initial values are OS-dependent: Linux/macOS typically start at 64; Windows typically starts at 128."},
-                    {"term": "CIDR (Classless Inter-Domain Routing)", "definition": "A method for allocating IP addresses and IP routing using variable-length subnet masks (e.g. 192.168.1.0/24)."}
+                    {
+                        "term": "TTL (Time to Live)",
+                        "definition": "An 8-bit counter decremented by 1 at each router hop to prevent forwarding loops. Initial values are OS-dependent: Linux/macOS typically start at 64; Windows typically starts at 128."
+                    },
+                    {
+                        "term": "CIDR (Classless Inter-Domain Routing)",
+                        "definition": "A method for allocating IP addresses and IP routing using variable-length subnet masks (e.g. 192.168.1.0/24)."
+                    }
                 ],
                 "theorySections": [
                     {
@@ -231,8 +340,16 @@ MODULE_00 = {
                     }
                 ],
                 "displayFilters": [
-                    {"filter": "ip.flags.mf == 1 or ip.frag_offset > 0", "description": "Filters for fragmented IP datagrams", "purpose": "Identify network fragmentation and evasion attacks"},
-                    {"filter": "ip.ttl <= 5", "description": "Detects packets nearing hop expiration", "purpose": "Trace traceroute packets or routing loops"}
+                    {
+                        "filter": "ip.flags.mf == 1 or ip.frag_offset > 0",
+                        "description": "Filters for fragmented IP datagrams",
+                        "purpose": "Identify network fragmentation and evasion attacks"
+                    },
+                    {
+                        "filter": "ip.ttl <= 5",
+                        "description": "Detects packets nearing hop expiration",
+                        "purpose": "Trace traceroute packets or routing loops"
+                    }
                 ],
                 "expectedObservations": [
                     "Standard web responses from external Linux web servers often arrive at your sensor with TTL values between 50 and 57 (initial 64 minus 7-14 hops).",
@@ -244,14 +361,22 @@ MODULE_00 = {
                 "securityRelevance": "Adversaries modify packet TTL or manipulate fragmentation offsets (e.g. Teardrop, overlapping fragments) to evade Network Intrusion Detection Systems (NIDS).",
                 "knowledgeCheck": {
                     "question": "An inbound SYN packet arriving from an external server has an observed TTL of 52. What was the most probable initial TTL and operating system family?",
-                    "options": ["Initial TTL 64 (Linux/UNIX)", "Initial TTL 128 (Windows)", "Initial TTL 255 (Network Router)", "Initial TTL 32 (Legacy System)"],
+                    "options": [
+                        "Initial TTL 64 (Linux/UNIX)",
+                        "Initial TTL 128 (Windows)",
+                        "Initial TTL 255 (Network Router)",
+                        "Initial TTL 32 (Legacy System)"
+                    ],
                     "correctAnswerIndex": 0,
                     "explanation": "Standard Linux kernels initialize TTL at 64. Passing through 12 internet router hops decrements 64 - 12 = 52. If it were Windows (128), 12 hops would yield a TTL around 116.",
                     "difficulty": "intermediate"
                 },
                 "summary": "IP headers convey critical routing, hop count, and fragmentation data. TTL inspection provides immediate contextual OS intelligence and path-length indicators during forensic triage.",
                 "furtherReading": [
-                    {"title": "RFC 791 — Internet Protocol Specification", "url": "https://datatracker.ietf.org/doc/html/rfc791"}
+                    {
+                        "title": "RFC 791 \u2014 Internet Protocol Specification",
+                        "url": "https://datatracker.ietf.org/doc/html/rfc791"
+                    }
                 ]
             }
         },
@@ -268,15 +393,36 @@ MODULE_00 = {
                 "Interpret TCP control flags (SYN, ACK, FIN, RST, PSH, URG, ECE, CWR)",
                 "Diagnose clean connection teardowns (FIN-ACK) versus abrupt resets (RST)"
             ],
-            "tags": ["tcp", "handshake", "tcp-flags", "syn-ack", "sequence-numbers"],
-            "skillsTaught": ["Handshake verification", "Flag combination analysis", "RST cause deduction"],
+            "tags": [
+                "tcp",
+                "handshake",
+                "tcp-flags",
+                "syn-ack",
+                "sequence-numbers"
+            ],
+            "skillsTaught": [
+                "Handshake verification",
+                "Flag combination analysis",
+                "RST cause deduction"
+            ],
             "richContent": {
                 "introduction": "The Transmission Control Protocol (TCP) provides connection-oriented, ordered, reliable byte-stream transmission. Before any application data can be exchanged over HTTP, SSH, FTP, or TLS, both endpoints must establish synchronized sequence numbers through the classical three-way handshake.",
-                "prerequisites": ["Lesson 0.3: IPv4 & IPv6 Packet Headers"],
+                "prerequisites": [
+                    "Lesson 0.3: IPv4 & IPv6 Packet Headers"
+                ],
                 "keyTerminology": [
-                    {"term": "SYN (Synchronize)", "definition": "Initial connection request flag indicating the sender is establishing a session and announcing its Initial Sequence Number (ISN)."},
-                    {"term": "ACK (Acknowledgment)", "definition": "Indicates the acknowledgment number field is valid, confirming receipt of all preceding bytes."},
-                    {"term": "RST (Reset)", "definition": "Abruptly terminates a connection due to closed port, security policy rejection, or unrecoverable error."}
+                    {
+                        "term": "SYN (Synchronize)",
+                        "definition": "Initial connection request flag indicating the sender is establishing a session and announcing its Initial Sequence Number (ISN)."
+                    },
+                    {
+                        "term": "ACK (Acknowledgment)",
+                        "definition": "Indicates the acknowledgment number field is valid, confirming receipt of all preceding bytes."
+                    },
+                    {
+                        "term": "RST (Reset)",
+                        "definition": "Abruptly terminates a connection due to closed port, security policy rejection, or unrecoverable error."
+                    }
                 ],
                 "theorySections": [
                     {
@@ -305,8 +451,16 @@ MODULE_00 = {
                     }
                 ],
                 "displayFilters": [
-                    {"filter": "tcp.flags.reset == 1", "description": "Filters for connection reset packets", "purpose": "Identify refused connections or firewall teardowns"},
-                    {"filter": "tcp.flags.syn == 1 and tcp.flags.ack == 1", "description": "Filters for server acceptance responses", "purpose": "Confirm open ports and responsive services"}
+                    {
+                        "filter": "tcp.flags.reset == 1",
+                        "description": "Filters for connection reset packets",
+                        "purpose": "Identify refused connections or firewall teardowns"
+                    },
+                    {
+                        "filter": "tcp.flags.syn == 1 and tcp.flags.ack == 1",
+                        "description": "Filters for server acceptance responses",
+                        "purpose": "Confirm open ports and responsive services"
+                    }
                 ],
                 "expectedObservations": [
                     "Relative sequence numbers start at 0 for both sides of the stream, making delta tracking straightforward.",
@@ -318,14 +472,22 @@ MODULE_00 = {
                 "securityRelevance": "SYN flood attacks bombard targets with spoofed SYN packets without completing the third ACK, exhausting kernel connection queues. Unsolicited RST packets indicate active network firewall intervention or port scanners probing closed ports.",
                 "knowledgeCheck": {
                     "question": "During a TCP handshake, what control flags are set on the second packet returned from the server to the client?",
-                    "options": ["SYN", "SYN and ACK", "ACK and PSH", "RST and ACK"],
+                    "options": [
+                        "SYN",
+                        "SYN and ACK",
+                        "ACK and PSH",
+                        "RST and ACK"
+                    ],
                     "correctAnswerIndex": 1,
                     "explanation": "The second packet of the three-way handshake is the SYN-ACK, which acknowledges the client Initial Sequence Number and synchronizes the server sequence number.",
                     "difficulty": "beginner"
                 },
                 "summary": "The TCP handshake synchronizes connection parameters and initial sequence numbers. Control flags indicate the operational state of each transport conversation, forming the bedrock of stateful traffic analysis.",
                 "furtherReading": [
-                    {"title": "RFC 9293 — Transmission Control Protocol (TCP)", "url": "https://datatracker.ietf.org/doc/html/rfc9293"}
+                    {
+                        "title": "RFC 9293 \u2014 Transmission Control Protocol (TCP)",
+                        "url": "https://datatracker.ietf.org/doc/html/rfc9293"
+                    }
                 ]
             }
         },
@@ -342,15 +504,36 @@ MODULE_00 = {
                 "Trace DNS query/response structures and identify recursive lookup flows",
                 "Analyze the 4-step DHCP DORA sequence: Discover, Offer, Request, Acknowledge"
             ],
-            "tags": ["udp", "icmp", "dns", "dhcp", "infrastructure"],
-            "skillsTaught": ["DNS query dissection", "ICMP type/code decoding", "DHCP lease tracing"],
+            "tags": [
+                "udp",
+                "icmp",
+                "dns",
+                "dhcp",
+                "infrastructure"
+            ],
+            "skillsTaught": [
+                "DNS query dissection",
+                "ICMP type/code decoding",
+                "DHCP lease tracing"
+            ],
             "richContent": {
                 "introduction": "While TCP governs reliable sessions, UDP powers time-sensitive, low-overhead services such as DNS, DHCP, and media streaming. ICMP serves as the diagnostic and error-reporting mechanism of the network layer. Understanding how baseline infrastructure traffic appears is essential for spotting anomalies.",
-                "prerequisites": ["Lesson 0.3: IPv4 & IPv6 Packet Headers"],
+                "prerequisites": [
+                    "Lesson 0.3: IPv4 & IPv6 Packet Headers"
+                ],
                 "keyTerminology": [
-                    {"term": "UDP (User Datagram Protocol)", "definition": "A connectionless, lightweight 8-byte header transport protocol offering no reliability, retransmission, or flow control."},
-                    {"term": "ICMP (Internet Control Message Protocol)", "definition": "Network layer protocol used by routers and hosts to send error messages and operational information (e.g. Host Unreachable)."},
-                    {"term": "DORA", "definition": "The 4-step DHCP lease exchange: Discover (Broadcast), Offer (Unicast/Broadcast), Request (Broadcast), Acknowledge (Unicast)."}
+                    {
+                        "term": "UDP (User Datagram Protocol)",
+                        "definition": "A connectionless, lightweight 8-byte header transport protocol offering no reliability, retransmission, or flow control."
+                    },
+                    {
+                        "term": "ICMP (Internet Control Message Protocol)",
+                        "definition": "Network layer protocol used by routers and hosts to send error messages and operational information (e.g. Host Unreachable)."
+                    },
+                    {
+                        "term": "DORA",
+                        "definition": "The 4-step DHCP lease exchange: Discover (Broadcast), Offer (Unicast/Broadcast), Request (Broadcast), Acknowledge (Unicast)."
+                    }
                 ],
                 "theorySections": [
                     {
@@ -379,8 +562,16 @@ MODULE_00 = {
                     }
                 ],
                 "displayFilters": [
-                    {"filter": "bootp or dhcp", "description": "Filters for DHCP Discover, Offer, Request, and ACK packets", "purpose": "Track IP lease assignments"},
-                    {"filter": "icmp.type == 3 and icmp.code == 3", "description": "Filters for ICMP Port Unreachable error packets", "purpose": "Detect UDP port scanning or closed service responses"}
+                    {
+                        "filter": "bootp or dhcp",
+                        "description": "Filters for DHCP Discover, Offer, Request, and ACK packets",
+                        "purpose": "Track IP lease assignments"
+                    },
+                    {
+                        "filter": "icmp.type == 3 and icmp.code == 3",
+                        "description": "Filters for ICMP Port Unreachable error packets",
+                        "purpose": "Detect UDP port scanning or closed service responses"
+                    }
                 ],
                 "expectedObservations": [
                     "DHCP Discover packets originate from 0.0.0.0:68 targeting 255.255.255.255:67.",
@@ -392,15 +583,26 @@ MODULE_00 = {
                 "securityRelevance": "Adversaries leverage ICMP for covert exfiltration (ICMP tunneling) and exploit DNS for command-and-control beaconing and data exfiltration via TXT/A record queries.",
                 "knowledgeCheck": {
                     "question": "What ICMP Type and Code are returned by an intermediate router when a packet TTL reaches zero during transit?",
-                    "options": ["Type 8, Code 0", "Type 0, Code 0", "Type 11, Code 0", "Type 3, Code 1"],
+                    "options": [
+                        "Type 8, Code 0",
+                        "Type 0, Code 0",
+                        "Type 11, Code 0",
+                        "Type 3, Code 1"
+                    ],
                     "correctAnswerIndex": 2,
                     "explanation": "ICMP Type 11 (Time Exceeded), Code 0 (Time to live exceeded in transit) is generated when a router decrements a packet TTL to zero.",
                     "difficulty": "intermediate"
                 },
                 "summary": "UDP, ICMP, DNS, and DHCP form the core fabric of local and wide-area networks. Mastering their normal operational signatures enables rapid isolation of reconnaissance scans and tunneling.",
                 "furtherReading": [
-                    {"title": "RFC 768 — User Datagram Protocol", "url": "https://datatracker.ietf.org/doc/html/rfc768"},
-                    {"title": "RFC 1035 — Domain Names: Implementation and Specification", "url": "https://datatracker.ietf.org/doc/html/rfc1035"}
+                    {
+                        "title": "RFC 768 \u2014 User Datagram Protocol",
+                        "url": "https://datatracker.ietf.org/doc/html/rfc768"
+                    },
+                    {
+                        "title": "RFC 1035 \u2014 Domain Names: Implementation and Specification",
+                        "url": "https://datatracker.ietf.org/doc/html/rfc1035"
+                    }
                 ]
             }
         }
@@ -409,12 +611,14 @@ MODULE_00 = {
         "id": "lab-00-header-dissection",
         "title": "Lab 00: Frame & Packet Header Dissection Lab",
         "objective": "Dissect Ethernet, IP, TCP, and UDP headers in a multi-protocol capture, identifying encapsulation boundaries, IP hop counts, and handshake completions.",
-        "toolsRequired": ["Wireshark 4.x or higher"],
+        "toolsRequired": [
+            "Wireshark 4.x or higher"
+        ],
         "pcapSource": {
             "fileName": "Scenario 1.pcapng",
             "fileUrl": "https://raw.githubusercontent.com/NetsecExplained/Advanced-Wireshark-Network-Forensics/master/Scenario%201.pcapng",
             "repositoryUrl": "https://github.com/NetsecExplained/Advanced-Wireshark-Network-Forensics",
-            "sha256": "7c81d86d634ebbbd6174a8894101e19485bb24a0d92298e82ef45b721245b73d"
+            "sha256": "3d15daea9d46ee8aa6a3a111a3ee37e2e5be009d509d57a249dd850d510b07d8"
         },
         "difficulty": "beginner",
         "estimatedMinutes": 45,
@@ -425,19 +629,49 @@ MODULE_00 = {
             "Determine the observed TTL and deduce the probable host OS family."
         ],
         "tasks": [
-            {"id": "task-00-1", "description": "Locate the first SYN packet in the capture", "hint": "Apply display filter: tcp.flags.syn == 1 and tcp.flags.ack == 0", "filterSuggestion": "tcp.flags.syn == 1 and tcp.flags.ack == 0"},
-            {"id": "task-00-2", "description": "Identify the client source MAC and destination default gateway MAC", "hint": "Inspect Ethernet II header in Packet Details"},
-            {"id": "task-00-3", "description": "Verify whether the server responded with a valid SYN-ACK", "hint": "Follow the TCP conversation or filter by tcp.flags.syn == 1 and tcp.flags.ack == 1"}
+            {
+                "id": "task-00-1",
+                "description": "Locate the first SYN packet in the capture",
+                "hint": "Apply display filter: tcp.flags.syn == 1 and tcp.flags.ack == 0",
+                "filterSuggestion": "tcp.flags.syn == 1 and tcp.flags.ack == 0"
+            },
+            {
+                "id": "task-00-2",
+                "description": "Identify the client source MAC and destination default gateway MAC",
+                "hint": "Inspect Ethernet II header in Packet Details"
+            },
+            {
+                "id": "task-00-3",
+                "description": "Verify whether the server responded with a valid SYN-ACK",
+                "hint": "Follow the TCP conversation or filter by tcp.flags.syn == 1 and tcp.flags.ack == 1"
+            }
         ],
         "evidenceWorksheet": [
-            {"field": "Client MAC Address", "prompt": "Enter the hardware address of the initiating host:", "expectedEvidenceType": "Hexadecimal MAC (e.g. 00:11:22:33:44:55)"},
-            {"field": "Initial Sequence Number (Raw)", "prompt": "Enter the 32-bit raw ISN of the client SYN:", "expectedEvidenceType": "Integer / Hex sequence"},
-            {"field": "Server Observed TTL", "prompt": "Enter the observed TTL in the server SYN-ACK response:", "expectedEvidenceType": "Integer 1-255"}
+            {
+                "field": "Client MAC Address",
+                "prompt": "Enter the hardware address of the initiating host:",
+                "expectedEvidenceType": "Hexadecimal MAC (e.g. 00:11:22:33:44:55)"
+            },
+            {
+                "field": "Initial Sequence Number (Raw)",
+                "prompt": "Enter the 32-bit raw ISN of the client SYN:",
+                "expectedEvidenceType": "Integer / Hex sequence"
+            },
+            {
+                "field": "Server Observed TTL",
+                "prompt": "Enter the observed TTL in the server SYN-ACK response:",
+                "expectedEvidenceType": "Integer 1-255"
+            }
         ],
         "questions": [
             {
                 "question": "What is the standard Ethernet header size before the IP packet begins?",
-                "options": ["12 bytes", "14 bytes", "20 bytes", "32 bytes"],
+                "options": [
+                    "12 bytes",
+                    "14 bytes",
+                    "20 bytes",
+                    "32 bytes"
+                ],
                 "correctAnswerIndex": 1,
                 "explanation": "Ethernet II headers contain 6 bytes Destination MAC + 6 bytes Source MAC + 2 bytes EtherType = 14 bytes.",
                 "difficulty": "beginner"
@@ -454,26 +688,64 @@ MODULE_00 = {
         "questions": [
             {
                 "question": "Which field in the IPv4 header is decremented by 1 at each intermediate router to prevent perpetual routing loops?",
-                "options": ["Header Checksum", "Identification", "Time to Live (TTL)", "Differentiated Services Field"],
+                "options": [
+                    "Header Checksum",
+                    "Identification",
+                    "Time to Live (TTL)",
+                    "Differentiated Services Field"
+                ],
                 "correctAnswerIndex": 2,
                 "explanation": "The Time to Live (TTL) field is decremented by each router hop. When it hits 0, the packet is dropped and an ICMP Time Exceeded is returned.",
                 "difficulty": "beginner"
             },
             {
                 "question": "Which TCP flag is used to gracefully close a connection in both directions?",
-                "options": ["RST (Reset)", "FIN (Finish)", "PSH (Push)", "SYN (Synchronize)"],
+                "options": [
+                    "RST (Reset)",
+                    "FIN (Finish)",
+                    "PSH (Push)",
+                    "SYN (Synchronize)"
+                ],
                 "correctAnswerIndex": 1,
                 "explanation": "FIN is transmitted by each endpoint wishing to terminate its half of the bidirectional TCP stream gracefully.",
                 "difficulty": "beginner"
             },
             {
                 "question": "What is the primary operational role of ARP on an Ethernet segment?",
-                "options": ["Assigning IP addresses automatically", "Resolving hostnames to IP addresses", "Translating Layer 3 IP addresses to Layer 2 MAC addresses", "Routing packets across wide area networks"],
+                "options": [
+                    "Assigning IP addresses automatically",
+                    "Resolving hostnames to IP addresses",
+                    "Translating Layer 3 IP addresses to Layer 2 MAC addresses",
+                    "Routing packets across wide area networks"
+                ],
                 "correctAnswerIndex": 2,
                 "explanation": "Address Resolution Protocol (ARP) translates known Layer 3 logical IP addresses into Layer 2 physical MAC addresses for delivery within the local broadcast domain.",
+                "difficulty": "beginner"
+            },
+            {
+                "question": "How does an operating system multiplex and distinguish between multiple simultaneous TCP connections between the same client and server host?",
+                "options": [
+                    "By matching the Ethernet MAC address and IP Time-to-Live (TTL)",
+                    "By using the 4-tuple: Source IP, Source Port, Destination IP, and Destination Port",
+                    "By assigning distinct Subnet Masks to each connection",
+                    "By negotiating different Maximum Transmission Unit (MTU) sizes per socket"
+                ],
+                "correctAnswerIndex": 1,
+                "explanation": "TCP demultiplexes socket connections using the 4-tuple (Source IP, Source Port, Destination IP, Destination Port). Even when connecting to the same server IP and port, the client operating system allocates a unique ephemeral source port for each connection.",
+                "difficulty": "intermediate"
+            },
+            {
+                "question": "What is the correct 4-step message sequence for dynamic IPv4 client address configuration in the DHCP protocol?",
+                "options": [
+                    "DHCP Request -> DHCP Acknowledge -> DHCP Discover -> DHCP Offer",
+                    "DHCP Discover -> DHCP Offer -> DHCP Request -> DHCP Acknowledge (DORA)",
+                    "DHCP Probe -> DHCP Assign -> DHCP Confirm -> DHCP Lease",
+                    "DHCP SYN -> DHCP SYN-ACK -> DHCP ACK -> DHCP FIN"
+                ],
+                "correctAnswerIndex": 1,
+                "explanation": "DHCP allocation follows the DORA sequence: Discover (broadcast client search), Offer (server lease proposal), Request (client lease acceptance), and Acknowledge (server confirmation with IP parameters).",
                 "difficulty": "beginner"
             }
         ]
     }
 }
-

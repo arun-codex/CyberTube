@@ -16,15 +16,36 @@ MODULE_01 = {
                 "Identify hardware and buffer limitations that lead to packet drop during high-throughput analysis",
                 "Configure Npcap loopback and raw 802.11 monitor mode options"
             ],
-            "tags": ["wireshark", "npcap", "libpcap", "capture-drivers", "architecture"],
-            "skillsTaught": ["Capture driver configuration", "Buffer optimization", "Packet drop mitigation"],
+            "tags": [
+                "wireshark",
+                "npcap",
+                "libpcap",
+                "capture-drivers",
+                "architecture"
+            ],
+            "skillsTaught": [
+                "Capture driver configuration",
+                "Buffer optimization",
+                "Packet drop mitigation"
+            ],
             "richContent": {
                 "introduction": "Wireshark is not merely a packet visualizer; it is a complex modular system comprising packet capture drivers (libpcap on Linux/macOS, Npcap on Windows), the Wiretap file reading abstraction, and thousands of modular protocol dissectors. Understanding how packets travel from the NIC ring buffer to the dissection engine ensures data integrity during forensic triage.",
-                "prerequisites": ["Module 00: Networking Prerequisites"],
+                "prerequisites": [
+                    "Module 00: Networking Prerequisites"
+                ],
                 "keyTerminology": [
-                    {"term": "Npcap", "definition": "The Windows packet capture library and driver developed by the Nmap project, providing loopback capture and raw 802.11 frame injection."},
-                    {"term": "Wiretap (wtap)", "definition": "Wireshark library responsible for opening, reading, and converting dozens of capture file formats (pcap, pcapng, snoop, cap)."},
-                    {"term": "Dissector", "definition": "A protocol-specific parsing module in Wireshark that translates raw packet bytes into human-readable field trees."}
+                    {
+                        "term": "Npcap",
+                        "definition": "The Windows packet capture library and driver developed by the Nmap project, providing loopback capture and raw 802.11 frame injection."
+                    },
+                    {
+                        "term": "Wiretap (wtap)",
+                        "definition": "Wireshark library responsible for opening, reading, and converting dozens of capture file formats (pcap, pcapng, snoop, cap)."
+                    },
+                    {
+                        "term": "Dissector",
+                        "definition": "A protocol-specific parsing module in Wireshark that translates raw packet bytes into human-readable field trees."
+                    }
                 ],
                 "theorySections": [
                     {
@@ -45,7 +66,11 @@ MODULE_01 = {
                     }
                 ],
                 "displayFilters": [
-                    {"filter": "_ws.expert.severity == \"Error\"", "description": "Displays malformed or truncated packets reported by dissectors", "purpose": "Identify driver corruption or dissection errors"}
+                    {
+                        "filter": "_ws.expert.severity == \"Error\"",
+                        "description": "Displays malformed or truncated packets reported by dissectors",
+                        "purpose": "Identify driver corruption or dissection errors"
+                    }
                 ],
                 "expectedObservations": [
                     "About dialog verifies whether loopback adapter capture is supported on your platform."
@@ -56,14 +81,22 @@ MODULE_01 = {
                 "securityRelevance": "Attackers can exploit vulnerabilities in protocol dissectors or flood network interfaces to force forensic packet drops, creating blind spots for defenders.",
                 "knowledgeCheck": {
                     "question": "Which component is responsible for filtering packets in kernel space before copying them into Wireshark user memory?",
-                    "options": ["Wiretap library", "Berkeley Packet Filter (BPF) engine in libpcap/Npcap", "Display filter engine", "Qt GUI layer"],
+                    "options": [
+                        "Wiretap library",
+                        "Berkeley Packet Filter (BPF) engine in libpcap/Npcap",
+                        "Display filter engine",
+                        "Qt GUI layer"
+                    ],
                     "correctAnswerIndex": 1,
                     "explanation": "BPF capture filters are evaluated directly in kernel space within libpcap/Npcap, ensuring that only matched packets incur user-space copy overhead.",
                     "difficulty": "intermediate"
                 },
                 "summary": "Wireshark leverages low-level capture drivers to interface with physical NICs. Understanding driver buffer management prevents packet drops during high-volume incident investigations.",
                 "furtherReading": [
-                    {"title": "Wireshark Developer Guide — Dissector Architecture", "url": "https://www.wireshark.org/docs/wsdg_html_chunked/"}
+                    {
+                        "title": "Wireshark Developer Guide \u2014 Dissector Architecture",
+                        "url": "https://www.wireshark.org/docs/wsdg_html_chunked/"
+                    }
                 ]
             }
         },
@@ -79,15 +112,36 @@ MODULE_01 = {
                 "Configure multiple buffer files (ring buffers) and auto-split triggers based on size and duration",
                 "Evaluate SPAN port, network TAP, and port mirror topologies"
             ],
-            "tags": ["promiscuous-mode", "monitor-mode", "span-port", "taps", "capture-options"],
-            "skillsTaught": ["Promiscuous mode configuration", "Ring buffer setup", "SPAN port analysis"],
+            "tags": [
+                "promiscuous-mode",
+                "monitor-mode",
+                "span-port",
+                "taps",
+                "capture-options"
+            ],
+            "skillsTaught": [
+                "Promiscuous mode configuration",
+                "Ring buffer setup",
+                "SPAN port analysis"
+            ],
             "richContent": {
                 "introduction": "By default, network cards drop any Ethernet frame whose destination MAC address does not match their own hardware MAC (or a broadcast/multicast group). In Promiscuous mode, the NIC controller delivers all observed frames across the broadcast segment to the OS. On wireless networks, Monitor mode allows capturing 802.11 management and control frames without associating with an Access Point.",
-                "prerequisites": ["Lesson 1.1: Wireshark Architecture"],
+                "prerequisites": [
+                    "Lesson 1.1: Wireshark Architecture"
+                ],
                 "keyTerminology": [
-                    {"term": "Promiscuous Mode", "definition": "NIC configuration that disables hardware MAC address filtering, capturing all traffic passing through the local segment."},
-                    {"term": "Monitor Mode (rfmon)", "definition": "Wireless card mode that captures raw 802.11 frames over the air without associating with a BSSID."},
-                    {"term": "Network TAP", "definition": "A dedicated hardware device inserted directly into a physical cable to copy full-duplex traffic without introducing latency or altering packet contents."}
+                    {
+                        "term": "Promiscuous Mode",
+                        "definition": "NIC configuration that disables hardware MAC address filtering, capturing all traffic passing through the local segment."
+                    },
+                    {
+                        "term": "Monitor Mode (rfmon)",
+                        "definition": "Wireless card mode that captures raw 802.11 frames over the air without associating with a BSSID."
+                    },
+                    {
+                        "term": "Network TAP",
+                        "definition": "A dedicated hardware device inserted directly into a physical cable to copy full-duplex traffic without introducing latency or altering packet contents."
+                    }
                 ],
                 "theorySections": [
                     {
@@ -114,7 +168,11 @@ MODULE_01 = {
                     }
                 ],
                 "displayFilters": [
-                    {"filter": "wlan.fc.type_subtype == 0x08", "description": "Filters for 802.11 Beacon frames in wireless monitor mode captures", "purpose": "Wireless BSSID reconnaissance"}
+                    {
+                        "filter": "wlan.fc.type_subtype == 0x08",
+                        "description": "Filters for 802.11 Beacon frames in wireless monitor mode captures",
+                        "purpose": "Wireless BSSID reconnaissance"
+                    }
                 ],
                 "expectedObservations": [
                     "Interfaces in promiscuous mode on a hub see all conversations; on a switch, only local and mirrored traffic appears."
@@ -137,7 +195,10 @@ MODULE_01 = {
                 },
                 "summary": "Interface mode selection dictates what physical traffic reaches Wireshark. Setting up ring buffers ensures high-volume enterprise captures never crash analysts' machines.",
                 "furtherReading": [
-                    {"title": "Wireshark Wiki — CaptureSetup/Ethernet", "url": "https://wiki.wireshark.org/CaptureSetup/Ethernet"}
+                    {
+                        "title": "Wireshark Wiki \u2014 CaptureSetup/Ethernet",
+                        "url": "https://wiki.wireshark.org/CaptureSetup/Ethernet"
+                    }
                 ]
             }
         },
@@ -153,14 +214,31 @@ MODULE_01 = {
                 "Add custom columns from packet details: Delta time, HTTP host, DNS query, TCP stream number",
                 "Build dynamic coloring rules to instantly highlight TCP resets, SYN packets, and malware indicators"
             ],
-            "tags": ["profiles", "coloring-rules", "custom-columns", "forensic-workflow"],
-            "skillsTaught": ["Forensic profile building", "Custom column extraction", "Visual triage acceleration"],
+            "tags": [
+                "profiles",
+                "coloring-rules",
+                "custom-columns",
+                "forensic-workflow"
+            ],
+            "skillsTaught": [
+                "Forensic profile building",
+                "Custom column extraction",
+                "Visual triage acceleration"
+            ],
             "richContent": {
                 "introduction": "Default Wireshark installations are optimized for general networking, not cyber forensics. By creating dedicated investigation profiles, extracting key header fields into dedicated columns (such as TCP Delta Time and Host Header), and applying contrast coloring rules, analysts reduce forensic triage time by over 70%.",
-                "prerequisites": ["Lesson 1.2: Interface Selection"],
+                "prerequisites": [
+                    "Lesson 1.2: Interface Selection"
+                ],
                 "keyTerminology": [
-                    {"term": "Configuration Profile", "definition": "A discrete set of Wireshark preferences, custom columns, coloring rules, recent display filters, and enabled protocols stored in a dedicated folder."},
-                    {"term": "TCP Delta Time", "definition": "The elapsed time between the current packet and the previous packet within the exact same TCP stream."}
+                    {
+                        "term": "Configuration Profile",
+                        "definition": "A discrete set of Wireshark preferences, custom columns, coloring rules, recent display filters, and enabled protocols stored in a dedicated folder."
+                    },
+                    {
+                        "term": "TCP Delta Time",
+                        "definition": "The elapsed time between the current packet and the previous packet within the exact same TCP stream."
+                    }
                 ],
                 "theorySections": [
                     {
@@ -187,8 +265,16 @@ MODULE_01 = {
                     }
                 ],
                 "displayFilters": [
-                    {"filter": "tcp.flags.reset == 1", "description": "Highlight resets with red background in Coloring Rules", "purpose": "Visual triage for connection terminations"},
-                    {"filter": "http.request or tls.handshake.type == 1", "description": "Highlight web requests and client hellos with cyan background", "purpose": "Session initiation visibility"}
+                    {
+                        "filter": "tcp.flags.reset == 1",
+                        "description": "Highlight resets with red background in Coloring Rules",
+                        "purpose": "Visual triage for connection terminations"
+                    },
+                    {
+                        "filter": "http.request or tls.handshake.type == 1",
+                        "description": "Highlight web requests and client hellos with cyan background",
+                        "purpose": "Session initiation visibility"
+                    }
                 ],
                 "expectedObservations": [
                     "Packet list instantly exposes stream numbers and timing anomalies without manual packet expansion."
@@ -211,7 +297,10 @@ MODULE_01 = {
                 },
                 "summary": "Custom forensic profiles, dedicated timing columns, and contrast coloring rules convert Wireshark into a precision SOC triage workbench.",
                 "furtherReading": [
-                    {"title": "Wireshark User Guide — Customizing Configuration Profiles", "url": "https://www.wireshark.org/docs/wsug_html_chunked/ChCustConfigProfilesSection.html"}
+                    {
+                        "title": "Wireshark User Guide \u2014 Customizing Configuration Profiles",
+                        "url": "https://www.wireshark.org/docs/wsug_html_chunked/ChCustConfigProfilesSection.html"
+                    }
                 ]
             }
         },
@@ -227,15 +316,36 @@ MODULE_01 = {
                 "Analyze TCP round-trip delta timings to measure client vs. server delay",
                 "Detect automated periodic execution (cron jobs, C2 beacons) using precise timestamp differentials"
             ],
-            "tags": ["timestamps", "delta-time", "rtt", "beacon-detection", "time-display"],
-            "skillsTaught": ["Timestamp alignment", "Delta timing calculations", "Beaconing periodicity identification"],
+            "tags": [
+                "timestamps",
+                "delta-time",
+                "rtt",
+                "beacon-detection",
+                "time-display"
+            ],
+            "skillsTaught": [
+                "Timestamp alignment",
+                "Delta timing calculations",
+                "Beaconing periodicity identification"
+            ],
             "richContent": {
                 "introduction": "Network forensics is fundamentally about timeline reconstruction. A single misplaced time zone or misunderstanding of packet delta timings can lead to invalid attribution. Wireshark provides flexible time representations to correlate packet captures with host logs, SIEM events, and firewall alerts.",
-                "prerequisites": ["Lesson 1.3: Custom Profiles & Columns"],
+                "prerequisites": [
+                    "Lesson 1.3: Custom Profiles & Columns"
+                ],
                 "keyTerminology": [
-                    {"term": "Epoch Time", "definition": "Seconds elapsed since January 1, 1970 (UTC), the standard cross-platform timestamp representation."},
-                    {"term": "Delta Time (Displayed)", "definition": "Time elapsed between the current packet and the previous packet shown under active display filters."},
-                    {"term": "TCP Conversational Delta", "definition": "Time elapsed since the previous packet in the exact same TCP stream, isolating server processing or client delay."}
+                    {
+                        "term": "Epoch Time",
+                        "definition": "Seconds elapsed since January 1, 1970 (UTC), the standard cross-platform timestamp representation."
+                    },
+                    {
+                        "term": "Delta Time (Displayed)",
+                        "definition": "Time elapsed between the current packet and the previous packet shown under active display filters."
+                    },
+                    {
+                        "term": "TCP Conversational Delta",
+                        "definition": "Time elapsed since the previous packet in the exact same TCP stream, isolating server processing or client delay."
+                    }
                 ],
                 "theorySections": [
                     {
@@ -263,8 +373,16 @@ MODULE_01 = {
                     }
                 ],
                 "displayFilters": [
-                    {"filter": "frame.time_delta < 0.001", "description": "Packets arriving within sub-millisecond bursts", "purpose": "Identify automated script traffic or volumetric floods"},
-                    {"filter": "tcp.time_delta > 30 and tcp.flags.syn == 1", "description": "SYN attempts spaced by roughly 30 seconds", "purpose": "Periodic beaconing detection"}
+                    {
+                        "filter": "frame.time_delta < 0.001",
+                        "description": "Packets arriving within sub-millisecond bursts",
+                        "purpose": "Identify automated script traffic or volumetric floods"
+                    },
+                    {
+                        "filter": "tcp.time_delta > 30 and tcp.flags.syn == 1",
+                        "description": "SYN attempts spaced by roughly 30 seconds",
+                        "purpose": "Periodic beaconing detection"
+                    }
                 ],
                 "expectedObservations": [
                     "Human interactive traffic (e.g. typing over SSH/Telnet) exhibits irregular deltas between 0.1s and 2.5s.",
@@ -288,7 +406,10 @@ MODULE_01 = {
                 },
                 "summary": "Mastering timestamp formats and delta calculations allows analysts to reconstruct precise event sequences and differentiate human user activity from automated malware beaconing.",
                 "furtherReading": [
-                    {"title": "Wireshark User Guide — Time Display Formats", "url": "https://www.wireshark.org/docs/wsug_html_chunked/ChAdvTimestamps.html"}
+                    {
+                        "title": "Wireshark User Guide \u2014 Time Display Formats",
+                        "url": "https://www.wireshark.org/docs/wsug_html_chunked/ChAdvTimestamps.html"
+                    }
                 ]
             }
         }
@@ -297,12 +418,14 @@ MODULE_01 = {
         "id": "lab-01-profile-optimization",
         "title": "Lab 01: Forensic Profile & Custom Column Optimization",
         "objective": "Build a complete forensic analysis profile with custom delta time, TCP stream, and host columns, configuring coloring rules to highlight anomalies.",
-        "toolsRequired": ["Wireshark 4.x or higher"],
+        "toolsRequired": [
+            "Wireshark 4.x or higher"
+        ],
         "pcapSource": {
             "fileName": "Scenario 1.pcapng",
             "fileUrl": "https://raw.githubusercontent.com/NetsecExplained/Advanced-Wireshark-Network-Forensics/master/Scenario%201.pcapng",
             "repositoryUrl": "https://github.com/NetsecExplained/Advanced-Wireshark-Network-Forensics",
-            "sha256": "7c81d86d634ebbbd6174a8894101e19485bb24a0d92298e82ef45b721245b73d"
+            "sha256": "3d15daea9d46ee8aa6a3a111a3ee37e2e5be009d509d57a249dd850d510b07d8"
         },
         "difficulty": "intermediate",
         "estimatedMinutes": 45,
@@ -314,18 +437,43 @@ MODULE_01 = {
             "Identify the longest idle pause in TCP Stream #0."
         ],
         "tasks": [
-            {"id": "task-01-1", "description": "Configure the 4 recommended custom columns", "hint": "Right-click field in packet details -> Apply as Column"},
-            {"id": "task-01-2", "description": "Verify coloring rule precedence for TCP Resets", "hint": "View -> Coloring Rules -> Move to top"},
-            {"id": "task-01-3", "description": "Measure peak delta time in Stream #0", "hint": "Filter tcp.stream == 0 and sort by tcp.time_delta descending"}
+            {
+                "id": "task-01-1",
+                "description": "Configure the 4 recommended custom columns",
+                "hint": "Right-click field in packet details -> Apply as Column"
+            },
+            {
+                "id": "task-01-2",
+                "description": "Verify coloring rule precedence for TCP Resets",
+                "hint": "View -> Coloring Rules -> Move to top"
+            },
+            {
+                "id": "task-01-3",
+                "description": "Measure peak delta time in Stream #0",
+                "hint": "Filter tcp.stream == 0 and sort by tcp.time_delta descending"
+            }
         ],
         "evidenceWorksheet": [
-            {"field": "Custom Profile Name", "prompt": "Name of created profile:", "expectedEvidenceType": "String"},
-            {"field": "Longest Delta Time in Stream 0", "prompt": "Enter the highest observed tcp.time_delta value in seconds:", "expectedEvidenceType": "Decimal seconds (e.g. 4.123456)"}
+            {
+                "field": "Custom Profile Name",
+                "prompt": "Name of created profile:",
+                "expectedEvidenceType": "String"
+            },
+            {
+                "field": "Longest Delta Time in Stream 0",
+                "prompt": "Enter the highest observed tcp.time_delta value in seconds:",
+                "expectedEvidenceType": "Decimal seconds (e.g. 4.123456)"
+            }
         ],
         "questions": [
             {
                 "question": "What happens if a custom column field is not present in a packet (e.g., http.host in a DNS packet)?",
-                "options": ["Wireshark displays an error", "The column cell remains empty", "The packet is hidden", "Wireshark crashes"],
+                "options": [
+                    "Wireshark displays an error",
+                    "The column cell remains empty",
+                    "The packet is hidden",
+                    "Wireshark crashes"
+                ],
                 "correctAnswerIndex": 1,
                 "explanation": "If a packet does not contain the protocol or field mapped to a custom column, Wireshark renders an empty cell for that packet without error.",
                 "difficulty": "beginner"
@@ -342,26 +490,64 @@ MODULE_01 = {
         "questions": [
             {
                 "question": "Which Wireshark capture option should be configured to prevent exhausting system disk space during a multi-hour network capture?",
-                "options": ["Promiscuous mode", "Multiple Ring Buffer Files with file count and size limits", "Monitor mode", "Capture Filter: host 127.0.0.1"],
+                "options": [
+                    "Promiscuous mode",
+                    "Multiple Ring Buffer Files with file count and size limits",
+                    "Monitor mode",
+                    "Capture Filter: host 127.0.0.1"
+                ],
                 "correctAnswerIndex": 1,
                 "explanation": "Configuring ring buffer files with max file size and file count ensures Wireshark continuously rotates through a fixed pool of capture files, bounding total disk usage.",
                 "difficulty": "intermediate"
             },
             {
                 "question": "Why is Npcap preferred over legacy WinPcap on modern Windows operating systems?",
-                "options": ["WinPcap is paid software", "Npcap supports loopback capture, raw 802.11 monitor mode, and Windows 10/11 security models", "Npcap does not require admin privileges", "Npcap only works with Linux"],
+                "options": [
+                    "WinPcap is paid software",
+                    "Npcap supports loopback capture, raw 802.11 monitor mode, and Windows 10/11 security models",
+                    "Npcap does not require admin privileges",
+                    "Npcap only works with Linux"
+                ],
                 "correctAnswerIndex": 1,
                 "explanation": "Npcap was developed to replace the obsolete WinPcap, bringing NDIS 6 driver support, loopback packet capture, and modern Windows kernel compatibility.",
                 "difficulty": "intermediate"
             },
             {
                 "question": "How can an analyst quickly isolate conversational pauses exceeding 10 seconds within a specific TCP conversation?",
-                "options": ["frame.time_delta > 10", "tcp.time_delta > 10.0", "ip.ttl > 10", "tcp.analysis.retransmission"],
+                "options": [
+                    "frame.time_delta > 10",
+                    "tcp.time_delta > 10.0",
+                    "ip.ttl > 10",
+                    "tcp.analysis.retransmission"
+                ],
                 "correctAnswerIndex": 1,
                 "explanation": "The field tcp.time_delta measures elapsed time specifically between consecutive packets of the same TCP conversation stream.",
                 "difficulty": "intermediate"
+            },
+            {
+                "question": "Which Wireshark feature allows analysts to switch between customized column layouts, color rules, and protocol decode preferences tailored for specific protocols like VoIP or Malware triage?",
+                "options": [
+                    "Configuration Profiles",
+                    "BPF Filter Presets",
+                    "Capture Interface Options",
+                    "Macro Shortcuts"
+                ],
+                "correctAnswerIndex": 0,
+                "explanation": "Wireshark Configuration Profiles allow creating dedicated environments (e.g., Forensics, VoIP, TLS Decryption) that store specific columns, custom color rules, and protocol preference settings independently.",
+                "difficulty": "beginner"
+            },
+            {
+                "question": "How does Wireshark display packet data in the lower 'Packet Bytes' pane by default?",
+                "options": [
+                    "Base64 encoded strings with hexadecimal offsets",
+                    "Hexadecimal bytes dump on the left with corresponding ASCII interpretation on the right",
+                    "JSON formatted key-value pairs representing protocol fields",
+                    "Raw binary bitstreams represented in 8-bit octet blocks"
+                ],
+                "correctAnswerIndex": 1,
+                "explanation": "The Packet Bytes pane renders a classic canonical hex dump: packet byte offset on the far left, hexadecimal byte values in the center, and printable ASCII representations on the right.",
+                "difficulty": "beginner"
             }
         ]
     }
 }
-

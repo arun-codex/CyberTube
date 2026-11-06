@@ -15,7 +15,9 @@ PCAP_RESOURCES = [
             "Launch Wireshark and open the capture with a forensic inspection profile.",
             "Apply display filters to isolate anomalous IP conversations."
         ],
-        "sha256": "9f228b37ad582a9394f71a0642751f8dc974be42d0719ef7dfc33bb3e24a49db"
+        "sha256": "b2bd9a8b484f4ded72a4ce7de1335198d5ae6e81ace89fe6e6d5a071e1391cd9",
+        "verificationDate": "2026-11-06",
+        "verificationMethod": "Direct SHA-256 computation from upstream git master raw source"
     },
     {
         "id": "pcap-scenario-1",
@@ -32,7 +34,9 @@ PCAP_RESOURCES = [
             "Filter for HTTP and TLS streams to identify external connections.",
             "Practice stream reassembly to inspect conversation content."
         ],
-        "sha256": "7c81d86d634ebbbd6174a8894101e19485bb24a0d92298e82ef45b721245b73d"
+        "sha256": "3d15daea9d46ee8aa6a3a111a3ee37e2e5be009d509d57a249dd850d510b07d8",
+        "verificationDate": "2026-11-06",
+        "verificationMethod": "Direct SHA-256 computation from upstream git master raw source"
     },
     {
         "id": "pcap-scenario-2",
@@ -49,7 +53,9 @@ PCAP_RESOURCES = [
             "Filter for ftp or ftp-data to recover unencrypted authentication credentials.",
             "Inspect TCP SYN packets without ACK responses to quantify port scanning behavior."
         ],
-        "sha256": "3d8a57e3240212f43cbffbe2d625d9921606d2c4187e14be26f5d52ad5813b35"
+        "sha256": "f664404d592d4fd647ebdf8117eb91b91a868fad1b54888e2117d1b271ba5b11",
+        "verificationDate": "2026-11-06",
+        "verificationMethod": "Direct SHA-256 computation from upstream git master raw source"
     },
     {
         "id": "pcap-wireshark-wiki-samples",
@@ -65,18 +71,19 @@ PCAP_RESOURCES = [
             "Browse the wiki for target protocols discussed in each module.",
             "Download individual protocol samples to compare against anomalous traffic.",
             "Use for protocol header validation and custom filter creation."
-        ]
+        ],
+        "verificationMethod": "External community capture index; individual protocol capture hashes maintained upstream"
     }
 ]
 
 CAPSTONE = {
     "id": "capstone-operation-blackout-beacon",
     "title": "Operation Blackout Beacon — SOC Enterprise Intrusion Forensics",
-    "scenario": "On October 14, at 03:22 UTC, the Enterprise Security Operations Center (SOC) detected unusual outbound traffic surges and high-frequency internal connection attempts originating from an accounting workstation (10.0.4.152). A 45-minute continuous packet capture was preserved from the core switch SPAN port. As the Lead Network Forensics Specialist, you have been tasked with investigating the unknown capture, identifying the initial access vector, extracting the deployed secondary payload, evaluating command-and-control (C2) communication frequencies, mapping lateral movement attempts, and producing an executive and technical incident report.",
+    "scenario": "Simulated Incident Scenario: In this capstone scenario, an enterprise SOC analyst is presented with a realistic intrusion investigation narrative. Note: The scenario narrative, timestamps, and IP addresses below serve as an illustrative forensic challenge framework, while the analysis is conducted against the real multi-stage capture 'Hackers on the Network.pcapng' created by Netsec Explained. As the Lead Network Forensics Specialist, you have been tasked with investigating the capture, identifying anomalous protocol flows, isolating secondary payloads and beacons, evaluating command-and-control (C2) communication patterns, mapping connection attempts, and compiling a structured technical and executive report.",
     "pcapSource": {
         "fileName": "Hackers on the Network.pcapng",
         "fileUrl": "https://raw.githubusercontent.com/NetsecExplained/Advanced-Wireshark-Network-Forensics/master/Hackers%20on%20the%20Network.pcapng",
-        "sha256": "9f228b37ad582a9394f71a0642751f8dc974be42d0719ef7dfc33bb3e24a49db"
+        "sha256": "b2bd9a8b484f4ded72a4ce7de1335198d5ae6e81ace89fe6e6d5a071e1391cd9"
     },
     "totalMarks": 100,
     "passingScore": 75,

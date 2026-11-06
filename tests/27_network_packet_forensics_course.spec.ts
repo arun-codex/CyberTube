@@ -315,3 +315,272 @@ test.describe('Phase 18 — Network Packet Forensics Masterclass Integration', (
     expect(page.url()).toContain('lesson=osi-vs-tcpip-encapsulation');
   });
 });
+
+test.describe('Phase 18.1 — Assessment Integrity, Evidence Provenance & Progress Gates', () => {
+  const courseSlug = 'network-packet-analysis-masterclass';
+  const courseId = 'course-packet-analysis-wireshark';
+
+  test('Behavior 1: Capstone submission cannot pass using meaningless short/shallow text', async ({ page }) => {
+    await page.goto(`/courses/${courseSlug}?lesson=operation-blackout-beacon-capstone`);
+    await page.waitForLoadState('domcontentloaded');
+
+    const firstTextarea = page.locator('textarea').first();
+    await expect(firstTextarea).toBeVisible();
+    const textareas = page.locator('textarea');
+    const count = await textareas.count();
+    expect(count).toBeGreaterThanOrEqual(6);
+
+    // Enter short text without required technical packet analysis terms in first textarea
+    await firstTextarea.fill('short irrelevant text not meeting twenty words requirement');
+
+    const submitBtn = page.locator('button:has-text("Submit Capstone for Evaluation")');
+    await expect(submitBtn).toBeVisible();
+    await submitBtn.click();
+
+    // Completeness check should report failures or warnings, not award a passing grade
+    await expect(page.locator('text=Structural Verification Incomplete').first()).toBeVisible();
+  });
+
+  test('Behavior 2: Capstone assessment state survives page refresh', async ({ page }) => {
+    await page.goto(`/courses/${courseSlug}?lesson=operation-blackout-beacon-capstone`);
+    await page.waitForLoadState('domcontentloaded');
+
+    // Fill in section 1 with detailed findings
+    const firstTextarea = page.locator('textarea').first();
+    const testNotes = 'Executive forensic analysis of threat actor intrusion across compromised workstation 10.0.0.45. Identified suspicious beaconing over TCP port 443 with TLS anomalies and outbound data exfiltration via FTP.';
+    await firstTextarea.fill(testNotes);
+
+    // Reload page
+    await page.reload();
+    await page.waitForLoadState('domcontentloaded');
+
+    // Verify text survived refresh
+    await expect(page.locator('textarea').first()).toHaveValue(testNotes);
+  });
+
+  test('Behavior 3: Module quizzes contain 5 questions and calculate score', async ({ page }) => {
+    const course = COURSES.find((c) => c.id === courseId)!;
+    // Check all 8 regular modules have 5 questions each
+    course.modules.slice(0, 8).forEach((mod) => {
+      expect(mod.quiz).toBeDefined();
+      expect(mod.quiz?.questions.length).toBe(5);
+    });
+
+    await page.goto(`/courses/${courseSlug}?lesson=osi-vs-tcpip-encapsulation`);
+    await page.waitForLoadState('domcontentloaded');
+
+    const quizTab = page.locator('button:has-text("Module Quiz")');
+    await expect(quizTab).toContainText('5 Qs');
+    await quizTab.click();
+
+    // Verify 5 questions rendered
+    const questions = page.locator('h4').filter({ hasText: /^\d+\./ });
+    await expect(questions).toHaveCount(5);
+  });
+
+  test('Behavior 4: Failed quiz attempts are retained in history', async ({ page }) => {
+    await page.goto('/courses');
+    const testAttempt = {
+      attemptNumber: 1,
+      selectedAnswers: { 0: 0, 1: 1, 2: 2, 3: 3, 4: 0 },
+      score: 40,
+      passed: false,
+      submittedAt: new Date().toISOString(),
+    };
+
+    await page.evaluate(({ cid, attempt }) => {
+      const storageKey = `cybertube_course_progress_v1_${cid}`;
+      const state = {
+        courseId: cid,
+        completedLessonIds: [],
+        quizScores: { 'mod-00-networking-prerequisites': 40 },
+        quizAttempts: { 'mod-00-networking-prerequisites': [attempt] },
+        lastAccessedAt: new Date().toISOString(),
+      };
+      localStorage.setItem(storageKey, JSON.stringify(state));
+    }, { cid: courseId, attempt: testAttempt });
+
+    await page.goto(`/courses/${courseSlug}?lesson=osi-vs-tcpip-encapsulation`);
+    await page.waitForLoadState('domcontentloaded');
+
+    const quizTab = page.locator('button:has-text("Module Quiz")');
+    await quizTab.click();
+
+    // Verify Attempt History displays attempt #1 with 40% — Failed
+    await expect(page.locator('text=Recorded Attempt History')).toBeVisible();
+    await expect(page.locator('text=Attempt #1')).toBeVisible();
+    await expect(page.locator('text=40% — Failed')).toBeVisible();
+  });
+
+  test('Behavior 5: Passing quiz status survives refresh', async ({ page }) => {
+    await page.goto('/courses');
+    const passAttempt = {
+      attemptNumber: 1,
+      selectedAnswers: { 0: 1, 1: 1, 2: 2, 3: 0, 4: 2 },
+      score: 80,
+      passed: true,
+      submittedAt: new Date().toISOString(),
+    };
+
+    await page.evaluate(({ cid, attempt }) => {
+      const storageKey = `cybertube_course_progress_v1_${cid}`;
+      const state = {
+        courseId: cid,
+        completedLessonIds: [],
+        quizScores: { 'mod-00-networking-prerequisites': 80 },
+        quizAttempts: { 'mod-00-networking-prerequisites': [attempt] },
+        lastAccessedAt: new Date().toISOString(),
+      };
+      localStorage.setItem(storageKey, JSON.stringify(state));
+    }, { cid: courseId, attempt: passAttempt });
+
+    await page.goto(`/courses/${courseSlug}?lesson=osi-vs-tcpip-encapsulation`);
+    await page.waitForLoadState('domcontentloaded');
+
+    const quizTab = page.locator('button:has-text("Module Quiz")');
+    await quizTab.click();
+
+    await expect(page.locator('text=Attempt #1')).toBeVisible();
+    await expect(page.locator('text=80% — Passed')).toBeVisible();
+    await expect(page.locator('text=✓ Passed').first()).toBeVisible();
+
+    // Reload page
+    await page.reload();
+    await page.waitForLoadState('domcontentloaded');
+    await quizTab.click();
+    await expect(page.locator('text=Attempt #1')).toBeVisible();
+    await expect(page.locator('text=80% — Passed')).toBeVisible();
+  });
+
+  test('Behavior 6: Course is not marked complete before all required gates (lessons, quizzes, labs, capstone)', async ({ page }) => {
+    await page.goto('/courses');
+    const course = COURSES.find((c) => c.id === courseId)!;
+    const allLessons = getCourseLessons(course);
+
+    // Mock progress where all 37 lessons are checked complete, but 0 quizzes, labs, or capstone passed
+    const partialState = {
+      courseId,
+      completedLessonIds: allLessons.map((l) => l.id),
+      quizScores: {},
+      quizAttempts: {},
+      labProgress: {},
+      capstoneSubmission: undefined,
+      capstoneScore: undefined,
+      lastAccessedAt: new Date().toISOString(),
+    };
+
+    await page.evaluate(({ cid, state }) => {
+      localStorage.setItem(`cybertube_course_progress_v1_${cid}`, JSON.stringify(state));
+    }, { cid: courseId, state: partialState });
+
+    await page.goto(`/courses/${courseSlug}`);
+    await page.waitForLoadState('domcontentloaded');
+
+    // Certification Gates card should show In Progress, not Fully Completed
+    const progressCard = page.locator('[data-testid="masterclass-assessment-progress"]');
+    await expect(progressCard).toBeVisible();
+    await expect(progressCard).toContainText('In Progress');
+    await expect(progressCard).toContainText('Remaining certification gates:');
+  });
+
+  test('Behavior 7: Practical lab task completion is persisted across refresh', async ({ page }) => {
+    await page.goto(`/courses/${courseSlug}?lesson=osi-vs-tcpip-encapsulation`);
+    await page.waitForLoadState('domcontentloaded');
+
+    const labTab = page.locator('button:has-text("Module Lab")');
+    await labTab.click();
+
+    // Check the first task checkbox
+    const taskCheckbox = page.locator('input[type="checkbox"]').first();
+    await taskCheckbox.check();
+    await page.waitForTimeout(300);
+
+    // Reload page
+    await page.reload();
+    await page.waitForLoadState('domcontentloaded');
+    await labTab.click();
+
+    // Verify checkbox is still checked
+    await expect(page.locator('input[type="checkbox"]').first()).toBeChecked();
+  });
+
+  test('Behavior 8: Practical lab worksheet values survive refresh', async ({ page }) => {
+    await page.goto(`/courses/${courseSlug}?lesson=osi-vs-tcpip-encapsulation`);
+    await page.waitForLoadState('domcontentloaded');
+
+    const labTab = page.locator('button:has-text("Module Lab")');
+    await labTab.click();
+
+    const worksheetInput = page.locator('input[type="text"][placeholder^="e.g."]').first();
+    const testObservation = '192.168.1.105 communicated with external DNS 8.8.8.8';
+    await worksheetInput.fill(testObservation);
+    await page.waitForTimeout(300);
+
+    // Reload page
+    await page.reload();
+    await page.waitForLoadState('domcontentloaded');
+    await labTab.click();
+
+    await expect(page.locator('input[type="text"][placeholder^="e.g."]').first()).toHaveValue(testObservation);
+  });
+
+  test('Behavior 9: PCAP hashes match verified upstream digests', async () => {
+    const course = COURSES.find((c) => c.id === courseId)!;
+    expect(course.pcapResources).toBeDefined();
+
+    const hackersPcap = course.pcapResources?.find((p) => p.fileName === 'Hackers on the Network.pcapng');
+    expect(hackersPcap?.sha256).toBe('b2bd9a8b484f4ded72a4ce7de1335198d5ae6e81ace89fe6e6d5a071e1391cd9');
+    expect(hackersPcap?.verificationMethod?.toLowerCase()).toContain('sha-256');
+
+    const scenario1 = course.pcapResources?.find((p) => p.fileName === 'Scenario 1.pcapng');
+    expect(scenario1?.sha256).toBe('3d15daea9d46ee8aa6a3a111a3ee37e2e5be009d509d57a249dd850d510b07d8');
+
+    const scenario2 = course.pcapResources?.find((p) => p.fileName === 'Scenario 2.pcap');
+    expect(scenario2?.sha256).toBe('f664404d592d4fd647ebdf8117eb91b91a868fad1b54888e2117d1b271ba5b11');
+  });
+
+  test('Behavior 10: Lesson progress remains backward-compatible', async () => {
+    expect(typeof localCourseProgressService.getProgress).toBe('function');
+    expect(typeof localCourseProgressService.toggleLessonCompletion).toBe('function');
+    expect(typeof localCourseProgressService.setLessonCompleted).toBe('function');
+  });
+
+  test('Behavior 11: Legacy progress archival remains intact', async ({ page }) => {
+    await page.goto('/courses');
+    await page.evaluate(({ cid, legacyIds }) => {
+      const storageKey = `cybertube_course_progress_v1_${cid}`;
+      const state = {
+        courseId: cid,
+        completedLessonIds: [...legacyIds],
+        lastAccessedAt: new Date().toISOString(),
+      };
+      localStorage.setItem(storageKey, JSON.stringify(state));
+    }, { cid: courseId, legacyIds: LEGACY_PACKET_ANALYSIS_LESSON_IDS });
+
+    await page.goto(`/courses/${courseSlug}`);
+    await page.waitForLoadState('domcontentloaded');
+
+    const state = await page.evaluate((cid) => {
+      return JSON.parse(localStorage.getItem(`cybertube_course_progress_v1_${cid}`) || '{}');
+    }, courseId);
+
+    expect(state.archivedLegacyLessonIds).toEqual(LEGACY_PACKET_ANALYSIS_LESSON_IDS);
+    expect(state.completedLessonIds.length).toBe(0);
+  });
+
+  test('Behavior 12: Existing MERN, Networking, and Wireshark courses remain unaffected', async () => {
+    const mernCourse = COURSES.find((c) => c.slug === 'mern-full-stack-course-with-ai')!;
+    const netCourse = COURSES.find((c) => c.slug === 'networking-for-hackers-2027')!;
+    const wiresharkCourse = COURSES.find((c) => c.slug === 'wireshark-and-ethical-hacking')!;
+
+    expect(mernCourse).toBeDefined();
+    expect(netCourse).toBeDefined();
+    expect(wiresharkCourse).toBeDefined();
+
+    const mernLessons = getCourseLessons(mernCourse);
+    expect(mernLessons.length).toBeGreaterThan(0);
+    expect(mernCourse.capstone).toBeUndefined();
+    expect(netCourse.capstone).toBeUndefined();
+    expect(wiresharkCourse.capstone).toBeUndefined();
+  });
+});

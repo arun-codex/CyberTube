@@ -16,15 +16,36 @@ MODULE_05 = {
                 "Recognize Nmap OS detection and version probing traffic fingerprints",
                 "Measure scan velocity, target port coverage, and source IP distribution"
             ],
-            "tags": ["reconnaissance", "nmap", "port-scanning", "syn-scan", "network-mapping"],
-            "skillsTaught": ["Scan fingerprint recognition", "Probe velocity measurement", "Target sweep mapping"],
+            "tags": [
+                "reconnaissance",
+                "nmap",
+                "port-scanning",
+                "syn-scan",
+                "network-mapping"
+            ],
+            "skillsTaught": [
+                "Scan fingerprint recognition",
+                "Probe velocity measurement",
+                "Target sweep mapping"
+            ],
             "richContent": {
                 "introduction": "Every targeted network intrusion begins with reconnaissance. Attackers sweep subnets with tools like Nmap, Masscan, and ZMap to map active hosts, enumerate open ports, and fingerprint operating systems. Recognizing how these scan patterns manifest at the packet level enables early detection before adversaries exploit discovered vulnerabilities.",
-                "prerequisites": ["Lesson 0.4: TCP Handshake & Flags"],
+                "prerequisites": [
+                    "Lesson 0.4: TCP Handshake & Flags"
+                ],
                 "keyTerminology": [
-                    {"term": "TCP SYN Scan (-sS)", "definition": "A stealth scan where the scanner sends SYN packets; if a SYN-ACK is returned (port open), the scanner immediately sends a RST to avoid completing the full 3-way handshake."},
-                    {"term": "Null / Xmas / FIN Scan", "definition": "Inverse mapping scans that set no flags (Null), FIN/PSH/URG (Xmas), or only FIN, expecting closed ports to return RST per RFC 793."},
-                    {"term": "TCP Connect Scan (-sT)", "definition": "A scan that completes the full 3-way handshake via the operating system connect() API, generating full connection logs on the target."}
+                    {
+                        "term": "TCP SYN Scan (-sS)",
+                        "definition": "A stealth scan where the scanner sends SYN packets; if a SYN-ACK is returned (port open), the scanner immediately sends a RST to avoid completing the full 3-way handshake."
+                    },
+                    {
+                        "term": "Null / Xmas / FIN Scan",
+                        "definition": "Inverse mapping scans that set no flags (Null), FIN/PSH/URG (Xmas), or only FIN, expecting closed ports to return RST per RFC 793."
+                    },
+                    {
+                        "term": "TCP Connect Scan (-sT)",
+                        "definition": "A scan that completes the full 3-way handshake via the operating system connect() API, generating full connection logs on the target."
+                    }
                 ],
                 "theorySections": [
                     {
@@ -53,8 +74,16 @@ MODULE_05 = {
                     }
                 ],
                 "displayFilters": [
-                    {"filter": "tcp.flags == 0x000", "description": "Filters for TCP Null Scan packets (no flags set)", "purpose": "Detect stealth Null scans"},
-                    {"filter": "tcp.flags == 0x029", "description": "Filters for TCP Xmas Scan packets (FIN, PSH, URG set)", "purpose": "Detect Xmas tree scans"}
+                    {
+                        "filter": "tcp.flags == 0x000",
+                        "description": "Filters for TCP Null Scan packets (no flags set)",
+                        "purpose": "Detect stealth Null scans"
+                    },
+                    {
+                        "filter": "tcp.flags == 0x029",
+                        "description": "Filters for TCP Xmas Scan packets (FIN, PSH, URG set)",
+                        "purpose": "Detect Xmas tree scans"
+                    }
                 ],
                 "expectedObservations": [
                     "Rapid succession of single-packet probes to sequential port numbers (21, 22, 23, 25, 80, 443, 445, 3389)."
@@ -65,14 +94,22 @@ MODULE_05 = {
                 "securityRelevance": "Reconnaissance identification allows SOC analysts to preemptively firewall the scanning IP before targeted exploitation begins.",
                 "knowledgeCheck": {
                     "question": "What packet does an attacker transmitting a half-open TCP SYN scan (-sS) send immediately upon receiving a SYN-ACK from an open port?",
-                    "options": ["ACK", "RST (Reset)", "FIN", "PSH-ACK"],
+                    "options": [
+                        "ACK",
+                        "RST (Reset)",
+                        "FIN",
+                        "PSH-ACK"
+                    ],
                     "correctAnswerIndex": 1,
                     "explanation": "To prevent establishing a complete TCP connection (and avoid application logging), the scanner immediately returns a RST to tear down the half-open socket.",
                     "difficulty": "intermediate"
                 },
                 "summary": "Port scans leave unmistakable mathematical footprints in packet captures: rapid port progression, distinctive flag combinations, and anomalous RST packet generation.",
                 "furtherReading": [
-                    {"title": "Nmap Network Scanning — Port Scanning Techniques", "url": "https://nmap.org/book/man-port-scanning-techniques.html"}
+                    {
+                        "title": "Nmap Network Scanning \u2014 Port Scanning Techniques",
+                        "url": "https://nmap.org/book/man-port-scanning-techniques.html"
+                    }
                 ]
             }
         },
@@ -96,14 +133,31 @@ MODULE_05 = {
                 "Observe how Netsec Explained reconstructs adversary activity across multi-protocol captures",
                 "Extract cleartext authentication exchanges and validate findings in companion lab captures"
             ],
-            "tags": ["netsec-explained", "video-walkthrough", "dos-analysis", "ftp-forensics"],
-            "skillsTaught": ["DoS traffic characterization", "Cleartext credential recovery", "Multi-stage attack correlation"],
+            "tags": [
+                "netsec-explained",
+                "video-walkthrough",
+                "dos-analysis",
+                "ftp-forensics"
+            ],
+            "skillsTaught": [
+                "DoS traffic characterization",
+                "Cleartext credential recovery",
+                "Multi-stage attack correlation"
+            ],
             "richContent": {
                 "introduction": "In the final installment of the Advanced Wireshark Network Forensics series by Netsec Explained, the investigation examines aggressive adversary tactics: port scanning reconnaissance, high-velocity denial-of-service floods, and the exploitation of unencrypted legacy protocols such as FTP to harvest credentials.",
-                "prerequisites": ["Lesson 5.1: Port Scanning & Reconnaissance"],
+                "prerequisites": [
+                    "Lesson 5.1: Port Scanning & Reconnaissance"
+                ],
                 "keyTerminology": [
-                    {"term": "SYN Flood", "definition": "A denial-of-service attack that exhausts server resources by transmitting floods of SYN requests without completing handshakes."},
-                    {"term": "Cleartext Authentication", "definition": "Protocols (FTP, Telnet, HTTP Basic) that transmit usernames and passwords in unencrypted ASCII text across the wire."}
+                    {
+                        "term": "SYN Flood",
+                        "definition": "A denial-of-service attack that exhausts server resources by transmitting floods of SYN requests without completing handshakes."
+                    },
+                    {
+                        "term": "Cleartext Authentication",
+                        "definition": "Protocols (FTP, Telnet, HTTP Basic) that transmit usernames and passwords in unencrypted ASCII text across the wire."
+                    }
                 ],
                 "theorySections": [
                     {
@@ -131,8 +185,16 @@ MODULE_05 = {
                     }
                 ],
                 "displayFilters": [
-                    {"filter": "ftp.response.code == 230", "description": "Filters for successful FTP login responses ('User logged in')", "purpose": "Confirm valid credentials"},
-                    {"filter": "tcp.flags.syn == 1 && tcp.flags.ack == 0", "description": "Isolates SYN packets during suspected flood events", "purpose": "Quantify SYN flood volume"}
+                    {
+                        "filter": "ftp.response.code == 230",
+                        "description": "Filters for successful FTP login responses ('User logged in')",
+                        "purpose": "Confirm valid credentials"
+                    },
+                    {
+                        "filter": "tcp.flags.syn == 1 && tcp.flags.ack == 0",
+                        "description": "Isolates SYN packets during suspected flood events",
+                        "purpose": "Quantify SYN flood volume"
+                    }
                 ],
                 "expectedObservations": [
                     "Usernames and passwords appear completely unobfuscated in the Packet Details and Byte panes."
@@ -143,14 +205,22 @@ MODULE_05 = {
                 "securityRelevance": "Recovering exposed credentials allows incident responders to trigger immediate password resets before adversaries pivot laterally.",
                 "knowledgeCheck": {
                     "question": "Which two FTP protocol commands are used to submit client usernames and passwords in cleartext?",
-                    "options": ["AUTH and TOKEN", "USER and PASS", "LOGIN and SECRET", "ID and KEY"],
+                    "options": [
+                        "AUTH and TOKEN",
+                        "USER and PASS",
+                        "LOGIN and SECRET",
+                        "ID and KEY"
+                    ],
                     "correctAnswerIndex": 1,
                     "explanation": "RFC 959 defines USER <username> and PASS <password> as the standard commands for client authentication in cleartext FTP.",
                     "difficulty": "beginner"
                 },
                 "summary": "Part 3 of the Netsec Explained trilogy ties together reconnaissance, denial-of-service, and cleartext credential exploitation into a comprehensive investigation.",
                 "furtherReading": [
-                    {"title": "Netsec Explained YouTube Channel", "url": "https://www.youtube.com/@NetsecExplained"}
+                    {
+                        "title": "Netsec Explained YouTube Channel",
+                        "url": "https://www.youtube.com/@NetsecExplained"
+                    }
                 ]
             }
         },
@@ -166,15 +236,36 @@ MODULE_05 = {
                 "Analyze TCP SYN flood characteristics (spoofed source IPs, fixed window sizes, missing ACKs)",
                 "Document attack duration, packet-per-second (PPS) rates, and victim impact"
             ],
-            "tags": ["dos", "ddos", "syn-flood", "amplification", "traffic-analysis"],
-            "skillsTaught": ["SYN flood characterization", "PPS calculation", "Victim impact assessment"],
+            "tags": [
+                "dos",
+                "ddos",
+                "syn-flood",
+                "amplification",
+                "traffic-analysis"
+            ],
+            "skillsTaught": [
+                "SYN flood characterization",
+                "PPS calculation",
+                "Victim impact assessment"
+            ],
             "richContent": {
                 "introduction": "Denial of Service (DoS) and Distributed Denial of Service (DDoS) attacks attempt to degrade or crash target systems. Network-layer floods exhaust firewall connection tracking tables and operating system SYN backlogs, preventing legitimate clients from establishing valid TCP handshakes.",
-                "prerequisites": ["Lesson 0.4: TCP Handshake & Flags"],
+                "prerequisites": [
+                    "Lesson 0.4: TCP Handshake & Flags"
+                ],
                 "keyTerminology": [
-                    {"term": "SYN Backlog Queue", "definition": "A kernel memory table storing half-open TCP connections awaiting the third ACK packet from the client."},
-                    {"term": "Amplification Attack", "definition": "A UDP attack leveraging open reflectors (DNS, NTP, SNMP, Memcached) to bounce spoofed requests that return massive responses to a victim."},
-                    {"term": "SYN Cookies", "definition": "A kernel defensive mechanism that encodes TCP connection parameters into the Initial Sequence Number to avoid allocating backlog memory before the final ACK."}
+                    {
+                        "term": "SYN Backlog Queue",
+                        "definition": "A kernel memory table storing half-open TCP connections awaiting the third ACK packet from the client."
+                    },
+                    {
+                        "term": "Amplification Attack",
+                        "definition": "A UDP attack leveraging open reflectors (DNS, NTP, SNMP, Memcached) to bounce spoofed requests that return massive responses to a victim."
+                    },
+                    {
+                        "term": "SYN Cookies",
+                        "definition": "A kernel defensive mechanism that encodes TCP connection parameters into the Initial Sequence Number to avoid allocating backlog memory before the final ACK."
+                    }
                 ],
                 "theorySections": [
                     {
@@ -201,8 +292,16 @@ MODULE_05 = {
                     }
                 ],
                 "displayFilters": [
-                    {"filter": "tcp.flags.syn == 1 and tcp.flags.ack == 0 and tcp.window_size <= 1024", "description": "Isolates automated SYN flood packets", "purpose": "Filter out legitimate user connections"},
-                    {"filter": "icmp.type == 3 and icmp.code == 1", "description": "ICMP Host Unreachable responses during flood", "purpose": "Measure network infrastructure distress"}
+                    {
+                        "filter": "tcp.flags.syn == 1 and tcp.flags.ack == 0 and tcp.window_size <= 1024",
+                        "description": "Isolates automated SYN flood packets",
+                        "purpose": "Filter out legitimate user connections"
+                    },
+                    {
+                        "filter": "icmp.type == 3 and icmp.code == 1",
+                        "description": "ICMP Host Unreachable responses during flood",
+                        "purpose": "Measure network infrastructure distress"
+                    }
                 ],
                 "expectedObservations": [
                     "A flood of incoming SYN packets targeting a single destination IP and port with zero completed handshakes."
@@ -225,7 +324,10 @@ MODULE_05 = {
                 },
                 "summary": "Analyzing DoS traffic in Wireshark provides quantitative proof of attack mechanisms, measuring packet rates, spoofing techniques, and service degradation.",
                 "furtherReading": [
-                    {"title": "RFC 4987 — TCP SYN Flooding Attacks and Common Mitigations", "url": "https://datatracker.ietf.org/doc/html/rfc4987"}
+                    {
+                        "title": "RFC 4987 \u2014 TCP SYN Flooding Attacks and Common Mitigations",
+                        "url": "https://datatracker.ietf.org/doc/html/rfc4987"
+                    }
                 ]
             }
         },
@@ -241,14 +343,31 @@ MODULE_05 = {
                 "Extract cleartext usernames and passwords from USER and PASS command packets",
                 "Reconstruct active (PORT) and passive (PASV) data transfer sessions to carve files"
             ],
-            "tags": ["ftp", "cleartext-credentials", "insecure-protocols", "data-channels"],
-            "skillsTaught": ["FTP credential harvesting", "Active vs passive mode decoding", "Data channel file extraction"],
+            "tags": [
+                "ftp",
+                "cleartext-credentials",
+                "insecure-protocols",
+                "data-channels"
+            ],
+            "skillsTaught": [
+                "FTP credential harvesting",
+                "Active vs passive mode decoding",
+                "Data channel file extraction"
+            ],
             "richContent": {
                 "introduction": "The File Transfer Protocol (FTP, RFC 959) dates back to 1985 and was designed without security or encryption. Despite modern secure alternatives (SFTP, FTPS), legacy industrial systems, embedded IoT devices, and internal enterprise shares still run cleartext FTP, exposing authentication secrets to anyone monitoring the wire.",
-                "prerequisites": ["Lesson 2.3: Following Streams"],
+                "prerequisites": [
+                    "Lesson 2.3: Following Streams"
+                ],
                 "keyTerminology": [
-                    {"term": "Control Channel", "definition": "Persistent TCP connection established on port 21 used for authentication, directory navigation, and issuing transfer commands."},
-                    {"term": "Data Channel", "definition": "Separate on-demand TCP connection established in Active mode (server connects back from port 20) or Passive mode (client connects to server ephemeral port) to transfer file contents."}
+                    {
+                        "term": "Control Channel",
+                        "definition": "Persistent TCP connection established on port 21 used for authentication, directory navigation, and issuing transfer commands."
+                    },
+                    {
+                        "term": "Data Channel",
+                        "definition": "Separate on-demand TCP connection established in Active mode (server connects back from port 20) or Passive mode (client connects to server ephemeral port) to transfer file contents."
+                    }
                 ],
                 "theorySections": [
                     {
@@ -276,8 +395,16 @@ MODULE_05 = {
                     }
                 ],
                 "displayFilters": [
-                    {"filter": "ftp-data", "description": "Filters for the raw data channel carrying transferred files", "purpose": "Inspect file transfer payloads"},
-                    {"filter": "ftp.response.code >= 400", "description": "Filters for FTP error and authentication failure codes", "purpose": "Detect brute-force attempts"}
+                    {
+                        "filter": "ftp-data",
+                        "description": "Filters for the raw data channel carrying transferred files",
+                        "purpose": "Inspect file transfer payloads"
+                    },
+                    {
+                        "filter": "ftp.response.code >= 400",
+                        "description": "Filters for FTP error and authentication failure codes",
+                        "purpose": "Detect brute-force attempts"
+                    }
                 ],
                 "expectedObservations": [
                     "Usernames and passwords appear in raw text without hashing or encryption."
@@ -288,14 +415,22 @@ MODULE_05 = {
                 "securityRelevance": "Compromised FTP credentials often grant attackers access to sensitive internal backups, configuration scripts, and firmware images.",
                 "knowledgeCheck": {
                     "question": "If an FTP server responds '227 Entering Passive Mode (192,168,1,50,195,80)', on what TCP port will the data channel be established?",
-                    "options": ["Port 21", "Port 20", "Port 50000", "Port 80"],
+                    "options": [
+                        "Port 21",
+                        "Port 20",
+                        "Port 50000",
+                        "Port 80"
+                    ],
                     "correctAnswerIndex": 2,
                     "explanation": "In Passive FTP, the port is calculated as (p1 * 256) + p2. Here, (195 * 256) + 80 = 49920 + 80 = 50000.",
                     "difficulty": "intermediate"
                 },
                 "summary": "Cleartext protocols like FTP expose critical enterprise credentials and file contents. Dissecting the dual-channel architecture allows investigators to recover both authentication credentials and exfiltrated files.",
                 "furtherReading": [
-                    {"title": "RFC 959 — File Transfer Protocol (FTP)", "url": "https://datatracker.ietf.org/doc/html/rfc959"}
+                    {
+                        "title": "RFC 959 \u2014 File Transfer Protocol (FTP)",
+                        "url": "https://datatracker.ietf.org/doc/html/rfc959"
+                    }
                 ]
             }
         },
@@ -311,15 +446,36 @@ MODULE_05 = {
                 "Identify PsExec remote execution signatures (IPC$, admin$, svcctl, named pipes)",
                 "Detect internal pass-the-hash and lateral movement probing across enterprise subnets"
             ],
-            "tags": ["smb", "lateral-movement", "psexec", "rpc", "active-directory"],
-            "skillsTaught": ["SMB traffic dissection", "Named pipe tracking", "Lateral movement detection"],
+            "tags": [
+                "smb",
+                "lateral-movement",
+                "psexec",
+                "rpc",
+                "active-directory"
+            ],
+            "skillsTaught": [
+                "SMB traffic dissection",
+                "Named pipe tracking",
+                "Lateral movement detection"
+            ],
             "richContent": {
                 "introduction": "Once an adversary secures an initial workstation foothold, they must pivot laterally to achieve their mission objectives (e.g. compromising Domain Controllers or database servers). Server Message Block (SMB port 445) and Microsoft RPC (port 135) are the primary protocol pathways used by attackers to execute remote commands, upload tools, and dump credentials.",
-                "prerequisites": ["Lesson 0.4: TCP Handshake & Flags"],
+                "prerequisites": [
+                    "Lesson 0.4: TCP Handshake & Flags"
+                ],
                 "keyTerminology": [
-                    {"term": "Lateral Movement", "definition": "Techniques adversaries use to extend access from one compromised system to other systems across the internal network."},
-                    {"term": "ADMIN$ / C$", "definition": "Default Windows administrative network shares used by tools like PsExec to stage remote service binaries."},
-                    {"term": "Named Pipe", "definition": "An inter-process communication mechanism exposed over SMB (e.g. \\pipe\\svcctl for the Service Control Manager)."}
+                    {
+                        "term": "Lateral Movement",
+                        "definition": "Techniques adversaries use to extend access from one compromised system to other systems across the internal network."
+                    },
+                    {
+                        "term": "ADMIN$ / C$",
+                        "definition": "Default Windows administrative network shares used by tools like PsExec to stage remote service binaries."
+                    },
+                    {
+                        "term": "Named Pipe",
+                        "definition": "An inter-process communication mechanism exposed over SMB (e.g. \\pipe\\svcctl for the Service Control Manager)."
+                    }
                 ],
                 "theorySections": [
                     {
@@ -348,8 +504,16 @@ MODULE_05 = {
                     }
                 ],
                 "displayFilters": [
-                    {"filter": "smb2.tree_connect.path contains \"ADMIN$\" or smb2.tree_connect.path contains \"C$\"", "description": "Isolates connections to administrative network shares", "purpose": "Spot administrative lateral movement"},
-                    {"filter": "smb2.cmd == 5", "description": "Filters for SMB2 Create (File Open/Create) commands", "purpose": "Track file staging on remote endpoints"}
+                    {
+                        "filter": "smb2.tree_connect.path contains \"ADMIN$\" or smb2.tree_connect.path contains \"C$\"",
+                        "description": "Isolates connections to administrative network shares",
+                        "purpose": "Spot administrative lateral movement"
+                    },
+                    {
+                        "filter": "smb2.cmd == 5",
+                        "description": "Filters for SMB2 Create (File Open/Create) commands",
+                        "purpose": "Track file staging on remote endpoints"
+                    }
                 ],
                 "expectedObservations": [
                     "A workstation connecting directly to another workstation on port 445 (peer-to-peer SMB) is highly anomalous in corporate environments."
@@ -372,7 +536,10 @@ MODULE_05 = {
                 },
                 "summary": "SMB and RPC traffic reveals adversary internal pivoting. Monitoring administrative share connections and named pipe transactions exposes lateral movement and remote execution.",
                 "furtherReading": [
-                    {"title": "MITRE ATT&CK — T1021.002: Remote Services: SMB/Windows Admin Shares", "url": "https://attack.mitre.org/techniques/T1021/002/"}
+                    {
+                        "title": "MITRE ATT&CK \u2014 T1021.002: Remote Services: SMB/Windows Admin Shares",
+                        "url": "https://attack.mitre.org/techniques/T1021/002/"
+                    }
                 ]
             }
         }
@@ -381,12 +548,14 @@ MODULE_05 = {
         "id": "lab-05-recon-credential-recovery",
         "title": "Lab 05: Intrusion Reconstruction & Cleartext Credential Recovery",
         "objective": "Analyze Scenario 2 PCAP to reconstruct port scanning activity, evaluate SYN flood intensity, and recover cleartext credentials from unencrypted FTP exchanges.",
-        "toolsRequired": ["Wireshark 4.x or higher"],
+        "toolsRequired": [
+            "Wireshark 4.x or higher"
+        ],
         "pcapSource": {
             "fileName": "Scenario 2.pcap",
             "fileUrl": "https://raw.githubusercontent.com/NetsecExplained/Advanced-Wireshark-Network-Forensics/master/Scenario%202.pcap",
             "repositoryUrl": "https://github.com/NetsecExplained/Advanced-Wireshark-Network-Forensics",
-            "sha256": "3d8a57e3240212f43cbffbe2d625d9921606d2c4187e14be26f5d52ad5813b35"
+            "sha256": "f664404d592d4fd647ebdf8117eb91b91a868fad1b54888e2117d1b271ba5b11"
         },
         "difficulty": "intermediate",
         "estimatedMinutes": 50,
@@ -398,15 +567,43 @@ MODULE_05 = {
             "Plot the volumetric SYN flood using IO Graphs and record the peak packet rate."
         ],
         "tasks": [
-            {"id": "task-05-1", "description": "Identify scanning source IP and targeted service ports", "hint": "Filter: tcp.flags.syn == 1 and tcp.flags.ack == 0"},
-            {"id": "task-05-2", "description": "Extract FTP credentials", "hint": "Filter: ftp.command == \"USER\" or ftp.command == \"PASS\""},
-            {"id": "task-05-3", "description": "Verify file transfer name", "hint": "Filter: ftp.command == \"RETR\" or ftp.command == \"STOR\""}
+            {
+                "id": "task-05-1",
+                "description": "Identify scanning source IP and targeted service ports",
+                "hint": "Filter: tcp.flags.syn == 1 and tcp.flags.ack == 0"
+            },
+            {
+                "id": "task-05-2",
+                "description": "Extract FTP credentials",
+                "hint": "Filter: ftp.command == \"USER\" or ftp.command == \"PASS\""
+            },
+            {
+                "id": "task-05-3",
+                "description": "Verify file transfer name",
+                "hint": "Filter: ftp.command == \"RETR\" or ftp.command == \"STOR\""
+            }
         ],
         "evidenceWorksheet": [
-            {"field": "Scanning Source IP", "prompt": "Enter the IP address executing the port scan:", "expectedEvidenceType": "IPv4 address"},
-            {"field": "Recovered FTP Username", "prompt": "Enter the captured cleartext username:", "expectedEvidenceType": "String"},
-            {"field": "Recovered FTP Password", "prompt": "Enter the captured cleartext password:", "expectedEvidenceType": "String"},
-            {"field": "Transferred Filename", "prompt": "Filename requested via RETR/STOR:", "expectedEvidenceType": "String"}
+            {
+                "field": "Scanning Source IP",
+                "prompt": "Enter the IP address executing the port scan:",
+                "expectedEvidenceType": "IPv4 address"
+            },
+            {
+                "field": "Recovered FTP Username",
+                "prompt": "Enter the captured cleartext username:",
+                "expectedEvidenceType": "String"
+            },
+            {
+                "field": "Recovered FTP Password",
+                "prompt": "Enter the captured cleartext password:",
+                "expectedEvidenceType": "String"
+            },
+            {
+                "field": "Transferred Filename",
+                "prompt": "Filename requested via RETR/STOR:",
+                "expectedEvidenceType": "String"
+            }
         ],
         "questions": [
             {
@@ -457,12 +654,40 @@ MODULE_05 = {
             },
             {
                 "question": "Peer-to-peer SMB traffic (port 445) observed between two user workstations in an Active Directory environment is most often an indicator of which MITRE ATT&CK tactic?",
-                "options": ["Initial Access", "Lateral Movement", "Resource Development", "Exfiltration"],
+                "options": [
+                    "Initial Access",
+                    "Lateral Movement",
+                    "Resource Development",
+                    "Exfiltration"
+                ],
                 "correctAnswerIndex": 1,
                 "explanation": "Direct workstation-to-workstation SMB connections are rare in standard corporate architectures and strongly indicate lateral movement, remote service creation, or internal share scanning.",
+                "difficulty": "intermediate"
+            },
+            {
+                "question": "How does a Slowloris application-layer Denial of Service (DoS) attack uniquely manifest in packet captures?",
+                "options": [
+                    "High-volume UDP reflection floods exceeding 100 Gbps",
+                    "Hundreds of persistent TCP connections that transmit incomplete HTTP request headers with periodic trailing bytes at long intervals to exhaust web server worker threads",
+                    "ICMP Echo Request floods with spoofed broadcast addresses",
+                    "Rapid TCP SYN-ACK floods targeting intermediate stateful firewalls"
+                ],
+                "correctAnswerIndex": 1,
+                "explanation": "Slowloris opens numerous TCP connections to a web server and sends partial HTTP headers (e.g., 'X-a: b\\r\\n') at prolonged intervals (every 10-15 seconds), holding connection threads open indefinitely until server worker capacity is exhausted.",
+                "difficulty": "intermediate"
+            },
+            {
+                "question": "What diagnostic indicator in packet captures confirms unauthorized data exfiltration concealed within ICMP Echo Request (ping) packets?",
+                "options": [
+                    "The ICMP Sequence Number resets to zero on every packet",
+                    "The ICMP payload data contains dynamic file headers, base64 strings, or data volumes varying across packets instead of standard static OS padding bytes",
+                    "The ICMP Type is set to 8 and Code is set to 0",
+                    "The ICMP packet has an IP Time-to-Live (TTL) of 64"
+                ],
+                "correctAnswerIndex": 1,
+                "explanation": "Standard OS ping utilities transmit fixed default payload patterns (e.g., repeating alphabet strings or static timestamps). ICMP tunneling exfiltration embeds dynamic file data, encrypted bytes, or non-standard payload lengths within the ICMP data field.",
                 "difficulty": "intermediate"
             }
         ]
     }
 }
-

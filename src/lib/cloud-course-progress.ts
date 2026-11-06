@@ -175,10 +175,35 @@ export class CloudCourseProgressService implements CourseProgressService {
     }
   }
 
+  recordQuizAttempt(courseId: string, moduleId: string, attempt: any): void {
+    if (typeof localCourseProgressService.recordQuizAttempt === 'function') {
+      localCourseProgressService.recordQuizAttempt(courseId, moduleId, attempt);
+    }
+  }
+
+  recordLabProgress(courseId: string, labId: string, progress: any): void {
+    if (typeof localCourseProgressService.recordLabProgress === 'function') {
+      localCourseProgressService.recordLabProgress(courseId, labId, progress);
+    }
+  }
+
+  recordCapstoneSubmission(courseId: string, submission: any): void {
+    if (typeof localCourseProgressService.recordCapstoneSubmission === 'function') {
+      localCourseProgressService.recordCapstoneSubmission(courseId, submission);
+    }
+  }
+
   recordCapstoneScore(courseId: string, score: number): void {
     if (typeof localCourseProgressService.recordCapstoneScore === 'function') {
       localCourseProgressService.recordCapstoneScore(courseId, score);
     }
+  }
+
+  getComprehensiveCourseCompletion(course: Course): any {
+    if (typeof localCourseProgressService.getComprehensiveCourseCompletion === 'function') {
+      return localCourseProgressService.getComprehensiveCourseCompletion(course);
+    }
+    return null;
   }
 
   /**

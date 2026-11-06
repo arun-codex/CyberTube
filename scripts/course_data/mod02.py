@@ -16,15 +16,35 @@ MODULE_02 = {
                 "Map decoded fields directly to raw hexadecimal offsets in the Packet Bytes pane",
                 "Export selected packet bytes as raw binary, C arrays, or hex dumps for external analysis"
             ],
-            "tags": ["dissection", "byte-inspector", "hex-dump", "packet-views"],
-            "skillsTaught": ["Tripartite view navigation", "Hex-to-field correlation", "Raw byte extraction"],
+            "tags": [
+                "dissection",
+                "byte-inspector",
+                "hex-dump",
+                "packet-views"
+            ],
+            "skillsTaught": [
+                "Tripartite view navigation",
+                "Hex-to-field correlation",
+                "Raw byte extraction"
+            ],
             "richContent": {
                 "introduction": "The core of Wireshark's interface is the synchronized three-pane view: Packet List (top), Packet Details (middle), and Packet Bytes (bottom). Clicking on any dissected field in the details tree immediately highlights its exact corresponding byte offset in the hexadecimal inspector.",
-                "prerequisites": ["Module 01: Wireshark Mastery"],
+                "prerequisites": [
+                    "Module 01: Wireshark Mastery"
+                ],
                 "keyTerminology": [
-                    {"term": "Packet Details Tree", "definition": "Hierarchical dissection tree presenting decoded protocol fields, values, bitmasks, and expert info."},
-                    {"term": "Packet Bytes Pane", "definition": "Lower pane displaying raw frame bytes in 16-byte rows with hexadecimal on the left and ASCII representations on the right."},
-                    {"term": "Copy as As Escaped String", "definition": "Context menu command that exports highlighted bytes formatted with \\x notation for scripting."}
+                    {
+                        "term": "Packet Details Tree",
+                        "definition": "Hierarchical dissection tree presenting decoded protocol fields, values, bitmasks, and expert info."
+                    },
+                    {
+                        "term": "Packet Bytes Pane",
+                        "definition": "Lower pane displaying raw frame bytes in 16-byte rows with hexadecimal on the left and ASCII representations on the right."
+                    },
+                    {
+                        "term": "Copy as As Escaped String",
+                        "definition": "Context menu command that exports highlighted bytes formatted with \\x notation for scripting."
+                    }
                 ],
                 "theorySections": [
                     {
@@ -51,7 +71,11 @@ MODULE_02 = {
                     }
                 ],
                 "displayFilters": [
-                    {"filter": "data.data", "description": "Filters packets that contain raw unparsed data payloads", "purpose": "Isolate unknown or custom protocol payloads"}
+                    {
+                        "filter": "data.data",
+                        "description": "Filters packets that contain raw unparsed data payloads",
+                        "purpose": "Isolate unknown or custom protocol payloads"
+                    }
                 ],
                 "expectedObservations": [
                     "ASCII pane displays human-readable text (HTTP headers, cleartext passwords, banner strings) while binary bytes appear as dots."
@@ -74,7 +98,10 @@ MODULE_02 = {
                 },
                 "summary": "Proficiency in navigating and correlating Wireshark's three panes allows analysts to verify dissector output against ground-truth raw wire bytes.",
                 "furtherReading": [
-                    {"title": "Wireshark User Guide — The Packet Bytes Pane", "url": "https://www.wireshark.org/docs/wsug_html_chunked/ChUIBytesView.html"}
+                    {
+                        "title": "Wireshark User Guide \u2014 The Packet Bytes Pane",
+                        "url": "https://www.wireshark.org/docs/wsug_html_chunked/ChUIBytesView.html"
+                    }
                 ]
             }
         },
@@ -90,15 +117,36 @@ MODULE_02 = {
                 "Apply string operators (contains, matches) to search for IOCs and malware signatures",
                 "Use byte slice notation (e.g. frame[0:4] == 00:11:22:33) for precision payload matching"
             ],
-            "tags": ["display-filters", "boolean-logic", "regex", "slice-notation", "syntax"],
-            "skillsTaught": ["Filter construction", "RegexIOC searching", "Byte slice filtering"],
+            "tags": [
+                "display-filters",
+                "boolean-logic",
+                "regex",
+                "slice-notation",
+                "syntax"
+            ],
+            "skillsTaught": [
+                "Filter construction",
+                "RegexIOC searching",
+                "Byte slice filtering"
+            ],
             "richContent": {
                 "introduction": "Display filters are the primary tool of the packet forensic analyst. Unlike capture filters which discard packets at acquisition, display filters allow non-destructive interrogation of multi-gigabyte captures, querying protocols, fields, strings, and byte offsets with microsecond precision.",
-                "prerequisites": ["Lesson 2.1: Packet Dissection Views"],
+                "prerequisites": [
+                    "Lesson 2.1: Packet Dissection Views"
+                ],
                 "keyTerminology": [
-                    {"term": "Display Filter", "definition": "A search expression evaluated against dissected packet fields to dynamically show or hide packets without altering the underlying capture."},
-                    {"term": "contains Operator", "definition": "Case-sensitive byte or string matching operator (e.g. http contains 'password')."},
-                    {"term": "matches Operator", "definition": "Perl-Compatible Regular Expression (PCRE) evaluation operator (e.g. http.host matches '\\.ru$')."}
+                    {
+                        "term": "Display Filter",
+                        "definition": "A search expression evaluated against dissected packet fields to dynamically show or hide packets without altering the underlying capture."
+                    },
+                    {
+                        "term": "contains Operator",
+                        "definition": "Case-sensitive byte or string matching operator (e.g. http contains 'password')."
+                    },
+                    {
+                        "term": "matches Operator",
+                        "definition": "Perl-Compatible Regular Expression (PCRE) evaluation operator (e.g. http.host matches '\\.ru$')."
+                    }
                 ],
                 "theorySections": [
                     {
@@ -128,9 +176,21 @@ MODULE_02 = {
                     }
                 ],
                 "displayFilters": [
-                    {"filter": "!(ip.addr == 192.168.1.1)", "description": "Correctly excludes an IP address from both src and dst", "purpose": "Noise reduction during triage"},
-                    {"filter": "tcp.port in {80, 443, 8080, 8443}", "description": "Set membership filter for web ports", "purpose": "Consolidate multi-port monitoring"},
-                    {"filter": "tcp[13] & 0x02 != 0", "description": "Bitwise test for SYN flag at TCP offset 13", "purpose": "Low-level flag validation"}
+                    {
+                        "filter": "!(ip.addr == 192.168.1.1)",
+                        "description": "Correctly excludes an IP address from both src and dst",
+                        "purpose": "Noise reduction during triage"
+                    },
+                    {
+                        "filter": "tcp.port in {80, 443, 8080, 8443}",
+                        "description": "Set membership filter for web ports",
+                        "purpose": "Consolidate multi-port monitoring"
+                    },
+                    {
+                        "filter": "tcp[13] & 0x02 != 0",
+                        "description": "Bitwise test for SYN flag at TCP offset 13",
+                        "purpose": "Low-level flag validation"
+                    }
                 ],
                 "expectedObservations": [
                     "Filter bar background turns green for valid syntax, red for invalid syntax, and yellow for valid but potentially ambiguous syntax."
@@ -154,7 +214,10 @@ MODULE_02 = {
                 },
                 "summary": "Mastering comparison, regex, and slice display filter operators transforms hours of manual inspection into instantaneous, targeted forensic discovery.",
                 "furtherReading": [
-                    {"title": "Wireshark User Guide — Building Display Filter Expressions", "url": "https://www.wireshark.org/docs/wsug_html_chunked/ChWorkBuildDisplayFilterSection.html"}
+                    {
+                        "title": "Wireshark User Guide \u2014 Building Display Filter Expressions",
+                        "url": "https://www.wireshark.org/docs/wsug_html_chunked/ChWorkBuildDisplayFilterSection.html"
+                    }
                 ]
             }
         },
@@ -170,14 +233,31 @@ MODULE_02 = {
                 "Differentiate client requests (red) from server responses (blue) in stream dialogs",
                 "Filter and search reconstructed streams for credentials, shell commands, and error codes"
             ],
-            "tags": ["stream-reassembly", "tcp-stream", "follow-stream", "session-reconstruction"],
-            "skillsTaught": ["Stream reassembly", "Conversation decoding", "Transcript export"],
+            "tags": [
+                "stream-reassembly",
+                "tcp-stream",
+                "follow-stream",
+                "session-reconstruction"
+            ],
+            "skillsTaught": [
+                "Stream reassembly",
+                "Conversation decoding",
+                "Transcript export"
+            ],
             "richContent": {
                 "introduction": "Individual packets represent fragments of an overall conversation. Analyzing packets in isolation often obscures the adversary's intent. Wireshark's Follow Stream engine reorders TCP segments by sequence number, handles out-of-order delivery, strips transport headers, and reconstructs the full application layer dialog.",
-                "prerequisites": ["Lesson 2.2: Display Filter Syntax"],
+                "prerequisites": [
+                    "Lesson 2.2: Display Filter Syntax"
+                ],
                 "keyTerminology": [
-                    {"term": "TCP Stream Index", "definition": "A 0-based integer assigned by Wireshark to each unique 4-tuple TCP conversation (IP_a:Port_a <-> IP_b:Port_b)."},
-                    {"term": "Full-Duplex Reassembly", "definition": "Reconstruction of both client-to-server (red) and server-to-client (blue) data streams in chronological order."}
+                    {
+                        "term": "TCP Stream Index",
+                        "definition": "A 0-based integer assigned by Wireshark to each unique 4-tuple TCP conversation (IP_a:Port_a <-> IP_b:Port_b)."
+                    },
+                    {
+                        "term": "Full-Duplex Reassembly",
+                        "definition": "Reconstruction of both client-to-server (red) and server-to-client (blue) data streams in chronological order."
+                    }
                 ],
                 "theorySections": [
                     {
@@ -204,8 +284,16 @@ MODULE_02 = {
                     }
                 ],
                 "displayFilters": [
-                    {"filter": "tcp.stream == 0", "description": "Isolates all packets belonging to TCP conversation 0", "purpose": "Focus analysis on a single conversation"},
-                    {"filter": "tcp.stream eq 4 and http", "description": "Isolates HTTP traffic within stream 4", "purpose": "Target specific application exchange"}
+                    {
+                        "filter": "tcp.stream == 0",
+                        "description": "Isolates all packets belonging to TCP conversation 0",
+                        "purpose": "Focus analysis on a single conversation"
+                    },
+                    {
+                        "filter": "tcp.stream eq 4 and http",
+                        "description": "Isolates HTTP traffic within stream 4",
+                        "purpose": "Target specific application exchange"
+                    }
                 ],
                 "expectedObservations": [
                     "Closing the Stream dialog automatically applies a filter (e.g. tcp.stream eq 0) to the main packet list."
@@ -228,7 +316,10 @@ MODULE_02 = {
                 },
                 "summary": "Stream following reassembles fragmented packets into contiguous human-readable transcripts, exposing the complete interaction between client and server.",
                 "furtherReading": [
-                    {"title": "Wireshark User Guide — Following Protocol Streams", "url": "https://www.wireshark.org/docs/wsug_html_chunked/ChAdvFollowStreamSection.html"}
+                    {
+                        "title": "Wireshark User Guide \u2014 Following Protocol Streams",
+                        "url": "https://www.wireshark.org/docs/wsug_html_chunked/ChAdvFollowStreamSection.html"
+                    }
                 ]
             }
         },
@@ -244,14 +335,32 @@ MODULE_02 = {
                 "Analyze the Conversations window across Ethernet, IPv4, TCP, and UDP tabs",
                 "Identify top talkers and suspicious high-volume transfers using byte and packet sorting"
             ],
-            "tags": ["statistics", "protocol-hierarchy", "conversations", "endpoints", "triage"],
-            "skillsTaught": ["Global triage evaluation", "Top talker isolation", "Conversations matrix filtering"],
+            "tags": [
+                "statistics",
+                "protocol-hierarchy",
+                "conversations",
+                "endpoints",
+                "triage"
+            ],
+            "skillsTaught": [
+                "Global triage evaluation",
+                "Top talker isolation",
+                "Conversations matrix filtering"
+            ],
             "richContent": {
                 "introduction": "When handed a 5GB PCAP of an enterprise incident, beginning with packet-by-packet reading is impossible. Professional forensic triage begins in the Statistics menu: Protocol Hierarchy reveals the protocol composition of the capture, while the Conversations table instantly surfaces the top talkers and highest-volume exfiltration paths.",
-                "prerequisites": ["Lesson 2.1: Packet Dissection Views"],
+                "prerequisites": [
+                    "Lesson 2.1: Packet Dissection Views"
+                ],
                 "keyTerminology": [
-                    {"term": "Protocol Hierarchy Statistics (PHS)", "definition": "A hierarchical tree showing percentages of total packets and bytes consumed by each protocol in the capture."},
-                    {"term": "Conversations Window", "definition": "Matrix showing bidirectional communications between pairs of endpoints, tracking packet counts, byte volumes, and duration."}
+                    {
+                        "term": "Protocol Hierarchy Statistics (PHS)",
+                        "definition": "A hierarchical tree showing percentages of total packets and bytes consumed by each protocol in the capture."
+                    },
+                    {
+                        "term": "Conversations Window",
+                        "definition": "Matrix showing bidirectional communications between pairs of endpoints, tracking packet counts, byte volumes, and duration."
+                    }
                 ],
                 "theorySections": [
                     {
@@ -278,7 +387,11 @@ MODULE_02 = {
                     }
                 ],
                 "displayFilters": [
-                    {"filter": "ip.src == 10.0.0.1 && ip.dst == 192.168.1.1", "description": "Isolates conversation between top talker pair", "purpose": "Focus on high-volume session"}
+                    {
+                        "filter": "ip.src == 10.0.0.1 && ip.dst == 192.168.1.1",
+                        "description": "Isolates conversation between top talker pair",
+                        "purpose": "Focus on high-volume session"
+                    }
                 ],
                 "expectedObservations": [
                     "A sudden surge in 'Data' under TCP in Protocol Hierarchy indicates non-standard or unparsed application protocols."
@@ -289,14 +402,22 @@ MODULE_02 = {
                 "securityRelevance": "Exfiltration channels and C2 bulk downloads immediately stand out in the Conversations table as high-volume anomalies compared to baseline enterprise traffic.",
                 "knowledgeCheck": {
                     "question": "Which Wireshark statistical tool provides an immediate percentage breakdown of all protocols present across an entire capture file?",
-                    "options": ["Conversations Table", "Protocol Hierarchy Statistics", "IO Graphs", "Flow Graph"],
+                    "options": [
+                        "Conversations Table",
+                        "Protocol Hierarchy Statistics",
+                        "IO Graphs",
+                        "Flow Graph"
+                    ],
                     "correctAnswerIndex": 1,
                     "explanation": "Statistics -> Protocol Hierarchy generates a tree structure displaying the percentage and absolute counts of packets and bytes consumed by every detected protocol.",
                     "difficulty": "beginner"
                 },
                 "summary": "Protocol Hierarchy and Conversations tables provide the essential 30,000-foot view of an incident capture, directing investigators to the top data transfers and anomalous services.",
                 "furtherReading": [
-                    {"title": "Wireshark User Guide — Statistical Windows", "url": "https://www.wireshark.org/docs/wsug_html_chunked/ChStatHierarchy.html"}
+                    {
+                        "title": "Wireshark User Guide \u2014 Statistical Windows",
+                        "url": "https://www.wireshark.org/docs/wsug_html_chunked/ChStatHierarchy.html"
+                    }
                 ]
             }
         },
@@ -312,14 +433,32 @@ MODULE_02 = {
                 "Plot TCP Round-Trip Time (RTT) and Stevens sequence graphs",
                 "Visually correlate network latency spikes with packet drop and retransmissions"
             ],
-            "tags": ["io-graphs", "throughput", "rtt", "latency", "traffic-spikes"],
-            "skillsTaught": ["IO graph plotting", "Throughput spike detection", "RTT trend evaluation"],
+            "tags": [
+                "io-graphs",
+                "throughput",
+                "rtt",
+                "latency",
+                "traffic-spikes"
+            ],
+            "skillsTaught": [
+                "IO graph plotting",
+                "Throughput spike detection",
+                "RTT trend evaluation"
+            ],
             "richContent": {
                 "introduction": "Visual representations often reveal patterns invisible in tabular packet lists. Wireshark's IO Graphs tool allows plotting multiple simultaneous data series (e.g. Total Traffic vs. TCP Resets vs. Port 80 bytes) over microsecond or second intervals, instantly exposing volumetric floods and latency anomalies.",
-                "prerequisites": ["Lesson 2.4: Protocol Hierarchy & Conversations"],
+                "prerequisites": [
+                    "Lesson 2.4: Protocol Hierarchy & Conversations"
+                ],
                 "keyTerminology": [
-                    {"term": "IO Graph", "definition": "A time-series visualization tool in Wireshark plotting packet rates, byte throughput, or specific field values over the capture timeline."},
-                    {"term": "Round-Trip Time (RTT)", "definition": "The elapsed duration required for a data segment to be transmitted and its acknowledgment returned from the remote peer."}
+                    {
+                        "term": "IO Graph",
+                        "definition": "A time-series visualization tool in Wireshark plotting packet rates, byte throughput, or specific field values over the capture timeline."
+                    },
+                    {
+                        "term": "Round-Trip Time (RTT)",
+                        "definition": "The elapsed duration required for a data segment to be transmitted and its acknowledgment returned from the remote peer."
+                    }
                 ],
                 "theorySections": [
                     {
@@ -346,7 +485,11 @@ MODULE_02 = {
                     }
                 ],
                 "displayFilters": [
-                    {"filter": "tcp.analysis.retransmission", "description": "Graph packet retransmissions over time", "purpose": "Measure network degradation and packet loss"}
+                    {
+                        "filter": "tcp.analysis.retransmission",
+                        "description": "Graph packet retransmissions over time",
+                        "purpose": "Measure network degradation and packet loss"
+                    }
                 ],
                 "expectedObservations": [
                     "A sudden sharp spike in the all-packets line accompanied by a collapse in HTTP throughput indicates a volumetric Denial of Service event."
@@ -369,7 +512,10 @@ MODULE_02 = {
                 },
                 "summary": "IO Graphs and RTT visualizations translate millions of packet records into clear visual trends, accelerating the identification of traffic anomalies and incident timelines.",
                 "furtherReading": [
-                    {"title": "Wireshark User Guide — The IO Graphs Window", "url": "https://www.wireshark.org/docs/wsug_html_chunked/ChStatIOGraphs.html"}
+                    {
+                        "title": "Wireshark User Guide \u2014 The IO Graphs Window",
+                        "url": "https://www.wireshark.org/docs/wsug_html_chunked/ChStatIOGraphs.html"
+                    }
                 ]
             }
         }
@@ -378,12 +524,14 @@ MODULE_02 = {
         "id": "lab-02-filter-troubleshooting",
         "title": "Lab 02: Protocol Breakdown & Display Filter Troubleshooting",
         "objective": "Use Protocol Hierarchy and Conversations to identify top talkers in Scenario 1, construct advanced display filters, and reassemble cleartext web sessions.",
-        "toolsRequired": ["Wireshark 4.x or higher"],
+        "toolsRequired": [
+            "Wireshark 4.x or higher"
+        ],
         "pcapSource": {
             "fileName": "Scenario 1.pcapng",
             "fileUrl": "https://raw.githubusercontent.com/NetsecExplained/Advanced-Wireshark-Network-Forensics/master/Scenario%201.pcapng",
             "repositoryUrl": "https://github.com/NetsecExplained/Advanced-Wireshark-Network-Forensics",
-            "sha256": "7c81d86d634ebbbd6174a8894101e19485bb24a0d92298e82ef45b721245b73d"
+            "sha256": "3d15daea9d46ee8aa6a3a111a3ee37e2e5be009d509d57a249dd850d510b07d8"
         },
         "difficulty": "intermediate",
         "estimatedMinutes": 50,
@@ -395,14 +543,38 @@ MODULE_02 = {
             "Create an IO Graph plotting overall traffic against TCP retransmissions."
         ],
         "tasks": [
-            {"id": "task-02-1", "description": "Identify top application protocol in Protocol Hierarchy", "hint": "Statistics -> Protocol Hierarchy"},
-            {"id": "task-02-2", "description": "Identify top IP talker pair", "hint": "Statistics -> Conversations -> IPv4"},
-            {"id": "task-02-3", "description": "Follow TCP stream and copy the HTTP User-Agent", "hint": "Right-click -> Follow -> TCP Stream"}
+            {
+                "id": "task-02-1",
+                "description": "Identify top application protocol in Protocol Hierarchy",
+                "hint": "Statistics -> Protocol Hierarchy"
+            },
+            {
+                "id": "task-02-2",
+                "description": "Identify top IP talker pair",
+                "hint": "Statistics -> Conversations -> IPv4"
+            },
+            {
+                "id": "task-02-3",
+                "description": "Follow TCP stream and copy the HTTP User-Agent",
+                "hint": "Right-click -> Follow -> TCP Stream"
+            }
         ],
         "evidenceWorksheet": [
-            {"field": "Top Application Protocol", "prompt": "Name of top L7 protocol by byte volume:", "expectedEvidenceType": "String (e.g. TLS, HTTP, DNS)"},
-            {"field": "Top IP Conversation Bytes", "prompt": "Total bytes transferred between the top IP pair:", "expectedEvidenceType": "Integer byte count"},
-            {"field": "Observed HTTP User-Agent", "prompt": "User-Agent string observed in Stream:", "expectedEvidenceType": "String"}
+            {
+                "field": "Top Application Protocol",
+                "prompt": "Name of top L7 protocol by byte volume:",
+                "expectedEvidenceType": "String (e.g. TLS, HTTP, DNS)"
+            },
+            {
+                "field": "Top IP Conversation Bytes",
+                "prompt": "Total bytes transferred between the top IP pair:",
+                "expectedEvidenceType": "Integer byte count"
+            },
+            {
+                "field": "Observed HTTP User-Agent",
+                "prompt": "User-Agent string observed in Stream:",
+                "expectedEvidenceType": "String"
+            }
         ],
         "questions": [
             {
@@ -429,7 +601,12 @@ MODULE_02 = {
         "questions": [
             {
                 "question": "Which display filter syntax correctly finds packets containing the literal string 'cmd.exe' anywhere in the packet?",
-                "options": ["frame contains \"cmd.exe\"", "ip.payload == \"cmd.exe\"", "tcp.string == cmd.exe", "find(\"cmd.exe\")"],
+                "options": [
+                    "frame contains \"cmd.exe\"",
+                    "ip.payload == \"cmd.exe\"",
+                    "tcp.string == cmd.exe",
+                    "find(\"cmd.exe\")"
+                ],
                 "correctAnswerIndex": 0,
                 "explanation": "The 'frame contains' operator conducts a case-sensitive search for the specified string across the entire frame.",
                 "difficulty": "beginner"
@@ -457,8 +634,31 @@ MODULE_02 = {
                 "correctAnswerIndex": 0,
                 "explanation": "Slice notation protocol[offset:length] enables precise low-level matching of raw bytes, such as checking specific header fields or magic bytes.",
                 "difficulty": "advanced"
+            },
+            {
+                "question": "In network packet analysis, what does an ICMP Type 3, Code 3 error packet indicate?",
+                "options": [
+                    "Network Unreachable: Gateway router lacks a route to the destination network",
+                    "Host Unreachable: Destination IP did not reply to ARP resolution",
+                    "Port Unreachable: Destination host received UDP traffic for a port without an active listening process",
+                    "Fragmentation Needed: Packet DF flag is set and payload exceeds path MTU"
+                ],
+                "correctAnswerIndex": 2,
+                "explanation": "ICMP Type 3 (Destination Unreachable), Code 3 specifically indicates 'Port Unreachable', typically generated when a UDP datagram arrives at a host that has no listening service on the destination port.",
+                "difficulty": "intermediate"
+            },
+            {
+                "question": "What primary efficiency benefit does the HTTP Keep-Alive header provide as observed in TCP packet streams?",
+                "options": [
+                    "It compresses all HTTP payload data using GZIP by default",
+                    "It permits multiple HTTP requests and responses to reuse a single established TCP three-way handshake",
+                    "It forces intermediate routers to prioritize HTTP packets over background UDP traffic",
+                    "It automatically encrypts HTTP plaintext headers using TLS 1.3"
+                ],
+                "correctAnswerIndex": 1,
+                "explanation": "HTTP Keep-Alive (persistent connections) reuses a single underlying TCP connection for multiple sequential requests and responses, eliminating the latency overhead of repeated three-way handshakes and teardowns.",
+                "difficulty": "beginner"
             }
         ]
     }
 }
-

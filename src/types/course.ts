@@ -142,6 +142,52 @@ export interface PCAPResource {
   safetyGuidance: string;
   instructions: string[];
   sha256?: string;
+  verificationDate?: string;
+  verificationMethod?: string;
+}
+
+export interface QuizAttempt {
+  attemptNumber: number;
+  selectedAnswers: Record<number, number>;
+  score: number; // percentage (e.g. 80)
+  passed: boolean;
+  submittedAt: string;
+}
+
+export interface PracticalLabProgress {
+  labId: string;
+  completedTaskIds: string[];
+  worksheetAnswers: Record<string, string>;
+  isCompleted: boolean;
+  lastUpdated: string;
+}
+
+export interface CapstoneSubmissionState {
+  capstoneId: string;
+  submissionSections: Record<string, string>;
+  selfAssessmentScores?: Record<string, number>;
+  selfAssessmentTotal?: number;
+  completenessCheckPassed: boolean;
+  isSelfAssessedPassed: boolean;
+  submittedAt?: string;
+  reviewedAt?: string;
+}
+
+export interface ComprehensiveCourseCompletion {
+  lessonCompletionPercent: number;
+  lessonsCompleted: number;
+  totalLessons: number;
+  quizCompletionPercent: number;
+  quizzesPassed: number;
+  totalQuizzes: number;
+  labCompletionPercent: number;
+  labsCompleted: number;
+  totalLabs: number;
+  capstoneSubmitted: boolean;
+  capstonePassed: boolean;
+  isFullyCompleted: boolean;
+  overallProgressPercent: number;
+  remainingRequirements: string[];
 }
 
 export interface Lesson {
@@ -215,5 +261,8 @@ export interface CourseProgressState {
   lastActiveLessonId?: string;
   lastAccessedAt: string;
   quizScores?: Record<string, number>;
+  quizAttempts?: Record<string, QuizAttempt[]>;
+  labProgress?: Record<string, PracticalLabProgress>;
+  capstoneSubmission?: CapstoneSubmissionState;
   capstoneScore?: number;
 }

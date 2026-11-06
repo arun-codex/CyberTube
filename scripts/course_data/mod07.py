@@ -16,15 +16,36 @@ MODULE_07 = {
                 "Calculate and verify cryptographic hashes (SHA-256) of evidence captures immediately upon collection",
                 "Maintain complete chain of custody records documenting acquisition, transfer, and analysis"
             ],
-            "tags": ["chain-of-custody", "evidence-integrity", "sha256", "admissibility", "legal-standards"],
-            "skillsTaught": ["Chain of custody documentation", "Evidence hash verification", "Forensic copy management"],
+            "tags": [
+                "chain-of-custody",
+                "evidence-integrity",
+                "sha256",
+                "admissibility",
+                "legal-standards"
+            ],
+            "skillsTaught": [
+                "Chain of custody documentation",
+                "Evidence hash verification",
+                "Forensic copy management"
+            ],
             "richContent": {
                 "introduction": "Technical discovery without legal integrity is worthless in criminal prosecutions and corporate dispute hearings. Network evidence is volatile: packets in transit cannot be re-captured once lost. Establishing cryptographic chain of custody immediately upon capture ensures that evidence presented to leadership, regulators, or courts is provably uncontaminated.",
-                "prerequisites": ["Module 03: Advanced Wireshark Investigation Workflow"],
+                "prerequisites": [
+                    "Module 03: Advanced Wireshark Investigation Workflow"
+                ],
                 "keyTerminology": [
-                    {"term": "Chain of Custody", "definition": "A chronological paper and electronic paper trail documenting the custody, control, transfer, analysis, and disposition of digital evidence."},
-                    {"term": "Forensic Hash", "definition": "A cryptographically secure one-way hash (SHA-256) computed across the raw capture file upon acquisition to prove bit-for-bit integrity."},
-                    {"term": "Working Copy", "definition": "An exact replica of the master forensic image used for analysis, ensuring the original evidence remains unaltered in write-blocked storage."}
+                    {
+                        "term": "Chain of Custody",
+                        "definition": "A chronological paper and electronic paper trail documenting the custody, control, transfer, analysis, and disposition of digital evidence."
+                    },
+                    {
+                        "term": "Forensic Hash",
+                        "definition": "A cryptographically secure one-way hash (SHA-256) computed across the raw capture file upon acquisition to prove bit-for-bit integrity."
+                    },
+                    {
+                        "term": "Working Copy",
+                        "definition": "An exact replica of the master forensic image used for analysis, ensuring the original evidence remains unaltered in write-blocked storage."
+                    }
                 ],
                 "theorySections": [
                     {
@@ -52,7 +73,11 @@ MODULE_07 = {
                     }
                 ],
                 "displayFilters": [
-                    {"filter": "capinfos -H \"Hackers on the Network.pcapng\"", "description": "CLI command to display built-in SHA256/SHA1/MD5 file hashes", "purpose": "Rapid integrity verification"}
+                    {
+                        "filter": "capinfos -H \"Hackers on the Network.pcapng\"",
+                        "description": "CLI command to display built-in SHA256/SHA1/MD5 file hashes",
+                        "purpose": "Rapid integrity verification"
+                    }
                 ],
                 "expectedObservations": [
                     "SHA-256 hashes match identically across master archive and working analysis copies."
@@ -75,7 +100,10 @@ MODULE_07 = {
                 },
                 "summary": "Cryptographic integrity verification and rigorous chain of custody documentation are the foundational requirements that ensure network forensic findings are defensible and admissible.",
                 "furtherReading": [
-                    {"title": "NIST SP 800-86 — Guide to Integrating Forensic Techniques into Incident Response", "url": "https://csrc.nist.gov/publications/detail/sp/800-86/final"}
+                    {
+                        "title": "NIST SP 800-86 \u2014 Guide to Integrating Forensic Techniques into Incident Response",
+                        "url": "https://csrc.nist.gov/publications/detail/sp/800-86/final"
+                    }
                 ]
             }
         },
@@ -91,14 +119,32 @@ MODULE_07 = {
                 "Anonymize IP addresses and MAC addresses using tools like Bittwiste, Trace-Summary, and Python scripts",
                 "Zero out or redact sensitive payload bytes (passwords, session cookies, health records) while preserving attack signatures"
             ],
-            "tags": ["pcap-redaction", "anonymization", "privacy", "data-sanitization", "gdpr"],
-            "skillsTaught": ["IP address anonymization", "Sensitive payload scrubbing", "Safe PCAP sharing"],
+            "tags": [
+                "pcap-redaction",
+                "anonymization",
+                "privacy",
+                "data-sanitization",
+                "gdpr"
+            ],
+            "skillsTaught": [
+                "IP address anonymization",
+                "Sensitive payload scrubbing",
+                "Safe PCAP sharing"
+            ],
             "richContent": {
                 "introduction": "While sharing PCAP evidence with external vendors, national CERTs, or threat intelligence platforms accelerates threat containment, raw packet captures often contain trade secrets, employee passwords, internal server IPs, and customer Personal Identifiable Information (PII). Analysts must know how to sanitize captures without destroying the attack telemetry.",
-                "prerequisites": ["Lesson 7.1: Evidence Admissibility & Hashes"],
+                "prerequisites": [
+                    "Lesson 7.1: Evidence Admissibility & Hashes"
+                ],
                 "keyTerminology": [
-                    {"term": "PCAP Sanitization", "definition": "The controlled process of scrubbing sensitive payload bytes or anonymizing internal network addresses while leaving protocol headers and attack signatures intact."},
-                    {"term": "Consistent IP Anonymization", "definition": "A mapping technique where internal IP addresses are pseudo-anonymized consistently (e.g. 10.0.1.5 always maps to 192.0.2.5) preserving conversation topologies."}
+                    {
+                        "term": "PCAP Sanitization",
+                        "definition": "The controlled process of scrubbing sensitive payload bytes or anonymizing internal network addresses while leaving protocol headers and attack signatures intact."
+                    },
+                    {
+                        "term": "Consistent IP Anonymization",
+                        "definition": "A mapping technique where internal IP addresses are pseudo-anonymized consistently (e.g. 10.0.1.5 always maps to 192.0.2.5) preserving conversation topologies."
+                    }
                 ],
                 "theorySections": [
                     {
@@ -127,7 +173,11 @@ MODULE_07 = {
                     }
                 ],
                 "displayFilters": [
-                    {"filter": "frame.len <= 96", "description": "Verifies all packets conform to truncated snap length", "purpose": "Sanitization validation"}
+                    {
+                        "filter": "frame.len <= 96",
+                        "description": "Verifies all packets conform to truncated snap length",
+                        "purpose": "Sanitization validation"
+                    }
                 ],
                 "expectedObservations": [
                     "Packet Details indicates 'Packet size limited during capture' or 'Packet truncated' on application layers."
@@ -138,14 +188,22 @@ MODULE_07 = {
                 "securityRelevance": "Careless PCAP sharing frequently causes severe secondary data breaches, exposing internal credentials to public indexing.",
                 "knowledgeCheck": {
                     "question": "Which editcap option truncates each packet in a capture to a specific maximum byte length, stripping application payloads while preserving headers?",
-                    "options": ["-d", "-s <snaplen>", "-t", "-C"],
+                    "options": [
+                        "-d",
+                        "-s <snaplen>",
+                        "-t",
+                        "-C"
+                    ],
                     "correctAnswerIndex": 1,
                     "explanation": "The -s <snaplen> option sets the snapshot length, truncating every packet to the specified number of bytes from the start of the frame.",
                     "difficulty": "intermediate"
                 },
                 "summary": "Anonymizing IP topologies and truncating payloads enables safe collaboration with external security researchers without violating privacy regulations or leaking sensitive data.",
                 "furtherReading": [
-                    {"title": "Wireshark Wiki — Anonymizing PCAP Files", "url": "https://wiki.wireshark.org/Anonymizing_PCAP_Files"}
+                    {
+                        "title": "Wireshark Wiki \u2014 Anonymizing PCAP Files",
+                        "url": "https://wiki.wireshark.org/Anonymizing_PCAP_Files"
+                    }
                 ]
             }
         },
@@ -161,15 +219,36 @@ MODULE_07 = {
                 "Correlate network connection initiation timestamps with host executable execution events (Event ID 1)",
                 "Reconstruct full-kill-chain incident timelines unifying network and endpoint evidence"
             ],
-            "tags": ["correlation", "siem", "sysmon", "edr", "incident-investigation"],
-            "skillsTaught": ["Network-to-host mapping", "Sysmon Event ID 3 correlation", "Unified timeline assembly"],
+            "tags": [
+                "correlation",
+                "siem",
+                "sysmon",
+                "edr",
+                "incident-investigation"
+            ],
+            "skillsTaught": [
+                "Network-to-host mapping",
+                "Sysmon Event ID 3 correlation",
+                "Unified timeline assembly"
+            ],
             "richContent": {
                 "introduction": "A network packet capture proves what crossed the wire, but it cannot definitively identify which process, user account, or thread generated the connection on the host. By correlating network 5-tuples with host telemetry (Windows Sysmon, EDR agent logs, Linux auditd), investigators create a complete, airtight narrative of an intrusion.",
-                "prerequisites": ["Lesson 7.1: Evidence Admissibility & Hashes"],
+                "prerequisites": [
+                    "Lesson 7.1: Evidence Admissibility & Hashes"
+                ],
                 "keyTerminology": [
-                    {"term": "5-Tuple", "definition": "The five parameters that uniquely identify a network session: Source IP, Source Port, Destination IP, Destination Port, and Transport Protocol."},
-                    {"term": "Sysmon Event ID 3", "definition": "Windows System Monitor event logged every time a local process initiates or receives a network connection, recording PID, Process Name, and 5-tuple."},
-                    {"term": "Sysmon Event ID 1", "definition": "Process Creation event recording the executable path, command line arguments, parent process, and file hashes."}
+                    {
+                        "term": "5-Tuple",
+                        "definition": "The five parameters that uniquely identify a network session: Source IP, Source Port, Destination IP, Destination Port, and Transport Protocol."
+                    },
+                    {
+                        "term": "Sysmon Event ID 3",
+                        "definition": "Windows System Monitor event logged every time a local process initiates or receives a network connection, recording PID, Process Name, and 5-tuple."
+                    },
+                    {
+                        "term": "Sysmon Event ID 1",
+                        "definition": "Process Creation event recording the executable path, command line arguments, parent process, and file hashes."
+                    }
                 ],
                 "theorySections": [
                     {
@@ -198,7 +277,11 @@ MODULE_07 = {
                     }
                 ],
                 "displayFilters": [
-                    {"filter": "tcp.srcport == 49211 and ip.src == 10.0.4.152", "description": "Isolates the exact ephemeral port socket recorded in host logs", "purpose": "Bi-directional network/host alignment"}
+                    {
+                        "filter": "tcp.srcport == 49211 and ip.src == 10.0.4.152",
+                        "description": "Isolates the exact ephemeral port socket recorded in host logs",
+                        "purpose": "Bi-directional network/host alignment"
+                    }
                 ],
                 "expectedObservations": [
                     "Host logs and network packet timestamps synchronize to within milliseconds when NTP is properly maintained."
@@ -209,14 +292,22 @@ MODULE_07 = {
                 "securityRelevance": "Correlating network telemetry with endpoint processes definitively confirms whether traffic was initiated by a legitimate enterprise binary or a malicious implant.",
                 "knowledgeCheck": {
                     "question": "Which Windows Sysmon Event ID records network connection initiations, providing the process ID (PID) and process image path responsible for a network socket?",
-                    "options": ["Event ID 1 (Process Create)", "Event ID 3 (Network Connect)", "Event ID 7 (Image Load)", "Event ID 11 (File Create)"],
+                    "options": [
+                        "Event ID 1 (Process Create)",
+                        "Event ID 3 (Network Connect)",
+                        "Event ID 7 (Image Load)",
+                        "Event ID 11 (File Create)"
+                    ],
                     "correctAnswerIndex": 1,
                     "explanation": "Sysmon Event ID 3 (Network Connection Detected) logs all outbound and inbound TCP/UDP connections along with the process ID, image path, user, and full 5-tuple.",
                     "difficulty": "intermediate"
                 },
                 "summary": "Correlating packet 5-tuples with host Sysmon and EDR logs closes the loop between network wire observations and endpoint code execution.",
                 "furtherReading": [
-                    {"title": "Microsoft Learn — Sysmon Event ID 3 Documentation", "url": "https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon"}
+                    {
+                        "title": "Microsoft Learn \u2014 Sysmon Event ID 3 Documentation",
+                        "url": "https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon"
+                    }
                 ]
             }
         },
@@ -232,15 +323,36 @@ MODULE_07 = {
                 "Translate complex packet dissections into clear business risk statements for executive leadership",
                 "Author comprehensive Indicator of Compromise (IOC) tables and network containment firewall rules"
             ],
-            "tags": ["reporting", "soc", "incident-report", "ioc-table", "remediation"],
-            "skillsTaught": ["Forensic report authoring", "Executive summary writing", "IOC table compilation"],
+            "tags": [
+                "reporting",
+                "soc",
+                "incident-report",
+                "ioc-table",
+                "remediation"
+            ],
+            "skillsTaught": [
+                "Forensic report authoring",
+                "Executive summary writing",
+                "IOC table compilation"
+            ],
             "richContent": {
                 "introduction": "An investigation is only as effective as the final report delivered to decision-makers. A technical report that is overly cryptic fails executive leadership, while a high-level summary that lacks technical evidence cannot guide remediation engineers. A professional SOC forensics report bridges both worlds.",
-                "prerequisites": ["Lesson 7.3: Correlating Network Captures with SIEM Logs"],
+                "prerequisites": [
+                    "Lesson 7.3: Correlating Network Captures with SIEM Logs"
+                ],
                 "keyTerminology": [
-                    {"term": "Executive Summary", "definition": "A 1-page high-level overview detailing what happened, business impact, containment status, and strategic next steps for C-level leadership."},
-                    {"term": "IOC Table", "definition": "Structured list of malicious artifacts (IPs, domain names, file hashes, URLs, user agents) formatted for immediate ingestion by security controls."},
-                    {"term": "Root Cause Analysis (RCA)", "definition": "Determination of the fundamental flaw (vulnerability, misconfiguration, credential compromise) that allowed the incident to occur."}
+                    {
+                        "term": "Executive Summary",
+                        "definition": "A 1-page high-level overview detailing what happened, business impact, containment status, and strategic next steps for C-level leadership."
+                    },
+                    {
+                        "term": "IOC Table",
+                        "definition": "Structured list of malicious artifacts (IPs, domain names, file hashes, URLs, user agents) formatted for immediate ingestion by security controls."
+                    },
+                    {
+                        "term": "Root Cause Analysis (RCA)",
+                        "definition": "Determination of the fundamental flaw (vulnerability, misconfiguration, credential compromise) that allowed the incident to occur."
+                    }
                 ],
                 "theorySections": [
                     {
@@ -267,7 +379,11 @@ MODULE_07 = {
                     }
                 ],
                 "displayFilters": [
-                    {"filter": "capinfos -c -d -u -s -e capture.pcapng", "description": "Generates concise summary metrics for inclusion in report overview", "purpose": "Report evidence table generation"}
+                    {
+                        "filter": "capinfos -c -d -u -s -e capture.pcapng",
+                        "description": "Generates concise summary metrics for inclusion in report overview",
+                        "purpose": "Report evidence table generation"
+                    }
                 ],
                 "expectedObservations": [
                     "Reports that provide exact display filters enable seamless peer review and independent verification."
@@ -291,7 +407,10 @@ MODULE_07 = {
                 },
                 "summary": "Mastering forensic report writing ensures your technical investigations drive real organizational change, rapid containment, and lasting security posture improvement.",
                 "furtherReading": [
-                    {"title": "CISA — Incident and Vulnerability Response Playbooks", "url": "https://www.cisa.gov/resources-tools/resources/federal-government-cybersecurity-incident-and-vulnerability-response-playbooks"}
+                    {
+                        "title": "CISA \u2014 Incident and Vulnerability Response Playbooks",
+                        "url": "https://www.cisa.gov/resources-tools/resources/federal-government-cybersecurity-incident-and-vulnerability-response-playbooks"
+                    }
                 ]
             }
         }
@@ -300,12 +419,15 @@ MODULE_07 = {
         "id": "lab-07-chain-of-custody-report",
         "title": "Lab 07: Chain of Custody Documentation & Forensic Report Draft",
         "objective": "Document cryptographic chain of custody for Hackers on the Network PCAP, sanitize an evidence slice, and author a structured incident summary report.",
-        "toolsRequired": ["Wireshark", "Terminal (sha256sum / editcap)"],
+        "toolsRequired": [
+            "Wireshark",
+            "Terminal (sha256sum / editcap)"
+        ],
         "pcapSource": {
             "fileName": "Hackers on the Network.pcapng",
             "fileUrl": "https://raw.githubusercontent.com/NetsecExplained/Advanced-Wireshark-Network-Forensics/master/Hackers%20on%20the%20Network.pcapng",
             "repositoryUrl": "https://github.com/NetsecExplained/Advanced-Wireshark-Network-Forensics",
-            "sha256": "9f228b37ad582a9394f71a0642751f8dc974be42d0719ef7dfc33bb3e24a49db"
+            "sha256": "b2bd9a8b484f4ded72a4ce7de1335198d5ae6e81ace89fe6e6d5a071e1391cd9"
         },
         "difficulty": "intermediate",
         "estimatedMinutes": 55,
@@ -317,14 +439,38 @@ MODULE_07 = {
             "Compile an IOC table containing the malicious IP addresses and domains identified across the module."
         ],
         "tasks": [
-            {"id": "task-07-1", "description": "Verify SHA256 hash of Hackers on the Network", "hint": "sha256sum \"Hackers on the Network.pcapng\""},
-            {"id": "task-07-2", "description": "Create sanitized header-only slice with editcap", "hint": "editcap -s 96 \"Hackers on the Network.pcapng\" sanitized.pcapng"},
-            {"id": "task-07-3", "description": "Draft Executive Summary and IOC Table", "hint": "Include Date, C2 IPs, Domains, and Action items"}
+            {
+                "id": "task-07-1",
+                "description": "Verify SHA256 hash of Hackers on the Network",
+                "hint": "sha256sum \"Hackers on the Network.pcapng\""
+            },
+            {
+                "id": "task-07-2",
+                "description": "Create sanitized header-only slice with editcap",
+                "hint": "editcap -s 96 \"Hackers on the Network.pcapng\" sanitized.pcapng"
+            },
+            {
+                "id": "task-07-3",
+                "description": "Draft Executive Summary and IOC Table",
+                "hint": "Include Date, C2 IPs, Domains, and Action items"
+            }
         ],
         "evidenceWorksheet": [
-            {"field": "Verified SHA-256 Hash", "prompt": "Enter the 64-character SHA-256 checksum:", "expectedEvidenceType": "Hexadecimal hash"},
-            {"field": "Executive Summary Draft", "prompt": "Enter a concise executive summary of the intrusion:", "expectedEvidenceType": "Paragraph text"},
-            {"field": "IOC Count", "prompt": "Total count of malicious IOCs documented in table:", "expectedEvidenceType": "Integer count"}
+            {
+                "field": "Verified SHA-256 Hash",
+                "prompt": "Enter the 64-character SHA-256 checksum:",
+                "expectedEvidenceType": "Hexadecimal hash"
+            },
+            {
+                "field": "Executive Summary Draft",
+                "prompt": "Enter a concise executive summary of the intrusion:",
+                "expectedEvidenceType": "Paragraph text"
+            },
+            {
+                "field": "IOC Count",
+                "prompt": "Total count of malicious IOCs documented in table:",
+                "expectedEvidenceType": "Integer count"
+            }
         ],
         "questions": [
             {
@@ -375,12 +521,40 @@ MODULE_07 = {
             },
             {
                 "question": "Which parameter from a network packet capture acts as the primary ephemeral identifier linking an outbound connection directly to a host operating system socket in Sysmon Event ID 3?",
-                "options": ["Destination IP", "Destination Port 443", "Source Ephemeral Port (e.g. 49211)", "Ethernet MAC Address"],
+                "options": [
+                    "Destination IP",
+                    "Destination Port 443",
+                    "Source Ephemeral Port (e.g. 49211)",
+                    "Ethernet MAC Address"
+                ],
                 "correctAnswerIndex": 2,
                 "explanation": "Operating systems allocate unique ephemeral source ports (49152-65535) for each outbound TCP/UDP socket. Matching the ephemeral port and timestamp links the network packet to the specific host process socket in Sysmon Event 3.",
                 "difficulty": "advanced"
+            },
+            {
+                "question": "Before sharing packet captures with external threat intelligence vendors or public repositories, what critical step must be executed to protect organizational privacy while preserving protocol analysis validity?",
+                "options": [
+                    "Compress the file using standard ZIP encryption with a shared password",
+                    "Sanitize and anonymize internal IP addresses, MAC addresses, and proprietary credentials using tools like TraceWrangler or Bittwiste",
+                    "Convert the capture file into a plaintext CSV dump and delete the raw PCAP",
+                    "Zero out all TCP payload bytes regardless of protocol layer"
+                ],
+                "correctAnswerIndex": 1,
+                "explanation": "Capture file sanitization (using tools like TraceWrangler) anonymizes sensitive internal IP subnets, hardware MACs, and proprietary payloads while preserving protocol handshakes, relative packet timings, and anomalies required for forensic analysis.",
+                "difficulty": "intermediate"
+            },
+            {
+                "question": "What is the primary forensic consequence if network capture tap appliances do not maintain accurate NTP/PTP time synchronization?",
+                "options": [
+                    "Wireshark will refuse to parse TCP sequence numbers correctly",
+                    "Packet timestamps cannot be accurately correlated against host EDR timelines, authentication logs, and firewall event records during multi-source incident reconstruction",
+                    "The PCAP file's cryptographic hash will change every time it is read",
+                    "Display filters using time operators will throw fatal syntax exceptions"
+                ],
+                "correctAnswerIndex": 1,
+                "explanation": "Accurate clock synchronization (via NTP/PTP) on packet capture devices is paramount for Digital Forensics and Incident Response (DFIR). Timestamp skew prevents cross-correlating network packets with host event logs, SIEM alerts, and firewall connection records.",
+                "difficulty": "intermediate"
             }
         ]
     }
 }
-
