@@ -2,13 +2,15 @@
 
 import React, { useState, Suspense } from 'react';
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Shield, Lock, Mail, AlertCircle } from 'lucide-react';
-import { loginAction } from '@/app/actions/auth';
+import { useAuth } from '@/lib/auth';
 import { SocialAuthButtons } from '@/components/auth/SocialAuthButtons';
 
 function LoginForm() {
+  const router = useRouter();
   const searchParams = useSearchParams();
+  const { signInWithPassword, isSigningIn } = useAuth();
   const rawRedirect = searchParams.get('redirect') || searchParams.get('next') || '/';
   // Safely ensure redirect does not lead to external domain
   const redirectPath = rawRedirect.startsWith('/') && !rawRedirect.startsWith('//')
@@ -31,19 +33,32 @@ function LoginForm() {
     setError(null);
     setLoading(true);
 
-    const formData = new FormData(e.currentTarget);
-    formData.set('redirect', redirectPath);
+    const form = e.currentTarget;
+    const emailInput = form.elements.namedItem('email') as HTMLInputElement | null;
+    const passwordInput = form.elements.namedItem('password') as HTMLInputElement | null;
+
+    const email = emailInput?.value?.trim() || '';
+    const password = passwordInput?.value || '';
+
+    if (!email || !password) {
+      setError('Please enter both email and password.');
+      setLoading(false);
+      return;
+    }
 
     try {
-      const res = await loginAction(formData);
-      if (res?.error) {
-        setError(res.error);
+      const res = await signInWithPassword(email, password);
+      if (!res.success) {
+        setError(res.error || 'Failed to sign in. Please verify your credentials.');
         setLoading(false);
-      }
-    } catch (err: any) {
-      if (err?.message?.includes('NEXT_REDIRECT')) {
         return;
       }
+
+      // Client navigation without reload:
+      // AuthProvider already emitted SIGNED_IN, Header updated, ProgressProvider hydrating.
+      router.replace(redirectPath);
+      router.refresh();
+    } catch (err: any) {
       setError(err?.message || 'Failed to sign in. Please try again.');
       setLoading(false);
     }
@@ -123,10 +138,10 @@ function LoginForm() {
 
         <button
           type="submit"
-          disabled={loading}
+          disabled={loading || isSigningIn}
           className="w-full py-2.5 px-4 rounded-[4px] bg-[#303055] hover:bg-[#252542] text-white text-xs font-medium transition-colors disabled:opacity-50 min-h-[44px]"
         >
-          {loading ? 'Authenticating...' : 'Sign In'}
+          {loading || isSigningIn ? 'Authenticating...' : 'Sign In'}
         </button>
       </form>
 

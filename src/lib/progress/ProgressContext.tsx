@@ -33,13 +33,13 @@ import { makeVideoProgressKey, formatSecondsToTime, formatPlaybackRatio } from '
 import { calculateCourseCardProgress } from './course-progress';
 import { createClient } from '../supabase/client';
 import { getAllCourses } from '../courses';
+import { useAuth } from '../auth';
 
 const ProgressContext = createContext<ProgressContextValue | null>(null);
 
 export const ProgressProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [supabase] = useState(() => (typeof window !== 'undefined' ? createClient() : null));
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-  const [userId, setUserId] = useState<string | null>(null);
+  const { isAuthenticated, userId, isAuthLoading } = useAuth();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [syncStatus, setSyncStatus] = useState<SyncStatus>('loading');
   const [pendingSyncCount, setPendingSyncCount] = useState<number>(0);
@@ -139,51 +139,37 @@ export const ProgressProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     }
   }, [supabase, userId, updatePendingCount]);
 
-  // Auth listener and initial bootstrap
-  useEffect(() => {
-    let isMounted = true;
+  // Auth state synchronization with centralized AuthProvider
+  const prevUserIdRef = useRef<string | null>(null);
+  const prevAuthResolvedRef = useRef<boolean>(false);
 
-    if (!supabase) {
-      hydrateProgress(null);
+  useEffect(() => {
+    if (isAuthLoading) {
       return;
     }
 
-    supabase.auth.getUser().then(({ data, error }) => {
-      if (!isMounted) return;
-      if (!error && data?.user) {
-        setIsAuthenticated(true);
-        setUserId(data.user.id);
-        setActiveUserId(data.user.id);
-        hydrateProgress(data.user.id);
+    const prevUserId = prevUserIdRef.current;
+    const isFirstRun = !prevAuthResolvedRef.current;
+    prevAuthResolvedRef.current = true;
+
+    if (isFirstRun || prevUserId !== userId) {
+      prevUserIdRef.current = userId;
+
+      if (isAuthenticated && userId) {
+        if (prevUserId && prevUserId !== userId) {
+          clearUserCacheOnSignOut();
+        }
+        setActiveUserId(userId);
+        hydrateProgress(userId);
       } else {
-        setIsAuthenticated(false);
-        setUserId(null);
+        if (prevUserId) {
+          clearUserCacheOnSignOut();
+        }
         setActiveUserId(null);
         hydrateProgress(null);
       }
-    });
-
-    const { data: authSub } = supabase.auth.onAuthStateChange((event, session) => {
-      if (!isMounted) return;
-      if (event === 'SIGNED_IN' && session?.user) {
-        setIsAuthenticated(true);
-        setUserId(session.user.id);
-        setActiveUserId(session.user.id);
-        hydrateProgress(session.user.id);
-      } else if (event === 'SIGNED_OUT') {
-        setIsAuthenticated(false);
-        setUserId(null);
-        clearUserCacheOnSignOut();
-        setActiveUserId(null);
-        hydrateProgress(null);
-      }
-    });
-
-    return () => {
-      isMounted = false;
-      authSub?.subscription?.unsubscribe();
-    };
-  }, [supabase, hydrateProgress]);
+    }
+  }, [isAuthenticated, userId, isAuthLoading, hydrateProgress]);
 
   // Listen to network online / offline events
   useEffect(() => {
