@@ -277,6 +277,9 @@ export const CourseLearningExperience: React.FC<CourseLearningExperienceProps> =
                   videoId={activeLesson.youtubeVideoId}
                   title={activeLesson.title}
                   channelName={course.instructor.name}
+                  courseId={course.id}
+                  moduleId={activeModule?.id}
+                  lessonId={activeLesson.id}
                 />
               ) : (
                 <div

@@ -1,9 +1,11 @@
 import { createBrowserClient } from '@supabase/ssr';
 import { Database } from '@/types/database';
 
+let browserClient: ReturnType<typeof createBrowserClient<Database>> | null = null;
+
 /**
- * Creates a client-side Supabase client using browser cookies.
- * Uses NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY.
+ * Creates or returns a singleton client-side Supabase client using browser cookies.
+ * Uses NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY.
  * Returns null if Supabase environment variables are unconfigured.
  */
 export function createClient() {
@@ -14,6 +16,13 @@ export function createClient() {
     return null;
   }
 
-  return createBrowserClient<Database>(supabaseUrl, supabaseKey);
-}
+  if (typeof window === 'undefined') {
+    return createBrowserClient<Database>(supabaseUrl, supabaseKey);
+  }
 
+  if (!browserClient) {
+    browserClient = createBrowserClient<Database>(supabaseUrl, supabaseKey);
+  }
+
+  return browserClient;
+}

@@ -4,9 +4,8 @@ import React, { useEffect, useState } from 'react';
 import {
   cloudCourseProgressService,
   CloudSyncStatus,
-  isUuid,
 } from '../../lib/cloud-course-progress';
-import { Cloud, Check, Loader2, HardDrive, AlertCircle } from 'lucide-react';
+import { Check, Loader2, HardDrive, AlertCircle } from 'lucide-react';
 
 interface SyncStatusBadgeProps {
   courseId: string;
@@ -47,8 +46,8 @@ export const SyncStatusBadge: React.FC<SyncStatusBadgeProps> = ({ courseId }) =>
   // Visual label & icons
   if (status === 'saving') {
     return (
-      <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-[4px] bg-[#f4f4f9] border border-[#e4e4ed] text-[11px] font-mono text-[#403f53]">
-        <Loader2 className="w-3 h-3 text-[#303055] animate-spin" />
+      <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-[4px] bg-[#f4f4f9] dark:bg-[#1A2638] border border-[#e4e4ed] dark:border-[#243044] text-[11px] font-mono text-[#403f53] dark:text-[#9BA8B7]">
+        <Loader2 className="w-3 h-3 text-[#0E7490] dark:text-[#22D3EE] animate-spin" />
         <span>Saving...</span>
       </span>
     );
@@ -56,8 +55,8 @@ export const SyncStatusBadge: React.FC<SyncStatusBadgeProps> = ({ courseId }) =>
 
   if (status === 'saved') {
     return (
-      <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-[4px] bg-[#eef8f1] border border-[#c1e7cb] text-[11px] font-mono text-[#236338] font-medium">
-        <Check className="w-3 h-3 text-[#236338]" />
+      <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-[4px] bg-[#eef8f1] dark:bg-[#064e3b]/30 border border-[#c1e7cb] dark:border-[#047857]/40 text-[11px] font-mono text-[#236338] dark:text-[#34d399] font-medium">
+        <Check className="w-3 h-3 text-[#236338] dark:text-[#34d399]" />
         <span>Saved to account</span>
       </span>
     );
@@ -65,8 +64,8 @@ export const SyncStatusBadge: React.FC<SyncStatusBadgeProps> = ({ courseId }) =>
 
   if (status === 'error') {
     return (
-      <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-[4px] bg-[#fbeaea] border border-[#e8b5b5] text-[11px] font-mono text-[#984e4d]">
-        <AlertCircle className="w-3 h-3 text-[#984e4d]" />
+      <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-[4px] bg-[#fbeaea] dark:bg-[#7f1d1d]/20 border border-[#e8b5b5] dark:border-[#991b1b] text-[11px] font-mono text-[#984e4d] dark:text-[#f87171]">
+        <AlertCircle className="w-3 h-3 text-[#984e4d] dark:text-[#f87171]" />
         <span>Could not sync</span>
       </span>
     );
@@ -74,10 +73,9 @@ export const SyncStatusBadge: React.FC<SyncStatusBadgeProps> = ({ courseId }) =>
 
   // Fallback: offline / saved on device
   return (
-    <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-[4px] bg-[#f4f4f9] border border-[#e4e4ed] text-[11px] font-mono text-[#6b6b7b]">
-      <HardDrive className="w-3 h-3 text-[#6b6b7b]" />
+    <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-[4px] bg-[#f4f4f9] dark:bg-[#1A2638] border border-[#e4e4ed] dark:border-[#243044] text-[11px] font-mono text-[#6b6b7b] dark:text-[#9BA8B7]">
+      <HardDrive className="w-3 h-3 text-[#6b6b7b] dark:text-[#9BA8B7]" />
       <span>Offline / saved on this device</span>
     </span>
   );
 };
-

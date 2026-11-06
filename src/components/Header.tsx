@@ -15,20 +15,18 @@ import {
   Award,
 } from 'lucide-react';
 import { onSavedChange, localSavedService } from '../lib/saved';
-import { createClient } from '../lib/supabase/client';
 import { ThemeToggle } from './theme/ThemeToggle';
 import { GlobalSearchDialog } from './search/GlobalSearchDialog';
 import { UserNavDropdown } from './navigation/UserNavDropdown';
-import { AVATAR_UPDATED_EVENT, AvatarUpdatedDetail } from '../lib/avatar';
+import { useAuth } from '../lib/auth';
 
 export function Header() {
   const pathname = usePathname();
   const [savedCount, setSavedCount] = useState(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchDialogOpen, setSearchDialogOpen] = useState(false);
-  const [userEmail, setUserEmail] = useState<string | null>(null);
-  const [userProfile, setUserProfile] = useState<{ displayName?: string | null; avatarUrl?: string | null } | null>(null);
-  const [isAdmin, setIsAdmin] = useState(false);
+
+  const { userEmail, userProfile, isAdmin, isAuthLoading } = useAuth();
 
   // Global '/' shortcut to open search
   useEffect(() => {
@@ -52,87 +50,8 @@ export function Header() {
     const unsub = onSavedChange((ids) => {
       setSavedCount(ids.length);
     });
-
-    const refreshAvatar = () => {
-      fetch('/api/user/avatar', { cache: 'no-store' })
-        .then((res) => {
-          if (res.ok) return res.json();
-          return null;
-        })
-        .then((avatarData) => {
-          if (avatarData?.avatarUrl !== undefined) {
-            setUserProfile((prev) => ({
-              displayName: prev?.displayName || null,
-              avatarUrl: avatarData.avatarUrl,
-            }));
-          }
-        })
-        .catch(() => {});
-    };
-
-    // Listen for avatar updates from anywhere in the application
-    const handleAvatarUpdated = (e: Event) => {
-      const customEvent = e as CustomEvent<AvatarUpdatedDetail>;
-      if (customEvent.detail?.avatarUrl !== undefined) {
-        setUserProfile((prev) => ({
-          displayName: prev?.displayName || null,
-          avatarUrl: customEvent.detail.avatarUrl,
-        }));
-      }
-    };
-    window.addEventListener(AVATAR_UPDATED_EVENT, handleAvatarUpdated);
-
-    const supabase = createClient();
-    if (supabase) {
-      supabase.auth.getUser().then(({ data }) => {
-        if (data?.user?.email) {
-          setUserEmail(data.user.email);
-          if (data.user.email.includes('admin') || data.user.email.includes('secops')) {
-            setIsAdmin(true);
-          }
-          // Fetch profile details
-          supabase
-            .from('profiles')
-            .select('display_name, avatar_url')
-            .eq('id', data.user.id)
-            .single()
-            .then(({ data: profileData }: any) => {
-              if (profileData) {
-                setUserProfile({
-                  displayName: profileData.display_name,
-                  avatarUrl: profileData.avatar_url,
-                });
-              }
-              // Immediately resolve fresh signed avatar URL from /api/user/avatar
-              refreshAvatar();
-            });
-        }
-      });
-
-      const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
-        if (session?.user?.email) {
-          setUserEmail(session.user.email);
-          if (session.user.email.includes('admin') || session.user.email.includes('secops')) {
-            setIsAdmin(true);
-          }
-          refreshAvatar();
-        } else {
-          setUserEmail(null);
-          setUserProfile(null);
-          setIsAdmin(false);
-        }
-      });
-
-      return () => {
-        unsub();
-        authListener.subscription.unsubscribe();
-        window.removeEventListener(AVATAR_UPDATED_EVENT, handleAvatarUpdated);
-      };
-    }
-
     return () => {
       unsub();
-      window.removeEventListener(AVATAR_UPDATED_EVENT, handleAvatarUpdated);
     };
   }, []);
 
@@ -237,7 +156,13 @@ export function Header() {
               <ThemeToggle />
 
               {/* Auth / Account Profile */}
-              {userEmail ? (
+              {isAuthLoading ? (
+                <div
+                  data-testid="header-auth-loading"
+                  className="w-24 h-9 rounded-[4px] bg-[#f4f4f9] dark:bg-[#1c1c2c] animate-pulse"
+                  aria-label="Loading authentication state"
+                />
+              ) : userEmail ? (
                 <UserNavDropdown
                   userEmail={userEmail}
                   displayName={userProfile?.displayName}
@@ -309,7 +234,12 @@ export function Header() {
             )}
 
             <div className="pt-2 border-t border-[#e4e4ed] dark:border-[#26263b] space-y-1">
-              {userEmail ? (
+              {isAuthLoading ? (
+                <div
+                  data-testid="header-auth-loading-mobile"
+                  className="h-10 rounded-[4px] bg-[#f4f4f9] dark:bg-[#1c1c2c] animate-pulse"
+                />
+              ) : userEmail ? (
                 <>
                   <Link
                     href="/profile"

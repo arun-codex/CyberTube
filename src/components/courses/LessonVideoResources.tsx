@@ -190,6 +190,9 @@ export const LessonVideoResources: React.FC<LessonVideoResourcesProps> = ({
               videoId={activeVideo.videoId}
               title={activeVideo.title}
               channelName={activeVideo.creator}
+              courseId={courseId}
+              moduleId={moduleId}
+              lessonId={lessonId}
             />
           </div>
 

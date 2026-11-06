@@ -2,8 +2,9 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { User, Settings, LogOut, ChevronDown, Award } from 'lucide-react';
-import { logoutAction } from '@/app/actions/auth';
+import { useAuth } from '@/lib/auth';
 import { UserAvatar } from '@/components/ui/UserAvatar';
 
 interface UserNavDropdownProps {
@@ -14,7 +15,24 @@ interface UserNavDropdownProps {
 
 export function UserNavDropdown({ userEmail, avatarUrl, displayName }: UserNavDropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [isSigningOut, setIsSigningOut] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const { signOut } = useAuth();
+  const router = useRouter();
+
+  const handleSignOut = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (isSigningOut) return;
+    setIsSigningOut(true);
+    setIsOpen(false);
+    try {
+      await signOut();
+    } finally {
+      setIsSigningOut(false);
+      router.replace('/');
+      router.refresh();
+    }
+  };
 
   // Close on outside click
   useEffect(() => {
@@ -99,16 +117,16 @@ export function UserNavDropdown({ userEmail, avatarUrl, displayName }: UserNavDr
 
           {/* Sign Out */}
           <div className="py-1">
-            <form action={logoutAction}>
-              <button
-                type="submit"
-                className="w-full flex items-center gap-2.5 px-3.5 py-2 text-xs text-[#984e4d] hover:bg-[#fbeaea] dark:hover:bg-[#2b1818] transition-colors text-left"
-                role="menuitem"
-              >
-                <LogOut className="w-3.5 h-3.5" />
-                <span>Sign Out</span>
-              </button>
-            </form>
+            <button
+              type="button"
+              onClick={handleSignOut}
+              disabled={isSigningOut}
+              className="w-full flex items-center gap-2.5 px-3.5 py-2 text-xs text-[#984e4d] hover:bg-[#fbeaea] dark:hover:bg-[#2b1818] transition-colors text-left disabled:opacity-50"
+              role="menuitem"
+            >
+              <LogOut className="w-3.5 h-3.5" />
+              <span>{isSigningOut ? 'Signing out...' : 'Sign Out'}</span>
+            </button>
           </div>
         </div>
       )}

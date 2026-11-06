@@ -4,6 +4,8 @@ import { fontClassNames } from '../src/fonts';
 import { Header } from '../src/components/Header';
 import { Footer } from '../src/components/Footer';
 import { ThemeProvider } from '../src/components/theme/ThemeProvider';
+import { AuthProvider } from '../src/lib/auth';
+import { ProgressProvider } from '../src/lib/progress';
 
 const googleSiteVerification = process.env.GOOGLE_SITE_VERIFICATION?.trim();
 
@@ -35,9 +37,13 @@ export default function RootLayout({
           enableSystem={false}
           disableTransitionOnChange={false}
         >
-          <Header />
-          <main className="flex-1 w-full flex flex-col">{children}</main>
-          <Footer />
+          <AuthProvider>
+            <ProgressProvider>
+              <Header />
+              <main className="flex-1 w-full flex flex-col">{children}</main>
+              <Footer />
+            </ProgressProvider>
+          </AuthProvider>
         </ThemeProvider>
       </body>
     </html>
