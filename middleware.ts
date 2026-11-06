@@ -2,6 +2,7 @@ import { createServerClient } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
 import { Database } from '@/types/database';
 import { CANONICAL_ORIGIN, isLegacyDomain } from '@/lib/canonicalUrl';
+import { verifyAndParseTestUserCookie } from '@/lib/testAuthGuard';
 
 export async function middleware(request: NextRequest) {
   // ---------------------------------------------------------------------------
@@ -76,7 +77,19 @@ export async function middleware(request: NextRequest) {
   );
 
   // Refresh auth session
-  const { data: { user } } = await supabase.auth.getUser();
+  let user: any = null;
+
+  // In strictly authorized local test environments, allow verified test user simulation.
+  // Never allowed on any Vercel deployment (Production or Preview).
+  const testCookie = request.cookies.get('cybertube_test_user')?.value;
+  if (testCookie) {
+    user = await verifyAndParseTestUserCookie(testCookie);
+  }
+
+  if (!user) {
+    const { data } = await supabase.auth.getUser();
+    user = data.user;
+  }
 
   const pathname = request.nextUrl.pathname;
 

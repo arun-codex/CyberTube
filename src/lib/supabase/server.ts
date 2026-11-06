@@ -1,6 +1,7 @@
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 import { Database } from '@/types/database';
+import { verifyAndParseTestUserCookie } from '@/lib/testAuthGuard';
 
 /**
  * Creates a server-side Supabase client for Server Components, Server Actions,
@@ -15,7 +16,7 @@ export async function createClient() {
     return null;
   }
 
-  return createServerClient<Database>(
+  const client = createServerClient<Database>(
     supabaseUrl,
     supabaseKey,
     {
@@ -36,6 +37,43 @@ export async function createClient() {
       },
     }
   );
+
+  // In strictly authorized local test environments, allow verified test user simulation.
+  // Never allowed on any Vercel deployment (Production or Preview).
+  const testCookie = cookieStore.get('cybertube_test_user')?.value;
+  if (testCookie) {
+    const testUser = await verifyAndParseTestUserCookie(testCookie);
+    if (testUser) {
+      client.auth.getUser = (async () => {
+        return { data: { user: testUser }, error: null };
+      }) as any;
+
+      const originalFrom = client.from.bind(client);
+      client.from = ((table: string) => {
+        if (table === 'profiles') {
+          return {
+            select: () => ({
+              eq: () => ({
+                single: async () => ({
+                  data: {
+                    id: testUser.id,
+                    display_name: testUser.user_metadata?.display_name || 'Practitioner',
+                    experience_level: 'practitioner',
+                    avatar_url: null,
+                    avatar_path: null,
+                  },
+                  error: null,
+                }),
+              }),
+            }),
+          } as any;
+        }
+        return originalFrom(table);
+      }) as any;
+    }
+  }
+
+  return client;
 }
 
 /**
