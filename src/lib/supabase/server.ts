@@ -1,6 +1,7 @@
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 import { Database } from '@/types/database';
+import { verifyAndParseTestUserCookie } from '@/lib/testAuthGuard';
 
 /**
  * Creates a server-side Supabase client for Server Components, Server Actions,
@@ -37,41 +38,38 @@ export async function createClient() {
     }
   );
 
-  // In non-production environments (test/local dev), support simulated test user cookie for automated testing
-  if (process.env.VERCEL_ENV !== 'production') {
-    const testCookie = cookieStore.get('cybertube_test_user')?.value;
-    if (testCookie) {
-      try {
-        const testUser = JSON.parse(testCookie);
-        client.auth.getUser = (async () => {
-          return { data: { user: testUser }, error: null };
-        }) as any;
+  // In strictly authorized local test environments, allow verified test user simulation.
+  // Never allowed on any Vercel deployment (Production or Preview).
+  const testCookie = cookieStore.get('cybertube_test_user')?.value;
+  if (testCookie) {
+    const testUser = await verifyAndParseTestUserCookie(testCookie);
+    if (testUser) {
+      client.auth.getUser = (async () => {
+        return { data: { user: testUser }, error: null };
+      }) as any;
 
-        const originalFrom = client.from.bind(client);
-        client.from = ((table: string) => {
-          if (table === 'profiles') {
-            return {
-              select: () => ({
-                eq: () => ({
-                  single: async () => ({
-                    data: {
-                      id: testUser.id,
-                      display_name: testUser.user_metadata?.display_name || 'Practitioner',
-                      experience_level: 'practitioner',
-                      avatar_url: null,
-                      avatar_path: null,
-                    },
-                    error: null,
-                  }),
+      const originalFrom = client.from.bind(client);
+      client.from = ((table: string) => {
+        if (table === 'profiles') {
+          return {
+            select: () => ({
+              eq: () => ({
+                single: async () => ({
+                  data: {
+                    id: testUser.id,
+                    display_name: testUser.user_metadata?.display_name || 'Practitioner',
+                    experience_level: 'practitioner',
+                    avatar_url: null,
+                    avatar_path: null,
+                  },
+                  error: null,
                 }),
               }),
-            } as any;
-          }
-          return originalFrom(table);
-        }) as any;
-      } catch {
-        // Fall back to standard client
-      }
+            }),
+          } as any;
+        }
+        return originalFrom(table);
+      }) as any;
     }
   }
 

@@ -7,19 +7,34 @@ import { ChangePasswordModal } from './ChangePasswordModal';
 export interface AccountSecuritySectionProps {
   userEmail: string;
   isOAuthOnly?: boolean;
+  passwordChangedAt?: string | null;
+  accountUpdatedAt?: string | null;
+  /** @deprecated use passwordChangedAt */
   lastPasswordChange?: string | null;
 }
 
 export function AccountSecuritySection({
   userEmail,
   isOAuthOnly = false,
+  passwordChangedAt,
+  accountUpdatedAt,
   lastPasswordChange,
 }: AccountSecuritySectionProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [lastUpdated, setLastUpdated] = useState<string | null>(lastPasswordChange || null);
+  const [lastPasswordChangeDate, setLastPasswordChangeDate] = useState<string | null>(
+    passwordChangedAt || null
+  );
 
-  const formattedDate = lastUpdated
-    ? new Date(lastUpdated).toLocaleDateString(undefined, {
+  const formattedPasswordDate = lastPasswordChangeDate
+    ? new Date(lastPasswordChangeDate).toLocaleDateString(undefined, {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+      })
+    : null;
+
+  const formattedAccountDate = accountUpdatedAt
+    ? new Date(accountUpdatedAt).toLocaleDateString(undefined, {
         year: 'numeric',
         month: 'short',
         day: 'numeric',
@@ -55,11 +70,15 @@ export function AccountSecuritySection({
           <p className="text-xs text-[#6b6b7b] dark:text-[#8c8ca6]">
             Keep your account secure by regularly updating your password.
           </p>
-          {formattedDate && (
+          {formattedPasswordDate ? (
             <p className="text-[11px] font-mono text-[#8c8ca6] dark:text-[#6b6b7b]">
-              Last updated: {formattedDate}
+              Password last changed: {formattedPasswordDate}
             </p>
-          )}
+          ) : formattedAccountDate ? (
+            <p className="text-[11px] font-mono text-[#8c8ca6] dark:text-[#6b6b7b]">
+              Account profile last updated: {formattedAccountDate}
+            </p>
+          ) : null}
         </div>
 
         <button
@@ -91,7 +110,7 @@ export function AccountSecuritySection({
         userEmail={userEmail}
         isOAuthOnly={isOAuthOnly}
         onSuccess={() => {
-          setLastUpdated(new Date().toISOString());
+          setLastPasswordChangeDate(new Date().toISOString());
         }}
       />
     </section>

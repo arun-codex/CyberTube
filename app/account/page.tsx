@@ -134,7 +134,8 @@ export default async function AccountPage() {
           !connectedIdentities.some((i) => i.provider === 'email') &&
           provider !== 'email'
         )}
-        lastPasswordChange={user.updated_at || null}
+        passwordChangedAt={user.user_metadata?.password_changed_at || null}
+        accountUpdatedAt={user.updated_at || null}
       />
     </div>
   );

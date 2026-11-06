@@ -123,7 +123,20 @@ export function ChangePasswordModal({
     try {
       const { error: reauthError } = await supabase.auth.reauthenticate();
       if (reauthError) {
-        setError(reauthError.message || 'Unable to send verification code. Please check your connection and try again.');
+        const msg = (reauthError.message || '').toLowerCase();
+        if (
+          msg.includes('session') ||
+          msg.includes('expired') ||
+          msg.includes('missing') ||
+          (reauthError as any).status === 401
+        ) {
+          setError('Your session has expired. Sign in again to continue.');
+        } else {
+          setError(
+            reauthError.message ||
+              'Unable to send verification code. Please check your connection and try again.'
+          );
+        }
         setLoading(false);
         return;
       }
@@ -213,8 +226,16 @@ export function ChangePasswordModal({
 
     setLoading(true);
     try {
-      let updatePayload: { password: string; current_password?: string; nonce?: string } = {
+      let updatePayload: {
+        password: string;
+        current_password?: string;
+        nonce?: string;
+        data?: Record<string, any>;
+      } = {
         password: newPassword,
+        data: {
+          password_changed_at: new Date().toISOString(),
+        },
       };
 
       if (verifyMethod === 'password' && currentPassword) {
@@ -227,15 +248,15 @@ export function ChangePasswordModal({
 
       if (updateError) {
         const msg = updateError.message.toLowerCase();
-        if (msg.includes('current password') || msg.includes('incorrect')) {
+        if (msg.includes('current password') || (msg.includes('incorrect') && !msg.includes('otp') && !msg.includes('code'))) {
           setError('Your current password is incorrect. Please try again.');
         } else if (msg.includes('same password') || msg.includes('different')) {
           setError('Your new password must be different from your current password.');
-        } else if (msg.includes('nonce') || msg.includes('otp') || msg.includes('verification code')) {
+        } else if (msg.includes('nonce') || msg.includes('otp') || msg.includes('code') || msg.includes('reauth')) {
           setError('The verification code is incorrect or expired.');
         } else if (msg.includes('reauthenticate') || msg.includes('recent login')) {
           setError('Please verify your identity again before changing your password.');
-        } else if (msg.includes('session') || msg.includes('expired') || (updateError as any).status === 401) {
+        } else if (msg.includes('session') || msg.includes('expired') || (updateError as any).status === 401 || (updateError as any).status === 403) {
           setError('Your session has expired. Sign in again to continue.');
         } else {
           setError(updateError.message);

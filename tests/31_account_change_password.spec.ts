@@ -1,4 +1,5 @@
 import { test, expect, Page } from '@playwright/test';
+import { signTestUserPayload } from '../src/lib/testAuthGuard';
 
 interface MockAuthUser {
   id: string;
@@ -46,7 +47,7 @@ async function setupAccountMocks(page: Page, targetUser: MockAuthUser = TEST_USE
   await page.context().addCookies([
     {
       name: 'cybertube_test_user',
-      value: JSON.stringify(mockUserPayload),
+      value: await signTestUserPayload(mockUserPayload),
       path: '/',
       domain: 'localhost',
     },
@@ -119,6 +120,17 @@ async function setupAccountMocks(page: Page, targetUser: MockAuthUser = TEST_USE
         return;
       }
 
+      if (postData.nonce === 'WrongOtp123' || postData.nonce === '000000') {
+        await route.fulfill({
+          status: 400,
+          contentType: 'application/json',
+          body: JSON.stringify({
+            message: 'Invalid or expired OTP',
+          }),
+        });
+        return;
+      }
+
       if (postData.password === 'SimulateServerError!') {
         await route.fulfill({
           status: 401,
@@ -173,6 +185,16 @@ async function setupAccountMocks(page: Page, targetUser: MockAuthUser = TEST_USE
   // 3. Intercept Reauthenticate
   await page.route(/\/auth\/v1\/reauthenticate/, async (route) => {
     (page as any).__reauthenticateCalled = true;
+    if ((page as any).__simulateExpiredReauth) {
+      await route.fulfill({
+        status: 401,
+        contentType: 'application/json',
+        body: JSON.stringify({
+          message: 'Auth session missing!',
+        }),
+      });
+      return;
+    }
     await route.fulfill({
       status: 200,
       contentType: 'application/json',
@@ -250,6 +272,8 @@ test.describe('Phase 20.3 — Secure Change Password Settings Flow', () => {
     await expect(securitySection).toBeVisible({ timeout: 10000 });
     await expect(securitySection).toContainText('Password & Security');
     await expect(securitySection).toContainText('Keep your account secure by regularly updating your password');
+    await expect(securitySection).not.toContainText('Last password updated:');
+    await expect(securitySection).toContainText('Account profile last updated:');
     await expect(page.locator('[data-testid="change-password-btn"]')).toBeVisible();
   });
 
@@ -564,6 +588,78 @@ test.describe('Phase 20.3 — Secure Change Password Settings Flow', () => {
     await page.goto('/courses');
     await expect(courseCard).toBeVisible();
     await expect(courseCard.locator('text=Progress')).toBeVisible();
+  });
+
+  // ---------------------------------------------------------------------------
+  // Test 17: Security Guard — Forged unsigned or tampered test cookie is rejected
+  // ---------------------------------------------------------------------------
+  test('Test 17 — Forged unsigned or tampered test cookie is rejected on /account', async ({ page, context }) => {
+    // Inject forged raw unsigned JSON cookie without HMAC signature
+    await context.addCookies([
+      {
+        name: 'cybertube_test_user',
+        value: JSON.stringify({
+          id: 'forged-attacker-id',
+          email: 'attacker@evil.com',
+          role: 'authenticated',
+        }),
+        path: '/',
+        domain: 'localhost',
+      },
+    ]);
+
+    await page.goto('/account');
+    await expect(page).toHaveURL(/\/login/);
+  });
+
+  // ---------------------------------------------------------------------------
+  // Test 18: Security Guard — OAuth reauthentication with expired session
+  // ---------------------------------------------------------------------------
+  test('Test 18 — OAuth reauthentication with expired session displays session expired error', async ({ page }) => {
+    await setupAccountMocks(page, OAUTH_USER);
+    await loginUser(page, OAUTH_USER);
+
+    // Flag reauthenticate to return 401 (expired session)
+    (page as any).__simulateExpiredReauth = true;
+
+    await page.goto('/account');
+    await page.click('[data-testid="change-password-btn"]');
+
+    const modal = page.locator('[role="dialog"]');
+    await expect(modal).toContainText('Verify through email');
+
+    await page.click('button:has-text("Send Verification Code")');
+
+    const alert = modal.locator('div[role="alert"]');
+    await expect(alert).toBeVisible();
+    await expect(alert).toContainText('Your session has expired. Sign in again to continue.');
+  });
+
+  // ---------------------------------------------------------------------------
+  // Test 19: Security Guard — OAuth reauthentication with incorrect OTP nonce
+  // ---------------------------------------------------------------------------
+  test('Test 19 — OAuth reauthentication with incorrect OTP nonce displays verification error', async ({ page }) => {
+    await setupAccountMocks(page, OAUTH_USER);
+    await loginUser(page, OAUTH_USER);
+
+    await page.goto('/account');
+    await page.click('[data-testid="change-password-btn"]');
+
+    const modal = page.locator('[role="dialog"]');
+    await page.click('button:has-text("Send Verification Code")');
+    await expect(page.locator('input#otp-code')).toBeVisible({ timeout: 5000 });
+
+    // Enter invalid 6-digit OTP code to advance and verify API rejection
+    await page.fill('input#otp-code', '000000');
+    await page.click('button:has-text("Verify & Continue")');
+
+    await page.fill('input#new-password', 'BrandNewSecurePass999!');
+    await page.fill('input#confirm-new-password', 'BrandNewSecurePass999!');
+    await page.click('button:has-text("Update Password")');
+
+    const alert = modal.locator('div[role="alert"]');
+    await expect(alert).toBeVisible();
+    await expect(alert).toContainText('The verification code is incorrect or expired.');
   });
 });
 
