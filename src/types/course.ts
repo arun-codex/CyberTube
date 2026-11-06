@@ -1,17 +1,216 @@
 import { CybersecurityDomain, DifficultyLevel } from './resource';
 
+export type CourseTrack =
+  | 'cybersecurity'
+  | 'web-development'
+  | 'general-technology';
+
+export interface KeyTerminologyItem {
+  term: string;
+  definition: string;
+}
+
+export interface TheorySectionItem {
+  title: string;
+  content: string;
+  keyPoints?: string[];
+}
+
+export interface ProtocolExplanationItem {
+  protocol: string;
+  port?: string | number;
+  layer: string;
+  details: string;
+  headerFields?: string[];
+}
+
+export interface StepByStepProcedureItem {
+  step: number;
+  title: string;
+  instruction: string;
+  filter?: string;
+  expectedOutcome?: string;
+}
+
+export interface DisplayFilterItem {
+  filter: string;
+  description: string;
+  purpose: string;
+}
+
+export interface PracticalExerciseItem {
+  title: string;
+  objective: string;
+  instructions: string[];
+  pcapReference?: string;
+}
+
+export interface KnowledgeCheckQuestion {
+  question: string;
+  options: string[];
+  correctAnswerIndex: number;
+  explanation: string;
+  difficulty?: 'beginner' | 'intermediate' | 'advanced';
+  relatedLessonSlug?: string;
+}
+
+export interface LessonQuiz {
+  title?: string;
+  questions: KnowledgeCheckQuestion[];
+  passingScorePercent?: number;
+}
+
+export interface LessonRichContent {
+  introduction: string;
+  prerequisites?: string[];
+  keyTerminology?: KeyTerminologyItem[];
+  theorySections?: TheorySectionItem[];
+  protocolExplanations?: ProtocolExplanationItem[];
+  stepByStepProcedures?: StepByStepProcedureItem[];
+  displayFilters?: DisplayFilterItem[];
+  expectedObservations?: string[];
+  commonMistakes?: string[];
+  securityRelevance?: string;
+  practicalExercise?: PracticalExerciseItem;
+  knowledgeCheck?: KnowledgeCheckQuestion;
+  summary?: string;
+  furtherReading?: { title: string; url: string; description?: string }[];
+}
+
+export interface PracticalLab {
+  id: string;
+  title: string;
+  objective: string;
+  toolsRequired: string[];
+  pcapSource: {
+    fileName: string;
+    fileUrl: string;
+    repositoryUrl?: string;
+    sha256?: string;
+  };
+  difficulty: DifficultyLevel;
+  estimatedMinutes: number;
+  instructions: string[];
+  tasks: {
+    id: string;
+    description: string;
+    hint?: string;
+    filterSuggestion?: string;
+  }[];
+  evidenceWorksheet: {
+    field: string;
+    prompt: string;
+    expectedEvidenceType: string;
+  }[];
+  questions: KnowledgeCheckQuestion[];
+  completionCriteria: string[];
+}
+
+export interface CapstoneAssessment {
+  id: string;
+  title: string;
+  scenario: string;
+  pcapSource: {
+    fileName: string;
+    fileUrl: string;
+    sha256?: string;
+  };
+  totalMarks: 100;
+  passingScore: 75;
+  rubric: {
+    category: string;
+    marks: number;
+    criteria: string[];
+  }[];
+  submissionSections: {
+    id: string;
+    title: string;
+    prompt: string;
+    maxMarks: number;
+  }[];
+}
+
+export interface PCAPResource {
+  id: string;
+  title: string;
+  fileName: string;
+  downloadUrl: string;
+  sourceRepository: string;
+  fileFormat: 'pcap' | 'pcapng';
+  intendedModule: string;
+  learningPurpose: string;
+  safetyGuidance: string;
+  instructions: string[];
+  sha256?: string;
+  verificationDate?: string;
+  verificationMethod?: string;
+}
+
+export interface QuizAttempt {
+  attemptNumber: number;
+  selectedAnswers: Record<number, number>;
+  score: number; // percentage (e.g. 80)
+  passed: boolean;
+  submittedAt: string;
+}
+
+export interface PracticalLabProgress {
+  labId: string;
+  completedTaskIds: string[];
+  worksheetAnswers: Record<string, string>;
+  isCompleted: boolean;
+  lastUpdated: string;
+}
+
+export interface CapstoneSubmissionState {
+  capstoneId: string;
+  submissionSections: Record<string, string>;
+  selfAssessmentScores?: Record<string, number>;
+  selfAssessmentTotal?: number;
+  completenessCheckPassed: boolean;
+  isSelfAssessedPassed: boolean;
+  submittedAt?: string;
+  reviewedAt?: string;
+}
+
+export interface ComprehensiveCourseCompletion {
+  lessonCompletionPercent: number;
+  lessonsCompleted: number;
+  totalLessons: number;
+  quizCompletionPercent: number;
+  quizzesPassed: number;
+  totalQuizzes: number;
+  labCompletionPercent: number;
+  labsCompleted: number;
+  totalLabs: number;
+  capstoneSubmitted: boolean;
+  capstonePassed: boolean;
+  isFullyCompleted: boolean;
+  overallProgressPercent: number;
+  remainingRequirements: string[];
+}
+
 export interface Lesson {
   id: string; // e.g., 'lesson-intro-wireshark'
   slug: string; // e.g., 'intro-to-wireshark'
   title: string;
   description: string;
-  youtubeVideoId: string; // Validated 11-character YouTube video ID
+  youtubeVideoId?: string; // Optional YouTube video ID (validated 11-char string when present)
+  videoAttribution?: {
+    creator: string;
+    channelUrl?: string;
+    platform: string;
+    seriesTitle?: string;
+    partNumber?: number;
+  };
   durationMinutes: number;
   order: number; // 1-based order within the module or course
   objectives: string[];
   tags: string[];
   skillsTaught: string[];
   moduleTitle?: string;
+  richContent?: LessonRichContent;
+  quiz?: LessonQuiz;
 }
 
 export interface CourseModule {
@@ -20,6 +219,9 @@ export interface CourseModule {
   description: string;
   order: number;
   lessons: Lesson[];
+  practicalLab?: PracticalLab;
+  quiz?: LessonQuiz;
+  capstoneAssessment?: CapstoneAssessment;
 }
 
 export interface Course {
@@ -43,13 +245,75 @@ export interface Course {
   learningObjectives: string[];
   modules: CourseModule[];
   featured?: boolean;
+  track?: CourseTrack;
+  sourcePlatform?: 'youtube' | string;
+  sourcePlaylistId?: string;
+  sourcePlaylistUrl?: string;
+  pcapResources?: PCAPResource[];
+  capstone?: CapstoneAssessment;
+  videoResources?: LessonVideoResource[];
+}
+
+export type VideoResourceStatus =
+  | 'verified'
+  | 'pending_verification'
+  | 'unavailable'
+  | 'non_embeddable';
+
+export type VideoEmbeddingStatus =
+  | 'embeddable'
+  | 'restricted'
+  | 'blocked'
+  | 'unknown';
+
+export interface LessonVideoResource {
+  resourceId: string;
+  videoId: string;
+  title: string;
+  youtubeUrl: string;
+  embedUrl: string;
+  creator: string;
+  instructor?: string;
+  sourcePlatform: 'youtube';
+  sourcePlaylistId?: string;
+  moduleId: string;
+  lessonId: string;
+  topicTags: string[];
+  description: string;
+  durationSeconds: number;
+  difficulty?: 'beginner' | 'intermediate' | 'advanced';
+  resourceStatus: VideoResourceStatus;
+  embeddingStatus: VideoEmbeddingStatus;
+  verificationMethod: string;
+  lastVerifiedAt: string;
+}
+
+export interface UserVideoProgress {
+  id?: string;
+  userId?: string;
+  courseId: string;
+  moduleId?: string;
+  lessonId: string;
+  videoId: string;
+  lastWatchedSeconds: number;
+  durationSeconds: number;
+  completionPercentage: number;
+  isCompleted: boolean;
+  lastWatchedAt: string;
+  updatedAt?: string;
 }
 
 export interface CourseProgressState {
   courseId: string;
   completedLessonIds: string[];
+  archivedLegacyLessonIds?: string[];
   lastCompletedLessonId?: string;
   lastActiveLessonId?: string;
   lastAccessedAt: string;
+  quizScores?: Record<string, number>;
+  quizAttempts?: Record<string, QuizAttempt[]>;
+  labProgress?: Record<string, PracticalLabProgress>;
+  capstoneSubmission?: CapstoneSubmissionState;
+  capstoneScore?: number;
+  videoProgress?: Record<string, UserVideoProgress>;
 }
-

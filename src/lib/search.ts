@@ -44,10 +44,11 @@ export function searchGlobalCatalog(query: string): SearchResultItem[] {
   for (const course of courses) {
     const titleMatch = course.title.toLowerCase().includes(cleanQuery);
     const descMatch = course.description.toLowerCase().includes(cleanQuery);
-    const domainMatch = course.domains.some((d) => d.toLowerCase().includes(cleanQuery));
+    const domainMatch = course.domains?.some((d) => d.toLowerCase().includes(cleanQuery)) || false;
     const tagMatch = course.tags.some((t) => t.toLowerCase().includes(cleanQuery));
+    const trackMatch = course.track?.toLowerCase().includes(cleanQuery) || false;
 
-    if (titleMatch || descMatch || domainMatch || tagMatch) {
+    if (titleMatch || descMatch || domainMatch || tagMatch || trackMatch) {
       results.push({
         id: `course-${course.id}`,
         type: 'course',
@@ -55,7 +56,7 @@ export function searchGlobalCatalog(query: string): SearchResultItem[] {
         description: course.description,
         url: `/courses/${course.slug}`,
         badge: 'COURSE',
-        category: course.domains[0],
+        category: course.domains?.[0] || (course.track === 'web-development' ? 'Web Dev' : 'Course'),
         tags: course.tags.slice(0, 3),
       });
     }

@@ -8,7 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "tsx --test test/catalog.test.js && node test/http-check.js"
+    "test": "tsx --test test/catalog.test.js && tsx --test test/phase17-1-sync-hardening.test.ts && node test/http-check.js"
   },
   "dependencies": {
     "@designcodeio/threeui": "^1.2.0",

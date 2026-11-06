@@ -18,7 +18,7 @@ export const Badge: React.FC<BadgeProps> = ({
   size = 'sm',
 }) => {
   const sizeClasses = size === 'sm' ? 'text-[11px] px-2 py-0.5' : 'text-xs px-2.5 py-1';
-  const colorClasses = 'bg-[#f4f4f9] text-[#403f53] border border-[#e4e4ed] font-mono';
+  const colorClasses = 'bg-[#f4f4f9] dark:bg-[#1A2433] text-[#475569] dark:text-[#9BA8B7] border border-[#e4e4ed] dark:border-[#243044] font-mono';
 
   return (
     <span

@@ -1,18 +1,28 @@
-import { Course, CourseProgressState } from '../types/course';
+import {
+  Course,
+  CourseProgressState,
+  QuizAttempt,
+  PracticalLabProgress,
+  CapstoneSubmissionState,
+  ComprehensiveCourseCompletion,
+  UserVideoProgress,
+} from '../types/course';
 
 /**
- * CyberTube — Provisional Local Course Progress Adapter
+ * CyberTube — Course Progress Service
  *
- * Implements a clean client-side interface for tracking course & lesson completion
- * in browser localStorage. Dispatches custom events for reactive UI state.
- *
- * NOTE: This is a PROVISIONAL local storage adapter for the prototype.
- * It follows the same contract as the planned Supabase cloud persistence layer
- * so it can be swapped out transparently in future phases.
+ * Implements a clean client-side interface for tracking course, lesson,
+ * quiz, practical lab, and capstone progress in browser localStorage.
+ * Dispatches custom events for reactive UI state updates.
  */
 
 const STORAGE_KEY_PREFIX = 'cybertube_course_progress_v1_';
 const PROGRESS_EVENT_NAME = 'cybertube:course-progress-changed';
+
+export const LEGACY_PACKET_ANALYSIS_LESSON_IDS = [
+  'les-wireshark-deep-dive',
+  'les-wireshark-troubleshooting',
+];
 
 export interface CourseProgressService {
   getProgress(courseId: string): CourseProgressState;
@@ -22,6 +32,15 @@ export interface CourseProgressService {
   recordLessonAccess(courseId: string, lessonId: string): void;
   getCourseCompletionPercentage(course: Course): number;
   resetCourseProgress(courseId: string): void;
+  recordQuizScore?(courseId: string, quizId: string, scorePercent: number): void;
+  recordQuizAttempt?(courseId: string, moduleId: string, attempt: QuizAttempt): void;
+  recordLabProgress?(courseId: string, labId: string, progress: PracticalLabProgress): void;
+  recordCapstoneSubmission?(courseId: string, submission: CapstoneSubmissionState): void;
+  recordCapstoneScore?(courseId: string, score: number): void;
+  getComprehensiveCourseCompletion?(course: Course): ComprehensiveCourseCompletion;
+  recordVideoProgress?(progress: UserVideoProgress): void;
+  getVideoProgress?(courseId: string, videoId: string): UserVideoProgress | undefined;
+  getAllVideoProgress?(courseId: string): Record<string, UserVideoProgress>;
 }
 
 function getStorageKey(courseId: string): string {
@@ -47,12 +66,60 @@ function loadState(courseId: string): CourseProgressState {
       };
     }
     const parsed = JSON.parse(raw);
+    const completedLessonIds: string[] = Array.isArray(parsed.completedLessonIds)
+      ? parsed.completedLessonIds
+      : [];
+
+    let archivedLegacyLessonIds: string[] = Array.isArray(parsed.archivedLegacyLessonIds)
+      ? parsed.archivedLegacyLessonIds
+      : [];
+
+    // Safe backwards-compatible migration for upgraded Network Packet Analysis masterclass
+    if (courseId === 'course-packet-analysis-wireshark') {
+      const foundLegacy = completedLessonIds.filter((id) =>
+        LEGACY_PACKET_ANALYSIS_LESSON_IDS.includes(id)
+      );
+      if (foundLegacy.length > 0) {
+        archivedLegacyLessonIds = Array.from(
+          new Set([...archivedLegacyLessonIds, ...foundLegacy])
+        );
+        const filteredCompleted = completedLessonIds.filter(
+          (id) => !LEGACY_PACKET_ANALYSIS_LESSON_IDS.includes(id)
+        );
+
+        const migratedState: CourseProgressState = {
+          courseId,
+          completedLessonIds: filteredCompleted,
+          archivedLegacyLessonIds,
+          lastCompletedLessonId: filteredCompleted.length > 0 ? filteredCompleted[filteredCompleted.length - 1] : undefined,
+          lastActiveLessonId: parsed.lastActiveLessonId,
+          lastAccessedAt: parsed.lastAccessedAt || new Date().toISOString(),
+          quizScores: parsed.quizScores || {},
+          quizAttempts: parsed.quizAttempts || {},
+          labProgress: parsed.labProgress || {},
+          capstoneSubmission: parsed.capstoneSubmission,
+          capstoneScore: parsed.capstoneScore,
+          videoProgress: parsed.videoProgress || {},
+        };
+
+        saveState(migratedState);
+        return migratedState;
+      }
+    }
+
     return {
       courseId,
-      completedLessonIds: Array.isArray(parsed.completedLessonIds) ? parsed.completedLessonIds : [],
+      completedLessonIds,
+      archivedLegacyLessonIds,
       lastCompletedLessonId: parsed.lastCompletedLessonId,
       lastActiveLessonId: parsed.lastActiveLessonId,
       lastAccessedAt: parsed.lastAccessedAt || new Date().toISOString(),
+      quizScores: parsed.quizScores || {},
+      quizAttempts: parsed.quizAttempts || {},
+      labProgress: parsed.labProgress || {},
+      capstoneSubmission: parsed.capstoneSubmission,
+      capstoneScore: parsed.capstoneScore,
+      videoProgress: parsed.videoProgress || {},
     };
   } catch (err) {
     console.error('Failed to read course progress from localStorage:', err);
@@ -72,6 +139,106 @@ function saveState(state: CourseProgressState): void {
   } catch (err) {
     console.error('Failed to persist course progress to localStorage:', err);
   }
+}
+
+export function getComprehensiveCourseCompletion(course: Course): ComprehensiveCourseCompletion {
+  const state = loadState(course.id);
+  const allLessonIds = course.modules.flatMap((m) => m.lessons.map((l) => l.id));
+  const totalLessons = allLessonIds.length;
+  const lessonsCompleted = allLessonIds.filter((id) => state.completedLessonIds.includes(id)).length;
+  const lessonCompletionPercent = totalLessons > 0 ? Math.round((lessonsCompleted / totalLessons) * 100) : 0;
+
+  // Quizzes
+  const modulesWithQuiz = course.modules.filter((m) => !!m.quiz);
+  const totalQuizzes = modulesWithQuiz.length;
+  const quizzesPassed = modulesWithQuiz.filter((m) => {
+    const passingScore = m.quiz?.passingScorePercent || 70;
+    const score = state.quizScores?.[m.id] ?? 0;
+    return score >= passingScore;
+  }).length;
+  const quizCompletionPercent = totalQuizzes > 0 ? Math.round((quizzesPassed / totalQuizzes) * 100) : 100;
+
+  // Labs
+  const modulesWithLab = course.modules.filter((m) => !!m.practicalLab);
+  const totalLabs = modulesWithLab.length;
+  const labsCompleted = modulesWithLab.filter((m) => {
+    const labId = m.practicalLab?.id || m.id;
+    return state.labProgress?.[labId]?.isCompleted;
+  }).length;
+  const labCompletionPercent = totalLabs > 0 ? Math.round((labsCompleted / totalLabs) * 100) : 100;
+
+  // Capstone
+  const hasCapstone = !!course.capstone;
+  const capstoneSubmitted = !!state.capstoneSubmission?.completenessCheckPassed;
+  const capstonePassed = hasCapstone
+    ? (!!state.capstoneSubmission?.isSelfAssessedPassed && (state.capstoneScore ?? 0) >= (course.capstone?.passingScore || 75))
+    : true;
+
+  const hasAssessmentGates = totalQuizzes > 0 || totalLabs > 0 || hasCapstone;
+  let isFullyCompleted = false;
+  let overallProgressPercent = 0;
+
+  if (hasAssessmentGates) {
+    const allLessonsDone = lessonsCompleted === totalLessons;
+    const allQuizzesDone = quizzesPassed === totalQuizzes;
+    const allLabsDone = labsCompleted === totalLabs;
+    isFullyCompleted = allLessonsDone && allQuizzesDone && allLabsDone && capstonePassed;
+
+    // Weighted progress dimensions:
+    // Lessons: 40%, Quizzes: 20%, Labs: 20%, Capstone: 20%
+    let weighted = (lessonCompletionPercent * 0.4);
+    if (totalQuizzes > 0) weighted += (quizCompletionPercent * 0.2); else weighted += (lessonCompletionPercent * 0.2);
+    if (totalLabs > 0) weighted += (labCompletionPercent * 0.2); else weighted += (lessonCompletionPercent * 0.2);
+    if (hasCapstone) {
+      let capstoneProg = 0;
+      if (capstoneSubmitted) capstoneProg += 50;
+      if (capstonePassed) capstoneProg += 50;
+      weighted += (capstoneProg * 0.2);
+    } else {
+      weighted += (lessonCompletionPercent * 0.2);
+    }
+    overallProgressPercent = Math.min(100, Math.round(weighted));
+    if (isFullyCompleted) {
+      overallProgressPercent = 100;
+    } else if (overallProgressPercent === 100) {
+      overallProgressPercent = 99; // Cap at 99% until all required assessment gates pass
+    }
+  } else {
+    // Standard lesson-only course (e.g. MERN, Networking, Wireshark)
+    isFullyCompleted = lessonsCompleted === totalLessons;
+    overallProgressPercent = lessonCompletionPercent;
+  }
+
+  const remainingRequirements: string[] = [];
+  if (lessonsCompleted < totalLessons) {
+    remainingRequirements.push(`${totalLessons - lessonsCompleted} lesson${totalLessons - lessonsCompleted === 1 ? '' : 's'}`);
+  }
+  if (totalQuizzes > 0 && quizzesPassed < totalQuizzes) {
+    remainingRequirements.push(`${totalQuizzes - quizzesPassed} quiz${totalQuizzes - quizzesPassed === 1 ? '' : 'zes'}`);
+  }
+  if (totalLabs > 0 && labsCompleted < totalLabs) {
+    remainingRequirements.push(`${totalLabs - labsCompleted} lab${totalLabs - labsCompleted === 1 ? '' : 's'}`);
+  }
+  if (hasCapstone && !capstonePassed) {
+    remainingRequirements.push(capstoneSubmitted ? 'Capstone passing self-assessment (≥75)' : 'Capstone submission');
+  }
+
+  return {
+    lessonCompletionPercent,
+    lessonsCompleted,
+    totalLessons,
+    quizCompletionPercent,
+    quizzesPassed,
+    totalQuizzes,
+    labCompletionPercent,
+    labsCompleted,
+    totalLabs,
+    capstoneSubmitted,
+    capstonePassed,
+    isFullyCompleted,
+    overallProgressPercent,
+    remainingRequirements,
+  };
 }
 
 export const localCourseProgressService: CourseProgressService = {
@@ -135,12 +302,12 @@ export const localCourseProgressService: CourseProgressService = {
   },
 
   getCourseCompletionPercentage(course: Course): number {
-    const state = loadState(course.id);
-    const allLessonIds = course.modules.flatMap((m) => m.lessons.map((l) => l.id));
-    if (allLessonIds.length === 0) return 0;
+    const comp = getComprehensiveCourseCompletion(course);
+    return comp.overallProgressPercent;
+  },
 
-    const completedCount = allLessonIds.filter((id) => state.completedLessonIds.includes(id)).length;
-    return Math.round((completedCount / allLessonIds.length) * 100);
+  getComprehensiveCourseCompletion(course: Course): ComprehensiveCourseCompletion {
+    return getComprehensiveCourseCompletion(course);
   },
 
   resetCourseProgress(courseId: string): void {
@@ -155,6 +322,83 @@ export const localCourseProgressService: CourseProgressService = {
     } catch (err) {
       console.error('Failed to clear course progress from localStorage:', err);
     }
+  },
+
+  recordQuizScore(courseId: string, quizId: string, scorePercent: number): void {
+    const state = loadState(courseId);
+    const quizScores = { ...(state.quizScores || {}), [quizId]: scorePercent };
+    saveState({
+      ...state,
+      quizScores,
+      lastAccessedAt: new Date().toISOString(),
+    });
+  },
+
+  recordQuizAttempt(courseId: string, moduleId: string, attempt: QuizAttempt): void {
+    const state = loadState(courseId);
+    const existingAttempts = state.quizAttempts?.[moduleId] || [];
+    const nextAttempts = [...existingAttempts, attempt];
+    
+    // Update quizScores with highest score achieved across attempts
+    const highestScore = Math.max(...nextAttempts.map((a) => a.score), 0);
+    const quizScores = { ...(state.quizScores || {}), [moduleId]: highestScore };
+    const quizAttempts = { ...(state.quizAttempts || {}), [moduleId]: nextAttempts };
+
+    saveState({
+      ...state,
+      quizScores,
+      quizAttempts,
+      lastAccessedAt: new Date().toISOString(),
+    });
+  },
+
+  recordLabProgress(courseId: string, labId: string, progress: PracticalLabProgress): void {
+    const state = loadState(courseId);
+    const labProgress = { ...(state.labProgress || {}), [labId]: progress };
+    saveState({
+      ...state,
+      labProgress,
+      lastAccessedAt: new Date().toISOString(),
+    });
+  },
+
+  recordCapstoneSubmission(courseId: string, submission: CapstoneSubmissionState): void {
+    const state = loadState(courseId);
+    saveState({
+      ...state,
+      capstoneSubmission: submission,
+      capstoneScore: submission.selfAssessmentTotal !== undefined ? submission.selfAssessmentTotal : state.capstoneScore,
+      lastAccessedAt: new Date().toISOString(),
+    });
+  },
+
+  recordCapstoneScore(courseId: string, score: number): void {
+    const state = loadState(courseId);
+    saveState({
+      ...state,
+      capstoneScore: score,
+      lastAccessedAt: new Date().toISOString(),
+    });
+  },
+
+  recordVideoProgress(progress: UserVideoProgress): void {
+    const state = loadState(progress.courseId);
+    const videoProgress = { ...(state.videoProgress || {}), [progress.videoId]: progress };
+    saveState({
+      ...state,
+      videoProgress,
+      lastAccessedAt: new Date().toISOString(),
+    });
+  },
+
+  getVideoProgress(courseId: string, videoId: string): UserVideoProgress | undefined {
+    const state = loadState(courseId);
+    return state.videoProgress?.[videoId];
+  },
+
+  getAllVideoProgress(courseId: string): Record<string, UserVideoProgress> {
+    const state = loadState(courseId);
+    return state.videoProgress || {};
   },
 };
 
@@ -174,4 +418,3 @@ export function onCourseProgressChange(callback: (state: CourseProgressState) =>
     window.removeEventListener(PROGRESS_EVENT_NAME, handler);
   };
 }
-

@@ -3,6 +3,12 @@
   "framework": "nextjs",
   "buildCommand": "npm run build",
   "cleanUrls": true,
+  "crons": [
+    {
+      "path": "/api/cron/sync-youtube-playlists",
+      "schedule": "0 3 * * *"
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",
@@ -31,4 +37,3 @@
     }
   ]
 }
-

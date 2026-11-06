@@ -6,6 +6,7 @@ import { onCourseProgressChange } from '../../lib/course-progress';
 import { cloudCourseProgressService } from '../../lib/cloud-course-progress';
 import { getCourseLessons } from '../../lib/courses';
 import { CheckCircle2, RotateCcw } from 'lucide-react';
+import { SyncStatusBadge } from './SyncStatusBadge';
 
 interface CourseProgressProps {
   course: Course;
@@ -75,6 +76,11 @@ export const CourseProgress: React.FC<CourseProgressProps> = ({ course, variant 
             Reset
           </button>
         )}
+      </div>
+
+      {/* Server sync status indicator */}
+      <div className="pt-1 border-t border-[#e4e4ed]/60 flex items-center justify-between">
+        <SyncStatusBadge courseId={course.id} />
       </div>
     </div>
   );

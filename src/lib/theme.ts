@@ -1,7 +1,6 @@
 /**
  * CyberTube — Theme Management Service
- *
- * Shared theme storage key used by next-themes and the global theme toggle.
+ * next-themes uses the same "theme" storage key by default.
  */
 
 export type Theme = 'dark' | 'light';

@@ -15,7 +15,7 @@ test.describe('Privacy Policy & Terms of Service Compliance', () => {
 
     // Operator and contact info
     await expect(page.getByText('privacy@cybertube.org').first()).toBeVisible();
-    await expect(page.getByText('support@cybertube.local').first()).toBeVisible();
+    await expect(page.getByText('github.com/arun-codex/CyberTube').first()).toBeVisible();
     await expect(page.getByText(/CyberTube Open Education Project/i).first()).toBeVisible();
 
     // Google OAuth Scopes & Limited Use assertions

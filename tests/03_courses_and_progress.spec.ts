@@ -16,7 +16,8 @@ test.describe('CyberTube Courses, Lessons & Progress Tracking', () => {
   });
 
   test('Lesson player embeds YouTube player and allows completion toggle', async ({ page }) => {
-    await page.goto(`/courses/${courseSlug}`);
+    // Navigate to a lesson with YouTube video in the curriculum
+    await page.goto(`/courses/${courseSlug}?lesson=advanced-investigation-workflow`);
     await page.waitForLoadState('domcontentloaded');
 
     // Check YouTube iframe presence

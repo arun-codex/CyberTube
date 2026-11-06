@@ -80,7 +80,7 @@ export default function PrivacyPolicyPage() {
               Privacy & Legal Contact: <a href="mailto:privacy@cybertube.org" className="text-[#0E7490] dark:text-[#22D3EE] underline hover:opacity-80">privacy@cybertube.org</a>
             </p>
             <p className="text-[#475569] dark:text-[#9BA8B7]">
-              Technical Support: <a href="mailto:support@cybertube.local" className="text-[#0E7490] dark:text-[#22D3EE] underline hover:opacity-80">support@cybertube.local</a>
+              Technical Support: <a href="mailto:privacy@cybertube.org" className="text-[#0E7490] dark:text-[#22D3EE] underline hover:opacity-80">privacy@cybertube.org</a>
             </p>
             <p className="text-[#475569] dark:text-[#9BA8B7]">
               Source Code & Issues: <a href="https://github.com/arun-codex/CyberTube" target="_blank" rel="noopener noreferrer" className="text-[#0E7490] dark:text-[#22D3EE] underline hover:opacity-80">github.com/arun-codex/CyberTube</a>
@@ -285,7 +285,7 @@ export default function PrivacyPolicyPage() {
               <strong>Avatar Removal:</strong> You can delete your custom uploaded avatar at any time in your <Link href="/account" className="text-[#0E7490] dark:text-[#22D3EE] underline hover:opacity-80">Account Settings</Link>. The image object is permanently purged from the private storage bucket.
             </p>
             <p className="leading-relaxed">
-              <strong>Account Deletion:</strong> You can request full, permanent deletion of your CyberTube account and all associated records at any time by contacting us at <a href="mailto:privacy@cybertube.org?subject=Account%20Deletion%20Request" className="text-[#0E7490] dark:text-[#22D3EE] underline hover:opacity-80">privacy@cybertube.org</a> or <a href="mailto:support@cybertube.local" className="text-[#0E7490] dark:text-[#22D3EE] underline hover:opacity-80">support@cybertube.local</a>. Upon processing:
+              <strong>Account Deletion:</strong> You can request full, permanent deletion of your CyberTube account and all associated records at any time by contacting us at <a href="mailto:privacy@cybertube.org?subject=Account%20Deletion%20Request" className="text-[#0E7490] dark:text-[#22D3EE] underline hover:opacity-80">privacy@cybertube.org</a>. Upon processing:
             </p>
             <ul className="list-disc list-inside space-y-1 pl-2">
               <li>Your record in <code>auth.users</code> is permanently deleted.</li>

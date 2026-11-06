@@ -58,49 +58,50 @@ export default function SavedResourcesPage() {
   };
 
   return (
-    <div className="container-max py-8 space-y-8">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#e4e4ed] pb-6">
-        <div>
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-[4px] bg-[#303055] text-white flex items-center justify-center">
-              <Bookmark className="w-4 h-4 fill-white stroke-none" />
+    <div className="container-max py-8 space-y-6">
+      {/* Header Banner */}
+      <div className="rounded-[8px] border border-[#e4e4ed] dark:border-[#243044] bg-[#f4f4f9] dark:bg-[#121A26] p-6 sm:p-8 space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="space-y-1">
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-[4px] bg-white dark:bg-[#1A2433] border border-[#e4e4ed] dark:border-[#243044] text-xs font-mono text-[#0E7490] dark:text-[#22D3EE] mb-1">
+              <Bookmark className="w-3.5 h-3.5 fill-current" />
+              <span>Offline Bookmarks</span>
             </div>
-            <h1 className="text-xl sm:text-2xl font-semibold text-[#303055]">
+            <h1 className="font-rajdhani text-3xl sm:text-4xl font-bold text-[#0F172A] dark:text-[#E6EDF3] tracking-tight">
               Saved Resources
             </h1>
+            <p className="text-xs sm:text-sm text-[#475569] dark:text-[#9BA8B7] leading-relaxed max-w-2xl">
+              Personal reading list and lab references saved locally on this device.
+            </p>
           </div>
-          <p className="text-xs text-[#6b6b7b] mt-1">
-            Personal reading list and lab references saved on this device.
-          </p>
-        </div>
 
-        {savedResources.length > 0 && (
-          <button
-            onClick={handleClearAll}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[4px] border border-[#e8b5b5] text-[#984e4d] bg-[#fbeaea] hover:bg-[#f8d5d5] text-xs font-mono transition-colors self-start sm:self-auto min-h-[36px]"
-          >
-            <Trash2 className="w-3.5 h-3.5" />
-            <span>Clear all</span>
-          </button>
-        )}
+          {savedResources.length > 0 && (
+            <button
+              onClick={handleClearAll}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[4px] border border-[#e8b5b5] dark:border-[#7f1d1d] text-[#984e4d] dark:text-[#f87171] bg-[#fbeaea] dark:bg-[#450a0a]/30 hover:bg-[#f8d5d5] dark:hover:bg-[#7f1d1d]/40 text-xs font-mono transition-colors self-start sm:self-auto min-h-[36px]"
+            >
+              <Trash2 className="w-3.5 h-3.5" />
+              <span>Clear all ({savedResources.length})</span>
+            </button>
+          )}
+        </div>
       </div>
 
       {!isLoaded ? (
-        <div className="py-20 text-center font-mono text-xs text-[#6b6b7b]">
+        <div className="py-20 text-center font-mono text-xs text-[#64748B] dark:text-[#9BA8B7]">
           Loading bookmarks...
         </div>
       ) : savedResources.length === 0 ? (
-        <div className="text-center py-20 px-4 rounded-[8px] border border-[#e4e4ed] bg-[#f4f4f9] space-y-3">
-          <Bookmark className="w-8 h-8 text-[#6b6b7b] mx-auto stroke-1" />
-          <h2 className="text-base font-semibold text-[#303055]">No saved resources yet</h2>
-          <p className="text-xs text-[#6b6b7b] max-w-sm mx-auto">
+        <div className="text-center py-20 px-4 rounded-[8px] border border-[#e4e4ed] dark:border-[#243044] bg-white dark:bg-[#121A26] space-y-3">
+          <Bookmark className="w-8 h-8 text-[#64748B] dark:text-[#9BA8B7] mx-auto stroke-1" />
+          <h2 className="text-base font-semibold font-rajdhani text-[#0F172A] dark:text-[#E6EDF3]">No saved resources yet</h2>
+          <p className="text-xs text-[#475569] dark:text-[#9BA8B7] max-w-sm mx-auto">
             Browse the discovery engine or video courses to bookmark talks and labs for later study.
           </p>
           <div className="pt-2">
             <Link
               href="/discover"
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-[4px] bg-[#303055] text-white text-xs font-medium min-h-[44px]"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-[4px] bg-[#0F172A] dark:bg-[#22D3EE] text-white dark:text-[#0B1018] text-xs font-medium hover:bg-[#1E293B] dark:hover:bg-[#06b6d4] min-h-[40px] transition-colors"
             >
               Explore Discover Catalog
             </Link>
@@ -111,20 +112,20 @@ export default function SavedResourcesPage() {
           {/* Filter Bar */}
           <div className="flex flex-col sm:flex-row gap-3">
             <div className="relative flex-1">
-              <Search className="w-4 h-4 text-[#6b6b7b] absolute left-3 top-1/2 -translate-y-1/2" />
+              <Search className="w-4 h-4 text-[#64748B] dark:text-[#9BA8B7] absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
               <input
                 type="text"
                 placeholder="Search saved resources..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-white border border-[#e4e4ed] rounded-[4px] pl-9 pr-3 py-2 text-xs font-mono text-[#303055] focus:outline-none focus:border-[#303055] min-h-[38px]"
+                className="w-full bg-white dark:bg-[#1A2433] border border-[#e4e4ed] dark:border-[#243044] rounded-[4px] pl-9 pr-3 py-2 text-xs font-mono text-[#0F172A] dark:text-[#E6EDF3] placeholder:text-[#64748B] dark:placeholder:text-[#9BA8B7] focus:outline-none focus:border-[#0E7490] dark:focus:border-[#22D3EE] min-h-[38px] transition-colors"
               />
             </div>
 
             <select
               value={selectedType}
               onChange={(e) => setSelectedType(e.target.value)}
-              className="px-3 py-2 text-xs font-mono rounded-[4px] bg-white border border-[#e4e4ed] text-[#403f53] focus:outline-none focus:border-[#303055] min-h-[38px]"
+              className="px-3 py-2 text-xs font-mono rounded-[4px] bg-white dark:bg-[#1A2433] border border-[#e4e4ed] dark:border-[#243044] text-[#475569] dark:text-[#9BA8B7] focus:outline-none focus:border-[#0E7490] dark:focus:border-[#22D3EE] min-h-[38px] transition-colors"
             >
               <option value="all">All Formats ({savedResources.length})</option>
               {RESOURCE_TYPES.map((t) => (
