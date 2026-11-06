@@ -113,22 +113,28 @@ test.describe('Phase 18 — Network Packet Forensics Masterclass Integration', (
     expect(lessonsWithoutVideo.length).toBe(34);
   });
 
-  test('9. Video-less lessons render theory/lab guide banner and Netsec Explained series link', async ({ page }) => {
+  test('9. Video-less lessons keep the official masterclass series playable inside CyberTube', async ({ page }) => {
     await page.goto(`/courses/${courseSlug}?lesson=osi-vs-tcpip-encapsulation`);
     await page.waitForLoadState('domcontentloaded');
 
-    // Theory banner should be visible
     const theoryBanner = page.locator('[data-testid="theory-lesson-banner"]');
     await expect(theoryBanner).toBeVisible();
     await expect(theoryBanner).toContainText('Forensics Curriculum & Practical Lab Guide');
 
-    // Link to Netsec Explained should be present
-    const extLink = theoryBanner.locator('a[href*="youtube.com/@NetsecExplained"]');
-    await expect(extLink).toBeVisible();
+    const videoLibrary = page.locator('[data-testid="course-video-library"]');
+    await expect(videoLibrary).toBeVisible();
+    await expect(videoLibrary).toContainText('Official Netsec Explained Masterclasses');
 
-    // No broken youtube iframe should be rendered
-    const iframe = page.locator('iframe[src*="youtube.com/embed"]');
-    expect(await iframe.count()).toBe(0);
+    // The lesson page must embed a real video instead of sending learners to the channel.
+    const iframe = videoLibrary.locator('iframe[src*="youtube.com/embed"]');
+    await expect(iframe).toHaveCount(1);
+    await expect(iframe).toHaveAttribute('src', /e_dsGhvq9CU/);
+    await expect(theoryBanner.locator('a[href*="youtube.com/@NetsecExplained"]')).toHaveCount(0);
+
+    // Switching masterclasses must update the embedded player without navigating away.
+    await videoLibrary.locator('[data-testid="masterclass-video-option-ZJZlRGLN2_s"]').click();
+    await expect(iframe).toHaveAttribute('src', /ZJZlRGLN2_s/);
+    await expect(page).toHaveURL(/lesson=osi-vs-tcpip-encapsulation/);
   });
 
   test('10. PCAP links: official repository links & SHA256 hashes present', async ({ page }) => {
