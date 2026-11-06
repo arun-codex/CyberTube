@@ -2,14 +2,12 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { AlertCircle, ArrowLeft, CheckCircle2, Eye, EyeOff, Lock, Shield } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
 
 type RecoveryStatus = 'checking' | 'ready' | 'invalid' | 'unavailable' | 'success';
 
 export default function ResetPasswordPage() {
-  const router = useRouter();
   const [status, setStatus] = useState<RecoveryStatus>('checking');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
