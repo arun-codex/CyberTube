@@ -30,7 +30,8 @@ file_size_limit = "50MiB"
 public = false
 file_size_limit = "5MiB"
 allowed_mime_types = ["image/jpeg", "image/png", "image/webp"]
-objects_path = "./supabase/storage/avatars"
+# No objects_path: avatars are user-generated files uploaded at runtime.
+# Do not seed personal avatar files from the repository.
 
 [studio]
 enabled = true
