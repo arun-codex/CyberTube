@@ -101,7 +101,8 @@ export async function forgotPasswordAction(formData: FormData) {
   }
 
   const { error } = await supabase.auth.resetPasswordForEmail(email, {
-    // Use the existing PKCE callback so the recovery code is exchanged into the SSR cookie session.\n    redirectTo: getAuthCallbackUrl('/reset-password'),
+    // Use the existing PKCE callback so the recovery code is exchanged into the SSR cookie session.
+    redirectTo: getAuthCallbackUrl('/reset-password'),
   });
 
   if (error) {
