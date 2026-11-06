@@ -119,6 +119,14 @@ function LoginForm() {
               className="w-full bg-[#f4f4f9] border border-[#e4e4ed] rounded-[4px] pl-9 pr-3 py-2 text-xs font-mono text-[#303055] placeholder-[#6b6b7b] focus:outline-none focus:border-[#303055] min-h-[38px]"
             />
           </div>
+          <div className="flex justify-end">
+            <Link
+              href="/forgot-password"
+              className="text-[11px] font-medium text-[#303055] hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-[#303055] rounded-sm"
+            >
+              Forgot password?
+            </Link>
+          </div>
         </div>
 
         <button

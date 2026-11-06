@@ -3,7 +3,7 @@
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
-import { getSiteOrigin } from '@/lib/canonicalUrl';
+import { getAuthCallbackUrl, getSiteOrigin } from '@/lib/canonicalUrl';
 
 export async function loginAction(formData: FormData) {
   const email = formData.get('email') as string;
@@ -86,10 +86,11 @@ export async function logoutAction() {
 }
 
 export async function forgotPasswordAction(formData: FormData) {
-  const email = formData.get('email') as string;
+  const emailValue = formData.get('email');
+  const email = typeof emailValue === 'string' ? emailValue.trim().toLowerCase() : '';
 
-  if (!email) {
-    return { error: 'Please enter your email address.' };
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    return { error: 'Please enter a valid email address.' };
   }
 
   const supabase = await createClient();
@@ -99,9 +100,9 @@ export async function forgotPasswordAction(formData: FormData) {
     };
   }
 
-  const origin = getSiteOrigin();
   const { error } = await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: `${origin}/reset-password`,
+    // Use the existing PKCE callback so the recovery code is exchanged into the SSR cookie session.
+    redirectTo: getAuthCallbackUrl('/reset-password'),
   });
 
   if (error) {
