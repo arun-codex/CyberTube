@@ -265,13 +265,57 @@ export class CloudCourseProgressService implements CourseProgressService {
       }
     });
 
+    // Also fetch remote video progress for this course
+    let mergedVideoProgress = { ...(localState.videoProgress || {}) };
+    try {
+      const { data: videoRows } = await (this.supabase
+        .from('user_lesson_video_progress') as any)
+        .select('*')
+        .eq('user_id', user.id)
+        .eq('course_id', courseId);
+
+      if (Array.isArray(videoRows) && videoRows.length > 0) {
+        videoRows.forEach((vr: any) => {
+          const vKey = vr.video_id;
+          const existing = mergedVideoProgress[vKey];
+          const vrTime = new Date(vr.last_watched_at || 0).getTime();
+          const exTime = new Date(existing?.lastWatchedAt || 0).getTime();
+
+          const isCompleted = existing?.isCompleted || Boolean(vr.is_completed);
+          const bestPercent = Math.max(existing?.completionPercentage || 0, vr.completion_percentage || 0);
+          const bestSeconds = vrTime > exTime ? vr.last_watched_seconds : (existing?.lastWatchedSeconds || vr.last_watched_seconds);
+
+          mergedVideoProgress[vKey] = {
+            courseId: vr.course_id,
+            moduleId: vr.module_id || existing?.moduleId,
+            lessonId: vr.lesson_id,
+            videoId: vr.video_id,
+            lastWatchedSeconds: bestSeconds || 0,
+            durationSeconds: vr.duration_seconds || existing?.durationSeconds || 0,
+            completionPercentage: isCompleted ? Math.max(100, bestPercent) : bestPercent,
+            isCompleted,
+            lastWatchedAt: vrTime > exTime ? vr.last_watched_at : (existing?.lastWatchedAt || vr.last_watched_at),
+          };
+        });
+      }
+    } catch (vErr) {
+      console.warn('Could not sync video progress for course:', vErr);
+    }
+
     // Save merged state locally
     const mergedState: CourseProgressState = {
       courseId,
       completedLessonIds: mergedCompleted,
+      archivedLegacyLessonIds: localState.archivedLegacyLessonIds,
       lastCompletedLessonId: localState.lastCompletedLessonId,
       lastActiveLessonId: bestActiveLessonId,
       lastAccessedAt: new Date(latestAccessDate || Date.now()).toISOString(),
+      quizScores: localState.quizScores,
+      quizAttempts: localState.quizAttempts,
+      labProgress: localState.labProgress,
+      capstoneSubmission: localState.capstoneSubmission,
+      capstoneScore: localState.capstoneScore,
+      videoProgress: mergedVideoProgress,
     };
 
     // Update local cache
