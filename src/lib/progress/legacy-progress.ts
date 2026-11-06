@@ -41,4 +41,3 @@ export function isItemCompleted(key: string, itemId: string): boolean {
   const current = getCompletedItems(key);
   return current.includes(itemId);
 }
-
