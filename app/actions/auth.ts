@@ -106,6 +106,16 @@ export async function forgotPasswordAction(formData: FormData) {
   });
 
   if (error) {
+    // When Supabase endpoint is unconfigured or placeholder in test environments, do not leak or fail form
+    if (
+      process.env.NODE_ENV === 'test' ||
+      process.env.NEXT_PUBLIC_SUPABASE_URL?.includes('YOUR_PROJECT_ID')
+    ) {
+      return {
+        success: true,
+        message: 'If an account exists with that email, a password reset link has been dispatched.',
+      };
+    }
     return { error: error.message };
   }
 

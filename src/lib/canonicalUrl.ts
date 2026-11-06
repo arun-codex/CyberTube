@@ -80,8 +80,12 @@ export function getSiteOrigin(): string {
   }
 
   // 3. Server-side environment fallback
-  if (process.env.NODE_ENV === 'development') {
+  if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') {
     return 'http://localhost:3000';
+  }
+
+  if (process.env.VERCEL_ENV === 'preview' && process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}`;
   }
 
   return CANONICAL_ORIGIN;
