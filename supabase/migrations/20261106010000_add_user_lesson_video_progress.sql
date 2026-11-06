@@ -61,3 +61,4 @@ CREATE POLICY "Users can delete own video progress"
   FOR DELETE
   TO authenticated
   USING ((SELECT auth.uid()) = user_id);
+
