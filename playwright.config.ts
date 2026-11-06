@@ -1,4 +1,11 @@
+import { randomBytes } from 'node:crypto';
 import { defineConfig, devices } from '@playwright/test';
+
+// Generate a fresh secret for each local Playwright invocation. It is shared
+// only between this test runner and the local webServer process.
+const playwrightTestAuthSecret = randomBytes(32).toString('hex');
+process.env.CYBERTUBE_ENABLE_TEST_AUTH = 'true';
+process.env.CYBERTUBE_TEST_AUTH_SECRET = playwrightTestAuthSecret;
 
 export default defineConfig({
   testDir: './tests',
@@ -21,12 +28,12 @@ export default defineConfig({
   webServer: {
     command: 'npm run start',
     url: 'http://localhost:3000',
-    reuseExistingServer: !process.env.CI,
+    // Do not reuse a separately started server with a different test secret.
+    reuseExistingServer: false,
     timeout: 120000,
     env: {
       CYBERTUBE_ENABLE_TEST_AUTH: 'true',
-      CYBERTUBE_TEST_AUTH_SECRET: 'playwright-local-ephemeral-secret-9b2f8c7e1a3d',
+      CYBERTUBE_TEST_AUTH_SECRET: playwrightTestAuthSecret,
     },
   },
 });
-
