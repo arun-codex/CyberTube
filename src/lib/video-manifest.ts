@@ -69,3 +69,4 @@ export function getForensicsVideoManifestSummary() {
     uniqueVideoCount: typedForensicsManifest.uniqueVideoCount,
   };
 }
+
