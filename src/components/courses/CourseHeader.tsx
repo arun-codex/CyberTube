@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { Course } from '../../types/course';
-import { ArrowLeft, Clock, User, BookOpen, Layers, ExternalLink } from 'lucide-react';
+import { ArrowLeft, Clock, User, BookOpen, Layers, ExternalLink, Library } from 'lucide-react';
 import { CourseProgress } from './CourseProgress';
 import { getCourseLessons } from '../../lib/courses';
 
@@ -89,6 +89,19 @@ export const CourseHeader: React.FC<CourseHeaderProps> = ({ course }) => {
             {/* Source Playlist Attribution and External Link */}
             {course.sourcePlaylistUrl && (
               <div className="flex flex-wrap items-center gap-3 pt-2 text-xs font-mono">
+                {course.slug === 'free-ccna-200-301-networkchuck' && (
+                  <>
+                    <Link
+                      href="/library/net-02"
+                      data-testid="view-in-library-btn"
+                      className="inline-flex items-center gap-1.5 text-[#0E7490] dark:text-[#22D3EE] font-medium hover:underline transition-colors"
+                    >
+                      <Library className="w-3.5 h-3.5" />
+                      <span>View in Library</span>
+                    </Link>
+                    <span className="text-[#6b6b7b]">•</span>
+                  </>
+                )}
                 <a
                   href={course.sourcePlaylistUrl}
                   target="_blank"
