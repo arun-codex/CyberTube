@@ -1,7 +1,9 @@
 import { Course } from '../types/course';
 import { NETWORK_PACKET_FORENSICS_COURSE } from './network-packet-forensics-course';
+import { STORYTELLING_MASTERCLASS_COURSE } from './storytelling-masterclass-course';
 
 export const COURSES: Course[] = [
+  STORYTELLING_MASTERCLASS_COURSE,
   NETWORK_PACKET_FORENSICS_COURSE,
   {
     id: 'course-hardware-cpu-security',
