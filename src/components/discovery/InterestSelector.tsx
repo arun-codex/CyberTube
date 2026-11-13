@@ -1,18 +1,37 @@
 // src/components/discovery/InterestSelector.tsx
 import { useEffect, useState } from "react";
-import { useSession } from "@supabase/auth-helpers-react";
+import { createBrowserClient } from "@supabase/ssr";
 
 interface Topic {
   id: string;
   name: string;
 }
 
-export default function InterestSelector() {
-  const session = useSession();
+export default function InterestSelector({ onInterestsChange }: { onInterestsChange?: () => void }) {
+  // Supabase client for browser side
+  const supabase = createBrowserClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  );
+  const [sessionUserId, setSessionUserId] = useState<string | null>(null);
   const [topics, setTopics] = useState<Topic[]>([]);
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  // Load auth session (user id) on mount
+  useEffect(() => {
+    async function loadSession() {
+      const { data, error } = await supabase.auth.getUser();
+      if (error) {
+        setError(error.message);
+        setLoading(false);
+        return;
+      }
+      setSessionUserId(data.user?.id ?? null);
+    }
+    loadSession();
+  }, []);
 
   // Fetch available topics
   useEffect(() => {
@@ -29,15 +48,16 @@ export default function InterestSelector() {
     load();
   }, []);
 
-  // Fetch user interests
+  // Fetch user interests when we have a user id
   useEffect(() => {
-    if (!session?.user?.id) return;
+    if (!sessionUserId) return;
     async function load() {
       try {
         const r = await fetch("/api/discover/interests");
         if (!r.ok) throw new Error("Failed to load interests");
         const d = await r.json();
         setSelected(new Set(d.interests ?? []));
+        if (onInterestsChange) onInterestsChange();
       } catch (e: any) {
         setError(e.message);
       } finally {
@@ -45,10 +65,10 @@ export default function InterestSelector() {
       }
     }
     load();
-  }, [session]);
+  }, [sessionUserId]);
 
   const toggle = async (id: string) => {
-    if (!session?.user?.id) {
+    if (!sessionUserId) {
       setError("Sign in required to modify interests");
       return;
     }
