@@ -13,7 +13,7 @@ export async function GET() {
     let totalCategories = DISCOVERY_CATEGORIES.length;
     let totalTopics = DISCOVERY_TOPICS.length;
     let totalItems = 0;
-    let lastRefreshAt: string | null = null;
+    let lastRefreshAt: string | undefined = undefined;
 
     if (supabase) {
       // Safe public item count
