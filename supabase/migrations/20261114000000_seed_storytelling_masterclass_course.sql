@@ -42,18 +42,9 @@ BEGIN
       USING ((SELECT auth.uid()) = user_id);
   END IF;
 
-  IF NOT EXISTS (
-    SELECT 1 FROM pg_policies
-    WHERE tablename = 'user_quiz_attempts' AND policyname = 'Users can record their own quiz attempts'
-  ) THEN
-    CREATE POLICY "Users can record their own quiz attempts"
-      ON public.user_quiz_attempts FOR INSERT
-      TO authenticated
-      WITH CHECK ((SELECT auth.uid()) = user_id);
-  END IF;
 END $$;
 
-GRANT SELECT, INSERT ON TABLE public.user_quiz_attempts TO authenticated;
+GRANT SELECT ON TABLE public.user_quiz_attempts TO authenticated;
 
 -- -----------------------------------------------------------------------------
 -- 2. SEED COURSE, MODULES, AND LESSONS
