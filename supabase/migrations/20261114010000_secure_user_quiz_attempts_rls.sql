@@ -49,3 +49,30 @@ BEGIN
       CHECK (correct_count <= total_questions);
   END IF;
 END $$;
+
+-- 7. Add server-controlled verification marker and idempotency support
+DO $$
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM information_schema.columns
+    WHERE table_name = 'user_quiz_attempts' AND column_name = 'verified_by_server'
+  ) THEN
+    ALTER TABLE public.user_quiz_attempts
+      ADD COLUMN verified_by_server BOOLEAN NOT NULL DEFAULT FALSE;
+  END IF;
+
+  IF NOT EXISTS (
+    SELECT 1 FROM information_schema.columns
+    WHERE table_name = 'user_quiz_attempts' AND column_name = 'idempotency_key'
+  ) THEN
+    ALTER TABLE public.user_quiz_attempts
+      ADD COLUMN idempotency_key VARCHAR(128);
+  END IF;
+END $$;
+
+CREATE UNIQUE INDEX IF NOT EXISTS uq_user_quiz_attempts_idempotency
+  ON public.user_quiz_attempts(user_id, idempotency_key)
+  WHERE idempotency_key IS NOT NULL;
+
+CREATE INDEX IF NOT EXISTS idx_user_quiz_attempts_verified
+  ON public.user_quiz_attempts(user_id, course_id, module_id, passed, verified_by_server);

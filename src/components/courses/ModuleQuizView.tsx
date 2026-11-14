@@ -42,6 +42,13 @@ export const ModuleQuizView: React.FC<ModuleQuizViewProps> = ({
   const [attempts, setAttempts] = useState<QuizAttempt[]>([]);
   const [activeScore, setActiveScore] = useState<number>(0);
   const [serverEvaluation, setServerEvaluation] = useState<ServerEvaluationResult | null>(null);
+  const [submissionError, setSubmissionError] = useState<{
+    type: 'prerequisite' | 'service_unavailable' | 'server_error' | 'network_error';
+    message: string;
+  } | null>(null);
+  const [currentIdempotencyKey, setCurrentIdempotencyKey] = useState<string>(() => {
+    return `quiz-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
+  });
 
   const passingScorePercent = quiz.passingScorePercent || 70;
 
@@ -76,11 +83,17 @@ export const ModuleQuizView: React.FC<ModuleQuizViewProps> = ({
 
   const handleSubmit = async () => {
     setSubmitting(true);
+    setSubmissionError(null);
     let finalScore = 0;
     let finalPassed = false;
     let evalData: ServerEvaluationResult | null = null;
     let serverAttemptId: string | null = null;
     let serverSubmittedAt: string | null = null;
+
+    const isStorytellingCourse =
+      courseId === 'c0000000-0000-4000-8000-000000000001' ||
+      courseId === 'course-free-storytelling-masterclass' ||
+      courseId.includes('storytelling');
 
     try {
       // 1. Attempt secure server-side evaluation via API
@@ -91,6 +104,7 @@ export const ModuleQuizView: React.FC<ModuleQuizViewProps> = ({
           courseId,
           moduleId,
           selectedAnswers,
+          idempotencyKey: currentIdempotencyKey,
         }),
       });
 
@@ -116,16 +130,52 @@ export const ModuleQuizView: React.FC<ModuleQuizViewProps> = ({
         }
       } else {
         const errJson = await res.json().catch(() => null);
-        throw new Error(errJson?.error || `Evaluation endpoint returned ${res.status}`);
+        const errMsg = errJson?.error || `Server responded with status ${res.status}`;
+
+        if (res.status === 403) {
+          setSubmissionError({
+            type: 'prerequisite',
+            message: errMsg || 'Prerequisite unfulfilled: You must complete and pass the previous module quiz first.',
+          });
+          setSubmitting(false);
+          return;
+        } else if (res.status === 503) {
+          setSubmissionError({
+            type: 'service_unavailable',
+            message: 'Database service is temporarily unavailable. Your answers have been preserved—please try submitting again shortly.',
+          });
+          setSubmitting(false);
+          return;
+        } else if (res.status >= 500) {
+          setSubmissionError({
+            type: 'server_error',
+            message: 'Quiz submission failed due to a server error. Please retry submission.',
+          });
+          setSubmitting(false);
+          return;
+        } else {
+          setSubmissionError({
+            type: 'server_error',
+            message: errMsg,
+          });
+          setSubmitting(false);
+          return;
+        }
       }
     } catch (err: any) {
-      console.warn('Server quiz evaluation unavailable, falling back to local evaluation:', err);
-      // If error was a 403 prerequisite failure, propagate it instead of local fallback
-      if (err?.message && err.message.includes('Prerequisite unfulfilled')) {
-        alert(err.message);
+      console.warn('Server quiz evaluation failed or network error occurred:', err);
+
+      // For Storytelling, NEVER fall back to local grading or fabricate scores
+      if (isStorytellingCourse) {
+        setSubmissionError({
+          type: 'network_error',
+          message: 'Network connection issue or offline status. Your selected answers have been saved. Please check your connection and retry.',
+        });
         setSubmitting(false);
         return;
       }
+
+      // For non-storytelling legacy courses with embedded answers:
       finalScore = calculateFallbackScore();
       finalPassed = finalScore >= passingScorePercent;
     } finally {
@@ -158,6 +208,9 @@ export const ModuleQuizView: React.FC<ModuleQuizViewProps> = ({
     setSelectedAnswers({});
     setSubmitted(false);
     setServerEvaluation(null);
+    setSubmissionError(null);
+    // Generate fresh idempotency key for intentional retake
+    setCurrentIdempotencyKey(`quiz-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`);
   };
 
   const isPassed = activeScore >= passingScorePercent;
@@ -271,6 +324,36 @@ export const ModuleQuizView: React.FC<ModuleQuizViewProps> = ({
           );
         })}
       </div>
+
+      {/* Submission Error Banner */}
+      {submissionError && (
+        <div
+          data-testid="quiz-submission-error"
+          className="p-4 rounded-[6px] border border-[#EF4444]/40 bg-[#EF4444]/10 text-[#991B1B] dark:text-[#F87171] space-y-2"
+        >
+          <div className="flex items-center gap-2 font-bold text-xs">
+            <AlertCircle className="w-4 h-4 flex-shrink-0" />
+            <span>
+              {submissionError.type === 'prerequisite' && 'Prerequisite Requirement Not Fulfilled'}
+              {submissionError.type === 'service_unavailable' && 'Service Temporarily Unavailable'}
+              {submissionError.type === 'network_error' && 'Network Connection Issue'}
+              {submissionError.type === 'server_error' && 'Submission Failed'}
+            </span>
+          </div>
+          <p className="text-xs leading-relaxed">{submissionError.message}</p>
+          {submissionError.type !== 'prerequisite' && (
+            <button
+              type="button"
+              onClick={handleSubmit}
+              disabled={submitting}
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-[4px] bg-[#EF4444] text-white text-xs font-mono font-semibold hover:bg-[#DC2626] transition-colors cursor-pointer mt-1"
+            >
+              <RotateCcw className="w-3.5 h-3.5" />
+              <span>Retry Submission</span>
+            </button>
+          )}
+        </div>
+      )}
 
       {submitted ? (
         <div className="space-y-4">

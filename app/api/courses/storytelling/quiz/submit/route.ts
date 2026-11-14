@@ -11,7 +11,7 @@ import {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { courseId, moduleId, selectedAnswers } = body;
+    const { courseId, moduleId, selectedAnswers, idempotencyKey } = body;
 
     if (!moduleId || typeof moduleId !== 'string') {
       return NextResponse.json(
@@ -79,13 +79,16 @@ export async function POST(request: NextRequest) {
         const prevWeekNum = currentWeekNum - 1;
         const prevModuleUuid = getStorytellingModuleUuid(prevWeekNum);
 
-        const { data: prevAttempts, error: checkError } = await (adminSupabase
+        let prevAttemptsQuery = (adminSupabase
           .from('user_quiz_attempts') as any)
-          .select('passed, score')
+          .select('passed, score, verified_by_server')
           .eq('user_id', user.id)
           .eq('course_id', STORYTELLING_COURSE_UUID)
           .eq('module_id', prevModuleUuid)
           .eq('passed', true);
+
+        // Require verified_by_server = true when column exists in schema
+        const { data: prevAttempts, error: checkError } = await prevAttemptsQuery;
 
         if (checkError) {
           console.error('Failed to query prerequisite attempts from database:', checkError);
@@ -95,7 +98,15 @@ export async function POST(request: NextRequest) {
           );
         }
 
-        if (!prevAttempts || prevAttempts.length === 0) {
+        // Filter for verified attempts (if column is present on records, must be true)
+        const validPassingAttempts = (prevAttempts || []).filter((att: any) => {
+          if ('verified_by_server' in att) {
+            return att.verified_by_server === true && att.passed === true;
+          }
+          return att.passed === true;
+        });
+
+        if (validPassingAttempts.length === 0) {
           return NextResponse.json(
             {
               error: `Prerequisite unfulfilled: You must complete and pass the Week ${prevWeekNum} quiz assessment (≥ 70%) before attempting Week ${currentWeekNum}.`,
@@ -105,6 +116,33 @@ export async function POST(request: NextRequest) {
             { status: 403 }
           );
         }
+      }
+    }
+
+    // Check for existing idempotent attempt submission
+    if (user && adminSupabase && idempotencyKey && typeof idempotencyKey === 'string') {
+      const { data: existingIdempotent } = await (adminSupabase
+        .from('user_quiz_attempts') as any)
+        .select('*')
+        .eq('user_id', user.id)
+        .eq('idempotency_key', idempotencyKey)
+        .maybeSingle();
+
+      if (existingIdempotent) {
+        return NextResponse.json({
+          success: true,
+          courseId: courseId || 'course-free-storytelling-masterclass',
+          week: currentWeekNum,
+          moduleId,
+          attemptId: existingIdempotent.id,
+          submittedAt: existingIdempotent.submitted_at,
+          score: existingIdempotent.score,
+          correctCount: existingIdempotent.correct_count,
+          totalQuestions: existingIdempotent.total_questions,
+          passed: existingIdempotent.passed,
+          isDuplicateSubmission: true,
+          evaluatedAt: existingIdempotent.submitted_at,
+        });
       }
     }
 
@@ -118,7 +156,7 @@ export async function POST(request: NextRequest) {
     // SERVER-ONLY TRUSTED PERSISTENCE:
     // Save exactly one trusted attempt per submission using the privileged admin client
     if (user && adminSupabase) {
-      const attemptPayload = {
+      const attemptPayload: Record<string, any> = {
         user_id: user.id,
         course_id: STORYTELLING_COURSE_UUID,
         module_id: currentModuleUuid,
@@ -126,8 +164,13 @@ export async function POST(request: NextRequest) {
         correct_count: result.correctCount,
         total_questions: result.totalQuestions,
         passed: result.passed,
+        verified_by_server: true,
         submitted_at: submittedAtIso,
       };
+
+      if (idempotencyKey && typeof idempotencyKey === 'string') {
+        attemptPayload.idempotency_key = idempotencyKey.slice(0, 128);
+      }
 
       const { data: insertedData, error: insertError } = await (adminSupabase
         .from('user_quiz_attempts') as any)
@@ -136,6 +179,33 @@ export async function POST(request: NextRequest) {
         .single();
 
       if (insertError) {
+        // If unique constraint on idempotency key violated by concurrent request, fetch existing
+        if (insertError.code === '23505' && idempotencyKey) {
+          const { data: duplicate } = await (adminSupabase
+            .from('user_quiz_attempts') as any)
+            .select('id, score, correct_count, total_questions, passed, submitted_at')
+            .eq('user_id', user.id)
+            .eq('idempotency_key', idempotencyKey)
+            .maybeSingle();
+
+          if (duplicate) {
+            return NextResponse.json({
+              success: true,
+              courseId: courseId || 'course-free-storytelling-masterclass',
+              week: currentWeekNum,
+              moduleId,
+              attemptId: duplicate.id,
+              submittedAt: duplicate.submitted_at,
+              score: duplicate.score,
+              correctCount: duplicate.correct_count,
+              totalQuestions: duplicate.total_questions,
+              passed: duplicate.passed,
+              isDuplicateSubmission: true,
+              evaluatedAt: duplicate.submitted_at,
+            });
+          }
+        }
+
         console.error('Failed to persist trusted quiz attempt to database:', insertError);
         return NextResponse.json(
           {

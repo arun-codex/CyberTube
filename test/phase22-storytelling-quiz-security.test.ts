@@ -272,3 +272,131 @@ test('4. Server submission route persists trusted attempt and succeeds after pas
   serverAuthMod.setAuthenticatedUserForTesting(null);
   adminMod.setAdminClientForTesting(null);
 });
+
+test('5. Idempotency mechanism deduplicates repeated quiz submissions and returns existing record', async () => {
+  const submitRouteMod = await import('../app/api/courses/storytelling/quiz/submit/route');
+  const POST = submitRouteMod.POST;
+
+  const adminMod = await import('../src/lib/supabase/admin');
+  const serverAuthMod = await import('../src/lib/supabase/server');
+
+  const testUserId = 'test-user-idempotency-uuid';
+  serverAuthMod.setAuthenticatedUserForTesting({ id: testUserId, email: 'test@example.com' });
+
+  let insertCount = 0;
+  const existingAttempt = {
+    id: 'attempt-idempotent-111',
+    user_id: testUserId,
+    course_id: STORYTELLING_COURSE_UUID,
+    module_id: getStorytellingModuleUuid(1),
+    score: 85,
+    correct_count: 8,
+    total_questions: 10,
+    passed: true,
+    submitted_at: '2026-11-14T10:00:00.000Z',
+    idempotency_key: 'idem-key-abc-123',
+    verified_by_server: true,
+  };
+
+  adminMod.setAdminClientForTesting({
+    from: (table: string) => {
+      assert.equal(table, 'user_quiz_attempts');
+      return {
+        select: () => ({
+          eq: (_col1: string, _val1: string) => ({
+            eq: (_col2: string, keyVal: string) => ({
+              maybeSingle: () => {
+                if (keyVal === 'idem-key-abc-123') {
+                  return Promise.resolve({ data: existingAttempt, error: null });
+                }
+                return Promise.resolve({ data: null, error: null });
+              },
+            }),
+          }),
+        }),
+        insert: () => {
+          insertCount += 1;
+          return {
+            select: () => ({
+              single: () => Promise.resolve({ data: { id: 'new-attempt-uuid' }, error: null }),
+            }),
+          };
+        },
+      };
+    },
+  });
+
+  const reqRepeated = new NextRequest('http://localhost:3000/api/courses/storytelling/quiz/submit', {
+    method: 'POST',
+    body: JSON.stringify({
+      courseId: STORYTELLING_COURSE_UUID,
+      moduleId: 'mod-storytelling-w01',
+      selectedAnswers: {},
+      idempotencyKey: 'idem-key-abc-123',
+    }),
+  });
+
+  const resRepeated = await POST(reqRepeated);
+  assert.equal(resRepeated.status, 200);
+  const bodyRepeated = await resRepeated.json();
+
+  assert.equal(bodyRepeated.success, true);
+  assert.equal(bodyRepeated.isDuplicateSubmission, true, 'Must flag as duplicate submission');
+  assert.equal(bodyRepeated.attemptId, 'attempt-idempotent-111', 'Must return original attempt ID');
+  assert.equal(bodyRepeated.score, 85, 'Must return original score');
+  assert.equal(insertCount, 0, 'Must NOT perform a second INSERT when idempotency key matches');
+
+  // Restore mocks
+  serverAuthMod.setAuthenticatedUserForTesting(null);
+  adminMod.setAdminClientForTesting(null);
+});
+
+test('6. Unverified historical records (verified_by_server = false) are rejected during progression checks', async () => {
+  const submitRouteMod = await import('../app/api/courses/storytelling/quiz/submit/route');
+  const POST = submitRouteMod.POST;
+
+  const adminMod = await import('../src/lib/supabase/admin');
+  const serverAuthMod = await import('../src/lib/supabase/server');
+
+  const testUserId = 'test-user-unverified-uuid';
+  serverAuthMod.setAuthenticatedUserForTesting({ id: testUserId, email: 'test@example.com' });
+
+  adminMod.setAdminClientForTesting({
+    from: (table: string) => {
+      assert.equal(table, 'user_quiz_attempts');
+      return {
+        select: () => ({
+          eq: () => ({
+            eq: () => ({
+              eq: () => ({
+                // Unverified historical attempt: passed=true, but verified_by_server=false
+                eq: () => Promise.resolve({
+                  data: [{ passed: true, score: 100, verified_by_server: false }],
+                  error: null,
+                }),
+              }),
+            }),
+          }),
+        }),
+      };
+    },
+  });
+
+  const reqWeek2 = new NextRequest('http://localhost:3000/api/courses/storytelling/quiz/submit', {
+    method: 'POST',
+    body: JSON.stringify({
+      courseId: STORYTELLING_COURSE_UUID,
+      moduleId: 'mod-storytelling-w02',
+      selectedAnswers: {},
+    }),
+  });
+
+  const resWeek2 = await POST(reqWeek2);
+  assert.equal(resWeek2.status, 403, 'Must reject unverified historical record with 403');
+  const bodyWeek2 = await resWeek2.json();
+  assert.ok(bodyWeek2.error.includes('Prerequisite unfulfilled'));
+
+  // Restore mocks
+  serverAuthMod.setAuthenticatedUserForTesting(null);
+  adminMod.setAdminClientForTesting(null);
+});
