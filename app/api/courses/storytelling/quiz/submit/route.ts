@@ -20,9 +20,27 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (!selectedAnswers || typeof selectedAnswers !== 'object') {
+    if (
+      !selectedAnswers ||
+      typeof selectedAnswers !== 'object' ||
+      Array.isArray(selectedAnswers)
+    ) {
       return NextResponse.json(
-        { error: 'Invalid payload: selectedAnswers object is required.' },
+        { error: 'Invalid payload: selectedAnswers must be a JSON object.' },
+        { status: 400 }
+      );
+    }
+
+    // Idempotency keys are opaque client-generated identifiers. Never truncate:
+    // truncation can collapse two distinct requests into the same database key.
+    if (
+      idempotencyKey !== undefined &&
+      (typeof idempotencyKey !== 'string' ||
+        idempotencyKey.trim().length === 0 ||
+        idempotencyKey.length > 128)
+    ) {
+      return NextResponse.json(
+        { error: 'Invalid idempotencyKey: provide a non-empty string of at most 128 characters.' },
         { status: 400 }
       );
     }
@@ -53,82 +71,56 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Get authenticated user and privileged server admin client
+    // Get authenticated user and privileged server admin client.
     const user = await getAuthenticatedUser();
     const adminSupabase = createAdminClient();
 
-    // FAIL-CLOSED SERVER-SIDE PROGRESSION ENFORCEMENT:
-    // If the learner is authenticated and attempting Week N (N > 1):
-    // 1. Fail closed: If privileged database configuration is missing, do not proceed or skip enforcement.
-    // 2. Query trusted server-written quiz attempts for Week N-1.
-    // 3. Require passed = true.
-    // 4. If query fails with database error, return HTTP 503.
-    // 5. If no passed record, return HTTP 403.
-    if (user) {
-      if (!adminSupabase) {
-        return NextResponse.json(
-          {
-            error:
-              'Database service unavailable: Privileged database configuration is required for authenticated progression verification.',
-          },
-          { status: 503 }
-        );
-      }
-
-      if (currentWeekNum > 1) {
-        const prevWeekNum = currentWeekNum - 1;
-        const prevModuleUuid = getStorytellingModuleUuid(prevWeekNum);
-
-        let prevAttemptsQuery = (adminSupabase
-          .from('user_quiz_attempts') as any)
-          .select('passed, score, verified_by_server')
-          .eq('user_id', user.id)
-          .eq('course_id', STORYTELLING_COURSE_UUID)
-          .eq('module_id', prevModuleUuid)
-          .eq('passed', true);
-
-        // Require verified_by_server = true when column exists in schema
-        const { data: prevAttempts, error: checkError } = await prevAttemptsQuery;
-
-        if (checkError) {
-          console.error('Failed to query prerequisite attempts from database:', checkError);
-          return NextResponse.json(
-            { error: 'Database service error: Unable to verify prerequisite completion.' },
-            { status: 503 }
-          );
-        }
-
-        // Filter for verified attempts (if column is present on records, must be true)
-        const validPassingAttempts = (prevAttempts || []).filter((att: any) => {
-          if ('verified_by_server' in att) {
-            return att.verified_by_server === true && att.passed === true;
-          }
-          return att.passed === true;
-        });
-
-        if (validPassingAttempts.length === 0) {
-          return NextResponse.json(
-            {
-              error: `Prerequisite unfulfilled: You must complete and pass the Week ${prevWeekNum} quiz assessment (≥ 70%) before attempting Week ${currentWeekNum}.`,
-              prerequisiteRequired: true,
-              requiredWeek: prevWeekNum,
-            },
-            { status: 403 }
-          );
-        }
-      }
+    if (user && !adminSupabase) {
+      return NextResponse.json(
+        {
+          error:
+            'Database service unavailable: Privileged database configuration is required for authenticated quiz submissions.',
+        },
+        { status: 503 }
+      );
     }
 
-    // Check for existing idempotent attempt submission
-    if (user && adminSupabase && idempotencyKey && typeof idempotencyKey === 'string') {
-      const { data: existingIdempotent } = await (adminSupabase
+    // Idempotency lookup is scoped and validated before progression checks. A key
+    // reused for another course/module is a conflict, never a successful replay.
+    if (user && adminSupabase && idempotencyKey !== undefined) {
+      const { data: existingIdempotent, error: idempotencyLookupError } = await (adminSupabase
         .from('user_quiz_attempts') as any)
         .select('*')
         .eq('user_id', user.id)
         .eq('idempotency_key', idempotencyKey)
         .maybeSingle();
 
+      if (idempotencyLookupError) {
+        console.error('Failed to check quiz idempotency key:', idempotencyLookupError);
+        return NextResponse.json(
+          { error: 'Database service error: Unable to verify quiz submission retry.' },
+          { status: 503 }
+        );
+      }
+
       if (existingIdempotent) {
+        if (
+          existingIdempotent.course_id !== STORYTELLING_COURSE_UUID ||
+          existingIdempotent.module_id !== currentModuleUuid
+        ) {
+          return NextResponse.json(
+            { error: 'Idempotency key was already used for a different course or module.' },
+            { status: 409 }
+          );
+        }
+
+        if (existingIdempotent.verified_by_server !== true) {
+          return NextResponse.json(
+            { error: 'The existing attempt is not a verified server submission.' },
+            { status: 409 }
+          );
+        }
+
         return NextResponse.json({
           success: true,
           courseId: courseId || 'course-free-storytelling-masterclass',
@@ -143,6 +135,46 @@ export async function POST(request: NextRequest) {
           isDuplicateSubmission: true,
           evaluatedAt: existingIdempotent.submitted_at,
         });
+      }
+    }
+
+    // FAIL-CLOSED SERVER-SIDE PROGRESSION ENFORCEMENT.
+    // Missing provenance columns, query failures, and unverified records must
+    // never be interpreted as successful prerequisites.
+    if (user && adminSupabase && currentWeekNum > 1) {
+      const prevWeekNum = currentWeekNum - 1;
+      const prevModuleUuid = getStorytellingModuleUuid(prevWeekNum);
+
+      const { data: prevAttempts, error: checkError } = await (adminSupabase
+        .from('user_quiz_attempts') as any)
+        .select('passed, score, verified_by_server')
+        .eq('user_id', user.id)
+        .eq('course_id', STORYTELLING_COURSE_UUID)
+        .eq('module_id', prevModuleUuid)
+        .eq('passed', true);
+
+      if (checkError) {
+        console.error('Failed to query prerequisite attempts from database:', checkError);
+        return NextResponse.json(
+          { error: 'Database service error: Unable to verify prerequisite completion.' },
+          { status: 503 }
+        );
+      }
+
+      const hasVerifiedPassingAttempt = (prevAttempts || []).some(
+        (attempt: any) =>
+          attempt.passed === true && attempt.verified_by_server === true
+      );
+
+      if (!hasVerifiedPassingAttempt) {
+        return NextResponse.json(
+          {
+            error: `Prerequisite unfulfilled: You must complete and pass the Week ${prevWeekNum} quiz assessment (≥ 70%) before attempting Week ${currentWeekNum}.`,
+            prerequisiteRequired: true,
+            requiredWeek: prevWeekNum,
+          },
+          { status: 403 }
+        );
       }
     }
 
@@ -168,8 +200,8 @@ export async function POST(request: NextRequest) {
         submitted_at: submittedAtIso,
       };
 
-      if (idempotencyKey && typeof idempotencyKey === 'string') {
-        attemptPayload.idempotency_key = idempotencyKey.slice(0, 128);
+      if (idempotencyKey !== undefined) {
+        attemptPayload.idempotency_key = idempotencyKey;
       }
 
       const { data: insertedData, error: insertError } = await (adminSupabase
@@ -179,16 +211,30 @@ export async function POST(request: NextRequest) {
         .single();
 
       if (insertError) {
-        // If unique constraint on idempotency key violated by concurrent request, fetch existing
-        if (insertError.code === '23505' && idempotencyKey) {
-          const { data: duplicate } = await (adminSupabase
+        // If concurrent requests race on the unique key, return the original
+        // attempt only when its course/module/provenance exactly match this request.
+        if (insertError.code === '23505' && idempotencyKey !== undefined) {
+          const { data: duplicate, error: duplicateLookupError } = await (adminSupabase
             .from('user_quiz_attempts') as any)
-            .select('id, score, correct_count, total_questions, passed, submitted_at')
+            .select('id, course_id, module_id, score, correct_count, total_questions, passed, submitted_at, verified_by_server')
             .eq('user_id', user.id)
             .eq('idempotency_key', idempotencyKey)
             .maybeSingle();
 
-          if (duplicate) {
+          if (duplicateLookupError) {
+            console.error('Failed to resolve concurrent quiz submission:', duplicateLookupError);
+            return NextResponse.json(
+              { error: 'Database service error: Unable to verify concurrent quiz submission.' },
+              { status: 503 }
+            );
+          }
+
+          if (
+            duplicate &&
+            duplicate.course_id === STORYTELLING_COURSE_UUID &&
+            duplicate.module_id === currentModuleUuid &&
+            duplicate.verified_by_server === true
+          ) {
             return NextResponse.json({
               success: true,
               courseId: courseId || 'course-free-storytelling-masterclass',
@@ -203,6 +249,13 @@ export async function POST(request: NextRequest) {
               isDuplicateSubmission: true,
               evaluatedAt: duplicate.submitted_at,
             });
+          }
+
+          if (duplicate) {
+            return NextResponse.json(
+              { error: 'Idempotency key was already used for a different course or module.' },
+              { status: 409 }
+            );
           }
         }
 
