@@ -28,8 +28,8 @@ BEGIN
 END $$;
 
 -- 3. Revoke all modification privileges from client roles
-REVOKE INSERT, UPDATE, DELETE ON TABLE public.user_quiz_attempts FROM authenticated;
-REVOKE ALL ON TABLE public.user_quiz_attempts FROM anon;
+-- Remove inherited/default access first, then grant the minimum required rights.
+REVOKE ALL ON TABLE public.user_quiz_attempts FROM PUBLIC, anon, authenticated;
 
 -- 4. Grant SELECT only to authenticated users
 GRANT SELECT ON TABLE public.user_quiz_attempts TO authenticated;
