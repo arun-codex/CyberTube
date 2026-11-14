@@ -70,7 +70,7 @@ function LoginForm() {
         <div className="inline-flex items-center justify-center w-10 h-10 rounded-[4px] bg-[#303055] text-white mx-auto">
           <Shield className="w-5 h-5 fill-white stroke-none" />
         </div>
-        <h2 className="text-xl font-semibold text-[#303055]">Sign in to CyberTube</h2>
+        <h1 className="text-xl font-semibold text-[#303055]">Sign in to CyberTube</h1>
         <p className="text-xs text-[#6b6b7b]">
           Access persistent course progress and synchronized bookmarks.
         </p>
@@ -184,3 +184,4 @@ export default function LoginPage() {
     </div>
   );
 }
+

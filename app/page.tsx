@@ -17,27 +17,26 @@ export default function HomePage() {
           {/* Subtle background grid */}
           <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none opacity-50 dark:opacity-20" />
 
-          <div className="relative z-10 max-w-3xl space-y-6">
-            {/* Terminal prompt badge */}
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-[#F1F5F9] dark:bg-[#0B1018] border border-[#E2E8F0] dark:border-[#243044] font-mono text-xs text-[#0E7490] dark:text-[#22D3EE]">
-              <span className="text-[#047857] dark:text-[#34D399] font-bold">$</span>
-              <span>start-here</span>
-              <span className="w-1.5 h-3.5 bg-[#22D3EE] animate-pulse inline-block" />
+                    <div className="relative z-10 max-w-3xl space-y-6">
+            {/* System Status Eyebrow */}
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-[var(--surface-subtle)] border border-[var(--border)] font-mono text-xs text-[var(--accent-cyan)] font-semibold">
+              <span className="w-2 h-2 rounded-full bg-[var(--accent-emerald)] inline-block" />
+              <span>Free, Structured & Hands-On Cyber Education</span>
             </div>
 
-            <h1 className="text-3xl sm:text-5xl font-extrabold font-space-grotesk tracking-tight text-[#0F172A] dark:text-[#E6EDF3] leading-[1.15]">
+            <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-[var(--text-primary)] leading-[1.15]">
               Learn Cybersecurity the Right Way. Free, Structured & Hands-On.
             </h1>
 
-            <p className="text-sm sm:text-base text-[#475569] dark:text-[#9BA8B7] leading-relaxed">
-              CyberTube organizes the world&apos;s best free YouTube courses, certified syllabi, and legal practice labs into a transparent, step-by-step roadmap. No paywalls, no false hype—just realistic skills development.
+            <p className="text-sm sm:text-base text-[var(--text-secondary)] leading-relaxed">
+              CyberTube organizes verified YouTube courses, certified syllabi, and legal practice labs into transparent, progressive roadmaps. No paywalls, no false hype—pure practical skills development.
             </p>
 
             {/* CTA Buttons */}
             <div className="flex flex-wrap gap-4 pt-2">
               <Link
                 href="/learning-paths"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-[#0E7490] dark:bg-[#22D3EE] text-white dark:text-[#0B1018] font-semibold text-sm hover:opacity-95 transition-all shadow-sm"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-[var(--accent-cyan)] hover:bg-[var(--accent-cyan-hover)] text-[#090D14] font-semibold text-sm transition-all shadow-sm"
               >
                 <span>Start Your Path</span>
                 <ArrowRight className="w-4 h-4" />
@@ -45,9 +44,9 @@ export default function HomePage() {
 
               <Link
                 href="/library"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-lg border border-[#E2E8F0] dark:border-[#243044] bg-white dark:bg-[#1A2433] text-[#0F172A] dark:text-[#E6EDF3] font-medium text-sm hover:border-[#22D3EE]/50 transition-colors"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-lg border border-[var(--border)] bg-[var(--surface-subtle)] text-[var(--text-primary)] font-medium text-sm hover:border-[var(--accent-cyan)] transition-colors"
               >
-                <BookOpen className="w-4 h-4 text-[#0E7490] dark:text-[#22D3EE]" />
+                <BookOpen className="w-4 h-4 text-[var(--accent-cyan)]" />
                 <span>Browse {resources.length} Verified Resources</span>
               </Link>
             </div>
@@ -196,7 +195,7 @@ export default function HomePage() {
                   href={`/library/${c.id}`}
                   className="text-[#0E7490] dark:text-[#22D3EE] font-semibold hover:underline"
                 >
-                  Watch Course →
+                  Watch Course â†’
                 </Link>
                 <span className="text-[10px] font-mono text-[#475569] dark:text-[#9BA8B7]">
                   Audited: {c.lastChecked}
@@ -288,3 +287,4 @@ export default function HomePage() {
     </div>
   );
 }
+

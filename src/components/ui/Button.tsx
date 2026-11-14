@@ -14,25 +14,25 @@ export const Button: React.FC<ButtonProps> = ({
   ...props
 }) => {
   const baseClasses =
-    'inline-flex items-center justify-center font-medium transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#303055] disabled:opacity-50 disabled:pointer-events-none rounded-[4px] min-h-[36px]';
+    'inline-flex items-center justify-center font-medium transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-cyan)] focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none rounded-lg';
 
   const sizeClasses = {
-    sm: 'text-xs px-2.5 py-1.5 gap-1.5 min-h-[32px]',
-    md: 'text-sm px-3.5 py-2 gap-2 min-h-[38px]',
-    lg: 'text-base px-5 py-2.5 gap-2.5 min-h-[44px]',
+    sm: 'text-xs px-3 py-1.5 gap-1.5 min-h-[36px]',
+    md: 'text-sm px-4 py-2 gap-2 min-h-[44px]',
+    lg: 'text-base px-6 py-2.5 gap-2.5 min-h-[48px]',
   }[size];
 
   const variantClasses = {
     primary:
-      'bg-[#303055] hover:bg-[#252542] text-white active:bg-[#1c1c32]',
+      'bg-[var(--accent-cyan)] hover:bg-[var(--accent-cyan-hover)] text-white dark:text-[#090D14] font-semibold shadow-sm',
     secondary:
-      'bg-[#e8e8f2] hover:bg-[#d5d5e2] text-[#303055] border border-[#d2d2dc] active:bg-[#b0b0c6]',
+      'bg-[var(--surface-subtle)] hover:bg-[var(--surface)] text-[var(--text-primary)] border border-[var(--border)] active:opacity-90',
     outline:
-      'border border-[#e4e4ed] hover:border-[#303055] text-[#403f53] hover:text-[#303055] bg-white',
+      'border border-[var(--border)] hover:border-[var(--accent-cyan)] text-[var(--text-primary)] hover:text-[var(--accent-cyan)] bg-transparent',
     ghost:
-      'text-[#403f53] hover:text-[#303055] hover:bg-[#f4f4f9] bg-transparent',
+      'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-subtle)] bg-transparent',
     danger:
-      'bg-[#fbeaea] hover:bg-[#f8d5d5] text-[#984e4d] border border-[#e8b5b5]',
+      'bg-[var(--accent-rose)]/10 hover:bg-[var(--accent-rose)]/20 text-[var(--accent-rose)] border border-[var(--accent-rose)]/30',
   }[variant];
 
   return (

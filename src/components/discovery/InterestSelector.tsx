@@ -153,9 +153,9 @@ export default function InterestSelector({ onInterestsChange }: InterestSelector
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#e4e4ed] dark:border-[#243044] pb-3">
         <div className="flex items-center gap-2">
           <Sparkles className="w-4 h-4 text-[#0E7490] dark:text-[#22D3EE]" />
-          <h3 className="font-rajdhani text-lg font-bold text-[#0F172A] dark:text-[#E6EDF3] tracking-tight">
+          <h2 className="font-rajdhani text-lg font-bold text-[#0F172A] dark:text-[#E6EDF3] tracking-tight">
             Follow Your Technical Interests
-          </h3>
+          </h2>
         </div>
         {saving && (
           <span className="flex items-center gap-1 text-[11px] font-mono text-[#0E7490] dark:text-[#22D3EE]">
@@ -219,3 +219,4 @@ export default function InterestSelector({ onInterestsChange }: InterestSelector
     </div>
   );
 }
+

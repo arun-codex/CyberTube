@@ -5,37 +5,57 @@
 @layer base {
   :root {
     color-scheme: light;
-    --canvas: #ffffff;
-    --text-primary: #303055;
-    --text-secondary: #403f53;
-    --text-muted: #6b6b7b;
-    --surface: #e8e8f2;
-    --surface-subtle: #f4f4f9;
-    --border: #e4e4ed;
-    --border-strong: #d2d2dc;
-    --card-bg: #ffffff;
+    --canvas: #FFFFFF;
+    --surface: #F8FAFC;
+    --surface-subtle: #F1F5F9;
+    --surface-elevated: #FFFFFF;
+    --card-bg: #FFFFFF;
 
-    /* Semantic status and accent colors */
-    --accent-cyan: #0891b2;
+    --border: #E2E8F0;
+    --border-strong: #CBD5E1;
+
+    --text-primary: #0F172A;
+    --text-secondary: #475569;
+    --text-muted: #64748B;
+
+    /* Semantic Status and Accents */
+    --accent-cyan: #0891B2;
+    --accent-cyan-hover: #0E7490;
+    --accent-cyan-subtle: rgba(8, 145, 178, 0.08);
+
+    --accent-emerald: #059669;
+    --accent-amber: #D97706;
+    --accent-rose: #E11D48;
+
     --accent-beginner: #059669;
-    --accent-intermediate: #d97706;
-    --accent-advanced: #dc2626;
+    --accent-intermediate: #D97706;
+    --accent-advanced: #DC2626;
   }
 
   .dark {
     color-scheme: dark;
-    --canvas: #0B1018;
-    --text-primary: #E6EDF3;
-    --text-secondary: #B7C4D2;
-    --text-muted: #8291A5;
-    --surface: #1E293B;
-    --surface-subtle: #162131;
-    --border: #273449;
-    --border-strong: #3A4A61;
-    --card-bg: #121A26;
+    --canvas: #090D14;
+    --surface: #0F1724;
+    --surface-subtle: #141E2E;
+    --surface-elevated: #182335;
+    --card-bg: #111A27;
 
-    /* Semantic status and accent colors */
+    --border: #1E2D42;
+    --border-strong: #2A3E5C;
+
+    --text-primary: #F1F5F9;
+    --text-secondary: #94A3B8;
+    --text-muted: #64748B;
+
+    /* Semantic Status and Accents */
     --accent-cyan: #22D3EE;
+    --accent-cyan-hover: #67E8F9;
+    --accent-cyan-subtle: rgba(34, 211, 238, 0.12);
+
+    --accent-emerald: #34D399;
+    --accent-amber: #FBBF24;
+    --accent-rose: #FB7185;
+
     --accent-beginner: #34D399;
     --accent-intermediate: #FBBF24;
     --accent-advanced: #F87171;
@@ -55,8 +75,8 @@
 
   h1, h2, h3, h4, h5, h6 {
     color: var(--text-primary);
-    font-weight: 500;
-    letter-spacing: -0.015em;
+    font-weight: 600;
+    letter-spacing: -0.02em;
   }
 
   code, pre, kbd {
@@ -64,16 +84,37 @@
   }
 }
 
+.container-max {
+  width: 100%;
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .container-max {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-max {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
 ::selection {
-  background: var(--surface);
-  color: var(--text-primary);
+  background: var(--surface-subtle);
+  color: var(--accent-cyan);
 }
 
 /*
  * Theme compatibility layer
- * Older routes contain fixed light-theme Tailwind colors. Map those neutral
- * utilities to the active design tokens so every route follows the same theme.
- * Keep status/brand colors untouched.
+ * Maps legacy inline utilities to the semantic CSS tokens across both light & dark themes.
  */
 .dark [class~="bg-white"],
 .dark [class~="bg-white/95"],
@@ -156,37 +197,43 @@
   background-color: var(--surface) !important;
 }
 
-/* Normalize existing dark-specific neutral utilities to the same palette. */
+/* Normalize dark-specific neutral utilities */
 .dark [class~="dark:bg-[#0e0e17]"],
-.dark [class~="dark:bg-[#0B1018]"] {
+.dark [class~="dark:bg-[#0B1018]"],
+.dark [class~="dark:bg-[#090D14]"] {
   background-color: var(--canvas) !important;
 }
 
 .dark [class~="dark:bg-[#141422]"],
 .dark [class~="dark:bg-[#141424]"],
 .dark [class~="dark:bg-[#121A26]"],
+.dark [class~="dark:bg-[#111A27]"],
 .dark [class~="dark:bg-[#1c1c2c]"] {
   background-color: var(--card-bg) !important;
 }
 
 .dark [class~="dark:bg-[#1e1e30]"],
-.dark [class~="dark:bg-[#252538]"] {
+.dark [class~="dark:bg-[#252538]"],
+.dark [class~="dark:bg-[#0F1724]"] {
   background-color: var(--surface) !important;
 }
 
 .dark [class~="dark:border-[#26263b]"],
 .dark [class~="dark:border-[#2e2e42]"],
-.dark [class~="dark:border-[#243044]"] {
+.dark [class~="dark:border-[#243044]"],
+.dark [class~="dark:border-[#1E2D42]"] {
   border-color: var(--border) !important;
 }
 
-.dark [class~="dark:border-[#383854]"] {
+.dark [class~="dark:border-[#383854]"],
+.dark [class~="dark:border-[#2A3E5C]"] {
   border-color: var(--border-strong) !important;
 }
 
 .dark [class~="dark:text-[#f0f0f8]"],
 .dark [class~="dark:text-[#e8e8f2]"],
-.dark [class~="dark:text-[#E6EDF3]"] {
+.dark [class~="dark:text-[#E6EDF3]"],
+.dark [class~="dark:text-[#F1F5F9]"] {
   color: var(--text-primary) !important;
 }
 
@@ -200,15 +247,6 @@
 .dark [class~="dark:text-[#8c8ca6]"],
 .dark [class~="dark:text-[#64748B]"] {
   color: var(--text-muted) !important;
-}
-
-.dark [class~="dark:hover:bg-[#141422]"]:hover,
-.dark [class~="dark:hover:bg-[#1c1c2c]"]:hover {
-  background-color: var(--card-bg) !important;
-}
-
-.dark [class~="dark:hover:bg-[#252538]"]:hover {
-  background-color: var(--surface) !important;
 }
 
 /* Custom crisp scrollbars */
