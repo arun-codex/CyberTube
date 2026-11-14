@@ -13,6 +13,7 @@ import { CurriculumSidebar } from './CurriculumSidebar';
 import { LessonContentSections } from './LessonContentSections';
 import { ResourceCard } from '../../ResourceCard';
 import { Resource } from '../../../types/resource';
+import { Lock, AlertCircle, ArrowLeft } from 'lucide-react';
 import { ComprehensiveCourseCompletion } from '../../../types/course';
 import { cloudCourseProgressService } from '../../../lib/cloud-course-progress';
 import { onCourseProgressChange } from '../../../lib/course-progress';
@@ -207,6 +208,25 @@ export const UniversalCourseLearningLayout: React.FC<UniversalCourseLearningLayo
       ? allLessons[currentLessonIndex + 1]
       : undefined;
 
+  // Check sequential module locking (e.g. Storytelling Masterclass)
+  const isSequentialQuizCourse = course.slug === 'free-storytelling-masterclass';
+  const activeModuleIndex = course.modules.findIndex((m) => m.id === activeLesson.moduleId);
+  let isCurrentLessonLocked = false;
+  let lockRequirementMessage = '';
+  let prerequisiteModule: any = undefined;
+
+  if (isSequentialQuizCourse && activeModuleIndex > 0) {
+    const prevModule = course.modules[activeModuleIndex - 1];
+    prerequisiteModule = prevModule;
+    const prevScore = quizScores[prevModule.id] ?? 0;
+    const passingScore = prevModule.quiz?.passingScorePercent || 70;
+
+    if (prevScore < passingScore) {
+      isCurrentLessonLocked = true;
+      lockRequirementMessage = `Pass ${prevModule.title} assessment quiz (Score: ${prevScore}%, Required: ≥ ${passingScore}%) to unlock this module.`;
+    }
+  }
+
   const isLessonCompleted = completedLessonIds.includes(activeLesson.id);
   const activeVideoProgress = activeVideo ? videoProgressMap[activeVideo.videoId] : undefined;
 
@@ -240,59 +260,89 @@ export const UniversalCourseLearningLayout: React.FC<UniversalCourseLearningLayo
           />
         }
       >
-        {/* 1 & 2. Main Video Player Area & Supplemental Resource Library */}
-        {activeLesson.videos && activeLesson.videos.length > 0 ? (
-          <div data-testid="lesson-video-resources" className="space-y-6">
-            <LessonVideoSection
-              courseId={course.courseId}
-              activeLesson={activeLesson}
-              activeVideo={activeVideo}
-              currentIndex={currentIndex}
-              videoProgress={activeVideoProgress}
-              onToggleWatched={handleToggleVideoWatched}
-              onPrevVideo={handlePrevVideo}
-              onNextVideo={handleNextVideo}
-            />
-            {activeLesson.videos.length > 1 && (
-              <LessonResourceLibrary
-                videos={activeLesson.videos}
-                selectedVideoId={activeVideo?.videoId || ''}
-                onSelectVideo={handleSelectVideo}
-                videoProgressMap={videoProgressMap}
-                onToggleWatched={handleToggleVideoWatched}
-                lessonTitle={activeLesson.title}
-                moduleTitle={activeLesson.moduleTitle}
-              />
-            )}
+        {isCurrentLessonLocked ? (
+          <div data-testid="locked-lesson-overlay" className="p-8 sm:p-12 rounded-[8px] border border-[#f59e0b]/30 bg-[#fffbeb] dark:bg-[#78350f]/20 text-[#0F172A] dark:text-[#E6EDF3] space-y-6 text-center max-w-2xl mx-auto my-8">
+            <div className="w-14 h-14 rounded-full bg-[#f59e0b]/20 border border-[#f59e0b]/40 flex items-center justify-center mx-auto text-[#d97706] dark:text-[#fbbf24]">
+              <Lock className="w-7 h-7" />
+            </div>
+            <div className="space-y-2">
+              <h3 className="font-rajdhani font-bold text-2xl text-[#92400e] dark:text-[#fde68a]">
+                Module Content Locked
+              </h3>
+              <p className="text-sm text-[#78350f] dark:text-[#fef3c7] leading-relaxed max-w-lg mx-auto">
+                {lockRequirementMessage}
+              </p>
+            </div>
+            <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
+              {prerequisiteModule?.lessons?.[0] && (
+                <button
+                  type="button"
+                  onClick={() => handleSelectLesson(prerequisiteModule.lessons[0].slug)}
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-[6px] bg-[#0E7490] hover:bg-[#0891B2] text-white font-mono text-xs font-semibold transition-colors cursor-pointer"
+                >
+                  <ArrowLeft className="w-3.5 h-3.5" />
+                  <span>Return to {prerequisiteModule.title}</span>
+                </button>
+              )}
+            </div>
           </div>
         ) : (
-          <LessonVideoSection
-            courseId={course.courseId}
-            activeLesson={activeLesson}
-            activeVideo={activeVideo}
-            currentIndex={currentIndex}
-            videoProgress={activeVideoProgress}
-            onToggleWatched={handleToggleVideoWatched}
-            onPrevVideo={handlePrevVideo}
-            onNextVideo={handleNextVideo}
-          />
-        )}
+          <>
+            {/* 1 & 2. Main Video Player Area & Supplemental Resource Library */}
+            {activeLesson.videos && activeLesson.videos.length > 0 ? (
+              <div data-testid="lesson-video-resources" className="space-y-6">
+                <LessonVideoSection
+                  courseId={course.courseId}
+                  activeLesson={activeLesson}
+                  activeVideo={activeVideo}
+                  currentIndex={currentIndex}
+                  videoProgress={activeVideoProgress}
+                  onToggleWatched={handleToggleVideoWatched}
+                  onPrevVideo={handlePrevVideo}
+                  onNextVideo={handleNextVideo}
+                />
+                {activeLesson.videos.length > 1 && (
+                  <LessonResourceLibrary
+                    videos={activeLesson.videos}
+                    selectedVideoId={activeVideo?.videoId || ''}
+                    onSelectVideo={handleSelectVideo}
+                    videoProgressMap={videoProgressMap}
+                    onToggleWatched={handleToggleVideoWatched}
+                    lessonTitle={activeLesson.title}
+                    moduleTitle={activeLesson.moduleTitle}
+                  />
+                )}
+              </div>
+            ) : (
+              <LessonVideoSection
+                courseId={course.courseId}
+                activeLesson={activeLesson}
+                activeVideo={activeVideo}
+                currentIndex={currentIndex}
+                videoProgress={activeVideoProgress}
+                onToggleWatched={handleToggleVideoWatched}
+                onPrevVideo={handlePrevVideo}
+                onNextVideo={handleNextVideo}
+              />
+            )}
 
-        {/* 3. Standard Lesson Content Sections (Overview, Objectives, Skills, Tabs, Navigation) */}
-        <LessonContentSections
-          courseId={course.courseId}
-          courseSlug={course.slug}
-          domains={course.domains}
-          activeLesson={activeLesson}
-          prevLesson={prevLesson}
-          nextLesson={nextLesson}
-          isLessonCompleted={isLessonCompleted}
-          onToggleComplete={() => handleToggleLessonComplete(activeLesson.id)}
-          onSelectLesson={handleSelectLesson}
-          capstone={course.capstone}
-          pcapResources={course.pcapResources}
-          prerequisites={course.prerequisites}
-        />
+            {/* 3. Standard Lesson Content Sections (Overview, Objectives, Skills, Tabs, Navigation) */}
+            <LessonContentSections
+              courseId={course.courseId}
+              courseSlug={course.slug}
+              domains={course.domains}
+              activeLesson={activeLesson}
+              prevLesson={prevLesson}
+              nextLesson={nextLesson}
+              isLessonCompleted={isLessonCompleted}
+              onToggleComplete={() => handleToggleLessonComplete(activeLesson.id)}
+              onSelectLesson={handleSelectLesson}
+              capstone={course.capstone}
+              pcapResources={course.pcapResources}
+              prerequisites={course.prerequisites}
+            />
+          </>
+        )}
       </CourseLearningWorkspace>
 
       {/* SECTION C: Connected Reference Documentation & Labs */}

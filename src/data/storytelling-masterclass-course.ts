@@ -54,19 +54,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w01-l1-story-versus-information",
           "title": "Week 01 • Lesson 1: Story versus information",
           "description": "Watch the TED-Ed lesson. Write your own definition of a story in English and Hindi. Give one example of a story and one example of plain information.",
-          "youtubeVideoId": "NJ-gw9j6f78",
+          "youtubeVideoId": "1rMnzNZkIX0",
           "videoAttribution": {
-            "creator": "TED-Ed",
+            "creator": "Khan Academy Labs",
             "platform": "youtube",
             "seriesTitle": "Week 01 — What is a story?",
             "partNumber": 1
           },
-          "durationMinutes": 6,
+          "durationMinutes": 12,
           "order": 1,
           "moduleTitle": "Level 1: Foundations (Weeks 1–4) — Week 01 — What is a story?",
           "objectives": [
             "Master and apply core concepts in: Story versus information",
-            "Connect theory from 4 Ways to Tell a Great Story (TED-Ed) directly to narrative practice",
+            "Connect theory from undefined (Khan Academy Labs) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 01 — What is a story?"
           ],
           "tags": [
@@ -95,19 +95,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w01-l2-the-audience",
           "title": "Week 01 • Lesson 2: The audience",
           "description": "Choose a familiar story and identify who it is for, what the audience knows and what the audience wants to know next.",
-          "youtubeVideoId": "KxDwieKpawg",
+          "youtubeVideoId": "NL0KQu9JiDQ",
           "videoAttribution": {
-            "creator": "Andrew Stanton | TED",
+            "creator": "Khan Academy Labs",
             "platform": "youtube",
             "seriesTitle": "Week 01 — What is a story?",
             "partNumber": 2
           },
-          "durationMinutes": 19,
+          "durationMinutes": 12,
           "order": 2,
           "moduleTitle": "Level 1: Foundations (Weeks 1–4) — Week 01 — What is a story?",
           "objectives": [
             "Master and apply core concepts in: The audience",
-            "Connect theory from The Clues to a Great Story (Andrew Stanton | TED) directly to narrative practice",
+            "Connect theory from undefined (Khan Academy Labs) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 01 — What is a story?"
           ],
           "tags": [
@@ -136,19 +136,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w01-l3-change",
           "title": "Week 01 • Lesson 3: Change",
           "description": "Write three tiny narratives: a person wants something, something changes, and the result is different from the start.",
-          "youtubeVideoId": "y0f3P66vXpU",
+          "youtubeVideoId": "tREPH6hJsYg",
           "videoAttribution": {
-            "creator": "Pixar / Khan Academy",
+            "creator": "Khan Academy Labs",
             "platform": "youtube",
             "seriesTitle": "Week 01 — What is a story?",
             "partNumber": 3
           },
-          "durationMinutes": 11,
+          "durationMinutes": 12,
           "order": 3,
           "moduleTitle": "Level 1: Foundations (Weeks 1–4) — Week 01 — What is a story?",
           "objectives": [
             "Master and apply core concepts in: Change",
-            "Connect theory from Pixar in a Box: Storytelling — We are all storytellers (Pixar / Khan Academy) directly to narrative practice",
+            "Connect theory from undefined (Khan Academy Labs) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 01 — What is a story?"
           ],
           "tags": [
@@ -177,19 +177,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w01-l4-tell-a-real-moment",
           "title": "Week 01 • Lesson 4: Tell a real moment",
           "description": "Tell a real event from your life in 60 seconds. Record it on your phone. Do not worry about performance yet.",
-          "youtubeVideoId": "jA2cCGHsP44",
+          "youtubeVideoId": "m5AW93Ya0UE",
           "videoAttribution": {
-            "creator": "The Moth",
+            "creator": "Khan Academy Labs",
             "platform": "youtube",
             "seriesTitle": "Week 01 — What is a story?",
             "partNumber": 4
           },
-          "durationMinutes": 8,
+          "durationMinutes": 12,
           "order": 4,
           "moduleTitle": "Level 1: Foundations (Weeks 1–4) — Week 01 — What is a story?",
           "objectives": [
             "Master and apply core concepts in: Tell a real moment",
-            "Connect theory from The Moth: Storytelling Tips & True Personal Moments (The Moth) directly to narrative practice",
+            "Connect theory from undefined (Khan Academy Labs) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 01 — What is a story?"
           ],
           "tags": [
@@ -218,19 +218,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w01-l5-first-analysis",
           "title": "Week 01 • Lesson 5: First analysis",
           "description": "Analyse a short film scene, story or personal anecdote. Mark its opening, important change and ending. Write three strengths and one weakness.",
-          "youtubeVideoId": "g4z_P1kZ27c",
+          "youtubeVideoId": "1mTO_ax-M3Q",
           "videoAttribution": {
-            "creator": "Pixar / Khan Academy",
+            "creator": "Khan Academy Labs",
             "platform": "youtube",
             "seriesTitle": "Week 01 — What is a story?",
             "partNumber": 5
           },
-          "durationMinutes": 10,
+          "durationMinutes": 12,
           "order": 5,
           "moduleTitle": "Level 1: Foundations (Weeks 1–4) — Week 01 — What is a story?",
           "objectives": [
             "Master and apply core concepts in: First analysis",
-            "Connect theory from Pixar in a Box: Character Development & Perspective (Pixar / Khan Academy) directly to narrative practice",
+            "Connect theory from undefined (Khan Academy Labs) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 01 — What is a story?"
           ],
           "tags": [
@@ -267,7 +267,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "A story is always written in fictional prose",
               "A story must always have a happy ending"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Plain information informs through isolated facts, whereas a story engages through causality, character desire, conflict, and consequential change.",
             "difficulty": "beginner",
             "relatedLessonSlug": "w01-l1"
@@ -280,7 +279,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Give the audience the answer immediately in Act 1",
               "Always explain the moral message directly to the audience"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Stanton emphasizes that the foundational promise to any audience is 'Make me care', inviting their active curiosity.",
             "difficulty": "beginner",
             "relatedLessonSlug": "w01-l2"
@@ -293,7 +291,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Writing a story with exactly 4 main characters",
               "Restricting your narrative to exactly 4 chapters"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Audiences derive joy from discovery; compelling storytelling provides 2 + 2, allowing the listener's brain to deduce the answer (4).",
             "difficulty": "beginner",
             "relatedLessonSlug": "w01-l3"
@@ -306,7 +303,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Listing all people you met that year",
               "Explaining the theoretical history of the setting"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Micro-stories succeed by zooming into a single, concrete moment of change, rather than diluting impact with broad summaries.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w01-l4"
@@ -319,7 +315,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Audiences dislike stability in audio-visual production",
               "Publishers mandate that characters lose their memories"
             ],
-            "correctAnswerIndex": 0,
             "explanation": "A story requires a shift from an initial equilibrium through disturbance to a new equilibrium. Without change, there is no narrative arc.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w01-l5"
@@ -332,7 +327,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Translate only the character names and leave dialogue in English",
               "Remove all local cultural references to avoid confusion"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Bilingual storytelling thrives when emotion and cultural idioms are adapted naturally to the linguistic context rather than translated literally.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w01-l1"
@@ -345,7 +339,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "It requires the protagonist to win their ultimate goal in the opening scene",
               "It restricts visual storytelling to black-and-white cinematography"
             ],
-            "correctAnswerIndex": 0,
             "explanation": "Early scenes establish the narrative contract: tone, stakes, and the nature of the obstacles to be faced.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w01-l2"
@@ -358,7 +351,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "'The city of Varanasi has many historic riverfront ghats.'",
               "'Modern microcontrollers operate on low-power ARM architecture.'"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Ravi's situation establishes character, desire, urgency, and consequence—the hallmarks of an active narrative beat.",
             "difficulty": "advanced",
             "relatedLessonSlug": "w01-l3"
@@ -371,7 +363,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "The exact cost of the production set",
               "The word count of the spoken dialogue"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Scene analysis focuses on dramatic objectives, counter-forces/obstacles, and the resulting change in status or emotion.",
             "difficulty": "advanced",
             "relatedLessonSlug": "w01-l4"
@@ -384,7 +375,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "It was recorded with 4K video resolution",
               "It has zero conflict or emotional vulnerability"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Personal memories connect universally when specific, authentic experiences reflect broader truths about vulnerability, desire, and growth.",
             "difficulty": "advanced",
             "relatedLessonSlug": "w01-l5"
@@ -403,19 +393,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w02-l1-collect-observations",
           "title": "Week 02 • Lesson 1: Collect observations",
           "description": "Record ten details from a real place: sounds, objects, behaviour, mood and small contradictions.",
-          "youtubeVideoId": "m9qL7r2b5iA",
+          "youtubeVideoId": "SgGARYH2vRg",
           "videoAttribution": {
-            "creator": "TED-Ed",
+            "creator": "Khan Academy Labs",
             "platform": "youtube",
             "seriesTitle": "Week 02 — Observation, memory and idea generation",
             "partNumber": 1
           },
-          "durationMinutes": 7,
+          "durationMinutes": 12,
           "order": 1,
           "moduleTitle": "Level 1: Foundations (Weeks 1–4) — Week 02 — Observation, memory and idea generation",
           "objectives": [
             "Master and apply core concepts in: Collect observations",
-            "Connect theory from How to Build a Story from Everyday Observations (TED-Ed) directly to narrative practice",
+            "Connect theory from undefined (Khan Academy Labs) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 02 — Observation, memory and idea generation"
           ],
           "tags": [
@@ -444,19 +434,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w02-l2-memory-as-material",
           "title": "Week 02 • Lesson 2: Memory as material",
           "description": "Write one memory using concrete details. Separate what you remember clearly from what you are guessing.",
-          "youtubeVideoId": "O_w_7R9X1r0",
+          "youtubeVideoId": "ngZQUebMSEg",
           "videoAttribution": {
-            "creator": "OpenLearn / BBC",
+            "creator": "Khan Academy Labs",
             "platform": "youtube",
             "seriesTitle": "Week 02 — Observation, memory and idea generation",
             "partNumber": 2
           },
-          "durationMinutes": 9,
+          "durationMinutes": 12,
           "order": 2,
           "moduleTitle": "Level 1: Foundations (Weeks 1–4) — Week 02 — Observation, memory and idea generation",
           "objectives": [
             "Master and apply core concepts in: Memory as material",
-            "Connect theory from Memory into Narrative: Turning Life into Fiction (OpenLearn / BBC) directly to narrative practice",
+            "Connect theory from undefined (Khan Academy Labs) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 02 — Observation, memory and idea generation"
           ],
           "tags": [
@@ -485,19 +475,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w02-l3-what-if",
           "title": "Week 02 • Lesson 3: What if?",
           "description": "Turn five ordinary observations into “What if?” story ideas. Make the situation unusual but understandable.",
-          "youtubeVideoId": "bEzeIq3Z0rI",
+          "youtubeVideoId": "bgLSgFDMF1k",
           "videoAttribution": {
-            "creator": "Pixar / Khan Academy",
+            "creator": "Lessons from the Screenplay",
             "platform": "youtube",
             "seriesTitle": "Week 02 — Observation, memory and idea generation",
             "partNumber": 3
           },
-          "durationMinutes": 9,
+          "durationMinutes": 12,
           "order": 3,
           "moduleTitle": "Level 1: Foundations (Weeks 1–4) — Week 02 — Observation, memory and idea generation",
           "objectives": [
             "Master and apply core concepts in: What if?",
-            "Connect theory from Pixar in a Box: What If? Finding Story Ideas (Pixar / Khan Academy) directly to narrative practice",
+            "Connect theory from undefined (Lessons from the Screenplay) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 02 — Observation, memory and idea generation"
           ],
           "tags": [
@@ -526,19 +516,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w02-l4-premise-practice",
           "title": "Week 02 • Lesson 4: Premise practice",
           "description": "Reduce three ideas to one sentence each: main character + situation + central problem.",
-          "youtubeVideoId": "wE_Z0x9A1r0",
+          "youtubeVideoId": "hjEO3ijVwSU",
           "videoAttribution": {
             "creator": "StudioBinder",
             "platform": "youtube",
             "seriesTitle": "Week 02 — Observation, memory and idea generation",
             "partNumber": 4
           },
-          "durationMinutes": 10,
+          "durationMinutes": 12,
           "order": 4,
           "moduleTitle": "Level 1: Foundations (Weeks 1–4) — Week 02 — Observation, memory and idea generation",
           "objectives": [
             "Master and apply core concepts in: Premise practice",
-            "Connect theory from How to Craft a Compelling Premise and Logline (StudioBinder) directly to narrative practice",
+            "Connect theory from undefined (StudioBinder) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 02 — Observation, memory and idea generation"
           ],
           "tags": [
@@ -567,9 +557,9 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w02-l5-select-the-strongest-idea",
           "title": "Week 02 • Lesson 5: Select the strongest idea",
           "description": "Score each idea for clarity, conflict, emotional potential and your own interest. Choose one to develop.",
-          "youtubeVideoId": "t9L_eX9A1r0",
+          "youtubeVideoId": "CS1QkWSnP_o",
           "videoAttribution": {
-            "creator": "Lessons from the Screenplay",
+            "creator": "StudioBinder",
             "platform": "youtube",
             "seriesTitle": "Week 02 — Observation, memory and idea generation",
             "partNumber": 5
@@ -579,7 +569,7 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "moduleTitle": "Level 1: Foundations (Weeks 1–4) — Week 02 — Observation, memory and idea generation",
           "objectives": [
             "Master and apply core concepts in: Select the strongest idea",
-            "Connect theory from Evaluating and Developing the Strongest Story Idea (Lessons from the Screenplay) directly to narrative practice",
+            "Connect theory from undefined (StudioBinder) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 02 — Observation, memory and idea generation"
           ],
           "tags": [
@@ -616,7 +606,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Ignoring character motivation in favor of rapid scene transitions",
               "Omitting conflict until the final epilogue"
             ],
-            "correctAnswerIndex": 0,
             "explanation": "Lesson 1 establishes foundational focus and deliberate creative craftsmanship aligned with Week 02 — Observation, memory and idea generation.",
             "difficulty": "beginner",
             "relatedLessonSlug": "w02-l1"
@@ -629,7 +618,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "By completely resetting character memory after each chapter",
               "Without any clear relationship between cause and effect"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Strong narrative momentum relies on causal necessity ('therefore' and 'but') rather than arbitrary episodic chains ('and then').",
             "difficulty": "beginner",
             "relatedLessonSlug": "w02-l2"
@@ -642,7 +630,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Describing a character's physical clothing in extensive detail",
               "Ensuring the protagonist never faces opposition"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Agency is defined by characters making difficult choices under pressure that directly influence the narrative trajectory.",
             "difficulty": "beginner",
             "relatedLessonSlug": "w02-l3"
@@ -655,7 +642,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Removing all emotional nuance from interpersonal exchanges",
               "Requiring an external narrator to explicitly explain every character thought"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Subtext enriches storytelling by conveying meaning beneath the surface through behaviour, silence, and indirect dialogue.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w02-l4"
@@ -668,7 +654,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Every obstacle should be resolved instantly without cost",
               "Obstacles should only be external weather conditions"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Tension builds when successive obstacles escalate stakes and demand greater personal investment and risk from the character.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w02-l5"
@@ -681,7 +666,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "It eliminates the need for written grammar",
               "It forces the video editor to increase volume"
             ],
-            "correctAnswerIndex": 0,
             "explanation": "Heavy exposition halts dramatic momentum. Information should be revealed organically through action and conflict.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w02-l1"
@@ -694,7 +678,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Replaced with direct word-by-word dictionary definitions",
               "Confined exclusively to historical settings"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Authentic cultural and linguistic textures ground narratives in lived reality while connecting universally through human emotion.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w02-l2"
@@ -707,7 +690,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Whether it took more than two hours to write",
               "Whether it mentions the title of the story"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "A scene earns its place only if something changes by its conclusion—emotional state, stakes, or character understanding.",
             "difficulty": "advanced",
             "relatedLessonSlug": "w02-l3"
@@ -720,7 +702,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "By extending slow exposition scenes indefinitely",
               "By cutting all character development scenes"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Dynamic rhythm requires contrast: moments of high tension must be balanced with reflective beats for emotional processing.",
             "difficulty": "advanced",
             "relatedLessonSlug": "w02-l4"
@@ -733,7 +714,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Having a friend write the assignment on your behalf",
               "Only thinking about the assignment without recording or writing it down"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Each week requires completing the designated practical deliverable and evaluating it with the course rubric for clarity and resonance.",
             "difficulty": "advanced",
             "relatedLessonSlug": "w02-l5"
@@ -752,19 +732,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w03-l1-story-spine",
           "title": "Week 03 • Lesson 1: Story spine",
           "description": "Use this starter structure: Once upon a time… Every day… Until one day… Because of that… Until finally… And ever since then…",
-          "youtubeVideoId": "d8J_8kX0A1r",
+          "youtubeVideoId": "RgRfbvLkvnI",
           "videoAttribution": {
-            "creator": "Pixar / Khan Academy",
+            "creator": "Khan Academy Labs",
             "platform": "youtube",
             "seriesTitle": "Week 03 — Story spine, hook and promise",
             "partNumber": 1
           },
-          "durationMinutes": 10,
+          "durationMinutes": 12,
           "order": 1,
           "moduleTitle": "Level 1: Foundations (Weeks 1–4) — Week 03 — Story spine, hook and promise",
           "objectives": [
             "Master and apply core concepts in: Story spine",
-            "Connect theory from Pixar in a Box: The Story Spine Structure (Pixar / Khan Academy) directly to narrative practice",
+            "Connect theory from undefined (Khan Academy Labs) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 03 — Story spine, hook and promise"
           ],
           "tags": [
@@ -793,19 +773,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w03-l2-hooks",
           "title": "Week 03 • Lesson 2: Hooks",
           "description": "Write five different openings for the same story: a surprising fact, a decision, a question, an image and a moment of action.",
-          "youtubeVideoId": "e9J_1kX0A1r",
+          "youtubeVideoId": "CF3lFPW4E1o",
           "videoAttribution": {
-            "creator": "StudioBinder",
+            "creator": "Lessons from the Screenplay",
             "platform": "youtube",
             "seriesTitle": "Week 03 — Story spine, hook and promise",
             "partNumber": 2
           },
-          "durationMinutes": 11,
+          "durationMinutes": 12,
           "order": 2,
           "moduleTitle": "Level 1: Foundations (Weeks 1–4) — Week 03 — Story spine, hook and promise",
           "objectives": [
             "Master and apply core concepts in: Hooks",
-            "Connect theory from How to Write an Unforgettable Opening Hook (StudioBinder) directly to narrative practice",
+            "Connect theory from undefined (Lessons from the Screenplay) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 03 — Story spine, hook and promise"
           ],
           "tags": [
@@ -834,19 +814,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w03-l3-the-story-promise",
           "title": "Week 03 • Lesson 3: The story promise",
           "description": "Decide what type of experience the audience expects: funny, suspenseful, moving, informative, frightening or inspiring.",
-          "youtubeVideoId": "f9J_2kX0A1r",
+          "youtubeVideoId": "EXeTwQWrcwY",
           "videoAttribution": {
-            "creator": "TED-Ed",
+            "creator": "Rotten Tomatoes Classic Trailers",
             "platform": "youtube",
             "seriesTitle": "Week 03 — Story spine, hook and promise",
             "partNumber": 3
           },
-          "durationMinutes": 8,
+          "durationMinutes": 12,
           "order": 3,
           "moduleTitle": "Level 1: Foundations (Weeks 1–4) — Week 03 — Story spine, hook and promise",
           "objectives": [
             "Master and apply core concepts in: The story promise",
-            "Connect theory from The Narrative Promise: Setting Audience Expectations (TED-Ed) directly to narrative practice",
+            "Connect theory from undefined (Rotten Tomatoes Classic Trailers) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 03 — Story spine, hook and promise"
           ],
           "tags": [
@@ -875,19 +855,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w03-l4-causality",
           "title": "Week 03 • Lesson 4: Causality",
           "description": "Replace “and then” chains with “because”, “but” and “therefore”. Check whether each major event causes or changes the next one.",
-          "youtubeVideoId": "g9J_3kX0A1r",
+          "youtubeVideoId": "ba-CB6wVuvQ",
           "videoAttribution": {
             "creator": "Lessons from the Screenplay",
             "platform": "youtube",
             "seriesTitle": "Week 03 — Story spine, hook and promise",
             "partNumber": 4
           },
-          "durationMinutes": 9,
+          "durationMinutes": 12,
           "order": 4,
           "moduleTitle": "Level 1: Foundations (Weeks 1–4) — Week 03 — Story spine, hook and promise",
           "objectives": [
             "Master and apply core concepts in: Causality",
-            "Connect theory from South Park's Rule of Causality: Therefore & But (Not 'And Then') (Lessons from the Screenplay) directly to narrative practice",
+            "Connect theory from undefined (Lessons from the Screenplay) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 03 — Story spine, hook and promise"
           ],
           "tags": [
@@ -916,19 +896,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w03-l5-pitch-aloud",
           "title": "Week 03 • Lesson 5: Pitch aloud",
           "description": "Explain the story in 30 seconds. Ask a listener what they think the story is about and what they want to know.",
-          "youtubeVideoId": "h9J_4kX0A1r",
+          "youtubeVideoId": "0txdzPfC-Ow",
           "videoAttribution": {
-            "creator": "Pixar / Khan Academy",
+            "creator": "StudioBinder",
             "platform": "youtube",
             "seriesTitle": "Week 03 — Story spine, hook and promise",
             "partNumber": 5
           },
-          "durationMinutes": 10,
+          "durationMinutes": 12,
           "order": 5,
           "moduleTitle": "Level 1: Foundations (Weeks 1–4) — Week 03 — Story spine, hook and promise",
           "objectives": [
             "Master and apply core concepts in: Pitch aloud",
-            "Connect theory from Pixar in a Box: Pitching Your Story Aloud (Pixar / Khan Academy) directly to narrative practice",
+            "Connect theory from undefined (StudioBinder) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 03 — Story spine, hook and promise"
           ],
           "tags": [
@@ -965,7 +945,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Ignoring character motivation in favor of rapid scene transitions",
               "Omitting conflict until the final epilogue"
             ],
-            "correctAnswerIndex": 0,
             "explanation": "Lesson 1 establishes foundational focus and deliberate creative craftsmanship aligned with Week 03 — Story spine, hook and promise.",
             "difficulty": "beginner",
             "relatedLessonSlug": "w03-l1"
@@ -978,7 +957,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "By completely resetting character memory after each chapter",
               "Without any clear relationship between cause and effect"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Strong narrative momentum relies on causal necessity ('therefore' and 'but') rather than arbitrary episodic chains ('and then').",
             "difficulty": "beginner",
             "relatedLessonSlug": "w03-l2"
@@ -991,7 +969,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Describing a character's physical clothing in extensive detail",
               "Ensuring the protagonist never faces opposition"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Agency is defined by characters making difficult choices under pressure that directly influence the narrative trajectory.",
             "difficulty": "beginner",
             "relatedLessonSlug": "w03-l3"
@@ -1004,7 +981,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Removing all emotional nuance from interpersonal exchanges",
               "Requiring an external narrator to explicitly explain every character thought"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Subtext enriches storytelling by conveying meaning beneath the surface through behaviour, silence, and indirect dialogue.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w03-l4"
@@ -1017,7 +993,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Every obstacle should be resolved instantly without cost",
               "Obstacles should only be external weather conditions"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Tension builds when successive obstacles escalate stakes and demand greater personal investment and risk from the character.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w03-l5"
@@ -1030,7 +1005,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "It eliminates the need for written grammar",
               "It forces the video editor to increase volume"
             ],
-            "correctAnswerIndex": 0,
             "explanation": "Heavy exposition halts dramatic momentum. Information should be revealed organically through action and conflict.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w03-l1"
@@ -1043,7 +1017,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Replaced with direct word-by-word dictionary definitions",
               "Confined exclusively to historical settings"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Authentic cultural and linguistic textures ground narratives in lived reality while connecting universally through human emotion.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w03-l2"
@@ -1056,7 +1029,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Whether it took more than two hours to write",
               "Whether it mentions the title of the story"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "A scene earns its place only if something changes by its conclusion—emotional state, stakes, or character understanding.",
             "difficulty": "advanced",
             "relatedLessonSlug": "w03-l3"
@@ -1069,7 +1041,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "By extending slow exposition scenes indefinitely",
               "By cutting all character development scenes"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Dynamic rhythm requires contrast: moments of high tension must be balanced with reflective beats for emotional processing.",
             "difficulty": "advanced",
             "relatedLessonSlug": "w03-l4"
@@ -1082,7 +1053,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Having a friend write the assignment on your behalf",
               "Only thinking about the assignment without recording or writing it down"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Each week requires completing the designated practical deliverable and evaluating it with the course rubric for clarity and resonance.",
             "difficulty": "advanced",
             "relatedLessonSlug": "w03-l5"
@@ -1101,19 +1071,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w04-l1-three-acts",
           "title": "Week 04 • Lesson 1: Three acts",
           "description": "Learn the job of setup, confrontation and resolution. Do not treat the acts as fixed percentages.",
-          "youtubeVideoId": "tvqjp1CxxD8",
+          "youtubeVideoId": "ZyNvgFmBQTs",
           "videoAttribution": {
-            "creator": "StudioBinder",
+            "creator": "Khan Academy Labs",
             "platform": "youtube",
             "seriesTitle": "Week 04 — Plot and three-act structure",
             "partNumber": 1
           },
-          "durationMinutes": 13,
+          "durationMinutes": 12,
           "order": 1,
           "moduleTitle": "Level 1: Foundations (Weeks 1–4) — Week 04 — Plot and three-act structure",
           "objectives": [
             "Master and apply core concepts in: Three acts",
-            "Connect theory from Three-Act Structure Explained (StudioBinder) directly to narrative practice",
+            "Connect theory from undefined (Khan Academy Labs) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 04 — Plot and three-act structure"
           ],
           "tags": [
@@ -1142,9 +1112,9 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w04-l2-turning-points",
           "title": "Week 04 • Lesson 2: Turning points",
           "description": "Identify the event that makes the story's original situation impossible to continue.",
-          "youtubeVideoId": "i9J_5kX0A1r",
+          "youtubeVideoId": "WJ_iNkkgdCA",
           "videoAttribution": {
-            "creator": "Lessons from the Screenplay",
+            "creator": "Khan Academy Labs",
             "platform": "youtube",
             "seriesTitle": "Week 04 — Plot and three-act structure",
             "partNumber": 2
@@ -1154,7 +1124,7 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "moduleTitle": "Level 1: Foundations (Weeks 1–4) — Week 04 — Plot and three-act structure",
           "objectives": [
             "Master and apply core concepts in: Turning points",
-            "Connect theory from The Inciting Incident and Plot Point 1 (Lessons from the Screenplay) directly to narrative practice",
+            "Connect theory from undefined (Khan Academy Labs) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 04 — Plot and three-act structure"
           ],
           "tags": [
@@ -1183,9 +1153,9 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w04-l3-midpoint-and-escalation",
           "title": "Week 04 • Lesson 3: Midpoint and escalation",
           "description": "Give the protagonist a new understanding, setback or change of plan halfway through.",
-          "youtubeVideoId": "j9J_6kX0A1r",
+          "youtubeVideoId": "AJLHsXw-LFI",
           "videoAttribution": {
-            "creator": "StudioBinder",
+            "creator": "Lessons from the Screenplay",
             "platform": "youtube",
             "seriesTitle": "Week 04 — Plot and three-act structure",
             "partNumber": 3
@@ -1195,7 +1165,7 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "moduleTitle": "Level 1: Foundations (Weeks 1–4) — Week 04 — Plot and three-act structure",
           "objectives": [
             "Master and apply core concepts in: Midpoint and escalation",
-            "Connect theory from The Midpoint Shift: Raising the Stakes (StudioBinder) directly to narrative practice",
+            "Connect theory from undefined (Lessons from the Screenplay) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 04 — Plot and three-act structure"
           ],
           "tags": [
@@ -1224,19 +1194,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w04-l4-climax-and-resolution",
           "title": "Week 04 • Lesson 4: Climax and resolution",
           "description": "Design a final choice or confrontation that tests the central goal and character.",
-          "youtubeVideoId": "k9J_7kX0A1r",
+          "youtubeVideoId": "S0QMxzEVuDI",
           "videoAttribution": {
-            "creator": "TED-Ed",
+            "creator": "Lessons from the Screenplay",
             "platform": "youtube",
             "seriesTitle": "Week 04 — Plot and three-act structure",
             "partNumber": 4
           },
-          "durationMinutes": 9,
+          "durationMinutes": 12,
           "order": 4,
           "moduleTitle": "Level 1: Foundations (Weeks 1–4) — Week 04 — Plot and three-act structure",
           "objectives": [
             "Master and apply core concepts in: Climax and resolution",
-            "Connect theory from Climax and Resolution: Delivering Catharsis (TED-Ed) directly to narrative practice",
+            "Connect theory from undefined (Lessons from the Screenplay) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 04 — Plot and three-act structure"
           ],
           "tags": [
@@ -1265,19 +1235,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w04-l5-reverse-outline",
           "title": "Week 04 • Lesson 5: Reverse outline",
           "description": "Analyse a favourite film or short story. Write its major beats without retelling every scene.",
-          "youtubeVideoId": "l9J_8kX0A1r",
+          "youtubeVideoId": "gsIQa7sH5_Y",
           "videoAttribution": {
-            "creator": "Brandon Sanderson",
+            "creator": "Lessons from the Screenplay",
             "platform": "youtube",
             "seriesTitle": "Week 04 — Plot and three-act structure",
             "partNumber": 5
           },
-          "durationMinutes": 16,
+          "durationMinutes": 12,
           "order": 5,
           "moduleTitle": "Level 1: Foundations (Weeks 1–4) — Week 04 — Plot and three-act structure",
           "objectives": [
             "Master and apply core concepts in: Reverse outline",
-            "Connect theory from Reverse Outlining: Deconstructing Masterpieces (Brandon Sanderson) directly to narrative practice",
+            "Connect theory from undefined (Lessons from the Screenplay) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 04 — Plot and three-act structure"
           ],
           "tags": [
@@ -1314,7 +1284,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Ignoring character motivation in favor of rapid scene transitions",
               "Omitting conflict until the final epilogue"
             ],
-            "correctAnswerIndex": 0,
             "explanation": "Lesson 1 establishes foundational focus and deliberate creative craftsmanship aligned with Week 04 — Plot and three-act structure.",
             "difficulty": "beginner",
             "relatedLessonSlug": "w04-l1"
@@ -1327,7 +1296,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "By completely resetting character memory after each chapter",
               "Without any clear relationship between cause and effect"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Strong narrative momentum relies on causal necessity ('therefore' and 'but') rather than arbitrary episodic chains ('and then').",
             "difficulty": "beginner",
             "relatedLessonSlug": "w04-l2"
@@ -1340,7 +1308,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Describing a character's physical clothing in extensive detail",
               "Ensuring the protagonist never faces opposition"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Agency is defined by characters making difficult choices under pressure that directly influence the narrative trajectory.",
             "difficulty": "beginner",
             "relatedLessonSlug": "w04-l3"
@@ -1353,7 +1320,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Removing all emotional nuance from interpersonal exchanges",
               "Requiring an external narrator to explicitly explain every character thought"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Subtext enriches storytelling by conveying meaning beneath the surface through behaviour, silence, and indirect dialogue.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w04-l4"
@@ -1366,7 +1332,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Every obstacle should be resolved instantly without cost",
               "Obstacles should only be external weather conditions"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Tension builds when successive obstacles escalate stakes and demand greater personal investment and risk from the character.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w04-l5"
@@ -1379,7 +1344,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "It eliminates the need for written grammar",
               "It forces the video editor to increase volume"
             ],
-            "correctAnswerIndex": 0,
             "explanation": "Heavy exposition halts dramatic momentum. Information should be revealed organically through action and conflict.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w04-l1"
@@ -1392,7 +1356,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Replaced with direct word-by-word dictionary definitions",
               "Confined exclusively to historical settings"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Authentic cultural and linguistic textures ground narratives in lived reality while connecting universally through human emotion.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w04-l2"
@@ -1405,7 +1368,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Whether it took more than two hours to write",
               "Whether it mentions the title of the story"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "A scene earns its place only if something changes by its conclusion—emotional state, stakes, or character understanding.",
             "difficulty": "advanced",
             "relatedLessonSlug": "w04-l3"
@@ -1418,7 +1380,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "By extending slow exposition scenes indefinitely",
               "By cutting all character development scenes"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Dynamic rhythm requires contrast: moments of high tension must be balanced with reflective beats for emotional processing.",
             "difficulty": "advanced",
             "relatedLessonSlug": "w04-l4"
@@ -1431,7 +1392,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Having a friend write the assignment on your behalf",
               "Only thinking about the assignment without recording or writing it down"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Each week requires completing the designated practical deliverable and evaluating it with the course rubric for clarity and resonance.",
             "difficulty": "advanced",
             "relatedLessonSlug": "w04-l5"
@@ -1450,19 +1410,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w05-l1-specificity",
           "title": "Week 05 • Lesson 1: Specificity",
           "description": "Build one character using five concrete details: habit, object, skill, fear and contradiction.",
-          "youtubeVideoId": "m9J_9kX0A1r",
+          "youtubeVideoId": "eCxo5PqI2bU",
           "videoAttribution": {
-            "creator": "Pixar / Khan Academy",
+            "creator": "Khan Academy Labs",
             "platform": "youtube",
             "seriesTitle": "Week 05 — Creating believable characters",
             "partNumber": 1
           },
-          "durationMinutes": 11,
+          "durationMinutes": 12,
           "order": 1,
           "moduleTitle": "Level 2: Character and narrative development (Weeks 5–8) — Week 05 — Creating believable characters",
           "objectives": [
             "Master and apply core concepts in: Specificity",
-            "Connect theory from Pixar in a Box: Creating Character Specificity (Pixar / Khan Academy) directly to narrative practice",
+            "Connect theory from undefined (Khan Academy Labs) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 05 — Creating believable characters"
           ],
           "tags": [
@@ -1491,9 +1451,9 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w05-l2-internal-versus-external",
           "title": "Week 05 • Lesson 2: Internal versus external",
           "description": "Separate appearance and public behaviour from beliefs, private motives and emotional patterns.",
-          "youtubeVideoId": "n9J_0kX0A1r",
+          "youtubeVideoId": "bKrCKg9ggVI",
           "videoAttribution": {
-            "creator": "Lessons from the Screenplay",
+            "creator": "Khan Academy Labs",
             "platform": "youtube",
             "seriesTitle": "Week 05 — Creating believable characters",
             "partNumber": 2
@@ -1503,7 +1463,7 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "moduleTitle": "Level 2: Character and narrative development (Weeks 5–8) — Week 05 — Creating believable characters",
           "objectives": [
             "Master and apply core concepts in: Internal versus external",
-            "Connect theory from Internal Flaw vs External Persona (Lessons from the Screenplay) directly to narrative practice",
+            "Connect theory from undefined (Khan Academy Labs) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 05 — Creating believable characters"
           ],
           "tags": [
@@ -1532,19 +1492,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w05-l3-backstory",
           "title": "Week 05 • Lesson 3: Backstory",
           "description": "Write only the past details that influence the character's present choices. Avoid biography that does not affect the plot.",
-          "youtubeVideoId": "o9J_1kX0A1r",
+          "youtubeVideoId": "9BusKC3kcb8",
           "videoAttribution": {
-            "creator": "StudioBinder",
+            "creator": "Khan Academy Labs",
             "platform": "youtube",
             "seriesTitle": "Week 05 — Creating believable characters",
             "partNumber": 3
           },
-          "durationMinutes": 11,
+          "durationMinutes": 12,
           "order": 3,
           "moduleTitle": "Level 2: Character and narrative development (Weeks 5–8) — Week 05 — Creating believable characters",
           "objectives": [
             "Master and apply core concepts in: Backstory",
-            "Connect theory from Backstory: What to Reveal and What to Hide (StudioBinder) directly to narrative practice",
+            "Connect theory from undefined (Khan Academy Labs) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 05 — Creating believable characters"
           ],
           "tags": [
@@ -1573,19 +1533,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w05-l4-character-voice",
           "title": "Week 05 • Lesson 4: Character voice",
           "description": "Write the same sentence as three different people. Change word choice, rhythm, confidence and what each person avoids saying.",
-          "youtubeVideoId": "p9J_2kX0A1r",
+          "youtubeVideoId": "tvqjp1CxxD8",
           "videoAttribution": {
-            "creator": "OpenLearn / BBC",
+            "creator": "StudioBinder",
             "platform": "youtube",
             "seriesTitle": "Week 05 — Creating believable characters",
             "partNumber": 4
           },
-          "durationMinutes": 10,
+          "durationMinutes": 12,
           "order": 4,
           "moduleTitle": "Level 2: Character and narrative development (Weeks 5–8) — Week 05 — Creating believable characters",
           "objectives": [
             "Master and apply core concepts in: Character voice",
-            "Connect theory from Developing Unique Character Voice and Cadence (OpenLearn / BBC) directly to narrative practice",
+            "Connect theory from undefined (StudioBinder) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 05 — Creating believable characters"
           ],
           "tags": [
@@ -1614,19 +1574,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w05-l5-character-interview",
           "title": "Week 05 • Lesson 5: Character interview",
           "description": "Answer ten questions as the character. Then write a short scene where the character makes a decision.",
-          "youtubeVideoId": "q9J_3kX0A1r",
+          "youtubeVideoId": "j56WPBaiPYQ",
           "videoAttribution": {
-            "creator": "Brandon Sanderson",
+            "creator": "Lessons from the Screenplay",
             "platform": "youtube",
             "seriesTitle": "Week 05 — Creating believable characters",
             "partNumber": 5
           },
-          "durationMinutes": 15,
+          "durationMinutes": 12,
           "order": 5,
           "moduleTitle": "Level 2: Character and narrative development (Weeks 5–8) — Week 05 — Creating believable characters",
           "objectives": [
             "Master and apply core concepts in: Character interview",
-            "Connect theory from The Character Interview: Probing Contradictions (Brandon Sanderson) directly to narrative practice",
+            "Connect theory from undefined (Lessons from the Screenplay) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 05 — Creating believable characters"
           ],
           "tags": [
@@ -1663,7 +1623,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Ignoring character motivation in favor of rapid scene transitions",
               "Omitting conflict until the final epilogue"
             ],
-            "correctAnswerIndex": 0,
             "explanation": "Lesson 1 establishes foundational focus and deliberate creative craftsmanship aligned with Week 05 — Creating believable characters.",
             "difficulty": "beginner",
             "relatedLessonSlug": "w05-l1"
@@ -1676,7 +1635,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "By completely resetting character memory after each chapter",
               "Without any clear relationship between cause and effect"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Strong narrative momentum relies on causal necessity ('therefore' and 'but') rather than arbitrary episodic chains ('and then').",
             "difficulty": "beginner",
             "relatedLessonSlug": "w05-l2"
@@ -1689,7 +1647,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Describing a character's physical clothing in extensive detail",
               "Ensuring the protagonist never faces opposition"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Agency is defined by characters making difficult choices under pressure that directly influence the narrative trajectory.",
             "difficulty": "beginner",
             "relatedLessonSlug": "w05-l3"
@@ -1702,7 +1659,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Removing all emotional nuance from interpersonal exchanges",
               "Requiring an external narrator to explicitly explain every character thought"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Subtext enriches storytelling by conveying meaning beneath the surface through behaviour, silence, and indirect dialogue.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w05-l4"
@@ -1715,7 +1671,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Every obstacle should be resolved instantly without cost",
               "Obstacles should only be external weather conditions"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Tension builds when successive obstacles escalate stakes and demand greater personal investment and risk from the character.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w05-l5"
@@ -1728,7 +1683,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "It eliminates the need for written grammar",
               "It forces the video editor to increase volume"
             ],
-            "correctAnswerIndex": 0,
             "explanation": "Heavy exposition halts dramatic momentum. Information should be revealed organically through action and conflict.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w05-l1"
@@ -1741,7 +1695,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Replaced with direct word-by-word dictionary definitions",
               "Confined exclusively to historical settings"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Authentic cultural and linguistic textures ground narratives in lived reality while connecting universally through human emotion.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w05-l2"
@@ -1754,7 +1707,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Whether it took more than two hours to write",
               "Whether it mentions the title of the story"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "A scene earns its place only if something changes by its conclusion—emotional state, stakes, or character understanding.",
             "difficulty": "advanced",
             "relatedLessonSlug": "w05-l3"
@@ -1767,7 +1719,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "By extending slow exposition scenes indefinitely",
               "By cutting all character development scenes"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Dynamic rhythm requires contrast: moments of high tension must be balanced with reflective beats for emotional processing.",
             "difficulty": "advanced",
             "relatedLessonSlug": "w05-l4"
@@ -1780,7 +1731,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Having a friend write the assignment on your behalf",
               "Only thinking about the assignment without recording or writing it down"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Each week requires completing the designated practical deliverable and evaluating it with the course rubric for clarity and resonance.",
             "difficulty": "advanced",
             "relatedLessonSlug": "w05-l5"
@@ -1799,19 +1749,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w06-l1-want-versus-need",
           "title": "Week 06 • Lesson 1: Want versus need",
           "description": "Identify what a character consciously wants and what they may need to understand or change.",
-          "youtubeVideoId": "r9J_4kX0A1r",
+          "youtubeVideoId": "ilDsFrcHsuI",
           "videoAttribution": {
-            "creator": "Pixar / Khan Academy",
+            "creator": "Khan Academy Labs",
             "platform": "youtube",
             "seriesTitle": "Week 06 — Goals, needs, obstacles, stakes and arcs",
             "partNumber": 1
           },
-          "durationMinutes": 11,
+          "durationMinutes": 12,
           "order": 1,
           "moduleTitle": "Level 2: Character and narrative development (Weeks 5–8) — Week 06 — Goals, needs, obstacles, stakes and arcs",
           "objectives": [
             "Master and apply core concepts in: Want versus need",
-            "Connect theory from Pixar in a Box: Want vs Need in Character Arcs (Pixar / Khan Academy) directly to narrative practice",
+            "Connect theory from undefined (Khan Academy Labs) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 06 — Goals, needs, obstacles, stakes and arcs"
           ],
           "tags": [
@@ -1840,9 +1790,9 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w06-l2-motivation",
           "title": "Week 06 • Lesson 2: Motivation",
           "description": "Give the goal a believable reason. Ask why it matters now.",
-          "youtubeVideoId": "s9J_5kX0A1r",
+          "youtubeVideoId": "8IAGH6k17nw",
           "videoAttribution": {
-            "creator": "StudioBinder",
+            "creator": "Lessons from the Screenplay",
             "platform": "youtube",
             "seriesTitle": "Week 06 — Goals, needs, obstacles, stakes and arcs",
             "partNumber": 2
@@ -1852,7 +1802,7 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "moduleTitle": "Level 2: Character and narrative development (Weeks 5–8) — Week 06 — Goals, needs, obstacles, stakes and arcs",
           "objectives": [
             "Master and apply core concepts in: Motivation",
-            "Connect theory from Character Motivation: Why it Matters to the Audience (StudioBinder) directly to narrative practice",
+            "Connect theory from undefined (Lessons from the Screenplay) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 06 — Goals, needs, obstacles, stakes and arcs"
           ],
           "tags": [
@@ -1881,19 +1831,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w06-l3-obstacles",
           "title": "Week 06 • Lesson 3: Obstacles",
           "description": "Create three increasingly difficult obstacles: practical, social and internal.",
-          "youtubeVideoId": "t9J_6kX0A1r",
+          "youtubeVideoId": "6PLSJBTzaGw",
           "videoAttribution": {
-            "creator": "Lessons from the Screenplay",
+            "creator": "StudioBinder",
             "platform": "youtube",
             "seriesTitle": "Week 06 — Goals, needs, obstacles, stakes and arcs",
             "partNumber": 3
           },
-          "durationMinutes": 11,
+          "durationMinutes": 12,
           "order": 3,
           "moduleTitle": "Level 2: Character and narrative development (Weeks 5–8) — Week 06 — Goals, needs, obstacles, stakes and arcs",
           "objectives": [
             "Master and apply core concepts in: Obstacles",
-            "Connect theory from Escalating Obstacles: The Rule of Three Barriers (Lessons from the Screenplay) directly to narrative practice",
+            "Connect theory from undefined (StudioBinder) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 06 — Goals, needs, obstacles, stakes and arcs"
           ],
           "tags": [
@@ -1922,19 +1872,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w06-l4-stakes",
           "title": "Week 06 • Lesson 4: Stakes",
           "description": "Define what the character can lose, what others can lose and what happens if they do nothing.",
-          "youtubeVideoId": "u9J_7kX0A1r",
+          "youtubeVideoId": "LxtPRqiFpe0",
           "videoAttribution": {
-            "creator": "TED-Ed",
+            "creator": "StudioBinder",
             "platform": "youtube",
             "seriesTitle": "Week 06 — Goals, needs, obstacles, stakes and arcs",
             "partNumber": 4
           },
-          "durationMinutes": 9,
+          "durationMinutes": 12,
           "order": 4,
           "moduleTitle": "Level 2: Character and narrative development (Weeks 5–8) — Week 06 — Goals, needs, obstacles, stakes and arcs",
           "objectives": [
             "Master and apply core concepts in: Stakes",
-            "Connect theory from Stakes: Public, Personal, and Philosophical (TED-Ed) directly to narrative practice",
+            "Connect theory from undefined (StudioBinder) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 06 — Goals, needs, obstacles, stakes and arcs"
           ],
           "tags": [
@@ -1963,19 +1913,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w06-l5-arc",
           "title": "Week 06 • Lesson 5: Arc",
           "description": "Describe the character's starting belief, the pressure that challenges it and the final choice that reveals change.",
-          "youtubeVideoId": "v9J_8kX0A1r",
+          "youtubeVideoId": "17Gxgo9kPAQ",
           "videoAttribution": {
-            "creator": "StudioBinder",
+            "creator": "StudioBinder Academy",
             "platform": "youtube",
             "seriesTitle": "Week 06 — Goals, needs, obstacles, stakes and arcs",
             "partNumber": 5
           },
-          "durationMinutes": 14,
+          "durationMinutes": 12,
           "order": 5,
           "moduleTitle": "Level 2: Character and narrative development (Weeks 5–8) — Week 06 — Goals, needs, obstacles, stakes and arcs",
           "objectives": [
             "Master and apply core concepts in: Arc",
-            "Connect theory from Tracking the Positive, Flat, and Tragic Character Arc (StudioBinder) directly to narrative practice",
+            "Connect theory from undefined (StudioBinder Academy) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 06 — Goals, needs, obstacles, stakes and arcs"
           ],
           "tags": [
@@ -2012,7 +1962,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Ignoring character motivation in favor of rapid scene transitions",
               "Omitting conflict until the final epilogue"
             ],
-            "correctAnswerIndex": 0,
             "explanation": "Lesson 1 establishes foundational focus and deliberate creative craftsmanship aligned with Week 06 — Goals, needs, obstacles, stakes and arcs.",
             "difficulty": "beginner",
             "relatedLessonSlug": "w06-l1"
@@ -2025,7 +1974,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "By completely resetting character memory after each chapter",
               "Without any clear relationship between cause and effect"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Strong narrative momentum relies on causal necessity ('therefore' and 'but') rather than arbitrary episodic chains ('and then').",
             "difficulty": "beginner",
             "relatedLessonSlug": "w06-l2"
@@ -2038,7 +1986,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Describing a character's physical clothing in extensive detail",
               "Ensuring the protagonist never faces opposition"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Agency is defined by characters making difficult choices under pressure that directly influence the narrative trajectory.",
             "difficulty": "beginner",
             "relatedLessonSlug": "w06-l3"
@@ -2051,7 +1998,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Removing all emotional nuance from interpersonal exchanges",
               "Requiring an external narrator to explicitly explain every character thought"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Subtext enriches storytelling by conveying meaning beneath the surface through behaviour, silence, and indirect dialogue.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w06-l4"
@@ -2064,7 +2010,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Every obstacle should be resolved instantly without cost",
               "Obstacles should only be external weather conditions"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Tension builds when successive obstacles escalate stakes and demand greater personal investment and risk from the character.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w06-l5"
@@ -2077,7 +2022,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "It eliminates the need for written grammar",
               "It forces the video editor to increase volume"
             ],
-            "correctAnswerIndex": 0,
             "explanation": "Heavy exposition halts dramatic momentum. Information should be revealed organically through action and conflict.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w06-l1"
@@ -2090,7 +2034,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Replaced with direct word-by-word dictionary definitions",
               "Confined exclusively to historical settings"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Authentic cultural and linguistic textures ground narratives in lived reality while connecting universally through human emotion.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w06-l2"
@@ -2103,7 +2046,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Whether it took more than two hours to write",
               "Whether it mentions the title of the story"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "A scene earns its place only if something changes by its conclusion—emotional state, stakes, or character understanding.",
             "difficulty": "advanced",
             "relatedLessonSlug": "w06-l3"
@@ -2116,7 +2058,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "By extending slow exposition scenes indefinitely",
               "By cutting all character development scenes"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Dynamic rhythm requires contrast: moments of high tension must be balanced with reflective beats for emotional processing.",
             "difficulty": "advanced",
             "relatedLessonSlug": "w06-l4"
@@ -2129,7 +2070,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Having a friend write the assignment on your behalf",
               "Only thinking about the assignment without recording or writing it down"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Each week requires completing the designated practical deliverable and evaluating it with the course rubric for clarity and resonance.",
             "difficulty": "advanced",
             "relatedLessonSlug": "w06-l5"
@@ -2148,19 +2088,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w07-l1-point-of-view",
           "title": "Week 07 • Lesson 1: Point of view",
           "description": "Retell one event from first person and third person. Notice what information changes.",
-          "youtubeVideoId": "w9J_9kX0A1r",
+          "youtubeVideoId": "g1p3WmulKbs",
           "videoAttribution": {
-            "creator": "TED-Ed",
+            "creator": "Khan Academy Labs",
             "platform": "youtube",
             "seriesTitle": "Week 07 — Point of view, narration and dialogue",
             "partNumber": 1
           },
-          "durationMinutes": 8,
+          "durationMinutes": 12,
           "order": 1,
           "moduleTitle": "Level 2: Character and narrative development (Weeks 5–8) — Week 07 — Point of view, narration and dialogue",
           "objectives": [
             "Master and apply core concepts in: Point of view",
-            "Connect theory from First Person vs Third Person: The Filter of Perception (TED-Ed) directly to narrative practice",
+            "Connect theory from undefined (Khan Academy Labs) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 07 — Point of view, narration and dialogue"
           ],
           "tags": [
@@ -2189,19 +2129,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w07-l2-narrator-knowledge",
           "title": "Week 07 • Lesson 2: Narrator knowledge",
           "description": "Decide what the narrator knows, misunderstands, hides or cannot know.",
-          "youtubeVideoId": "x9J_0kX0A1r",
+          "youtubeVideoId": "Uty6buQ61ZA",
           "videoAttribution": {
-            "creator": "Lessons from the Screenplay",
+            "creator": "Khan Academy Labs",
             "platform": "youtube",
             "seriesTitle": "Week 07 — Point of view, narration and dialogue",
             "partNumber": 2
           },
-          "durationMinutes": 13,
+          "durationMinutes": 12,
           "order": 2,
           "moduleTitle": "Level 2: Character and narrative development (Weeks 5–8) — Week 07 — Point of view, narration and dialogue",
           "objectives": [
             "Master and apply core concepts in: Narrator knowledge",
-            "Connect theory from The Unreliable Narrator: How and When to Use It (Lessons from the Screenplay) directly to narrative practice",
+            "Connect theory from undefined (Khan Academy Labs) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 07 — Point of view, narration and dialogue"
           ],
           "tags": [
@@ -2230,9 +2170,9 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w07-l3-dialogue",
           "title": "Week 07 • Lesson 3: Dialogue",
           "description": "Write a conversation where each speaker wants something different.",
-          "youtubeVideoId": "y9J_1kX0A1r",
+          "youtubeVideoId": "ZNRQQi42CZA",
           "videoAttribution": {
-            "creator": "StudioBinder",
+            "creator": "StudioBinder Academy",
             "platform": "youtube",
             "seriesTitle": "Week 07 — Point of view, narration and dialogue",
             "partNumber": 3
@@ -2242,7 +2182,7 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "moduleTitle": "Level 2: Character and narrative development (Weeks 5–8) — Week 07 — Point of view, narration and dialogue",
           "objectives": [
             "Master and apply core concepts in: Dialogue",
-            "Connect theory from Writing Dialogue with Hidden Intentions (StudioBinder) directly to narrative practice",
+            "Connect theory from undefined (StudioBinder Academy) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 07 — Point of view, narration and dialogue"
           ],
           "tags": [
@@ -2271,19 +2211,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w07-l4-subtext",
           "title": "Week 07 • Lesson 4: Subtext",
           "description": "Write a scene where the characters discuss an ordinary subject while avoiding the real issue.",
-          "youtubeVideoId": "z9J_2kX0A1r",
+          "youtubeVideoId": "qQNiqzuXjoM",
           "videoAttribution": {
-            "creator": "Lessons from the Screenplay",
+            "creator": "StudioBinder",
             "platform": "youtube",
             "seriesTitle": "Week 07 — Point of view, narration and dialogue",
             "partNumber": 4
           },
-          "durationMinutes": 14,
+          "durationMinutes": 12,
           "order": 4,
           "moduleTitle": "Level 2: Character and narrative development (Weeks 5–8) — Week 07 — Point of view, narration and dialogue",
           "objectives": [
             "Master and apply core concepts in: Subtext",
-            "Connect theory from Mastering Subtext: What Characters Don't Say (Lessons from the Screenplay) directly to narrative practice",
+            "Connect theory from undefined (StudioBinder) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 07 — Point of view, narration and dialogue"
           ],
           "tags": [
@@ -2312,19 +2252,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w07-l5-exposition-edit",
           "title": "Week 07 • Lesson 5: Exposition edit",
           "description": "Remove dialogue that only explains information both characters already know. Replace it with conflict, action or implication.",
-          "youtubeVideoId": "a8K_3kX0A1r",
+          "youtubeVideoId": "AyML8xuKfoc",
           "videoAttribution": {
-            "creator": "Brandon Sanderson",
+            "creator": "StudioBinder",
             "platform": "youtube",
             "seriesTitle": "Week 07 — Point of view, narration and dialogue",
             "partNumber": 5
           },
-          "durationMinutes": 15,
+          "durationMinutes": 12,
           "order": 5,
           "moduleTitle": "Level 2: Character and narrative development (Weeks 5–8) — Week 07 — Point of view, narration and dialogue",
           "objectives": [
             "Master and apply core concepts in: Exposition edit",
-            "Connect theory from Exposition Editing: Show Action, Cut Explanation (Brandon Sanderson) directly to narrative practice",
+            "Connect theory from undefined (StudioBinder) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 07 — Point of view, narration and dialogue"
           ],
           "tags": [
@@ -2361,7 +2301,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Ignoring character motivation in favor of rapid scene transitions",
               "Omitting conflict until the final epilogue"
             ],
-            "correctAnswerIndex": 0,
             "explanation": "Lesson 1 establishes foundational focus and deliberate creative craftsmanship aligned with Week 07 — Point of view, narration and dialogue.",
             "difficulty": "beginner",
             "relatedLessonSlug": "w07-l1"
@@ -2374,7 +2313,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "By completely resetting character memory after each chapter",
               "Without any clear relationship between cause and effect"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Strong narrative momentum relies on causal necessity ('therefore' and 'but') rather than arbitrary episodic chains ('and then').",
             "difficulty": "beginner",
             "relatedLessonSlug": "w07-l2"
@@ -2387,7 +2325,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Describing a character's physical clothing in extensive detail",
               "Ensuring the protagonist never faces opposition"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Agency is defined by characters making difficult choices under pressure that directly influence the narrative trajectory.",
             "difficulty": "beginner",
             "relatedLessonSlug": "w07-l3"
@@ -2400,7 +2337,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Removing all emotional nuance from interpersonal exchanges",
               "Requiring an external narrator to explicitly explain every character thought"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Subtext enriches storytelling by conveying meaning beneath the surface through behaviour, silence, and indirect dialogue.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w07-l4"
@@ -2413,7 +2349,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Every obstacle should be resolved instantly without cost",
               "Obstacles should only be external weather conditions"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Tension builds when successive obstacles escalate stakes and demand greater personal investment and risk from the character.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w07-l5"
@@ -2426,7 +2361,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "It eliminates the need for written grammar",
               "It forces the video editor to increase volume"
             ],
-            "correctAnswerIndex": 0,
             "explanation": "Heavy exposition halts dramatic momentum. Information should be revealed organically through action and conflict.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w07-l1"
@@ -2439,7 +2373,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Replaced with direct word-by-word dictionary definitions",
               "Confined exclusively to historical settings"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Authentic cultural and linguistic textures ground narratives in lived reality while connecting universally through human emotion.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w07-l2"
@@ -2452,7 +2385,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Whether it took more than two hours to write",
               "Whether it mentions the title of the story"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "A scene earns its place only if something changes by its conclusion—emotional state, stakes, or character understanding.",
             "difficulty": "advanced",
             "relatedLessonSlug": "w07-l3"
@@ -2465,7 +2397,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "By extending slow exposition scenes indefinitely",
               "By cutting all character development scenes"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Dynamic rhythm requires contrast: moments of high tension must be balanced with reflective beats for emotional processing.",
             "difficulty": "advanced",
             "relatedLessonSlug": "w07-l4"
@@ -2478,7 +2409,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Having a friend write the assignment on your behalf",
               "Only thinking about the assignment without recording or writing it down"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Each week requires completing the designated practical deliverable and evaluating it with the course rubric for clarity and resonance.",
             "difficulty": "advanced",
             "relatedLessonSlug": "w07-l5"
@@ -2497,7 +2427,7 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w08-l1-setting-as-pressure",
           "title": "Week 08 • Lesson 1: Setting as pressure",
           "description": "Choose a place that makes the character's goal easier or harder.",
-          "youtubeVideoId": "b8K_4kX0A1r",
+          "youtubeVideoId": "wrR8ggeD4h4",
           "videoAttribution": {
             "creator": "StudioBinder",
             "platform": "youtube",
@@ -2509,7 +2439,7 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "moduleTitle": "Level 2: Character and narrative development (Weeks 5–8) — Week 08 — Setting, worldbuilding and genre",
           "objectives": [
             "Master and apply core concepts in: Setting as pressure",
-            "Connect theory from Setting as an Antagonist and Pressure Cooker (StudioBinder) directly to narrative practice",
+            "Connect theory from undefined (StudioBinder) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 08 — Setting, worldbuilding and genre"
           ],
           "tags": [
@@ -2538,19 +2468,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w08-l2-sensory-detail",
           "title": "Week 08 • Lesson 2: Sensory detail",
           "description": "Describe a place through sound, temperature, texture, smell and light without listing every sense mechanically.",
-          "youtubeVideoId": "c8K_5kX0A1r",
+          "youtubeVideoId": "A0edKgL9EgM",
           "videoAttribution": {
-            "creator": "OpenLearn / BBC",
+            "creator": "TED-Ed",
             "platform": "youtube",
             "seriesTitle": "Week 08 — Setting, worldbuilding and genre",
             "partNumber": 2
           },
-          "durationMinutes": 10,
+          "durationMinutes": 12,
           "order": 2,
           "moduleTitle": "Level 2: Character and narrative development (Weeks 5–8) — Week 08 — Setting, worldbuilding and genre",
           "objectives": [
             "Master and apply core concepts in: Sensory detail",
-            "Connect theory from Sensory Details: Engaging Sight, Sound, Smell & Touch (OpenLearn / BBC) directly to narrative practice",
+            "Connect theory from undefined (TED-Ed) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 08 — Setting, worldbuilding and genre"
           ],
           "tags": [
@@ -2579,19 +2509,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w08-l3-world-rules",
           "title": "Week 08 • Lesson 3: World rules",
           "description": "Define three rules of the story world. Show how breaking one rule causes a problem.",
-          "youtubeVideoId": "d8K_6kX0A1r",
+          "youtubeVideoId": "RSoRzTtwgP4",
           "videoAttribution": {
-            "creator": "Brandon Sanderson",
+            "creator": "TED-Ed",
             "platform": "youtube",
             "seriesTitle": "Week 08 — Setting, worldbuilding and genre",
             "partNumber": 3
           },
-          "durationMinutes": 19,
+          "durationMinutes": 12,
           "order": 3,
           "moduleTitle": "Level 2: Character and narrative development (Weeks 5–8) — Week 08 — Setting, worldbuilding and genre",
           "objectives": [
             "Master and apply core concepts in: World rules",
-            "Connect theory from Worldbuilding Rules: Sanderson's Laws of Magic & Systems (Brandon Sanderson) directly to narrative practice",
+            "Connect theory from undefined (TED-Ed) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 08 — Setting, worldbuilding and genre"
           ],
           "tags": [
@@ -2620,19 +2550,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w08-l4-genre",
           "title": "Week 08 • Lesson 4: Genre",
           "description": "Retell the same premise as a mystery, comedy and drama. Note how audience expectations change.",
-          "youtubeVideoId": "e8K_7kX0A1r",
+          "youtubeVideoId": "B5vEfuLS2Qc",
           "videoAttribution": {
-            "creator": "Lessons from the Screenplay",
+            "creator": "TED-Ed",
             "platform": "youtube",
             "seriesTitle": "Week 08 — Setting, worldbuilding and genre",
             "partNumber": 4
           },
-          "durationMinutes": 13,
+          "durationMinutes": 12,
           "order": 4,
           "moduleTitle": "Level 2: Character and narrative development (Weeks 5–8) — Week 08 — Setting, worldbuilding and genre",
           "objectives": [
             "Master and apply core concepts in: Genre",
-            "Connect theory from Genre Conventions: Delivering on Audience Expectations (Lessons from the Screenplay) directly to narrative practice",
+            "Connect theory from undefined (TED-Ed) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 08 — Setting, worldbuilding and genre"
           ],
           "tags": [
@@ -2661,19 +2591,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w08-l5-research-and-authenticity",
           "title": "Week 08 • Lesson 5: Research and authenticity",
           "description": "Identify what needs factual research. Mark uncertain details and avoid pretending to know what you have not verified.",
-          "youtubeVideoId": "f8K_8kX0A1r",
+          "youtubeVideoId": "flthk8SNiiE",
           "videoAttribution": {
             "creator": "TED-Ed",
             "platform": "youtube",
             "seriesTitle": "Week 08 — Setting, worldbuilding and genre",
             "partNumber": 5
           },
-          "durationMinutes": 9,
+          "durationMinutes": 12,
           "order": 5,
           "moduleTitle": "Level 2: Character and narrative development (Weeks 5–8) — Week 08 — Setting, worldbuilding and genre",
           "objectives": [
             "Master and apply core concepts in: Research and authenticity",
-            "Connect theory from Research and Cultural Authenticity in Fiction (TED-Ed) directly to narrative practice",
+            "Connect theory from undefined (TED-Ed) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 08 — Setting, worldbuilding and genre"
           ],
           "tags": [
@@ -2710,7 +2640,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Ignoring character motivation in favor of rapid scene transitions",
               "Omitting conflict until the final epilogue"
             ],
-            "correctAnswerIndex": 0,
             "explanation": "Lesson 1 establishes foundational focus and deliberate creative craftsmanship aligned with Week 08 — Setting, worldbuilding and genre.",
             "difficulty": "beginner",
             "relatedLessonSlug": "w08-l1"
@@ -2723,7 +2652,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "By completely resetting character memory after each chapter",
               "Without any clear relationship between cause and effect"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Strong narrative momentum relies on causal necessity ('therefore' and 'but') rather than arbitrary episodic chains ('and then').",
             "difficulty": "beginner",
             "relatedLessonSlug": "w08-l2"
@@ -2736,7 +2664,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Describing a character's physical clothing in extensive detail",
               "Ensuring the protagonist never faces opposition"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Agency is defined by characters making difficult choices under pressure that directly influence the narrative trajectory.",
             "difficulty": "beginner",
             "relatedLessonSlug": "w08-l3"
@@ -2749,7 +2676,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Removing all emotional nuance from interpersonal exchanges",
               "Requiring an external narrator to explicitly explain every character thought"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Subtext enriches storytelling by conveying meaning beneath the surface through behaviour, silence, and indirect dialogue.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w08-l4"
@@ -2762,7 +2688,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Every obstacle should be resolved instantly without cost",
               "Obstacles should only be external weather conditions"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Tension builds when successive obstacles escalate stakes and demand greater personal investment and risk from the character.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w08-l5"
@@ -2775,7 +2700,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "It eliminates the need for written grammar",
               "It forces the video editor to increase volume"
             ],
-            "correctAnswerIndex": 0,
             "explanation": "Heavy exposition halts dramatic momentum. Information should be revealed organically through action and conflict.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w08-l1"
@@ -2788,7 +2712,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Replaced with direct word-by-word dictionary definitions",
               "Confined exclusively to historical settings"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Authentic cultural and linguistic textures ground narratives in lived reality while connecting universally through human emotion.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w08-l2"
@@ -2801,7 +2724,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Whether it took more than two hours to write",
               "Whether it mentions the title of the story"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "A scene earns its place only if something changes by its conclusion—emotional state, stakes, or character understanding.",
             "difficulty": "advanced",
             "relatedLessonSlug": "w08-l3"
@@ -2814,7 +2736,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "By extending slow exposition scenes indefinitely",
               "By cutting all character development scenes"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Dynamic rhythm requires contrast: moments of high tension must be balanced with reflective beats for emotional processing.",
             "difficulty": "advanced",
             "relatedLessonSlug": "w08-l4"
@@ -2827,7 +2748,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Having a friend write the assignment on your behalf",
               "Only thinking about the assignment without recording or writing it down"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Each week requires completing the designated practical deliverable and evaluating it with the course rubric for clarity and resonance.",
             "difficulty": "advanced",
             "relatedLessonSlug": "w08-l5"
@@ -2846,19 +2766,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w09-l1-conflict-types",
           "title": "Week 09 • Lesson 1: Conflict types",
           "description": "Build an external conflict, interpersonal conflict and internal conflict for one protagonist.",
-          "youtubeVideoId": "g8K_9kX0A1r",
+          "youtubeVideoId": "SBEm2r0VXc4",
           "videoAttribution": {
-            "creator": "StudioBinder",
+            "creator": "THNKR",
             "platform": "youtube",
             "seriesTitle": "Week 09 — Conflict, tension and suspense",
             "partNumber": 1
           },
-          "durationMinutes": 13,
+          "durationMinutes": 12,
           "order": 1,
           "moduleTitle": "Level 3: Emotion, tension and narrative control (Weeks 9–12) — Week 09 — Conflict, tension and suspense",
           "objectives": [
             "Master and apply core concepts in: Conflict types",
-            "Connect theory from Types of Conflict: Internal, Relational, and Societal (StudioBinder) directly to narrative practice",
+            "Connect theory from undefined (THNKR) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 09 — Conflict, tension and suspense"
           ],
           "tags": [
@@ -2887,9 +2807,9 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w09-l2-scene-objective",
           "title": "Week 09 • Lesson 2: Scene objective",
           "description": "Give every scene a character who wants something and an obstacle that prevents an easy result.",
-          "youtubeVideoId": "h8K_0kX0A1r",
+          "youtubeVideoId": "xqfZaXHl4qg",
           "videoAttribution": {
-            "creator": "Lessons from the Screenplay",
+            "creator": "Kevin McGeehan",
             "platform": "youtube",
             "seriesTitle": "Week 09 — Conflict, tension and suspense",
             "partNumber": 2
@@ -2899,7 +2819,7 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "moduleTitle": "Level 3: Emotion, tension and narrative control (Weeks 9–12) — Week 09 — Conflict, tension and suspense",
           "objectives": [
             "Master and apply core concepts in: Scene objective",
-            "Connect theory from Scene Objective: The Micro-Battle of Every Scene (Lessons from the Screenplay) directly to narrative practice",
+            "Connect theory from undefined (Kevin McGeehan) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 09 — Conflict, tension and suspense"
           ],
           "tags": [
@@ -2928,19 +2848,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w09-l3-escalation",
           "title": "Week 09 • Lesson 3: Escalation",
           "description": "Make each attempt change the situation. Do not repeat the same obstacle at the same intensity.",
-          "youtubeVideoId": "i8K_1kX0A1r",
+          "youtubeVideoId": "r8jCcv2QIwM",
           "videoAttribution": {
-            "creator": "Pixar / Khan Academy",
+            "creator": "Matthew Dicks",
             "platform": "youtube",
             "seriesTitle": "Week 09 — Conflict, tension and suspense",
             "partNumber": 3
           },
-          "durationMinutes": 10,
+          "durationMinutes": 12,
           "order": 3,
           "moduleTitle": "Level 3: Emotion, tension and narrative control (Weeks 9–12) — Week 09 — Conflict, tension and suspense",
           "objectives": [
             "Master and apply core concepts in: Escalation",
-            "Connect theory from Tension Escalation: The 'Yes, But' / 'No, And' Technique (Pixar / Khan Academy) directly to narrative practice",
+            "Connect theory from undefined (Matthew Dicks) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 09 — Conflict, tension and suspense"
           ],
           "tags": [
@@ -2969,19 +2889,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w09-l4-suspense-versus-surprise",
           "title": "Week 09 • Lesson 4: Suspense versus surprise",
           "description": "Write one scene where the audience knows danger is coming and one where the audience learns it at the same time as the character.",
-          "youtubeVideoId": "j8K_2kX0A1r",
+          "youtubeVideoId": "qvkIiUJsF68",
           "videoAttribution": {
-            "creator": "StudioBinder",
+            "creator": "Digiday",
             "platform": "youtube",
             "seriesTitle": "Week 09 — Conflict, tension and suspense",
             "partNumber": 4
           },
-          "durationMinutes": 11,
+          "durationMinutes": 12,
           "order": 4,
           "moduleTitle": "Level 3: Emotion, tension and narrative control (Weeks 9–12) — Week 09 — Conflict, tension and suspense",
           "objectives": [
             "Master and apply core concepts in: Suspense versus surprise",
-            "Connect theory from Hitchcock on Suspense vs Surprise: The Ticking Bomb (StudioBinder) directly to narrative practice",
+            "Connect theory from undefined (Digiday) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 09 — Conflict, tension and suspense"
           ],
           "tags": [
@@ -3010,19 +2930,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w09-l5-scene-test",
           "title": "Week 09 • Lesson 5: Scene test",
           "description": "Mark where tension rises, falls or disappears. Remove or rewrite a scene that changes nothing.",
-          "youtubeVideoId": "k8K_3kX0A1r",
+          "youtubeVideoId": "qdBJ1X33rXM",
           "videoAttribution": {
-            "creator": "Brandon Sanderson",
+            "creator": "The Moth",
             "platform": "youtube",
             "seriesTitle": "Week 09 — Conflict, tension and suspense",
             "partNumber": 5
           },
-          "durationMinutes": 15,
+          "durationMinutes": 12,
           "order": 5,
           "moduleTitle": "Level 3: Emotion, tension and narrative control (Weeks 9–12) — Week 09 — Conflict, tension and suspense",
           "objectives": [
             "Master and apply core concepts in: Scene test",
-            "Connect theory from The Scene Audit: Removing Narrative Dead Zones (Brandon Sanderson) directly to narrative practice",
+            "Connect theory from undefined (The Moth) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 09 — Conflict, tension and suspense"
           ],
           "tags": [
@@ -3059,7 +2979,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Ignoring character motivation in favor of rapid scene transitions",
               "Omitting conflict until the final epilogue"
             ],
-            "correctAnswerIndex": 0,
             "explanation": "Lesson 1 establishes foundational focus and deliberate creative craftsmanship aligned with Week 09 — Conflict, tension and suspense.",
             "difficulty": "beginner",
             "relatedLessonSlug": "w09-l1"
@@ -3072,7 +2991,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "By completely resetting character memory after each chapter",
               "Without any clear relationship between cause and effect"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Strong narrative momentum relies on causal necessity ('therefore' and 'but') rather than arbitrary episodic chains ('and then').",
             "difficulty": "beginner",
             "relatedLessonSlug": "w09-l2"
@@ -3085,7 +3003,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Describing a character's physical clothing in extensive detail",
               "Ensuring the protagonist never faces opposition"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Agency is defined by characters making difficult choices under pressure that directly influence the narrative trajectory.",
             "difficulty": "beginner",
             "relatedLessonSlug": "w09-l3"
@@ -3098,7 +3015,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Removing all emotional nuance from interpersonal exchanges",
               "Requiring an external narrator to explicitly explain every character thought"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Subtext enriches storytelling by conveying meaning beneath the surface through behaviour, silence, and indirect dialogue.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w09-l4"
@@ -3111,7 +3027,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Every obstacle should be resolved instantly without cost",
               "Obstacles should only be external weather conditions"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Tension builds when successive obstacles escalate stakes and demand greater personal investment and risk from the character.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w09-l5"
@@ -3124,7 +3039,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "It eliminates the need for written grammar",
               "It forces the video editor to increase volume"
             ],
-            "correctAnswerIndex": 0,
             "explanation": "Heavy exposition halts dramatic momentum. Information should be revealed organically through action and conflict.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w09-l1"
@@ -3137,7 +3051,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Replaced with direct word-by-word dictionary definitions",
               "Confined exclusively to historical settings"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Authentic cultural and linguistic textures ground narratives in lived reality while connecting universally through human emotion.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w09-l2"
@@ -3150,7 +3063,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Whether it took more than two hours to write",
               "Whether it mentions the title of the story"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "A scene earns its place only if something changes by its conclusion—emotional state, stakes, or character understanding.",
             "difficulty": "advanced",
             "relatedLessonSlug": "w09-l3"
@@ -3163,7 +3075,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "By extending slow exposition scenes indefinitely",
               "By cutting all character development scenes"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Dynamic rhythm requires contrast: moments of high tension must be balanced with reflective beats for emotional processing.",
             "difficulty": "advanced",
             "relatedLessonSlug": "w09-l4"
@@ -3176,7 +3087,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Having a friend write the assignment on your behalf",
               "Only thinking about the assignment without recording or writing it down"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Each week requires completing the designated practical deliverable and evaluating it with the course rubric for clarity and resonance.",
             "difficulty": "advanced",
             "relatedLessonSlug": "w09-l5"
@@ -3195,19 +3105,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w10-l1-emotional-investment",
           "title": "Week 10 • Lesson 1: Emotional investment",
           "description": "Identify what the audience needs to understand about a character before a difficult moment matters.",
-          "youtubeVideoId": "l8K_4kX0A1r",
+          "youtubeVideoId": "nzOdAVgyi0U",
           "videoAttribution": {
-            "creator": "Pixar / Khan Academy",
+            "creator": "TED-Ed",
             "platform": "youtube",
             "seriesTitle": "Week 10 — Emotion, pacing and audience engagement",
             "partNumber": 1
           },
-          "durationMinutes": 11,
+          "durationMinutes": 12,
           "order": 1,
           "moduleTitle": "Level 3: Emotion, tension and narrative control (Weeks 9–12) — Week 10 — Emotion, pacing and audience engagement",
           "objectives": [
             "Master and apply core concepts in: Emotional investment",
-            "Connect theory from Creating Deep Emotional Investment in Characters (Pixar / Khan Academy) directly to narrative practice",
+            "Connect theory from undefined (TED-Ed) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 10 — Emotion, pacing and audience engagement"
           ],
           "tags": [
@@ -3236,19 +3146,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w10-l2-show-versus-tell",
           "title": "Week 10 • Lesson 2: Show versus tell",
           "description": "Rewrite abstract emotion as behaviour, choice, sensory detail or dialogue.",
-          "youtubeVideoId": "m8K_5kX0A1r",
+          "youtubeVideoId": "Z7bfPaTfU0c",
           "videoAttribution": {
             "creator": "TED-Ed",
             "platform": "youtube",
             "seriesTitle": "Week 10 — Emotion, pacing and audience engagement",
             "partNumber": 2
           },
-          "durationMinutes": 9,
+          "durationMinutes": 12,
           "order": 2,
           "moduleTitle": "Level 3: Emotion, tension and narrative control (Weeks 9–12) — Week 10 — Emotion, pacing and audience engagement",
           "objectives": [
             "Master and apply core concepts in: Show versus tell",
-            "Connect theory from Show Don't Tell: Translating Emotion into Concrete Action (TED-Ed) directly to narrative practice",
+            "Connect theory from undefined (TED-Ed) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 10 — Emotion, pacing and audience engagement"
           ],
           "tags": [
@@ -3277,9 +3187,9 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w10-l3-pacing",
           "title": "Week 10 • Lesson 3: Pacing",
           "description": "Shorten a slow passage and expand a key moment. Compare how the timing changes the experience.",
-          "youtubeVideoId": "n8K_6kX0A1r",
+          "youtubeVideoId": "btWlBHE0pe4",
           "videoAttribution": {
-            "creator": "Lessons from the Screenplay",
+            "creator": "TED-Ed",
             "platform": "youtube",
             "seriesTitle": "Week 10 — Emotion, pacing and audience engagement",
             "partNumber": 3
@@ -3289,7 +3199,7 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "moduleTitle": "Level 3: Emotion, tension and narrative control (Weeks 9–12) — Week 10 — Emotion, pacing and audience engagement",
           "objectives": [
             "Master and apply core concepts in: Pacing",
-            "Connect theory from Pacing: Sentence Length, Scene Cuts, and Breathing Room (Lessons from the Screenplay) directly to narrative practice",
+            "Connect theory from undefined (TED-Ed) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 10 — Emotion, pacing and audience engagement"
           ],
           "tags": [
@@ -3318,9 +3228,9 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w10-l4-contrast",
           "title": "Week 10 • Lesson 4: Contrast",
           "description": "Place calm before tension, humour before seriousness or relief before a new problem, only when it supports the story.",
-          "youtubeVideoId": "o8K_7kX0A1r",
+          "youtubeVideoId": "1sOgYNgq88E",
           "videoAttribution": {
-            "creator": "StudioBinder",
+            "creator": "TED-Ed",
             "platform": "youtube",
             "seriesTitle": "Week 10 — Emotion, pacing and audience engagement",
             "partNumber": 4
@@ -3330,7 +3240,7 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "moduleTitle": "Level 3: Emotion, tension and narrative control (Weeks 9–12) — Week 10 — Emotion, pacing and audience engagement",
           "objectives": [
             "Master and apply core concepts in: Contrast",
-            "Connect theory from Contrast in Storytelling: Humor Before Heartbreak (StudioBinder) directly to narrative practice",
+            "Connect theory from undefined (TED-Ed) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 10 — Emotion, pacing and audience engagement"
           ],
           "tags": [
@@ -3359,19 +3269,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w10-l5-emotional-audit",
           "title": "Week 10 • Lesson 5: Emotional audit",
           "description": "Ask what emotion each major beat is intended to create and whether the scene earns it.",
-          "youtubeVideoId": "p8K_8kX0A1r",
+          "youtubeVideoId": "PJKeLD-vMvo",
           "videoAttribution": {
-            "creator": "Andrew Stanton | TED",
+            "creator": "TED-Ed",
             "platform": "youtube",
             "seriesTitle": "Week 10 — Emotion, pacing and audience engagement",
             "partNumber": 5
           },
-          "durationMinutes": 10,
+          "durationMinutes": 12,
           "order": 5,
           "moduleTitle": "Level 3: Emotion, tension and narrative control (Weeks 9–12) — Week 10 — Emotion, pacing and audience engagement",
           "objectives": [
             "Master and apply core concepts in: Emotional audit",
-            "Connect theory from The Emotional Wave: Mapping Audience Resonance (Andrew Stanton | TED) directly to narrative practice",
+            "Connect theory from undefined (TED-Ed) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 10 — Emotion, pacing and audience engagement"
           ],
           "tags": [
@@ -3408,7 +3318,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Ignoring character motivation in favor of rapid scene transitions",
               "Omitting conflict until the final epilogue"
             ],
-            "correctAnswerIndex": 0,
             "explanation": "Lesson 1 establishes foundational focus and deliberate creative craftsmanship aligned with Week 10 — Emotion, pacing and audience engagement.",
             "difficulty": "beginner",
             "relatedLessonSlug": "w10-l1"
@@ -3421,7 +3330,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "By completely resetting character memory after each chapter",
               "Without any clear relationship between cause and effect"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Strong narrative momentum relies on causal necessity ('therefore' and 'but') rather than arbitrary episodic chains ('and then').",
             "difficulty": "beginner",
             "relatedLessonSlug": "w10-l2"
@@ -3434,7 +3342,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Describing a character's physical clothing in extensive detail",
               "Ensuring the protagonist never faces opposition"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Agency is defined by characters making difficult choices under pressure that directly influence the narrative trajectory.",
             "difficulty": "beginner",
             "relatedLessonSlug": "w10-l3"
@@ -3447,7 +3354,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Removing all emotional nuance from interpersonal exchanges",
               "Requiring an external narrator to explicitly explain every character thought"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Subtext enriches storytelling by conveying meaning beneath the surface through behaviour, silence, and indirect dialogue.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w10-l4"
@@ -3460,7 +3366,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Every obstacle should be resolved instantly without cost",
               "Obstacles should only be external weather conditions"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Tension builds when successive obstacles escalate stakes and demand greater personal investment and risk from the character.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w10-l5"
@@ -3473,7 +3378,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "It eliminates the need for written grammar",
               "It forces the video editor to increase volume"
             ],
-            "correctAnswerIndex": 0,
             "explanation": "Heavy exposition halts dramatic momentum. Information should be revealed organically through action and conflict.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w10-l1"
@@ -3486,7 +3390,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Replaced with direct word-by-word dictionary definitions",
               "Confined exclusively to historical settings"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Authentic cultural and linguistic textures ground narratives in lived reality while connecting universally through human emotion.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w10-l2"
@@ -3499,7 +3402,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Whether it took more than two hours to write",
               "Whether it mentions the title of the story"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "A scene earns its place only if something changes by its conclusion—emotional state, stakes, or character understanding.",
             "difficulty": "advanced",
             "relatedLessonSlug": "w10-l3"
@@ -3512,7 +3414,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "By extending slow exposition scenes indefinitely",
               "By cutting all character development scenes"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Dynamic rhythm requires contrast: moments of high tension must be balanced with reflective beats for emotional processing.",
             "difficulty": "advanced",
             "relatedLessonSlug": "w10-l4"
@@ -3525,7 +3426,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Having a friend write the assignment on your behalf",
               "Only thinking about the assignment without recording or writing it down"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Each week requires completing the designated practical deliverable and evaluating it with the course rubric for clarity and resonance.",
             "difficulty": "advanced",
             "relatedLessonSlug": "w10-l5"
@@ -3544,19 +3444,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w11-l1-theme-as-a-question",
           "title": "Week 11 • Lesson 1: Theme as a question",
           "description": "Turn a broad topic such as trust, ambition or belonging into a question a character must face.",
-          "youtubeVideoId": "q8K_9kX0A1r",
+          "youtubeVideoId": "1uTRlM6MbMo",
           "videoAttribution": {
-            "creator": "Lessons from the Screenplay",
+            "creator": "TED-Ed",
             "platform": "youtube",
             "seriesTitle": "Week 11 — Theme, symbolism, metaphor and subtext",
             "partNumber": 1
           },
-          "durationMinutes": 13,
+          "durationMinutes": 12,
           "order": 1,
           "moduleTitle": "Level 3: Emotion, tension and narrative control (Weeks 9–12) — Week 11 — Theme, symbolism, metaphor and subtext",
           "objectives": [
             "Master and apply core concepts in: Theme as a question",
-            "Connect theory from Theme as a Central Dramatic Question (Lessons from the Screenplay) directly to narrative practice",
+            "Connect theory from undefined (TED-Ed) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 11 — Theme, symbolism, metaphor and subtext"
           ],
           "tags": [
@@ -3585,19 +3485,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w11-l2-theme-through-choice",
           "title": "Week 11 • Lesson 2: Theme through choice",
           "description": "Make the protagonist's decision reveal the story's central question. Avoid adding a speech that explains the moral.",
-          "youtubeVideoId": "r8K_0kX0A1r",
+          "youtubeVideoId": "EMbZ72cCAzI",
           "videoAttribution": {
-            "creator": "Pixar / Khan Academy",
+            "creator": "TED-Ed",
             "platform": "youtube",
             "seriesTitle": "Week 11 — Theme, symbolism, metaphor and subtext",
             "partNumber": 2
           },
-          "durationMinutes": 11,
+          "durationMinutes": 12,
           "order": 2,
           "moduleTitle": "Level 3: Emotion, tension and narrative control (Weeks 9–12) — Week 11 — Theme, symbolism, metaphor and subtext",
           "objectives": [
             "Master and apply core concepts in: Theme through choice",
-            "Connect theory from Expressing Theme Through Character Choice and Sacrifice (Pixar / Khan Academy) directly to narrative practice",
+            "Connect theory from undefined (TED-Ed) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 11 — Theme, symbolism, metaphor and subtext"
           ],
           "tags": [
@@ -3626,9 +3526,9 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w11-l3-motif",
           "title": "Week 11 • Lesson 3: Motif",
           "description": "Select an object, image, sound or repeated action that changes meaning as the story progresses.",
-          "youtubeVideoId": "s8K_1kX0A1r",
+          "youtubeVideoId": "JOs-q7rXqdk",
           "videoAttribution": {
-            "creator": "StudioBinder",
+            "creator": "TED-Ed",
             "platform": "youtube",
             "seriesTitle": "Week 11 — Theme, symbolism, metaphor and subtext",
             "partNumber": 3
@@ -3638,7 +3538,7 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "moduleTitle": "Level 3: Emotion, tension and narrative control (Weeks 9–12) — Week 11 — Theme, symbolism, metaphor and subtext",
           "objectives": [
             "Master and apply core concepts in: Motif",
-            "Connect theory from Motifs: Planting Recurring Symbols Across a Story (StudioBinder) directly to narrative practice",
+            "Connect theory from undefined (TED-Ed) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 11 — Theme, symbolism, metaphor and subtext"
           ],
           "tags": [
@@ -3667,19 +3567,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w11-l4-metaphor",
           "title": "Week 11 • Lesson 4: Metaphor",
           "description": "Use one meaningful comparison to clarify an emotional or abstract experience. Remove decorative metaphors that confuse the scene.",
-          "youtubeVideoId": "t8K_2kX0A1r",
+          "youtubeVideoId": "G3hXvByzLHs",
           "videoAttribution": {
             "creator": "TED-Ed",
             "platform": "youtube",
             "seriesTitle": "Week 11 — Theme, symbolism, metaphor and subtext",
             "partNumber": 4
           },
-          "durationMinutes": 9,
+          "durationMinutes": 12,
           "order": 4,
           "moduleTitle": "Level 3: Emotion, tension and narrative control (Weeks 9–12) — Week 11 — Theme, symbolism, metaphor and subtext",
           "objectives": [
             "Master and apply core concepts in: Metaphor",
-            "Connect theory from Visual Metaphor: Showing Complex Ideas Through Concrete Objects (TED-Ed) directly to narrative practice",
+            "Connect theory from undefined (TED-Ed) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 11 — Theme, symbolism, metaphor and subtext"
           ],
           "tags": [
@@ -3708,19 +3608,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w11-l5-subtext-analysis",
           "title": "Week 11 • Lesson 5: Subtext analysis",
           "description": "Analyse a scene where characters do not say exactly what they mean. Write what is spoken and what is implied.",
-          "youtubeVideoId": "u8K_3kX0A1r",
+          "youtubeVideoId": "mGugp5qs6Vg",
           "videoAttribution": {
-            "creator": "Lessons from the Screenplay",
+            "creator": "TED-Ed",
             "platform": "youtube",
             "seriesTitle": "Week 11 — Theme, symbolism, metaphor and subtext",
             "partNumber": 5
           },
-          "durationMinutes": 14,
+          "durationMinutes": 12,
           "order": 5,
           "moduleTitle": "Level 3: Emotion, tension and narrative control (Weeks 9–12) — Week 11 — Theme, symbolism, metaphor and subtext",
           "objectives": [
             "Master and apply core concepts in: Subtext analysis",
-            "Connect theory from Subtext in Action: What the Eyes and Hands Confess (Lessons from the Screenplay) directly to narrative practice",
+            "Connect theory from undefined (TED-Ed) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 11 — Theme, symbolism, metaphor and subtext"
           ],
           "tags": [
@@ -3757,7 +3657,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Ignoring character motivation in favor of rapid scene transitions",
               "Omitting conflict until the final epilogue"
             ],
-            "correctAnswerIndex": 0,
             "explanation": "Lesson 1 establishes foundational focus and deliberate creative craftsmanship aligned with Week 11 — Theme, symbolism, metaphor and subtext.",
             "difficulty": "beginner",
             "relatedLessonSlug": "w11-l1"
@@ -3770,7 +3669,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "By completely resetting character memory after each chapter",
               "Without any clear relationship between cause and effect"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Strong narrative momentum relies on causal necessity ('therefore' and 'but') rather than arbitrary episodic chains ('and then').",
             "difficulty": "beginner",
             "relatedLessonSlug": "w11-l2"
@@ -3783,7 +3681,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Describing a character's physical clothing in extensive detail",
               "Ensuring the protagonist never faces opposition"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Agency is defined by characters making difficult choices under pressure that directly influence the narrative trajectory.",
             "difficulty": "beginner",
             "relatedLessonSlug": "w11-l3"
@@ -3796,7 +3693,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Removing all emotional nuance from interpersonal exchanges",
               "Requiring an external narrator to explicitly explain every character thought"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Subtext enriches storytelling by conveying meaning beneath the surface through behaviour, silence, and indirect dialogue.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w11-l4"
@@ -3809,7 +3705,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Every obstacle should be resolved instantly without cost",
               "Obstacles should only be external weather conditions"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Tension builds when successive obstacles escalate stakes and demand greater personal investment and risk from the character.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w11-l5"
@@ -3822,7 +3717,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "It eliminates the need for written grammar",
               "It forces the video editor to increase volume"
             ],
-            "correctAnswerIndex": 0,
             "explanation": "Heavy exposition halts dramatic momentum. Information should be revealed organically through action and conflict.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w11-l1"
@@ -3835,7 +3729,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Replaced with direct word-by-word dictionary definitions",
               "Confined exclusively to historical settings"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Authentic cultural and linguistic textures ground narratives in lived reality while connecting universally through human emotion.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w11-l2"
@@ -3848,7 +3741,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Whether it took more than two hours to write",
               "Whether it mentions the title of the story"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "A scene earns its place only if something changes by its conclusion—emotional state, stakes, or character understanding.",
             "difficulty": "advanced",
             "relatedLessonSlug": "w11-l3"
@@ -3861,7 +3753,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "By extending slow exposition scenes indefinitely",
               "By cutting all character development scenes"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Dynamic rhythm requires contrast: moments of high tension must be balanced with reflective beats for emotional processing.",
             "difficulty": "advanced",
             "relatedLessonSlug": "w11-l4"
@@ -3874,7 +3765,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Having a friend write the assignment on your behalf",
               "Only thinking about the assignment without recording or writing it down"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Each week requires completing the designated practical deliverable and evaluating it with the course rubric for clarity and resonance.",
             "difficulty": "advanced",
             "relatedLessonSlug": "w11-l5"
@@ -3893,9 +3783,9 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w12-l1-foreshadowing",
           "title": "Week 12 • Lesson 1: Foreshadowing",
           "description": "Plant one clue early that becomes meaningful later. It should be visible in hindsight but not announce the answer.",
-          "youtubeVideoId": "v8K_4kX0A1r",
+          "youtubeVideoId": "bw5tzcoEG88",
           "videoAttribution": {
-            "creator": "StudioBinder",
+            "creator": "TED-Ed",
             "platform": "youtube",
             "seriesTitle": "Week 12 — Foreshadowing, twists and multiple timelines",
             "partNumber": 1
@@ -3905,7 +3795,7 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "moduleTitle": "Level 3: Emotion, tension and narrative control (Weeks 9–12) — Week 12 — Foreshadowing, twists and multiple timelines",
           "objectives": [
             "Master and apply core concepts in: Foreshadowing",
-            "Connect theory from Foreshadowing: Planting Clues in Plain Sight (StudioBinder) directly to narrative practice",
+            "Connect theory from undefined (TED-Ed) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 12 — Foreshadowing, twists and multiple timelines"
           ],
           "tags": [
@@ -3934,9 +3824,9 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w12-l2-payoff",
           "title": "Week 12 • Lesson 2: Payoff",
           "description": "Connect a detail introduced earlier to a later action, decision or revelation.",
-          "youtubeVideoId": "w8K_5kX0A1r",
+          "youtubeVideoId": "1nYFpuc2Umk",
           "videoAttribution": {
-            "creator": "Lessons from the Screenplay",
+            "creator": "TEDx Talks",
             "platform": "youtube",
             "seriesTitle": "Week 12 — Foreshadowing, twists and multiple timelines",
             "partNumber": 2
@@ -3946,7 +3836,7 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "moduleTitle": "Level 3: Emotion, tension and narrative control (Weeks 9–12) — Week 12 — Foreshadowing, twists and multiple timelines",
           "objectives": [
             "Master and apply core concepts in: Payoff",
-            "Connect theory from Chekhov's Gun and Paid-Off Setups (Lessons from the Screenplay) directly to narrative practice",
+            "Connect theory from undefined (TEDx Talks) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 12 — Foreshadowing, twists and multiple timelines"
           ],
           "tags": [
@@ -3975,19 +3865,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w12-l3-fair-twists",
           "title": "Week 12 • Lesson 3: Fair twists",
           "description": "Create a twist that changes interpretation without contradicting established facts.",
-          "youtubeVideoId": "x8K_6kX0A1r",
+          "youtubeVideoId": "Nj-hdQMa3uA",
           "videoAttribution": {
-            "creator": "TED-Ed",
+            "creator": "TEDx Talks",
             "platform": "youtube",
             "seriesTitle": "Week 12 — Foreshadowing, twists and multiple timelines",
             "partNumber": 3
           },
-          "durationMinutes": 9,
+          "durationMinutes": 12,
           "order": 3,
           "moduleTitle": "Level 3: Emotion, tension and narrative control (Weeks 9–12) — Week 12 — Foreshadowing, twists and multiple timelines",
           "objectives": [
             "Master and apply core concepts in: Fair twists",
-            "Connect theory from Anatomy of an Earned Plot Twist (TED-Ed) directly to narrative practice",
+            "Connect theory from undefined (TEDx Talks) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 12 — Foreshadowing, twists and multiple timelines"
           ],
           "tags": [
@@ -4016,19 +3906,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w12-l4-timeline",
           "title": "Week 12 • Lesson 4: Timeline",
           "description": "Write a short story in chronological order, then rearrange it using a flashback or delayed reveal. Compare both versions.",
-          "youtubeVideoId": "y8K_7kX0A1r",
+          "youtubeVideoId": "Iwpi1Lm6dFo",
           "videoAttribution": {
-            "creator": "StudioBinder",
+            "creator": "TEDx Talks",
             "platform": "youtube",
             "seriesTitle": "Week 12 — Foreshadowing, twists and multiple timelines",
             "partNumber": 4
           },
-          "durationMinutes": 14,
+          "durationMinutes": 12,
           "order": 4,
           "moduleTitle": "Level 3: Emotion, tension and narrative control (Weeks 9–12) — Week 12 — Foreshadowing, twists and multiple timelines",
           "objectives": [
             "Master and apply core concepts in: Timeline",
-            "Connect theory from Nonlinear Timelines and Flashback Mechanics (StudioBinder) directly to narrative practice",
+            "Connect theory from undefined (TEDx Talks) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 12 — Foreshadowing, twists and multiple timelines"
           ],
           "tags": [
@@ -4057,19 +3947,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w12-l5-reader-fairness",
           "title": "Week 12 • Lesson 5: Reader fairness",
           "description": "Check whether the narrator hid information unfairly, whether clues were available and whether the ending feels earned.",
-          "youtubeVideoId": "z8K_8kX0A1r",
+          "youtubeVideoId": "Oo2upU6ny-I",
           "videoAttribution": {
-            "creator": "Brandon Sanderson",
+            "creator": "TED",
             "platform": "youtube",
             "seriesTitle": "Week 12 — Foreshadowing, twists and multiple timelines",
             "partNumber": 5
           },
-          "durationMinutes": 16,
+          "durationMinutes": 12,
           "order": 5,
           "moduleTitle": "Level 3: Emotion, tension and narrative control (Weeks 9–12) — Week 12 — Foreshadowing, twists and multiple timelines",
           "objectives": [
             "Master and apply core concepts in: Reader fairness",
-            "Connect theory from Fairness to the Reader: Preserving Narrative Trust (Brandon Sanderson) directly to narrative practice",
+            "Connect theory from undefined (TED) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 12 — Foreshadowing, twists and multiple timelines"
           ],
           "tags": [
@@ -4106,7 +3996,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Ignoring character motivation in favor of rapid scene transitions",
               "Omitting conflict until the final epilogue"
             ],
-            "correctAnswerIndex": 0,
             "explanation": "Lesson 1 establishes foundational focus and deliberate creative craftsmanship aligned with Week 12 — Foreshadowing, twists and multiple timelines.",
             "difficulty": "beginner",
             "relatedLessonSlug": "w12-l1"
@@ -4119,7 +4008,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "By completely resetting character memory after each chapter",
               "Without any clear relationship between cause and effect"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Strong narrative momentum relies on causal necessity ('therefore' and 'but') rather than arbitrary episodic chains ('and then').",
             "difficulty": "beginner",
             "relatedLessonSlug": "w12-l2"
@@ -4132,7 +4020,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Describing a character's physical clothing in extensive detail",
               "Ensuring the protagonist never faces opposition"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Agency is defined by characters making difficult choices under pressure that directly influence the narrative trajectory.",
             "difficulty": "beginner",
             "relatedLessonSlug": "w12-l3"
@@ -4145,7 +4032,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Removing all emotional nuance from interpersonal exchanges",
               "Requiring an external narrator to explicitly explain every character thought"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Subtext enriches storytelling by conveying meaning beneath the surface through behaviour, silence, and indirect dialogue.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w12-l4"
@@ -4158,7 +4044,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Every obstacle should be resolved instantly without cost",
               "Obstacles should only be external weather conditions"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Tension builds when successive obstacles escalate stakes and demand greater personal investment and risk from the character.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w12-l5"
@@ -4171,7 +4056,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "It eliminates the need for written grammar",
               "It forces the video editor to increase volume"
             ],
-            "correctAnswerIndex": 0,
             "explanation": "Heavy exposition halts dramatic momentum. Information should be revealed organically through action and conflict.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w12-l1"
@@ -4184,7 +4068,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Replaced with direct word-by-word dictionary definitions",
               "Confined exclusively to historical settings"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Authentic cultural and linguistic textures ground narratives in lived reality while connecting universally through human emotion.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w12-l2"
@@ -4197,7 +4080,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Whether it took more than two hours to write",
               "Whether it mentions the title of the story"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "A scene earns its place only if something changes by its conclusion—emotional state, stakes, or character understanding.",
             "difficulty": "advanced",
             "relatedLessonSlug": "w12-l3"
@@ -4210,7 +4092,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "By extending slow exposition scenes indefinitely",
               "By cutting all character development scenes"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Dynamic rhythm requires contrast: moments of high tension must be balanced with reflective beats for emotional processing.",
             "difficulty": "advanced",
             "relatedLessonSlug": "w12-l4"
@@ -4223,7 +4104,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Having a friend write the assignment on your behalf",
               "Only thinking about the assignment without recording or writing it down"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Each week requires completing the designated practical deliverable and evaluating it with the course rubric for clarity and resonance.",
             "difficulty": "advanced",
             "relatedLessonSlug": "w12-l5"
@@ -4242,19 +4122,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w13-l1-life-map",
           "title": "Week 13 • Lesson 1: Life map",
           "description": "List meaningful moments, decisions, failures, discoveries and changes. Choose a story that is yours to tell.",
-          "youtubeVideoId": "a7L_9kX0A1r",
+          "youtubeVideoId": "ZQTQSbjecLg",
           "videoAttribution": {
-            "creator": "The Moth",
+            "creator": "TED-Ed",
             "platform": "youtube",
             "seriesTitle": "Week 13 — Personal and true storytelling",
             "partNumber": 1
           },
-          "durationMinutes": 10,
+          "durationMinutes": 12,
           "order": 1,
           "moduleTitle": "Level 4: Real-life, oral, visual and persuasive formats (Weeks 13–16) — Week 13 — Personal and true storytelling",
           "objectives": [
             "Master and apply core concepts in: Life map",
-            "Connect theory from The Moth: The Life Map Exercise and Finding Your Spark (The Moth) directly to narrative practice",
+            "Connect theory from undefined (TED-Ed) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 13 — Personal and true storytelling"
           ],
           "tags": [
@@ -4283,19 +4163,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w13-l2-the-central-moment",
           "title": "Week 13 • Lesson 2: The central moment",
           "description": "Select one moment rather than summarising your entire life. Identify what you wanted and what was at risk.",
-          "youtubeVideoId": "b7L_0kX0A1r",
+          "youtubeVideoId": "MEUh_y1IFZY",
           "videoAttribution": {
-            "creator": "The Moth",
+            "creator": "Brandon Sanderson",
             "platform": "youtube",
             "seriesTitle": "Week 13 — Personal and true storytelling",
             "partNumber": 2
           },
-          "durationMinutes": 10,
+          "durationMinutes": 12,
           "order": 2,
           "moduleTitle": "Level 4: Real-life, oral, visual and persuasive formats (Weeks 13–16) — Week 13 — Personal and true storytelling",
           "objectives": [
             "Master and apply core concepts in: The central moment",
-            "Connect theory from The Change Moment: Finding the Turning Point of Your Life (The Moth) directly to narrative practice",
+            "Connect theory from undefined (Brandon Sanderson) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 13 — Personal and true storytelling"
           ],
           "tags": [
@@ -4324,19 +4204,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w13-l3-scene-and-reflection",
           "title": "Week 13 • Lesson 3: Scene and reflection",
           "description": "Rebuild the event with concrete details, then add only the reflection needed to help the audience understand its meaning.",
-          "youtubeVideoId": "c7L_1kX0A1r",
+          "youtubeVideoId": "W1afbpM80b0",
           "videoAttribution": {
-            "creator": "OpenLearn / BBC",
+            "creator": "Brandon Sanderson",
             "platform": "youtube",
             "seriesTitle": "Week 13 — Personal and true storytelling",
             "partNumber": 3
           },
-          "durationMinutes": 11,
+          "durationMinutes": 12,
           "order": 3,
           "moduleTitle": "Level 4: Real-life, oral, visual and persuasive formats (Weeks 13–16) — Week 13 — Personal and true storytelling",
           "objectives": [
             "Master and apply core concepts in: Scene and reflection",
-            "Connect theory from Balancing Scene and Reflection in Personal Essays (OpenLearn / BBC) directly to narrative practice",
+            "Connect theory from undefined (Brandon Sanderson) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 13 — Personal and true storytelling"
           ],
           "tags": [
@@ -4365,19 +4245,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w13-l4-truth-and-boundaries",
           "title": "Week 13 • Lesson 4: Truth and boundaries",
           "description": "Separate memory from certainty. Change or omit identifying details when appropriate. Do not fabricate dialogue or events and present them as fact.",
-          "youtubeVideoId": "d7L_2kX0A1r",
+          "youtubeVideoId": "ATNvOk5rIJA",
           "videoAttribution": {
-            "creator": "TED-Ed",
+            "creator": "Brandon Sanderson",
             "platform": "youtube",
             "seriesTitle": "Week 13 — Personal and true storytelling",
             "partNumber": 4
           },
-          "durationMinutes": 9,
+          "durationMinutes": 12,
           "order": 4,
           "moduleTitle": "Level 4: Real-life, oral, visual and persuasive formats (Weeks 13–16) — Week 13 — Personal and true storytelling",
           "objectives": [
             "Master and apply core concepts in: Truth and boundaries",
-            "Connect theory from Ethical Truth in Storytelling: Privacy, Consent & Memory (TED-Ed) directly to narrative practice",
+            "Connect theory from undefined (Brandon Sanderson) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 13 — Personal and true storytelling"
           ],
           "tags": [
@@ -4406,19 +4286,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w13-l5-first-person-performance",
           "title": "Week 13 • Lesson 5: First-person performance",
           "description": "Tell the story in three minutes. Ask a listener what moment stayed with them and what they did not understand.",
-          "youtubeVideoId": "e7L_3kX0A1r",
+          "youtubeVideoId": "V2KpWOLTXx8",
           "videoAttribution": {
-            "creator": "The Moth",
+            "creator": "Brandon Sanderson",
             "platform": "youtube",
             "seriesTitle": "Week 13 — Personal and true storytelling",
             "partNumber": 5
           },
-          "durationMinutes": 11,
+          "durationMinutes": 12,
           "order": 5,
           "moduleTitle": "Level 4: Real-life, oral, visual and persuasive formats (Weeks 13–16) — Week 13 — Personal and true storytelling",
           "objectives": [
             "Master and apply core concepts in: First-person performance",
-            "Connect theory from First-Person Vulnerability: Telling It Aloud (The Moth) directly to narrative practice",
+            "Connect theory from undefined (Brandon Sanderson) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 13 — Personal and true storytelling"
           ],
           "tags": [
@@ -4455,7 +4335,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Ignoring character motivation in favor of rapid scene transitions",
               "Omitting conflict until the final epilogue"
             ],
-            "correctAnswerIndex": 0,
             "explanation": "Lesson 1 establishes foundational focus and deliberate creative craftsmanship aligned with Week 13 — Personal and true storytelling.",
             "difficulty": "beginner",
             "relatedLessonSlug": "w13-l1"
@@ -4468,7 +4347,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "By completely resetting character memory after each chapter",
               "Without any clear relationship between cause and effect"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Strong narrative momentum relies on causal necessity ('therefore' and 'but') rather than arbitrary episodic chains ('and then').",
             "difficulty": "beginner",
             "relatedLessonSlug": "w13-l2"
@@ -4481,7 +4359,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Describing a character's physical clothing in extensive detail",
               "Ensuring the protagonist never faces opposition"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Agency is defined by characters making difficult choices under pressure that directly influence the narrative trajectory.",
             "difficulty": "beginner",
             "relatedLessonSlug": "w13-l3"
@@ -4494,7 +4371,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Removing all emotional nuance from interpersonal exchanges",
               "Requiring an external narrator to explicitly explain every character thought"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Subtext enriches storytelling by conveying meaning beneath the surface through behaviour, silence, and indirect dialogue.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w13-l4"
@@ -4507,7 +4383,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Every obstacle should be resolved instantly without cost",
               "Obstacles should only be external weather conditions"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Tension builds when successive obstacles escalate stakes and demand greater personal investment and risk from the character.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w13-l5"
@@ -4520,7 +4395,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "It eliminates the need for written grammar",
               "It forces the video editor to increase volume"
             ],
-            "correctAnswerIndex": 0,
             "explanation": "Heavy exposition halts dramatic momentum. Information should be revealed organically through action and conflict.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w13-l1"
@@ -4533,7 +4407,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Replaced with direct word-by-word dictionary definitions",
               "Confined exclusively to historical settings"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Authentic cultural and linguistic textures ground narratives in lived reality while connecting universally through human emotion.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w13-l2"
@@ -4546,7 +4419,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Whether it took more than two hours to write",
               "Whether it mentions the title of the story"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "A scene earns its place only if something changes by its conclusion—emotional state, stakes, or character understanding.",
             "difficulty": "advanced",
             "relatedLessonSlug": "w13-l3"
@@ -4559,7 +4431,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "By extending slow exposition scenes indefinitely",
               "By cutting all character development scenes"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Dynamic rhythm requires contrast: moments of high tension must be balanced with reflective beats for emotional processing.",
             "difficulty": "advanced",
             "relatedLessonSlug": "w13-l4"
@@ -4572,7 +4443,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Having a friend write the assignment on your behalf",
               "Only thinking about the assignment without recording or writing it down"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Each week requires completing the designated practical deliverable and evaluating it with the course rubric for clarity and resonance.",
             "difficulty": "advanced",
             "relatedLessonSlug": "w13-l5"
@@ -4591,19 +4461,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w14-l1-voice-baseline",
           "title": "Week 14 • Lesson 1: Voice baseline",
           "description": "Record a one-minute story. Listen for pace, clarity, filler words, volume and sentence endings.",
-          "youtubeVideoId": "f7L_4kX0A1r",
+          "youtubeVideoId": "MEjgDeSnBMs",
           "videoAttribution": {
-            "creator": "TED-Ed Public Speaking",
+            "creator": "TED-Ed",
             "platform": "youtube",
             "seriesTitle": "Week 14 — Oral storytelling and delivery",
             "partNumber": 1
           },
-          "durationMinutes": 9,
+          "durationMinutes": 12,
           "order": 1,
           "moduleTitle": "Level 4: Real-life, oral, visual and persuasive formats (Weeks 13–16) — Week 14 — Oral storytelling and delivery",
           "objectives": [
             "Master and apply core concepts in: Voice baseline",
-            "Connect theory from Voice Baseline: Recording and Evaluating Your Natural Cadence (TED-Ed Public Speaking) directly to narrative practice",
+            "Connect theory from undefined (TED-Ed) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 14 — Oral storytelling and delivery"
           ],
           "tags": [
@@ -4632,19 +4502,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w14-l2-vocal-choices",
           "title": "Week 14 • Lesson 2: Vocal choices",
           "description": "Repeat the same paragraph with three different intentions. Use pauses and emphasis, not theatrical shouting.",
-          "youtubeVideoId": "g7L_5kX0A1r",
+          "youtubeVideoId": "Hhk4N9A0oCA",
           "videoAttribution": {
-            "creator": "TED-Ed Public Speaking",
+            "creator": "TED-Ed",
             "platform": "youtube",
             "seriesTitle": "Week 14 — Oral storytelling and delivery",
             "partNumber": 2
           },
-          "durationMinutes": 10,
+          "durationMinutes": 12,
           "order": 2,
           "moduleTitle": "Level 4: Real-life, oral, visual and persuasive formats (Weeks 13–16) — Week 14 — Oral storytelling and delivery",
           "objectives": [
             "Master and apply core concepts in: Vocal choices",
-            "Connect theory from Vocal Modulation: Pitch, Volume, Pacing, and the Power of Silence (TED-Ed Public Speaking) directly to narrative practice",
+            "Connect theory from undefined (TED-Ed) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 14 — Oral storytelling and delivery"
           ],
           "tags": [
@@ -4673,19 +4543,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w14-l3-physical-delivery",
           "title": "Week 14 • Lesson 3: Physical delivery",
           "description": "Practise standing or sitting naturally. Use gestures to clarify action, not to decorate every sentence.",
-          "youtubeVideoId": "h7L_6kX0A1r",
+          "youtubeVideoId": "Qgbsz7Gnrd8",
           "videoAttribution": {
-            "creator": "TED-Ed Public Speaking",
+            "creator": "Brandon Sanderson",
             "platform": "youtube",
             "seriesTitle": "Week 14 — Oral storytelling and delivery",
             "partNumber": 3
           },
-          "durationMinutes": 10,
+          "durationMinutes": 12,
           "order": 3,
           "moduleTitle": "Level 4: Real-life, oral, visual and persuasive formats (Weeks 13–16) — Week 14 — Oral storytelling and delivery",
           "objectives": [
             "Master and apply core concepts in: Physical delivery",
-            "Connect theory from Physical Delivery: Eye Contact, Stance, and Gestures (TED-Ed Public Speaking) directly to narrative practice",
+            "Connect theory from undefined (Brandon Sanderson) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 14 — Oral storytelling and delivery"
           ],
           "tags": [
@@ -4714,19 +4584,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w14-l4-memory-structure",
           "title": "Week 14 • Lesson 4: Memory structure",
           "description": "Reduce your script to five cue words or beats. Tell the story from the beats instead of memorising every line.",
-          "youtubeVideoId": "i7L_7kX0A1r",
+          "youtubeVideoId": "0cf-qdZ7GbA",
           "videoAttribution": {
-            "creator": "The Moth",
+            "creator": "Brandon Sanderson",
             "platform": "youtube",
             "seriesTitle": "Week 14 — Oral storytelling and delivery",
             "partNumber": 4
           },
-          "durationMinutes": 9,
+          "durationMinutes": 12,
           "order": 4,
           "moduleTitle": "Level 4: Real-life, oral, visual and persuasive formats (Weeks 13–16) — Week 14 — Oral storytelling and delivery",
           "objectives": [
             "Master and apply core concepts in: Memory structure",
-            "Connect theory from Memorizing Story Beats Without Memorizing Words (The Moth) directly to narrative practice",
+            "Connect theory from undefined (Brandon Sanderson) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 14 — Oral storytelling and delivery"
           ],
           "tags": [
@@ -4755,19 +4625,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w14-l5-audience-test",
           "title": "Week 14 • Lesson 5: Audience test",
           "description": "Deliver a three-minute version to a person or camera. Ask them to summarise the story and identify its turning point.",
-          "youtubeVideoId": "j7L_8kX0A1r",
+          "youtubeVideoId": "jrIogch5DBU",
           "videoAttribution": {
-            "creator": "Andrew Stanton | TED",
+            "creator": "Brandon Sanderson",
             "platform": "youtube",
             "seriesTitle": "Week 14 — Oral storytelling and delivery",
             "partNumber": 5
           },
-          "durationMinutes": 11,
+          "durationMinutes": 12,
           "order": 5,
           "moduleTitle": "Level 4: Real-life, oral, visual and persuasive formats (Weeks 13–16) — Week 14 — Oral storytelling and delivery",
           "objectives": [
             "Master and apply core concepts in: Audience test",
-            "Connect theory from Connecting with an Audience: Reading the Room (Andrew Stanton | TED) directly to narrative practice",
+            "Connect theory from undefined (Brandon Sanderson) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 14 — Oral storytelling and delivery"
           ],
           "tags": [
@@ -4804,7 +4674,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Ignoring character motivation in favor of rapid scene transitions",
               "Omitting conflict until the final epilogue"
             ],
-            "correctAnswerIndex": 0,
             "explanation": "Lesson 1 establishes foundational focus and deliberate creative craftsmanship aligned with Week 14 — Oral storytelling and delivery.",
             "difficulty": "beginner",
             "relatedLessonSlug": "w14-l1"
@@ -4817,7 +4686,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "By completely resetting character memory after each chapter",
               "Without any clear relationship between cause and effect"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Strong narrative momentum relies on causal necessity ('therefore' and 'but') rather than arbitrary episodic chains ('and then').",
             "difficulty": "beginner",
             "relatedLessonSlug": "w14-l2"
@@ -4830,7 +4698,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Describing a character's physical clothing in extensive detail",
               "Ensuring the protagonist never faces opposition"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Agency is defined by characters making difficult choices under pressure that directly influence the narrative trajectory.",
             "difficulty": "beginner",
             "relatedLessonSlug": "w14-l3"
@@ -4843,7 +4710,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Removing all emotional nuance from interpersonal exchanges",
               "Requiring an external narrator to explicitly explain every character thought"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Subtext enriches storytelling by conveying meaning beneath the surface through behaviour, silence, and indirect dialogue.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w14-l4"
@@ -4856,7 +4722,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Every obstacle should be resolved instantly without cost",
               "Obstacles should only be external weather conditions"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Tension builds when successive obstacles escalate stakes and demand greater personal investment and risk from the character.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w14-l5"
@@ -4869,7 +4734,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "It eliminates the need for written grammar",
               "It forces the video editor to increase volume"
             ],
-            "correctAnswerIndex": 0,
             "explanation": "Heavy exposition halts dramatic momentum. Information should be revealed organically through action and conflict.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w14-l1"
@@ -4882,7 +4746,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Replaced with direct word-by-word dictionary definitions",
               "Confined exclusively to historical settings"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Authentic cultural and linguistic textures ground narratives in lived reality while connecting universally through human emotion.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w14-l2"
@@ -4895,7 +4758,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Whether it took more than two hours to write",
               "Whether it mentions the title of the story"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "A scene earns its place only if something changes by its conclusion—emotional state, stakes, or character understanding.",
             "difficulty": "advanced",
             "relatedLessonSlug": "w14-l3"
@@ -4908,7 +4770,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "By extending slow exposition scenes indefinitely",
               "By cutting all character development scenes"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Dynamic rhythm requires contrast: moments of high tension must be balanced with reflective beats for emotional processing.",
             "difficulty": "advanced",
             "relatedLessonSlug": "w14-l4"
@@ -4921,7 +4782,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Having a friend write the assignment on your behalf",
               "Only thinking about the assignment without recording or writing it down"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Each week requires completing the designated practical deliverable and evaluating it with the course rubric for clarity and resonance.",
             "difficulty": "advanced",
             "relatedLessonSlug": "w14-l5"
@@ -4940,19 +4800,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w15-l1-show-without-words",
           "title": "Week 15 • Lesson 1: Show without words",
           "description": "Describe a character's emotion using only action and visual detail. Do not use explanatory narration.",
-          "youtubeVideoId": "k7L_9kX0A1r",
+          "youtubeVideoId": "AvtOY0YrF-g",
           "videoAttribution": {
-            "creator": "StudioBinder",
+            "creator": "Lessons from the Screenplay",
             "platform": "youtube",
             "seriesTitle": "Week 15 — Visual and video storytelling",
             "partNumber": 1
           },
-          "durationMinutes": 13,
+          "durationMinutes": 12,
           "order": 1,
           "moduleTitle": "Level 4: Real-life, oral, visual and persuasive formats (Weeks 13–16) — Week 15 — Visual and video storytelling",
           "objectives": [
             "Master and apply core concepts in: Show without words",
-            "Connect theory from Visual Storytelling: Showing Emotion with Zero Words (StudioBinder) directly to narrative practice",
+            "Connect theory from undefined (Lessons from the Screenplay) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 15 — Visual and video storytelling"
           ],
           "tags": [
@@ -4981,19 +4841,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w15-l2-shot-sizes",
           "title": "Week 15 • Lesson 2: Shot sizes",
           "description": "Learn wide, medium and close-up shots. Decide what information each shot gives the audience.",
-          "youtubeVideoId": "l7L_0kX0A1r",
+          "youtubeVideoId": "NdSGZ-RNdTw",
           "videoAttribution": {
-            "creator": "StudioBinder",
+            "creator": "Lessons from the Screenplay",
             "platform": "youtube",
             "seriesTitle": "Week 15 — Visual and video storytelling",
             "partNumber": 2
           },
-          "durationMinutes": 14,
+          "durationMinutes": 12,
           "order": 2,
           "moduleTitle": "Level 4: Real-life, oral, visual and persuasive formats (Weeks 13–16) — Week 15 — Visual and video storytelling",
           "objectives": [
             "Master and apply core concepts in: Shot sizes",
-            "Connect theory from Film Grammar: Shot Sizes, Angles, and Focal Lengths (StudioBinder) directly to narrative practice",
+            "Connect theory from undefined (Lessons from the Screenplay) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 15 — Visual and video storytelling"
           ],
           "tags": [
@@ -5022,9 +4882,9 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w15-l3-storyboard",
           "title": "Week 15 • Lesson 3: Storyboard",
           "description": "Draw or write six frames showing a character's goal, obstacle and change. Simple stick figures are enough.",
-          "youtubeVideoId": "m7L_1kX0A1r",
+          "youtubeVideoId": "xjKruwAfZWk",
           "videoAttribution": {
-            "creator": "Pixar / Khan Academy",
+            "creator": "TED-Ed",
             "platform": "youtube",
             "seriesTitle": "Week 15 — Visual and video storytelling",
             "partNumber": 3
@@ -5034,7 +4894,7 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "moduleTitle": "Level 4: Real-life, oral, visual and persuasive formats (Weeks 13–16) — Week 15 — Visual and video storytelling",
           "objectives": [
             "Master and apply core concepts in: Storyboard",
-            "Connect theory from Pixar in a Box: Storyboarding a Complete Sequence (Pixar / Khan Academy) directly to narrative practice",
+            "Connect theory from undefined (TED-Ed) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 15 — Visual and video storytelling"
           ],
           "tags": [
@@ -5063,19 +4923,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w15-l4-edit-and-sound",
           "title": "Week 15 • Lesson 4: Edit and sound",
           "description": "Record a sequence on your phone. Notice how order, pause, ambient sound and cut length change meaning.",
-          "youtubeVideoId": "n7L_2kX0A1r",
+          "youtubeVideoId": "1NCiuI6F5O0",
           "videoAttribution": {
-            "creator": "StudioBinder",
+            "creator": "Brandon Sanderson",
             "platform": "youtube",
             "seriesTitle": "Week 15 — Visual and video storytelling",
             "partNumber": 4
           },
-          "durationMinutes": 13,
+          "durationMinutes": 12,
           "order": 4,
           "moduleTitle": "Level 4: Real-life, oral, visual and persuasive formats (Weeks 13–16) — Week 15 — Visual and video storytelling",
           "objectives": [
             "Master and apply core concepts in: Edit and sound",
-            "Connect theory from Editing and Sound: Building Narrative Rhythm (StudioBinder) directly to narrative practice",
+            "Connect theory from undefined (Brandon Sanderson) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 15 — Visual and video storytelling"
           ],
           "tags": [
@@ -5104,9 +4964,9 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w15-l5-rough-cut-review",
           "title": "Week 15 • Lesson 5: Rough cut review",
           "description": "Make a 30–60 second visual story. Show it without explaining it and ask what the viewer understood.",
-          "youtubeVideoId": "o7L_3kX0A1r",
+          "youtubeVideoId": "zVXFNw-xz3Y",
           "videoAttribution": {
-            "creator": "Lessons from the Screenplay",
+            "creator": "Brandon Sanderson",
             "platform": "youtube",
             "seriesTitle": "Week 15 — Visual and video storytelling",
             "partNumber": 5
@@ -5116,7 +4976,7 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "moduleTitle": "Level 4: Real-life, oral, visual and persuasive formats (Weeks 13–16) — Week 15 — Visual and video storytelling",
           "objectives": [
             "Master and apply core concepts in: Rough cut review",
-            "Connect theory from The Rough Cut Review: Testing Audience Comprehension (Lessons from the Screenplay) directly to narrative practice",
+            "Connect theory from undefined (Brandon Sanderson) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 15 — Visual and video storytelling"
           ],
           "tags": [
@@ -5153,7 +5013,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Ignoring character motivation in favor of rapid scene transitions",
               "Omitting conflict until the final epilogue"
             ],
-            "correctAnswerIndex": 0,
             "explanation": "Lesson 1 establishes foundational focus and deliberate creative craftsmanship aligned with Week 15 — Visual and video storytelling.",
             "difficulty": "beginner",
             "relatedLessonSlug": "w15-l1"
@@ -5166,7 +5025,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "By completely resetting character memory after each chapter",
               "Without any clear relationship between cause and effect"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Strong narrative momentum relies on causal necessity ('therefore' and 'but') rather than arbitrary episodic chains ('and then').",
             "difficulty": "beginner",
             "relatedLessonSlug": "w15-l2"
@@ -5179,7 +5037,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Describing a character's physical clothing in extensive detail",
               "Ensuring the protagonist never faces opposition"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Agency is defined by characters making difficult choices under pressure that directly influence the narrative trajectory.",
             "difficulty": "beginner",
             "relatedLessonSlug": "w15-l3"
@@ -5192,7 +5049,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Removing all emotional nuance from interpersonal exchanges",
               "Requiring an external narrator to explicitly explain every character thought"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Subtext enriches storytelling by conveying meaning beneath the surface through behaviour, silence, and indirect dialogue.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w15-l4"
@@ -5205,7 +5061,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Every obstacle should be resolved instantly without cost",
               "Obstacles should only be external weather conditions"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Tension builds when successive obstacles escalate stakes and demand greater personal investment and risk from the character.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w15-l5"
@@ -5218,7 +5073,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "It eliminates the need for written grammar",
               "It forces the video editor to increase volume"
             ],
-            "correctAnswerIndex": 0,
             "explanation": "Heavy exposition halts dramatic momentum. Information should be revealed organically through action and conflict.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w15-l1"
@@ -5231,7 +5085,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Replaced with direct word-by-word dictionary definitions",
               "Confined exclusively to historical settings"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Authentic cultural and linguistic textures ground narratives in lived reality while connecting universally through human emotion.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w15-l2"
@@ -5244,7 +5097,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Whether it took more than two hours to write",
               "Whether it mentions the title of the story"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "A scene earns its place only if something changes by its conclusion—emotional state, stakes, or character understanding.",
             "difficulty": "advanced",
             "relatedLessonSlug": "w15-l3"
@@ -5257,7 +5109,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "By extending slow exposition scenes indefinitely",
               "By cutting all character development scenes"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Dynamic rhythm requires contrast: moments of high tension must be balanced with reflective beats for emotional processing.",
             "difficulty": "advanced",
             "relatedLessonSlug": "w15-l4"
@@ -5270,7 +5121,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Having a friend write the assignment on your behalf",
               "Only thinking about the assignment without recording or writing it down"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Each week requires completing the designated practical deliverable and evaluating it with the course rubric for clarity and resonance.",
             "difficulty": "advanced",
             "relatedLessonSlug": "w15-l5"
@@ -5289,19 +5139,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w16-l1-audience-first",
           "title": "Week 16 • Lesson 1: Audience first",
           "description": "Identify what the audience already knows, what they need and what decision or understanding you want to support.",
-          "youtubeVideoId": "p7L_4kX0A1r",
+          "youtubeVideoId": "he3x5flTFPg",
           "videoAttribution": {
-            "creator": "TED-Ed Public Speaking",
+            "creator": "Lessons from the Screenplay",
             "platform": "youtube",
             "seriesTitle": "Week 16 — Explanatory, business and persuasive storytelling",
             "partNumber": 1
           },
-          "durationMinutes": 9,
+          "durationMinutes": 12,
           "order": 1,
           "moduleTitle": "Level 4: Real-life, oral, visual and persuasive formats (Weeks 13–16) — Week 16 — Explanatory, business and persuasive storytelling",
           "objectives": [
             "Master and apply core concepts in: Audience first",
-            "Connect theory from Audience Empathy: Gauging Baseline Knowledge (TED-Ed Public Speaking) directly to narrative practice",
+            "Connect theory from undefined (Lessons from the Screenplay) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 16 — Explanatory, business and persuasive storytelling"
           ],
           "tags": [
@@ -5330,19 +5180,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w16-l2-explain-a-complex-idea",
           "title": "Week 16 • Lesson 2: Explain a complex idea",
           "description": "Choose a concept from study, technology or everyday life. Explain it using a person, problem and consequence.",
-          "youtubeVideoId": "q7L_5kX0A1r",
+          "youtubeVideoId": "RZFYuX84n1U",
           "videoAttribution": {
-            "creator": "TED-Ed Public Speaking",
+            "creator": "TED-Ed",
             "platform": "youtube",
             "seriesTitle": "Week 16 — Explanatory, business and persuasive storytelling",
             "partNumber": 2
           },
-          "durationMinutes": 10,
+          "durationMinutes": 12,
           "order": 2,
           "moduleTitle": "Level 4: Real-life, oral, visual and persuasive formats (Weeks 13–16) — Week 16 — Explanatory, business and persuasive storytelling",
           "objectives": [
             "Master and apply core concepts in: Explain a complex idea",
-            "Connect theory from How to Explain Complex Technical Concepts Through Story (TED-Ed Public Speaking) directly to narrative practice",
+            "Connect theory from undefined (TED-Ed) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 16 — Explanatory, business and persuasive storytelling"
           ],
           "tags": [
@@ -5371,19 +5221,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w16-l3-evidence-and-story",
           "title": "Week 16 • Lesson 3: Evidence and story",
           "description": "Pair an illustrative story with accurate facts. Make clear which details are examples and which are verified claims.",
-          "youtubeVideoId": "r7L_6kX0A1r",
+          "youtubeVideoId": "NSL55lOwznU",
           "videoAttribution": {
             "creator": "TED-Ed",
             "platform": "youtube",
             "seriesTitle": "Week 16 — Explanatory, business and persuasive storytelling",
             "partNumber": 3
           },
-          "durationMinutes": 10,
+          "durationMinutes": 12,
           "order": 3,
           "moduleTitle": "Level 4: Real-life, oral, visual and persuasive formats (Weeks 13–16) — Week 16 — Explanatory, business and persuasive storytelling",
           "objectives": [
             "Master and apply core concepts in: Evidence and story",
-            "Connect theory from Pairing Data with Human Emotion: The Evidence Bridge (TED-Ed) directly to narrative practice",
+            "Connect theory from undefined (TED-Ed) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 16 — Explanatory, business and persuasive storytelling"
           ],
           "tags": [
@@ -5412,19 +5262,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w16-l4-persuasive-structure",
           "title": "Week 16 • Lesson 4: Persuasive structure",
           "description": "Build a short talk: problem, why it matters, evidence/example, proposed action and consequence.",
-          "youtubeVideoId": "s7L_7kX0A1r",
+          "youtubeVideoId": "IiR-bnCHIYo",
           "videoAttribution": {
-            "creator": "TED-Ed Public Speaking",
+            "creator": "TED-Ed",
             "platform": "youtube",
             "seriesTitle": "Week 16 — Explanatory, business and persuasive storytelling",
             "partNumber": 4
           },
-          "durationMinutes": 11,
+          "durationMinutes": 12,
           "order": 4,
           "moduleTitle": "Level 4: Real-life, oral, visual and persuasive formats (Weeks 13–16) — Week 16 — Explanatory, business and persuasive storytelling",
           "objectives": [
             "Master and apply core concepts in: Persuasive structure",
-            "Connect theory from The Persuasive Presentation: Problem, Why it Matters, Resolution (TED-Ed Public Speaking) directly to narrative practice",
+            "Connect theory from undefined (TED-Ed) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 16 — Explanatory, business and persuasive storytelling"
           ],
           "tags": [
@@ -5453,19 +5303,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w16-l5-delivery-and-critique",
           "title": "Week 16 • Lesson 5: Delivery and critique",
           "description": "Give a three-minute presentation. Ask whether the evidence supports the conclusion and whether the requested action is clear.",
-          "youtubeVideoId": "t7L_8kX0A1r",
+          "youtubeVideoId": "tqg6RO8c_W0",
           "videoAttribution": {
-            "creator": "TED-Ed Public Speaking",
+            "creator": "TED-Ed",
             "platform": "youtube",
             "seriesTitle": "Week 16 — Explanatory, business and persuasive storytelling",
             "partNumber": 5
           },
-          "durationMinutes": 11,
+          "durationMinutes": 12,
           "order": 5,
           "moduleTitle": "Level 4: Real-life, oral, visual and persuasive formats (Weeks 13–16) — Week 16 — Explanatory, business and persuasive storytelling",
           "objectives": [
             "Master and apply core concepts in: Delivery and critique",
-            "Connect theory from Presentation Delivery and Incorporating Constructive Critique (TED-Ed Public Speaking) directly to narrative practice",
+            "Connect theory from undefined (TED-Ed) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 16 — Explanatory, business and persuasive storytelling"
           ],
           "tags": [
@@ -5502,7 +5352,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Ignoring character motivation in favor of rapid scene transitions",
               "Omitting conflict until the final epilogue"
             ],
-            "correctAnswerIndex": 0,
             "explanation": "Lesson 1 establishes foundational focus and deliberate creative craftsmanship aligned with Week 16 — Explanatory, business and persuasive storytelling.",
             "difficulty": "beginner",
             "relatedLessonSlug": "w16-l1"
@@ -5515,7 +5364,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "By completely resetting character memory after each chapter",
               "Without any clear relationship between cause and effect"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Strong narrative momentum relies on causal necessity ('therefore' and 'but') rather than arbitrary episodic chains ('and then').",
             "difficulty": "beginner",
             "relatedLessonSlug": "w16-l2"
@@ -5528,7 +5376,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Describing a character's physical clothing in extensive detail",
               "Ensuring the protagonist never faces opposition"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Agency is defined by characters making difficult choices under pressure that directly influence the narrative trajectory.",
             "difficulty": "beginner",
             "relatedLessonSlug": "w16-l3"
@@ -5541,7 +5388,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Removing all emotional nuance from interpersonal exchanges",
               "Requiring an external narrator to explicitly explain every character thought"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Subtext enriches storytelling by conveying meaning beneath the surface through behaviour, silence, and indirect dialogue.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w16-l4"
@@ -5554,7 +5400,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Every obstacle should be resolved instantly without cost",
               "Obstacles should only be external weather conditions"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Tension builds when successive obstacles escalate stakes and demand greater personal investment and risk from the character.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w16-l5"
@@ -5567,7 +5412,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "It eliminates the need for written grammar",
               "It forces the video editor to increase volume"
             ],
-            "correctAnswerIndex": 0,
             "explanation": "Heavy exposition halts dramatic momentum. Information should be revealed organically through action and conflict.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w16-l1"
@@ -5580,7 +5424,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Replaced with direct word-by-word dictionary definitions",
               "Confined exclusively to historical settings"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Authentic cultural and linguistic textures ground narratives in lived reality while connecting universally through human emotion.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w16-l2"
@@ -5593,7 +5436,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Whether it took more than two hours to write",
               "Whether it mentions the title of the story"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "A scene earns its place only if something changes by its conclusion—emotional state, stakes, or character understanding.",
             "difficulty": "advanced",
             "relatedLessonSlug": "w16-l3"
@@ -5606,7 +5448,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "By extending slow exposition scenes indefinitely",
               "By cutting all character development scenes"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Dynamic rhythm requires contrast: moments of high tension must be balanced with reflective beats for emotional processing.",
             "difficulty": "advanced",
             "relatedLessonSlug": "w16-l4"
@@ -5619,7 +5460,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Having a friend write the assignment on your behalf",
               "Only thinking about the assignment without recording or writing it down"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Each week requires completing the designated practical deliverable and evaluating it with the course rubric for clarity and resonance.",
             "difficulty": "advanced",
             "relatedLessonSlug": "w16-l5"
@@ -5638,19 +5478,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w17-l1-multiple-perspectives",
           "title": "Week 17 • Lesson 1: Multiple perspectives",
           "description": "Retell one conflict from two characters' points of view. Give each a coherent, incomplete understanding.",
-          "youtubeVideoId": "u7L_9kX0A1r",
+          "youtubeVideoId": "74snIJ2eu7A",
           "videoAttribution": {
-            "creator": "Lessons from the Screenplay",
+            "creator": "Khan Academy Labs",
             "platform": "youtube",
             "seriesTitle": "Week 17 — Nonlinear narratives and multiple perspectives",
             "partNumber": 1
           },
-          "durationMinutes": 14,
+          "durationMinutes": 12,
           "order": 1,
           "moduleTitle": "Level 5: Advanced narrative craft and capstone (Weeks 17–20) — Week 17 — Nonlinear narratives and multiple perspectives",
           "objectives": [
             "Master and apply core concepts in: Multiple perspectives",
-            "Connect theory from Dual Perspective Storytelling: The Rashomon Effect (Lessons from the Screenplay) directly to narrative practice",
+            "Connect theory from undefined (Khan Academy Labs) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 17 — Nonlinear narratives and multiple perspectives"
           ],
           "tags": [
@@ -5679,19 +5519,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w17-l2-unreliable-narrator",
           "title": "Week 17 • Lesson 2: Unreliable narrator",
           "description": "Write a narrator who misinterprets an event. Plant fair evidence that allows the audience to notice the gap.",
-          "youtubeVideoId": "v7L_0kX0A1r",
+          "youtubeVideoId": "a3Lx9zlzCQk",
           "videoAttribution": {
-            "creator": "TED-Ed",
+            "creator": "StudioBinder Academy",
             "platform": "youtube",
             "seriesTitle": "Week 17 — Nonlinear narratives and multiple perspectives",
             "partNumber": 2
           },
-          "durationMinutes": 9,
+          "durationMinutes": 12,
           "order": 2,
           "moduleTitle": "Level 5: Advanced narrative craft and capstone (Weeks 17–20) — Week 17 — Nonlinear narratives and multiple perspectives",
           "objectives": [
             "Master and apply core concepts in: Unreliable narrator",
-            "Connect theory from Writing the Unreliable Narrator with Integrity (TED-Ed) directly to narrative practice",
+            "Connect theory from undefined (StudioBinder Academy) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 17 — Nonlinear narratives and multiple perspectives"
           ],
           "tags": [
@@ -5720,7 +5560,7 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w17-l3-nonlinear-order",
           "title": "Week 17 • Lesson 3: Nonlinear order",
           "description": "Write a short event chronologically, then reorder scenes to create a purposeful question or reveal.",
-          "youtubeVideoId": "w7L_1kX0A1r",
+          "youtubeVideoId": "lINVnA3rVIE",
           "videoAttribution": {
             "creator": "StudioBinder",
             "platform": "youtube",
@@ -5732,7 +5572,7 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "moduleTitle": "Level 5: Advanced narrative craft and capstone (Weeks 17–20) — Week 17 — Nonlinear narratives and multiple perspectives",
           "objectives": [
             "Master and apply core concepts in: Nonlinear order",
-            "Connect theory from In Medias Res vs Chronological Structure (StudioBinder) directly to narrative practice",
+            "Connect theory from undefined (StudioBinder) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 17 — Nonlinear narratives and multiple perspectives"
           ],
           "tags": [
@@ -5761,19 +5601,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w17-l4-frame-narrative",
           "title": "Week 17 • Lesson 4: Frame narrative",
           "description": "Place a smaller story inside a larger one. Define why the outer narrator is telling it.",
-          "youtubeVideoId": "x7L_2kX0A1r",
+          "youtubeVideoId": "fJfE-HMfSkk",
           "videoAttribution": {
-            "creator": "Lessons from the Screenplay",
+            "creator": "Brandon Sanderson",
             "platform": "youtube",
             "seriesTitle": "Week 17 — Nonlinear narratives and multiple perspectives",
             "partNumber": 4
           },
-          "durationMinutes": 13,
+          "durationMinutes": 12,
           "order": 4,
           "moduleTitle": "Level 5: Advanced narrative craft and capstone (Weeks 17–20) — Week 17 — Nonlinear narratives and multiple perspectives",
           "objectives": [
             "Master and apply core concepts in: Frame narrative",
-            "Connect theory from Frame Narratives: Stories Nested Inside Stories (Lessons from the Screenplay) directly to narrative practice",
+            "Connect theory from undefined (Brandon Sanderson) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 17 — Nonlinear narratives and multiple perspectives"
           ],
           "tags": [
@@ -5802,19 +5642,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w17-l5-clarity-check",
           "title": "Week 17 • Lesson 5: Clarity check",
           "description": "Ask a reader to map who knows what and when. Fix confusion that does not create intended mystery.",
-          "youtubeVideoId": "y7L_3kX0A1r",
+          "youtubeVideoId": "-f0biNdwifI",
           "videoAttribution": {
             "creator": "Brandon Sanderson",
             "platform": "youtube",
             "seriesTitle": "Week 17 — Nonlinear narratives and multiple perspectives",
             "partNumber": 5
           },
-          "durationMinutes": 15,
+          "durationMinutes": 12,
           "order": 5,
           "moduleTitle": "Level 5: Advanced narrative craft and capstone (Weeks 17–20) — Week 17 — Nonlinear narratives and multiple perspectives",
           "objectives": [
             "Master and apply core concepts in: Clarity check",
-            "Connect theory from Nonlinear Clarity Check: Managing Reader Orientation (Brandon Sanderson) directly to narrative practice",
+            "Connect theory from undefined (Brandon Sanderson) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 17 — Nonlinear narratives and multiple perspectives"
           ],
           "tags": [
@@ -5851,7 +5691,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Ignoring character motivation in favor of rapid scene transitions",
               "Omitting conflict until the final epilogue"
             ],
-            "correctAnswerIndex": 0,
             "explanation": "Lesson 1 establishes foundational focus and deliberate creative craftsmanship aligned with Week 17 — Nonlinear narratives and multiple perspectives.",
             "difficulty": "beginner",
             "relatedLessonSlug": "w17-l1"
@@ -5864,7 +5703,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "By completely resetting character memory after each chapter",
               "Without any clear relationship between cause and effect"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Strong narrative momentum relies on causal necessity ('therefore' and 'but') rather than arbitrary episodic chains ('and then').",
             "difficulty": "beginner",
             "relatedLessonSlug": "w17-l2"
@@ -5877,7 +5715,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Describing a character's physical clothing in extensive detail",
               "Ensuring the protagonist never faces opposition"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Agency is defined by characters making difficult choices under pressure that directly influence the narrative trajectory.",
             "difficulty": "beginner",
             "relatedLessonSlug": "w17-l3"
@@ -5890,7 +5727,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Removing all emotional nuance from interpersonal exchanges",
               "Requiring an external narrator to explicitly explain every character thought"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Subtext enriches storytelling by conveying meaning beneath the surface through behaviour, silence, and indirect dialogue.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w17-l4"
@@ -5903,7 +5739,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Every obstacle should be resolved instantly without cost",
               "Obstacles should only be external weather conditions"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Tension builds when successive obstacles escalate stakes and demand greater personal investment and risk from the character.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w17-l5"
@@ -5916,7 +5751,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "It eliminates the need for written grammar",
               "It forces the video editor to increase volume"
             ],
-            "correctAnswerIndex": 0,
             "explanation": "Heavy exposition halts dramatic momentum. Information should be revealed organically through action and conflict.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w17-l1"
@@ -5929,7 +5763,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Replaced with direct word-by-word dictionary definitions",
               "Confined exclusively to historical settings"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Authentic cultural and linguistic textures ground narratives in lived reality while connecting universally through human emotion.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w17-l2"
@@ -5942,7 +5775,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Whether it took more than two hours to write",
               "Whether it mentions the title of the story"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "A scene earns its place only if something changes by its conclusion—emotional state, stakes, or character understanding.",
             "difficulty": "advanced",
             "relatedLessonSlug": "w17-l3"
@@ -5955,7 +5787,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "By extending slow exposition scenes indefinitely",
               "By cutting all character development scenes"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Dynamic rhythm requires contrast: moments of high tension must be balanced with reflective beats for emotional processing.",
             "difficulty": "advanced",
             "relatedLessonSlug": "w17-l4"
@@ -5968,7 +5799,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Having a friend write the assignment on your behalf",
               "Only thinking about the assignment without recording or writing it down"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Each week requires completing the designated practical deliverable and evaluating it with the course rubric for clarity and resonance.",
             "difficulty": "advanced",
             "relatedLessonSlug": "w17-l5"
@@ -5987,19 +5817,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w18-l1-audience-expectations",
           "title": "Week 18 • Lesson 1: Audience expectations",
           "description": "Identify what an audience may assume based on genre, setting, character role or opening image.",
-          "youtubeVideoId": "z7L_4kX0A1r",
+          "youtubeVideoId": "D9Ihs241zeg",
           "videoAttribution": {
-            "creator": "TED-Ed",
+            "creator": "TED",
             "platform": "youtube",
             "seriesTitle": "Week 18 — Narrative psychology, culture and ethical storytelling",
             "partNumber": 1
           },
-          "durationMinutes": 10,
+          "durationMinutes": 12,
           "order": 1,
           "moduleTitle": "Level 5: Advanced narrative craft and capstone (Weeks 17–20) — Week 18 — Narrative psychology, culture and ethical storytelling",
           "objectives": [
             "Master and apply core concepts in: Audience expectations",
-            "Connect theory from Why Our Brains Are Wired for Narrative (TED-Ed) directly to narrative practice",
+            "Connect theory from undefined (TED) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 18 — Narrative psychology, culture and ethical storytelling"
           ],
           "tags": [
@@ -6028,19 +5858,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w18-l2-empathy-without-simplification",
           "title": "Week 18 • Lesson 2: Empathy without simplification",
           "description": "Give a character understandable motives without excusing harmful actions or flattening other people.",
-          "youtubeVideoId": "a6M_5kX0A1r",
+          "youtubeVideoId": "iCvmsMzlF7o",
           "videoAttribution": {
-            "creator": "Lessons from the Screenplay",
+            "creator": "TED",
             "platform": "youtube",
             "seriesTitle": "Week 18 — Narrative psychology, culture and ethical storytelling",
             "partNumber": 2
           },
-          "durationMinutes": 14,
+          "durationMinutes": 12,
           "order": 2,
           "moduleTitle": "Level 5: Advanced narrative craft and capstone (Weeks 17–20) — Week 18 — Narrative psychology, culture and ethical storytelling",
           "objectives": [
             "Master and apply core concepts in: Empathy without simplification",
-            "Connect theory from Empathy Without Simplification: Multi-Dimensional Antagonists (Lessons from the Screenplay) directly to narrative practice",
+            "Connect theory from undefined (TED) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 18 — Narrative psychology, culture and ethical storytelling"
           ],
           "tags": [
@@ -6069,19 +5899,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w18-l3-cultural-specificity",
           "title": "Week 18 • Lesson 3: Cultural specificity",
           "description": "Use culturally specific detail accurately. Avoid making one character or community represent an entire group.",
-          "youtubeVideoId": "b6M_6kX0A1r",
+          "youtubeVideoId": "hg3umXU_qWc",
           "videoAttribution": {
-            "creator": "Pixar / Khan Academy",
+            "creator": "TEDx Talks",
             "platform": "youtube",
             "seriesTitle": "Week 18 — Narrative psychology, culture and ethical storytelling",
             "partNumber": 3
           },
-          "durationMinutes": 11,
+          "durationMinutes": 12,
           "order": 3,
           "moduleTitle": "Level 5: Advanced narrative craft and capstone (Weeks 17–20) — Week 18 — Narrative psychology, culture and ethical storytelling",
           "objectives": [
             "Master and apply core concepts in: Cultural specificity",
-            "Connect theory from Cultural Specificity: Universal Themes in Local Settings (Pixar / Khan Academy) directly to narrative practice",
+            "Connect theory from undefined (TEDx Talks) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 18 — Narrative psychology, culture and ethical storytelling"
           ],
           "tags": [
@@ -6110,19 +5940,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w18-l4-ethical-true-stories",
           "title": "Week 18 • Lesson 4: Ethical true stories",
           "description": "Check consent, privacy, power differences, accuracy and possible harm when telling stories involving real people.",
-          "youtubeVideoId": "c6M_7kX0A1r",
+          "youtubeVideoId": "yg16u_bzjPE",
           "videoAttribution": {
-            "creator": "The Moth",
+            "creator": "TED-Ed",
             "platform": "youtube",
             "seriesTitle": "Week 18 — Narrative psychology, culture and ethical storytelling",
             "partNumber": 4
           },
-          "durationMinutes": 10,
+          "durationMinutes": 12,
           "order": 4,
           "moduleTitle": "Level 5: Advanced narrative craft and capstone (Weeks 17–20) — Week 18 — Narrative psychology, culture and ethical storytelling",
           "objectives": [
             "Master and apply core concepts in: Ethical true stories",
-            "Connect theory from Ethical True Stories: Power Dynamics and Authenticity (The Moth) directly to narrative practice",
+            "Connect theory from undefined (TED-Ed) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 18 — Narrative psychology, culture and ethical storytelling"
           ],
           "tags": [
@@ -6151,9 +5981,9 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w18-l5-persuasion-audit",
           "title": "Week 18 • Lesson 5: Persuasion audit",
           "description": "Review a persuasive story. Identify any missing context, emotional pressure or unsupported claim.",
-          "youtubeVideoId": "d6M_8kX0A1r",
+          "youtubeVideoId": "TfVmW6sNux8",
           "videoAttribution": {
-            "creator": "Tyler Cowen | TED",
+            "creator": "TED-Ed",
             "platform": "youtube",
             "seriesTitle": "Week 18 — Narrative psychology, culture and ethical storytelling",
             "partNumber": 5
@@ -6163,7 +5993,7 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "moduleTitle": "Level 5: Advanced narrative craft and capstone (Weeks 17–20) — Week 18 — Narrative psychology, culture and ethical storytelling",
           "objectives": [
             "Master and apply core concepts in: Persuasion audit",
-            "Connect theory from The Persuasion Audit: Fact-Checking Narrative Bias (Tyler Cowen | TED) directly to narrative practice",
+            "Connect theory from undefined (TED-Ed) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 18 — Narrative psychology, culture and ethical storytelling"
           ],
           "tags": [
@@ -6200,7 +6030,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Ignoring character motivation in favor of rapid scene transitions",
               "Omitting conflict until the final epilogue"
             ],
-            "correctAnswerIndex": 0,
             "explanation": "Lesson 1 establishes foundational focus and deliberate creative craftsmanship aligned with Week 18 — Narrative psychology, culture and ethical storytelling.",
             "difficulty": "beginner",
             "relatedLessonSlug": "w18-l1"
@@ -6213,7 +6042,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "By completely resetting character memory after each chapter",
               "Without any clear relationship between cause and effect"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Strong narrative momentum relies on causal necessity ('therefore' and 'but') rather than arbitrary episodic chains ('and then').",
             "difficulty": "beginner",
             "relatedLessonSlug": "w18-l2"
@@ -6226,7 +6054,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Describing a character's physical clothing in extensive detail",
               "Ensuring the protagonist never faces opposition"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Agency is defined by characters making difficult choices under pressure that directly influence the narrative trajectory.",
             "difficulty": "beginner",
             "relatedLessonSlug": "w18-l3"
@@ -6239,7 +6066,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Removing all emotional nuance from interpersonal exchanges",
               "Requiring an external narrator to explicitly explain every character thought"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Subtext enriches storytelling by conveying meaning beneath the surface through behaviour, silence, and indirect dialogue.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w18-l4"
@@ -6252,7 +6078,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Every obstacle should be resolved instantly without cost",
               "Obstacles should only be external weather conditions"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Tension builds when successive obstacles escalate stakes and demand greater personal investment and risk from the character.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w18-l5"
@@ -6265,7 +6090,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "It eliminates the need for written grammar",
               "It forces the video editor to increase volume"
             ],
-            "correctAnswerIndex": 0,
             "explanation": "Heavy exposition halts dramatic momentum. Information should be revealed organically through action and conflict.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w18-l1"
@@ -6278,7 +6102,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Replaced with direct word-by-word dictionary definitions",
               "Confined exclusively to historical settings"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Authentic cultural and linguistic textures ground narratives in lived reality while connecting universally through human emotion.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w18-l2"
@@ -6291,7 +6114,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Whether it took more than two hours to write",
               "Whether it mentions the title of the story"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "A scene earns its place only if something changes by its conclusion—emotional state, stakes, or character understanding.",
             "difficulty": "advanced",
             "relatedLessonSlug": "w18-l3"
@@ -6304,7 +6126,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "By extending slow exposition scenes indefinitely",
               "By cutting all character development scenes"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Dynamic rhythm requires contrast: moments of high tension must be balanced with reflective beats for emotional processing.",
             "difficulty": "advanced",
             "relatedLessonSlug": "w18-l4"
@@ -6317,7 +6138,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Having a friend write the assignment on your behalf",
               "Only thinking about the assignment without recording or writing it down"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Each week requires completing the designated practical deliverable and evaluating it with the course rubric for clarity and resonance.",
             "difficulty": "advanced",
             "relatedLessonSlug": "w18-l5"
@@ -6336,19 +6156,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w19-l1-structural-revision",
           "title": "Week 19 • Lesson 1: Structural revision",
           "description": "Read an old draft and identify the real protagonist, goal, conflict, stakes and change. Fix structure before polishing sentences.",
-          "youtubeVideoId": "e6M_9kX0A1r",
+          "youtubeVideoId": "0snNB1yS3IE",
           "videoAttribution": {
-            "creator": "Brandon Sanderson",
+            "creator": "TED",
             "platform": "youtube",
             "seriesTitle": "Week 19 — Revision, adaptation and professional craft",
             "partNumber": 1
           },
-          "durationMinutes": 19,
+          "durationMinutes": 12,
           "order": 1,
           "moduleTitle": "Level 5: Advanced narrative craft and capstone (Weeks 17–20) — Week 19 — Revision, adaptation and professional craft",
           "objectives": [
             "Master and apply core concepts in: Structural revision",
-            "Connect theory from The Macro Revision: Fixing Plot Holes and Architecture (Brandon Sanderson) directly to narrative practice",
+            "Connect theory from undefined (TED) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 19 — Revision, adaptation and professional craft"
           ],
           "tags": [
@@ -6377,19 +6197,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w19-l2-scene-revision",
           "title": "Week 19 • Lesson 2: Scene revision",
           "description": "Remove repetitive scenes, strengthen cause and effect, and ensure each scene changes the situation.",
-          "youtubeVideoId": "f6M_0kX0A1r",
+          "youtubeVideoId": "Us70DN2XSfM",
           "videoAttribution": {
-            "creator": "Lessons from the Screenplay",
+            "creator": "TED",
             "platform": "youtube",
             "seriesTitle": "Week 19 — Revision, adaptation and professional craft",
             "partNumber": 2
           },
-          "durationMinutes": 13,
+          "durationMinutes": 12,
           "order": 2,
           "moduleTitle": "Level 5: Advanced narrative craft and capstone (Weeks 17–20) — Week 19 — Revision, adaptation and professional craft",
           "objectives": [
             "Master and apply core concepts in: Scene revision",
-            "Connect theory from Scene Revision: Ensuring Every Scene Has a Turn (Lessons from the Screenplay) directly to narrative practice",
+            "Connect theory from undefined (TED) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 19 — Revision, adaptation and professional craft"
           ],
           "tags": [
@@ -6418,19 +6238,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w19-l3-line-editing",
           "title": "Week 19 • Lesson 3: Line editing",
           "description": "Improve clarity, rhythm, specific verbs, dialogue and unnecessary explanation. Preserve your natural voice.",
-          "youtubeVideoId": "g6M_1kX0A1r",
+          "youtubeVideoId": "QTxvzkwVsQE",
           "videoAttribution": {
-            "creator": "OpenLearn / BBC",
+            "creator": "Lessons from the Screenplay",
             "platform": "youtube",
             "seriesTitle": "Week 19 — Revision, adaptation and professional craft",
             "partNumber": 3
           },
-          "durationMinutes": 11,
+          "durationMinutes": 12,
           "order": 3,
           "moduleTitle": "Level 5: Advanced narrative craft and capstone (Weeks 17–20) — Week 19 — Revision, adaptation and professional craft",
           "objectives": [
             "Master and apply core concepts in: Line editing",
-            "Connect theory from Line Editing: Cutting Fluff, Sharpening Verbs, Enhancing Rhythm (OpenLearn / BBC) directly to narrative practice",
+            "Connect theory from undefined (Lessons from the Screenplay) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 19 — Revision, adaptation and professional craft"
           ],
           "tags": [
@@ -6459,19 +6279,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w19-l4-adaptation",
           "title": "Week 19 • Lesson 4: Adaptation",
           "description": "Adapt one story into a 300-word written version, a 90-second spoken version and a six-frame storyboard. Preserve the central meaning, not every sentence.",
-          "youtubeVideoId": "h6M_2kX0A1r",
+          "youtubeVideoId": "iSAzw6zOyfo",
           "videoAttribution": {
-            "creator": "StudioBinder",
+            "creator": "Louisiana Channel",
             "platform": "youtube",
             "seriesTitle": "Week 19 — Revision, adaptation and professional craft",
             "partNumber": 4
           },
-          "durationMinutes": 14,
+          "durationMinutes": 12,
           "order": 4,
           "moduleTitle": "Level 5: Advanced narrative craft and capstone (Weeks 17–20) — Week 19 — Revision, adaptation and professional craft",
           "objectives": [
             "Master and apply core concepts in: Adaptation",
-            "Connect theory from Adaptation: Translating Written Text into Spoken and Visual Story (StudioBinder) directly to narrative practice",
+            "Connect theory from undefined (Louisiana Channel) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 19 — Revision, adaptation and professional craft"
           ],
           "tags": [
@@ -6500,9 +6320,9 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w19-l5-feedback-and-pitch",
           "title": "Week 19 • Lesson 5: Feedback and pitch",
           "description": "Ask a reviewer what they understood, where they lost interest and what felt most meaningful. Deliver a two-minute pitch and record feedback.",
-          "youtubeVideoId": "i6M_3kX0A1r",
+          "youtubeVideoId": "XEvuTQArdUA",
           "videoAttribution": {
-            "creator": "Pixar / Khan Academy",
+            "creator": "Emory University",
             "platform": "youtube",
             "seriesTitle": "Week 19 — Revision, adaptation and professional craft",
             "partNumber": 5
@@ -6512,7 +6332,7 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "moduleTitle": "Level 5: Advanced narrative craft and capstone (Weeks 17–20) — Week 19 — Revision, adaptation and professional craft",
           "objectives": [
             "Master and apply core concepts in: Feedback and pitch",
-            "Connect theory from Pitching, Constructive Critique, and Reader Feedback (Pixar / Khan Academy) directly to narrative practice",
+            "Connect theory from undefined (Emory University) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 19 — Revision, adaptation and professional craft"
           ],
           "tags": [
@@ -6549,7 +6369,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Ignoring character motivation in favor of rapid scene transitions",
               "Omitting conflict until the final epilogue"
             ],
-            "correctAnswerIndex": 0,
             "explanation": "Lesson 1 establishes foundational focus and deliberate creative craftsmanship aligned with Week 19 — Revision, adaptation and professional craft.",
             "difficulty": "beginner",
             "relatedLessonSlug": "w19-l1"
@@ -6562,7 +6381,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "By completely resetting character memory after each chapter",
               "Without any clear relationship between cause and effect"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Strong narrative momentum relies on causal necessity ('therefore' and 'but') rather than arbitrary episodic chains ('and then').",
             "difficulty": "beginner",
             "relatedLessonSlug": "w19-l2"
@@ -6575,7 +6393,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Describing a character's physical clothing in extensive detail",
               "Ensuring the protagonist never faces opposition"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Agency is defined by characters making difficult choices under pressure that directly influence the narrative trajectory.",
             "difficulty": "beginner",
             "relatedLessonSlug": "w19-l3"
@@ -6588,7 +6405,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Removing all emotional nuance from interpersonal exchanges",
               "Requiring an external narrator to explicitly explain every character thought"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Subtext enriches storytelling by conveying meaning beneath the surface through behaviour, silence, and indirect dialogue.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w19-l4"
@@ -6601,7 +6417,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Every obstacle should be resolved instantly without cost",
               "Obstacles should only be external weather conditions"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Tension builds when successive obstacles escalate stakes and demand greater personal investment and risk from the character.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w19-l5"
@@ -6614,7 +6429,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "It eliminates the need for written grammar",
               "It forces the video editor to increase volume"
             ],
-            "correctAnswerIndex": 0,
             "explanation": "Heavy exposition halts dramatic momentum. Information should be revealed organically through action and conflict.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w19-l1"
@@ -6627,7 +6441,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Replaced with direct word-by-word dictionary definitions",
               "Confined exclusively to historical settings"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Authentic cultural and linguistic textures ground narratives in lived reality while connecting universally through human emotion.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w19-l2"
@@ -6640,7 +6453,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Whether it took more than two hours to write",
               "Whether it mentions the title of the story"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "A scene earns its place only if something changes by its conclusion—emotional state, stakes, or character understanding.",
             "difficulty": "advanced",
             "relatedLessonSlug": "w19-l3"
@@ -6653,7 +6465,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "By extending slow exposition scenes indefinitely",
               "By cutting all character development scenes"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Dynamic rhythm requires contrast: moments of high tension must be balanced with reflective beats for emotional processing.",
             "difficulty": "advanced",
             "relatedLessonSlug": "w19-l4"
@@ -6666,7 +6477,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Having a friend write the assignment on your behalf",
               "Only thinking about the assignment without recording or writing it down"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Each week requires completing the designated practical deliverable and evaluating it with the course rubric for clarity and resonance.",
             "difficulty": "advanced",
             "relatedLessonSlug": "w19-l5"
@@ -6685,19 +6495,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w20-l1-select-and-plan",
           "title": "Week 20 • Lesson 1: Select and plan",
           "description": "Choose one original story or central idea. Write the premise, audience, intended effect and format plan.",
-          "youtubeVideoId": "j6M_4kX0A1r",
+          "youtubeVideoId": "KxDwieKpawg",
           "videoAttribution": {
-            "creator": "Brandon Sanderson",
+            "creator": "TED",
             "platform": "youtube",
             "seriesTitle": "Week 20 — Capstone, portfolio and final assessment",
             "partNumber": 1
           },
-          "durationMinutes": 16,
+          "durationMinutes": 12,
           "order": 1,
           "moduleTitle": "Level 5: Advanced narrative craft and capstone (Weeks 17–20) — Week 20 — Capstone, portfolio and final assessment",
           "objectives": [
             "Master and apply core concepts in: Select and plan",
-            "Connect theory from Capstone Step 1: Selecting and Outlining the Final Portfolio Piece (Brandon Sanderson) directly to narrative practice",
+            "Connect theory from undefined (TED) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 20 — Capstone, portfolio and final assessment"
           ],
           "tags": [
@@ -6726,19 +6536,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w20-l2-create-the-written-piece",
           "title": "Week 20 • Lesson 2: Create the written piece",
           "description": "Produce a polished 1,000–1,500 word story or equivalent script. Focus on a clear character, conflict, stakes and change.",
-          "youtubeVideoId": "k6M_5kX0A1r",
+          "youtubeVideoId": "eIho2S0ZahI",
           "videoAttribution": {
-            "creator": "OpenLearn / BBC",
+            "creator": "TED",
             "platform": "youtube",
             "seriesTitle": "Week 20 — Capstone, portfolio and final assessment",
             "partNumber": 2
           },
-          "durationMinutes": 13,
+          "durationMinutes": 12,
           "order": 2,
           "moduleTitle": "Level 5: Advanced narrative craft and capstone (Weeks 17–20) — Week 20 — Capstone, portfolio and final assessment",
           "objectives": [
             "Master and apply core concepts in: Create the written piece",
-            "Connect theory from Capstone Step 2: Drafting the 1,500-Word Written Story (OpenLearn / BBC) directly to narrative practice",
+            "Connect theory from undefined (TED) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 20 — Capstone, portfolio and final assessment"
           ],
           "tags": [
@@ -6767,9 +6577,9 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w20-l3-create-the-oral-version",
           "title": "Week 20 • Lesson 3: Create the oral version",
           "description": "Adapt the work into a three-to-five-minute performance. Practise from beats, not a memorised paragraph-by-paragraph script.",
-          "youtubeVideoId": "l6M_6kX0A1r",
+          "youtubeVideoId": "-FOCpMAww28",
           "videoAttribution": {
-            "creator": "The Moth",
+            "creator": "TED",
             "platform": "youtube",
             "seriesTitle": "Week 20 — Capstone, portfolio and final assessment",
             "partNumber": 3
@@ -6779,7 +6589,7 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "moduleTitle": "Level 5: Advanced narrative craft and capstone (Weeks 17–20) — Week 20 — Capstone, portfolio and final assessment",
           "objectives": [
             "Master and apply core concepts in: Create the oral version",
-            "Connect theory from Capstone Step 3: Performing the 3-5 Minute Spoken Version (The Moth) directly to narrative practice",
+            "Connect theory from undefined (TED) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 20 — Capstone, portfolio and final assessment"
           ],
           "tags": [
@@ -6808,19 +6618,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w20-l4-create-the-visual-version",
           "title": "Week 20 • Lesson 4: Create the visual version",
           "description": "Make a storyboard or a two-to-three-minute simple video. Use original, licensed or permission-cleared material.",
-          "youtubeVideoId": "m6M_7kX0A1r",
+          "youtubeVideoId": "4_RUgnC1lm8",
           "videoAttribution": {
-            "creator": "StudioBinder",
+            "creator": "Case Western Reserve University",
             "platform": "youtube",
             "seriesTitle": "Week 20 — Capstone, portfolio and final assessment",
             "partNumber": 4
           },
-          "durationMinutes": 14,
+          "durationMinutes": 12,
           "order": 4,
           "moduleTitle": "Level 5: Advanced narrative craft and capstone (Weeks 17–20) — Week 20 — Capstone, portfolio and final assessment",
           "objectives": [
             "Master and apply core concepts in: Create the visual version",
-            "Connect theory from Capstone Step 4: Crafting the Visual Video or Storyboard (StudioBinder) directly to narrative practice",
+            "Connect theory from undefined (Case Western Reserve University) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 20 — Capstone, portfolio and final assessment"
           ],
           "tags": [
@@ -6849,19 +6659,19 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
           "slug": "w20-l5-present-and-review",
           "title": "Week 20 • Lesson 5: Present and review",
           "description": "Share the written, spoken and visual pieces with a reviewer. Score yourself and write a final reflection identifying the next three skills to improve.",
-          "youtubeVideoId": "n6M_8kX0A1r",
+          "youtubeVideoId": "plWexCID-kA",
           "videoAttribution": {
-            "creator": "Andrew Stanton | TED",
+            "creator": "Lennie Ann",
             "platform": "youtube",
             "seriesTitle": "Week 20 — Capstone, portfolio and final assessment",
             "partNumber": 5
           },
-          "durationMinutes": 15,
+          "durationMinutes": 12,
           "order": 5,
           "moduleTitle": "Level 5: Advanced narrative craft and capstone (Weeks 17–20) — Week 20 — Capstone, portfolio and final assessment",
           "objectives": [
             "Master and apply core concepts in: Present and review",
-            "Connect theory from Final Storytelling Showcase: Portfolio Assessment & Reflection (Andrew Stanton | TED) directly to narrative practice",
+            "Connect theory from undefined (Lennie Ann) directly to narrative practice",
             "Fulfill weekly assignment milestones for Week 20 — Capstone, portfolio and final assessment"
           ],
           "tags": [
@@ -6898,7 +6708,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Ignoring character motivation in favor of rapid scene transitions",
               "Omitting conflict until the final epilogue"
             ],
-            "correctAnswerIndex": 0,
             "explanation": "Lesson 1 establishes foundational focus and deliberate creative craftsmanship aligned with Week 20 — Capstone, portfolio and final assessment.",
             "difficulty": "beginner",
             "relatedLessonSlug": "w20-l1"
@@ -6911,7 +6720,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "By completely resetting character memory after each chapter",
               "Without any clear relationship between cause and effect"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Strong narrative momentum relies on causal necessity ('therefore' and 'but') rather than arbitrary episodic chains ('and then').",
             "difficulty": "beginner",
             "relatedLessonSlug": "w20-l2"
@@ -6924,7 +6732,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Describing a character's physical clothing in extensive detail",
               "Ensuring the protagonist never faces opposition"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Agency is defined by characters making difficult choices under pressure that directly influence the narrative trajectory.",
             "difficulty": "beginner",
             "relatedLessonSlug": "w20-l3"
@@ -6937,7 +6744,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Removing all emotional nuance from interpersonal exchanges",
               "Requiring an external narrator to explicitly explain every character thought"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Subtext enriches storytelling by conveying meaning beneath the surface through behaviour, silence, and indirect dialogue.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w20-l4"
@@ -6950,7 +6756,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Every obstacle should be resolved instantly without cost",
               "Obstacles should only be external weather conditions"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Tension builds when successive obstacles escalate stakes and demand greater personal investment and risk from the character.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w20-l5"
@@ -6963,7 +6768,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "It eliminates the need for written grammar",
               "It forces the video editor to increase volume"
             ],
-            "correctAnswerIndex": 0,
             "explanation": "Heavy exposition halts dramatic momentum. Information should be revealed organically through action and conflict.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w20-l1"
@@ -6976,7 +6780,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Replaced with direct word-by-word dictionary definitions",
               "Confined exclusively to historical settings"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Authentic cultural and linguistic textures ground narratives in lived reality while connecting universally through human emotion.",
             "difficulty": "intermediate",
             "relatedLessonSlug": "w20-l2"
@@ -6989,7 +6792,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Whether it took more than two hours to write",
               "Whether it mentions the title of the story"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "A scene earns its place only if something changes by its conclusion—emotional state, stakes, or character understanding.",
             "difficulty": "advanced",
             "relatedLessonSlug": "w20-l3"
@@ -7002,7 +6804,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "By extending slow exposition scenes indefinitely",
               "By cutting all character development scenes"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Dynamic rhythm requires contrast: moments of high tension must be balanced with reflective beats for emotional processing.",
             "difficulty": "advanced",
             "relatedLessonSlug": "w20-l4"
@@ -7015,7 +6816,6 @@ export const STORYTELLING_MASTERCLASS_COURSE: Course = {
               "Having a friend write the assignment on your behalf",
               "Only thinking about the assignment without recording or writing it down"
             ],
-            "correctAnswerIndex": 1,
             "explanation": "Each week requires completing the designated practical deliverable and evaluating it with the course rubric for clarity and resonance.",
             "difficulty": "advanced",
             "relatedLessonSlug": "w20-l5"

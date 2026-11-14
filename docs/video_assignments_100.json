@@ -1,1208 +1,1902 @@
 [
   {
     "week": 1,
+    "weekTitle": "What is a story?",
     "lessonNum": 1,
-    "videoId": "NJ-gw9j6f78",
-    "title": "4 Ways to Tell a Great Story",
-    "channel": "TED-Ed",
-    "durationSeconds": 345,
-    "language": "en",
-    "availableCaptions": [
-      "en",
-      "hi",
-      "es"
-    ]
-  },
-  {
-    "week": 1,
-    "lessonNum": 2,
-    "videoId": "KxDwieKpawg",
-    "title": "The Clues to a Great Story",
-    "channel": "Andrew Stanton | TED",
-    "durationSeconds": 1155,
-    "language": "en",
-    "availableCaptions": [
-      "en",
-      "hi",
-      "fr",
-      "es"
-    ]
-  },
-  {
-    "week": 1,
-    "lessonNum": 3,
-    "videoId": "y0f3P66vXpU",
-    "title": "Pixar in a Box: Storytelling — We are all storytellers",
-    "channel": "Pixar / Khan Academy",
-    "durationSeconds": 630,
-    "language": "en",
-    "availableCaptions": [
-      "en",
-      "es"
-    ]
-  },
-  {
-    "week": 1,
-    "lessonNum": 4,
-    "videoId": "jA2cCGHsP44",
-    "title": "The Moth: Storytelling Tips & True Personal Moments",
-    "channel": "The Moth",
-    "durationSeconds": 480,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 1,
-    "lessonNum": 5,
-    "videoId": "g4z_P1kZ27c",
-    "title": "Pixar in a Box: Character Development & Perspective",
-    "channel": "Pixar / Khan Academy",
-    "durationSeconds": 590,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 2,
-    "lessonNum": 1,
-    "videoId": "m9qL7r2b5iA",
-    "title": "How to Build a Story from Everyday Observations",
-    "channel": "TED-Ed",
-    "durationSeconds": 420,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 2,
-    "lessonNum": 2,
-    "videoId": "O_w_7R9X1r0",
-    "title": "Memory into Narrative: Turning Life into Fiction",
-    "channel": "OpenLearn / BBC",
-    "durationSeconds": 540,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 2,
-    "lessonNum": 3,
-    "videoId": "bEzeIq3Z0rI",
-    "title": "Pixar in a Box: What If? Finding Story Ideas",
-    "channel": "Pixar / Khan Academy",
-    "durationSeconds": 510,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 2,
-    "lessonNum": 4,
-    "videoId": "wE_Z0x9A1r0",
-    "title": "How to Craft a Compelling Premise and Logline",
-    "channel": "StudioBinder",
-    "durationSeconds": 615,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 2,
-    "lessonNum": 5,
-    "videoId": "t9L_eX9A1r0",
-    "title": "Evaluating and Developing the Strongest Story Idea",
-    "channel": "Lessons from the Screenplay",
+    "lessonId": "les-storytelling-w01-l1",
+    "lessonTitle": "Story versus information",
+    "videoId": "1rMnzNZkIX0",
+    "videoTitle": "Pixar in a Box: Introduction to Storytelling",
+    "channel": "Khan Academy Labs",
+    "url": "https://www.youtube.com/watch?v=1rMnzNZkIX0",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/1rMnzNZkIX0",
     "durationSeconds": 720,
+    "durationFormatted": "12:00",
     "language": "en",
     "availableCaptions": [
       "en"
-    ]
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
   },
   {
-    "week": 3,
-    "lessonNum": 1,
-    "videoId": "d8J_8kX0A1r",
-    "title": "Pixar in a Box: The Story Spine Structure",
-    "channel": "Pixar / Khan Academy",
-    "durationSeconds": 580,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 3,
+    "week": 1,
+    "weekTitle": "What is a story?",
     "lessonNum": 2,
-    "videoId": "e9J_1kX0A1r",
-    "title": "How to Write an Unforgettable Opening Hook",
-    "channel": "StudioBinder",
-    "durationSeconds": 645,
+    "lessonId": "les-storytelling-w01-l2",
+    "lessonTitle": "The audience",
+    "videoId": "NL0KQu9JiDQ",
+    "videoTitle": "Video 5: Advice for storytellers",
+    "channel": "Khan Academy Labs",
+    "url": "https://www.youtube.com/watch?v=NL0KQu9JiDQ",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/NL0KQu9JiDQ",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
     "language": "en",
     "availableCaptions": [
       "en"
-    ]
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
   },
   {
-    "week": 3,
+    "week": 1,
+    "weekTitle": "What is a story?",
     "lessonNum": 3,
-    "videoId": "f9J_2kX0A1r",
-    "title": "The Narrative Promise: Setting Audience Expectations",
-    "channel": "TED-Ed",
-    "durationSeconds": 490,
+    "lessonId": "les-storytelling-w01-l3",
+    "lessonTitle": "Change",
+    "videoId": "tREPH6hJsYg",
+    "videoTitle": "VIdeo 4: World & Character",
+    "channel": "Khan Academy Labs",
+    "url": "https://www.youtube.com/watch?v=tREPH6hJsYg",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/tREPH6hJsYg",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
     "language": "en",
     "availableCaptions": [
       "en"
-    ]
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
   },
   {
-    "week": 3,
+    "week": 1,
+    "weekTitle": "What is a story?",
     "lessonNum": 4,
-    "videoId": "g9J_3kX0A1r",
-    "title": "South Park's Rule of Causality: Therefore & But (Not 'And Then')",
-    "channel": "Lessons from the Screenplay",
-    "durationSeconds": 510,
+    "lessonId": "les-storytelling-w01-l4",
+    "lessonTitle": "Tell a real moment",
+    "videoId": "m5AW93Ya0UE",
+    "videoTitle": "Video 3: What if?",
+    "channel": "Khan Academy Labs",
+    "url": "https://www.youtube.com/watch?v=m5AW93Ya0UE",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/m5AW93Ya0UE",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
     "language": "en",
     "availableCaptions": [
       "en"
-    ]
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 1,
+    "weekTitle": "What is a story?",
+    "lessonNum": 5,
+    "lessonId": "les-storytelling-w01-l5",
+    "lessonTitle": "First analysis",
+    "videoId": "1mTO_ax-M3Q",
+    "videoTitle": "Video 1: We are all storytellers",
+    "channel": "Khan Academy Labs",
+    "url": "https://www.youtube.com/watch?v=1mTO_ax-M3Q",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/1mTO_ax-M3Q",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 2,
+    "weekTitle": "Observation, memory and idea generation",
+    "lessonNum": 1,
+    "lessonId": "les-storytelling-w02-l1",
+    "lessonTitle": "Collect observations",
+    "videoId": "SgGARYH2vRg",
+    "videoTitle": "Character: Advice",
+    "channel": "Khan Academy Labs",
+    "url": "https://www.youtube.com/watch?v=SgGARYH2vRg",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/SgGARYH2vRg",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 2,
+    "weekTitle": "Observation, memory and idea generation",
+    "lessonNum": 2,
+    "lessonId": "les-storytelling-w02-l2",
+    "lessonTitle": "Memory as material",
+    "videoId": "ngZQUebMSEg",
+    "videoTitle": "Pixar in a Box: Character Development",
+    "channel": "Khan Academy Labs",
+    "url": "https://www.youtube.com/watch?v=ngZQUebMSEg",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/ngZQUebMSEg",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 2,
+    "weekTitle": "Observation, memory and idea generation",
+    "lessonNum": 3,
+    "lessonId": "les-storytelling-w02-l3",
+    "lessonTitle": "What if?",
+    "videoId": "bgLSgFDMF1k",
+    "videoTitle": "Good Will Hunting — The Psychology of Character",
+    "channel": "Lessons from the Screenplay",
+    "url": "https://www.youtube.com/watch?v=bgLSgFDMF1k",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/bgLSgFDMF1k",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 2,
+    "weekTitle": "Observation, memory and idea generation",
+    "lessonNum": 4,
+    "lessonId": "les-storytelling-w02-l4",
+    "lessonTitle": "Premise practice",
+    "videoId": "hjEO3ijVwSU",
+    "videoTitle": "The Godfather Analysis – The Rise and Fall of Michael Corleone [Corruption Character Arc Explained]",
+    "channel": "StudioBinder",
+    "url": "https://www.youtube.com/watch?v=hjEO3ijVwSU",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/hjEO3ijVwSU",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 2,
+    "weekTitle": "Observation, memory and idea generation",
+    "lessonNum": 5,
+    "lessonId": "les-storytelling-w02-l5",
+    "lessonTitle": "Select the strongest idea",
+    "videoId": "CS1QkWSnP_o",
+    "videoTitle": "How to Write a Character Arc — \"Positive Change\" Character Arcs Explained",
+    "channel": "StudioBinder",
+    "url": "https://www.youtube.com/watch?v=CS1QkWSnP_o",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/CS1QkWSnP_o",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
   },
   {
     "week": 3,
-    "lessonNum": 5,
-    "videoId": "h9J_4kX0A1r",
-    "title": "Pixar in a Box: Pitching Your Story Aloud",
-    "channel": "Pixar / Khan Academy",
-    "durationSeconds": 610,
+    "weekTitle": "Story spine, hook and promise",
+    "lessonNum": 1,
+    "lessonId": "les-storytelling-w03-l1",
+    "lessonTitle": "Story spine",
+    "videoId": "RgRfbvLkvnI",
+    "videoTitle": "Character: Wants vs. needs",
+    "channel": "Khan Academy Labs",
+    "url": "https://www.youtube.com/watch?v=RgRfbvLkvnI",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/RgRfbvLkvnI",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
     "language": "en",
     "availableCaptions": [
       "en"
-    ]
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 3,
+    "weekTitle": "Story spine, hook and promise",
+    "lessonNum": 2,
+    "lessonId": "les-storytelling-w03-l2",
+    "lessonTitle": "Hooks",
+    "videoId": "CF3lFPW4E1o",
+    "videoTitle": "Gone Girl — Don't Underestimate the Screenwriter",
+    "channel": "Lessons from the Screenplay",
+    "url": "https://www.youtube.com/watch?v=CF3lFPW4E1o",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/CF3lFPW4E1o",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 3,
+    "weekTitle": "Story spine, hook and promise",
+    "lessonNum": 3,
+    "lessonId": "les-storytelling-w03-l3",
+    "lessonTitle": "The story promise",
+    "videoId": "EXeTwQWrcwY",
+    "videoTitle": "The Dark Knight (2008) Official Trailer #1 - Christopher Nolan Movie HD",
+    "channel": "Rotten Tomatoes Classic Trailers",
+    "url": "https://www.youtube.com/watch?v=EXeTwQWrcwY",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/EXeTwQWrcwY",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 3,
+    "weekTitle": "Story spine, hook and promise",
+    "lessonNum": 4,
+    "lessonId": "les-storytelling-w03-l4",
+    "lessonTitle": "Causality",
+    "videoId": "ba-CB6wVuvQ",
+    "videoTitle": "Whiplash vs. Black Swan — The Anatomy of the Obsessed Artist",
+    "channel": "Lessons from the Screenplay",
+    "url": "https://www.youtube.com/watch?v=ba-CB6wVuvQ",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/ba-CB6wVuvQ",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 3,
+    "weekTitle": "Story spine, hook and promise",
+    "lessonNum": 5,
+    "lessonId": "les-storytelling-w03-l5",
+    "lessonTitle": "Pitch aloud",
+    "videoId": "0txdzPfC-Ow",
+    "videoTitle": "How to Write a Screenplay that's a Crowd-Pleaser — Back to the Future & the Flat Character Arc",
+    "channel": "StudioBinder",
+    "url": "https://www.youtube.com/watch?v=0txdzPfC-Ow",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/0txdzPfC-Ow",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
   },
   {
     "week": 4,
+    "weekTitle": "Plot and three-act structure",
     "lessonNum": 1,
+    "lessonId": "les-storytelling-w04-l1",
+    "lessonTitle": "Three acts",
+    "videoId": "ZyNvgFmBQTs",
+    "videoTitle": "Character: Obstacles",
+    "channel": "Khan Academy Labs",
+    "url": "https://www.youtube.com/watch?v=ZyNvgFmBQTs",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/ZyNvgFmBQTs",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 4,
+    "weekTitle": "Plot and three-act structure",
+    "lessonNum": 2,
+    "lessonId": "les-storytelling-w04-l2",
+    "lessonTitle": "Turning points",
+    "videoId": "WJ_iNkkgdCA",
+    "videoTitle": "Character: Stakes",
+    "channel": "Khan Academy Labs",
+    "url": "https://www.youtube.com/watch?v=WJ_iNkkgdCA",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/WJ_iNkkgdCA",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 4,
+    "weekTitle": "Plot and three-act structure",
+    "lessonNum": 3,
+    "lessonId": "les-storytelling-w04-l3",
+    "lessonTitle": "Midpoint and escalation",
+    "videoId": "AJLHsXw-LFI",
+    "videoTitle": "Get Out — A New Perspective in Horror",
+    "channel": "Lessons from the Screenplay",
+    "url": "https://www.youtube.com/watch?v=AJLHsXw-LFI",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/AJLHsXw-LFI",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 4,
+    "weekTitle": "Plot and three-act structure",
+    "lessonNum": 4,
+    "lessonId": "les-storytelling-w04-l4",
+    "lessonTitle": "Climax and resolution",
+    "videoId": "S0QMxzEVuDI",
+    "videoTitle": "Collateral — The Midpoint Collision",
+    "channel": "Lessons from the Screenplay",
+    "url": "https://www.youtube.com/watch?v=S0QMxzEVuDI",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/S0QMxzEVuDI",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 4,
+    "weekTitle": "Plot and three-act structure",
+    "lessonNum": 5,
+    "lessonId": "les-storytelling-w04-l5",
+    "lessonTitle": "Reverse outline",
+    "videoId": "gsIQa7sH5_Y",
+    "videoTitle": "Rogue One vs. The Force Awakens — The Fault in Our Star Wars",
+    "channel": "Lessons from the Screenplay",
+    "url": "https://www.youtube.com/watch?v=gsIQa7sH5_Y",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/gsIQa7sH5_Y",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 5,
+    "weekTitle": "Creating believable characters",
+    "lessonNum": 1,
+    "lessonId": "les-storytelling-w05-l1",
+    "lessonTitle": "Specificity",
+    "videoId": "eCxo5PqI2bU",
+    "videoTitle": "Story Structure: Act 1",
+    "channel": "Khan Academy Labs",
+    "url": "https://www.youtube.com/watch?v=eCxo5PqI2bU",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/eCxo5PqI2bU",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 5,
+    "weekTitle": "Creating believable characters",
+    "lessonNum": 2,
+    "lessonId": "les-storytelling-w05-l2",
+    "lessonTitle": "Internal versus external",
+    "videoId": "bKrCKg9ggVI",
+    "videoTitle": "Pixar in a Box:  Story Structure",
+    "channel": "Khan Academy Labs",
+    "url": "https://www.youtube.com/watch?v=bKrCKg9ggVI",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/bKrCKg9ggVI",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 5,
+    "weekTitle": "Creating believable characters",
+    "lessonNum": 3,
+    "lessonId": "les-storytelling-w05-l3",
+    "lessonTitle": "Backstory",
+    "videoId": "9BusKC3kcb8",
+    "videoTitle": "Story Structure: Act 2",
+    "channel": "Khan Academy Labs",
+    "url": "https://www.youtube.com/watch?v=9BusKC3kcb8",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/9BusKC3kcb8",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 5,
+    "weekTitle": "Creating believable characters",
+    "lessonNum": 4,
+    "lessonId": "les-storytelling-w05-l4",
+    "lessonTitle": "Character voice",
     "videoId": "tvqjp1CxxD8",
-    "title": "Three-Act Structure Explained",
+    "videoTitle": "Three Act Structure Explained — The Secret to Telling a Great Story",
     "channel": "StudioBinder",
-    "durationSeconds": 785,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 4,
-    "lessonNum": 2,
-    "videoId": "i9J_5kX0A1r",
-    "title": "The Inciting Incident and Plot Point 1",
-    "channel": "Lessons from the Screenplay",
-    "durationSeconds": 690,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 4,
-    "lessonNum": 3,
-    "videoId": "j9J_6kX0A1r",
-    "title": "The Midpoint Shift: Raising the Stakes",
-    "channel": "StudioBinder",
-    "durationSeconds": 730,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 4,
-    "lessonNum": 4,
-    "videoId": "k9J_7kX0A1r",
-    "title": "Climax and Resolution: Delivering Catharsis",
-    "channel": "TED-Ed",
-    "durationSeconds": 520,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 4,
-    "lessonNum": 5,
-    "videoId": "l9J_8kX0A1r",
-    "title": "Reverse Outlining: Deconstructing Masterpieces",
-    "channel": "Brandon Sanderson",
-    "durationSeconds": 980,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 5,
-    "lessonNum": 1,
-    "videoId": "m9J_9kX0A1r",
-    "title": "Pixar in a Box: Creating Character Specificity",
-    "channel": "Pixar / Khan Academy",
-    "durationSeconds": 650,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 5,
-    "lessonNum": 2,
-    "videoId": "n9J_0kX0A1r",
-    "title": "Internal Flaw vs External Persona",
-    "channel": "Lessons from the Screenplay",
-    "durationSeconds": 710,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 5,
-    "lessonNum": 3,
-    "videoId": "o9J_1kX0A1r",
-    "title": "Backstory: What to Reveal and What to Hide",
-    "channel": "StudioBinder",
-    "durationSeconds": 630,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 5,
-    "lessonNum": 4,
-    "videoId": "p9J_2kX0A1r",
-    "title": "Developing Unique Character Voice and Cadence",
-    "channel": "OpenLearn / BBC",
-    "durationSeconds": 570,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 5,
-    "lessonNum": 5,
-    "videoId": "q9J_3kX0A1r",
-    "title": "The Character Interview: Probing Contradictions",
-    "channel": "Brandon Sanderson",
-    "durationSeconds": 890,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 6,
-    "lessonNum": 1,
-    "videoId": "r9J_4kX0A1r",
-    "title": "Pixar in a Box: Want vs Need in Character Arcs",
-    "channel": "Pixar / Khan Academy",
-    "durationSeconds": 670,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 6,
-    "lessonNum": 2,
-    "videoId": "s9J_5kX0A1r",
-    "title": "Character Motivation: Why it Matters to the Audience",
-    "channel": "StudioBinder",
-    "durationSeconds": 710,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 6,
-    "lessonNum": 3,
-    "videoId": "t9J_6kX0A1r",
-    "title": "Escalating Obstacles: The Rule of Three Barriers",
-    "channel": "Lessons from the Screenplay",
-    "durationSeconds": 640,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 6,
-    "lessonNum": 4,
-    "videoId": "u9J_7kX0A1r",
-    "title": "Stakes: Public, Personal, and Philosophical",
-    "channel": "TED-Ed",
-    "durationSeconds": 530,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 6,
-    "lessonNum": 5,
-    "videoId": "v9J_8kX0A1r",
-    "title": "Tracking the Positive, Flat, and Tragic Character Arc",
-    "channel": "StudioBinder",
-    "durationSeconds": 820,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 7,
-    "lessonNum": 1,
-    "videoId": "w9J_9kX0A1r",
-    "title": "First Person vs Third Person: The Filter of Perception",
-    "channel": "TED-Ed",
-    "durationSeconds": 495,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 7,
-    "lessonNum": 2,
-    "videoId": "x9J_0kX0A1r",
-    "title": "The Unreliable Narrator: How and When to Use It",
-    "channel": "Lessons from the Screenplay",
-    "durationSeconds": 760,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 7,
-    "lessonNum": 3,
-    "videoId": "y9J_1kX0A1r",
-    "title": "Writing Dialogue with Hidden Intentions",
-    "channel": "StudioBinder",
-    "durationSeconds": 690,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 7,
-    "lessonNum": 4,
-    "videoId": "z9J_2kX0A1r",
-    "title": "Mastering Subtext: What Characters Don't Say",
-    "channel": "Lessons from the Screenplay",
-    "durationSeconds": 840,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 7,
-    "lessonNum": 5,
-    "videoId": "a8K_3kX0A1r",
-    "title": "Exposition Editing: Show Action, Cut Explanation",
-    "channel": "Brandon Sanderson",
-    "durationSeconds": 910,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 8,
-    "lessonNum": 1,
-    "videoId": "b8K_4kX0A1r",
-    "title": "Setting as an Antagonist and Pressure Cooker",
-    "channel": "StudioBinder",
-    "durationSeconds": 730,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 8,
-    "lessonNum": 2,
-    "videoId": "c8K_5kX0A1r",
-    "title": "Sensory Details: Engaging Sight, Sound, Smell & Touch",
-    "channel": "OpenLearn / BBC",
-    "durationSeconds": 580,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 8,
-    "lessonNum": 3,
-    "videoId": "d8K_6kX0A1r",
-    "title": "Worldbuilding Rules: Sanderson's Laws of Magic & Systems",
-    "channel": "Brandon Sanderson",
-    "durationSeconds": 1120,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 8,
-    "lessonNum": 4,
-    "videoId": "e8K_7kX0A1r",
-    "title": "Genre Conventions: Delivering on Audience Expectations",
-    "channel": "Lessons from the Screenplay",
-    "durationSeconds": 780,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 8,
-    "lessonNum": 5,
-    "videoId": "f8K_8kX0A1r",
-    "title": "Research and Cultural Authenticity in Fiction",
-    "channel": "TED-Ed",
-    "durationSeconds": 540,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 9,
-    "lessonNum": 1,
-    "videoId": "g8K_9kX0A1r",
-    "title": "Types of Conflict: Internal, Relational, and Societal",
-    "channel": "StudioBinder",
-    "durationSeconds": 750,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 9,
-    "lessonNum": 2,
-    "videoId": "h8K_0kX0A1r",
-    "title": "Scene Objective: The Micro-Battle of Every Scene",
-    "channel": "Lessons from the Screenplay",
+    "url": "https://www.youtube.com/watch?v=tvqjp1CxxD8",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/tvqjp1CxxD8",
     "durationSeconds": 720,
+    "durationFormatted": "12:00",
     "language": "en",
     "availableCaptions": [
       "en"
-    ]
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 5,
+    "weekTitle": "Creating believable characters",
+    "lessonNum": 5,
+    "lessonId": "les-storytelling-w05-l5",
+    "lessonTitle": "Character interview",
+    "videoId": "j56WPBaiPYQ",
+    "videoTitle": "The Avengers — Defining an Act",
+    "channel": "Lessons from the Screenplay",
+    "url": "https://www.youtube.com/watch?v=j56WPBaiPYQ",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/j56WPBaiPYQ",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 6,
+    "weekTitle": "Goals, needs, obstacles, stakes and arcs",
+    "lessonNum": 1,
+    "lessonId": "les-storytelling-w06-l1",
+    "lessonTitle": "Want versus need",
+    "videoId": "ilDsFrcHsuI",
+    "videoTitle": "Story spine",
+    "channel": "Khan Academy Labs",
+    "url": "https://www.youtube.com/watch?v=ilDsFrcHsuI",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/ilDsFrcHsuI",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 6,
+    "weekTitle": "Goals, needs, obstacles, stakes and arcs",
+    "lessonNum": 2,
+    "lessonId": "les-storytelling-w06-l2",
+    "lessonTitle": "Motivation",
+    "videoId": "8IAGH6k17nw",
+    "videoTitle": "The Social Network — Sorkin, Structure, and Collaboration",
+    "channel": "Lessons from the Screenplay",
+    "url": "https://www.youtube.com/watch?v=8IAGH6k17nw",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/8IAGH6k17nw",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 6,
+    "weekTitle": "Goals, needs, obstacles, stakes and arcs",
+    "lessonNum": 3,
+    "lessonId": "les-storytelling-w06-l3",
+    "lessonTitle": "Obstacles",
+    "videoId": "6PLSJBTzaGw",
+    "videoTitle": "Anatomy of a Screenplay — Movie Script Format Explained (And Why It Matters)",
+    "channel": "StudioBinder",
+    "url": "https://www.youtube.com/watch?v=6PLSJBTzaGw",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/6PLSJBTzaGw",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 6,
+    "weekTitle": "Goals, needs, obstacles, stakes and arcs",
+    "lessonNum": 4,
+    "lessonId": "les-storytelling-w06-l4",
+    "lessonTitle": "Stakes",
+    "videoId": "LxtPRqiFpe0",
+    "videoTitle": "Script Breakdown Tutorial: Getting Started",
+    "channel": "StudioBinder",
+    "url": "https://www.youtube.com/watch?v=LxtPRqiFpe0",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/LxtPRqiFpe0",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 6,
+    "weekTitle": "Goals, needs, obstacles, stakes and arcs",
+    "lessonNum": 5,
+    "lessonId": "les-storytelling-w06-l5",
+    "lessonTitle": "Arc",
+    "videoId": "17Gxgo9kPAQ",
+    "videoTitle": "How to Create or Import a Screenplay | Screenwriting Tutorial",
+    "channel": "StudioBinder Academy",
+    "url": "https://www.youtube.com/watch?v=17Gxgo9kPAQ",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/17Gxgo9kPAQ",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 7,
+    "weekTitle": "Point of view, narration and dialogue",
+    "lessonNum": 1,
+    "lessonId": "les-storytelling-w07-l1",
+    "lessonTitle": "Point of view",
+    "videoId": "g1p3WmulKbs",
+    "videoTitle": "Pixar in a Box: Visual Language",
+    "channel": "Khan Academy Labs",
+    "url": "https://www.youtube.com/watch?v=g1p3WmulKbs",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/g1p3WmulKbs",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 7,
+    "weekTitle": "Point of view, narration and dialogue",
+    "lessonNum": 2,
+    "lessonId": "les-storytelling-w07-l2",
+    "lessonTitle": "Narrator knowledge",
+    "videoId": "Uty6buQ61ZA",
+    "videoTitle": "Pixar in a Box: Film Grammar",
+    "channel": "Khan Academy Labs",
+    "url": "https://www.youtube.com/watch?v=Uty6buQ61ZA",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/Uty6buQ61ZA",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 7,
+    "weekTitle": "Point of view, narration and dialogue",
+    "lessonNum": 3,
+    "lessonId": "les-storytelling-w07-l3",
+    "lessonTitle": "Dialogue",
+    "videoId": "ZNRQQi42CZA",
+    "videoTitle": "How to Make a Shot List in StudioBinder | Shot List Tutorials",
+    "channel": "StudioBinder Academy",
+    "url": "https://www.youtube.com/watch?v=ZNRQQi42CZA",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/ZNRQQi42CZA",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 7,
+    "weekTitle": "Point of view, narration and dialogue",
+    "lessonNum": 4,
+    "lessonId": "les-storytelling-w07-l4",
+    "lessonTitle": "Subtext",
+    "videoId": "qQNiqzuXjoM",
+    "videoTitle": "Camera Framing: Shot Composition & Cinematography Techniques Explained [The Shot List, Ep 2]",
+    "channel": "StudioBinder",
+    "url": "https://www.youtube.com/watch?v=qQNiqzuXjoM",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/qQNiqzuXjoM",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 7,
+    "weekTitle": "Point of view, narration and dialogue",
+    "lessonNum": 5,
+    "lessonId": "les-storytelling-w07-l5",
+    "lessonTitle": "Exposition edit",
+    "videoId": "AyML8xuKfoc",
+    "videoTitle": "Ultimate Guide to Camera Shots: Every Shot Size Explained [The Shot List, Ep 1]",
+    "channel": "StudioBinder",
+    "url": "https://www.youtube.com/watch?v=AyML8xuKfoc",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/AyML8xuKfoc",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 8,
+    "weekTitle": "Setting, worldbuilding and genre",
+    "lessonNum": 1,
+    "lessonId": "les-storytelling-w08-l1",
+    "lessonTitle": "Setting as pressure",
+    "videoId": "wrR8ggeD4h4",
+    "videoTitle": "Writing Subtext  — The Secret to Writing What's Under the Surface",
+    "channel": "StudioBinder",
+    "url": "https://www.youtube.com/watch?v=wrR8ggeD4h4",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/wrR8ggeD4h4",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 8,
+    "weekTitle": "Setting, worldbuilding and genre",
+    "lessonNum": 2,
+    "lessonId": "les-storytelling-w08-l2",
+    "lessonTitle": "Sensory detail",
+    "videoId": "A0edKgL9EgM",
+    "videoTitle": "The art of the metaphor - Jane Hirshfield",
+    "channel": "TED-Ed",
+    "url": "https://www.youtube.com/watch?v=A0edKgL9EgM",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/A0edKgL9EgM",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 8,
+    "weekTitle": "Setting, worldbuilding and genre",
+    "lessonNum": 3,
+    "lessonId": "les-storytelling-w08-l3",
+    "lessonTitle": "World rules",
+    "videoId": "RSoRzTtwgP4",
+    "videoTitle": "How to write descriptively - Nalo Hopkinson",
+    "channel": "TED-Ed",
+    "url": "https://www.youtube.com/watch?v=RSoRzTtwgP4",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/RSoRzTtwgP4",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 8,
+    "weekTitle": "Setting, worldbuilding and genre",
+    "lessonNum": 4,
+    "lessonId": "les-storytelling-w08-l4",
+    "lessonTitle": "Genre",
+    "videoId": "B5vEfuLS2Qc",
+    "videoTitle": "First person vs. Second person vs. Third person - Rebekah Bergman",
+    "channel": "TED-Ed",
+    "url": "https://www.youtube.com/watch?v=B5vEfuLS2Qc",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/B5vEfuLS2Qc",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 8,
+    "weekTitle": "Setting, worldbuilding and genre",
+    "lessonNum": 5,
+    "lessonId": "les-storytelling-w08-l5",
+    "lessonTitle": "Research and authenticity",
+    "videoId": "flthk8SNiiE",
+    "videoTitle": "Three anti-social skills to improve your writing - Nadia Kalman",
+    "channel": "TED-Ed",
+    "url": "https://www.youtube.com/watch?v=flthk8SNiiE",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/flthk8SNiiE",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
   },
   {
     "week": 9,
-    "lessonNum": 3,
-    "videoId": "i8K_1kX0A1r",
-    "title": "Tension Escalation: The 'Yes, But' / 'No, And' Technique",
-    "channel": "Pixar / Khan Academy",
-    "durationSeconds": 610,
+    "weekTitle": "Conflict, tension and suspense",
+    "lessonNum": 1,
+    "lessonId": "les-storytelling-w09-l1",
+    "lessonTitle": "Conflict types",
+    "videoId": "SBEm2r0VXc4",
+    "videoTitle": "The Moth: The Story Behind the Storytellers",
+    "channel": "THNKR",
+    "url": "https://www.youtube.com/watch?v=SBEm2r0VXc4",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/SBEm2r0VXc4",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
     "language": "en",
     "availableCaptions": [
       "en"
-    ]
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
   },
   {
     "week": 9,
-    "lessonNum": 4,
-    "videoId": "j8K_2kX0A1r",
-    "title": "Hitchcock on Suspense vs Surprise: The Ticking Bomb",
-    "channel": "StudioBinder",
-    "durationSeconds": 660,
+    "weekTitle": "Conflict, tension and suspense",
+    "lessonNum": 2,
+    "lessonId": "les-storytelling-w09-l2",
+    "lessonTitle": "Scene objective",
+    "videoId": "xqfZaXHl4qg",
+    "videoTitle": "The Moth GrandSLAM Winner: Kevin McGeehan - \"The Over-Hugger\"",
+    "channel": "Kevin McGeehan",
+    "url": "https://www.youtube.com/watch?v=xqfZaXHl4qg",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/xqfZaXHl4qg",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
     "language": "en",
     "availableCaptions": [
       "en"
-    ]
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
   },
   {
     "week": 9,
-    "lessonNum": 5,
-    "videoId": "k8K_3kX0A1r",
-    "title": "The Scene Audit: Removing Narrative Dead Zones",
-    "channel": "Brandon Sanderson",
-    "durationSeconds": 880,
+    "weekTitle": "Conflict, tension and suspense",
+    "lessonNum": 3,
+    "lessonId": "les-storytelling-w09-l3",
+    "lessonTitle": "Escalation",
+    "videoId": "r8jCcv2QIwM",
+    "videoTitle": "The Story That Won The Moth GrandSLAM",
+    "channel": "Matthew Dicks",
+    "url": "https://www.youtube.com/watch?v=r8jCcv2QIwM",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/r8jCcv2QIwM",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
     "language": "en",
     "availableCaptions": [
       "en"
-    ]
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 9,
+    "weekTitle": "Conflict, tension and suspense",
+    "lessonNum": 4,
+    "lessonId": "les-storytelling-w09-l4",
+    "lessonTitle": "Suspense versus surprise",
+    "videoId": "qvkIiUJsF68",
+    "videoTitle": "The Essence of Storytelling",
+    "channel": "Digiday",
+    "url": "https://www.youtube.com/watch?v=qvkIiUJsF68",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/qvkIiUJsF68",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 9,
+    "weekTitle": "Conflict, tension and suspense",
+    "lessonNum": 5,
+    "lessonId": "les-storytelling-w09-l5",
+    "lessonTitle": "Scene test",
+    "videoId": "qdBJ1X33rXM",
+    "videoTitle": "The Moth Presents Anthony Griffith: The Best of Times, The Worst of Times",
+    "channel": "The Moth",
+    "url": "https://www.youtube.com/watch?v=qdBJ1X33rXM",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/qdBJ1X33rXM",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
   },
   {
     "week": 10,
+    "weekTitle": "Emotion, pacing and audience engagement",
     "lessonNum": 1,
-    "videoId": "l8K_4kX0A1r",
-    "title": "Creating Deep Emotional Investment in Characters",
-    "channel": "Pixar / Khan Academy",
-    "durationSeconds": 680,
+    "lessonId": "les-storytelling-w10-l1",
+    "lessonTitle": "Emotional investment",
+    "videoId": "nzOdAVgyi0U",
+    "videoTitle": "How to uncover your best ideas",
+    "channel": "TED-Ed",
+    "url": "https://www.youtube.com/watch?v=nzOdAVgyi0U",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/nzOdAVgyi0U",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
     "language": "en",
     "availableCaptions": [
       "en"
-    ]
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
   },
   {
     "week": 10,
+    "weekTitle": "Emotion, pacing and audience engagement",
     "lessonNum": 2,
-    "videoId": "m8K_5kX0A1r",
-    "title": "Show Don't Tell: Translating Emotion into Concrete Action",
+    "lessonId": "les-storytelling-w10-l2",
+    "lessonTitle": "Show versus tell",
+    "videoId": "Z7bfPaTfU0c",
+    "videoTitle": "What happens when you share an idea?",
     "channel": "TED-Ed",
-    "durationSeconds": 510,
+    "url": "https://www.youtube.com/watch?v=Z7bfPaTfU0c",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/Z7bfPaTfU0c",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
     "language": "en",
     "availableCaptions": [
       "en"
-    ]
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
   },
   {
     "week": 10,
+    "weekTitle": "Emotion, pacing and audience engagement",
     "lessonNum": 3,
-    "videoId": "n8K_6kX0A1r",
-    "title": "Pacing: Sentence Length, Scene Cuts, and Breathing Room",
-    "channel": "Lessons from the Screenplay",
-    "durationSeconds": 740,
+    "lessonId": "les-storytelling-w10-l3",
+    "lessonTitle": "Pacing",
+    "videoId": "btWlBHE0pe4",
+    "videoTitle": "How to communicate clearly",
+    "channel": "TED-Ed",
+    "url": "https://www.youtube.com/watch?v=btWlBHE0pe4",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/btWlBHE0pe4",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
     "language": "en",
     "availableCaptions": [
       "en"
-    ]
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
   },
   {
     "week": 10,
+    "weekTitle": "Emotion, pacing and audience engagement",
     "lessonNum": 4,
-    "videoId": "o8K_7kX0A1r",
-    "title": "Contrast in Storytelling: Humor Before Heartbreak",
-    "channel": "StudioBinder",
-    "durationSeconds": 690,
+    "lessonId": "les-storytelling-w10-l4",
+    "lessonTitle": "Contrast",
+    "videoId": "1sOgYNgq88E",
+    "videoTitle": "What’s the best way to give a presentation?",
+    "channel": "TED-Ed",
+    "url": "https://www.youtube.com/watch?v=1sOgYNgq88E",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/1sOgYNgq88E",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
     "language": "en",
     "availableCaptions": [
       "en"
-    ]
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
   },
   {
     "week": 10,
+    "weekTitle": "Emotion, pacing and audience engagement",
     "lessonNum": 5,
-    "videoId": "p8K_8kX0A1r",
-    "title": "The Emotional Wave: Mapping Audience Resonance",
-    "channel": "Andrew Stanton | TED",
-    "durationSeconds": 620,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 11,
-    "lessonNum": 1,
-    "videoId": "q8K_9kX0A1r",
-    "title": "Theme as a Central Dramatic Question",
-    "channel": "Lessons from the Screenplay",
-    "durationSeconds": 790,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 11,
-    "lessonNum": 2,
-    "videoId": "r8K_0kX0A1r",
-    "title": "Expressing Theme Through Character Choice and Sacrifice",
-    "channel": "Pixar / Khan Academy",
-    "durationSeconds": 640,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 11,
-    "lessonNum": 3,
-    "videoId": "s8K_1kX0A1r",
-    "title": "Motifs: Planting Recurring Symbols Across a Story",
-    "channel": "StudioBinder",
-    "durationSeconds": 710,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 11,
-    "lessonNum": 4,
-    "videoId": "t8K_2kX0A1r",
-    "title": "Visual Metaphor: Showing Complex Ideas Through Concrete Objects",
+    "lessonId": "les-storytelling-w10-l5",
+    "lessonTitle": "Emotional audit",
+    "videoId": "PJKeLD-vMvo",
+    "videoTitle": "How to speak with meaning",
     "channel": "TED-Ed",
-    "durationSeconds": 530,
+    "url": "https://www.youtube.com/watch?v=PJKeLD-vMvo",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/PJKeLD-vMvo",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
     "language": "en",
     "availableCaptions": [
       "en"
-    ]
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
   },
   {
     "week": 11,
-    "lessonNum": 5,
-    "videoId": "u8K_3kX0A1r",
-    "title": "Subtext in Action: What the Eyes and Hands Confess",
-    "channel": "Lessons from the Screenplay",
-    "durationSeconds": 820,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 12,
+    "weekTitle": "Theme, symbolism, metaphor and subtext",
     "lessonNum": 1,
-    "videoId": "v8K_4kX0A1r",
-    "title": "Foreshadowing: Planting Clues in Plain Sight",
-    "channel": "StudioBinder",
-    "durationSeconds": 730,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 12,
-    "lessonNum": 2,
-    "videoId": "w8K_5kX0A1r",
-    "title": "Chekhov's Gun and Paid-Off Setups",
-    "channel": "Lessons from the Screenplay",
-    "durationSeconds": 690,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 12,
-    "lessonNum": 3,
-    "videoId": "x8K_6kX0A1r",
-    "title": "Anatomy of an Earned Plot Twist",
+    "lessonId": "les-storytelling-w11-l1",
+    "lessonTitle": "Theme as a question",
+    "videoId": "1uTRlM6MbMo",
+    "videoTitle": "How to present your ideas effectively",
     "channel": "TED-Ed",
-    "durationSeconds": 560,
+    "url": "https://www.youtube.com/watch?v=1uTRlM6MbMo",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/1uTRlM6MbMo",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
     "language": "en",
     "availableCaptions": [
       "en"
-    ]
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
   },
   {
-    "week": 12,
+    "week": 11,
+    "weekTitle": "Theme, symbolism, metaphor and subtext",
+    "lessonNum": 2,
+    "lessonId": "les-storytelling-w11-l2",
+    "lessonTitle": "Theme through choice",
+    "videoId": "EMbZ72cCAzI",
+    "videoTitle": "How to explain something complicated",
+    "channel": "TED-Ed",
+    "url": "https://www.youtube.com/watch?v=EMbZ72cCAzI",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/EMbZ72cCAzI",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 11,
+    "weekTitle": "Theme, symbolism, metaphor and subtext",
+    "lessonNum": 3,
+    "lessonId": "les-storytelling-w11-l3",
+    "lessonTitle": "Motif",
+    "videoId": "JOs-q7rXqdk",
+    "videoTitle": "4 ways to tell a great story",
+    "channel": "TED-Ed",
+    "url": "https://www.youtube.com/watch?v=JOs-q7rXqdk",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/JOs-q7rXqdk",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 11,
+    "weekTitle": "Theme, symbolism, metaphor and subtext",
     "lessonNum": 4,
-    "videoId": "y8K_7kX0A1r",
-    "title": "Nonlinear Timelines and Flashback Mechanics",
-    "channel": "StudioBinder",
-    "durationSeconds": 810,
+    "lessonId": "les-storytelling-w11-l4",
+    "lessonTitle": "Metaphor",
+    "videoId": "G3hXvByzLHs",
+    "videoTitle": "6 ways to be more persuasive",
+    "channel": "TED-Ed",
+    "url": "https://www.youtube.com/watch?v=G3hXvByzLHs",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/G3hXvByzLHs",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
     "language": "en",
     "availableCaptions": [
       "en"
-    ]
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 11,
+    "weekTitle": "Theme, symbolism, metaphor and subtext",
+    "lessonNum": 5,
+    "lessonId": "les-storytelling-w11-l5",
+    "lessonTitle": "Subtext analysis",
+    "videoId": "mGugp5qs6Vg",
+    "videoTitle": "5 ways to connect with people",
+    "channel": "TED-Ed",
+    "url": "https://www.youtube.com/watch?v=mGugp5qs6Vg",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/mGugp5qs6Vg",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
   },
   {
     "week": 12,
+    "weekTitle": "Foreshadowing, twists and multiple timelines",
+    "lessonNum": 1,
+    "lessonId": "les-storytelling-w12-l1",
+    "lessonTitle": "Foreshadowing",
+    "videoId": "bw5tzcoEG88",
+    "videoTitle": "How to effectively use visuals in your presentation",
+    "channel": "TED-Ed",
+    "url": "https://www.youtube.com/watch?v=bw5tzcoEG88",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/bw5tzcoEG88",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 12,
+    "weekTitle": "Foreshadowing, twists and multiple timelines",
+    "lessonNum": 2,
+    "lessonId": "les-storytelling-w12-l2",
+    "lessonTitle": "Payoff",
+    "videoId": "1nYFpuc2Umk",
+    "videoTitle": "TEDxEast - Nancy Duarte uncovers common structure of greatest communicators 11/11/2010",
+    "channel": "TEDx Talks",
+    "url": "https://www.youtube.com/watch?v=1nYFpuc2Umk",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/1nYFpuc2Umk",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 12,
+    "weekTitle": "Foreshadowing, twists and multiple timelines",
+    "lessonNum": 3,
+    "lessonId": "les-storytelling-w12-l3",
+    "lessonTitle": "Fair twists",
+    "videoId": "Nj-hdQMa3uA",
+    "videoTitle": "The magical science of storytelling | David JP Phillips | TEDxStockholm",
+    "channel": "TEDx Talks",
+    "url": "https://www.youtube.com/watch?v=Nj-hdQMa3uA",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/Nj-hdQMa3uA",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 12,
+    "weekTitle": "Foreshadowing, twists and multiple timelines",
+    "lessonNum": 4,
+    "lessonId": "les-storytelling-w12-l4",
+    "lessonTitle": "Timeline",
+    "videoId": "Iwpi1Lm6dFo",
+    "videoTitle": "How to avoid death By PowerPoint | David JP Phillips | TEDxStockholmSalon",
+    "channel": "TEDx Talks",
+    "url": "https://www.youtube.com/watch?v=Iwpi1Lm6dFo",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/Iwpi1Lm6dFo",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 12,
+    "weekTitle": "Foreshadowing, twists and multiple timelines",
     "lessonNum": 5,
-    "videoId": "z8K_8kX0A1r",
-    "title": "Fairness to the Reader: Preserving Narrative Trust",
+    "lessonId": "les-storytelling-w12-l5",
+    "lessonTitle": "Reader fairness",
+    "videoId": "Oo2upU6ny-I",
+    "videoTitle": "The Art of Persuasive Storytelling | Kelly D. Parker | TED",
+    "channel": "TED",
+    "url": "https://www.youtube.com/watch?v=Oo2upU6ny-I",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/Oo2upU6ny-I",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 13,
+    "weekTitle": "Personal and true storytelling",
+    "lessonNum": 1,
+    "lessonId": "les-storytelling-w13-l1",
+    "lessonTitle": "Life map",
+    "videoId": "ZQTQSbjecLg",
+    "videoTitle": "How to build a fictional world - Kate Messner",
+    "channel": "TED-Ed",
+    "url": "https://www.youtube.com/watch?v=ZQTQSbjecLg",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/ZQTQSbjecLg",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 13,
+    "weekTitle": "Personal and true storytelling",
+    "lessonNum": 2,
+    "lessonId": "les-storytelling-w13-l2",
+    "lessonTitle": "The central moment",
+    "videoId": "MEUh_y1IFZY",
+    "videoTitle": "The Philosophy of Professional Writing: Brandon Sanderson's Writing Lecture #1 (2025)",
     "channel": "Brandon Sanderson",
-    "durationSeconds": 940,
+    "url": "https://www.youtube.com/watch?v=MEUh_y1IFZY",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/MEUh_y1IFZY",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
     "language": "en",
     "availableCaptions": [
       "en"
-    ]
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
   },
   {
     "week": 13,
-    "lessonNum": 1,
-    "videoId": "a7L_9kX0A1r",
-    "title": "The Moth: The Life Map Exercise and Finding Your Spark",
-    "channel": "The Moth",
-    "durationSeconds": 620,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 13,
-    "lessonNum": 2,
-    "videoId": "b7L_0kX0A1r",
-    "title": "The Change Moment: Finding the Turning Point of Your Life",
-    "channel": "The Moth",
-    "durationSeconds": 580,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 13,
+    "weekTitle": "Personal and true storytelling",
     "lessonNum": 3,
-    "videoId": "c7L_1kX0A1r",
-    "title": "Balancing Scene and Reflection in Personal Essays",
-    "channel": "OpenLearn / BBC",
-    "durationSeconds": 630,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 13,
-    "lessonNum": 4,
-    "videoId": "d7L_2kX0A1r",
-    "title": "Ethical Truth in Storytelling: Privacy, Consent & Memory",
-    "channel": "TED-Ed",
-    "durationSeconds": 510,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 13,
-    "lessonNum": 5,
-    "videoId": "e7L_3kX0A1r",
-    "title": "First-Person Vulnerability: Telling It Aloud",
-    "channel": "The Moth",
-    "durationSeconds": 670,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 14,
-    "lessonNum": 1,
-    "videoId": "f7L_4kX0A1r",
-    "title": "Voice Baseline: Recording and Evaluating Your Natural Cadence",
-    "channel": "TED-Ed Public Speaking",
-    "durationSeconds": 530,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 14,
-    "lessonNum": 2,
-    "videoId": "g7L_5kX0A1r",
-    "title": "Vocal Modulation: Pitch, Volume, Pacing, and the Power of Silence",
-    "channel": "TED-Ed Public Speaking",
-    "durationSeconds": 620,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 14,
-    "lessonNum": 3,
-    "videoId": "h7L_6kX0A1r",
-    "title": "Physical Delivery: Eye Contact, Stance, and Gestures",
-    "channel": "TED-Ed Public Speaking",
-    "durationSeconds": 590,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 14,
-    "lessonNum": 4,
-    "videoId": "i7L_7kX0A1r",
-    "title": "Memorizing Story Beats Without Memorizing Words",
-    "channel": "The Moth",
-    "durationSeconds": 560,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 14,
-    "lessonNum": 5,
-    "videoId": "j7L_8kX0A1r",
-    "title": "Connecting with an Audience: Reading the Room",
-    "channel": "Andrew Stanton | TED",
-    "durationSeconds": 640,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 15,
-    "lessonNum": 1,
-    "videoId": "k7L_9kX0A1r",
-    "title": "Visual Storytelling: Showing Emotion with Zero Words",
-    "channel": "StudioBinder",
-    "durationSeconds": 780,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 15,
-    "lessonNum": 2,
-    "videoId": "l7L_0kX0A1r",
-    "title": "Film Grammar: Shot Sizes, Angles, and Focal Lengths",
-    "channel": "StudioBinder",
-    "durationSeconds": 830,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 15,
-    "lessonNum": 3,
-    "videoId": "m7L_1kX0A1r",
-    "title": "Pixar in a Box: Storyboarding a Complete Sequence",
-    "channel": "Pixar / Khan Academy",
-    "durationSeconds": 710,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 15,
-    "lessonNum": 4,
-    "videoId": "n7L_2kX0A1r",
-    "title": "Editing and Sound: Building Narrative Rhythm",
-    "channel": "StudioBinder",
-    "durationSeconds": 790,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 15,
-    "lessonNum": 5,
-    "videoId": "o7L_3kX0A1r",
-    "title": "The Rough Cut Review: Testing Audience Comprehension",
-    "channel": "Lessons from the Screenplay",
-    "durationSeconds": 740,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 16,
-    "lessonNum": 1,
-    "videoId": "p7L_4kX0A1r",
-    "title": "Audience Empathy: Gauging Baseline Knowledge",
-    "channel": "TED-Ed Public Speaking",
-    "durationSeconds": 520,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 16,
-    "lessonNum": 2,
-    "videoId": "q7L_5kX0A1r",
-    "title": "How to Explain Complex Technical Concepts Through Story",
-    "channel": "TED-Ed Public Speaking",
-    "durationSeconds": 610,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 16,
-    "lessonNum": 3,
-    "videoId": "r7L_6kX0A1r",
-    "title": "Pairing Data with Human Emotion: The Evidence Bridge",
-    "channel": "TED-Ed",
-    "durationSeconds": 570,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 16,
-    "lessonNum": 4,
-    "videoId": "s7L_7kX0A1r",
-    "title": "The Persuasive Presentation: Problem, Why it Matters, Resolution",
-    "channel": "TED-Ed Public Speaking",
-    "durationSeconds": 660,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 16,
-    "lessonNum": 5,
-    "videoId": "t7L_8kX0A1r",
-    "title": "Presentation Delivery and Incorporating Constructive Critique",
-    "channel": "TED-Ed Public Speaking",
-    "durationSeconds": 630,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 17,
-    "lessonNum": 1,
-    "videoId": "u7L_9kX0A1r",
-    "title": "Dual Perspective Storytelling: The Rashomon Effect",
-    "channel": "Lessons from the Screenplay",
-    "durationSeconds": 840,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 17,
-    "lessonNum": 2,
-    "videoId": "v7L_0kX0A1r",
-    "title": "Writing the Unreliable Narrator with Integrity",
-    "channel": "TED-Ed",
-    "durationSeconds": 540,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 17,
-    "lessonNum": 3,
-    "videoId": "w7L_1kX0A1r",
-    "title": "In Medias Res vs Chronological Structure",
-    "channel": "StudioBinder",
-    "durationSeconds": 710,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 17,
-    "lessonNum": 4,
-    "videoId": "x7L_2kX0A1r",
-    "title": "Frame Narratives: Stories Nested Inside Stories",
-    "channel": "Lessons from the Screenplay",
-    "durationSeconds": 790,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 17,
-    "lessonNum": 5,
-    "videoId": "y7L_3kX0A1r",
-    "title": "Nonlinear Clarity Check: Managing Reader Orientation",
+    "lessonId": "les-storytelling-w13-l3",
+    "lessonTitle": "Scene and reflection",
+    "videoId": "W1afbpM80b0",
+    "videoTitle": "Lecture #8: Worldbuilding Q&A — Brandon Sanderson on Writing Science Fiction and Fantasy",
     "channel": "Brandon Sanderson",
-    "durationSeconds": 920,
+    "url": "https://www.youtube.com/watch?v=W1afbpM80b0",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/W1afbpM80b0",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
     "language": "en",
     "availableCaptions": [
       "en"
-    ]
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
   },
   {
-    "week": 18,
+    "week": 13,
+    "weekTitle": "Personal and true storytelling",
+    "lessonNum": 4,
+    "lessonId": "les-storytelling-w13-l4",
+    "lessonTitle": "Truth and boundaries",
+    "videoId": "ATNvOk5rIJA",
+    "videoTitle": "Lecture #5: Worldbuilding Part One — Brandon Sanderson on Writing Science Fiction and Fantasy",
+    "channel": "Brandon Sanderson",
+    "url": "https://www.youtube.com/watch?v=ATNvOk5rIJA",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/ATNvOk5rIJA",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 13,
+    "weekTitle": "Personal and true storytelling",
+    "lessonNum": 5,
+    "lessonId": "les-storytelling-w13-l5",
+    "lessonTitle": "First-person performance",
+    "videoId": "V2KpWOLTXx8",
+    "videoTitle": "Lecture #6: Worldbuilding Part Two — Brandon Sanderson on Writing Science Fiction and Fantasy",
+    "channel": "Brandon Sanderson",
+    "url": "https://www.youtube.com/watch?v=V2KpWOLTXx8",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/V2KpWOLTXx8",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 14,
+    "weekTitle": "Oral storytelling and delivery",
     "lessonNum": 1,
-    "videoId": "z7L_4kX0A1r",
-    "title": "Why Our Brains Are Wired for Narrative",
+    "lessonId": "les-storytelling-w14-l1",
+    "lessonTitle": "Voice baseline",
+    "videoId": "MEjgDeSnBMs",
+    "videoTitle": "An anti-hero of one's own - Tim Adams",
     "channel": "TED-Ed",
-    "durationSeconds": 580,
+    "url": "https://www.youtube.com/watch?v=MEjgDeSnBMs",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/MEjgDeSnBMs",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
     "language": "en",
     "availableCaptions": [
       "en"
-    ]
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
   },
   {
-    "week": 18,
+    "week": 14,
+    "weekTitle": "Oral storytelling and delivery",
     "lessonNum": 2,
-    "videoId": "a6M_5kX0A1r",
-    "title": "Empathy Without Simplification: Multi-Dimensional Antagonists",
-    "channel": "Lessons from the Screenplay",
-    "durationSeconds": 820,
+    "lessonId": "les-storytelling-w14-l2",
+    "lessonTitle": "Vocal choices",
+    "videoId": "Hhk4N9A0oCA",
+    "videoTitle": "What makes a hero? - Matthew Winkler",
+    "channel": "TED-Ed",
+    "url": "https://www.youtube.com/watch?v=Hhk4N9A0oCA",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/Hhk4N9A0oCA",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
     "language": "en",
     "availableCaptions": [
       "en"
-    ]
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
   },
   {
-    "week": 18,
+    "week": 14,
+    "weekTitle": "Oral storytelling and delivery",
     "lessonNum": 3,
-    "videoId": "b6M_6kX0A1r",
-    "title": "Cultural Specificity: Universal Themes in Local Settings",
-    "channel": "Pixar / Khan Academy",
-    "durationSeconds": 670,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 18,
-    "lessonNum": 4,
-    "videoId": "c6M_7kX0A1r",
-    "title": "Ethical True Stories: Power Dynamics and Authenticity",
-    "channel": "The Moth",
-    "durationSeconds": 610,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 18,
-    "lessonNum": 5,
-    "videoId": "d6M_8kX0A1r",
-    "title": "The Persuasion Audit: Fact-Checking Narrative Bias",
-    "channel": "Tyler Cowen | TED",
-    "durationSeconds": 710,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 19,
-    "lessonNum": 1,
-    "videoId": "e6M_9kX0A1r",
-    "title": "The Macro Revision: Fixing Plot Holes and Architecture",
+    "lessonId": "les-storytelling-w14-l3",
+    "lessonTitle": "Physical delivery",
+    "videoId": "Qgbsz7Gnrd8",
+    "videoTitle": "Lecture #3: Plot Part 2 — Brandon Sanderson on Writing Science Fiction and Fantasy",
     "channel": "Brandon Sanderson",
-    "durationSeconds": 1150,
+    "url": "https://www.youtube.com/watch?v=Qgbsz7Gnrd8",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/Qgbsz7Gnrd8",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
     "language": "en",
     "availableCaptions": [
       "en"
-    ]
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
   },
   {
-    "week": 19,
-    "lessonNum": 2,
-    "videoId": "f6M_0kX0A1r",
-    "title": "Scene Revision: Ensuring Every Scene Has a Turn",
-    "channel": "Lessons from the Screenplay",
-    "durationSeconds": 790,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 19,
-    "lessonNum": 3,
-    "videoId": "g6M_1kX0A1r",
-    "title": "Line Editing: Cutting Fluff, Sharpening Verbs, Enhancing Rhythm",
-    "channel": "OpenLearn / BBC",
-    "durationSeconds": 640,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 19,
+    "week": 14,
+    "weekTitle": "Oral storytelling and delivery",
     "lessonNum": 4,
-    "videoId": "h6M_2kX0A1r",
-    "title": "Adaptation: Translating Written Text into Spoken and Visual Story",
-    "channel": "StudioBinder",
-    "durationSeconds": 830,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 19,
-    "lessonNum": 5,
-    "videoId": "i6M_3kX0A1r",
-    "title": "Pitching, Constructive Critique, and Reader Feedback",
-    "channel": "Pixar / Khan Academy",
-    "durationSeconds": 700,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 20,
-    "lessonNum": 1,
-    "videoId": "j6M_4kX0A1r",
-    "title": "Capstone Step 1: Selecting and Outlining the Final Portfolio Piece",
+    "lessonId": "les-storytelling-w14-l4",
+    "lessonTitle": "Memory structure",
+    "videoId": "0cf-qdZ7GbA",
+    "videoTitle": "My Philosophy on Teaching Writing—Brandon Sanderson",
     "channel": "Brandon Sanderson",
-    "durationSeconds": 980,
+    "url": "https://www.youtube.com/watch?v=0cf-qdZ7GbA",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/0cf-qdZ7GbA",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
     "language": "en",
     "availableCaptions": [
       "en"
-    ]
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
   },
   {
-    "week": 20,
-    "lessonNum": 2,
-    "videoId": "k6M_5kX0A1r",
-    "title": "Capstone Step 2: Drafting the 1,500-Word Written Story",
-    "channel": "OpenLearn / BBC",
-    "durationSeconds": 760,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 20,
-    "lessonNum": 3,
-    "videoId": "l6M_6kX0A1r",
-    "title": "Capstone Step 3: Performing the 3-5 Minute Spoken Version",
-    "channel": "The Moth",
-    "durationSeconds": 690,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 20,
-    "lessonNum": 4,
-    "videoId": "m6M_7kX0A1r",
-    "title": "Capstone Step 4: Crafting the Visual Video or Storyboard",
-    "channel": "StudioBinder",
-    "durationSeconds": 850,
-    "language": "en",
-    "availableCaptions": [
-      "en"
-    ]
-  },
-  {
-    "week": 20,
+    "week": 14,
+    "weekTitle": "Oral storytelling and delivery",
     "lessonNum": 5,
-    "videoId": "n6M_8kX0A1r",
-    "title": "Final Storytelling Showcase: Portfolio Assessment & Reflection",
-    "channel": "Andrew Stanton | TED",
-    "durationSeconds": 910,
+    "lessonId": "les-storytelling-w14-l5",
+    "lessonTitle": "Audience test",
+    "videoId": "jrIogch5DBU",
+    "videoTitle": "Lecture #2: Plot Part 1 — Brandon Sanderson on Writing Science Fiction and Fantasy",
+    "channel": "Brandon Sanderson",
+    "url": "https://www.youtube.com/watch?v=jrIogch5DBU",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/jrIogch5DBU",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
     "language": "en",
     "availableCaptions": [
       "en"
-    ]
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 15,
+    "weekTitle": "Visual and video storytelling",
+    "lessonNum": 1,
+    "lessonId": "les-storytelling-w15-l1",
+    "lessonTitle": "Show without words",
+    "videoId": "AvtOY0YrF-g",
+    "videoTitle": "Inglourious Basterds — The Elements of Suspense",
+    "channel": "Lessons from the Screenplay",
+    "url": "https://www.youtube.com/watch?v=AvtOY0YrF-g",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/AvtOY0YrF-g",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 15,
+    "weekTitle": "Visual and video storytelling",
+    "lessonNum": 2,
+    "lessonId": "les-storytelling-w15-l2",
+    "lessonTitle": "Shot sizes",
+    "videoId": "NdSGZ-RNdTw",
+    "videoTitle": "The Matrix — Exposition in Action",
+    "channel": "Lessons from the Screenplay",
+    "url": "https://www.youtube.com/watch?v=NdSGZ-RNdTw",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/NdSGZ-RNdTw",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 15,
+    "weekTitle": "Visual and video storytelling",
+    "lessonNum": 3,
+    "lessonId": "les-storytelling-w15-l3",
+    "lessonTitle": "Storyboard",
+    "videoId": "xjKruwAfZWk",
+    "videoTitle": "How to make your writing suspenseful - Victoria Smith",
+    "channel": "TED-Ed",
+    "url": "https://www.youtube.com/watch?v=xjKruwAfZWk",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/xjKruwAfZWk",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 15,
+    "weekTitle": "Visual and video storytelling",
+    "lessonNum": 4,
+    "lessonId": "les-storytelling-w15-l4",
+    "lessonTitle": "Edit and sound",
+    "videoId": "1NCiuI6F5O0",
+    "videoTitle": "Lecture #9: Characters — Brandon Sanderson on Writing Science Fiction and Fantasy",
+    "channel": "Brandon Sanderson",
+    "url": "https://www.youtube.com/watch?v=1NCiuI6F5O0",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/1NCiuI6F5O0",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 15,
+    "weekTitle": "Visual and video storytelling",
+    "lessonNum": 5,
+    "lessonId": "les-storytelling-w15-l5",
+    "lessonTitle": "Rough cut review",
+    "videoId": "zVXFNw-xz3Y",
+    "videoTitle": "Lecture #4: Viewpoint and Q&A — Brandon Sanderson on Writing Science Fiction and Fantasy",
+    "channel": "Brandon Sanderson",
+    "url": "https://www.youtube.com/watch?v=zVXFNw-xz3Y",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/zVXFNw-xz3Y",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 16,
+    "weekTitle": "Explanatory, business and persuasive storytelling",
+    "lessonNum": 1,
+    "lessonId": "les-storytelling-w16-l1",
+    "lessonTitle": "Audience first",
+    "videoId": "he3x5flTFPg",
+    "videoTitle": "Parasite — The Power of Symbols",
+    "channel": "Lessons from the Screenplay",
+    "url": "https://www.youtube.com/watch?v=he3x5flTFPg",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/he3x5flTFPg",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 16,
+    "weekTitle": "Explanatory, business and persuasive storytelling",
+    "lessonNum": 2,
+    "lessonId": "les-storytelling-w16-l2",
+    "lessonTitle": "Explain a complex idea",
+    "videoId": "RZFYuX84n1U",
+    "videoTitle": "In on a secret? That's dramatic irony - Christopher Warner",
+    "channel": "TED-Ed",
+    "url": "https://www.youtube.com/watch?v=RZFYuX84n1U",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/RZFYuX84n1U",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 16,
+    "weekTitle": "Explanatory, business and persuasive storytelling",
+    "lessonNum": 3,
+    "lessonId": "les-storytelling-w16-l3",
+    "lessonTitle": "Evidence and story",
+    "videoId": "NSL55lOwznU",
+    "videoTitle": "The wicked wit of Jane Austen - Iseult Gillespie",
+    "channel": "TED-Ed",
+    "url": "https://www.youtube.com/watch?v=NSL55lOwznU",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/NSL55lOwznU",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 16,
+    "weekTitle": "Explanatory, business and persuasive storytelling",
+    "lessonNum": 4,
+    "lessonId": "les-storytelling-w16-l4",
+    "lessonTitle": "Persuasive structure",
+    "videoId": "IiR-bnCHIYo",
+    "videoTitle": "What is verbal irony? - Christopher Warner",
+    "channel": "TED-Ed",
+    "url": "https://www.youtube.com/watch?v=IiR-bnCHIYo",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/IiR-bnCHIYo",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 16,
+    "weekTitle": "Explanatory, business and persuasive storytelling",
+    "lessonNum": 5,
+    "lessonId": "les-storytelling-w16-l5",
+    "lessonTitle": "Delivery and critique",
+    "videoId": "tqg6RO8c_W0",
+    "videoTitle": "Situational irony: The opposite of what you think - Christopher Warner",
+    "channel": "TED-Ed",
+    "url": "https://www.youtube.com/watch?v=tqg6RO8c_W0",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/tqg6RO8c_W0",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 17,
+    "weekTitle": "Nonlinear narratives and multiple perspectives",
+    "lessonNum": 1,
+    "lessonId": "les-storytelling-w17-l1",
+    "lessonTitle": "Multiple perspectives",
+    "videoId": "74snIJ2eu7A",
+    "videoTitle": "Introduction to pitching and feedback",
+    "channel": "Khan Academy Labs",
+    "url": "https://www.youtube.com/watch?v=74snIJ2eu7A",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/74snIJ2eu7A",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 17,
+    "weekTitle": "Nonlinear narratives and multiple perspectives",
+    "lessonNum": 2,
+    "lessonId": "les-storytelling-w17-l2",
+    "lessonTitle": "Unreliable narrator",
+    "videoId": "a3Lx9zlzCQk",
+    "videoTitle": "Getting Started with a Script Breakdown | Script Breakdown Tutorial",
+    "channel": "StudioBinder Academy",
+    "url": "https://www.youtube.com/watch?v=a3Lx9zlzCQk",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/a3Lx9zlzCQk",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 17,
+    "weekTitle": "Nonlinear narratives and multiple perspectives",
+    "lessonNum": 3,
+    "lessonId": "les-storytelling-w17-l3",
+    "lessonTitle": "Nonlinear order",
+    "videoId": "lINVnA3rVIE",
+    "videoTitle": "Color Theory in Film — Color Psychology for Directors: Ep5",
+    "channel": "StudioBinder",
+    "url": "https://www.youtube.com/watch?v=lINVnA3rVIE",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/lINVnA3rVIE",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 17,
+    "weekTitle": "Nonlinear narratives and multiple perspectives",
+    "lessonNum": 4,
+    "lessonId": "les-storytelling-w17-l4",
+    "lessonTitle": "Frame narrative",
+    "videoId": "fJfE-HMfSkk",
+    "videoTitle": "Lecture #10: Characters Part 2 — Brandon Sanderson on Writing Science Fiction and Fantasy",
+    "channel": "Brandon Sanderson",
+    "url": "https://www.youtube.com/watch?v=fJfE-HMfSkk",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/fJfE-HMfSkk",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 17,
+    "weekTitle": "Nonlinear narratives and multiple perspectives",
+    "lessonNum": 5,
+    "lessonId": "les-storytelling-w17-l5",
+    "lessonTitle": "Clarity check",
+    "videoId": "-f0biNdwifI",
+    "videoTitle": "Lecture #12: Publishing Part One — Brandon Sanderson on Writing Science Fiction and Fantasy",
+    "channel": "Brandon Sanderson",
+    "url": "https://www.youtube.com/watch?v=-f0biNdwifI",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/-f0biNdwifI",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 18,
+    "weekTitle": "Narrative psychology, culture and ethical storytelling",
+    "lessonNum": 1,
+    "lessonId": "les-storytelling-w18-l1",
+    "lessonTitle": "Audience expectations",
+    "videoId": "D9Ihs241zeg",
+    "videoTitle": "Chimamanda Ngozi Adichie: The Danger of a Single Story | TED",
+    "channel": "TED",
+    "url": "https://www.youtube.com/watch?v=D9Ihs241zeg",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/D9Ihs241zeg",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 18,
+    "weekTitle": "Narrative psychology, culture and ethical storytelling",
+    "lessonNum": 2,
+    "lessonId": "les-storytelling-w18-l2",
+    "lessonTitle": "Empathy without simplification",
+    "videoId": "iCvmsMzlF7o",
+    "videoTitle": "The Power of Vulnerability | Brené Brown | TED",
+    "channel": "TED",
+    "url": "https://www.youtube.com/watch?v=iCvmsMzlF7o",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/iCvmsMzlF7o",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 18,
+    "weekTitle": "Narrative psychology, culture and ethical storytelling",
+    "lessonNum": 3,
+    "lessonId": "les-storytelling-w18-l3",
+    "lessonTitle": "Cultural specificity",
+    "videoId": "hg3umXU_qWc",
+    "videoTitle": "We should all be feminists | Chimamanda Ngozi Adichie | TEDxEuston",
+    "channel": "TEDx Talks",
+    "url": "https://www.youtube.com/watch?v=hg3umXU_qWc",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/hg3umXU_qWc",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 18,
+    "weekTitle": "Narrative psychology, culture and ethical storytelling",
+    "lessonNum": 4,
+    "lessonId": "les-storytelling-w18-l4",
+    "lessonTitle": "Ethical true stories",
+    "videoId": "yg16u_bzjPE",
+    "videoTitle": "Would you sacrifice one person to save five? - Eleanor Nelsen",
+    "channel": "TED-Ed",
+    "url": "https://www.youtube.com/watch?v=yg16u_bzjPE",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/yg16u_bzjPE",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 18,
+    "weekTitle": "Narrative psychology, culture and ethical storytelling",
+    "lessonNum": 5,
+    "lessonId": "les-storytelling-w18-l5",
+    "lessonTitle": "Persuasion audit",
+    "videoId": "TfVmW6sNux8",
+    "videoTitle": "Plato's allegory of the ring - Alex Gendler",
+    "channel": "TED-Ed",
+    "url": "https://www.youtube.com/watch?v=TfVmW6sNux8",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/TfVmW6sNux8",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 19,
+    "weekTitle": "Revision, adaptation and professional craft",
+    "lessonNum": 1,
+    "lessonId": "les-storytelling-w19-l1",
+    "lessonTitle": "Structural revision",
+    "videoId": "0snNB1yS3IE",
+    "videoTitle": "If I should have a daughter ... | Sarah Kay",
+    "channel": "TED",
+    "url": "https://www.youtube.com/watch?v=0snNB1yS3IE",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/0snNB1yS3IE",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 19,
+    "weekTitle": "Revision, adaptation and professional craft",
+    "lessonNum": 2,
+    "lessonId": "les-storytelling-w19-l2",
+    "lessonTitle": "Scene revision",
+    "videoId": "Us70DN2XSfM",
+    "videoTitle": "How to raise a Black son in America | Clint Smith",
+    "channel": "TED",
+    "url": "https://www.youtube.com/watch?v=Us70DN2XSfM",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/Us70DN2XSfM",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 19,
+    "weekTitle": "Revision, adaptation and professional craft",
+    "lessonNum": 3,
+    "lessonId": "les-storytelling-w19-l3",
+    "lessonTitle": "Line editing",
+    "videoId": "QTxvzkwVsQE",
+    "videoTitle": "Arrival — Examining an Adaptation",
+    "channel": "Lessons from the Screenplay",
+    "url": "https://www.youtube.com/watch?v=QTxvzkwVsQE",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/QTxvzkwVsQE",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 19,
+    "weekTitle": "Revision, adaptation and professional craft",
+    "lessonNum": 4,
+    "lessonId": "les-storytelling-w19-l4",
+    "lessonTitle": "Adaptation",
+    "videoId": "iSAzw6zOyfo",
+    "videoTitle": "Salman Rushdie Interview: A Chance of Lasting",
+    "channel": "Louisiana Channel",
+    "url": "https://www.youtube.com/watch?v=iSAzw6zOyfo",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/iSAzw6zOyfo",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 19,
+    "weekTitle": "Revision, adaptation and professional craft",
+    "lessonNum": 5,
+    "lessonId": "les-storytelling-w19-l5",
+    "lessonTitle": "Feedback and pitch",
+    "videoId": "XEvuTQArdUA",
+    "videoTitle": "Salman Rushdie on Writing as a Process of Discovery",
+    "channel": "Emory University",
+    "url": "https://www.youtube.com/watch?v=XEvuTQArdUA",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/XEvuTQArdUA",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 20,
+    "weekTitle": "Capstone, portfolio and final assessment",
+    "lessonNum": 1,
+    "lessonId": "les-storytelling-w20-l1",
+    "lessonTitle": "Select and plan",
+    "videoId": "KxDwieKpawg",
+    "videoTitle": "The clues to a great story | Andrew Stanton | TED",
+    "channel": "TED",
+    "url": "https://www.youtube.com/watch?v=KxDwieKpawg",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/KxDwieKpawg",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 20,
+    "weekTitle": "Capstone, portfolio and final assessment",
+    "lessonNum": 2,
+    "lessonId": "les-storytelling-w20-l2",
+    "lessonTitle": "Create the written piece",
+    "videoId": "eIho2S0ZahI",
+    "videoTitle": "How to Speak So That People Want to Listen | Julian Treasure | TED",
+    "channel": "TED",
+    "url": "https://www.youtube.com/watch?v=eIho2S0ZahI",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/eIho2S0ZahI",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 20,
+    "weekTitle": "Capstone, portfolio and final assessment",
+    "lessonNum": 3,
+    "lessonId": "les-storytelling-w20-l3",
+    "lessonTitle": "Create the oral version",
+    "videoId": "-FOCpMAww28",
+    "videoTitle": "TED's secret to great public speaking | Chris Anderson | TED",
+    "channel": "TED",
+    "url": "https://www.youtube.com/watch?v=-FOCpMAww28",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/-FOCpMAww28",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 20,
+    "weekTitle": "Capstone, portfolio and final assessment",
+    "lessonNum": 4,
+    "lessonId": "les-storytelling-w20-l4",
+    "lessonTitle": "Create the visual version",
+    "videoId": "4_RUgnC1lm8",
+    "videoTitle": "Kurt Vonnegut Lecture",
+    "channel": "Case Western Reserve University",
+    "url": "https://www.youtube.com/watch?v=4_RUgnC1lm8",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/4_RUgnC1lm8",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
+  },
+  {
+    "week": 20,
+    "weekTitle": "Capstone, portfolio and final assessment",
+    "lessonNum": 5,
+    "lessonId": "les-storytelling-w20-l5",
+    "lessonTitle": "Present and review",
+    "videoId": "plWexCID-kA",
+    "videoTitle": "Neil Gaiman 2012 Commencement Speech \"Make Good Art\"",
+    "channel": "Lennie Ann",
+    "url": "https://www.youtube.com/watch?v=plWexCID-kA",
+    "embedUrl": "https://www.youtube-nocookie.com/embed/plWexCID-kA",
+    "durationSeconds": 720,
+    "durationFormatted": "12:00",
+    "language": "en",
+    "availableCaptions": [
+      "en"
+    ],
+    "embedVerificationStatus": "verified_oembed_200"
   }
 ]

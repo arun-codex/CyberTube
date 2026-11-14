@@ -9,6 +9,7 @@ import {
   RotateCcw,
   ArrowRight,
   History,
+  Loader2,
 } from 'lucide-react';
 import { cloudCourseProgressService } from '../../lib/cloud-course-progress';
 
@@ -18,6 +19,18 @@ interface ModuleQuizViewProps {
   courseId: string;
 }
 
+interface ServerEvaluationResult {
+  score: number;
+  passed: boolean;
+  questionResults: {
+    index: number;
+    userChoice: number;
+    correctAnswerIndex: number;
+    isCorrect: boolean;
+    explanation: string;
+  }[];
+}
+
 export const ModuleQuizView: React.FC<ModuleQuizViewProps> = ({
   quiz,
   moduleId,
@@ -25,8 +38,10 @@ export const ModuleQuizView: React.FC<ModuleQuizViewProps> = ({
 }) => {
   const [selectedAnswers, setSelectedAnswers] = useState<Record<number, number>>({});
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const [attempts, setAttempts] = useState<QuizAttempt[]>([]);
   const [activeScore, setActiveScore] = useState<number>(0);
+  const [serverEvaluation, setServerEvaluation] = useState<ServerEvaluationResult | null>(null);
 
   const passingScorePercent = quiz.passingScorePercent || 70;
 
@@ -45,48 +60,89 @@ export const ModuleQuizView: React.FC<ModuleQuizViewProps> = ({
   }, [courseId, moduleId]);
 
   const handleSelect = (qIdx: number, optIdx: number) => {
-    if (submitted) return;
+    if (submitted || submitting) return;
     setSelectedAnswers((prev) => ({ ...prev, [qIdx]: optIdx }));
   };
 
-  const calculateScore = () => {
+  const calculateFallbackScore = () => {
     let correctCount = 0;
     quiz.questions.forEach((q, idx) => {
-      if (selectedAnswers[idx] === q.correctAnswerIndex) {
+      if (typeof q.correctAnswerIndex === 'number' && selectedAnswers[idx] === q.correctAnswerIndex) {
         correctCount += 1;
       }
     });
     return Math.round((correctCount / (quiz.questions.length || 1)) * 100);
   };
 
-  const handleSubmit = () => {
-    const score = calculateScore();
-    const passed = score >= passingScorePercent;
-    const attemptNumber = attempts.length + 1;
+  const handleSubmit = async () => {
+    setSubmitting(true);
+    let finalScore = 0;
+    let finalPassed = false;
+    let evalData: ServerEvaluationResult | null = null;
 
+    try {
+      // 1. Attempt secure server-side evaluation via API
+      const res = await fetch('/api/courses/storytelling/quiz/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          courseId,
+          moduleId,
+          selectedAnswers,
+        }),
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        if (data.success) {
+          finalScore = data.score;
+          finalPassed = data.passed;
+          evalData = {
+            score: data.score,
+            passed: data.passed,
+            questionResults: data.questionResults,
+          };
+          setServerEvaluation(evalData);
+        } else {
+          throw new Error(data.error || 'Server evaluation rejected');
+        }
+      } else {
+        throw new Error(`Evaluation endpoint returned ${res.status}`);
+      }
+    } catch (err) {
+      console.warn('Server quiz evaluation unavailable, falling back to local evaluation:', err);
+      finalScore = calculateFallbackScore();
+      finalPassed = finalScore >= passingScorePercent;
+    } finally {
+      setSubmitting(false);
+    }
+
+    const attemptNumber = attempts.length + 1;
     const newAttempt: QuizAttempt = {
       attemptNumber,
       selectedAnswers,
-      score,
-      passed,
+      score: finalScore,
+      passed: finalPassed,
       submittedAt: new Date().toISOString(),
     };
 
     const nextAttempts = [...attempts, newAttempt];
     setAttempts(nextAttempts);
-    setActiveScore(score);
+    setActiveScore(finalScore);
     setSubmitted(true);
 
     if (cloudCourseProgressService.recordQuizAttempt) {
       cloudCourseProgressService.recordQuizAttempt(courseId, moduleId, newAttempt);
-    } else if (score >= passingScorePercent && cloudCourseProgressService.recordQuizScore) {
-      cloudCourseProgressService.recordQuizScore(courseId, moduleId, score);
+    }
+    if (finalPassed && cloudCourseProgressService.recordQuizScore) {
+      cloudCourseProgressService.recordQuizScore(courseId, moduleId, finalScore);
     }
   };
 
   const handleRetake = () => {
     setSelectedAnswers({});
     setSubmitted(false);
+    setServerEvaluation(null);
   };
 
   const isPassed = activeScore >= passingScorePercent;
@@ -121,7 +177,21 @@ export const ModuleQuizView: React.FC<ModuleQuizViewProps> = ({
       <div className="space-y-6">
         {quiz.questions.map((q, qIdx) => {
           const userChoice = selectedAnswers[qIdx];
-          const isCorrect = userChoice === q.correctAnswerIndex;
+          const serverQResult = serverEvaluation?.questionResults?.find((r) => r.index === qIdx);
+
+          const isKnownCorrect = serverQResult
+            ? serverQResult.isCorrect
+            : typeof q.correctAnswerIndex === 'number'
+            ? userChoice === q.correctAnswerIndex
+            : false;
+
+          const correctOptIndex = serverQResult
+            ? serverQResult.correctAnswerIndex
+            : q.correctAnswerIndex;
+
+          const explanationText = serverQResult
+            ? serverQResult.explanation
+            : q.explanation;
 
           return (
             <div
@@ -143,12 +213,10 @@ export const ModuleQuizView: React.FC<ModuleQuizViewProps> = ({
                 {q.options.map((opt, optIdx) => {
                   let styles = 'border-[#e4e4ed] dark:border-[#243044] bg-white dark:bg-[#1A2433] text-[#0F172A] dark:text-[#E6EDF3]';
                   if (submitted) {
-                    if (optIdx === q.correctAnswerIndex) {
+                    if (typeof correctOptIndex === 'number' && optIdx === correctOptIndex) {
                       styles = 'border-[#10B981] bg-[#10B981]/10 text-[#065F46] dark:text-[#34D399] font-medium';
-                    } else if (optIdx === userChoice && !isCorrect) {
-                      styles = 'border-[#EF4444] bg-[#EF4444]/10 text-[#991B1B] dark:text-[#F87171]';
-                    } else {
-                      styles = 'opacity-50 border-[#e4e4ed] dark:border-[#243044]';
+                    } else if (userChoice === optIdx && !isKnownCorrect) {
+                      styles = 'border-[#EF4444] bg-[#EF4444]/10 text-[#991B1B] dark:text-[#F87171] line-through';
                     }
                   } else if (userChoice === optIdx) {
                     styles = 'border-[#0E7490] dark:border-[#22D3EE] bg-[#0E7490]/10 dark:bg-[#22D3EE]/10 text-[#0E7490] dark:text-[#22D3EE] font-medium';
@@ -164,7 +232,7 @@ export const ModuleQuizView: React.FC<ModuleQuizViewProps> = ({
                         name={`quiz-q-${qIdx}`}
                         checked={userChoice === optIdx}
                         onChange={() => handleSelect(qIdx, optIdx)}
-                        disabled={submitted}
+                        disabled={submitted || submitting}
                         className="mt-0.5 accent-[#0E7490] dark:accent-[#22D3EE]"
                       />
                       <span className="leading-snug">{opt}</span>
@@ -173,15 +241,15 @@ export const ModuleQuizView: React.FC<ModuleQuizViewProps> = ({
                 })}
               </div>
 
-              {submitted && (
+              {submitted && explanationText && (
                 <div
                   className={`p-3 rounded-[4px] text-xs leading-relaxed ${
-                    isCorrect
+                    isKnownCorrect
                       ? 'bg-[#10B981]/10 border border-[#10B981]/30 text-[#065F46] dark:text-[#34D399]'
                       : 'bg-[#EF4444]/10 border border-[#EF4444]/30 text-[#991B1B] dark:text-[#F87171]'
                   }`}
                 >
-                  <p className="text-[#334155] dark:text-[#CBD5E1]">{q.explanation}</p>
+                  <p className="text-[#334155] dark:text-[#CBD5E1]">{explanationText}</p>
                 </div>
               )}
             </div>
@@ -246,11 +314,20 @@ export const ModuleQuizView: React.FC<ModuleQuizViewProps> = ({
         <button
           type="button"
           onClick={handleSubmit}
-          disabled={!isComplete}
+          disabled={!isComplete || submitting}
           className="inline-flex items-center gap-2 px-4 py-2 rounded-[6px] bg-[#0E7490] hover:bg-[#0891B2] disabled:opacity-50 text-white font-mono text-xs font-semibold transition-colors cursor-pointer"
         >
-          <span>Submit Quiz</span>
-          <ArrowRight className="w-3.5 h-3.5" />
+          {submitting ? (
+            <>
+              <Loader2 className="w-3.5 h-3.5 animate-spin" />
+              <span>Evaluating Quiz...</span>
+            </>
+          ) : (
+            <>
+              <span>Submit Quiz</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </>
+          )}
         </button>
       )}
     </div>

@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { STORYTELLING_MASTERCLASS_COURSE } from '../src/data/storytelling-masterclass-course';
 import { getCourseBySlug, getCourseLessons } from '../src/lib/courses';
+import { STORYTELLING_QUIZ_KEYS } from '../src/lib/courses/storytelling-quiz-evaluator';
 
 test.describe('Storytelling Masterclass Course Integration', () => {
   const courseSlug = 'free-storytelling-masterclass';
@@ -30,9 +31,18 @@ test.describe('Storytelling Masterclass Course Integration', () => {
 
       for (const q of mod.quiz?.questions || []) {
         expect(q.options.length).toBe(4);
-        expect(q.correctAnswerIndex).toBeGreaterThanOrEqual(0);
-        expect(q.correctAnswerIndex).toBeLessThan(4);
-        expect(q.explanation).toBeDefined();
+        // Client model omits correctAnswerIndex for security
+        expect(q.correctAnswerIndex).toBeUndefined();
+      }
+
+      // Server answer keys exist for every module
+      const serverKey = STORYTELLING_QUIZ_KEYS[mod.id];
+      expect(serverKey).toBeDefined();
+      expect(serverKey.questions.length).toBe(10);
+      for (const sk of serverKey.questions) {
+        expect(sk.correctAnswerIndex).toBeGreaterThanOrEqual(0);
+        expect(sk.correctAnswerIndex).toBeLessThan(4);
+        expect(sk.explanation).toBeDefined();
       }
     }
     expect(totalQuestions).toBe(200);
@@ -86,11 +96,11 @@ test.describe('Storytelling Masterclass Course Integration', () => {
     await expect(page.locator('h2').first()).toContainText('Week 01 • Lesson 2: The audience');
 
     // Verify player updated for lesson 2
-    const iframe = page.locator('iframe[src*="youtube.com/embed/KxDwieKpawg"]');
+    const iframe = page.locator('iframe[src*="youtube.com/embed/"]');
     await expect(iframe).toBeVisible();
   });
 
-  test('5. Module Quiz tab renders 10 questions and evaluates passing score', async ({ page }) => {
+  test('5. Module Quiz tab renders 10 questions and evaluates passing score via server API', async ({ page }) => {
     await page.goto(`/courses/${courseSlug}?lesson=w01-l1-story-versus-information`);
     await page.waitForLoadState('domcontentloaded');
 
@@ -104,20 +114,88 @@ test.describe('Storytelling Masterclass Course Integration', () => {
     await expect(page.locator('text=Passing threshold:').first()).toBeVisible();
     await expect(page.locator('text=70%').first()).toBeVisible();
 
-    // Answer questions to pass (select options)
-    const submitBtn = page.locator('button:has-text("Submit Assessment"), button:has-text("Submit Quiz")').first();
+    // Verify questions and radio buttons are rendered
+    const radioInputs = page.locator('input[type="radio"]');
+    await expect(radioInputs).toHaveCount(40); // 10 questions * 4 options
+
+    // Submit button is visible
+    const submitBtn = page.locator('button:has-text("Submit Quiz")').first();
     await expect(submitBtn).toBeVisible();
+    await expect(submitBtn).toBeDisabled(); // disabled until all 10 answered
   });
 
-  test('6. Sequential module locking: Week 2 is locked until Week 1 quiz is passed', async ({ page }) => {
-    await page.goto(`/courses/${courseSlug}`);
+  test('6. Server Quiz submission and unlocking: Week 2 unlocks when Week 1 passes', async ({ request, page }) => {
+    // 1. Submit quiz to API with passing answers
+    const mod1Key = STORYTELLING_QUIZ_KEYS['mod-storytelling-w01'];
+    const passingAnswers: Record<number, number> = {};
+    mod1Key.questions.forEach((q) => {
+      passingAnswers[q.index] = q.correctAnswerIndex;
+    });
+
+    const res = await request.post('/api/courses/storytelling/quiz/submit', {
+      data: {
+        courseId: 'course-free-storytelling-masterclass',
+        moduleId: 'mod-storytelling-w01',
+        selectedAnswers: passingAnswers,
+      },
+    });
+
+    expect(res.ok()).toBeTruthy();
+    const result = await res.json();
+    expect(result.success).toBe(true);
+    expect(result.score).toBe(100);
+    expect(result.passed).toBe(true);
+    expect(result.questionResults.length).toBe(10);
+
+    // 2. Load page with pre-seeded quiz pass in localStorage
+    await page.addInitScript(() => {
+      const state = {
+        courseId: 'course-free-storytelling-masterclass',
+        completedLessonIds: ['les-storytelling-w01-l1'],
+        quizScores: { 'mod-storytelling-w01': 100 },
+        quizAttempts: {
+          'mod-storytelling-w01': [{
+            attemptNumber: 1,
+            selectedAnswers: {},
+            score: 100,
+            passed: true,
+            submittedAt: new Date().toISOString()
+          }]
+        }
+      };
+      localStorage.setItem('cybertube_course_progress_v1_course-free-storytelling-masterclass', JSON.stringify(state));
+    });
+
+    await page.goto(`/courses/${courseSlug}?lesson=w02-l1-collect-observations`);
     await page.waitForLoadState('domcontentloaded');
 
-    // Verify Module 2 shows Locked notice when Week 1 is unpassed
-    const module2 = page.locator('text=Module 02').first();
-    await expect(module2).toBeVisible();
+    // Week 2 lesson should now be accessible and unlocked (no locked-lesson-overlay)
+    const lockedOverlay = page.locator('[data-testid="locked-lesson-overlay"]');
+    await expect(lockedOverlay).not.toBeVisible();
 
-    // Verify locked state indicator
-    await expect(page.locator('text=Locked').first()).toBeVisible();
+    // Embedded video for Week 2 Lesson 1 is visible
+    const iframe = page.locator('iframe[src*="youtube.com/embed/"]');
+    await expect(iframe).toBeVisible();
+  });
+
+  test('7. Direct URL navigation to locked lesson renders locked overlay', async ({ page }) => {
+    // Clear localStorage to ensure user has 0 quiz scores
+    await page.addInitScript(() => {
+      localStorage.clear();
+    });
+
+    // Directly navigate to Week 2 lesson
+    await page.goto(`/courses/${courseSlug}?lesson=w02-l1-collect-observations`);
+    await page.waitForLoadState('domcontentloaded');
+
+    // Locked overlay must be displayed
+    const lockedOverlay = page.locator('[data-testid="locked-lesson-overlay"]');
+    await expect(lockedOverlay).toBeVisible();
+    await expect(lockedOverlay).toContainText('Module Content Locked');
+    await expect(lockedOverlay).toContainText('Week 01 — What is a story?');
+
+    // Video iframe must NOT be displayed
+    const iframe = page.locator('iframe[src*="youtube.com/embed/"]');
+    await expect(iframe).not.toBeVisible();
   });
 });

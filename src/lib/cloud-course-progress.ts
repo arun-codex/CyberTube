@@ -12,8 +12,18 @@ export interface SyncStatusEvent {
 
 const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
+// Deterministic UUID mappings for text course IDs
+export const COURSE_UUID_MAPPING: Record<string, string> = {
+  'course-free-storytelling-masterclass': 'c0000000-0000-4000-8000-000000000001',
+};
+
+export function resolveCourseUuid(courseId: string): string | null {
+  if (UUID_REGEX.test(courseId)) return courseId;
+  return COURSE_UUID_MAPPING[courseId] || null;
+}
+
 export function isUuid(id: string): boolean {
-  return UUID_REGEX.test(id);
+  return UUID_REGEX.test(id) || Boolean(COURSE_UUID_MAPPING[id]);
 }
 
 /**
@@ -232,7 +242,7 @@ export class CloudCourseProgressService implements CourseProgressService {
       .from('user_lesson_progress') as any)
       .select('lesson_id, is_completed, last_accessed_at, completed_at')
       .eq('user_id', user.id)
-      .eq('course_id', courseId);
+      .eq('course_id', resolveCourseUuid(courseId) || courseId);
 
     if (error) {
       this.setSyncStatus(courseId, 'error', error.message);
@@ -272,7 +282,7 @@ export class CloudCourseProgressService implements CourseProgressService {
         .from('user_lesson_video_progress') as any)
         .select('*')
         .eq('user_id', user.id)
-        .eq('course_id', courseId);
+        .eq('course_id', resolveCourseUuid(courseId) || courseId);
 
       if (Array.isArray(videoRows) && videoRows.length > 0) {
         videoRows.forEach((vr: any) => {
@@ -355,7 +365,7 @@ export class CloudCourseProgressService implements CourseProgressService {
 
     const payload = {
       user_id: user.id,
-      course_id: courseId,
+      course_id: resolveCourseUuid(courseId) || courseId,
       lesson_id: lessonId,
       is_completed: completed,
       completed_at: completed ? new Date().toISOString() : null,
@@ -385,7 +395,7 @@ export class CloudCourseProgressService implements CourseProgressService {
       .upsert(
         {
           user_id: user.id,
-          course_id: courseId,
+          course_id: resolveCourseUuid(courseId) || courseId,
           lesson_id: lessonId,
           last_accessed_at: new Date().toISOString(),
         },
@@ -404,7 +414,7 @@ export class CloudCourseProgressService implements CourseProgressService {
       .from('user_lesson_progress') as any)
       .delete()
       .eq('user_id', user.id)
-      .eq('course_id', courseId);
+      .eq('course_id', resolveCourseUuid(courseId) || courseId);
   }
 
   recordVideoProgress(progress: UserVideoProgress): void {
@@ -433,7 +443,7 @@ export class CloudCourseProgressService implements CourseProgressService {
 
       const payload = {
         user_id: user.id,
-        course_id: progress.courseId,
+        course_id: resolveCourseUuid(progress.courseId) || progress.courseId,
         module_id: progress.moduleId || null,
         lesson_id: progress.lessonId,
         video_id: progress.videoId,
