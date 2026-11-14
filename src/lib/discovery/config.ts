@@ -29,5 +29,5 @@ export const DISCOVERY_CONFIG = {
     process.env.ALLOW_PAID_SERVICES === "true",
   // Pagination defaults.
   defaultPageSize: Number(process.env.DEFAULT_PAGE_SIZE) || 20,
-  maxPageSize: Number(process.env.MAX_PAGE_SIZE) || 100,
+  maxPageSize: Number(process.env.MAX_PAGE_SIZE) || 50,
 } as const;

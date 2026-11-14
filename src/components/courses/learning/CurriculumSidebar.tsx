@@ -13,6 +13,7 @@ interface CurriculumSidebarProps {
   totalLessons: number;
   onSelectLesson: (slug: string) => void;
   onToggleComplete: (lessonId: string) => void;
+  quizScores?: Record<string, number>;
 }
 
 export const CurriculumSidebar: React.FC<CurriculumSidebarProps> = ({
@@ -23,6 +24,7 @@ export const CurriculumSidebar: React.FC<CurriculumSidebarProps> = ({
   totalLessons,
   onSelectLesson,
   onToggleComplete,
+  quizScores = {},
 }) => {
   // Initialize with open modules; automatically ensure active lesson's module is open
   const [openModuleIds, setOpenModuleIds] = useState<string[]>(() => {
@@ -50,6 +52,9 @@ export const CurriculumSidebar: React.FC<CurriculumSidebarProps> = ({
   const coursePercent =
     totalLessons > 0 ? Math.round((completedCount / totalLessons) * 100) : 0;
 
+  // Determine if course enforces sequential quiz unlocking (e.g. Storytelling Masterclass)
+  const isSequentialQuizCourse = courseSlug === 'free-storytelling-masterclass';
+
   return (
     <aside
       aria-label="Course curriculum"
@@ -76,22 +81,39 @@ export const CurriculumSidebar: React.FC<CurriculumSidebarProps> = ({
 
       {/* Modules List */}
       <div className="space-y-2.5">
-        {modules.map((module, idx) => (
-          <CurriculumModule
-            key={module.id}
-            module={module}
-            moduleIndex={idx}
-            isOpen={openModuleIds.includes(module.id)}
-            onToggle={() => toggleModule(module.id)}
-            activeLessonId={activeLessonId}
-            completedLessonIds={completedLessonIds}
-            courseSlug={courseSlug}
-            onSelectLesson={onSelectLesson}
-            onToggleComplete={onToggleComplete}
-          />
-        ))}
+        {modules.map((module, idx) => {
+          let isLocked = false;
+          let unlockRequirement = '';
+
+          if (isSequentialQuizCourse && idx > 0) {
+            const prevModule = modules[idx - 1];
+            const prevScore = quizScores[prevModule.id] ?? 0;
+            const passingScore = prevModule.quiz?.passingScorePercent || 70;
+
+            if (prevScore < passingScore) {
+              isLocked = true;
+              unlockRequirement = `Pass Week ${idx} Quiz (≥ ${passingScore}%) to unlock Week ${idx + 1}. Current best: ${prevScore}%.`;
+            }
+          }
+
+          return (
+            <CurriculumModule
+              key={module.id}
+              module={module}
+              moduleIndex={idx}
+              isOpen={openModuleIds.includes(module.id)}
+              onToggle={() => toggleModule(module.id)}
+              activeLessonId={activeLessonId}
+              completedLessonIds={completedLessonIds}
+              courseSlug={courseSlug}
+              onSelectLesson={onSelectLesson}
+              onToggleComplete={onToggleComplete}
+              isLocked={isLocked}
+              unlockRequirement={unlockRequirement}
+            />
+          );
+        })}
       </div>
     </aside>
   );
 };
-

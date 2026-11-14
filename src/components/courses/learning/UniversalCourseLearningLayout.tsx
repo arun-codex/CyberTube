@@ -37,6 +37,7 @@ export const UniversalCourseLearningLayout: React.FC<UniversalCourseLearningLayo
   );
 
   const [completedLessonIds, setCompletedLessonIds] = useState<string[]>([]);
+  const [quizScores, setQuizScores] = useState<Record<string, number>>({});
   const [archivedLegacyLessonIds, setArchivedLegacyLessonIds] = useState<string[]>([]);
   const [completionStats, setCompletionStats] = useState<ComprehensiveCourseCompletion>(
     initialCompletionStats
@@ -55,6 +56,7 @@ export const UniversalCourseLearningLayout: React.FC<UniversalCourseLearningLayo
   useEffect(() => {
     const state = cloudCourseProgressService.getProgress(course.courseId);
     setCompletedLessonIds(state.completedLessonIds);
+    setQuizScores(state.quizScores || {});
     setArchivedLegacyLessonIds(state.archivedLegacyLessonIds || []);
 
     if (!initialLessonSlug && state.lastActiveLessonId) {
@@ -67,6 +69,7 @@ export const UniversalCourseLearningLayout: React.FC<UniversalCourseLearningLayo
     const unsub = onCourseProgressChange((updatedState) => {
       if (updatedState.courseId === course.courseId) {
         setCompletedLessonIds(updatedState.completedLessonIds);
+        setQuizScores(updatedState.quizScores || {});
         setArchivedLegacyLessonIds(updatedState.archivedLegacyLessonIds || []);
       }
     });
@@ -233,6 +236,7 @@ export const UniversalCourseLearningLayout: React.FC<UniversalCourseLearningLayo
             totalLessons={course.totalLessons}
             onSelectLesson={handleSelectLesson}
             onToggleComplete={handleToggleLessonComplete}
+            quizScores={quizScores}
           />
         }
       >
