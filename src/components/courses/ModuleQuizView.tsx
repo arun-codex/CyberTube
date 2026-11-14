@@ -54,6 +54,10 @@ export const ModuleQuizView: React.FC<ModuleQuizViewProps> = ({
 
   // Restore saved attempts on mount
   useEffect(() => {
+    // A reused quiz component must not carry an idempotency key into another
+    // course/module. Retries within this module retain the same key.
+    setCurrentIdempotencyKey(`quiz-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`);
+
     const progress = cloudCourseProgressService.getProgress(courseId);
     const existingAttempts = progress.quizAttempts?.[moduleId] || [];
     setAttempts(existingAttempts);
