@@ -1,0 +1,902 @@
+[
+  {
+    "week": 1,
+    "weekTitle": "What is a story?",
+    "level": "Level 1 — Foundations (Weeks 1–4)",
+    "lessonNum": 1,
+    "lessonId": "les-storytelling-w01-l1",
+    "title": "Story versus information",
+    "description": "Watch the TED-Ed lesson. Write your own definition of a story in English and Hindi. Give one example of a story and one example of plain information."
+  },
+  {
+    "week": 1,
+    "weekTitle": "What is a story?",
+    "level": "Level 1 — Foundations (Weeks 1–4)",
+    "lessonNum": 2,
+    "lessonId": "les-storytelling-w01-l2",
+    "title": "The audience",
+    "description": "Choose a familiar story and identify who it is for, what the audience knows and what the audience wants to know next."
+  },
+  {
+    "week": 1,
+    "weekTitle": "What is a story?",
+    "level": "Level 1 — Foundations (Weeks 1–4)",
+    "lessonNum": 3,
+    "lessonId": "les-storytelling-w01-l3",
+    "title": "Change",
+    "description": "Write three tiny narratives: a person wants something, something changes, and the result is different from the start."
+  },
+  {
+    "week": 1,
+    "weekTitle": "What is a story?",
+    "level": "Level 1 — Foundations (Weeks 1–4)",
+    "lessonNum": 4,
+    "lessonId": "les-storytelling-w01-l4",
+    "title": "Tell a real moment",
+    "description": "Tell a real event from your life in 60 seconds. Record it on your phone. Do not worry about performance yet."
+  },
+  {
+    "week": 1,
+    "weekTitle": "What is a story?",
+    "level": "Level 1 — Foundations (Weeks 1–4)",
+    "lessonNum": 5,
+    "lessonId": "les-storytelling-w01-l5",
+    "title": "First analysis",
+    "description": "Analyse a short film scene, story or personal anecdote. Mark its opening, important change and ending. Write three strengths and one weakness."
+  },
+  {
+    "week": 2,
+    "weekTitle": "Observation, memory and idea generation",
+    "level": "Level 1 — Foundations (Weeks 1–4)",
+    "lessonNum": 1,
+    "lessonId": "les-storytelling-w02-l1",
+    "title": "Collect observations",
+    "description": "Record ten details from a real place: sounds, objects, behaviour, mood and small contradictions."
+  },
+  {
+    "week": 2,
+    "weekTitle": "Observation, memory and idea generation",
+    "level": "Level 1 — Foundations (Weeks 1–4)",
+    "lessonNum": 2,
+    "lessonId": "les-storytelling-w02-l2",
+    "title": "Memory as material",
+    "description": "Write one memory using concrete details. Separate what you remember clearly from what you are guessing."
+  },
+  {
+    "week": 2,
+    "weekTitle": "Observation, memory and idea generation",
+    "level": "Level 1 — Foundations (Weeks 1–4)",
+    "lessonNum": 3,
+    "lessonId": "les-storytelling-w02-l3",
+    "title": "What if?",
+    "description": "Turn five ordinary observations into “What if?” story ideas. Make the situation unusual but understandable."
+  },
+  {
+    "week": 2,
+    "weekTitle": "Observation, memory and idea generation",
+    "level": "Level 1 — Foundations (Weeks 1–4)",
+    "lessonNum": 4,
+    "lessonId": "les-storytelling-w02-l4",
+    "title": "Premise practice",
+    "description": "Reduce three ideas to one sentence each: main character + situation + central problem."
+  },
+  {
+    "week": 2,
+    "weekTitle": "Observation, memory and idea generation",
+    "level": "Level 1 — Foundations (Weeks 1–4)",
+    "lessonNum": 5,
+    "lessonId": "les-storytelling-w02-l5",
+    "title": "Select the strongest idea",
+    "description": "Score each idea for clarity, conflict, emotional potential and your own interest. Choose one to develop."
+  },
+  {
+    "week": 3,
+    "weekTitle": "Story spine, hook and promise",
+    "level": "Level 1 — Foundations (Weeks 1–4)",
+    "lessonNum": 1,
+    "lessonId": "les-storytelling-w03-l1",
+    "title": "Story spine",
+    "description": "Use this starter structure: Once upon a time… Every day… Until one day… Because of that… Until finally… And ever since then…"
+  },
+  {
+    "week": 3,
+    "weekTitle": "Story spine, hook and promise",
+    "level": "Level 1 — Foundations (Weeks 1–4)",
+    "lessonNum": 2,
+    "lessonId": "les-storytelling-w03-l2",
+    "title": "Hooks",
+    "description": "Write five different openings for the same story: a surprising fact, a decision, a question, an image and a moment of action."
+  },
+  {
+    "week": 3,
+    "weekTitle": "Story spine, hook and promise",
+    "level": "Level 1 — Foundations (Weeks 1–4)",
+    "lessonNum": 3,
+    "lessonId": "les-storytelling-w03-l3",
+    "title": "The story promise",
+    "description": "Decide what type of experience the audience expects: funny, suspenseful, moving, informative, frightening or inspiring."
+  },
+  {
+    "week": 3,
+    "weekTitle": "Story spine, hook and promise",
+    "level": "Level 1 — Foundations (Weeks 1–4)",
+    "lessonNum": 4,
+    "lessonId": "les-storytelling-w03-l4",
+    "title": "Causality",
+    "description": "Replace “and then” chains with “because”, “but” and “therefore”. Check whether each major event causes or changes the next one."
+  },
+  {
+    "week": 3,
+    "weekTitle": "Story spine, hook and promise",
+    "level": "Level 1 — Foundations (Weeks 1–4)",
+    "lessonNum": 5,
+    "lessonId": "les-storytelling-w03-l5",
+    "title": "Pitch aloud",
+    "description": "Explain the story in 30 seconds. Ask a listener what they think the story is about and what they want to know."
+  },
+  {
+    "week": 4,
+    "weekTitle": "Plot and three-act structure",
+    "level": "Level 1 — Foundations (Weeks 1–4)",
+    "lessonNum": 1,
+    "lessonId": "les-storytelling-w04-l1",
+    "title": "Three acts",
+    "description": "Learn the job of setup, confrontation and resolution. Do not treat the acts as fixed percentages."
+  },
+  {
+    "week": 4,
+    "weekTitle": "Plot and three-act structure",
+    "level": "Level 1 — Foundations (Weeks 1–4)",
+    "lessonNum": 2,
+    "lessonId": "les-storytelling-w04-l2",
+    "title": "Turning points",
+    "description": "Identify the event that makes the story's original situation impossible to continue."
+  },
+  {
+    "week": 4,
+    "weekTitle": "Plot and three-act structure",
+    "level": "Level 1 — Foundations (Weeks 1–4)",
+    "lessonNum": 3,
+    "lessonId": "les-storytelling-w04-l3",
+    "title": "Midpoint and escalation",
+    "description": "Give the protagonist a new understanding, setback or change of plan halfway through."
+  },
+  {
+    "week": 4,
+    "weekTitle": "Plot and three-act structure",
+    "level": "Level 1 — Foundations (Weeks 1–4)",
+    "lessonNum": 4,
+    "lessonId": "les-storytelling-w04-l4",
+    "title": "Climax and resolution",
+    "description": "Design a final choice or confrontation that tests the central goal and character."
+  },
+  {
+    "week": 4,
+    "weekTitle": "Plot and three-act structure",
+    "level": "Level 1 — Foundations (Weeks 1–4)",
+    "lessonNum": 5,
+    "lessonId": "les-storytelling-w04-l5",
+    "title": "Reverse outline",
+    "description": "Analyse a favourite film or short story. Write its major beats without retelling every scene."
+  },
+  {
+    "week": 5,
+    "weekTitle": "Creating believable characters",
+    "level": "Level 2 — Character and narrative development (Weeks 5–8)",
+    "lessonNum": 1,
+    "lessonId": "les-storytelling-w05-l1",
+    "title": "Specificity",
+    "description": "Build one character using five concrete details: habit, object, skill, fear and contradiction."
+  },
+  {
+    "week": 5,
+    "weekTitle": "Creating believable characters",
+    "level": "Level 2 — Character and narrative development (Weeks 5–8)",
+    "lessonNum": 2,
+    "lessonId": "les-storytelling-w05-l2",
+    "title": "Internal versus external",
+    "description": "Separate appearance and public behaviour from beliefs, private motives and emotional patterns."
+  },
+  {
+    "week": 5,
+    "weekTitle": "Creating believable characters",
+    "level": "Level 2 — Character and narrative development (Weeks 5–8)",
+    "lessonNum": 3,
+    "lessonId": "les-storytelling-w05-l3",
+    "title": "Backstory",
+    "description": "Write only the past details that influence the character's present choices. Avoid biography that does not affect the plot."
+  },
+  {
+    "week": 5,
+    "weekTitle": "Creating believable characters",
+    "level": "Level 2 — Character and narrative development (Weeks 5–8)",
+    "lessonNum": 4,
+    "lessonId": "les-storytelling-w05-l4",
+    "title": "Character voice",
+    "description": "Write the same sentence as three different people. Change word choice, rhythm, confidence and what each person avoids saying."
+  },
+  {
+    "week": 5,
+    "weekTitle": "Creating believable characters",
+    "level": "Level 2 — Character and narrative development (Weeks 5–8)",
+    "lessonNum": 5,
+    "lessonId": "les-storytelling-w05-l5",
+    "title": "Character interview",
+    "description": "Answer ten questions as the character. Then write a short scene where the character makes a decision."
+  },
+  {
+    "week": 6,
+    "weekTitle": "Goals, needs, obstacles, stakes and arcs",
+    "level": "Level 2 — Character and narrative development (Weeks 5–8)",
+    "lessonNum": 1,
+    "lessonId": "les-storytelling-w06-l1",
+    "title": "Want versus need",
+    "description": "Identify what a character consciously wants and what they may need to understand or change."
+  },
+  {
+    "week": 6,
+    "weekTitle": "Goals, needs, obstacles, stakes and arcs",
+    "level": "Level 2 — Character and narrative development (Weeks 5–8)",
+    "lessonNum": 2,
+    "lessonId": "les-storytelling-w06-l2",
+    "title": "Motivation",
+    "description": "Give the goal a believable reason. Ask why it matters now."
+  },
+  {
+    "week": 6,
+    "weekTitle": "Goals, needs, obstacles, stakes and arcs",
+    "level": "Level 2 — Character and narrative development (Weeks 5–8)",
+    "lessonNum": 3,
+    "lessonId": "les-storytelling-w06-l3",
+    "title": "Obstacles",
+    "description": "Create three increasingly difficult obstacles: practical, social and internal."
+  },
+  {
+    "week": 6,
+    "weekTitle": "Goals, needs, obstacles, stakes and arcs",
+    "level": "Level 2 — Character and narrative development (Weeks 5–8)",
+    "lessonNum": 4,
+    "lessonId": "les-storytelling-w06-l4",
+    "title": "Stakes",
+    "description": "Define what the character can lose, what others can lose and what happens if they do nothing."
+  },
+  {
+    "week": 6,
+    "weekTitle": "Goals, needs, obstacles, stakes and arcs",
+    "level": "Level 2 — Character and narrative development (Weeks 5–8)",
+    "lessonNum": 5,
+    "lessonId": "les-storytelling-w06-l5",
+    "title": "Arc",
+    "description": "Describe the character's starting belief, the pressure that challenges it and the final choice that reveals change."
+  },
+  {
+    "week": 7,
+    "weekTitle": "Point of view, narration and dialogue",
+    "level": "Level 2 — Character and narrative development (Weeks 5–8)",
+    "lessonNum": 1,
+    "lessonId": "les-storytelling-w07-l1",
+    "title": "Point of view",
+    "description": "Retell one event from first person and third person. Notice what information changes."
+  },
+  {
+    "week": 7,
+    "weekTitle": "Point of view, narration and dialogue",
+    "level": "Level 2 — Character and narrative development (Weeks 5–8)",
+    "lessonNum": 2,
+    "lessonId": "les-storytelling-w07-l2",
+    "title": "Narrator knowledge",
+    "description": "Decide what the narrator knows, misunderstands, hides or cannot know."
+  },
+  {
+    "week": 7,
+    "weekTitle": "Point of view, narration and dialogue",
+    "level": "Level 2 — Character and narrative development (Weeks 5–8)",
+    "lessonNum": 3,
+    "lessonId": "les-storytelling-w07-l3",
+    "title": "Dialogue",
+    "description": "Write a conversation where each speaker wants something different."
+  },
+  {
+    "week": 7,
+    "weekTitle": "Point of view, narration and dialogue",
+    "level": "Level 2 — Character and narrative development (Weeks 5–8)",
+    "lessonNum": 4,
+    "lessonId": "les-storytelling-w07-l4",
+    "title": "Subtext",
+    "description": "Write a scene where the characters discuss an ordinary subject while avoiding the real issue."
+  },
+  {
+    "week": 7,
+    "weekTitle": "Point of view, narration and dialogue",
+    "level": "Level 2 — Character and narrative development (Weeks 5–8)",
+    "lessonNum": 5,
+    "lessonId": "les-storytelling-w07-l5",
+    "title": "Exposition edit",
+    "description": "Remove dialogue that only explains information both characters already know. Replace it with conflict, action or implication."
+  },
+  {
+    "week": 8,
+    "weekTitle": "Setting, worldbuilding and genre",
+    "level": "Level 2 — Character and narrative development (Weeks 5–8)",
+    "lessonNum": 1,
+    "lessonId": "les-storytelling-w08-l1",
+    "title": "Setting as pressure",
+    "description": "Choose a place that makes the character's goal easier or harder."
+  },
+  {
+    "week": 8,
+    "weekTitle": "Setting, worldbuilding and genre",
+    "level": "Level 2 — Character and narrative development (Weeks 5–8)",
+    "lessonNum": 2,
+    "lessonId": "les-storytelling-w08-l2",
+    "title": "Sensory detail",
+    "description": "Describe a place through sound, temperature, texture, smell and light without listing every sense mechanically."
+  },
+  {
+    "week": 8,
+    "weekTitle": "Setting, worldbuilding and genre",
+    "level": "Level 2 — Character and narrative development (Weeks 5–8)",
+    "lessonNum": 3,
+    "lessonId": "les-storytelling-w08-l3",
+    "title": "World rules",
+    "description": "Define three rules of the story world. Show how breaking one rule causes a problem."
+  },
+  {
+    "week": 8,
+    "weekTitle": "Setting, worldbuilding and genre",
+    "level": "Level 2 — Character and narrative development (Weeks 5–8)",
+    "lessonNum": 4,
+    "lessonId": "les-storytelling-w08-l4",
+    "title": "Genre",
+    "description": "Retell the same premise as a mystery, comedy and drama. Note how audience expectations change."
+  },
+  {
+    "week": 8,
+    "weekTitle": "Setting, worldbuilding and genre",
+    "level": "Level 2 — Character and narrative development (Weeks 5–8)",
+    "lessonNum": 5,
+    "lessonId": "les-storytelling-w08-l5",
+    "title": "Research and authenticity",
+    "description": "Identify what needs factual research. Mark uncertain details and avoid pretending to know what you have not verified."
+  },
+  {
+    "week": 9,
+    "weekTitle": "Conflict, tension and suspense",
+    "level": "Level 3 — Emotion, tension and narrative control (Weeks 9–12)",
+    "lessonNum": 1,
+    "lessonId": "les-storytelling-w09-l1",
+    "title": "Conflict types",
+    "description": "Build an external conflict, interpersonal conflict and internal conflict for one protagonist."
+  },
+  {
+    "week": 9,
+    "weekTitle": "Conflict, tension and suspense",
+    "level": "Level 3 — Emotion, tension and narrative control (Weeks 9–12)",
+    "lessonNum": 2,
+    "lessonId": "les-storytelling-w09-l2",
+    "title": "Scene objective",
+    "description": "Give every scene a character who wants something and an obstacle that prevents an easy result."
+  },
+  {
+    "week": 9,
+    "weekTitle": "Conflict, tension and suspense",
+    "level": "Level 3 — Emotion, tension and narrative control (Weeks 9–12)",
+    "lessonNum": 3,
+    "lessonId": "les-storytelling-w09-l3",
+    "title": "Escalation",
+    "description": "Make each attempt change the situation. Do not repeat the same obstacle at the same intensity."
+  },
+  {
+    "week": 9,
+    "weekTitle": "Conflict, tension and suspense",
+    "level": "Level 3 — Emotion, tension and narrative control (Weeks 9–12)",
+    "lessonNum": 4,
+    "lessonId": "les-storytelling-w09-l4",
+    "title": "Suspense versus surprise",
+    "description": "Write one scene where the audience knows danger is coming and one where the audience learns it at the same time as the character."
+  },
+  {
+    "week": 9,
+    "weekTitle": "Conflict, tension and suspense",
+    "level": "Level 3 — Emotion, tension and narrative control (Weeks 9–12)",
+    "lessonNum": 5,
+    "lessonId": "les-storytelling-w09-l5",
+    "title": "Scene test",
+    "description": "Mark where tension rises, falls or disappears. Remove or rewrite a scene that changes nothing."
+  },
+  {
+    "week": 10,
+    "weekTitle": "Emotion, pacing and audience engagement",
+    "level": "Level 3 — Emotion, tension and narrative control (Weeks 9–12)",
+    "lessonNum": 1,
+    "lessonId": "les-storytelling-w10-l1",
+    "title": "Emotional investment",
+    "description": "Identify what the audience needs to understand about a character before a difficult moment matters."
+  },
+  {
+    "week": 10,
+    "weekTitle": "Emotion, pacing and audience engagement",
+    "level": "Level 3 — Emotion, tension and narrative control (Weeks 9–12)",
+    "lessonNum": 2,
+    "lessonId": "les-storytelling-w10-l2",
+    "title": "Show versus tell",
+    "description": "Rewrite abstract emotion as behaviour, choice, sensory detail or dialogue."
+  },
+  {
+    "week": 10,
+    "weekTitle": "Emotion, pacing and audience engagement",
+    "level": "Level 3 — Emotion, tension and narrative control (Weeks 9–12)",
+    "lessonNum": 3,
+    "lessonId": "les-storytelling-w10-l3",
+    "title": "Pacing",
+    "description": "Shorten a slow passage and expand a key moment. Compare how the timing changes the experience."
+  },
+  {
+    "week": 10,
+    "weekTitle": "Emotion, pacing and audience engagement",
+    "level": "Level 3 — Emotion, tension and narrative control (Weeks 9–12)",
+    "lessonNum": 4,
+    "lessonId": "les-storytelling-w10-l4",
+    "title": "Contrast",
+    "description": "Place calm before tension, humour before seriousness or relief before a new problem, only when it supports the story."
+  },
+  {
+    "week": 10,
+    "weekTitle": "Emotion, pacing and audience engagement",
+    "level": "Level 3 — Emotion, tension and narrative control (Weeks 9–12)",
+    "lessonNum": 5,
+    "lessonId": "les-storytelling-w10-l5",
+    "title": "Emotional audit",
+    "description": "Ask what emotion each major beat is intended to create and whether the scene earns it."
+  },
+  {
+    "week": 11,
+    "weekTitle": "Theme, symbolism, metaphor and subtext",
+    "level": "Level 3 — Emotion, tension and narrative control (Weeks 9–12)",
+    "lessonNum": 1,
+    "lessonId": "les-storytelling-w11-l1",
+    "title": "Theme as a question",
+    "description": "Turn a broad topic such as trust, ambition or belonging into a question a character must face."
+  },
+  {
+    "week": 11,
+    "weekTitle": "Theme, symbolism, metaphor and subtext",
+    "level": "Level 3 — Emotion, tension and narrative control (Weeks 9–12)",
+    "lessonNum": 2,
+    "lessonId": "les-storytelling-w11-l2",
+    "title": "Theme through choice",
+    "description": "Make the protagonist's decision reveal the story's central question. Avoid adding a speech that explains the moral."
+  },
+  {
+    "week": 11,
+    "weekTitle": "Theme, symbolism, metaphor and subtext",
+    "level": "Level 3 — Emotion, tension and narrative control (Weeks 9–12)",
+    "lessonNum": 3,
+    "lessonId": "les-storytelling-w11-l3",
+    "title": "Motif",
+    "description": "Select an object, image, sound or repeated action that changes meaning as the story progresses."
+  },
+  {
+    "week": 11,
+    "weekTitle": "Theme, symbolism, metaphor and subtext",
+    "level": "Level 3 — Emotion, tension and narrative control (Weeks 9–12)",
+    "lessonNum": 4,
+    "lessonId": "les-storytelling-w11-l4",
+    "title": "Metaphor",
+    "description": "Use one meaningful comparison to clarify an emotional or abstract experience. Remove decorative metaphors that confuse the scene."
+  },
+  {
+    "week": 11,
+    "weekTitle": "Theme, symbolism, metaphor and subtext",
+    "level": "Level 3 — Emotion, tension and narrative control (Weeks 9–12)",
+    "lessonNum": 5,
+    "lessonId": "les-storytelling-w11-l5",
+    "title": "Subtext analysis",
+    "description": "Analyse a scene where characters do not say exactly what they mean. Write what is spoken and what is implied."
+  },
+  {
+    "week": 12,
+    "weekTitle": "Foreshadowing, twists and multiple timelines",
+    "level": "Level 3 — Emotion, tension and narrative control (Weeks 9–12)",
+    "lessonNum": 1,
+    "lessonId": "les-storytelling-w12-l1",
+    "title": "Foreshadowing",
+    "description": "Plant one clue early that becomes meaningful later. It should be visible in hindsight but not announce the answer."
+  },
+  {
+    "week": 12,
+    "weekTitle": "Foreshadowing, twists and multiple timelines",
+    "level": "Level 3 — Emotion, tension and narrative control (Weeks 9–12)",
+    "lessonNum": 2,
+    "lessonId": "les-storytelling-w12-l2",
+    "title": "Payoff",
+    "description": "Connect a detail introduced earlier to a later action, decision or revelation."
+  },
+  {
+    "week": 12,
+    "weekTitle": "Foreshadowing, twists and multiple timelines",
+    "level": "Level 3 — Emotion, tension and narrative control (Weeks 9–12)",
+    "lessonNum": 3,
+    "lessonId": "les-storytelling-w12-l3",
+    "title": "Fair twists",
+    "description": "Create a twist that changes interpretation without contradicting established facts."
+  },
+  {
+    "week": 12,
+    "weekTitle": "Foreshadowing, twists and multiple timelines",
+    "level": "Level 3 — Emotion, tension and narrative control (Weeks 9–12)",
+    "lessonNum": 4,
+    "lessonId": "les-storytelling-w12-l4",
+    "title": "Timeline",
+    "description": "Write a short story in chronological order, then rearrange it using a flashback or delayed reveal. Compare both versions."
+  },
+  {
+    "week": 12,
+    "weekTitle": "Foreshadowing, twists and multiple timelines",
+    "level": "Level 3 — Emotion, tension and narrative control (Weeks 9–12)",
+    "lessonNum": 5,
+    "lessonId": "les-storytelling-w12-l5",
+    "title": "Reader fairness",
+    "description": "Check whether the narrator hid information unfairly, whether clues were available and whether the ending feels earned."
+  },
+  {
+    "week": 13,
+    "weekTitle": "Personal and true storytelling",
+    "level": "Level 4 — Real-life, oral, visual and persuasive formats (Weeks 13–16)",
+    "lessonNum": 1,
+    "lessonId": "les-storytelling-w13-l1",
+    "title": "Life map",
+    "description": "List meaningful moments, decisions, failures, discoveries and changes. Choose a story that is yours to tell."
+  },
+  {
+    "week": 13,
+    "weekTitle": "Personal and true storytelling",
+    "level": "Level 4 — Real-life, oral, visual and persuasive formats (Weeks 13–16)",
+    "lessonNum": 2,
+    "lessonId": "les-storytelling-w13-l2",
+    "title": "The central moment",
+    "description": "Select one moment rather than summarising your entire life. Identify what you wanted and what was at risk."
+  },
+  {
+    "week": 13,
+    "weekTitle": "Personal and true storytelling",
+    "level": "Level 4 — Real-life, oral, visual and persuasive formats (Weeks 13–16)",
+    "lessonNum": 3,
+    "lessonId": "les-storytelling-w13-l3",
+    "title": "Scene and reflection",
+    "description": "Rebuild the event with concrete details, then add only the reflection needed to help the audience understand its meaning."
+  },
+  {
+    "week": 13,
+    "weekTitle": "Personal and true storytelling",
+    "level": "Level 4 — Real-life, oral, visual and persuasive formats (Weeks 13–16)",
+    "lessonNum": 4,
+    "lessonId": "les-storytelling-w13-l4",
+    "title": "Truth and boundaries",
+    "description": "Separate memory from certainty. Change or omit identifying details when appropriate. Do not fabricate dialogue or events and present them as fact."
+  },
+  {
+    "week": 13,
+    "weekTitle": "Personal and true storytelling",
+    "level": "Level 4 — Real-life, oral, visual and persuasive formats (Weeks 13–16)",
+    "lessonNum": 5,
+    "lessonId": "les-storytelling-w13-l5",
+    "title": "First-person performance",
+    "description": "Tell the story in three minutes. Ask a listener what moment stayed with them and what they did not understand."
+  },
+  {
+    "week": 14,
+    "weekTitle": "Oral storytelling and delivery",
+    "level": "Level 4 — Real-life, oral, visual and persuasive formats (Weeks 13–16)",
+    "lessonNum": 1,
+    "lessonId": "les-storytelling-w14-l1",
+    "title": "Voice baseline",
+    "description": "Record a one-minute story. Listen for pace, clarity, filler words, volume and sentence endings."
+  },
+  {
+    "week": 14,
+    "weekTitle": "Oral storytelling and delivery",
+    "level": "Level 4 — Real-life, oral, visual and persuasive formats (Weeks 13–16)",
+    "lessonNum": 2,
+    "lessonId": "les-storytelling-w14-l2",
+    "title": "Vocal choices",
+    "description": "Repeat the same paragraph with three different intentions. Use pauses and emphasis, not theatrical shouting."
+  },
+  {
+    "week": 14,
+    "weekTitle": "Oral storytelling and delivery",
+    "level": "Level 4 — Real-life, oral, visual and persuasive formats (Weeks 13–16)",
+    "lessonNum": 3,
+    "lessonId": "les-storytelling-w14-l3",
+    "title": "Physical delivery",
+    "description": "Practise standing or sitting naturally. Use gestures to clarify action, not to decorate every sentence."
+  },
+  {
+    "week": 14,
+    "weekTitle": "Oral storytelling and delivery",
+    "level": "Level 4 — Real-life, oral, visual and persuasive formats (Weeks 13–16)",
+    "lessonNum": 4,
+    "lessonId": "les-storytelling-w14-l4",
+    "title": "Memory structure",
+    "description": "Reduce your script to five cue words or beats. Tell the story from the beats instead of memorising every line."
+  },
+  {
+    "week": 14,
+    "weekTitle": "Oral storytelling and delivery",
+    "level": "Level 4 — Real-life, oral, visual and persuasive formats (Weeks 13–16)",
+    "lessonNum": 5,
+    "lessonId": "les-storytelling-w14-l5",
+    "title": "Audience test",
+    "description": "Deliver a three-minute version to a person or camera. Ask them to summarise the story and identify its turning point."
+  },
+  {
+    "week": 15,
+    "weekTitle": "Visual and video storytelling",
+    "level": "Level 4 — Real-life, oral, visual and persuasive formats (Weeks 13–16)",
+    "lessonNum": 1,
+    "lessonId": "les-storytelling-w15-l1",
+    "title": "Show without words",
+    "description": "Describe a character's emotion using only action and visual detail. Do not use explanatory narration."
+  },
+  {
+    "week": 15,
+    "weekTitle": "Visual and video storytelling",
+    "level": "Level 4 — Real-life, oral, visual and persuasive formats (Weeks 13–16)",
+    "lessonNum": 2,
+    "lessonId": "les-storytelling-w15-l2",
+    "title": "Shot sizes",
+    "description": "Learn wide, medium and close-up shots. Decide what information each shot gives the audience."
+  },
+  {
+    "week": 15,
+    "weekTitle": "Visual and video storytelling",
+    "level": "Level 4 — Real-life, oral, visual and persuasive formats (Weeks 13–16)",
+    "lessonNum": 3,
+    "lessonId": "les-storytelling-w15-l3",
+    "title": "Storyboard",
+    "description": "Draw or write six frames showing a character's goal, obstacle and change. Simple stick figures are enough."
+  },
+  {
+    "week": 15,
+    "weekTitle": "Visual and video storytelling",
+    "level": "Level 4 — Real-life, oral, visual and persuasive formats (Weeks 13–16)",
+    "lessonNum": 4,
+    "lessonId": "les-storytelling-w15-l4",
+    "title": "Edit and sound",
+    "description": "Record a sequence on your phone. Notice how order, pause, ambient sound and cut length change meaning."
+  },
+  {
+    "week": 15,
+    "weekTitle": "Visual and video storytelling",
+    "level": "Level 4 — Real-life, oral, visual and persuasive formats (Weeks 13–16)",
+    "lessonNum": 5,
+    "lessonId": "les-storytelling-w15-l5",
+    "title": "Rough cut review",
+    "description": "Make a 30–60 second visual story. Show it without explaining it and ask what the viewer understood."
+  },
+  {
+    "week": 16,
+    "weekTitle": "Explanatory, business and persuasive storytelling",
+    "level": "Level 4 — Real-life, oral, visual and persuasive formats (Weeks 13–16)",
+    "lessonNum": 1,
+    "lessonId": "les-storytelling-w16-l1",
+    "title": "Audience first",
+    "description": "Identify what the audience already knows, what they need and what decision or understanding you want to support."
+  },
+  {
+    "week": 16,
+    "weekTitle": "Explanatory, business and persuasive storytelling",
+    "level": "Level 4 — Real-life, oral, visual and persuasive formats (Weeks 13–16)",
+    "lessonNum": 2,
+    "lessonId": "les-storytelling-w16-l2",
+    "title": "Explain a complex idea",
+    "description": "Choose a concept from study, technology or everyday life. Explain it using a person, problem and consequence."
+  },
+  {
+    "week": 16,
+    "weekTitle": "Explanatory, business and persuasive storytelling",
+    "level": "Level 4 — Real-life, oral, visual and persuasive formats (Weeks 13–16)",
+    "lessonNum": 3,
+    "lessonId": "les-storytelling-w16-l3",
+    "title": "Evidence and story",
+    "description": "Pair an illustrative story with accurate facts. Make clear which details are examples and which are verified claims."
+  },
+  {
+    "week": 16,
+    "weekTitle": "Explanatory, business and persuasive storytelling",
+    "level": "Level 4 — Real-life, oral, visual and persuasive formats (Weeks 13–16)",
+    "lessonNum": 4,
+    "lessonId": "les-storytelling-w16-l4",
+    "title": "Persuasive structure",
+    "description": "Build a short talk: problem, why it matters, evidence/example, proposed action and consequence."
+  },
+  {
+    "week": 16,
+    "weekTitle": "Explanatory, business and persuasive storytelling",
+    "level": "Level 4 — Real-life, oral, visual and persuasive formats (Weeks 13–16)",
+    "lessonNum": 5,
+    "lessonId": "les-storytelling-w16-l5",
+    "title": "Delivery and critique",
+    "description": "Give a three-minute presentation. Ask whether the evidence supports the conclusion and whether the requested action is clear."
+  },
+  {
+    "week": 17,
+    "weekTitle": "Nonlinear narratives and multiple perspectives",
+    "level": "Level 5 — Advanced narrative craft and capstone (Weeks 17–20)",
+    "lessonNum": 1,
+    "lessonId": "les-storytelling-w17-l1",
+    "title": "Multiple perspectives",
+    "description": "Retell one conflict from two characters' points of view. Give each a coherent, incomplete understanding."
+  },
+  {
+    "week": 17,
+    "weekTitle": "Nonlinear narratives and multiple perspectives",
+    "level": "Level 5 — Advanced narrative craft and capstone (Weeks 17–20)",
+    "lessonNum": 2,
+    "lessonId": "les-storytelling-w17-l2",
+    "title": "Unreliable narrator",
+    "description": "Write a narrator who misinterprets an event. Plant fair evidence that allows the audience to notice the gap."
+  },
+  {
+    "week": 17,
+    "weekTitle": "Nonlinear narratives and multiple perspectives",
+    "level": "Level 5 — Advanced narrative craft and capstone (Weeks 17–20)",
+    "lessonNum": 3,
+    "lessonId": "les-storytelling-w17-l3",
+    "title": "Nonlinear order",
+    "description": "Write a short event chronologically, then reorder scenes to create a purposeful question or reveal."
+  },
+  {
+    "week": 17,
+    "weekTitle": "Nonlinear narratives and multiple perspectives",
+    "level": "Level 5 — Advanced narrative craft and capstone (Weeks 17–20)",
+    "lessonNum": 4,
+    "lessonId": "les-storytelling-w17-l4",
+    "title": "Frame narrative",
+    "description": "Place a smaller story inside a larger one. Define why the outer narrator is telling it."
+  },
+  {
+    "week": 17,
+    "weekTitle": "Nonlinear narratives and multiple perspectives",
+    "level": "Level 5 — Advanced narrative craft and capstone (Weeks 17–20)",
+    "lessonNum": 5,
+    "lessonId": "les-storytelling-w17-l5",
+    "title": "Clarity check",
+    "description": "Ask a reader to map who knows what and when. Fix confusion that does not create intended mystery."
+  },
+  {
+    "week": 18,
+    "weekTitle": "Narrative psychology, culture and ethical storytelling",
+    "level": "Level 5 — Advanced narrative craft and capstone (Weeks 17–20)",
+    "lessonNum": 1,
+    "lessonId": "les-storytelling-w18-l1",
+    "title": "Audience expectations",
+    "description": "Identify what an audience may assume based on genre, setting, character role or opening image."
+  },
+  {
+    "week": 18,
+    "weekTitle": "Narrative psychology, culture and ethical storytelling",
+    "level": "Level 5 — Advanced narrative craft and capstone (Weeks 17–20)",
+    "lessonNum": 2,
+    "lessonId": "les-storytelling-w18-l2",
+    "title": "Empathy without simplification",
+    "description": "Give a character understandable motives without excusing harmful actions or flattening other people."
+  },
+  {
+    "week": 18,
+    "weekTitle": "Narrative psychology, culture and ethical storytelling",
+    "level": "Level 5 — Advanced narrative craft and capstone (Weeks 17–20)",
+    "lessonNum": 3,
+    "lessonId": "les-storytelling-w18-l3",
+    "title": "Cultural specificity",
+    "description": "Use culturally specific detail accurately. Avoid making one character or community represent an entire group."
+  },
+  {
+    "week": 18,
+    "weekTitle": "Narrative psychology, culture and ethical storytelling",
+    "level": "Level 5 — Advanced narrative craft and capstone (Weeks 17–20)",
+    "lessonNum": 4,
+    "lessonId": "les-storytelling-w18-l4",
+    "title": "Ethical true stories",
+    "description": "Check consent, privacy, power differences, accuracy and possible harm when telling stories involving real people."
+  },
+  {
+    "week": 18,
+    "weekTitle": "Narrative psychology, culture and ethical storytelling",
+    "level": "Level 5 — Advanced narrative craft and capstone (Weeks 17–20)",
+    "lessonNum": 5,
+    "lessonId": "les-storytelling-w18-l5",
+    "title": "Persuasion audit",
+    "description": "Review a persuasive story. Identify any missing context, emotional pressure or unsupported claim."
+  },
+  {
+    "week": 19,
+    "weekTitle": "Revision, adaptation and professional craft",
+    "level": "Level 5 — Advanced narrative craft and capstone (Weeks 17–20)",
+    "lessonNum": 1,
+    "lessonId": "les-storytelling-w19-l1",
+    "title": "Structural revision",
+    "description": "Read an old draft and identify the real protagonist, goal, conflict, stakes and change. Fix structure before polishing sentences."
+  },
+  {
+    "week": 19,
+    "weekTitle": "Revision, adaptation and professional craft",
+    "level": "Level 5 — Advanced narrative craft and capstone (Weeks 17–20)",
+    "lessonNum": 2,
+    "lessonId": "les-storytelling-w19-l2",
+    "title": "Scene revision",
+    "description": "Remove repetitive scenes, strengthen cause and effect, and ensure each scene changes the situation."
+  },
+  {
+    "week": 19,
+    "weekTitle": "Revision, adaptation and professional craft",
+    "level": "Level 5 — Advanced narrative craft and capstone (Weeks 17–20)",
+    "lessonNum": 3,
+    "lessonId": "les-storytelling-w19-l3",
+    "title": "Line editing",
+    "description": "Improve clarity, rhythm, specific verbs, dialogue and unnecessary explanation. Preserve your natural voice."
+  },
+  {
+    "week": 19,
+    "weekTitle": "Revision, adaptation and professional craft",
+    "level": "Level 5 — Advanced narrative craft and capstone (Weeks 17–20)",
+    "lessonNum": 4,
+    "lessonId": "les-storytelling-w19-l4",
+    "title": "Adaptation",
+    "description": "Adapt one story into a 300-word written version, a 90-second spoken version and a six-frame storyboard. Preserve the central meaning, not every sentence."
+  },
+  {
+    "week": 19,
+    "weekTitle": "Revision, adaptation and professional craft",
+    "level": "Level 5 — Advanced narrative craft and capstone (Weeks 17–20)",
+    "lessonNum": 5,
+    "lessonId": "les-storytelling-w19-l5",
+    "title": "Feedback and pitch",
+    "description": "Ask a reviewer what they understood, where they lost interest and what felt most meaningful. Deliver a two-minute pitch and record feedback."
+  },
+  {
+    "week": 20,
+    "weekTitle": "Capstone, portfolio and final assessment",
+    "level": "Level 5 — Advanced narrative craft and capstone (Weeks 17–20)",
+    "lessonNum": 1,
+    "lessonId": "les-storytelling-w20-l1",
+    "title": "Select and plan",
+    "description": "Choose one original story or central idea. Write the premise, audience, intended effect and format plan."
+  },
+  {
+    "week": 20,
+    "weekTitle": "Capstone, portfolio and final assessment",
+    "level": "Level 5 — Advanced narrative craft and capstone (Weeks 17–20)",
+    "lessonNum": 2,
+    "lessonId": "les-storytelling-w20-l2",
+    "title": "Create the written piece",
+    "description": "Produce a polished 1,000–1,500 word story or equivalent script. Focus on a clear character, conflict, stakes and change."
+  },
+  {
+    "week": 20,
+    "weekTitle": "Capstone, portfolio and final assessment",
+    "level": "Level 5 — Advanced narrative craft and capstone (Weeks 17–20)",
+    "lessonNum": 3,
+    "lessonId": "les-storytelling-w20-l3",
+    "title": "Create the oral version",
+    "description": "Adapt the work into a three-to-five-minute performance. Practise from beats, not a memorised paragraph-by-paragraph script."
+  },
+  {
+    "week": 20,
+    "weekTitle": "Capstone, portfolio and final assessment",
+    "level": "Level 5 — Advanced narrative craft and capstone (Weeks 17–20)",
+    "lessonNum": 4,
+    "lessonId": "les-storytelling-w20-l4",
+    "title": "Create the visual version",
+    "description": "Make a storyboard or a two-to-three-minute simple video. Use original, licensed or permission-cleared material."
+  },
+  {
+    "week": 20,
+    "weekTitle": "Capstone, portfolio and final assessment",
+    "level": "Level 5 — Advanced narrative craft and capstone (Weeks 17–20)",
+    "lessonNum": 5,
+    "lessonId": "les-storytelling-w20-l5",
+    "title": "Present and review",
+    "description": "Share the written, spoken and visual pieces with a reviewer. Score yourself and write a final reflection identifying the next three skills to improve."
+  }
+]

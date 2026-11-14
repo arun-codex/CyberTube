@@ -1,0 +1,135 @@
+# 4. Free learning resources: courses, videos, playlists and documents
+
+The following resources form the course library. Start with the core resources; use the specialist resources only when the syllabus reaches them.
+
+## A. Core structured courses
+
+### 1. Pixar in a Box — The Art of Storytelling
+
+- **Provider:** Khan Academy with Pixar.
+- **Cost:** Free.
+- **Best for:** The shared foundations of storytelling.
+- **What it covers:** Story ideas and personal perspective; character; wants and needs; obstacles; stakes; character arcs; story structure; story spine; theme; acts; visual language; film grammar; storyboarding; pitching; feedback and editing.
+- **How to use it:** Complete the six-part storytelling lesson across Weeks 1–8. You do not have to finish every optional activity in one sitting; keep your own examples and story exercises.
+- **Main course:** https://www.khanacademy.org/partner-content/pixar/storytelling
+- **Alternate course path:** https://www.khanacademy.org/computing/pixar/storytelling
+- **Educator's guide and course overview:** https://www.khanacademy.org/start/educator-guide
+- **Time note:** Khan Academy's educator guide estimates about 12 working hours for the six-part story lesson in its entirety.
+
+### 2. OpenLearn — Start Writing Fiction
+
+- **Provider:** The Open University.
+- **Cost:** Free.
+- **Best for:** Beginner fiction writing, character, setting and genre.
+- **What it covers:** Characterisation, setting, how character and place interact, and the effect of genre.
+- **How to use it:** Use during Weeks 5–8 alongside your own character and setting exercises.
+- **Course:** https://www.open.edu/openlearn/history-the-arts/creative-writing/start-writing-fiction
+- **Course content / introduction:** https://www.open.edu/openlearn/mod/oucontent/view.php?id=1622&intro=1&section=0
+- **Note:** The course is listed as a free course. A free account can be used for progress tracking and a Statement of Participation.
+
+### 3. OpenLearn — Start Writing Fiction: Characters and Stories
+
+- **Provider:** The Open University.
+- **Cost:** Free.
+- **Best for:** Developing characters, keeping a writer's notebook, turning events into plot and editing.
+- **What it covers:** Character creation, idea development, research, journalling, plot and reflection on writing.
+- **How to use it:** Select relevant sections during Weeks 5–8. It is a companion, not a replacement for the weekly practical assignments.
+- **Course:** https://www.open.edu/openlearn/history-the-arts/start-writing-fiction-characters-and-stories
+
+### 4. Acumen Academy — Storytelling for Change
+
+- **Provider:** Acumen Academy.
+- **Cost:** Listed as free; on-demand; six-week course.
+- **Best for:** Personal storytelling, leadership presence, expressing a story, presentations and feedback.
+- **What it includes:** 15 videos, six reading guides and five workshop guides.
+- **How to use it:** Work through selected sections during Weeks 13–16. You can continue the course beyond this masterclass if you want to complete every guide.
+- **Course and enrolment:** https://acumenacademy.org/course/storytelling-change
+- **Topics listed in its syllabus:** Introduction to storytelling; story examples; life-map exercise; leadership presence; identifying your story; story content and form; expressiveness; vocal range; presentation planning and feedback.
+
+### 5. OpenLearn — Talk the Talk
+
+- **Provider:** The Open University.
+- **Cost:** Free.
+- **Best for:** Presentations, speeches, persuasive oral communication and delivery.
+- **What it covers:** Analysing examples, connecting ideas through language, creating and practising a presentation.
+- **How to use it:** Use the relevant lessons during Weeks 14 and 16.
+- **Course:** https://www.open.edu/openlearn/education-development/talk-the-talk
+
+### 6. OpenLearn — Creative Writing and Critical Reading
+
+- **Provider:** The Open University.
+- **Cost:** Free.
+- **Best for:** Advanced analysis and revision.
+- **What it covers:** Critical reading, learning from other writers and examples from fiction, creative nonfiction, poetry and scriptwriting.
+- **How to use it:** Use during Weeks 19–20 as an advanced extension. It is not the first course to start with.
+- **Course:** https://www.open.edu/openlearn/history-the-arts/creative-writing-and-critical-reading
+
+## B. Video sequence — watch in this order
+
+These are selected lessons, not random recommendations. Use them in the weeks specified in the curriculum.
+
+| Order | Video / playlist | Why it matters | Suggested week |
+|---:|---|---|---|
+| 1 | [TED-Ed: 4 Ways to Tell a Great Story](https://ed.ted.com/lessons/4-ways-to-tell-a-great-story) | A short introduction to audience connection and effective storytelling choices. | 1 |
+| 2 | [Andrew Stanton: The Clues to a Great Story (TED)](https://www.youtube.com/watch?v=KxDwieKpawg) | A filmmaker's perspective on story, audience curiosity and emotional engagement. | 2–3 |
+| 3 | [Pixar in a Box: The Art of Storytelling](https://www.khanacademy.org/partner-content/pixar/storytelling) | Main course sequence: idea, character, structure, visual language, film grammar, feedback. | 1–8 |
+| 4 | [StudioBinder: Three-Act Structure Explained](https://www.youtube.com/watch?v=tvqjp1CxxD8) | Breaks down setup, plot points, midpoint, climax and resolution. | 4 |
+| 5 | [TED-Ed: Public Speaking 101 collection](https://ed.ted.com/ted_ed_collections/public-speaking-101) | An 11-lesson collection covering ideas, persuasion, explanation, visuals and storytelling. | 13–16 |
+| 6 | [Brandon Sanderson: 2025 Writing Lecture 1](https://www.youtube.com/watch?v=MEUh_y1IFZY) | Optional deep dive into the writing craft and a professional writer's process. | 19–20 |
+| 7 | [Brandon Sanderson: 2025 lecture notes archive](https://www.brandonsanderson.com/blogs/blog/tagged/2025-lecture-notes) | The author's archive of the 2025 writing lecture series; use selectively for fiction craft. | 19–20 |
+| 8 | [The Moth: Storytelling Tips & Tricks](https://www.themoth.org/tell-your-story/storytelling-tips-tricks) | Practical guidance for true personal stories, stakes, scene-setting and endings. | 13 |
+| 9 | [The Moth: Stories](https://www.themoth.org/Stories) | Listen to real people tell true stories; analyse delivery and structure. | 13–14 |
+
+### TED-Ed Public Speaking 101: recommended lesson order
+
+Use the [full collection](https://ed.ted.com/ted_ed_collections/public-speaking-101). It contains 11 lessons. Prioritise these topics as you reach Weeks 13–16:
+
+1. How to uncover your best ideas.
+2. What happens when you share an idea?
+3. 4 ways to tell a great story.
+4. How to explain something complicated.
+5. 6 ways to be more persuasive.
+6. How to present your ideas effectively.
+7. How to effectively use visuals in your presentation.
+
+The collection may display additional lessons or reorder them. Follow the topic names rather than relying on a fixed position in the playlist.
+
+## C. Additional specialist channels and playlists
+
+Use these after you understand the basics. Do not binge-watch them instead of completing assignments.
+
+- **Lessons from the Screenplay:** https://www.youtube.com/channel/UCErSSa3CaP_GJxmFpdjG9Jw  
+  Film-script analysis: examine why a scene, character decision or structure works.
+- **StudioBinder:** https://www.youtube.com/@StudioBinder  
+  Film grammar, shots, screenwriting and visual storytelling. The three-act video linked above is a good starting point.
+- **Brandon Sanderson's official writing advice page:** https://www.brandonsanderson.com/pages/writing-advice  
+  Links to university lecture playlists and writing resources. His lectures focus strongly on science fiction and fantasy, so treat them as a specialist fiction resource rather than a complete all-round storytelling course.
+- **Brandon Sanderson's 2014 BYU writing lectures:** https://www.youtube.com/playlist?list=PLRO9W1Nmh6clZP-IAhMeMpMru7vJaW7KJ  
+- **Brandon Sanderson's 2016 BYU writing lectures:** https://www.youtube.com/watch?list=PLH3mK1NZn9QqOSj3ObrP3xL8tEJQ12-vL&v=N4ZDBOc2tX8  
+- **The Moth:** https://www.themoth.org/  
+  A major source of real-life spoken storytelling examples.
+
+## D. Hindi-language reinforcement searches
+
+The main structured course material above is mostly in English. These links open YouTube searches, not endorsements of a particular teacher or fixed course. Preview the instructor, check the quality of explanations and compare advice with the core curriculum.
+
+- [Hindi: story writing, kahani writing and story structure](https://www.youtube.com/results?search_query=kahani+likhna+story+writing+in+hindi+story+structure)
+- [Hindi: character creation and plot development](https://www.youtube.com/results?search_query=character+creation+plot+development+story+writing+hindi)
+- [Hindi: storytelling and kahani sunane ki technique](https://www.youtube.com/results?search_query=kahani+sunane+ki+technique+storytelling+hindi)
+- [Hindi: public speaking, voice modulation and narration](https://www.youtube.com/results?search_query=public+speaking+voice+modulation+storytelling+hindi)
+- [Hindi: screenplay and visual storytelling](https://www.youtube.com/results?search_query=screenplay+writing+visual+storytelling+hindi)
+
+**Quality filter for Hindi videos:** Prefer lessons that explain a concept, demonstrate it with an example and give you an exercise. Avoid videos that only promise “secret formulas”, “viral storytelling hacks” or guaranteed audience retention.
+
+## E. Free tools for practising
+
+- **Google Docs:** https://docs.google.com/ — drafts, outlines, feedback and version history.
+- **Google Drive:** https://drive.google.com/ — store scripts, recordings and storyboards.
+- **YouTube:** https://www.youtube.com/ — watch reference stories; upload practice videos privately or unlisted if you need to review them.
+- **Audacity:** https://www.audacityteam.org/ — free audio recording and editing for spoken-story practice.
+- **Canva storyboard templates:** https://www.canva.com/storyboards/templates/ — optional storyboard layouts. Free and paid design elements may be mixed; do not purchase anything for this course.
+- **Obsidian:** https://obsidian.md/ — optional local notes and a searchable story idea bank; free for personal use.
+
+You do not need all these tools. A notebook, phone voice recorder and one document folder are enough.
+
+---

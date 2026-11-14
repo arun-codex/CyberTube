@@ -76,11 +76,20 @@ export async function createClient() {
   return client;
 }
 
+let testAuthenticatedUser: any = null;
+
+export function setAuthenticatedUserForTesting(user: any) {
+  testAuthenticatedUser = user;
+}
+
 /**
  * Retrieves the currently authenticated user safely on the server using getUser().
  * Never relies solely on getSession() for authorization.
  */
 export async function getAuthenticatedUser() {
+  if (testAuthenticatedUser !== null) {
+    return testAuthenticatedUser;
+  }
   const supabase = await createClient();
   if (!supabase) return null;
 

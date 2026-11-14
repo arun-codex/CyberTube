@@ -48,8 +48,8 @@ export interface PracticalExerciseItem {
 export interface KnowledgeCheckQuestion {
   question: string;
   options: string[];
-  correctAnswerIndex: number;
-  explanation: string;
+  correctAnswerIndex?: number;
+  explanation?: string;
   difficulty?: 'beginner' | 'intermediate' | 'advanced';
   relatedLessonSlug?: string;
 }

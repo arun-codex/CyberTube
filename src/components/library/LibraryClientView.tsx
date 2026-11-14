@@ -94,11 +94,11 @@ export function LibraryClientView({ initialResources }: LibraryClientViewProps) 
 
           {/* Sort dropdown */}
           <div className="flex items-center gap-2">
-            <span className="text-xs text-[#475569] dark:text-[#9BA8B7] whitespace-nowrap">Sort by:</span>
+            <label htmlFor="library-sort-by" className="text-xs text-[#475569] dark:text-[#9BA8B7] whitespace-nowrap">Sort by:</label>
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as any)}
-              className="px-3 py-2 text-xs rounded-lg border border-[#E2E8F0] dark:border-[#243044] bg-[#F8FAFC] dark:bg-[#0B1018] text-[#0F172A] dark:text-[#E6EDF3] focus:outline-none focus:ring-1 focus:ring-[#22D3EE]"
+              id="library-sort-by" className="px-3 py-2 text-xs rounded-lg border border-[#E2E8F0] dark:border-[#243044] bg-[#F8FAFC] dark:bg-[#0B1018] text-[#0F172A] dark:text-[#E6EDF3] focus:outline-none focus:ring-1 focus:ring-[#22D3EE]"
             >
               <option value="title">Title (A–Z)</option>
               <option value="creator">Creator Name</option>
@@ -111,10 +111,12 @@ export function LibraryClientView({ initialResources }: LibraryClientViewProps) 
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2 border-t border-[#E2E8F0] dark:border-[#243044]">
           {/* Level Filter */}
           <div>
-            <label className="block text-[11px] font-mono text-[#475569] dark:text-[#9BA8B7] mb-1">
+            <label htmlFor="library-level-filter" className="block text-[11px] font-mono text-[#475569] dark:text-[#9BA8B7] mb-1">
               Difficulty
             </label>
             <select
+              id="library-level-filter"
+              aria-label="Filter by difficulty level"
               value={levelFilter}
               onChange={(e) => setLevelFilter(e.target.value)}
               className="w-full px-2.5 py-1.5 text-xs rounded-md border border-[#E2E8F0] dark:border-[#243044] bg-[#F8FAFC] dark:bg-[#0B1018] text-[#0F172A] dark:text-[#E6EDF3] focus:outline-none focus:ring-1 focus:ring-[#22D3EE]"
@@ -130,10 +132,12 @@ export function LibraryClientView({ initialResources }: LibraryClientViewProps) 
 
           {/* Track Filter */}
           <div>
-            <label className="block text-[11px] font-mono text-[#475569] dark:text-[#9BA8B7] mb-1">
+            <label htmlFor="library-track-filter" className="block text-[11px] font-mono text-[#475569] dark:text-[#9BA8B7] mb-1">
               Topic Track
             </label>
             <select
+              id="library-track-filter"
+              aria-label="Filter by topic track"
               value={trackFilter}
               onChange={(e) => setTrackFilter(e.target.value)}
               className="w-full px-2.5 py-1.5 text-xs rounded-md border border-[#E2E8F0] dark:border-[#243044] bg-[#F8FAFC] dark:bg-[#0B1018] text-[#0F172A] dark:text-[#E6EDF3] focus:outline-none focus:ring-1 focus:ring-[#22D3EE] capitalize"
@@ -148,10 +152,12 @@ export function LibraryClientView({ initialResources }: LibraryClientViewProps) 
 
           {/* Type Filter */}
           <div>
-            <label className="block text-[11px] font-mono text-[#475569] dark:text-[#9BA8B7] mb-1">
+            <label htmlFor="library-type-filter" className="block text-[11px] font-mono text-[#475569] dark:text-[#9BA8B7] mb-1">
               Resource Type
             </label>
             <select
+              id="library-type-filter"
+              aria-label="Filter by resource type"
               value={typeFilter}
               onChange={(e) => setTypeFilter(e.target.value)}
               className="w-full px-2.5 py-1.5 text-xs rounded-md border border-[#E2E8F0] dark:border-[#243044] bg-[#F8FAFC] dark:bg-[#0B1018] text-[#0F172A] dark:text-[#E6EDF3] focus:outline-none focus:ring-1 focus:ring-[#22D3EE]"
@@ -165,10 +171,12 @@ export function LibraryClientView({ initialResources }: LibraryClientViewProps) 
 
           {/* Cost Filter */}
           <div>
-            <label className="block text-[11px] font-mono text-[#475569] dark:text-[#9BA8B7] mb-1">
+            <label htmlFor="library-cost-filter" className="block text-[11px] font-mono text-[#475569] dark:text-[#9BA8B7] mb-1">
               Pricing Model
             </label>
             <select
+              id="library-cost-filter"
+              aria-label="Filter by pricing model"
               value={costFilter}
               onChange={(e) => setCostFilter(e.target.value)}
               className="w-full px-2.5 py-1.5 text-xs rounded-md border border-[#E2E8F0] dark:border-[#243044] bg-[#F8FAFC] dark:bg-[#0B1018] text-[#0F172A] dark:text-[#E6EDF3] focus:outline-none focus:ring-1 focus:ring-[#22D3EE]"
@@ -222,4 +230,5 @@ export function LibraryClientView({ initialResources }: LibraryClientViewProps) 
     </div>
   );
 }
+
 

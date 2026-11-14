@@ -12,13 +12,13 @@ export const Card: React.FC<CardProps> = ({
   ...props
 }) => {
   const baseClasses =
-    'rounded-[8px] border bg-white border-[#e4e4ed] overflow-hidden';
+    'rounded-xl border bg-[var(--card-bg)] border-[var(--border)] overflow-hidden transition-all duration-200';
 
   const variantClasses = {
-    default: '',
+    default: 'shadow-sm',
     interactive:
-      'transition-colors duration-150 hover:border-[#303055] cursor-pointer',
-    flat: 'bg-[#f4f4f9] border-[#e4e4ed]',
+      'cursor-pointer hover:border-[var(--accent-cyan)]/60 hover:shadow-md hover:-translate-y-0.5',
+    flat: 'bg-[var(--surface-subtle)] border-[var(--border)]',
   }[variant];
 
   return (

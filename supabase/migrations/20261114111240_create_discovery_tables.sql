@@ -92,35 +92,70 @@ CREATE TABLE IF NOT EXISTS licensed_videos (
   created_at timestamp with time zone DEFAULT now()
 );
 
--- RLS policies
--- Public read on discovery_items
-CREATE POLICY "public_read_items" ON discovery_items
-  FOR SELECT USING (true);
+-- ---------------------------------------------------------------------------
+-- RLS and least-privilege Data API access
+-- Admin catalog writes and refresh jobs run through trusted server-side
+-- service-role code; browser roles receive read-only catalog/feed access and
+-- owner-scoped writes to user_interests only.
+-- ---------------------------------------------------------------------------
 
--- Users can manage their own interests
-CREATE POLICY "user_manage_interests" ON user_interests
-  FOR ALL USING (auth.uid() = user_id);
-
--- Admin role can manage categories, topics, sources, and licensed videos
-CREATE POLICY "admin_manage_catalog" ON discovery_categories
-  FOR ALL USING (auth.role() = 'admin');
-CREATE POLICY "admin_manage_topics" ON discovery_topics
-  FOR ALL USING (auth.role() = 'admin');
-CREATE POLICY "admin_manage_sources" ON discovery_sources
-  FOR ALL USING (auth.role() = 'admin');
-CREATE POLICY "admin_manage_licensed_videos" ON licensed_videos
-  FOR ALL USING (auth.role() = 'admin');
-
--- Enable row level security
 ALTER TABLE discovery_items ENABLE ROW LEVEL SECURITY;
 ALTER TABLE discovery_categories ENABLE ROW LEVEL SECURITY;
 ALTER TABLE discovery_topics ENABLE ROW LEVEL SECURITY;
 ALTER TABLE discovery_sources ENABLE ROW LEVEL SECURITY;
 ALTER TABLE user_interests ENABLE ROW LEVEL SECURITY;
 ALTER TABLE licensed_videos ENABLE ROW LEVEL SECURITY;
+ALTER TABLE discovery_refresh_jobs ENABLE ROW LEVEL SECURITY;
+ALTER TABLE discovery_refresh_logs ENABLE ROW LEVEL SECURITY;
 
--- Note: refresh job tables are admin‑only; we keep them unrestricted for internal edge functions.
+-- Remove inherited/default privileges before granting the explicit API surface.
+REVOKE ALL ON TABLE
+  public.discovery_categories,
+  public.discovery_topics,
+  public.discovery_sources,
+  public.discovery_items,
+  public.user_interests,
+  public.discovery_refresh_jobs,
+  public.discovery_refresh_logs,
+  public.licensed_videos
+FROM PUBLIC, anon, authenticated;
 
+-- Publicly readable, enabled discovery catalog and published feed.
+CREATE POLICY "public_read_categories" ON public.discovery_categories
+  FOR SELECT TO anon, authenticated USING (enabled = true);
+
+CREATE POLICY "public_read_topics" ON public.discovery_topics
+  FOR SELECT TO anon, authenticated USING (enabled = true);
+
+CREATE POLICY "public_read_items" ON public.discovery_items
+  FOR SELECT TO anon, authenticated USING (true);
+
+-- Users can manage only their own interest rows.
+CREATE POLICY "user_manage_interests" ON public.user_interests
+  FOR ALL TO authenticated
+  USING ((SELECT auth.uid()) = user_id)
+  WITH CHECK ((SELECT auth.uid()) = user_id);
+
+-- Explicit browser grants match the policies above.
+GRANT SELECT ON TABLE
+  public.discovery_categories,
+  public.discovery_topics,
+  public.discovery_items
+TO anon, authenticated;
+
+GRANT SELECT, INSERT, DELETE ON TABLE public.user_interests TO authenticated;
+
+-- Trusted server-side jobs/admin operations only.
+GRANT ALL ON TABLE
+  public.discovery_categories,
+  public.discovery_topics,
+  public.discovery_sources,
+  public.discovery_items,
+  public.user_interests,
+  public.discovery_refresh_jobs,
+  public.discovery_refresh_logs,
+  public.licensed_videos
+TO service_role;
 
 -- Seed categories (idempotent – will not duplicate on re‑run)
 INSERT INTO discovery_categories (slug, name, description, icon, enabled)

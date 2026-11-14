@@ -1,0 +1,1142 @@
+{
+  "mod-storytelling-w01": {
+    "moduleId": "mod-storytelling-w01",
+    "title": "Week 01 — What is a story? Knowledge Check",
+    "passingScorePercent": 70,
+    "questions": [
+      {
+        "index": 0,
+        "correctAnswerIndex": 1,
+        "explanation": "Plain information informs through isolated facts, whereas a story engages through causality, character desire, conflict, and consequential change."
+      },
+      {
+        "index": 1,
+        "correctAnswerIndex": 1,
+        "explanation": "Stanton emphasizes that the foundational promise to any audience is 'Make me care', inviting their active curiosity."
+      },
+      {
+        "index": 2,
+        "correctAnswerIndex": 1,
+        "explanation": "Audiences derive joy from discovery; compelling storytelling provides 2 + 2, allowing the listener's brain to deduce the answer (4)."
+      },
+      {
+        "index": 3,
+        "correctAnswerIndex": 1,
+        "explanation": "Micro-stories succeed by zooming into a single, concrete moment of change, rather than diluting impact with broad summaries."
+      },
+      {
+        "index": 4,
+        "correctAnswerIndex": 0,
+        "explanation": "A story requires a shift from an initial equilibrium through disturbance to a new equilibrium. Without change, there is no narrative arc."
+      },
+      {
+        "index": 5,
+        "correctAnswerIndex": 1,
+        "explanation": "Bilingual storytelling thrives when emotion and cultural idioms are adapted naturally to the linguistic context rather than translated literally."
+      },
+      {
+        "index": 6,
+        "correctAnswerIndex": 0,
+        "explanation": "Early scenes establish the narrative contract: tone, stakes, and the nature of the obstacles to be faced."
+      },
+      {
+        "index": 7,
+        "correctAnswerIndex": 1,
+        "explanation": "Ravi's situation establishes character, desire, urgency, and consequence—the hallmarks of an active narrative beat."
+      },
+      {
+        "index": 8,
+        "correctAnswerIndex": 1,
+        "explanation": "Scene analysis focuses on dramatic objectives, counter-forces/obstacles, and the resulting change in status or emotion."
+      },
+      {
+        "index": 9,
+        "correctAnswerIndex": 1,
+        "explanation": "Personal memories connect universally when specific, authentic experiences reflect broader truths about vulnerability, desire, and growth."
+      }
+    ]
+  },
+  "mod-storytelling-w02": {
+    "moduleId": "mod-storytelling-w02",
+    "title": "Week 02 — Observation, memory and idea generation Knowledge Check",
+    "passingScorePercent": 70,
+    "questions": [
+      {
+        "index": 0,
+        "correctAnswerIndex": 0,
+        "explanation": "Lesson 1 establishes foundational focus and deliberate creative craftsmanship aligned with Week 02 — Observation, memory and idea generation."
+      },
+      {
+        "index": 1,
+        "correctAnswerIndex": 1,
+        "explanation": "Strong narrative momentum relies on causal necessity ('therefore' and 'but') rather than arbitrary episodic chains ('and then')."
+      },
+      {
+        "index": 2,
+        "correctAnswerIndex": 1,
+        "explanation": "Agency is defined by characters making difficult choices under pressure that directly influence the narrative trajectory."
+      },
+      {
+        "index": 3,
+        "correctAnswerIndex": 1,
+        "explanation": "Subtext enriches storytelling by conveying meaning beneath the surface through behaviour, silence, and indirect dialogue."
+      },
+      {
+        "index": 4,
+        "correctAnswerIndex": 1,
+        "explanation": "Tension builds when successive obstacles escalate stakes and demand greater personal investment and risk from the character."
+      },
+      {
+        "index": 5,
+        "correctAnswerIndex": 0,
+        "explanation": "Heavy exposition halts dramatic momentum. Information should be revealed organically through action and conflict."
+      },
+      {
+        "index": 6,
+        "correctAnswerIndex": 1,
+        "explanation": "Authentic cultural and linguistic textures ground narratives in lived reality while connecting universally through human emotion."
+      },
+      {
+        "index": 7,
+        "correctAnswerIndex": 1,
+        "explanation": "A scene earns its place only if something changes by its conclusion—emotional state, stakes, or character understanding."
+      },
+      {
+        "index": 8,
+        "correctAnswerIndex": 1,
+        "explanation": "Dynamic rhythm requires contrast: moments of high tension must be balanced with reflective beats for emotional processing."
+      },
+      {
+        "index": 9,
+        "correctAnswerIndex": 1,
+        "explanation": "Each week requires completing the designated practical deliverable and evaluating it with the course rubric for clarity and resonance."
+      }
+    ]
+  },
+  "mod-storytelling-w03": {
+    "moduleId": "mod-storytelling-w03",
+    "title": "Week 03 — Story spine, hook and promise Knowledge Check",
+    "passingScorePercent": 70,
+    "questions": [
+      {
+        "index": 0,
+        "correctAnswerIndex": 0,
+        "explanation": "Lesson 1 establishes foundational focus and deliberate creative craftsmanship aligned with Week 03 — Story spine, hook and promise."
+      },
+      {
+        "index": 1,
+        "correctAnswerIndex": 1,
+        "explanation": "Strong narrative momentum relies on causal necessity ('therefore' and 'but') rather than arbitrary episodic chains ('and then')."
+      },
+      {
+        "index": 2,
+        "correctAnswerIndex": 1,
+        "explanation": "Agency is defined by characters making difficult choices under pressure that directly influence the narrative trajectory."
+      },
+      {
+        "index": 3,
+        "correctAnswerIndex": 1,
+        "explanation": "Subtext enriches storytelling by conveying meaning beneath the surface through behaviour, silence, and indirect dialogue."
+      },
+      {
+        "index": 4,
+        "correctAnswerIndex": 1,
+        "explanation": "Tension builds when successive obstacles escalate stakes and demand greater personal investment and risk from the character."
+      },
+      {
+        "index": 5,
+        "correctAnswerIndex": 0,
+        "explanation": "Heavy exposition halts dramatic momentum. Information should be revealed organically through action and conflict."
+      },
+      {
+        "index": 6,
+        "correctAnswerIndex": 1,
+        "explanation": "Authentic cultural and linguistic textures ground narratives in lived reality while connecting universally through human emotion."
+      },
+      {
+        "index": 7,
+        "correctAnswerIndex": 1,
+        "explanation": "A scene earns its place only if something changes by its conclusion—emotional state, stakes, or character understanding."
+      },
+      {
+        "index": 8,
+        "correctAnswerIndex": 1,
+        "explanation": "Dynamic rhythm requires contrast: moments of high tension must be balanced with reflective beats for emotional processing."
+      },
+      {
+        "index": 9,
+        "correctAnswerIndex": 1,
+        "explanation": "Each week requires completing the designated practical deliverable and evaluating it with the course rubric for clarity and resonance."
+      }
+    ]
+  },
+  "mod-storytelling-w04": {
+    "moduleId": "mod-storytelling-w04",
+    "title": "Week 04 — Plot and three-act structure Knowledge Check",
+    "passingScorePercent": 70,
+    "questions": [
+      {
+        "index": 0,
+        "correctAnswerIndex": 0,
+        "explanation": "Lesson 1 establishes foundational focus and deliberate creative craftsmanship aligned with Week 04 — Plot and three-act structure."
+      },
+      {
+        "index": 1,
+        "correctAnswerIndex": 1,
+        "explanation": "Strong narrative momentum relies on causal necessity ('therefore' and 'but') rather than arbitrary episodic chains ('and then')."
+      },
+      {
+        "index": 2,
+        "correctAnswerIndex": 1,
+        "explanation": "Agency is defined by characters making difficult choices under pressure that directly influence the narrative trajectory."
+      },
+      {
+        "index": 3,
+        "correctAnswerIndex": 1,
+        "explanation": "Subtext enriches storytelling by conveying meaning beneath the surface through behaviour, silence, and indirect dialogue."
+      },
+      {
+        "index": 4,
+        "correctAnswerIndex": 1,
+        "explanation": "Tension builds when successive obstacles escalate stakes and demand greater personal investment and risk from the character."
+      },
+      {
+        "index": 5,
+        "correctAnswerIndex": 0,
+        "explanation": "Heavy exposition halts dramatic momentum. Information should be revealed organically through action and conflict."
+      },
+      {
+        "index": 6,
+        "correctAnswerIndex": 1,
+        "explanation": "Authentic cultural and linguistic textures ground narratives in lived reality while connecting universally through human emotion."
+      },
+      {
+        "index": 7,
+        "correctAnswerIndex": 1,
+        "explanation": "A scene earns its place only if something changes by its conclusion—emotional state, stakes, or character understanding."
+      },
+      {
+        "index": 8,
+        "correctAnswerIndex": 1,
+        "explanation": "Dynamic rhythm requires contrast: moments of high tension must be balanced with reflective beats for emotional processing."
+      },
+      {
+        "index": 9,
+        "correctAnswerIndex": 1,
+        "explanation": "Each week requires completing the designated practical deliverable and evaluating it with the course rubric for clarity and resonance."
+      }
+    ]
+  },
+  "mod-storytelling-w05": {
+    "moduleId": "mod-storytelling-w05",
+    "title": "Week 05 — Creating believable characters Knowledge Check",
+    "passingScorePercent": 70,
+    "questions": [
+      {
+        "index": 0,
+        "correctAnswerIndex": 0,
+        "explanation": "Lesson 1 establishes foundational focus and deliberate creative craftsmanship aligned with Week 05 — Creating believable characters."
+      },
+      {
+        "index": 1,
+        "correctAnswerIndex": 1,
+        "explanation": "Strong narrative momentum relies on causal necessity ('therefore' and 'but') rather than arbitrary episodic chains ('and then')."
+      },
+      {
+        "index": 2,
+        "correctAnswerIndex": 1,
+        "explanation": "Agency is defined by characters making difficult choices under pressure that directly influence the narrative trajectory."
+      },
+      {
+        "index": 3,
+        "correctAnswerIndex": 1,
+        "explanation": "Subtext enriches storytelling by conveying meaning beneath the surface through behaviour, silence, and indirect dialogue."
+      },
+      {
+        "index": 4,
+        "correctAnswerIndex": 1,
+        "explanation": "Tension builds when successive obstacles escalate stakes and demand greater personal investment and risk from the character."
+      },
+      {
+        "index": 5,
+        "correctAnswerIndex": 0,
+        "explanation": "Heavy exposition halts dramatic momentum. Information should be revealed organically through action and conflict."
+      },
+      {
+        "index": 6,
+        "correctAnswerIndex": 1,
+        "explanation": "Authentic cultural and linguistic textures ground narratives in lived reality while connecting universally through human emotion."
+      },
+      {
+        "index": 7,
+        "correctAnswerIndex": 1,
+        "explanation": "A scene earns its place only if something changes by its conclusion—emotional state, stakes, or character understanding."
+      },
+      {
+        "index": 8,
+        "correctAnswerIndex": 1,
+        "explanation": "Dynamic rhythm requires contrast: moments of high tension must be balanced with reflective beats for emotional processing."
+      },
+      {
+        "index": 9,
+        "correctAnswerIndex": 1,
+        "explanation": "Each week requires completing the designated practical deliverable and evaluating it with the course rubric for clarity and resonance."
+      }
+    ]
+  },
+  "mod-storytelling-w06": {
+    "moduleId": "mod-storytelling-w06",
+    "title": "Week 06 — Goals, needs, obstacles, stakes and arcs Knowledge Check",
+    "passingScorePercent": 70,
+    "questions": [
+      {
+        "index": 0,
+        "correctAnswerIndex": 0,
+        "explanation": "Lesson 1 establishes foundational focus and deliberate creative craftsmanship aligned with Week 06 — Goals, needs, obstacles, stakes and arcs."
+      },
+      {
+        "index": 1,
+        "correctAnswerIndex": 1,
+        "explanation": "Strong narrative momentum relies on causal necessity ('therefore' and 'but') rather than arbitrary episodic chains ('and then')."
+      },
+      {
+        "index": 2,
+        "correctAnswerIndex": 1,
+        "explanation": "Agency is defined by characters making difficult choices under pressure that directly influence the narrative trajectory."
+      },
+      {
+        "index": 3,
+        "correctAnswerIndex": 1,
+        "explanation": "Subtext enriches storytelling by conveying meaning beneath the surface through behaviour, silence, and indirect dialogue."
+      },
+      {
+        "index": 4,
+        "correctAnswerIndex": 1,
+        "explanation": "Tension builds when successive obstacles escalate stakes and demand greater personal investment and risk from the character."
+      },
+      {
+        "index": 5,
+        "correctAnswerIndex": 0,
+        "explanation": "Heavy exposition halts dramatic momentum. Information should be revealed organically through action and conflict."
+      },
+      {
+        "index": 6,
+        "correctAnswerIndex": 1,
+        "explanation": "Authentic cultural and linguistic textures ground narratives in lived reality while connecting universally through human emotion."
+      },
+      {
+        "index": 7,
+        "correctAnswerIndex": 1,
+        "explanation": "A scene earns its place only if something changes by its conclusion—emotional state, stakes, or character understanding."
+      },
+      {
+        "index": 8,
+        "correctAnswerIndex": 1,
+        "explanation": "Dynamic rhythm requires contrast: moments of high tension must be balanced with reflective beats for emotional processing."
+      },
+      {
+        "index": 9,
+        "correctAnswerIndex": 1,
+        "explanation": "Each week requires completing the designated practical deliverable and evaluating it with the course rubric for clarity and resonance."
+      }
+    ]
+  },
+  "mod-storytelling-w07": {
+    "moduleId": "mod-storytelling-w07",
+    "title": "Week 07 — Point of view, narration and dialogue Knowledge Check",
+    "passingScorePercent": 70,
+    "questions": [
+      {
+        "index": 0,
+        "correctAnswerIndex": 0,
+        "explanation": "Lesson 1 establishes foundational focus and deliberate creative craftsmanship aligned with Week 07 — Point of view, narration and dialogue."
+      },
+      {
+        "index": 1,
+        "correctAnswerIndex": 1,
+        "explanation": "Strong narrative momentum relies on causal necessity ('therefore' and 'but') rather than arbitrary episodic chains ('and then')."
+      },
+      {
+        "index": 2,
+        "correctAnswerIndex": 1,
+        "explanation": "Agency is defined by characters making difficult choices under pressure that directly influence the narrative trajectory."
+      },
+      {
+        "index": 3,
+        "correctAnswerIndex": 1,
+        "explanation": "Subtext enriches storytelling by conveying meaning beneath the surface through behaviour, silence, and indirect dialogue."
+      },
+      {
+        "index": 4,
+        "correctAnswerIndex": 1,
+        "explanation": "Tension builds when successive obstacles escalate stakes and demand greater personal investment and risk from the character."
+      },
+      {
+        "index": 5,
+        "correctAnswerIndex": 0,
+        "explanation": "Heavy exposition halts dramatic momentum. Information should be revealed organically through action and conflict."
+      },
+      {
+        "index": 6,
+        "correctAnswerIndex": 1,
+        "explanation": "Authentic cultural and linguistic textures ground narratives in lived reality while connecting universally through human emotion."
+      },
+      {
+        "index": 7,
+        "correctAnswerIndex": 1,
+        "explanation": "A scene earns its place only if something changes by its conclusion—emotional state, stakes, or character understanding."
+      },
+      {
+        "index": 8,
+        "correctAnswerIndex": 1,
+        "explanation": "Dynamic rhythm requires contrast: moments of high tension must be balanced with reflective beats for emotional processing."
+      },
+      {
+        "index": 9,
+        "correctAnswerIndex": 1,
+        "explanation": "Each week requires completing the designated practical deliverable and evaluating it with the course rubric for clarity and resonance."
+      }
+    ]
+  },
+  "mod-storytelling-w08": {
+    "moduleId": "mod-storytelling-w08",
+    "title": "Week 08 — Setting, worldbuilding and genre Knowledge Check",
+    "passingScorePercent": 70,
+    "questions": [
+      {
+        "index": 0,
+        "correctAnswerIndex": 0,
+        "explanation": "Lesson 1 establishes foundational focus and deliberate creative craftsmanship aligned with Week 08 — Setting, worldbuilding and genre."
+      },
+      {
+        "index": 1,
+        "correctAnswerIndex": 1,
+        "explanation": "Strong narrative momentum relies on causal necessity ('therefore' and 'but') rather than arbitrary episodic chains ('and then')."
+      },
+      {
+        "index": 2,
+        "correctAnswerIndex": 1,
+        "explanation": "Agency is defined by characters making difficult choices under pressure that directly influence the narrative trajectory."
+      },
+      {
+        "index": 3,
+        "correctAnswerIndex": 1,
+        "explanation": "Subtext enriches storytelling by conveying meaning beneath the surface through behaviour, silence, and indirect dialogue."
+      },
+      {
+        "index": 4,
+        "correctAnswerIndex": 1,
+        "explanation": "Tension builds when successive obstacles escalate stakes and demand greater personal investment and risk from the character."
+      },
+      {
+        "index": 5,
+        "correctAnswerIndex": 0,
+        "explanation": "Heavy exposition halts dramatic momentum. Information should be revealed organically through action and conflict."
+      },
+      {
+        "index": 6,
+        "correctAnswerIndex": 1,
+        "explanation": "Authentic cultural and linguistic textures ground narratives in lived reality while connecting universally through human emotion."
+      },
+      {
+        "index": 7,
+        "correctAnswerIndex": 1,
+        "explanation": "A scene earns its place only if something changes by its conclusion—emotional state, stakes, or character understanding."
+      },
+      {
+        "index": 8,
+        "correctAnswerIndex": 1,
+        "explanation": "Dynamic rhythm requires contrast: moments of high tension must be balanced with reflective beats for emotional processing."
+      },
+      {
+        "index": 9,
+        "correctAnswerIndex": 1,
+        "explanation": "Each week requires completing the designated practical deliverable and evaluating it with the course rubric for clarity and resonance."
+      }
+    ]
+  },
+  "mod-storytelling-w09": {
+    "moduleId": "mod-storytelling-w09",
+    "title": "Week 09 — Conflict, tension and suspense Knowledge Check",
+    "passingScorePercent": 70,
+    "questions": [
+      {
+        "index": 0,
+        "correctAnswerIndex": 0,
+        "explanation": "Lesson 1 establishes foundational focus and deliberate creative craftsmanship aligned with Week 09 — Conflict, tension and suspense."
+      },
+      {
+        "index": 1,
+        "correctAnswerIndex": 1,
+        "explanation": "Strong narrative momentum relies on causal necessity ('therefore' and 'but') rather than arbitrary episodic chains ('and then')."
+      },
+      {
+        "index": 2,
+        "correctAnswerIndex": 1,
+        "explanation": "Agency is defined by characters making difficult choices under pressure that directly influence the narrative trajectory."
+      },
+      {
+        "index": 3,
+        "correctAnswerIndex": 1,
+        "explanation": "Subtext enriches storytelling by conveying meaning beneath the surface through behaviour, silence, and indirect dialogue."
+      },
+      {
+        "index": 4,
+        "correctAnswerIndex": 1,
+        "explanation": "Tension builds when successive obstacles escalate stakes and demand greater personal investment and risk from the character."
+      },
+      {
+        "index": 5,
+        "correctAnswerIndex": 0,
+        "explanation": "Heavy exposition halts dramatic momentum. Information should be revealed organically through action and conflict."
+      },
+      {
+        "index": 6,
+        "correctAnswerIndex": 1,
+        "explanation": "Authentic cultural and linguistic textures ground narratives in lived reality while connecting universally through human emotion."
+      },
+      {
+        "index": 7,
+        "correctAnswerIndex": 1,
+        "explanation": "A scene earns its place only if something changes by its conclusion—emotional state, stakes, or character understanding."
+      },
+      {
+        "index": 8,
+        "correctAnswerIndex": 1,
+        "explanation": "Dynamic rhythm requires contrast: moments of high tension must be balanced with reflective beats for emotional processing."
+      },
+      {
+        "index": 9,
+        "correctAnswerIndex": 1,
+        "explanation": "Each week requires completing the designated practical deliverable and evaluating it with the course rubric for clarity and resonance."
+      }
+    ]
+  },
+  "mod-storytelling-w10": {
+    "moduleId": "mod-storytelling-w10",
+    "title": "Week 10 — Emotion, pacing and audience engagement Knowledge Check",
+    "passingScorePercent": 70,
+    "questions": [
+      {
+        "index": 0,
+        "correctAnswerIndex": 0,
+        "explanation": "Lesson 1 establishes foundational focus and deliberate creative craftsmanship aligned with Week 10 — Emotion, pacing and audience engagement."
+      },
+      {
+        "index": 1,
+        "correctAnswerIndex": 1,
+        "explanation": "Strong narrative momentum relies on causal necessity ('therefore' and 'but') rather than arbitrary episodic chains ('and then')."
+      },
+      {
+        "index": 2,
+        "correctAnswerIndex": 1,
+        "explanation": "Agency is defined by characters making difficult choices under pressure that directly influence the narrative trajectory."
+      },
+      {
+        "index": 3,
+        "correctAnswerIndex": 1,
+        "explanation": "Subtext enriches storytelling by conveying meaning beneath the surface through behaviour, silence, and indirect dialogue."
+      },
+      {
+        "index": 4,
+        "correctAnswerIndex": 1,
+        "explanation": "Tension builds when successive obstacles escalate stakes and demand greater personal investment and risk from the character."
+      },
+      {
+        "index": 5,
+        "correctAnswerIndex": 0,
+        "explanation": "Heavy exposition halts dramatic momentum. Information should be revealed organically through action and conflict."
+      },
+      {
+        "index": 6,
+        "correctAnswerIndex": 1,
+        "explanation": "Authentic cultural and linguistic textures ground narratives in lived reality while connecting universally through human emotion."
+      },
+      {
+        "index": 7,
+        "correctAnswerIndex": 1,
+        "explanation": "A scene earns its place only if something changes by its conclusion—emotional state, stakes, or character understanding."
+      },
+      {
+        "index": 8,
+        "correctAnswerIndex": 1,
+        "explanation": "Dynamic rhythm requires contrast: moments of high tension must be balanced with reflective beats for emotional processing."
+      },
+      {
+        "index": 9,
+        "correctAnswerIndex": 1,
+        "explanation": "Each week requires completing the designated practical deliverable and evaluating it with the course rubric for clarity and resonance."
+      }
+    ]
+  },
+  "mod-storytelling-w11": {
+    "moduleId": "mod-storytelling-w11",
+    "title": "Week 11 — Theme, symbolism, metaphor and subtext Knowledge Check",
+    "passingScorePercent": 70,
+    "questions": [
+      {
+        "index": 0,
+        "correctAnswerIndex": 0,
+        "explanation": "Lesson 1 establishes foundational focus and deliberate creative craftsmanship aligned with Week 11 — Theme, symbolism, metaphor and subtext."
+      },
+      {
+        "index": 1,
+        "correctAnswerIndex": 1,
+        "explanation": "Strong narrative momentum relies on causal necessity ('therefore' and 'but') rather than arbitrary episodic chains ('and then')."
+      },
+      {
+        "index": 2,
+        "correctAnswerIndex": 1,
+        "explanation": "Agency is defined by characters making difficult choices under pressure that directly influence the narrative trajectory."
+      },
+      {
+        "index": 3,
+        "correctAnswerIndex": 1,
+        "explanation": "Subtext enriches storytelling by conveying meaning beneath the surface through behaviour, silence, and indirect dialogue."
+      },
+      {
+        "index": 4,
+        "correctAnswerIndex": 1,
+        "explanation": "Tension builds when successive obstacles escalate stakes and demand greater personal investment and risk from the character."
+      },
+      {
+        "index": 5,
+        "correctAnswerIndex": 0,
+        "explanation": "Heavy exposition halts dramatic momentum. Information should be revealed organically through action and conflict."
+      },
+      {
+        "index": 6,
+        "correctAnswerIndex": 1,
+        "explanation": "Authentic cultural and linguistic textures ground narratives in lived reality while connecting universally through human emotion."
+      },
+      {
+        "index": 7,
+        "correctAnswerIndex": 1,
+        "explanation": "A scene earns its place only if something changes by its conclusion—emotional state, stakes, or character understanding."
+      },
+      {
+        "index": 8,
+        "correctAnswerIndex": 1,
+        "explanation": "Dynamic rhythm requires contrast: moments of high tension must be balanced with reflective beats for emotional processing."
+      },
+      {
+        "index": 9,
+        "correctAnswerIndex": 1,
+        "explanation": "Each week requires completing the designated practical deliverable and evaluating it with the course rubric for clarity and resonance."
+      }
+    ]
+  },
+  "mod-storytelling-w12": {
+    "moduleId": "mod-storytelling-w12",
+    "title": "Week 12 — Foreshadowing, twists and multiple timelines Knowledge Check",
+    "passingScorePercent": 70,
+    "questions": [
+      {
+        "index": 0,
+        "correctAnswerIndex": 0,
+        "explanation": "Lesson 1 establishes foundational focus and deliberate creative craftsmanship aligned with Week 12 — Foreshadowing, twists and multiple timelines."
+      },
+      {
+        "index": 1,
+        "correctAnswerIndex": 1,
+        "explanation": "Strong narrative momentum relies on causal necessity ('therefore' and 'but') rather than arbitrary episodic chains ('and then')."
+      },
+      {
+        "index": 2,
+        "correctAnswerIndex": 1,
+        "explanation": "Agency is defined by characters making difficult choices under pressure that directly influence the narrative trajectory."
+      },
+      {
+        "index": 3,
+        "correctAnswerIndex": 1,
+        "explanation": "Subtext enriches storytelling by conveying meaning beneath the surface through behaviour, silence, and indirect dialogue."
+      },
+      {
+        "index": 4,
+        "correctAnswerIndex": 1,
+        "explanation": "Tension builds when successive obstacles escalate stakes and demand greater personal investment and risk from the character."
+      },
+      {
+        "index": 5,
+        "correctAnswerIndex": 0,
+        "explanation": "Heavy exposition halts dramatic momentum. Information should be revealed organically through action and conflict."
+      },
+      {
+        "index": 6,
+        "correctAnswerIndex": 1,
+        "explanation": "Authentic cultural and linguistic textures ground narratives in lived reality while connecting universally through human emotion."
+      },
+      {
+        "index": 7,
+        "correctAnswerIndex": 1,
+        "explanation": "A scene earns its place only if something changes by its conclusion—emotional state, stakes, or character understanding."
+      },
+      {
+        "index": 8,
+        "correctAnswerIndex": 1,
+        "explanation": "Dynamic rhythm requires contrast: moments of high tension must be balanced with reflective beats for emotional processing."
+      },
+      {
+        "index": 9,
+        "correctAnswerIndex": 1,
+        "explanation": "Each week requires completing the designated practical deliverable and evaluating it with the course rubric for clarity and resonance."
+      }
+    ]
+  },
+  "mod-storytelling-w13": {
+    "moduleId": "mod-storytelling-w13",
+    "title": "Week 13 — Personal and true storytelling Knowledge Check",
+    "passingScorePercent": 70,
+    "questions": [
+      {
+        "index": 0,
+        "correctAnswerIndex": 0,
+        "explanation": "Lesson 1 establishes foundational focus and deliberate creative craftsmanship aligned with Week 13 — Personal and true storytelling."
+      },
+      {
+        "index": 1,
+        "correctAnswerIndex": 1,
+        "explanation": "Strong narrative momentum relies on causal necessity ('therefore' and 'but') rather than arbitrary episodic chains ('and then')."
+      },
+      {
+        "index": 2,
+        "correctAnswerIndex": 1,
+        "explanation": "Agency is defined by characters making difficult choices under pressure that directly influence the narrative trajectory."
+      },
+      {
+        "index": 3,
+        "correctAnswerIndex": 1,
+        "explanation": "Subtext enriches storytelling by conveying meaning beneath the surface through behaviour, silence, and indirect dialogue."
+      },
+      {
+        "index": 4,
+        "correctAnswerIndex": 1,
+        "explanation": "Tension builds when successive obstacles escalate stakes and demand greater personal investment and risk from the character."
+      },
+      {
+        "index": 5,
+        "correctAnswerIndex": 0,
+        "explanation": "Heavy exposition halts dramatic momentum. Information should be revealed organically through action and conflict."
+      },
+      {
+        "index": 6,
+        "correctAnswerIndex": 1,
+        "explanation": "Authentic cultural and linguistic textures ground narratives in lived reality while connecting universally through human emotion."
+      },
+      {
+        "index": 7,
+        "correctAnswerIndex": 1,
+        "explanation": "A scene earns its place only if something changes by its conclusion—emotional state, stakes, or character understanding."
+      },
+      {
+        "index": 8,
+        "correctAnswerIndex": 1,
+        "explanation": "Dynamic rhythm requires contrast: moments of high tension must be balanced with reflective beats for emotional processing."
+      },
+      {
+        "index": 9,
+        "correctAnswerIndex": 1,
+        "explanation": "Each week requires completing the designated practical deliverable and evaluating it with the course rubric for clarity and resonance."
+      }
+    ]
+  },
+  "mod-storytelling-w14": {
+    "moduleId": "mod-storytelling-w14",
+    "title": "Week 14 — Oral storytelling and delivery Knowledge Check",
+    "passingScorePercent": 70,
+    "questions": [
+      {
+        "index": 0,
+        "correctAnswerIndex": 0,
+        "explanation": "Lesson 1 establishes foundational focus and deliberate creative craftsmanship aligned with Week 14 — Oral storytelling and delivery."
+      },
+      {
+        "index": 1,
+        "correctAnswerIndex": 1,
+        "explanation": "Strong narrative momentum relies on causal necessity ('therefore' and 'but') rather than arbitrary episodic chains ('and then')."
+      },
+      {
+        "index": 2,
+        "correctAnswerIndex": 1,
+        "explanation": "Agency is defined by characters making difficult choices under pressure that directly influence the narrative trajectory."
+      },
+      {
+        "index": 3,
+        "correctAnswerIndex": 1,
+        "explanation": "Subtext enriches storytelling by conveying meaning beneath the surface through behaviour, silence, and indirect dialogue."
+      },
+      {
+        "index": 4,
+        "correctAnswerIndex": 1,
+        "explanation": "Tension builds when successive obstacles escalate stakes and demand greater personal investment and risk from the character."
+      },
+      {
+        "index": 5,
+        "correctAnswerIndex": 0,
+        "explanation": "Heavy exposition halts dramatic momentum. Information should be revealed organically through action and conflict."
+      },
+      {
+        "index": 6,
+        "correctAnswerIndex": 1,
+        "explanation": "Authentic cultural and linguistic textures ground narratives in lived reality while connecting universally through human emotion."
+      },
+      {
+        "index": 7,
+        "correctAnswerIndex": 1,
+        "explanation": "A scene earns its place only if something changes by its conclusion—emotional state, stakes, or character understanding."
+      },
+      {
+        "index": 8,
+        "correctAnswerIndex": 1,
+        "explanation": "Dynamic rhythm requires contrast: moments of high tension must be balanced with reflective beats for emotional processing."
+      },
+      {
+        "index": 9,
+        "correctAnswerIndex": 1,
+        "explanation": "Each week requires completing the designated practical deliverable and evaluating it with the course rubric for clarity and resonance."
+      }
+    ]
+  },
+  "mod-storytelling-w15": {
+    "moduleId": "mod-storytelling-w15",
+    "title": "Week 15 — Visual and video storytelling Knowledge Check",
+    "passingScorePercent": 70,
+    "questions": [
+      {
+        "index": 0,
+        "correctAnswerIndex": 0,
+        "explanation": "Lesson 1 establishes foundational focus and deliberate creative craftsmanship aligned with Week 15 — Visual and video storytelling."
+      },
+      {
+        "index": 1,
+        "correctAnswerIndex": 1,
+        "explanation": "Strong narrative momentum relies on causal necessity ('therefore' and 'but') rather than arbitrary episodic chains ('and then')."
+      },
+      {
+        "index": 2,
+        "correctAnswerIndex": 1,
+        "explanation": "Agency is defined by characters making difficult choices under pressure that directly influence the narrative trajectory."
+      },
+      {
+        "index": 3,
+        "correctAnswerIndex": 1,
+        "explanation": "Subtext enriches storytelling by conveying meaning beneath the surface through behaviour, silence, and indirect dialogue."
+      },
+      {
+        "index": 4,
+        "correctAnswerIndex": 1,
+        "explanation": "Tension builds when successive obstacles escalate stakes and demand greater personal investment and risk from the character."
+      },
+      {
+        "index": 5,
+        "correctAnswerIndex": 0,
+        "explanation": "Heavy exposition halts dramatic momentum. Information should be revealed organically through action and conflict."
+      },
+      {
+        "index": 6,
+        "correctAnswerIndex": 1,
+        "explanation": "Authentic cultural and linguistic textures ground narratives in lived reality while connecting universally through human emotion."
+      },
+      {
+        "index": 7,
+        "correctAnswerIndex": 1,
+        "explanation": "A scene earns its place only if something changes by its conclusion—emotional state, stakes, or character understanding."
+      },
+      {
+        "index": 8,
+        "correctAnswerIndex": 1,
+        "explanation": "Dynamic rhythm requires contrast: moments of high tension must be balanced with reflective beats for emotional processing."
+      },
+      {
+        "index": 9,
+        "correctAnswerIndex": 1,
+        "explanation": "Each week requires completing the designated practical deliverable and evaluating it with the course rubric for clarity and resonance."
+      }
+    ]
+  },
+  "mod-storytelling-w16": {
+    "moduleId": "mod-storytelling-w16",
+    "title": "Week 16 — Explanatory, business and persuasive storytelling Knowledge Check",
+    "passingScorePercent": 70,
+    "questions": [
+      {
+        "index": 0,
+        "correctAnswerIndex": 0,
+        "explanation": "Lesson 1 establishes foundational focus and deliberate creative craftsmanship aligned with Week 16 — Explanatory, business and persuasive storytelling."
+      },
+      {
+        "index": 1,
+        "correctAnswerIndex": 1,
+        "explanation": "Strong narrative momentum relies on causal necessity ('therefore' and 'but') rather than arbitrary episodic chains ('and then')."
+      },
+      {
+        "index": 2,
+        "correctAnswerIndex": 1,
+        "explanation": "Agency is defined by characters making difficult choices under pressure that directly influence the narrative trajectory."
+      },
+      {
+        "index": 3,
+        "correctAnswerIndex": 1,
+        "explanation": "Subtext enriches storytelling by conveying meaning beneath the surface through behaviour, silence, and indirect dialogue."
+      },
+      {
+        "index": 4,
+        "correctAnswerIndex": 1,
+        "explanation": "Tension builds when successive obstacles escalate stakes and demand greater personal investment and risk from the character."
+      },
+      {
+        "index": 5,
+        "correctAnswerIndex": 0,
+        "explanation": "Heavy exposition halts dramatic momentum. Information should be revealed organically through action and conflict."
+      },
+      {
+        "index": 6,
+        "correctAnswerIndex": 1,
+        "explanation": "Authentic cultural and linguistic textures ground narratives in lived reality while connecting universally through human emotion."
+      },
+      {
+        "index": 7,
+        "correctAnswerIndex": 1,
+        "explanation": "A scene earns its place only if something changes by its conclusion—emotional state, stakes, or character understanding."
+      },
+      {
+        "index": 8,
+        "correctAnswerIndex": 1,
+        "explanation": "Dynamic rhythm requires contrast: moments of high tension must be balanced with reflective beats for emotional processing."
+      },
+      {
+        "index": 9,
+        "correctAnswerIndex": 1,
+        "explanation": "Each week requires completing the designated practical deliverable and evaluating it with the course rubric for clarity and resonance."
+      }
+    ]
+  },
+  "mod-storytelling-w17": {
+    "moduleId": "mod-storytelling-w17",
+    "title": "Week 17 — Nonlinear narratives and multiple perspectives Knowledge Check",
+    "passingScorePercent": 70,
+    "questions": [
+      {
+        "index": 0,
+        "correctAnswerIndex": 0,
+        "explanation": "Lesson 1 establishes foundational focus and deliberate creative craftsmanship aligned with Week 17 — Nonlinear narratives and multiple perspectives."
+      },
+      {
+        "index": 1,
+        "correctAnswerIndex": 1,
+        "explanation": "Strong narrative momentum relies on causal necessity ('therefore' and 'but') rather than arbitrary episodic chains ('and then')."
+      },
+      {
+        "index": 2,
+        "correctAnswerIndex": 1,
+        "explanation": "Agency is defined by characters making difficult choices under pressure that directly influence the narrative trajectory."
+      },
+      {
+        "index": 3,
+        "correctAnswerIndex": 1,
+        "explanation": "Subtext enriches storytelling by conveying meaning beneath the surface through behaviour, silence, and indirect dialogue."
+      },
+      {
+        "index": 4,
+        "correctAnswerIndex": 1,
+        "explanation": "Tension builds when successive obstacles escalate stakes and demand greater personal investment and risk from the character."
+      },
+      {
+        "index": 5,
+        "correctAnswerIndex": 0,
+        "explanation": "Heavy exposition halts dramatic momentum. Information should be revealed organically through action and conflict."
+      },
+      {
+        "index": 6,
+        "correctAnswerIndex": 1,
+        "explanation": "Authentic cultural and linguistic textures ground narratives in lived reality while connecting universally through human emotion."
+      },
+      {
+        "index": 7,
+        "correctAnswerIndex": 1,
+        "explanation": "A scene earns its place only if something changes by its conclusion—emotional state, stakes, or character understanding."
+      },
+      {
+        "index": 8,
+        "correctAnswerIndex": 1,
+        "explanation": "Dynamic rhythm requires contrast: moments of high tension must be balanced with reflective beats for emotional processing."
+      },
+      {
+        "index": 9,
+        "correctAnswerIndex": 1,
+        "explanation": "Each week requires completing the designated practical deliverable and evaluating it with the course rubric for clarity and resonance."
+      }
+    ]
+  },
+  "mod-storytelling-w18": {
+    "moduleId": "mod-storytelling-w18",
+    "title": "Week 18 — Narrative psychology, culture and ethical storytelling Knowledge Check",
+    "passingScorePercent": 70,
+    "questions": [
+      {
+        "index": 0,
+        "correctAnswerIndex": 0,
+        "explanation": "Lesson 1 establishes foundational focus and deliberate creative craftsmanship aligned with Week 18 — Narrative psychology, culture and ethical storytelling."
+      },
+      {
+        "index": 1,
+        "correctAnswerIndex": 1,
+        "explanation": "Strong narrative momentum relies on causal necessity ('therefore' and 'but') rather than arbitrary episodic chains ('and then')."
+      },
+      {
+        "index": 2,
+        "correctAnswerIndex": 1,
+        "explanation": "Agency is defined by characters making difficult choices under pressure that directly influence the narrative trajectory."
+      },
+      {
+        "index": 3,
+        "correctAnswerIndex": 1,
+        "explanation": "Subtext enriches storytelling by conveying meaning beneath the surface through behaviour, silence, and indirect dialogue."
+      },
+      {
+        "index": 4,
+        "correctAnswerIndex": 1,
+        "explanation": "Tension builds when successive obstacles escalate stakes and demand greater personal investment and risk from the character."
+      },
+      {
+        "index": 5,
+        "correctAnswerIndex": 0,
+        "explanation": "Heavy exposition halts dramatic momentum. Information should be revealed organically through action and conflict."
+      },
+      {
+        "index": 6,
+        "correctAnswerIndex": 1,
+        "explanation": "Authentic cultural and linguistic textures ground narratives in lived reality while connecting universally through human emotion."
+      },
+      {
+        "index": 7,
+        "correctAnswerIndex": 1,
+        "explanation": "A scene earns its place only if something changes by its conclusion—emotional state, stakes, or character understanding."
+      },
+      {
+        "index": 8,
+        "correctAnswerIndex": 1,
+        "explanation": "Dynamic rhythm requires contrast: moments of high tension must be balanced with reflective beats for emotional processing."
+      },
+      {
+        "index": 9,
+        "correctAnswerIndex": 1,
+        "explanation": "Each week requires completing the designated practical deliverable and evaluating it with the course rubric for clarity and resonance."
+      }
+    ]
+  },
+  "mod-storytelling-w19": {
+    "moduleId": "mod-storytelling-w19",
+    "title": "Week 19 — Revision, adaptation and professional craft Knowledge Check",
+    "passingScorePercent": 70,
+    "questions": [
+      {
+        "index": 0,
+        "correctAnswerIndex": 0,
+        "explanation": "Lesson 1 establishes foundational focus and deliberate creative craftsmanship aligned with Week 19 — Revision, adaptation and professional craft."
+      },
+      {
+        "index": 1,
+        "correctAnswerIndex": 1,
+        "explanation": "Strong narrative momentum relies on causal necessity ('therefore' and 'but') rather than arbitrary episodic chains ('and then')."
+      },
+      {
+        "index": 2,
+        "correctAnswerIndex": 1,
+        "explanation": "Agency is defined by characters making difficult choices under pressure that directly influence the narrative trajectory."
+      },
+      {
+        "index": 3,
+        "correctAnswerIndex": 1,
+        "explanation": "Subtext enriches storytelling by conveying meaning beneath the surface through behaviour, silence, and indirect dialogue."
+      },
+      {
+        "index": 4,
+        "correctAnswerIndex": 1,
+        "explanation": "Tension builds when successive obstacles escalate stakes and demand greater personal investment and risk from the character."
+      },
+      {
+        "index": 5,
+        "correctAnswerIndex": 0,
+        "explanation": "Heavy exposition halts dramatic momentum. Information should be revealed organically through action and conflict."
+      },
+      {
+        "index": 6,
+        "correctAnswerIndex": 1,
+        "explanation": "Authentic cultural and linguistic textures ground narratives in lived reality while connecting universally through human emotion."
+      },
+      {
+        "index": 7,
+        "correctAnswerIndex": 1,
+        "explanation": "A scene earns its place only if something changes by its conclusion—emotional state, stakes, or character understanding."
+      },
+      {
+        "index": 8,
+        "correctAnswerIndex": 1,
+        "explanation": "Dynamic rhythm requires contrast: moments of high tension must be balanced with reflective beats for emotional processing."
+      },
+      {
+        "index": 9,
+        "correctAnswerIndex": 1,
+        "explanation": "Each week requires completing the designated practical deliverable and evaluating it with the course rubric for clarity and resonance."
+      }
+    ]
+  },
+  "mod-storytelling-w20": {
+    "moduleId": "mod-storytelling-w20",
+    "title": "Week 20 — Capstone, portfolio and final assessment Knowledge Check",
+    "passingScorePercent": 70,
+    "questions": [
+      {
+        "index": 0,
+        "correctAnswerIndex": 0,
+        "explanation": "Lesson 1 establishes foundational focus and deliberate creative craftsmanship aligned with Week 20 — Capstone, portfolio and final assessment."
+      },
+      {
+        "index": 1,
+        "correctAnswerIndex": 1,
+        "explanation": "Strong narrative momentum relies on causal necessity ('therefore' and 'but') rather than arbitrary episodic chains ('and then')."
+      },
+      {
+        "index": 2,
+        "correctAnswerIndex": 1,
+        "explanation": "Agency is defined by characters making difficult choices under pressure that directly influence the narrative trajectory."
+      },
+      {
+        "index": 3,
+        "correctAnswerIndex": 1,
+        "explanation": "Subtext enriches storytelling by conveying meaning beneath the surface through behaviour, silence, and indirect dialogue."
+      },
+      {
+        "index": 4,
+        "correctAnswerIndex": 1,
+        "explanation": "Tension builds when successive obstacles escalate stakes and demand greater personal investment and risk from the character."
+      },
+      {
+        "index": 5,
+        "correctAnswerIndex": 0,
+        "explanation": "Heavy exposition halts dramatic momentum. Information should be revealed organically through action and conflict."
+      },
+      {
+        "index": 6,
+        "correctAnswerIndex": 1,
+        "explanation": "Authentic cultural and linguistic textures ground narratives in lived reality while connecting universally through human emotion."
+      },
+      {
+        "index": 7,
+        "correctAnswerIndex": 1,
+        "explanation": "A scene earns its place only if something changes by its conclusion—emotional state, stakes, or character understanding."
+      },
+      {
+        "index": 8,
+        "correctAnswerIndex": 1,
+        "explanation": "Dynamic rhythm requires contrast: moments of high tension must be balanced with reflective beats for emotional processing."
+      },
+      {
+        "index": 9,
+        "correctAnswerIndex": 1,
+        "explanation": "Each week requires completing the designated practical deliverable and evaluating it with the course rubric for clarity and resonance."
+      }
+    ]
+  }
+}
