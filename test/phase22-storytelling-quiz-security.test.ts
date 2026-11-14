@@ -25,7 +25,7 @@ import {
 test('1. Migration SQL security & RLS policies for user_quiz_attempts', () => {
   const correctiveMigrationPath = path.join(
     process.cwd(),
-    'supabase/migrations/20261114010000_secure_user_quiz_attempts_rls.sql'
+    'supabase/migrations/20261114110903_secure_user_quiz_attempts_rls.sql'
   );
   assert.ok(fs.existsSync(correctiveMigrationPath), 'Corrective migration must exist');
 
