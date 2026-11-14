@@ -1,5 +1,12 @@
 'use client';
 
+function generateIdempotencyKey(): string {
+  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+    return crypto.randomUUID();
+  }
+  return `quiz-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
+}
+
 import React, { useState, useEffect } from 'react';
 import { LessonQuiz, QuizAttempt } from '../../types/course';
 import {
@@ -46,9 +53,7 @@ export const ModuleQuizView: React.FC<ModuleQuizViewProps> = ({
     type: 'prerequisite' | 'service_unavailable' | 'server_error' | 'network_error';
     message: string;
   } | null>(null);
-  const [currentIdempotencyKey, setCurrentIdempotencyKey] = useState<string>(() => {
-    return `quiz-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
-  });
+  const [currentIdempotencyKey, setCurrentIdempotencyKey] = useState<string>(() => generateIdempotencyKey());
 
   const passingScorePercent = quiz.passingScorePercent || 70;
 
@@ -56,7 +61,7 @@ export const ModuleQuizView: React.FC<ModuleQuizViewProps> = ({
   useEffect(() => {
     // A reused quiz component must not carry an idempotency key into another
     // course/module. Retries within this module retain the same key.
-    setCurrentIdempotencyKey(`quiz-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`);
+    setCurrentIdempotencyKey(generateIdempotencyKey());
 
     const progress = cloudCourseProgressService.getProgress(courseId);
     const existingAttempts = progress.quizAttempts?.[moduleId] || [];
@@ -213,8 +218,8 @@ export const ModuleQuizView: React.FC<ModuleQuizViewProps> = ({
     setSubmitted(false);
     setServerEvaluation(null);
     setSubmissionError(null);
-    // Generate fresh idempotency key for intentional retake
-    setCurrentIdempotencyKey(`quiz-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`);
+    // Intentional retake generates fresh idempotency key
+    setCurrentIdempotencyKey(generateIdempotencyKey());
   };
 
   const isPassed = activeScore >= passingScorePercent;

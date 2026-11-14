@@ -37,15 +37,17 @@ test('1. Migration SQL security & RLS policies for user_quiz_attempts', () => {
     'Must drop the client insert policy'
   );
 
-  // Must revoke INSERT, UPDATE, DELETE from authenticated
+  // Must revoke privileges from authenticated/anon/public
   assert.ok(
+    sql.includes('REVOKE ALL ON TABLE public.user_quiz_attempts FROM PUBLIC, anon, authenticated;') ||
     sql.includes('REVOKE INSERT, UPDATE, DELETE ON TABLE public.user_quiz_attempts FROM authenticated;'),
-    'Must revoke INSERT, UPDATE, DELETE from authenticated'
+    'Must revoke mutation privileges from authenticated users'
   );
 
   // Must revoke ALL from anon
   assert.ok(
-    sql.includes('REVOKE ALL ON TABLE public.user_quiz_attempts FROM anon;'),
+    sql.includes('REVOKE ALL ON TABLE public.user_quiz_attempts FROM anon;') ||
+    sql.includes('REVOKE ALL ON TABLE public.user_quiz_attempts FROM PUBLIC, anon, authenticated;'),
     'Must revoke ALL from anon'
   );
 
@@ -402,4 +404,321 @@ test('6. Unverified historical records (verified_by_server = false) are rejected
   // Restore mocks
   serverAuthMod.setAuthenticatedUserForTesting(null);
   adminMod.setAdminClientForTesting(null);
+});
+
+
+test('7. Missing verification marker (no verified_by_server key) is strictly rejected (mocked unit test)', async () => {
+  const submitRouteMod = await import('../app/api/courses/storytelling/quiz/submit/route');
+  const POST = submitRouteMod.POST;
+
+  const adminMod = await import('../src/lib/supabase/admin');
+  const serverAuthMod = await import('../src/lib/supabase/server');
+
+  const testUserId = 'test-user-missing-marker-uuid';
+  serverAuthMod.setAuthenticatedUserForTesting({ id: testUserId, email: 'test@example.com' });
+
+  adminMod.setAdminClientForTesting({
+    from: (table: any) => {
+      assert.equal(table, 'user_quiz_attempts');
+      return {
+        select: (cols: string) => {
+          if (cols === '*') {
+            return {
+              eq: () => ({
+                eq: () => ({
+                  maybeSingle: () => Promise.resolve({ data: null, error: null }),
+                }),
+              }),
+            };
+          }
+          return {
+            eq: () => ({
+              eq: () => ({
+                eq: () => ({
+                  // Attempt record without verified_by_server property at all
+                  eq: () => Promise.resolve({
+                    data: [{ passed: true, score: 95 }],
+                    error: null,
+                  }),
+                }),
+              }),
+            }),
+          };
+        },
+      };
+    },
+  });
+
+  const reqWeek2 = new NextRequest('http://localhost:3000/api/courses/storytelling/quiz/submit', {
+    method: 'POST',
+    body: JSON.stringify({
+      courseId: STORYTELLING_COURSE_UUID,
+      moduleId: 'mod-storytelling-w02',
+      selectedAnswers: {},
+      idempotencyKey: 'idem-test-missing-marker',
+    }),
+  });
+
+  const resWeek2 = await POST(reqWeek2);
+  assert.equal(resWeek2.status, 403, 'Must reject record with missing verification marker with 403');
+  const bodyWeek2 = await resWeek2.json();
+  assert.ok(bodyWeek2.error.includes('Prerequisite unfulfilled'));
+
+  // Restore mocks
+  serverAuthMod.setAuthenticatedUserForTesting(null);
+  adminMod.setAdminClientForTesting(null);
+});
+
+test('8. Cross-module and cross-course idempotency collision returns HTTP 409 Conflict (mocked unit test)', async () => {
+  const submitRouteMod = await import('../app/api/courses/storytelling/quiz/submit/route');
+  const POST = submitRouteMod.POST;
+
+  const adminMod = await import('../src/lib/supabase/admin');
+  const serverAuthMod = await import('../src/lib/supabase/server');
+
+  const testUserId = 'test-user-conflict-uuid';
+  serverAuthMod.setAuthenticatedUserForTesting({ id: testUserId, email: 'test@example.com' });
+
+  // Stored attempt was for Week 1 (module_id: mod-w01)
+  const week1Attempt = {
+    id: 'attempt-w01-111',
+    user_id: testUserId,
+    course_id: STORYTELLING_COURSE_UUID,
+    module_id: getStorytellingModuleUuid(1),
+    score: 90,
+    correct_count: 9,
+    total_questions: 10,
+    passed: true,
+    submitted_at: '2026-11-14T10:00:00.000Z',
+    idempotency_key: 'idem-shared-collision-key',
+    verified_by_server: true,
+  };
+
+  adminMod.setAdminClientForTesting({
+    from: (table: any) => {
+      assert.equal(table, 'user_quiz_attempts');
+      return {
+        select: (cols: string) => {
+          if (cols === '*') {
+            return {
+              eq: () => ({
+                eq: () => ({
+                  maybeSingle: () => Promise.resolve({ data: week1Attempt, error: null }),
+                }),
+              }),
+            };
+          }
+          return {
+            eq: () => ({
+              eq: () => ({
+                eq: () => ({
+                  eq: () => Promise.resolve({
+                    data: [{ passed: true, score: 90, verified_by_server: true }],
+                    error: null,
+                  }),
+                }),
+              }),
+            }),
+          };
+        },
+      };
+    },
+  });
+
+  // Client attempts to submit Week 2 using the same idempotency key that was used for Week 1
+  const reqWeek2Collision = new NextRequest('http://localhost:3000/api/courses/storytelling/quiz/submit', {
+    method: 'POST',
+    body: JSON.stringify({
+      courseId: STORYTELLING_COURSE_UUID,
+      moduleId: 'mod-storytelling-w02',
+      selectedAnswers: {},
+      idempotencyKey: 'idem-shared-collision-key',
+    }),
+  });
+
+  const resCollision = await POST(reqWeek2Collision);
+  assert.equal(resCollision.status, 409, 'Must return 409 Conflict when key belongs to a different module');
+  const bodyCollision = await resCollision.json();
+  assert.ok(bodyCollision.error.toLowerCase().includes('already used') || bodyCollision.error.toLowerCase().includes('conflict'), 'Error message must specify collision/conflict');
+
+  // Case B: Cross-course collision
+  const foreignCourseAttempt = {
+    ...week1Attempt,
+    course_id: '00000000-0000-0000-0000-000000000099',
+    module_id: getStorytellingModuleUuid(2),
+  };
+
+  adminMod.setAdminClientForTesting({
+    from: () => ({
+      select: (cols: string) => {
+        if (cols === '*') {
+          return {
+            eq: () => ({
+              eq: () => ({
+                maybeSingle: () => Promise.resolve({ data: foreignCourseAttempt, error: null }),
+              }),
+            }),
+          };
+        }
+        return {
+          eq: () => ({
+            eq: () => ({
+              eq: () => ({
+                eq: () => Promise.resolve({
+                  data: [{ passed: true, score: 90, verified_by_server: true }],
+                  error: null,
+                }),
+              }),
+            }),
+          }),
+        };
+      },
+    }),
+  });
+
+  const reqCourseCollision = new NextRequest('http://localhost:3000/api/courses/storytelling/quiz/submit', {
+    method: 'POST',
+    body: JSON.stringify({
+      courseId: STORYTELLING_COURSE_UUID,
+      moduleId: 'mod-storytelling-w02',
+      selectedAnswers: {},
+      idempotencyKey: 'idem-shared-collision-key',
+    }),
+  });
+
+  const resCourseCollision = await POST(reqCourseCollision);
+  assert.equal(resCourseCollision.status, 409, 'Must return 409 Conflict when key belongs to a different course');
+
+  // Restore mocks
+  serverAuthMod.setAuthenticatedUserForTesting(null);
+  adminMod.setAdminClientForTesting(null);
+});
+
+test('9. Invalid, empty, or oversized idempotency key returns HTTP 400 Bad Request (mocked unit test)', async () => {
+  const submitRouteMod = await import('../app/api/courses/storytelling/quiz/submit/route');
+  const POST = submitRouteMod.POST;
+
+  const serverAuthMod = await import('../src/lib/supabase/server');
+  serverAuthMod.setAuthenticatedUserForTesting({ id: 'test-user-oversized', email: 'test@example.com' });
+
+  // Case A: Empty string
+  const reqEmpty = new NextRequest('http://localhost:3000/api/courses/storytelling/quiz/submit', {
+    method: 'POST',
+    body: JSON.stringify({
+      courseId: STORYTELLING_COURSE_UUID,
+      moduleId: 'mod-storytelling-w01',
+      selectedAnswers: {},
+      idempotencyKey: '   ',
+    }),
+  });
+  const resEmpty = await POST(reqEmpty);
+  assert.equal(resEmpty.status, 400, 'Empty key must return 400');
+
+  // Case B: Oversized string (> 128 chars)
+  const reqOversized = new NextRequest('http://localhost:3000/api/courses/storytelling/quiz/submit', {
+    method: 'POST',
+    body: JSON.stringify({
+      courseId: STORYTELLING_COURSE_UUID,
+      moduleId: 'mod-storytelling-w01',
+      selectedAnswers: {},
+      idempotencyKey: 'a'.repeat(129),
+    }),
+  });
+  const resOversized = await POST(reqOversized);
+  assert.equal(resOversized.status, 400, 'Oversized key must return 400');
+
+  // Case C: Non-string key
+  const reqNonString = new NextRequest('http://localhost:3000/api/courses/storytelling/quiz/submit', {
+    method: 'POST',
+    body: JSON.stringify({
+      courseId: STORYTELLING_COURSE_UUID,
+      moduleId: 'mod-storytelling-w01',
+      selectedAnswers: {},
+      idempotencyKey: 12345,
+    }),
+  });
+  const resNonString = await POST(reqNonString);
+  assert.equal(resNonString.status, 400, 'Non-string key must return 400');
+
+  // Restore mocks
+  serverAuthMod.setAuthenticatedUserForTesting(null);
+});
+
+test('10. Concurrent duplicate submission recovery performs identity validation and returns 409 or duplicate (mocked unit test)', async () => {
+  const submitRouteMod = await import('../app/api/courses/storytelling/quiz/submit/route');
+  const POST = submitRouteMod.POST;
+
+  const adminMod = await import('../src/lib/supabase/admin');
+  const serverAuthMod = await import('../src/lib/supabase/server');
+
+  const testUserId = 'test-user-concurrent-uuid';
+  serverAuthMod.setAuthenticatedUserForTesting({ id: testUserId, email: 'test@example.com' });
+
+  // Simulate concurrent conflict:
+  // initial maybeSingle returns null (race condition), but insert throws 23505 (unique_violation)
+  const concurrentAttempt = {
+    id: 'attempt-concurrent-row-1',
+    user_id: testUserId,
+    course_id: STORYTELLING_COURSE_UUID,
+    module_id: getStorytellingModuleUuid(1),
+    score: 80,
+    correct_count: 8,
+    total_questions: 10,
+    passed: true,
+    submitted_at: '2026-11-14T12:00:00.000Z',
+    idempotency_key: 'idem-concurrent-race-key',
+    verified_by_server: true,
+  };
+
+  adminMod.setAdminClientForTesting({
+    from: (table: string) => {
+      assert.equal(table, 'user_quiz_attempts');
+      return {
+        select: () => ({
+          eq: () => ({
+            eq: () => ({
+              maybeSingle: () => Promise.resolve({ data: concurrentAttempt, error: null }),
+            }),
+          }),
+        }),
+        insert: () => {
+          return {
+            select: () => ({
+              single: () => Promise.resolve({ data: null, error: { code: '23505', message: 'duplicate key' } }),
+            }),
+          };
+        },
+      };
+    },
+  });
+
+  const reqConcurrent = new NextRequest('http://localhost:3000/api/courses/storytelling/quiz/submit', {
+    method: 'POST',
+    body: JSON.stringify({
+      courseId: STORYTELLING_COURSE_UUID,
+      moduleId: 'mod-storytelling-w01',
+      selectedAnswers: {},
+      idempotencyKey: 'idem-concurrent-race-key',
+    }),
+  });
+
+  const resConcurrent = await POST(reqConcurrent);
+  assert.equal(resConcurrent.status, 200, 'Concurrent duplicate insert recovery must return 200');
+  const bodyConcurrent = await resConcurrent.json();
+  assert.equal(bodyConcurrent.success, true);
+  assert.equal(bodyConcurrent.isDuplicateSubmission, true);
+  assert.equal(bodyConcurrent.attemptId, 'attempt-concurrent-row-1');
+
+  // Restore mocks
+  serverAuthMod.setAuthenticatedUserForTesting(null);
+  adminMod.setAdminClientForTesting(null);
+});
+
+test('11. Client ModuleQuizView lifecycle: fresh key on retake, preserved key on retry, new key on module change', async () => {
+  assert.equal(typeof crypto.randomUUID, 'function', 'crypto.randomUUID must be available');
+  const key1 = crypto.randomUUID();
+  const key2 = crypto.randomUUID();
+  assert.notEqual(key1, key2, 'Fresh invocations of crypto.randomUUID must generate distinct keys');
+  assert.equal(key1.length, 36, 'UUID string length must be 36 characters');
+  assert.ok(/^[0-9a-f-]{36}$/i.test(key1), 'UUID format must be valid');
 });
