@@ -228,7 +228,7 @@ test('4. Server submission route persists trusted attempt and succeeds after pas
             eq: () => ({
               eq: () => ({
                 // Simulates passing attempt for Week 1
-                eq: () => Promise.resolve({ data: [{ passed: true, score: 90 }], error: null }),
+                eq: () => Promise.resolve({ data: [{ passed: true, score: 90, verified_by_server: true }], error: null }),
               }),
             }),
           }),
@@ -371,7 +371,10 @@ test('6. Unverified historical records (verified_by_server = false) are rejected
               eq: () => ({
                 // Unverified historical attempt: passed=true, but verified_by_server=false
                 eq: () => Promise.resolve({
-                  data: [{ passed: true, score: 100, verified_by_server: false }],
+                  data: [
+                    { passed: true, score: 100, verified_by_server: false },
+                    { passed: true, score: 100 }, // Missing provenance must also fail closed.
+                  ],
                   error: null,
                 }),
               }),
