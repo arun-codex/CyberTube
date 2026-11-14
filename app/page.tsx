@@ -195,7 +195,7 @@ export default function HomePage() {
                   href={`/library/${c.id}`}
                   className="text-[#0E7490] dark:text-[#22D3EE] font-semibold hover:underline"
                 >
-                  Watch Course â†’
+                  Watch Course &rarr;
                 </Link>
                 <span className="text-[10px] font-mono text-[#475569] dark:text-[#9BA8B7]">
                   Audited: {c.lastChecked}
