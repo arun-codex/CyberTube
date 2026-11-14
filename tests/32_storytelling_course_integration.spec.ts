@@ -225,6 +225,7 @@ test.describe('Storytelling Masterclass Course Integration', () => {
     const res = await request.post('/api/courses/storytelling/quiz/submit', {
       data: {
         week: 2,
+        moduleId: 'mod-storytelling-w02',
         selectedAnswers: {}
       }
     });
@@ -237,5 +238,19 @@ test.describe('Storytelling Masterclass Course Integration', () => {
       expect(body.score).toBe(0);
       expect(body.passed).toBe(false);
     }
+  });
+
+  test('10. Client progress service disables direct client quiz attempt writes and persists locally', async () => {
+    const { cloudCourseProgressService } = await import('../src/lib/cloud-course-progress');
+    
+    // Calling recordQuizAttempt should record in local cache without throwing client-side RLS error
+    cloudCourseProgressService.recordQuizAttempt('course-free-storytelling-masterclass', 'mod-storytelling-w01', {
+      score: 80,
+      passed: true,
+      submittedAt: new Date().toISOString()
+    });
+
+    const progress = cloudCourseProgressService.getProgress('course-free-storytelling-masterclass');
+    expect(progress).toBeDefined();
   });
 });

@@ -211,15 +211,16 @@ export class CloudCourseProgressService implements CourseProgressService {
   }
 
   recordQuizAttempt(courseId: string, moduleId: string, attempt: any): void {
+    // 1. Maintain local/guest progress cache in localStorage
     if (typeof localCourseProgressService.recordQuizAttempt === 'function') {
       localCourseProgressService.recordQuizAttempt(courseId, moduleId, attempt);
     }
 
-    if (this.supabase) {
-      this.persistQuizAttemptToCloud(courseId, moduleId, attempt).catch((err) => {
-        console.warn('Failed to persist quiz attempt to Supabase:', err);
-      });
-    }
+    // 2. Client-side direct INSERT to public.user_quiz_attempts is strictly prohibited.
+    // Server-side privileged client (createAdminClient) alone is authorized to write
+    // trusted, server-evaluated quiz attempts in the submission API.
+    // Client-side persistence here is intentionally a no-op to eliminate duplicate
+    // writes and prevent forged client attempt records.
   }
 
   recordLabProgress(courseId: string, labId: string, progress: any): void {
@@ -495,37 +496,14 @@ export class CloudCourseProgressService implements CourseProgressService {
   }
 
   async persistQuizAttemptToCloud(
-    courseId: string,
-    moduleId: string,
-    attempt: any
+    _courseId: string,
+    _moduleId: string,
+    _attempt: any
   ): Promise<void> {
-    if (!this.supabase) return;
-    try {
-      const { data: { user } } = await this.supabase.auth.getUser();
-      if (!user) return;
-
-      const dbCourseId = resolveCourseUuid(courseId);
-      const dbModuleId = resolveModuleUuid(courseId, moduleId);
-
-      if (!dbCourseId || !dbModuleId) return;
-
-      const payload = {
-        user_id: user.id,
-        course_id: dbCourseId,
-        module_id: dbModuleId,
-        score: Math.max(0, Math.min(100, Math.round(attempt.score || 0))),
-        correct_count: attempt.correctCount ?? Math.round(((attempt.score || 0) / 100) * 10),
-        total_questions: attempt.totalQuestions ?? 10,
-        passed: Boolean(attempt.passed),
-        submitted_at: attempt.submittedAt || new Date().toISOString(),
-      };
-
-      await (this.supabase
-        .from('user_quiz_attempts') as any)
-        .insert(payload);
-    } catch (err) {
-      console.warn('Could not persist quiz attempt to Supabase:', err);
-    }
+    // Deprecated and intentionally disabled:
+    // Client-side direct INSERTs are disallowed by RLS policy.
+    // The server submission route (/api/courses/storytelling/quiz/submit) records trusted attempts.
+    return;
   }
 
   async deleteCourseProgressFromCloud(courseId: string): Promise<void> {

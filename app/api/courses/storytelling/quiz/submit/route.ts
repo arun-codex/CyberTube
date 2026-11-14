@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { gradeStorytellingQuiz } from '@/lib/courses/storytelling-quiz-evaluator';
-import { createClient, getAuthenticatedUser } from '@/lib/supabase/server';
+import { getAuthenticatedUser } from '@/lib/supabase/server';
+import { createAdminClient } from '@/lib/supabase/admin';
 import {
   STORYTELLING_COURSE_UUID,
   STORYTELLING_MODULE_ID_TO_UUID,
@@ -35,74 +36,127 @@ export async function POST(request: NextRequest) {
       );
     }
     const currentWeekNum = parseInt(weekMatch[1], 10);
+    if (currentWeekNum < 1 || currentWeekNum > 20) {
+      return NextResponse.json(
+        { error: `Invalid week number: ${currentWeekNum}. Must be between 1 and 20.` },
+        { status: 400 }
+      );
+    }
 
-    // Get authenticated user and server supabase client
+    // Resolve current module database UUID
+    const currentModuleUuid =
+      STORYTELLING_MODULE_ID_TO_UUID[moduleId] || getStorytellingModuleUuid(currentWeekNum);
+    if (!currentModuleUuid) {
+      return NextResponse.json(
+        { error: `Unknown course module: ${moduleId}` },
+        { status: 400 }
+      );
+    }
+
+    // Get authenticated user and privileged server admin client
     const user = await getAuthenticatedUser();
-    const supabase = await createClient();
+    const adminSupabase = createAdminClient();
 
-    // SERVER-SIDE PROGRESSION ENFORCEMENT:
-    // If week > 1 and user is authenticated with cloud database,
-    // verify that the previous module was passed (>= 70%) in trusted database records.
-    if (currentWeekNum > 1 && user && supabase) {
-      const prevWeekNum = currentWeekNum - 1;
-      const prevModuleUuid = getStorytellingModuleUuid(prevWeekNum);
-
-      const { data: prevAttempts, error: checkError } = await (supabase
-        .from('user_quiz_attempts') as any)
-        .select('passed, score')
-        .eq('user_id', user.id)
-        .eq('course_id', STORYTELLING_COURSE_UUID)
-        .eq('module_id', prevModuleUuid)
-        .eq('passed', true);
-
-      if (checkError) {
-        console.warn('Could not verify prerequisite attempts from Supabase:', checkError);
-      } else if (!prevAttempts || prevAttempts.length === 0) {
-        // Prerequisite not completed in trusted database
+    // FAIL-CLOSED SERVER-SIDE PROGRESSION ENFORCEMENT:
+    // If the learner is authenticated and attempting Week N (N > 1):
+    // 1. Fail closed: If privileged database configuration is missing, do not proceed or skip enforcement.
+    // 2. Query trusted server-written quiz attempts for Week N-1.
+    // 3. Require passed = true.
+    // 4. If query fails with database error, return HTTP 503.
+    // 5. If no passed record, return HTTP 403.
+    if (user) {
+      if (!adminSupabase) {
         return NextResponse.json(
           {
-            error: `Prerequisite unfulfilled: You must complete and pass the Week ${prevWeekNum} quiz assessment (≥ 70%) before attempting Week ${currentWeekNum}.`,
-            prerequisiteRequired: true,
-            requiredWeek: prevWeekNum,
+            error:
+              'Database service unavailable: Privileged database configuration is required for authenticated progression verification.',
           },
-          { status: 403 }
+          { status: 503 }
         );
+      }
+
+      if (currentWeekNum > 1) {
+        const prevWeekNum = currentWeekNum - 1;
+        const prevModuleUuid = getStorytellingModuleUuid(prevWeekNum);
+
+        const { data: prevAttempts, error: checkError } = await (adminSupabase
+          .from('user_quiz_attempts') as any)
+          .select('passed, score')
+          .eq('user_id', user.id)
+          .eq('course_id', STORYTELLING_COURSE_UUID)
+          .eq('module_id', prevModuleUuid)
+          .eq('passed', true);
+
+        if (checkError) {
+          console.error('Failed to query prerequisite attempts from database:', checkError);
+          return NextResponse.json(
+            { error: 'Database service error: Unable to verify prerequisite completion.' },
+            { status: 503 }
+          );
+        }
+
+        if (!prevAttempts || prevAttempts.length === 0) {
+          return NextResponse.json(
+            {
+              error: `Prerequisite unfulfilled: You must complete and pass the Week ${prevWeekNum} quiz assessment (≥ 70%) before attempting Week ${currentWeekNum}.`,
+              prerequisiteRequired: true,
+              requiredWeek: prevWeekNum,
+            },
+            { status: 403 }
+          );
+        }
       }
     }
 
     // Server-side trusted evaluation using secret answer keys
+    // Only executed after prerequisite checks pass!
     const result = gradeStorytellingQuiz(moduleId, selectedAnswers);
 
-    // If authenticated, persist the attempt server-side to public.user_quiz_attempts
-    if (user && supabase) {
-      const dbModuleUuid =
-        STORYTELLING_MODULE_ID_TO_UUID[moduleId] || getStorytellingModuleUuid(currentWeekNum);
+    let savedAttemptId: string | null = null;
+    const submittedAtIso = new Date().toISOString();
 
+    // SERVER-ONLY TRUSTED PERSISTENCE:
+    // Save exactly one trusted attempt per submission using the privileged admin client
+    if (user && adminSupabase) {
       const attemptPayload = {
         user_id: user.id,
         course_id: STORYTELLING_COURSE_UUID,
-        module_id: dbModuleUuid,
+        module_id: currentModuleUuid,
         score: result.score,
         correct_count: result.correctCount,
         total_questions: result.totalQuestions,
         passed: result.passed,
-        submitted_at: new Date().toISOString(),
+        submitted_at: submittedAtIso,
       };
 
-      const { error: insertError } = await (supabase
+      const { data: insertedData, error: insertError } = await (adminSupabase
         .from('user_quiz_attempts') as any)
-        .insert(attemptPayload);
+        .insert(attemptPayload)
+        .select('id')
+        .single();
 
       if (insertError) {
-        console.warn('Failed to persist quiz attempt to Supabase:', insertError);
+        console.error('Failed to persist trusted quiz attempt to database:', insertError);
+        return NextResponse.json(
+          {
+            error:
+              'Persistence error: Could not record trusted quiz attempt in the database.',
+          },
+          { status: 500 }
+        );
       }
+
+      savedAttemptId = insertedData?.id || null;
     }
 
     return NextResponse.json({
       success: true,
       courseId: courseId || 'course-free-storytelling-masterclass',
+      week: currentWeekNum,
+      attemptId: savedAttemptId,
+      submittedAt: submittedAtIso,
       ...result,
-      evaluatedAt: new Date().toISOString(),
+      evaluatedAt: submittedAtIso,
     });
   } catch (error: any) {
     console.error('Error evaluating storytelling quiz submission:', error);
@@ -112,3 +166,4 @@ export async function POST(request: NextRequest) {
     );
   }
 }
+

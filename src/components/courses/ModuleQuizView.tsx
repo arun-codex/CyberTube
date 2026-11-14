@@ -79,6 +79,8 @@ export const ModuleQuizView: React.FC<ModuleQuizViewProps> = ({
     let finalScore = 0;
     let finalPassed = false;
     let evalData: ServerEvaluationResult | null = null;
+    let serverAttemptId: string | null = null;
+    let serverSubmittedAt: string | null = null;
 
     try {
       // 1. Attempt secure server-side evaluation via API
@@ -103,14 +105,27 @@ export const ModuleQuizView: React.FC<ModuleQuizViewProps> = ({
             questionResults: data.questionResults,
           };
           setServerEvaluation(evalData);
+          if (data.attemptId) {
+            serverAttemptId = data.attemptId;
+          }
+          if (data.submittedAt) {
+            serverSubmittedAt = data.submittedAt;
+          }
         } else {
           throw new Error(data.error || 'Server evaluation rejected');
         }
       } else {
-        throw new Error(`Evaluation endpoint returned ${res.status}`);
+        const errJson = await res.json().catch(() => null);
+        throw new Error(errJson?.error || `Evaluation endpoint returned ${res.status}`);
       }
-    } catch (err) {
+    } catch (err: any) {
       console.warn('Server quiz evaluation unavailable, falling back to local evaluation:', err);
+      // If error was a 403 prerequisite failure, propagate it instead of local fallback
+      if (err?.message && err.message.includes('Prerequisite unfulfilled')) {
+        alert(err.message);
+        setSubmitting(false);
+        return;
+      }
       finalScore = calculateFallbackScore();
       finalPassed = finalScore >= passingScorePercent;
     } finally {
@@ -123,7 +138,7 @@ export const ModuleQuizView: React.FC<ModuleQuizViewProps> = ({
       selectedAnswers,
       score: finalScore,
       passed: finalPassed,
-      submittedAt: new Date().toISOString(),
+      submittedAt: serverSubmittedAt || new Date().toISOString(),
     };
 
     const nextAttempts = [...attempts, newAttempt];

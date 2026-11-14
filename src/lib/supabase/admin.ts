@@ -9,9 +9,19 @@ import { Database } from '@/types/database';
  *
  * CAUTION: This client must NEVER be called or imported from client components.
  */
+let testAdminClient: any = null;
+
+export function setAdminClientForTesting(client: any) {
+  testAdminClient = client;
+}
+
 export function createAdminClient() {
   if (typeof window !== 'undefined') {
     throw new Error('createAdminClient can only be called on the server.');
+  }
+
+  if (testAdminClient) {
+    return testAdminClient;
   }
 
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
