@@ -4,6 +4,8 @@ import { getAuthenticatedUser } from '@/lib/supabase/server';
 import { createAdminClient } from '@/lib/supabase/admin';
 import {
   STORYTELLING_COURSE_UUID,
+  STORYTELLING_COURSE_ID,
+  STORYTELLING_COURSE_SLUG,
   STORYTELLING_MODULE_ID_TO_UUID,
   getStorytellingModuleUuid,
 } from '@/lib/courses/storytelling-uuid-map';
@@ -12,6 +14,21 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const { courseId, moduleId, selectedAnswers, idempotencyKey } = body;
+
+    const acceptedCourseIds = new Set([
+      STORYTELLING_COURSE_UUID,
+      STORYTELLING_COURSE_ID,
+      STORYTELLING_COURSE_SLUG,
+    ]);
+    if (
+      courseId !== undefined &&
+      (typeof courseId !== 'string' || !acceptedCourseIds.has(courseId))
+    ) {
+      return NextResponse.json(
+        { error: 'Invalid courseId: this endpoint only accepts the Storytelling Masterclass course.' },
+        { status: 400 }
+      );
+    }
 
     if (!moduleId || typeof moduleId !== 'string') {
       return NextResponse.json(
