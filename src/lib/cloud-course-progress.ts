@@ -1,6 +1,14 @@
 import { Course, CourseProgressState, UserVideoProgress } from '../types/course';
 import { CourseProgressService, localCourseProgressService } from './course-progress';
 import { createClient } from './supabase/client';
+import {
+  STORYTELLING_COURSE_ID,
+  STORYTELLING_COURSE_UUID,
+  resolveStorytellingLessonUuid,
+  STORYTELLING_MODULE_ID_TO_UUID,
+  STORYTELLING_LESSON_UUID_TO_ID,
+  STORYTELLING_MODULE_UUID_TO_ID,
+} from './courses/storytelling-uuid-map';
 
 export type CloudSyncStatus = 'saved' | 'saving' | 'offline' | 'error';
 
@@ -14,12 +22,37 @@ const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12
 
 // Deterministic UUID mappings for text course IDs
 export const COURSE_UUID_MAPPING: Record<string, string> = {
-  'course-free-storytelling-masterclass': 'c0000000-0000-4000-8000-000000000001',
+  [STORYTELLING_COURSE_ID]: STORYTELLING_COURSE_UUID,
+  'free-storytelling-masterclass': STORYTELLING_COURSE_UUID,
 };
 
 export function resolveCourseUuid(courseId: string): string | null {
   if (UUID_REGEX.test(courseId)) return courseId;
   return COURSE_UUID_MAPPING[courseId] || null;
+}
+
+export function resolveLessonUuid(courseId: string, lessonId: string): string | null {
+  if (UUID_REGEX.test(lessonId)) return lessonId;
+  if (
+    courseId === STORYTELLING_COURSE_ID ||
+    courseId === 'free-storytelling-masterclass' ||
+    courseId === STORYTELLING_COURSE_UUID
+  ) {
+    return resolveStorytellingLessonUuid(lessonId);
+  }
+  return null;
+}
+
+export function resolveModuleUuid(courseId: string, moduleId: string): string | null {
+  if (UUID_REGEX.test(moduleId)) return moduleId;
+  if (
+    courseId === STORYTELLING_COURSE_ID ||
+    courseId === 'free-storytelling-masterclass' ||
+    courseId === STORYTELLING_COURSE_UUID
+  ) {
+    return STORYTELLING_MODULE_ID_TO_UUID[moduleId] || null;
+  }
+  return null;
 }
 
 export function isUuid(id: string): boolean {
@@ -31,14 +64,6 @@ export function isUuid(id: string): boolean {
  *
  * Implements the CourseProgressService interface backed by Supabase PostgreSQL
  * with transparent local guest fallback and automatic session synchronization.
- *
- * Key behaviors:
- * 1. Synchronous UI reads are served immediately from cached/localStorage state to avoid layout shift.
- * 2. When authenticated with Supabase, completion changes and lesson access are persisted to `user_lesson_progress`.
- * 3. On user sign-in or initialization, unauthenticated local guest progress is seamlessly merged
- *    with cloud progress so completed lessons are never lost.
- * 4. In offline/unauthenticated mode or for static string IDs, local localStorage is used with zero interruption.
- * 5. Emits distinct sync states ('saved', 'saving', 'offline', 'error') for user transparency.
  */
 export class CloudCourseProgressService implements CourseProgressService {
   private supabase: any;
@@ -99,7 +124,7 @@ export class CloudCourseProgressService implements CourseProgressService {
   getProgress(courseId: string): CourseProgressState {
     const localState = localCourseProgressService.getProgress(courseId);
 
-    // Trigger background sync if signed in, not yet synced, and courseId is UUID
+    // Trigger background sync if signed in, not yet synced, and courseId can be resolved to UUID
     if (typeof window !== 'undefined' && this.supabase && !this.syncAttempted.has(courseId)) {
       this.syncAttempted.add(courseId);
       this.syncCourseProgress(courseId).catch((err) => {
@@ -119,7 +144,7 @@ export class CloudCourseProgressService implements CourseProgressService {
     // 1. Update local storage immediately for fast reactive UI update
     const isNowCompleted = localCourseProgressService.toggleLessonCompletion(courseId, lessonId);
 
-    // 2. Persist to Supabase if authenticated and UUID valid
+    // 2. Persist to Supabase if authenticated and course UUID valid
     if (this.supabase) {
       this.setSyncStatus(courseId, 'saving');
       this.persistLessonProgressToCloud(courseId, lessonId, isNowCompleted)
@@ -158,7 +183,7 @@ export class CloudCourseProgressService implements CourseProgressService {
   recordLessonAccess(courseId: string, lessonId: string): void {
     localCourseProgressService.recordLessonAccess(courseId, lessonId);
 
-    if (this.supabase && isUuid(courseId) && isUuid(lessonId)) {
+    if (this.supabase && isUuid(courseId)) {
       this.persistLessonAccessToCloud(courseId, lessonId).catch((err) => {
         console.warn('Failed to persist lesson access to cloud:', err);
       });
@@ -189,6 +214,12 @@ export class CloudCourseProgressService implements CourseProgressService {
     if (typeof localCourseProgressService.recordQuizAttempt === 'function') {
       localCourseProgressService.recordQuizAttempt(courseId, moduleId, attempt);
     }
+
+    if (this.supabase) {
+      this.persistQuizAttemptToCloud(courseId, moduleId, attempt).catch((err) => {
+        console.warn('Failed to persist quiz attempt to Supabase:', err);
+      });
+    }
   }
 
   recordLabProgress(courseId: string, labId: string, progress: any): void {
@@ -217,7 +248,7 @@ export class CloudCourseProgressService implements CourseProgressService {
   }
 
   /**
-   * Merges local guest progress with cloud user_lesson_progress rows.
+   * Merges local guest progress with cloud user_lesson_progress & user_quiz_attempts rows.
    */
   async syncCourseProgress(courseId: string): Promise<void> {
     if (!this.supabase) {
@@ -231,8 +262,8 @@ export class CloudCourseProgressService implements CourseProgressService {
       return;
     }
 
-    // Only query cloud table if courseId matches a valid UUID
-    if (!isUuid(courseId)) {
+    const dbCourseId = resolveCourseUuid(courseId);
+    if (!dbCourseId) {
       this.setSyncStatus(courseId, 'offline');
       return;
     }
@@ -242,38 +273,91 @@ export class CloudCourseProgressService implements CourseProgressService {
       .from('user_lesson_progress') as any)
       .select('lesson_id, is_completed, last_accessed_at, completed_at')
       .eq('user_id', user.id)
-      .eq('course_id', resolveCourseUuid(courseId) || courseId);
+      .eq('course_id', dbCourseId);
 
     if (error) {
       this.setSyncStatus(courseId, 'error', error.message);
       return;
     }
 
-    if (!cloudRows) {
-      this.setSyncStatus(courseId, 'saved');
-      return;
-    }
-
     const localState = localCourseProgressService.getProgress(courseId);
     const localCompletedSet = new Set<string>(localState.completedLessonIds);
-    const cloudCompletedSet = new Set<string>(
-      cloudRows.filter((r: any) => r.is_completed).map((r: any) => String(r.lesson_id))
-    );
+
+    // Map cloud UUIDs back to application lesson IDs if needed
+    const cloudCompletedSet = new Set<string>();
+    if (cloudRows) {
+      cloudRows.filter((r: any) => r.is_completed).forEach((r: any) => {
+        const rawId = String(r.lesson_id);
+        const appId = STORYTELLING_LESSON_UUID_TO_ID[rawId] || rawId;
+        cloudCompletedSet.add(appId);
+        cloudCompletedSet.add(rawId);
+      });
+    }
 
     // Union of completed lessons (never lose completed records)
-    const mergedCompleted: string[] = Array.from(new Set<string>([...Array.from(localCompletedSet), ...Array.from(cloudCompletedSet)]));
+    const mergedCompleted: string[] = Array.from(
+      new Set<string>([...Array.from(localCompletedSet), ...Array.from(cloudCompletedSet)])
+    );
 
     // Determine latest accessed lesson between cloud and local
     let latestAccessDate = new Date(localState.lastAccessedAt || 0).getTime();
     let bestActiveLessonId = localState.lastActiveLessonId;
 
-    cloudRows.forEach((r: any) => {
-      const rowAccessDate = new Date(r.last_accessed_at).getTime();
-      if (rowAccessDate > latestAccessDate) {
-        latestAccessDate = rowAccessDate;
-        bestActiveLessonId = r.lesson_id;
+    if (cloudRows) {
+      cloudRows.forEach((r: any) => {
+        const rowAccessDate = new Date(r.last_accessed_at).getTime();
+        if (rowAccessDate > latestAccessDate) {
+          latestAccessDate = rowAccessDate;
+          const rawId = String(r.lesson_id);
+          bestActiveLessonId = STORYTELLING_LESSON_UUID_TO_ID[rawId] || rawId;
+        }
+      });
+    }
+
+    // Also fetch remote quiz attempts for this course
+    let mergedQuizScores = { ...(localState.quizScores || {}) };
+    let mergedQuizAttempts = { ...(localState.quizAttempts || {}) };
+    try {
+      const { data: quizRows } = await (this.supabase
+        .from('user_quiz_attempts') as any)
+        .select('*')
+        .eq('user_id', user.id)
+        .eq('course_id', dbCourseId)
+        .order('submitted_at', { ascending: true });
+
+      if (Array.isArray(quizRows) && quizRows.length > 0) {
+        quizRows.forEach((qr: any) => {
+          const rawModId = String(qr.module_id);
+          const appModId = STORYTELLING_MODULE_UUID_TO_ID[rawModId] || rawModId;
+
+          // Update best score
+          const currentBest = mergedQuizScores[appModId] ?? 0;
+          if (qr.score > currentBest) {
+            mergedQuizScores[appModId] = qr.score;
+          }
+
+          if (!mergedQuizAttempts[appModId]) {
+            mergedQuizAttempts[appModId] = [];
+          }
+
+          // Avoid duplicating attempts if already stored locally
+          const alreadyExists = mergedQuizAttempts[appModId].some(
+            (a: any) => a.submittedAt === qr.submitted_at || (a.score === qr.score && a.attemptNumber === qr.id)
+          );
+          if (!alreadyExists) {
+            mergedQuizAttempts[appModId].push({
+              attemptNumber: mergedQuizAttempts[appModId].length + 1,
+              selectedAnswers: {},
+              score: qr.score,
+              passed: qr.passed,
+              submittedAt: qr.submitted_at,
+            });
+          }
+        });
       }
-    });
+    } catch (qErr) {
+      console.warn('Could not sync quiz attempts for course:', qErr);
+    }
 
     // Also fetch remote video progress for this course
     let mergedVideoProgress = { ...(localState.videoProgress || {}) };
@@ -282,7 +366,7 @@ export class CloudCourseProgressService implements CourseProgressService {
         .from('user_lesson_video_progress') as any)
         .select('*')
         .eq('user_id', user.id)
-        .eq('course_id', resolveCourseUuid(courseId) || courseId);
+        .eq('course_id', dbCourseId);
 
       if (Array.isArray(videoRows) && videoRows.length > 0) {
         videoRows.forEach((vr: any) => {
@@ -320,8 +404,8 @@ export class CloudCourseProgressService implements CourseProgressService {
       lastCompletedLessonId: localState.lastCompletedLessonId,
       lastActiveLessonId: bestActiveLessonId,
       lastAccessedAt: new Date(latestAccessDate || Date.now()).toISOString(),
-      quizScores: localState.quizScores,
-      quizAttempts: localState.quizAttempts,
+      quizScores: mergedQuizScores,
+      quizAttempts: mergedQuizAttempts,
       labProgress: localState.labProgress,
       capstoneSubmission: localState.capstoneSubmission,
       capstoneScore: localState.capstoneScore,
@@ -341,7 +425,8 @@ export class CloudCourseProgressService implements CourseProgressService {
     // Push local-only completed lessons up to the cloud so cloud matches union
     const localOnlyCompleted = Array.from(localCompletedSet).filter((id) => !cloudCompletedSet.has(id));
     for (const lessonId of localOnlyCompleted) {
-      if (isUuid(lessonId)) {
+      const resolvedUuid = resolveLessonUuid(courseId, lessonId);
+      if (resolvedUuid) {
         await this.persistLessonProgressToCloud(courseId, lessonId, true);
       }
     }
@@ -358,15 +443,18 @@ export class CloudCourseProgressService implements CourseProgressService {
       return 'offline';
     }
 
-    if (!isUuid(courseId) || !isUuid(lessonId)) {
+    const dbCourseId = resolveCourseUuid(courseId);
+    const dbLessonId = resolveLessonUuid(courseId, lessonId);
+
+    if (!dbCourseId || !dbLessonId) {
       // Non-UUID courses/lessons stay in local storage
       return 'offline';
     }
 
     const payload = {
       user_id: user.id,
-      course_id: resolveCourseUuid(courseId) || courseId,
-      lesson_id: lessonId,
+      course_id: dbCourseId,
+      lesson_id: dbLessonId,
       is_completed: completed,
       completed_at: completed ? new Date().toISOString() : null,
       last_accessed_at: new Date().toISOString(),
@@ -388,19 +476,56 @@ export class CloudCourseProgressService implements CourseProgressService {
     const { data: { user } } = await this.supabase.auth.getUser();
     if (!user) return;
 
-    if (!isUuid(courseId) || !isUuid(lessonId)) return;
+    const dbCourseId = resolveCourseUuid(courseId);
+    const dbLessonId = resolveLessonUuid(courseId, lessonId);
+
+    if (!dbCourseId || !dbLessonId) return;
 
     await (this.supabase
       .from('user_lesson_progress') as any)
       .upsert(
         {
           user_id: user.id,
-          course_id: resolveCourseUuid(courseId) || courseId,
-          lesson_id: lessonId,
+          course_id: dbCourseId,
+          lesson_id: dbLessonId,
           last_accessed_at: new Date().toISOString(),
         },
         { onConflict: 'user_id,lesson_id' }
       );
+  }
+
+  async persistQuizAttemptToCloud(
+    courseId: string,
+    moduleId: string,
+    attempt: any
+  ): Promise<void> {
+    if (!this.supabase) return;
+    try {
+      const { data: { user } } = await this.supabase.auth.getUser();
+      if (!user) return;
+
+      const dbCourseId = resolveCourseUuid(courseId);
+      const dbModuleId = resolveModuleUuid(courseId, moduleId);
+
+      if (!dbCourseId || !dbModuleId) return;
+
+      const payload = {
+        user_id: user.id,
+        course_id: dbCourseId,
+        module_id: dbModuleId,
+        score: Math.max(0, Math.min(100, Math.round(attempt.score || 0))),
+        correct_count: attempt.correctCount ?? Math.round(((attempt.score || 0) / 100) * 10),
+        total_questions: attempt.totalQuestions ?? 10,
+        passed: Boolean(attempt.passed),
+        submitted_at: attempt.submittedAt || new Date().toISOString(),
+      };
+
+      await (this.supabase
+        .from('user_quiz_attempts') as any)
+        .insert(payload);
+    } catch (err) {
+      console.warn('Could not persist quiz attempt to Supabase:', err);
+    }
   }
 
   async deleteCourseProgressFromCloud(courseId: string): Promise<void> {
@@ -408,13 +533,24 @@ export class CloudCourseProgressService implements CourseProgressService {
     const { data: { user } } = await this.supabase.auth.getUser();
     if (!user) return;
 
-    if (!isUuid(courseId)) return;
+    const dbCourseId = resolveCourseUuid(courseId);
+    if (!dbCourseId) return;
 
     await (this.supabase
       .from('user_lesson_progress') as any)
       .delete()
       .eq('user_id', user.id)
-      .eq('course_id', resolveCourseUuid(courseId) || courseId);
+      .eq('course_id', dbCourseId);
+
+    try {
+      await (this.supabase
+        .from('user_quiz_attempts') as any)
+        .delete()
+        .eq('user_id', user.id)
+        .eq('course_id', dbCourseId);
+    } catch (qErr) {
+      console.warn('Could not clear user_quiz_attempts from cloud:', qErr);
+    }
   }
 
   recordVideoProgress(progress: UserVideoProgress): void {
@@ -441,11 +577,15 @@ export class CloudCourseProgressService implements CourseProgressService {
       const { data: { user } } = await this.supabase.auth.getUser();
       if (!user) return;
 
+      const dbCourseId = resolveCourseUuid(progress.courseId) || progress.courseId;
+      const dbLessonId = resolveLessonUuid(progress.courseId, progress.lessonId) || progress.lessonId;
+      const dbModuleId = progress.moduleId ? (resolveModuleUuid(progress.courseId, progress.moduleId) || progress.moduleId) : null;
+
       const payload = {
         user_id: user.id,
-        course_id: resolveCourseUuid(progress.courseId) || progress.courseId,
-        module_id: progress.moduleId || null,
-        lesson_id: progress.lessonId,
+        course_id: dbCourseId,
+        module_id: dbModuleId,
+        lesson_id: dbLessonId,
         video_id: progress.videoId,
         last_watched_seconds: progress.lastWatchedSeconds,
         duration_seconds: progress.durationSeconds,
