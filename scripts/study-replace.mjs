@@ -42,7 +42,7 @@ export function planReplacement(inventory, snapshot, categories, verifiedOld = [
       original_filename: pdf.original_filename, sha256: pdf.sha256, storage_key: `bug-bounty/${pdf.sha256}.pdf`,
       page_count: pdf.page_count, file_size: pdf.file_size, category_id: category.id,
       validation_status: 'verified', preserve_progress: Boolean(proof),
-      action: old ? 'replace' : 'add' });
+      action: old ? 'replace' : 'add', is_published: false });
   }
   return { documents, duplicates, problems, retired: snapshot.documents.filter(d => !claimed.has(d.id)) };
 }
@@ -102,7 +102,7 @@ async function main() {
     if (result.status !== 0) throw new Error('Inventory failed');
     return;
   }
-  if (!['dry-run','apply','verify','rollback'].includes(args.mode)) throw new Error('Unknown mode');
+  if (!['dry-run','apply','verify','rollback','publish','unpublish'].includes(args.mode)) throw new Error('Unknown mode');
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const secret = process.env.SUPABASE_SECRET_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY;
   assertStaging(url, args.project);
@@ -113,11 +113,21 @@ async function main() {
     console.log(await checked(client.rpc('rollback_study_collection',{run_id:args.run})));
     return;
   }
+  if (args.mode === 'publish') {
+    const result = await checked(client.rpc('publish_study_collection', { target_collection: 'bug-bounty', should_publish: true }));
+    console.log('Published collection:', result);
+    return;
+  }
+  if (args.mode === 'unpublish') {
+    const result = await checked(client.rpc('publish_study_collection', { target_collection: 'bug-bounty', should_publish: false }));
+    console.log('Unpublished collection:', result);
+    return;
+  }
   const inventory = JSON.parse(await fs.readFile(path.join(output,'inventory.json'),'utf8'));
   if (args.mode==='apply') {
     const prior=await checked(client.from('study_import_runs').select('status,manifest').eq('id',inventory.zip_sha256).maybeSingle());
     if (prior?.status==='active') {
-      const current=await checked(client.from('study_documents').select('id,source_checksum,storage_key,page_count,file_size').eq('collection_slug','bug-bounty').eq('is_published',true));
+      const current=await checked(client.from('study_documents').select('id,source_checksum,storage_key,page_count,file_size,is_published').eq('collection_slug','bug-bounty').is('retired_at',null));
       if (JSON.stringify(current.map(d=>d.source_checksum).sort())!==JSON.stringify(prior.manifest.map(d=>d.sha256).sort())) throw new Error('Previously imported catalog changed');
       for(const doc of prior.manifest) {
         const active=current.find(d=>d.id===doc.id);
@@ -129,7 +139,7 @@ async function main() {
     }
   }
   if (args.mode === 'verify') {
-    const records = await checked(client.from('study_documents').select('*').eq('collection_slug','bug-bounty').eq('is_published',true));
+    const records = await checked(client.from('study_documents').select('*').eq('collection_slug','bug-bounty').is('retired_at',null));
     const expected = [...new Set(inventory.documents.map(d=>d.sha256))].sort();
     if (JSON.stringify(records.map(d=>d.source_checksum).sort()) !== JSON.stringify(expected)) throw new Error('Active collection differs from archive');
     for(const record of records) {
@@ -137,8 +147,8 @@ async function main() {
       if(record.page_count!==source.page_count || record.file_size!==source.file_size || record.storage_key!==`bug-bounty/${source.sha256}.pdf`) throw new Error(`Metadata mismatch: ${source.original_filename}`);
     }
     await verifyFiles(client,records.map(d=>({...d,sha256:d.source_checksum})));
-    await fs.writeFile(path.join(output,'storage-verification.json'),JSON.stringify({verified:records.length,at:new Date().toISOString()},null,2));
-    console.log(`Verified ${records.length} active private PDFs`);
+    await fs.writeFile(path.join(output,'storage-verification.json'),JSON.stringify({verified:records.length,at:new Date().toISOString(),published:records.filter(r=>r.is_published).length,unpublished:records.filter(r=>!r.is_published).length},null,2));
+    console.log(`Verified ${records.length} active private PDFs (published: ${records.filter(r=>r.is_published).length}, unpublished: ${records.filter(r=>!r.is_published).length})`);
     return;
   }
   const snapshot = await checked(client.rpc('study_collection_snapshot'));
