@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default async function StudyLibraryPage() {
   const user = await getAuthenticatedUser();
   if (!user) {
-    redirect('/auth/login?redirect=/study-materials');
+    redirect('/login?redirect=/study-materials');
   }
 
   const supabase = await createClient();

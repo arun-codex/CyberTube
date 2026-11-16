@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 export default async function AdminStudyMaterialsPage() {
   const user = await getAuthenticatedUser();
   if (!user) {
-    redirect('/auth/login?redirect=/admin/study-materials');
+    redirect('/login?redirect=/admin/study-materials');
   }
 
   const admin = createAdminClient();

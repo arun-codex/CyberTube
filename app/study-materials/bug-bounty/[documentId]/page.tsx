@@ -28,7 +28,7 @@ export default async function StudyDocumentReaderPage({ params, searchParams }: 
   const { page } = await searchParams;
 
   if (!user) {
-    redirect(`/auth/login?redirect=/study-materials/bug-bounty/${documentId}`);
+    redirect(`/login?redirect=/study-materials/bug-bounty/${documentId}`);
   }
 
   const supabase = await createClient();
