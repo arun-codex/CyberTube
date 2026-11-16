@@ -83,10 +83,12 @@ def inspect_pdf(path, original_name):
                 samples = pix.samples
                 nonblank = bool(samples) and min(samples) < 245 and max(samples) - min(samples) > 10
                 words = re.findall(r'[A-Za-z]{3,}', text)
+                tokens = re.findall(r'\S+', text)
+                meaningful = len(words) >= 3 or (len(tokens) >= 3 and len(normalized) >= 20 and any(c.isalpha() for c in normalized))
                 result['pages'].append(dict(page=page.number + 1, characters=len(normalized),
                     text_sha256=hashlib.sha256(normalized.encode()).hexdigest(),
                     visual_sha256=hashlib.sha256(samples).hexdigest(),
-                    search_term=words[0] if words else None, meaningful_text=len(words) >= 3,
+                    search_term=words[0] if words else (tokens[0] if tokens else None), meaningful_text=meaningful,
                     rendering_valid=nonblank, width=page.rect.width, height=page.rect.height))
             result['text_extraction_works'] = any(p['characters'] for p in result['pages'])
             result['is_searchable'] = bool(result['pages']) and all(p['meaningful_text'] for p in result['pages'])
