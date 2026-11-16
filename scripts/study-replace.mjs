@@ -61,8 +61,24 @@ async function checked(operation) {
 async function verifyFiles(client, documents) {
   for (const doc of documents) {
     const blob = await checked(client.storage.from('original-pdfs').download(doc.storage_key));
-    if (checksum(Buffer.from(await blob.arrayBuffer())) !== doc.sha256) throw new Error(`Stored checksum mismatch: ${doc.original_filename}`);
+    const raw=Buffer.from(await blob.arrayBuffer());
+    if (checksum(raw) !== doc.sha256 || raw.length !== doc.file_size) throw new Error(`Stored checksum/size mismatch: ${doc.original_filename}`);
   }
+}
+
+export async function stageFiles(client,documents,sourceDocuments) {
+  for (const doc of documents) {
+    const source=sourceDocuments.find(d=>d.sha256===doc.sha256);
+    const raw=await fs.readFile(source.file_path);
+    if (checksum(raw)!==doc.sha256) throw new Error(`Source changed: ${source.original_filename}`);
+    const existing=await client.storage.from('original-pdfs').download(doc.storage_key);
+    if (!existing.error) {
+      if (checksum(Buffer.from(await existing.data.arrayBuffer()))!==doc.sha256) throw new Error('Immutable object collision');
+    } else {
+      await checked(client.storage.from('original-pdfs').upload(doc.storage_key,raw,{upsert:false,contentType:'application/pdf'}));
+    }
+  }
+  await verifyFiles(client,documents);
 }
 
 let reportDirectory;
@@ -101,8 +117,12 @@ async function main() {
   if (args.mode==='apply') {
     const prior=await checked(client.from('study_import_runs').select('status,manifest').eq('id',inventory.zip_sha256).maybeSingle());
     if (prior?.status==='active') {
-      const current=await checked(client.from('study_documents').select('id,source_checksum').eq('collection_slug','bug-bounty').eq('is_published',true));
+      const current=await checked(client.from('study_documents').select('id,source_checksum,storage_key,page_count,file_size').eq('collection_slug','bug-bounty').eq('is_published',true));
       if (JSON.stringify(current.map(d=>d.source_checksum).sort())!==JSON.stringify(prior.manifest.map(d=>d.sha256).sort())) throw new Error('Previously imported catalog changed');
+      for(const doc of prior.manifest) {
+        const active=current.find(d=>d.id===doc.id);
+        if(!active || active.source_checksum!==doc.sha256 || active.storage_key!==doc.storage_key || active.page_count!==doc.page_count || active.file_size!==doc.file_size) throw new Error('Previously imported metadata changed');
+      }
       await verifyFiles(client,prior.manifest);
       console.log('Import already active; all files reverified');
       return;
@@ -112,6 +132,10 @@ async function main() {
     const records = await checked(client.from('study_documents').select('*').eq('collection_slug','bug-bounty').eq('is_published',true));
     const expected = [...new Set(inventory.documents.map(d=>d.sha256))].sort();
     if (JSON.stringify(records.map(d=>d.source_checksum).sort()) !== JSON.stringify(expected)) throw new Error('Active collection differs from archive');
+    for(const record of records) {
+      const source=inventory.documents.find(d=>d.sha256===record.source_checksum);
+      if(record.page_count!==source.page_count || record.file_size!==source.file_size || record.storage_key!==`bug-bounty/${source.sha256}.pdf`) throw new Error(`Metadata mismatch: ${source.original_filename}`);
+    }
     await verifyFiles(client,records.map(d=>({...d,sha256:d.source_checksum})));
     await fs.writeFile(path.join(output,'storage-verification.json'),JSON.stringify({verified:records.length,at:new Date().toISOString()},null,2));
     console.log(`Verified ${records.length} active private PDFs`);
@@ -154,18 +178,7 @@ async function main() {
     replace:plan.documents.filter(d=>d.action==='replace').length,retire:plan.retired.length,duplicates:plan.duplicates.length,problems:plan.problems}));
   if (args.mode==='dry-run') return;
   if (plan.problems.length) throw new Error('Validation HOLD: resolve problematic PDFs before activation; manifest has exact filenames');
-  for (const doc of plan.documents) {
-    const source=inventory.documents.find(d=>d.sha256===doc.sha256);
-    const raw=await fs.readFile(source.file_path);
-    if (checksum(raw)!==doc.sha256) throw new Error(`Source changed: ${source.original_filename}`);
-    const existing=await client.storage.from('original-pdfs').download(doc.storage_key);
-    if (!existing.error) {
-      if (checksum(Buffer.from(await existing.data.arrayBuffer()))!==doc.sha256) throw new Error('Immutable object collision');
-    } else {
-      await checked(client.storage.from('original-pdfs').upload(doc.storage_key,raw,{upsert:false,contentType:'application/pdf'}));
-    }
-  }
-  await verifyFiles(client,plan.documents);
+  await stageFiles(client,plan.documents,inventory.documents);
   const manifest=plan.documents.map(({action,...d})=>d);
   const activated=await checked(client.rpc('replace_study_collection',{run_id:runId,manifest,expected_documents:snapshot.documents}));
   await fs.writeFile(path.join(output,'activation.json'),JSON.stringify(activated,null,2));

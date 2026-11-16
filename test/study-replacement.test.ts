@@ -1,6 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { planReplacement, assertStaging } from '../scripts/study-replace.mjs';
+import { planReplacement, assertStaging, stageFiles, checksum } from '../scripts/study-replace.mjs';
+import fs from 'node:fs/promises';
+import os from 'node:os';
+import path from 'node:path';
 import { findTextMatches } from '../src/lib/pdf/search';
 
 const pdf = { original_filename:'Auth_SECURED.pdf',title:'Auth',sha256:'a'.repeat(64),
@@ -45,4 +48,29 @@ test('search finds every occurrence with stable cross-span offsets and literal m
   assert.deepEqual(findTextMatches('Auth authentication AUTH','auth'),[{start:0,end:4},{start:5,end:9},{start:20,end:24}]);
   assert.deepEqual(findTextMatches('a.* a.*','.*'),[{start:1,end:3},{start:5,end:7}]);
   assert.deepEqual(findTextMatches('search','   '),[]);
+});
+
+test('partial upload failure leaves recoverable objects and retry verifies without duplication',async()=>{
+  const directory=await fs.mkdtemp(path.join(os.tmpdir(),'study-import-test-'));
+  try {
+    const documents=[];
+    for(let i=0;i<2;i++) {
+      const raw=Buffer.from(`synthetic-${i}`);const file=path.join(directory,`${i}.pdf`);await fs.writeFile(file,raw);
+      documents.push({sha256:checksum(raw),file_path:file,file_size:raw.length,original_filename:`${i}.pdf`,storage_key:`${i}.pdf`});
+    }
+    const objects=new Map<string,Buffer>();let fail=true;let attempts=0;
+    const client={storage:{from:()=>({
+      download:async(key:string)=>objects.has(key)?{data:new Blob([new Uint8Array(objects.get(key)!)]),error:null}:{data:null,error:{message:'missing'}},
+      upload:async(key:string,raw:Buffer)=>{attempts++;if(key==='1.pdf'&&fail){fail=false;return{error:{message:'injected upload failure'}};}objects.set(key,raw);return{data:{},error:null};},
+    })}};
+    await assert.rejects(stageFiles(client,documents,documents),/injected upload failure/);
+    assert.equal(objects.size,1);
+    await stageFiles(client,documents,documents);
+    assert.equal(objects.size,2);assert.equal(attempts,3);
+    await fs.writeFile(documents[0].file_path,'changed');
+    await assert.rejects(stageFiles(client,documents,documents),/Source changed/);
+  } finally {
+    assert.equal(path.dirname(path.resolve(directory)),path.resolve(os.tmpdir()));
+    await fs.rm(directory,{recursive:true,force:true});
+  }
 });

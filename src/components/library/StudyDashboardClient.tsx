@@ -105,16 +105,13 @@ export function StudyDashboardClient({
     [progressList]
   );
 
-  // Most recently opened / Continue Reading document
-  const continueReadingDoc = useMemo(() => {
-    if (progressList.length === 0) return null;
-    const sorted = [...progressList].sort(
-      (a, b) => new Date(b.last_read_at || 0).getTime() - new Date(a.last_read_at || 0).getTime()
-    );
-    const mostRecent = sorted[0];
-    const doc = documents.find((d) => d.id === mostRecent.document_id);
-    return doc ? { doc, progress: mostRecent } : null;
-  }, [progressList, documents]);
+  const recentDocuments = useMemo(() => [...progressList]
+    .sort((a, b) => new Date(b.last_read_at || 0).getTime() - new Date(a.last_read_at || 0).getTime())
+    .flatMap(progress => {
+      const doc = documents.find(d => d.id === progress.document_id);
+      return doc ? [{ doc, progress }] : [];
+    }).slice(0, 5), [progressList, documents]);
+  const continueReadingDoc = recentDocuments[0] || null;
 
   // Filtered documents
   const filteredDocuments = useMemo(() => {
@@ -238,6 +235,20 @@ export function StudyDashboardClient({
         </Card>
       )}
 
+      {recentDocuments.length > 0 && (
+        <section aria-label="Recently opened documents" className="space-y-3">
+          <h3 className="text-sm font-bold text-[var(--text-secondary)]">Recently Opened</h3>
+          <div className="flex flex-wrap gap-2">
+            {recentDocuments.map(({ doc, progress }) => (
+              <Link key={doc.id} href={`/study-materials/bug-bounty/${doc.id}?page=${progress.last_page}`}
+                className="rounded-lg border border-[var(--border)] bg-[var(--card-bg)] px-3 py-2 text-xs text-[var(--text-primary)] hover:border-[var(--accent-cyan)]">
+                {doc.title} <span className="text-[var(--text-muted)]">Page {progress.last_page}</span>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
+
       {/* Bookmarks Section (if user has saved bookmarks) */}
       {bookmarks.length > 0 && (
         <div className="space-y-3">
@@ -268,6 +279,7 @@ export function StudyDashboardClient({
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--text-muted)]" />
             <input
               type="text"
+              aria-label="Search study library"
               placeholder="Search study guides, tags, topics..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}

@@ -176,15 +176,17 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1 }: PdfRead
   const renderPage = useCallback(
     async (pageNum: number) => {
       if (!pdfDocRef.current || !canvasRef.current || !textLayerRef.current) return;
+      const generation = ++renderGeneration.current;
 
       if (renderTaskRef.current) {
         renderTaskRef.current.cancel();
+        await renderTaskRef.current.promise.catch(() => {});
       }
+      if (generation !== renderGeneration.current) return;
       if (textLayerTaskRef.current) {
         textLayerTaskRef.current.cancel?.();
       }
 
-      const generation = ++renderGeneration.current;
       setIsRendering(true);
 
       try {
@@ -246,6 +248,7 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1 }: PdfRead
 
         setIsRendering(false);
       } catch (err: any) {
+        if (generation !== renderGeneration.current) return;
         if (err?.name !== 'RenderingCancelledException') {
           console.error('Error rendering page:', err);
           setErrorMessage('Unable to render this page. Please retry.');
@@ -293,6 +296,10 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1 }: PdfRead
     },
     [documentId]
   );
+
+  useEffect(() => {
+    if (!isLoading && pdfDocRef.current && !errorMessage) saveProgressToCloud(currentPage);
+  }, [isLoading, currentPage, errorMessage, saveProgressToCloud]);
 
   // In-Document Search Execution Across All Pages
   const executeSearch = async (query: string) => {
@@ -397,7 +404,6 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1 }: PdfRead
     if (newPage < 1 || newPage > totalPages || newPage === currentPage) return;
     setCurrentPage(newPage);
     setPageInput(String(newPage));
-    saveProgressToCloud(newPage);
 
     // Update bookmark status for newly active page
     fetch(`/api/study-progress?documentId=${documentId}`)

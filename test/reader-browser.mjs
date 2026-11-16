@@ -51,12 +51,14 @@ const browser=await chromium.launch({headless:true});
 const report={persistence:'mock HTTP server; no hosted authentication or Supabase verification',documents:[],desktop:false,mobile:false};
 try{
   const context=await browser.newContext({viewport:{width:1280,height:900}});
+  context.setDefaultTimeout(20000);
   const page=await context.newPage();
   for(const [index,doc] of inventory.documents.entries()){
+    console.log('Checking PDF',index+1,doc.original_filename);
     const errors=[];const listener=error=>errors.push(error.message);page.on('pageerror',listener);
     await page.goto(`${base}/?id=${index}`);
     await page.locator('.textLayer span').first().waitFor({timeout:30000});
-    await page.waitForFunction(()=>document.querySelector('canvas')?.width>0);
+    await page.waitForFunction(()=>document.querySelector('#root canvas')?.width>0);
     const text=await page.locator('.textLayer').innerText();assert.ok(text.trim().length>0,doc.original_filename);
     await page.getByRole('button',{name:'Search inside document',exact:true}).click();
     await page.getByRole('textbox',{name:'Search document'}).fill(doc.pages[0].search_term);
@@ -73,9 +75,10 @@ try{
   await page.getByRole('button',{name:'Bookmark Page',exact:true}).click();
   await page.getByRole('button',{name:'Remove Bookmark',exact:true}).waitFor();
   await page.waitForResponse(r=>r.url().endsWith('/api/study-progress')&&r.request().method()==='POST');
-  const widthBefore=await page.locator('canvas').evaluate(c=>c.width);
+  console.log('Checking zoom, jump, fullscreen and restore');
+  const widthBefore=await page.locator('#root canvas').evaluate(c=>c.width);
   await page.getByRole('button',{name:'Zoom In',exact:true}).click();
-  await page.waitForFunction(before=>document.querySelector('canvas').width!==before,widthBefore);
+  await page.waitForFunction(before=>document.querySelector('#root canvas').width!==before,widthBefore);
   await page.getByRole('button',{name:'Zoom Out',exact:true}).click();
   await page.getByRole('textbox',{name:'Page number'}).fill('3');
   await page.getByRole('textbox',{name:'Page number'}).press('Enter');
@@ -87,10 +90,13 @@ try{
   await page.waitForFunction(()=>!document.fullscreenElement);
   await page.screenshot({path:path.join(output,'reader-desktop.png'),fullPage:true});
   await page.reload();await page.waitForFunction(()=>document.querySelector('input[aria-label="Page number"]')?.value==='2');
-  const second=await browser.newContext();const secondPage=await second.newPage();await secondPage.goto(`${base}/?id=0`);
+  console.log('Checking second browser session');
+  const second=await browser.newContext();second.setDefaultTimeout(20000);const secondPage=await second.newPage();await secondPage.goto(`${base}/?id=0`);
   await secondPage.waitForFunction(()=>document.querySelector('input[aria-label="Page number"]')?.value==='2');await second.close();
   report.desktop=true;
   const mobile=await browser.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true});
+  console.log('Checking mobile');
+  mobile.setDefaultTimeout(20000);
   const mobilePage=await mobile.newPage();await mobilePage.goto(`${base}/?id=0`);await mobilePage.locator('.textLayer span').first().waitFor();
   assert.ok(await mobilePage.getByRole('button',{name:'Zoom In',exact:true}).isVisible());
   await mobilePage.screenshot({path:path.join(output,'reader-mobile.png'),fullPage:true});

@@ -41,7 +41,7 @@ Rollback must start with the newest active import. It restores the catalog snaps
 
 ## Verification
 
-`npm run test:study` exercises archive safety, matching, search, and reader API contracts. `supabase/tests/03_study_replacement.sql` runs database activation, retry, rollback, bounds, bookmark, and progress checks inside a rolled-back transaction.
+`npm run test:study` exercises archive safety, matching, search, partial-upload recovery, and reader API contracts. `supabase/tests/03_study_replacement.sql` runs database activation, retry, rollback, bounds, bookmark, and progress checks inside a rolled-back transaction. `supabase/tests/04_study_reader_rls.sql` checks two-reader isolation and anonymous denial, also with rollback.
 
 After a production build, run the real-PDF component harness:
 

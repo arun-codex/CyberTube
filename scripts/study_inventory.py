@@ -43,7 +43,12 @@ def title_for(filename):
     title = re.sub(r'\s+', ' ', title).strip()
     fixes = {'adminpanal': 'Admin Panel', 'vlnerability checklist': 'Vulnerability Checklist',
              'meta data not extracted': 'Metadata Not Extracted', 'tips tiwtter p2': 'Twitter Tips Part 2'}
-    return fixes.get(title.lower(), title.title())
+    cleaned = fixes.get(title.lower(), title.title())
+    for acronym in ['2FA', 'ATO', 'IDOR', 'XSS', 'CSRF', 'CRLF', 'JSON', 'RCE', 'ICC', 'API']:
+        cleaned = re.sub(r'\b' + acronym + r'\b', acronym, cleaned, flags=re.I)
+    if cleaned.count('(') > cleaned.count(')'):
+        cleaned += ')'
+    return cleaned
 
 
 def category_for(name):
