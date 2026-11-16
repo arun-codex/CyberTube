@@ -69,6 +69,18 @@ try{
   }
   await page.goto(`${base}/?id=0`);await page.locator('.textLayer span').first().waitFor();
   const selection=await page.locator('.textLayer').evaluate(element=>{const range=document.createRange();range.selectNodeContents(element);const selection=window.getSelection();selection.removeAllRanges();selection.addRange(range);return selection.toString();});assert.ok(selection.trim());
+  await page.getByRole('button',{name:'Search inside document',exact:true}).click();
+  await page.getByRole('textbox',{name:'Search document'}).fill(inventory.documents[0].pages.at(-1).search_term);
+  await page.locator('mark.pdf-search-highlight').first().waitFor();
+  const targetPage=String(inventory.documents[0].page_count);
+  for(let attempt=0;attempt<100 && await page.getByRole('textbox',{name:'Page number'}).inputValue()!==targetPage;attempt++) {
+    await page.getByRole('button',{name:'Next match',exact:true}).click();
+  }
+  assert.equal(await page.getByRole('textbox',{name:'Page number'}).inputValue(),targetPage,'Search result must navigate to the last page');
+  await page.getByRole('button',{name:'Close search',exact:true}).click();
+  await page.getByRole('textbox',{name:'Page number'}).fill('1');
+  await page.getByRole('textbox',{name:'Page number'}).press('Enter');
+  report.search_navigation=true;
   await page.getByRole('button',{name:'Next Page',exact:true}).click();
   await page.getByRole('textbox',{name:'Page number'}).waitFor();
   await page.waitForFunction(()=>document.querySelector('input[aria-label="Page number"]').value==='2');
