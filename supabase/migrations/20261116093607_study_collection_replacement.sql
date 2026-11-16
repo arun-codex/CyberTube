@@ -1,0 +1,4 @@
+-- Superseded before staging application by the verified replacement workflow.
+-- Do not seed storage references from local metadata: objects must upload and
+-- verify first. Run scripts/study-replace.mjs after the schema migrations.
+-- Kept as an explicit no-op for migration filename compatibility.

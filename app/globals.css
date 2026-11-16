@@ -1,3 +1,4 @@
+@import 'pdfjs-dist/web/pdf_viewer.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -263,4 +264,17 @@
 }
 ::-webkit-scrollbar-thumb:hover {
   background: var(--text-muted);
+}
+
+/* PDF.js Text Selection and In-Document Search Highlights */
+.pdf-search-highlight {
+  background-color: rgba(250, 204, 21, 0.45) !important;
+  color: #000000 !important;
+  border-radius: 2px;
+}
+.pdf-search-highlight-active {
+  background-color: rgba(249, 115, 22, 0.75) !important;
+  color: #000000 !important;
+  outline: 2px solid #ea580c;
+  border-radius: 2px;
 }

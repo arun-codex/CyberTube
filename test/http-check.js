@@ -1,87 +1,43 @@
-const { spawn } = require('child_process');
-const http = require('http');
+const { spawn } = require('node:child_process');
+const net = require('node:net');
+const assert = require('node:assert/strict');
+const { setTimeout: delay } = require('node:timers/promises');
 
-console.log('Starting Next.js production server on port 3001...');
-const child = spawn(process.platform === 'win32' ? 'npx.cmd' : 'npx', ['next', 'start', '-p', '3001'], {
-  stdio: 'pipe',
-  shell: true,
-});
-
-let serverReady = false;
-
-child.stdout.on('data', (d) => {
-  const msg = d.toString();
-  console.log('Next log:', msg.trim());
-  if (!serverReady && (msg.includes('Ready in') || msg.includes('started server') || msg.includes('http://localhost:3001') || msg.includes('Ready'))) {
-    serverReady = true;
-    setTimeout(runChecks, 1000);
-  }
-});
-
-child.stderr.on('data', (d) => {
-  console.error('Next err:', d.toString().trim());
-});
-
-async function checkUrl(path) {
-  return new Promise((resolve, reject) => {
-    http.get('http://127.0.0.1:3001' + path, (res) => {
-      let data = '';
-      res.on('data', (c) => (data += c));
-      res.on('end', () => resolve({ status: res.statusCode, length: data.length }));
-    }).on('error', reject);
-  });
-}
-
-async function runChecks() {
+async function main() {
+  // Reserve a free local port so concurrent verification does not conflict.
+  const reservation = net.createServer();
+  await new Promise(resolve => reservation.listen(0, '127.0.0.1', resolve));
+  const port = reservation.address().port;
+  await new Promise(resolve => reservation.close(resolve));
+  const child = spawn(process.execPath, [require.resolve('next/dist/bin/next'), 'start', '-H', '127.0.0.1', '-p', String(port)], { stdio: ['ignore', 'pipe', 'pipe'] });
+  let output = '';
+  child.stdout.on('data', data => { output += data; });
+  child.stderr.on('data', data => { output += data; });
+  const base = `http://127.0.0.1:${port}`;
   try {
-    const routes = [
-      '/',
-      '/discover',
-      '/domains',
-      '/resources/portswigger-sql-injection-lab',
-      '/resources/blackhat-hardware-backdoors-x86',
-      '/saved',
-    ];
-    for (const r of routes) {
-      const res = await checkUrl(r);
-      console.log('Verified route ' + r + ' -> Status: ' + res.status + ', Size: ' + res.length + ' bytes');
-      if (res.status !== 200) {
-        throw new Error('Failed route: ' + r);
-      }
+    let ready = false;
+    for (let attempt = 0; attempt < 100; attempt++) {
+      if (child.exitCode !== null) throw new Error(output);
+      try { await fetch(base, { signal: AbortSignal.timeout(1000) }); ready = true; break; } catch {}
+      await delay(100);
     }
-
-    // Verify 404 for unknown slug
-    const notFoundRes = await checkUrl('/resources/non-existent-slug-xyz');
-    console.log('Verified 404 route -> Status: ' + notFoundRes.status);
-    if (notFoundRes.status !== 404) {
-      throw new Error('Expected 404 for invalid slug, got ' + notFoundRes.status);
+    if (!ready) throw new Error('Production server startup timed out: ' + output);
+    const routes = ['/', '/discover', '/domains', '/resources/portswigger-sql-injection-lab', '/resources/blackhat-hardware-backdoors-x86', '/saved'];
+    for (const route of routes) {
+      const response = await fetch(base + route, { signal: AbortSignal.timeout(10000) });
+      assert.equal(response.status, 200, route);
+      assert.ok((await response.text()).length > 0);
+      console.log('Verified route', route, response.status);
     }
-
-    console.log('>>> ALL NEXT.JS ROUTES SUCCESSFULLY VERIFIED! <<<');
-    cleanup();
-    process.exit(0);
-  } catch (err) {
-    console.error('Check failed:', err);
-    cleanup();
-    process.exit(1);
-  }
-}
-
-function cleanup() {
-  if (child) {
-    if (process.platform === 'win32') {
-      spawn('taskkill', ['/pid', child.pid, '/f', '/t']);
-    } else {
+    const missing = await fetch(base + '/resources/non-existent-slug-xyz', { signal: AbortSignal.timeout(10000) });
+    assert.equal(missing.status, 404);
+    console.log('PASS: 7 production HTTP checks');
+  } finally {
+    if (child.exitCode === null) {
+      const exited = new Promise(resolve => child.once('exit', resolve));
       child.kill('SIGTERM');
+      await exited;
     }
   }
 }
-
-setTimeout(() => {
-  if (!serverReady) {
-    console.error('Timeout waiting for Next.js to start');
-    cleanup();
-    process.exit(1);
-  }
-}, 15000);
-
+main().catch(error => { console.error(error); process.exitCode = 1; });
