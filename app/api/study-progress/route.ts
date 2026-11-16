@@ -1,3 +1,4 @@
+import { checkStudyDocument } from '@/lib/pdf/access';
 import { NextRequest, NextResponse } from 'next/server';
 import { getAuthenticatedUser } from '@/lib/supabase/server';
 import { createAdminClient } from '@/lib/supabase/admin';
@@ -21,6 +22,9 @@ export async function GET(req: NextRequest) {
   if (!admin) {
     return NextResponse.json({ error: 'Supabase admin unavailable' }, { status: 500 });
   }
+
+  const accessError = await checkStudyDocument(admin, documentId);
+  if (accessError) return accessError;
 
   const [{ data: progress }, { data: bookmarks }, { data: pageViews }] = await Promise.all([
     admin
@@ -65,65 +69,18 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Supabase admin client unavailable' }, { status: 500 });
   }
 
-  const { documentId, page } = await req.json();
+  const payload = await req.json().catch(() => null);
+  const { documentId, page } = payload || {};
   if (!documentId || typeof page !== 'number' || page < 1) {
     return NextResponse.json({ error: 'Invalid payload' }, { status: 400 });
   }
 
-  const nowIso = new Date().toISOString();
+  const accessError = await checkStudyDocument(admin, documentId, page);
+  if (accessError) return accessError;
 
-  // Record page view (idempotent)
-  await admin.from('user_study_page_views').upsert(
-    {
-      user_id: user.id,
-      document_id: documentId,
-      page_number: page,
-      viewed_at: nowIso,
-    },
-    { onConflict: 'user_id,document_id,page_number' }
-  );
-
-  // Fetch current progress row (if any) and document page count
-  const [{ data: prog }, { data: doc }] = await Promise.all([
-    admin
-      .from('user_study_progress')
-      .select('*')
-      .eq('user_id', user.id)
-      .eq('document_id', documentId)
-      .maybeSingle(),
-    admin
-      .from('study_documents')
-      .select('page_count')
-      .eq('id', documentId)
-      .maybeSingle(),
-  ]);
-
-  const pageCount = doc?.page_count || 1;
-  const highest = prog ? Math.max(prog.highest_page, page) : page;
-  const last = page;
-  const completion = Math.min(100, Number(((highest / pageCount) * 100).toFixed(2)));
-  const isCompleted = pageCount > 0 && highest >= pageCount;
-
-  const upsertData = {
-    user_id: user.id,
-    document_id: documentId,
-    last_page: last,
-    highest_page: highest,
-    completion_percent: completion,
-    is_completed: isCompleted,
-    last_read_at: nowIso,
-    revision: prog ? prog.revision + 1 : 0,
-    updated_at: nowIso,
-    created_at: prog ? prog.created_at : nowIso,
-  };
-
-  const { error: upsertErr } = await admin
-    .from('user_study_progress')
-    .upsert(upsertData, { onConflict: 'user_id,document_id' });
-
-  if (upsertErr) {
-    return NextResponse.json({ error: 'Failed to save progress', details: upsertErr.message }, { status: 500 });
-  }
-
-  return NextResponse.json({ message: 'Progress saved', progress: upsertData });
+  const { data: progress, error } = await admin.rpc('save_study_progress', {
+    reader_id: user.id, doc_id: documentId, page,
+  });
+  if (error) return NextResponse.json({ error: 'Failed to save progress' }, { status: error.code === 'P0002' ? 404 : 500 });
+  return NextResponse.json({ message: 'Progress saved', progress });
 }

@@ -9,7 +9,7 @@ import { createClient } from '@supabase/supabase-js';
 export const checksum = bytes => crypto.createHash('sha256').update(bytes).digest('hex');
 export const normalize = name => name.toLowerCase().replace(/\.pdf$/,'').replace(/secured/g,'').replace(/[^a-z0-9]/g,'');
 
-export function planReplacement(inventory, snapshot, categories, verifiedOld = []) {
+export function planReplacement(inventory, snapshot, categories, verifiedOld = [], mappings = []) {
   const seen = new Map(), claimed = new Set(), documents = [], duplicates = [], problems = [];
   for (const pdf of inventory.documents) {
     if (!pdf.opens_correctly || !pdf.rendering_valid || !pdf.is_searchable || pdf.error) problems.push(pdf.original_filename);
@@ -18,7 +18,8 @@ export function planReplacement(inventory, snapshot, categories, verifiedOld = [
       continue;
     }
     seen.set(pdf.sha256, pdf.original_filename);
-    const candidates = snapshot.documents.filter(old => old.source_checksum === pdf.sha256 ||
+    const mapping = mappings.find(m => m.filename === pdf.original_filename);
+    const candidates = snapshot.documents.filter(old => mapping ? old.id === mapping.old_id : old.source_checksum === pdf.sha256 ||
       normalize(old.original_filename) === normalize(pdf.original_filename) || normalize(old.title) === normalize(pdf.title));
     if (candidates.length > 1) throw new Error(`Ambiguous old identity: ${pdf.original_filename}`);
     const old = candidates[0];
@@ -32,7 +33,10 @@ export function planReplacement(inventory, snapshot, categories, verifiedOld = [
        d.pages.length === pdf.pages.length && d.pages.every((p,i) =>
          (p.text_sha256 === pdf.pages[i].text_sha256 && p.characters > 0) ||
          (p.visual_sha256 && p.visual_sha256 === pdf.pages[i].visual_sha256)))));
-    if (old && !proof) throw new Error(`Unverified replacement identity: ${pdf.original_filename}; supply inspected old originals`);
+    const reviewed = old && mapping && mapping.old_sha256 === old.source_checksum && mapping.new_sha256 === pdf.sha256 &&
+      verifiedOld.some(d => d.sha256 === old.source_checksum);
+    if (mapping && !reviewed) throw new Error(`Invalid reviewed mapping: ${pdf.original_filename}`);
+    if (old && !proof && !reviewed) throw new Error(`Unverified replacement identity: ${pdf.original_filename}; supply inspected old originals or reviewed checksum mapping`);
     const id = old?.id || crypto.randomUUID();
     documents.push({ id, title: pdf.title, slug: old?.slug || `${normalize(pdf.title)}-${pdf.sha256.slice(0,12)}`,
       original_filename: pdf.original_filename, sha256: pdf.sha256, storage_key: `bug-bounty/${pdf.sha256}.pdf`,
@@ -61,10 +65,11 @@ async function verifyFiles(client, documents) {
   }
 }
 
+let reportDirectory;
 async function main() {
   const { values: args } = parseArgs({ options: {
     mode: { type:'string', default:'dry-run' }, zip: { type:'string' }, output: { type:'string' },
-    project: { type:'string' }, run: { type:'string' }, 'old-dir': { type:'string' },
+    project: { type:'string' }, run: { type:'string' }, 'old-dir': { type:'string' }, mapping: { type:'string' },
   }});
   if (!args.output) throw new Error('--output is required (private directory outside repository)');
   const output = path.resolve(args.output);
@@ -72,6 +77,7 @@ async function main() {
   const relative = path.relative(repo, output);
   if (!relative.startsWith(`..${path.sep}`) && !path.isAbsolute(relative)) throw new Error('Output must be outside the repository');
   await fs.mkdir(output, { recursive:true });
+  reportDirectory=output;
   if (args.mode === 'inventory') {
     if (!args.zip) throw new Error('--zip is required');
     const command = [path.join(repo,'scripts/study_inventory.py'),'--zip',args.zip,'--output',output];
@@ -129,7 +135,8 @@ async function main() {
     verifiedOld.push(JSON.parse(inspected.stdout));
   }
   await fs.writeFile(path.join(backup,'snapshot.json'),JSON.stringify(snapshot,null,2));
-  const plan = planReplacement(inventory,snapshot,categories,verifiedOld);
+  const mappings=args.mapping ? JSON.parse(await fs.readFile(args.mapping,'utf8')) : [];
+  const plan = planReplacement(inventory,snapshot,categories,verifiedOld,mappings);
   // Reuse generated IDs on retries, but only if archive and expected catalog agree.
   const manifestPath=path.join(output,'replacement-manifest.json');
   let previous;
@@ -141,7 +148,7 @@ async function main() {
     }
   }
   const runId=inventory.zip_sha256;
-  const report={...plan,run_id:runId,project:args.project,zip_sha256:inventory.zip_sha256,expected_documents:snapshot.documents};
+  const report={...plan,status:plan.problems.length?'validation-hold':'prepared',run_id:runId,project:args.project,zip_sha256:inventory.zip_sha256,expected_documents:snapshot.documents};
   await fs.writeFile(manifestPath,JSON.stringify(report,null,2));
   console.log(JSON.stringify({mode:args.mode,add:plan.documents.filter(d=>d.action==='add').length,
     replace:plan.documents.filter(d=>d.action==='replace').length,retire:plan.retired.length,duplicates:plan.duplicates.length,problems:plan.problems}));
@@ -166,5 +173,9 @@ async function main() {
 }
 
 if (process.argv[1] && path.resolve(process.argv[1])===fileURLToPath(import.meta.url)) {
-  main().catch(async error=>{ console.error(error.message); process.exitCode=1; });
+  main().catch(async error=>{
+    console.error(error.message);
+    if(reportDirectory) await fs.writeFile(path.join(reportDirectory,'failure.json'),JSON.stringify({error:error.message,at:new Date().toISOString()},null,2));
+    process.exitCode=1;
+  });
 }

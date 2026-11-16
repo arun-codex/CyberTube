@@ -86,7 +86,7 @@ export async function POST(req: NextRequest) {
   try {
     pageCount = await getPdfPageCount(buffer);
   } catch (err) {
-    console.warn('Could not extract PDF page count, defaulting to 1:', err);
+    return NextResponse.json({ error: 'PDF could not be parsed' }, { status: 400 });
   }
 
   // Generate unique storage key

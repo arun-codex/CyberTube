@@ -1,130 +1,43 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getAuthenticatedUser } from '@/lib/supabase/server';
 import { createAdminClient } from '@/lib/supabase/admin';
-import fs from 'fs';
-import path from 'path';
 
-/**
- * Authenticated PDF Streaming Endpoint with HTTP Range Support.
- * Compatible with PDF.js and standard browser viewers.
- * Requires active login session.
- */
-export async function GET(
-  req: NextRequest,
-  context: { params: Promise<{ docId: string }> }
-) {
+/** Streams only the requested authorized private object; no local fallback. */
+export async function GET(req: NextRequest, context: { params: Promise<{ docId: string }> }) {
   const user = await getAuthenticatedUser();
-  if (!user) {
-    return new NextResponse('Unauthorized: Please log in to view study materials.', {
-      status: 401,
-      headers: { 'WWW-Authenticate': 'Bearer' },
-    });
-  }
-
+  if (!user) return new NextResponse('Unauthorized: Please log in.', { status: 401 });
   const { docId } = await context.params;
-  if (!docId) {
-    return new NextResponse('Bad Request: Missing document ID', { status: 400 });
-  }
-
   const admin = createAdminClient();
-  let doc: { storage_key: string; is_published: boolean; original_filename: string } | null = null;
-
-  if (admin) {
-    const { data, error } = await admin
-      .from('study_documents')
-      .select('storage_key, is_published, original_filename')
-      .eq('id', docId)
-      .single();
-
-    if (!error && data) {
-      doc = data;
-    }
-  }
-
-  if (!admin || !doc) {
-    return new NextResponse('Document not found or inaccessible', { status: 404 });
-  }
-
+  if (!admin) return new NextResponse('Storage unavailable', { status: 503 });
+  const { data: doc, error } = await admin.from('study_documents')
+    .select('storage_key,is_published,retired_at').eq('id', docId).single();
+  if (error || !doc || doc.retired_at) return new NextResponse('Document not found', { status: 404 });
   if (!doc.is_published) {
-    const { data: adminRow } = await admin
-      .from('admin_users')
-      .select('id')
-      .eq('user_id', user.id)
-      .single();
-
-    if (!adminRow) {
-      return new NextResponse('Forbidden: Document is unpublished', { status: 403 });
+    const { data: administrator } = await admin.from('admin_users').select('id').eq('user_id', user.id).single();
+    if (!administrator) return new NextResponse('Forbidden: Document is unpublished', { status: 403 });
+  }
+  const { data: file, error: storageError } = await admin.storage.from('original-pdfs').download(doc.storage_key);
+  if (storageError || !file) return new NextResponse('Document storage unavailable', { status: 502 });
+  const bytes = new Uint8Array(await file.arrayBuffer());
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/pdf', 'Accept-Ranges': 'bytes',
+    'Cache-Control': 'private, no-store', 'X-Content-Type-Options': 'nosniff',
+  };
+  const range = req.headers.get('range');
+  if (range) {
+    const match = /^bytes=(\d*)-(\d*)$/.exec(range);
+    if (!match || (!match[1] && !match[2])) {
+      return new NextResponse('Invalid range', { status: 416, headers: { ...headers, 'Content-Range': `bytes */${bytes.length}` } });
     }
-  }
-
-  let pdfBuffer: Buffer | null = null;
-  const { data: fileData, error: downloadError } = await admin.storage
-    .from('original-pdfs')
-    .download(doc.storage_key);
-
-  if (!downloadError && fileData) {
-    pdfBuffer = Buffer.from(await fileData.arrayBuffer());
-  } else {
-    // Check local fallback in dev/test environment
-    const candidatePaths = [
-      path.resolve(process.cwd(), 'data/repaired_pdfs', doc.original_filename),
-      path.resolve(process.cwd(), 'tmp/repaired_searchable_pdfs', doc.original_filename),
-    ];
-    for (const p of candidatePaths) {
-      if (fs.existsSync(p)) {
-        pdfBuffer = fs.readFileSync(p);
-        break;
-      }
+    const start = match[1] ? Number(match[1]) : Math.max(0, bytes.length - Number(match[2]));
+    const end = match[1] && match[2] ? Math.min(Number(match[2]), bytes.length - 1) : bytes.length - 1;
+    if (!Number.isSafeInteger(start) || !Number.isSafeInteger(end) || start > end || start >= bytes.length) {
+      return new NextResponse('Unsatisfiable range', { status: 416, headers: { ...headers, 'Content-Range': `bytes */${bytes.length}` } });
     }
+    headers['Content-Range'] = `bytes ${start}-${end}/${bytes.length}`;
+    headers['Content-Length'] = String(end - start + 1);
+    return new NextResponse(bytes.slice(start, end + 1), { status: 206, headers });
   }
-
-  if (!pdfBuffer) {
-    return new NextResponse('Document storage unavailable', { status: 502 });
-  }
-
-  const totalSize = pdfBuffer.length;
-  const rangeHeader = req.headers.get('range');
-
-  if (rangeHeader) {
-    const match = rangeHeader.match(/^bytes=(\d+)-(\d*)$/);
-    if (match) {
-      const start = parseInt(match[1], 10);
-      const end = match[2] ? Math.min(parseInt(match[2], 10), totalSize - 1) : totalSize - 1;
-
-      if (start >= totalSize || end >= totalSize || start > end) {
-        return new NextResponse('Requested range not satisfiable', {
-          status: 416,
-          headers: {
-            'Content-Range': `bytes */${totalSize}`,
-          },
-        });
-      }
-
-      const chunk = pdfBuffer.subarray(start, end + 1);
-      return new NextResponse(new Uint8Array(chunk) as unknown as BodyInit, {
-        status: 206,
-        headers: {
-          'Content-Type': 'application/pdf',
-          'Content-Range': `bytes ${start}-${end}/${totalSize}`,
-          'Accept-Ranges': 'bytes',
-          'Content-Length': String(chunk.length),
-          'Cache-Control': 'private, no-cache, no-store, must-revalidate',
-        },
-      });
-    }
-    return new NextResponse('Invalid range', {
-      status: 416,
-      headers: { 'Content-Range': `bytes */${totalSize}` },
-    });
-  }
-
-  return new NextResponse(new Uint8Array(pdfBuffer) as unknown as BodyInit, {
-    status: 200,
-    headers: {
-      'Content-Type': 'application/pdf',
-      'Content-Length': String(totalSize),
-      'Accept-Ranges': 'bytes',
-      'Cache-Control': 'private, no-cache, no-store, must-revalidate',
-    },
-  });
+  headers['Content-Length'] = String(bytes.length);
+  return new NextResponse(bytes, { headers });
 }

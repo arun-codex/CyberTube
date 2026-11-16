@@ -66,6 +66,7 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1 }: PdfRead
   const textLayerRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
 
+  const loadingTaskRef = useRef<any>(null);
   const pdfDocRef = useRef<any>(null);
   const pdfjsLibRef = useRef<any>(null);
   const renderTaskRef = useRef<any>(null);
@@ -109,8 +110,9 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1 }: PdfRead
           withCredentials: true,
         });
 
+        loadingTaskRef.current = loadingTask;
         const doc = await loadingTask.promise;
-        if (isCancelled) { await doc.destroy(); return; }
+        if (isCancelled) { await loadingTask.destroy(); return; }
 
         pdfDocRef.current = doc;
         setTotalPages(doc.numPages);
@@ -134,7 +136,7 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1 }: PdfRead
       isCancelled = true;
       if (renderTaskRef.current) renderTaskRef.current.cancel();
       if (textLayerTaskRef.current) textLayerTaskRef.current.cancel?.();
-      pdfDocRef.current?.destroy();
+      void loadingTaskRef.current?.destroy();
       pdfDocRef.current = null;
     };
   }, [documentId, initialPage]);

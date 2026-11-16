@@ -4,6 +4,7 @@ declare module 'pdfjs-dist/build/pdf.mjs' {
   };
   export function getDocument(src: any): {
     promise: Promise<any>;
+    destroy(): Promise<void>;
   };
   export class TextLayer {
     constructor(options: {

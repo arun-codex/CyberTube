@@ -13,5 +13,5 @@ export async function getPdfPageCount(pdfBuffer: Buffer): Promise<number> {
   });
 
   const pdfDocument = await loadingTask.promise;
-  return pdfDocument.numPages || 0;
+  try { return pdfDocument.numPages || 0; } finally { await loadingTask.destroy(); }
 }

@@ -43,6 +43,7 @@ export default async function StudyDocumentReaderPage({ params, searchParams }: 
     .from('study_documents')
     .select('id, title, page_count, is_published, description, category_id, study_categories(title)')
     .eq('id', documentId)
+    .is('retired_at', null)
     .maybeSingle();
 
   if (doc && !error) {
@@ -53,6 +54,7 @@ export default async function StudyDocumentReaderPage({ params, searchParams }: 
       .from('study_documents')
       .select('id, title, page_count, is_published, description, category_id, study_categories(title)')
       .eq('slug', documentId)
+      .is('retired_at', null)
       .maybeSingle();
 
     if (slugDoc) {

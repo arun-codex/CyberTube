@@ -39,3 +39,8 @@ test-results/
 tmp/
 *.pdf
 
+
+# Private study source archives and validation artifacts
+*.zip
+data/repaired_pdfs/
+__pycache__/

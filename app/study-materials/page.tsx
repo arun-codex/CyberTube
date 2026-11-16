@@ -35,6 +35,8 @@ export default async function StudyLibraryPage() {
       .from('study_documents')
       .select('id, title, slug, description, category_id, difficulty, page_count, is_published, study_categories(title, slug)')
       .eq('is_published', true)
+      .eq('collection_slug', 'bug-bounty')
+      .is('retired_at', null)
       .order('sort_order', { ascending: true }),
     supabase
       .from('user_study_progress')
@@ -47,8 +49,9 @@ export default async function StudyLibraryPage() {
       .order('created_at', { ascending: false }),
   ]);
 
-  const categories = categoriesData || [];
   const documents = (documentsData as any[]) || [];
+  const usedCategories = new Set(documents.map(d => d.category_id));
+  const categories = ((categoriesData as any[]) || []).filter(c => usedCategories.has(c.id));
   const activeIds = new Set(documents.map(d => d.id));
   const progressList = ((progressData as any[]) || []).filter((p: any) => activeIds.has(p.document_id));
   const bookmarks = ((bookmarksData as any[]) || []).filter((b: any) => activeIds.has(b.document_id));

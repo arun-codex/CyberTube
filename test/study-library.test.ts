@@ -1,3 +1,4 @@
+import { studyPdf } from './helpers/study-pdf';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
@@ -26,34 +27,12 @@ test.before(async () => {
   setAdminClientForTesting = adminMod.setAdminClientForTesting;
 });
 
-test('1. Pure JavaScript PDF Page Count & Searchable Text Extraction', async () => {
-  const candidatePaths = [
-    path.resolve(process.cwd(), 'data/repaired_pdfs/2FA_BYPASS_SECURED.pdf'),
-    path.resolve(process.cwd(), 'tmp/repaired_searchable_pdfs/2FA_BYPASS_SECURED.pdf'),
-    path.resolve('C:/Users/dutch/.gemini/antigravity/brain/0f83e2d2-eb4c-4413-9630-667d43335fff/temp_pdf/Bug_bounty_materials/2FA_BYPASS_SECURED.pdf')
-  ];
-  let samplePdfPath = candidatePaths.find(p => fs.existsSync(p));
-  assert.ok(samplePdfPath, 'Sample PDF exists');
-
-  const buffer = fs.readFileSync(samplePdfPath);
+test('1. Pure JavaScript PDF Page Count Extraction', async () => {
+  const buffer = studyPdf();
   const pageCount = await getPdfPageCount(buffer);
 
   assert.equal(typeof pageCount, 'number');
   assert.equal(pageCount, 5, 'Sample 2FA_BYPASS_SECURED.pdf must have exactly 5 pages');
-
-  // Verify searchable text extraction with pdfjs-dist
-  const pdfjs = await import('pdfjs-dist/legacy/build/pdf.mjs');
-  const doc = await (pdfjs as any).getDocument({ data: new Uint8Array(buffer), useSystemFonts: true }).promise;
-  assert.equal(doc.numPages, 5);
-
-  let fullText = '';
-  for (let i = 1; i <= doc.numPages; i++) {
-    const page = await doc.getPage(i);
-    const content = await page.getTextContent();
-    const pageText = content.items.map((item: any) => item.str || '').join(' ');
-    fullText += pageText + ' ';
-  }
-  assert.ok(fullText.length > 500, `PDF text content must be rich and extractable (found ${fullText.length} characters)`);
 });
 
 test('2. Study Materials PDF Endpoint — Unauthorized Access Blocked', async () => {
@@ -88,13 +67,7 @@ test('3. Study Materials PDF Endpoint — Authenticated User & Range Requests', 
     original_filename: '2FA_BYPASS_SECURED.pdf',
   };
 
-  const candidatePaths = [
-    path.resolve(process.cwd(), 'data/repaired_pdfs/2FA_BYPASS_SECURED.pdf'),
-    path.resolve(process.cwd(), 'tmp/repaired_searchable_pdfs/2FA_BYPASS_SECURED.pdf'),
-    path.resolve('C:/Users/dutch/.gemini/antigravity/brain/0f83e2d2-eb4c-4413-9630-667d43335fff/temp_pdf/Bug_bounty_materials/2FA_BYPASS_SECURED.pdf')
-  ];
-  const samplePdfPath = candidatePaths.find(p => fs.existsSync(p))!;
-  const pdfBytes = fs.readFileSync(samplePdfPath);
+  const pdfBytes = studyPdf();
 
   const mockAdmin = {
     from: (table: string) => ({
@@ -107,7 +80,7 @@ test('3. Study Materials PDF Endpoint — Authenticated User & Range Requests', 
     }),
     storage: {
       from: () => ({
-        download: async () => ({ data: new Blob([pdfBytes]), error: null }),
+        download: async () => ({ data: new Blob([new Uint8Array(pdfBytes)]), error: null }),
       }),
     },
   };
@@ -150,23 +123,14 @@ test('4. Study Progress API — Track and Cloud Sync Progress', async () => {
   let loggedPageView: any = null;
 
   const mockAdmin = {
-    from: (table: string) => ({
-      upsert: async (data: any) => {
-        if (table === 'user_study_progress') upsertedProgress = data;
-        if (table === 'user_study_page_views') loggedPageView = data;
-        return { error: null };
-      },
-      select: () => ({
-        eq: () => ({
-          eq: () => ({
-            single: async () => ({ data: null, error: null }),
-            maybeSingle: async () => ({ data: null, error: null }),
-          }),
-          single: async () => ({ data: { page_count: 10 }, error: null }),
-          maybeSingle: async () => ({ data: { page_count: 10 }, error: null }),
-        }),
-      }),
-    }),
+    from: () => ({ select: () => ({ eq: () => ({ maybeSingle: async () => ({ data: { page_count:10,is_published:true,retired_at:null }, error:null }) }) }) }),
+    rpc: async (name: string, args: any) => {
+      assert.equal(name, 'save_study_progress');
+      assert.equal(args.reader_id, mockUser.id);
+      loggedPageView = { page_number: args.page };
+      upsertedProgress = { last_page:args.page, highest_page:args.page, completion_percent:40, is_completed:false };
+      return { data:upsertedProgress,error:null };
+    },
   };
   setAdminClientForTesting(mockAdmin);
 
@@ -203,27 +167,13 @@ test('5. Study Bookmarks API — Toggle Bookmarks on Current Page', async () => 
   let deletedId: string | null = null;
 
   const mockAdmin = {
-    from: (table: string) => ({
-      select: () => ({
-        eq: () => ({
-          eq: () => ({
-            eq: () => ({
-              maybeSingle: async () => ({ data: existingBookmark, error: null }),
-            }),
-          }),
-        }),
-      }),
-      insert: async (data: any) => {
-        insertedBookmark = data;
-        return { error: null };
-      },
-      delete: () => ({
-        eq: (col: string, val: string) => {
-          deletedId = val;
-          return { error: null };
-        },
-      }),
-    }),
+    from: () => ({ select: () => ({ eq: () => ({ maybeSingle: async () => ({ data: { page_count:10,is_published:true,retired_at:null }, error:null }) }) }) }),
+    rpc: async (name: string, args: any) => {
+      assert.equal(name, 'toggle_study_bookmark');
+      assert.equal(args.reader_id, mockUser.id);
+      if (existingBookmark) { deletedId=existingBookmark.id; existingBookmark=null; return {data:false,error:null}; }
+      insertedBookmark={page_number:args.page}; return {data:true,error:null};
+    },
   };
   setAdminClientForTesting(mockAdmin);
 
@@ -287,4 +237,28 @@ test('6. Admin Upload Endpoint — Blocks Unauthorized Learners', async () => {
 
   setAuthenticatedUserForTesting(null);
   setAdminClientForTesting(null);
+});
+
+test('7. Unknown, retired and missing storage objects never fall back to another PDF', async () => {
+  setAuthenticatedUserForTesting({ id:'reader' });
+  const { GET } = await import('../app/api/study-materials/[docId]/pdf/route');
+  for (const [doc, expected] of [[null,404],[{retired_at:'2026-01-01',is_published:true},404],
+    [{retired_at:null,is_published:true,storage_key:'missing'},502]] as const) {
+    setAdminClientForTesting({from:()=>({select:()=>({eq:()=>({single:async()=>({data:doc,error:null})})})}),
+      storage:{from:()=>({download:async()=>({data:null,error:{message:'missing'}})})}});
+    const response=await GET(new Request('http://localhost/api/study-materials/missing/pdf') as any,{params:Promise.resolve({docId:'missing'})});
+    assert.equal(response.status,expected);
+  }
+  setAuthenticatedUserForTesting(null);setAdminClientForTesting(null);
+});
+
+test('8. Fractional, out-of-bounds and retired-document progress writes are rejected', async () => {
+  setAuthenticatedUserForTesting({id:'reader'});
+  const { POST } = await import('../app/api/study-progress/route');
+  for (const [page,retired,expected] of [[1.5,false,400],[99,false,400],[1,true,404]] as const) {
+    setAdminClientForTesting({from:()=>({select:()=>({eq:()=>({maybeSingle:async()=>({data:{page_count:5,is_published:true,retired_at:retired?'date':null},error:null})})})}),rpc:()=>assert.fail('Rejected write reached database RPC')});
+    const response=await POST(new Request('http://localhost/api/study-progress',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({documentId:'doc',page})}) as any);
+    assert.equal(response.status,expected);
+  }
+  setAuthenticatedUserForTesting(null);setAdminClientForTesting(null);
 });

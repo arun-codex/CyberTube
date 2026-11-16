@@ -522,6 +522,10 @@ export interface Database {
       };
       study_documents: {
         Row: {
+          collection_slug: string;
+          file_size: number | null;
+          validation_status: string | null;
+          retired_at: string | null;
           id: string;
           category_id: string | null;
           title: string;
@@ -540,6 +544,10 @@ export interface Database {
           updated_at: string;
         };
         Insert: {
+          collection_slug?: string;
+          file_size?: number | null;
+          validation_status?: string | null;
+          retired_at?: string | null;
           id?: string;
           category_id?: string | null;
           title: string;
@@ -558,6 +566,10 @@ export interface Database {
           updated_at?: string;
         };
         Update: {
+          collection_slug?: string;
+          file_size?: number | null;
+          validation_status?: string | null;
+          retired_at?: string | null;
           id?: string;
           category_id?: string | null;
           title?: string;
