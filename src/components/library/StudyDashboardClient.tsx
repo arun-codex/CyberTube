@@ -367,7 +367,15 @@ export function StudyDashboardClient({
       </div>
 
       {/* Documents Grid */}
-      {filteredDocuments.length === 0 ? (
+      {totalDocuments === 0 ? (
+        <Card className="p-12 text-center border-dashed bg-[var(--card-bg)]">
+          <BookOpen className="mx-auto h-12 w-12 text-[var(--accent-cyan)] mb-3 opacity-60" />
+          <h3 className="text-base font-bold text-[var(--text-primary)]">Study Materials Coming Soon</h3>
+          <p className="mt-1 text-xs text-[var(--text-secondary)] max-w-md mx-auto">
+            The Bug Bounty Study Library collection is currently being prepared for this environment. Once published, study guides and cheat sheets will appear here.
+          </p>
+        </Card>
+      ) : filteredDocuments.length === 0 ? (
         <Card className="p-12 text-center border-dashed bg-[var(--card-bg)]">
           <BookOpen className="mx-auto h-12 w-12 text-[var(--text-muted)] mb-3 opacity-40" />
           <h3 className="text-base font-bold text-[var(--text-primary)]">No study materials match your search</h3>
