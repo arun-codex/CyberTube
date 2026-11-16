@@ -16,11 +16,13 @@ import {
   ArrowLeft,
   Loader2,
   AlertCircle,
-  FileText,
-  Smartphone,
+  Search,
+  X,
+  ChevronDown,
+  ChevronUp,
 } from 'lucide-react';
+import { findTextMatches } from '@/lib/pdf/search';
 import { Button } from '@/components/ui/Button';
-import { Badge } from '@/components/ui/Badge';
 
 interface PdfReaderProps {
   documentId: string;
@@ -28,23 +30,46 @@ interface PdfReaderProps {
   initialPage?: number;
 }
 
+interface SearchMatch {
+  pageNumber: number;
+  start: number;
+  end: number;
+}
+
 export function PdfReader({ documentId, initialTitle, initialPage = 1 }: PdfReaderProps) {
   const [currentPage, setCurrentPage] = useState<number>(initialPage);
   const [totalPages, setTotalPages] = useState<number>(1);
   const [scale, setScale] = useState<number>(1.2);
-  const [fitToWidth, setFitToWidth] = useState<boolean>(false);
+  const [fitToWidth, setFitToWidth] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isRendering, setIsRendering] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
   const [isBookmarked, setIsBookmarked] = useState<boolean>(false);
-  const [saveStatus, setSaveStatus] = useState<'idle' | 'saving' | 'saved'>('idle');
+  const [saveStatus, setSaveStatus] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
   const [pageInput, setPageInput] = useState<string>(String(initialPage));
 
+  // Search State
+  const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
+  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [isSearching, setIsSearching] = useState<boolean>(false);
+  const [searchMatches, setSearchMatches] = useState<SearchMatch[]>([]);
+  const [activeMatchIndex, setActiveMatchIndex] = useState<number>(-1);
+
+  const searchGeneration = useRef(0);
+  const renderGeneration = useRef(0);
+  const searchQueryRef = useRef(searchQuery);
+  searchQueryRef.current = searchQuery;
   const containerRef = useRef<HTMLDivElement>(null);
+  const pageContainerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const textLayerRef = useRef<HTMLDivElement>(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
   const pdfDocRef = useRef<any>(null);
+  const pdfjsLibRef = useRef<any>(null);
   const renderTaskRef = useRef<any>(null);
+  const textLayerTaskRef = useRef<any>(null);
   const saveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Load PDF Document & Initial Progress
@@ -76,6 +101,7 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1 }: PdfRead
 
         // Dynamically import PDF.js
         const pdfjsLib = await import('pdfjs-dist/build/pdf.mjs');
+        pdfjsLibRef.current = pdfjsLib;
         pdfjsLib.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.mjs';
 
         const loadingTask = pdfjsLib.getDocument({
@@ -84,7 +110,7 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1 }: PdfRead
         });
 
         const doc = await loadingTask.promise;
-        if (isCancelled) return;
+        if (isCancelled) { await doc.destroy(); return; }
 
         pdfDocRef.current = doc;
         setTotalPages(doc.numPages);
@@ -106,33 +132,71 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1 }: PdfRead
 
     return () => {
       isCancelled = true;
-      if (renderTaskRef.current) {
-        renderTaskRef.current.cancel();
-      }
+      if (renderTaskRef.current) renderTaskRef.current.cancel();
+      if (textLayerTaskRef.current) textLayerTaskRef.current.cancel?.();
+      pdfDocRef.current?.destroy();
+      pdfDocRef.current = null;
     };
   }, [documentId, initialPage]);
 
-  // Render Current Page onto Canvas
+  // Highlight matches in current text layer
+  const applySearchHighlights = useCallback(
+    (query: string) => {
+      if (!textLayerRef.current) return;
+      const spans: HTMLElement[] = textLayerTaskRef.current?.textDivs || [];
+      const text = spans.map(span => span.textContent || '').join('');
+      const matches = findTextMatches(text, query);
+      let offset = 0;
+      for (const span of spans) {
+        const original = span.textContent || '';
+        span.replaceChildren();
+        let cursor = 0;
+        for (const match of matches) {
+          const start = Math.max(0, match.start - offset);
+          const end = Math.min(original.length, match.end - offset);
+          if (end <= start) continue;
+          span.append(document.createTextNode(original.slice(cursor, start)));
+          const mark = document.createElement('mark');
+          mark.className = 'pdf-search-highlight';
+          mark.dataset.matchStart = String(match.start);
+          mark.textContent = original.slice(start, end);
+          span.append(mark);
+          cursor = end;
+        }
+        span.append(document.createTextNode(original.slice(cursor)));
+        offset += original.length;
+      }
+    },
+    []
+  );
+
+  // Render Current Page onto Canvas & TextLayer
   const renderPage = useCallback(
     async (pageNum: number) => {
-      if (!pdfDocRef.current || !canvasRef.current) return;
+      if (!pdfDocRef.current || !canvasRef.current || !textLayerRef.current) return;
 
       if (renderTaskRef.current) {
         renderTaskRef.current.cancel();
       }
+      if (textLayerTaskRef.current) {
+        textLayerTaskRef.current.cancel?.();
+      }
 
+      const generation = ++renderGeneration.current;
       setIsRendering(true);
 
       try {
         const page = await pdfDocRef.current.getPage(pageNum);
+        if (generation !== renderGeneration.current) return;
         const canvas = canvasRef.current;
-        if (!canvas) return;
+        const textContainer = textLayerRef.current;
+        if (!canvas || !textContainer) return;
 
         let activeScale = scale;
         if (fitToWidth && containerRef.current) {
           const containerWidth = containerRef.current.clientWidth - 48; // padding
           const unscaledViewport = page.getViewport({ scale: 1.0 });
-          activeScale = Math.max(0.6, containerWidth / unscaledViewport.width);
+          activeScale = Math.max(0.1, containerWidth / unscaledViewport.width);
         }
 
         const viewport = page.getViewport({ scale: activeScale });
@@ -144,6 +208,12 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1 }: PdfRead
         canvas.height = Math.floor(viewport.height * outputScale);
         canvas.style.width = `${Math.floor(viewport.width)}px`;
         canvas.style.height = `${Math.floor(viewport.height)}px`;
+
+        // Configure text layer container to match exact canvas dimensions
+        textContainer.innerHTML = '';
+        textContainer.style.width = `${Math.floor(viewport.width)}px`;
+        textContainer.style.height = `${Math.floor(viewport.height)}px`;
+        textContainer.style.setProperty('--total-scale-factor', String(activeScale));
 
         const transform = outputScale !== 1 ? [outputScale, 0, 0, outputScale, 0, 0] : undefined;
 
@@ -157,15 +227,31 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1 }: PdfRead
         renderTaskRef.current = renderTask;
 
         await renderTask.promise;
+        if (generation !== renderGeneration.current) return;
+
+        // Render TextLayer for selection & search
+        if (pdfjsLibRef.current?.TextLayer) {
+          const textLayer = new pdfjsLibRef.current.TextLayer({
+            textContentSource: await page.getTextContent(),
+            container: textContainer,
+            viewport: viewport,
+          });
+          textLayerTaskRef.current = textLayer;
+          await textLayer.render();
+          if (generation !== renderGeneration.current) return;
+          applySearchHighlights(searchQueryRef.current);
+        }
+
         setIsRendering(false);
       } catch (err: any) {
         if (err?.name !== 'RenderingCancelledException') {
           console.error('Error rendering page:', err);
+          setErrorMessage('Unable to render this page. Please retry.');
         }
         setIsRendering(false);
       }
     },
-    [scale, fitToWidth]
+    [scale, fitToWidth, applySearchHighlights]
   );
 
   useEffect(() => {
@@ -195,16 +281,114 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1 }: PdfRead
             setSaveStatus('saved');
             setTimeout(() => setSaveStatus('idle'), 3000);
           } else {
-            setSaveStatus('idle');
+            setSaveStatus('error');
           }
         } catch (e) {
           console.error('Failed to sync progress:', e);
-          setSaveStatus('idle');
+          setSaveStatus('error');
         }
       }, 800);
     },
     [documentId]
   );
+
+  // In-Document Search Execution Across All Pages
+  const executeSearch = async (query: string) => {
+    const generation = ++searchGeneration.current;
+    if (!query.trim() || !pdfDocRef.current) {
+      setIsSearching(false);
+      setSearchMatches([]);
+      setActiveMatchIndex(-1);
+      applySearchHighlights('');
+      return;
+    }
+
+    setIsSearching(true);
+    const matches: SearchMatch[] = [];
+    const q = query.trim();
+
+    try {
+      for (let p = 1; p <= totalPages; p++) {
+        const page = await pdfDocRef.current.getPage(p);
+        const textContent = await page.getTextContent();
+        if (generation !== searchGeneration.current) return;
+        const pageText = textContent.items.map((i: any) => ('str' in i ? i.str : '')).join('');
+        for (const match of findTextMatches(pageText, q)) matches.push({ pageNumber: p, ...match });
+      }
+
+      setSearchMatches(matches);
+
+      if (matches.length > 0) {
+        // Find match closest to current page or default to first
+        const nextIndex = matches.findIndex((m) => m.pageNumber >= currentPage);
+        const targetIndex = nextIndex !== -1 ? nextIndex : 0;
+        setActiveMatchIndex(targetIndex);
+        const targetMatch = matches[targetIndex];
+
+        if (targetMatch.pageNumber !== currentPage) {
+          goToPage(targetMatch.pageNumber);
+        } else {
+          applySearchHighlights(query);
+        }
+      } else {
+        setActiveMatchIndex(-1);
+        applySearchHighlights('');
+      }
+    } catch (e) {
+      console.error('Search error:', e);
+    } finally {
+      if (generation === searchGeneration.current) setIsSearching(false);
+    }
+  };
+
+  const handleNextMatch = () => {
+    if (searchMatches.length === 0) return;
+    const nextIdx = (activeMatchIndex + 1) % searchMatches.length;
+    setActiveMatchIndex(nextIdx);
+    const targetMatch = searchMatches[nextIdx];
+    if (targetMatch.pageNumber !== currentPage) {
+      goToPage(targetMatch.pageNumber);
+    }
+  };
+
+  const handlePrevMatch = () => {
+    if (searchMatches.length === 0) return;
+    const prevIdx = (activeMatchIndex - 1 + searchMatches.length) % searchMatches.length;
+    setActiveMatchIndex(prevIdx);
+    const targetMatch = searchMatches[prevIdx];
+    if (targetMatch.pageNumber !== currentPage) {
+      goToPage(targetMatch.pageNumber);
+    }
+  };
+
+  useEffect(() => {
+    applySearchHighlights(searchQuery);
+    const match = searchMatches[activeMatchIndex];
+    if (match?.pageNumber === currentPage) {
+      const marks = textLayerRef.current?.querySelectorAll<HTMLElement>('mark');
+      let first: HTMLElement | undefined;
+      marks?.forEach(mark => {
+        const active = Number(mark.dataset.matchStart) === match.start;
+        mark.classList.toggle('pdf-search-highlight-active', active);
+        if (active && !first) first = mark;
+      });
+      first?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+    }
+  }, [searchQuery, searchMatches, activeMatchIndex, currentPage, isRendering, applySearchHighlights]);
+
+  useEffect(() => {
+    const observer = new ResizeObserver(() => {
+      if (fitToWidth && pdfDocRef.current) void renderPage(currentPage);
+    });
+    if (containerRef.current) observer.observe(containerRef.current);
+    return () => observer.disconnect();
+  }, [currentPage, fitToWidth, renderPage]);
+
+  useEffect(() => {
+    const update = () => setIsFullscreen(Boolean(document.fullscreenElement));
+    document.addEventListener('fullscreenchange', update);
+    return () => document.removeEventListener('fullscreenchange', update);
+  }, []);
 
   // Page Navigation Handlers
   const goToPage = (newPage: number) => {
@@ -257,10 +441,10 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1 }: PdfRead
     if (!containerRef.current) return;
     if (!document.fullscreenElement) {
       containerRef.current.requestFullscreen().catch(() => {});
-      setIsFullscreen(true);
+
     } else {
       document.exitFullscreen().catch(() => {});
-      setIsFullscreen(false);
+
     }
   };
 
@@ -284,7 +468,20 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1 }: PdfRead
   // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (['INPUT', 'TEXTAREA'].includes((e.target as HTMLElement).tagName)) return;
+      // Allow Ctrl+F or Cmd+F to open search
+      if ((e.ctrlKey || e.metaKey) && (e.key === 'f' || e.key === 'F')) {
+        e.preventDefault();
+        setIsSearchOpen(true);
+        setTimeout(() => searchInputRef.current?.focus(), 100);
+        return;
+      }
+
+      if (['INPUT', 'TEXTAREA'].includes((e.target as HTMLElement).tagName)) {
+        if (e.key === 'Escape') {
+          setIsSearchOpen(false);
+        }
+        return;
+      }
 
       if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') {
         e.preventDefault();
@@ -292,6 +489,8 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1 }: PdfRead
       } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
         e.preventDefault();
         handlePrevPage();
+      } else if (e.key === 'Escape' && isFullscreen) {
+        handleToggleFullscreen();
       }
     };
 
@@ -304,7 +503,7 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1 }: PdfRead
   return (
     <div
       ref={containerRef}
-      className={`flex flex-col bg-[var(--canvas)] select-none text-[var(--text-primary)] ${
+      className={`flex flex-col bg-[var(--canvas)] text-[var(--text-primary)] ${
         isFullscreen ? 'fixed inset-0 z-50 p-2 sm:p-4' : 'w-full rounded-xl border border-[var(--border)] overflow-hidden shadow-sm'
       }`}
     >
@@ -320,7 +519,7 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1 }: PdfRead
             <span className="hidden sm:inline">Library</span>
           </Link>
           <div className="h-4 w-px bg-[var(--border)]" />
-          <h1 className="text-sm font-bold truncate max-w-[200px] sm:max-w-xs md:max-w-md">
+          <h1 className="text-sm font-bold truncate max-w-[180px] sm:max-w-xs md:max-w-md">
             {initialTitle}
           </h1>
         </div>
@@ -343,7 +542,7 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1 }: PdfRead
               type="text"
               value={pageInput}
               onChange={(e) => setPageInput(e.target.value)}
-              onBlur={() => setPageInput(String(currentPage))}
+              aria-label="Page number"
               className="w-12 h-8 text-center rounded border border-[var(--border)] bg-[var(--canvas)] font-semibold text-[var(--text-primary)] focus:outline-none focus:ring-1 focus:ring-[var(--accent-cyan)]"
             />
             <span className="text-[var(--text-muted)]">/ {totalPages}</span>
@@ -361,9 +560,10 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1 }: PdfRead
           </Button>
         </div>
 
-        {/* Right: Zoom, Bookmark, Cloud Sync, Fullscreen */}
+        {/* Right: Search, Zoom, Bookmark, Cloud Sync, Fullscreen */}
         <div className="flex items-center gap-2">
           {/* Cloud Sync Status */}
+          {saveStatus === 'error' && <span role="alert" className="text-xs text-red-500">Progress not saved. Change page to retry.</span>}
           {saveStatus === 'saving' && (
             <span className="hidden md:flex items-center gap-1 text-[11px] font-mono text-[var(--text-muted)]">
               <Loader2 className="w-3 h-3 animate-spin text-[var(--accent-cyan)]" /> Syncing...
@@ -374,6 +574,20 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1 }: PdfRead
               <CheckCircle2 className="w-3.5 h-3.5" /> Saved to Cloud
             </span>
           )}
+
+          {/* Search Toggle Button */}
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => {
+              setIsSearchOpen((prev) => !prev);
+              if (!isSearchOpen) setTimeout(() => searchInputRef.current?.focus(), 100);
+            }}
+            aria-label="Search inside document"
+            className={`h-8 w-8 p-0 ${isSearchOpen ? 'border-[var(--accent-cyan)] text-[var(--accent-cyan)] bg-[var(--accent-cyan)]/10' : ''}`}
+          >
+            <Search className="w-4 h-4" />
+          </Button>
 
           {/* Bookmark Button */}
           <Button
@@ -397,7 +611,7 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1 }: PdfRead
           </Button>
 
           {/* Zoom Controls */}
-          <div className="hidden sm:flex items-center rounded-lg border border-[var(--border)] bg-[var(--surface-subtle)] p-0.5">
+          <div className="flex items-center rounded-lg border border-[var(--border)] bg-[var(--surface-subtle)] p-0.5">
             <button
               type="button"
               onClick={handleZoomOut}
@@ -440,6 +654,85 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1 }: PdfRead
         </div>
       </div>
 
+      {/* In-Document Search Toolbar (Expandable) */}
+      {isSearchOpen && (
+        <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-2 bg-[var(--surface-subtle)] border-b border-[var(--border)] text-xs animate-in slide-in-from-top-1">
+          <div className="flex items-center gap-2 flex-1 max-w-md">
+            <Search className="w-3.5 h-3.5 text-[var(--text-muted)]" />
+            <input
+              ref={searchInputRef}
+              type="text"
+              value={searchQuery}
+              onChange={(e) => {
+                setSearchQuery(e.target.value);
+                executeSearch(e.target.value);
+              }}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  e.shiftKey ? handlePrevMatch() : handleNextMatch();
+                }
+              }}
+              aria-label="Search document"
+              placeholder="Search text in document (Press Enter for next)..."
+              className="w-full bg-[var(--canvas)] border border-[var(--border)] rounded px-2.5 py-1 text-xs text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:ring-1 focus:ring-[var(--accent-cyan)]"
+            />
+          </div>
+
+          <div className="flex items-center gap-2">
+            {isSearching ? (
+              <span className="text-[11px] font-mono text-[var(--text-muted)] flex items-center gap-1">
+                <Loader2 className="w-3 h-3 animate-spin text-[var(--accent-cyan)]" /> Searching...
+              </span>
+            ) : searchMatches.length > 0 ? (
+              <span className="text-[11px] font-mono text-[var(--text-primary)]">
+                {activeMatchIndex + 1} of {searchMatches.length} matches
+              </span>
+            ) : searchQuery.trim() ? (
+              <span className="text-[11px] text-amber-500 font-medium">No matches found</span>
+            ) : null}
+
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handlePrevMatch}
+              disabled={searchMatches.length === 0}
+              aria-label="Previous match"
+              className="h-7 w-7 p-0"
+            >
+              <ChevronUp className="w-3.5 h-3.5" />
+            </Button>
+
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleNextMatch}
+              disabled={searchMatches.length === 0}
+              aria-label="Next match"
+              className="h-7 w-7 p-0"
+            >
+              <ChevronDown className="w-3.5 h-3.5" />
+            </Button>
+
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => {
+                searchGeneration.current++;
+                setIsSearching(false);
+                setIsSearchOpen(false);
+                setSearchQuery('');
+                setSearchMatches([]);
+                applySearchHighlights('');
+              }}
+              aria-label="Close search"
+              className="h-7 w-7 p-0 ml-1"
+            >
+              <X className="w-3.5 h-3.5" />
+            </Button>
+          </div>
+        </div>
+      )}
+
       {/* Reading Progress Indicator Bar */}
       <div className="w-full bg-[var(--border)] h-1">
         <div
@@ -448,12 +741,12 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1 }: PdfRead
         />
       </div>
 
-      {/* Canvas PDF Viewer Body */}
-      <div className="flex-1 overflow-auto bg-[#1a1d24] flex items-center justify-center p-4 min-h-[600px] relative">
+      {/* Canvas & TextLayer PDF Viewer Body */}
+      <div className="flex-1 overflow-auto bg-[#1a1d24] flex items-start p-4 min-h-[400px] sm:min-h-[600px] relative">
         {isLoading && (
           <div className="flex flex-col items-center gap-3 text-white">
             <Loader2 className="w-8 h-8 animate-spin text-[var(--accent-cyan)]" />
-            <p className="text-sm font-medium">Opening secure study material...</p>
+            <p className="text-sm font-medium">Opening searchable study material...</p>
           </div>
         )}
 
@@ -468,12 +761,16 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1 }: PdfRead
           </div>
         )}
 
-        <canvas
-          ref={canvasRef}
-          className={`shadow-2xl rounded-sm transition-opacity duration-200 ${
+        {/* Stacked Canvas & TextLayer Container */}
+        <div
+          ref={pageContainerRef}
+          className={`relative shrink-0 mx-auto shadow-2xl rounded-sm transition-opacity duration-200 ${
             isLoading || errorMessage ? 'hidden' : 'block'
           } ${isRendering ? 'opacity-70' : 'opacity-100'}`}
-        />
+        >
+          <canvas ref={canvasRef} className="block" />
+          <div ref={textLayerRef} className="textLayer" />
+        </div>
       </div>
 
       {/* Bottom Footer Information */}
@@ -484,7 +781,7 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1 }: PdfRead
           <span>Page {currentPage} of {totalPages}</span>
         </div>
         <div className="flex items-center gap-3 text-[11px]">
-          <span className="hidden sm:inline">Use Arrow keys or Page Up/Down to navigate</span>
+          <span className="hidden sm:inline">Select text to copy • Press Ctrl+F to search</span>
           {saveStatus === 'saved' && (
             <span className="text-emerald-500 font-medium md:hidden">✓ Synced</span>
           )}

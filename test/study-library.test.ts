@@ -26,17 +26,34 @@ test.before(async () => {
   setAdminClientForTesting = adminMod.setAdminClientForTesting;
 });
 
-test('1. Pure JavaScript PDF Page Count Extraction', async () => {
-  const samplePdfPath = path.resolve(
-    'C:/Users/dutch/.gemini/antigravity/brain/0f83e2d2-eb4c-4413-9630-667d43335fff/temp_pdf/Bug_bounty_materials/2FA_BYPASS_SECURED.pdf'
-  );
-  assert.ok(fs.existsSync(samplePdfPath), 'Sample PDF exists');
+test('1. Pure JavaScript PDF Page Count & Searchable Text Extraction', async () => {
+  const candidatePaths = [
+    path.resolve(process.cwd(), 'data/repaired_pdfs/2FA_BYPASS_SECURED.pdf'),
+    path.resolve(process.cwd(), 'tmp/repaired_searchable_pdfs/2FA_BYPASS_SECURED.pdf'),
+    path.resolve('C:/Users/dutch/.gemini/antigravity/brain/0f83e2d2-eb4c-4413-9630-667d43335fff/temp_pdf/Bug_bounty_materials/2FA_BYPASS_SECURED.pdf')
+  ];
+  let samplePdfPath = candidatePaths.find(p => fs.existsSync(p));
+  assert.ok(samplePdfPath, 'Sample PDF exists');
 
   const buffer = fs.readFileSync(samplePdfPath);
   const pageCount = await getPdfPageCount(buffer);
 
   assert.equal(typeof pageCount, 'number');
   assert.equal(pageCount, 5, 'Sample 2FA_BYPASS_SECURED.pdf must have exactly 5 pages');
+
+  // Verify searchable text extraction with pdfjs-dist
+  const pdfjs = await import('pdfjs-dist/legacy/build/pdf.mjs');
+  const doc = await (pdfjs as any).getDocument({ data: new Uint8Array(buffer), useSystemFonts: true }).promise;
+  assert.equal(doc.numPages, 5);
+
+  let fullText = '';
+  for (let i = 1; i <= doc.numPages; i++) {
+    const page = await doc.getPage(i);
+    const content = await page.getTextContent();
+    const pageText = content.items.map((item: any) => item.str || '').join(' ');
+    fullText += pageText + ' ';
+  }
+  assert.ok(fullText.length > 500, `PDF text content must be rich and extractable (found ${fullText.length} characters)`);
 });
 
 test('2. Study Materials PDF Endpoint — Unauthorized Access Blocked', async () => {
@@ -71,9 +88,12 @@ test('3. Study Materials PDF Endpoint — Authenticated User & Range Requests', 
     original_filename: '2FA_BYPASS_SECURED.pdf',
   };
 
-  const samplePdfPath = path.resolve(
-    'C:/Users/dutch/.gemini/antigravity/brain/0f83e2d2-eb4c-4413-9630-667d43335fff/temp_pdf/Bug_bounty_materials/2FA_BYPASS_SECURED.pdf'
-  );
+  const candidatePaths = [
+    path.resolve(process.cwd(), 'data/repaired_pdfs/2FA_BYPASS_SECURED.pdf'),
+    path.resolve(process.cwd(), 'tmp/repaired_searchable_pdfs/2FA_BYPASS_SECURED.pdf'),
+    path.resolve('C:/Users/dutch/.gemini/antigravity/brain/0f83e2d2-eb4c-4413-9630-667d43335fff/temp_pdf/Bug_bounty_materials/2FA_BYPASS_SECURED.pdf')
+  ];
+  const samplePdfPath = candidatePaths.find(p => fs.existsSync(p))!;
   const pdfBytes = fs.readFileSync(samplePdfPath);
 
   const mockAdmin = {

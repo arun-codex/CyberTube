@@ -13,7 +13,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { documentId } = await params;
   const admin = createAdminClient();
   const { data: doc } = admin
-    ? await admin.from('study_documents').select('title').eq('id', documentId).maybeSingle()
+    ? await admin.from('study_documents').select('title').eq('is_published', true).eq('id', documentId).maybeSingle()
     : { data: null };
 
   return {

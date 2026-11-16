@@ -49,8 +49,9 @@ export default async function StudyLibraryPage() {
 
   const categories = categoriesData || [];
   const documents = (documentsData as any[]) || [];
-  const progressList = progressData || [];
-  const bookmarks = (bookmarksData as any[]) || [];
+  const activeIds = new Set(documents.map(d => d.id));
+  const progressList = ((progressData as any[]) || []).filter((p: any) => activeIds.has(p.document_id));
+  const bookmarks = ((bookmarksData as any[]) || []).filter((b: any) => activeIds.has(b.document_id));
 
   return (
     <StudyDashboardClient

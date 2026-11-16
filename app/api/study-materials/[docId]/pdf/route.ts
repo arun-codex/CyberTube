@@ -41,55 +41,55 @@ export async function GET(
     }
   }
 
-  // If document not found in DB, check fallback test documents if in local dev
+  if (!admin || !doc) {
+    return new NextResponse('Document not found or inaccessible', { status: 404 });
+  }
+
+  if (!doc.is_published) {
+    const { data: adminRow } = await admin
+      .from('admin_users')
+      .select('id')
+      .eq('user_id', user.id)
+      .single();
+
+    if (!adminRow) {
+      return new NextResponse('Forbidden: Document is unpublished', { status: 403 });
+    }
+  }
+
   let pdfBuffer: Buffer | null = null;
+  const { data: fileData, error: downloadError } = await admin.storage
+    .from('original-pdfs')
+    .download(doc.storage_key);
 
-  if (doc) {
-    // If not published, verify administrator access
-    if (!doc.is_published) {
-      const { data: adminRow } = await admin!
-        .from('admin_users')
-        .select('id')
-        .eq('user_id', user.id)
-        .single();
-
-      if (!adminRow) {
-        return new NextResponse('Forbidden: This document is not yet published.', { status: 403 });
+  if (!downloadError && fileData) {
+    pdfBuffer = Buffer.from(await fileData.arrayBuffer());
+  } else {
+    // Check local fallback in dev/test environment
+    const candidatePaths = [
+      path.resolve(process.cwd(), 'data/repaired_pdfs', doc.original_filename),
+      path.resolve(process.cwd(), 'tmp/repaired_searchable_pdfs', doc.original_filename),
+    ];
+    for (const p of candidatePaths) {
+      if (fs.existsSync(p)) {
+        pdfBuffer = fs.readFileSync(p);
+        break;
       }
     }
-
-    // Download from private bucket
-    const { data: fileData, error: downloadError } = await admin!.storage
-      .from('original-pdfs')
-      .download(doc.storage_key);
-
-    if (!downloadError && fileData) {
-      pdfBuffer = Buffer.from(await fileData.arrayBuffer());
-    }
-  }
-
-  // Local development / testing fallback if remote storage object not available
-  if (!pdfBuffer) {
-    const localFallbackPath = path.resolve(
-      'C:/Users/dutch/.gemini/antigravity/brain/0f83e2d2-eb4c-4413-9630-667d43335fff/temp_pdf/Bug_bounty_materials/2FA_BYPASS_SECURED.pdf'
-    );
-    if (fs.existsSync(localFallbackPath)) {
-      pdfBuffer = fs.readFileSync(localFallbackPath);
-    }
   }
 
   if (!pdfBuffer) {
-    return new NextResponse('Document not found or inaccessible', { status: 404 });
+    return new NextResponse('Document storage unavailable', { status: 502 });
   }
 
   const totalSize = pdfBuffer.length;
   const rangeHeader = req.headers.get('range');
 
   if (rangeHeader) {
-    const match = rangeHeader.match(/bytes=(\d+)-(\d*)/);
+    const match = rangeHeader.match(/^bytes=(\d+)-(\d*)$/);
     if (match) {
       const start = parseInt(match[1], 10);
-      const end = match[2] ? parseInt(match[2], 10) : totalSize - 1;
+      const end = match[2] ? Math.min(parseInt(match[2], 10), totalSize - 1) : totalSize - 1;
 
       if (start >= totalSize || end >= totalSize || start > end) {
         return new NextResponse('Requested range not satisfiable', {
@@ -112,6 +112,10 @@ export async function GET(
         },
       });
     }
+    return new NextResponse('Invalid range', {
+      status: 416,
+      headers: { 'Content-Range': `bytes */${totalSize}` },
+    });
   }
 
   return new NextResponse(new Uint8Array(pdfBuffer) as unknown as BodyInit, {
