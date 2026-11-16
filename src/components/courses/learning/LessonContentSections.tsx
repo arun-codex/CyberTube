@@ -8,6 +8,10 @@ import {
   HelpCircle,
   FileCheck2,
   HardDrive,
+  CheckCircle2,
+  Lock,
+  ArrowRight,
+  RotateCcw,
 } from 'lucide-react';
 import { NormalizedLesson } from '../../../types/learning-view-model';
 import { LessonObjectives } from './LessonObjectives';
@@ -28,7 +32,12 @@ interface LessonContentSectionsProps {
   nextLesson?: NormalizedLesson;
   isLessonCompleted: boolean;
   onToggleComplete: () => void;
-  onSelectLesson: (slug: string) => void;
+  onSelectLesson: (slug: string, tab?: 'content' | 'lab' | 'quiz' | 'capstone' | 'pcaps') => void;
+  activeTabOverride?: 'content' | 'lab' | 'quiz' | 'capstone' | 'pcaps';
+  onTabChange?: (tab: 'content' | 'lab' | 'quiz' | 'capstone' | 'pcaps') => void;
+  completedLessonIds?: string[];
+  quizScores?: Record<string, number>;
+  currentModuleLessons?: NormalizedLesson[];
   capstone?: any;
   pcapResources?: any[];
   prerequisites?: string[];
@@ -44,6 +53,11 @@ export const LessonContentSections: React.FC<LessonContentSectionsProps> = ({
   isLessonCompleted,
   onToggleComplete,
   onSelectLesson,
+  activeTabOverride,
+  onTabChange,
+  completedLessonIds = [],
+  quizScores = {},
+  currentModuleLessons = [],
   capstone,
   pcapResources,
   prerequisites,
@@ -60,12 +74,19 @@ export const LessonContentSections: React.FC<LessonContentSectionsProps> = ({
   const hasPcaps = !!pcapResources && pcapResources.length > 0;
 
   useEffect(() => {
-    if (isCapstoneLesson) {
+    if (activeTabOverride) {
+      setActiveTab(activeTabOverride);
+    } else if (isCapstoneLesson) {
       setActiveTab('capstone');
     } else {
       setActiveTab('content');
     }
-  }, [activeLesson.id, isCapstoneLesson]);
+  }, [activeLesson.id, isCapstoneLesson, activeTabOverride]);
+
+  const handleTabClick = (tab: 'content' | 'lab' | 'quiz' | 'capstone' | 'pcaps') => {
+    setActiveTab(tab);
+    onTabChange?.(tab);
+  };
 
   const showEthicalNotice =
     courseSlug === 'wireshark-and-ethical-hacking' ||
@@ -131,7 +152,7 @@ export const LessonContentSections: React.FC<LessonContentSectionsProps> = ({
             {hasRichContent && (
               <button
                 type="button"
-                onClick={() => setActiveTab('content')}
+                onClick={() => handleTabClick('content')}
                 className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[6px] text-xs font-mono font-medium transition-colors cursor-pointer ${
                   activeTab === 'content'
                     ? 'bg-[#0E7490] text-white shadow-sm'
@@ -146,7 +167,7 @@ export const LessonContentSections: React.FC<LessonContentSectionsProps> = ({
             {hasModuleLab && activeLesson.practicalLab && (
               <button
                 type="button"
-                onClick={() => setActiveTab('lab')}
+                onClick={() => handleTabClick('lab')}
                 className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[6px] text-xs font-mono font-medium transition-colors cursor-pointer ${
                   activeTab === 'lab'
                     ? 'bg-[#0E7490] text-white shadow-sm'
@@ -161,7 +182,7 @@ export const LessonContentSections: React.FC<LessonContentSectionsProps> = ({
             {hasModuleQuiz && activeLesson.quiz && (
               <button
                 type="button"
-                onClick={() => setActiveTab('quiz')}
+                onClick={() => handleTabClick('quiz')}
                 className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[6px] text-xs font-mono font-medium transition-colors cursor-pointer ${
                   activeTab === 'quiz'
                     ? 'bg-[#0E7490] text-white shadow-sm'
@@ -176,7 +197,7 @@ export const LessonContentSections: React.FC<LessonContentSectionsProps> = ({
             {hasCapstone && capstone && (
               <button
                 type="button"
-                onClick={() => setActiveTab('capstone')}
+                onClick={() => handleTabClick('capstone')}
                 className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[6px] text-xs font-mono font-medium transition-colors cursor-pointer ${
                   activeTab === 'capstone'
                     ? 'bg-[#0E7490] text-white shadow-sm'
@@ -191,7 +212,7 @@ export const LessonContentSections: React.FC<LessonContentSectionsProps> = ({
             {hasPcaps && pcapResources && (
               <button
                 type="button"
-                onClick={() => setActiveTab('pcaps')}
+                onClick={() => handleTabClick('pcaps')}
                 className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[6px] text-xs font-mono font-medium transition-colors cursor-pointer ${
                   activeTab === 'pcaps'
                     ? 'bg-[#0E7490] text-white shadow-sm'
@@ -252,6 +273,106 @@ export const LessonContentSections: React.FC<LessonContentSectionsProps> = ({
         </div>
       )}
 
+      {/* Prominent Module Assessment Quiz Section Banner */}
+      {hasModuleQuiz && activeLesson.quiz && (() => {
+        const totalModLessons = currentModuleLessons.length || 5;
+        const completedModLessons = currentModuleLessons.filter((l) =>
+          completedLessonIds.includes(l.id)
+        ).length;
+        const allLessonsFinished = completedModLessons >= totalModLessons && totalModLessons > 0;
+        const passingThreshold = activeLesson.quiz.passingScorePercent || 70;
+        const currentBestScore = quizScores[activeLesson.moduleId] ?? 0;
+        const hasPassed = currentBestScore >= passingThreshold;
+        const questionCount = activeLesson.quiz.questions?.length || 10;
+        const quizTitle = activeLesson.quiz.title || `${activeLesson.moduleTitle || 'Module'} Assessment Quiz`;
+        const isLastLesson =
+          currentModuleLessons.length > 0 &&
+          currentModuleLessons[currentModuleLessons.length - 1].id === activeLesson.id;
+
+        return (
+          <div
+            data-testid="module-quiz-assessment-section"
+            className="rounded-[8px] border border-[#0E7490]/30 dark:border-[#22D3EE]/30 bg-[#f0fdfa]/60 dark:bg-[#042f2e]/20 p-5 sm:p-6 space-y-4"
+          >
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div className="space-y-1.5">
+                <div className="flex items-center gap-2">
+                  <span className="px-2 py-0.5 rounded-[4px] bg-[#0E7490] text-white text-[10px] font-mono font-bold uppercase tracking-wider">
+                    Assessment Quiz
+                  </span>
+                  {hasPassed ? (
+                    <span className="inline-flex items-center gap-1 text-[11px] font-mono font-semibold text-green-700 dark:text-green-400 bg-green-100 dark:bg-green-950/40 px-2 py-0.5 rounded-[4px] border border-green-200 dark:border-green-800">
+                      <CheckCircle2 className="w-3.5 h-3.5" /> Passed ({currentBestScore}%)
+                    </span>
+                  ) : currentBestScore > 0 ? (
+                    <span className="inline-flex items-center gap-1 text-[11px] font-mono font-semibold text-amber-700 dark:text-amber-400 bg-amber-100 dark:bg-amber-950/40 px-2 py-0.5 rounded-[4px] border border-amber-200 dark:border-amber-800">
+                      Best Score: {currentBestScore}% (Need ≥ {passingThreshold}%)
+                    </span>
+                  ) : (
+                    <span className="text-[11px] font-mono text-[#64748B] dark:text-[#9BA8B7]">
+                      Passing threshold: {passingThreshold}%
+                    </span>
+                  )}
+                </div>
+
+                <h3 className="text-lg font-bold text-[#0F172A] dark:text-[#E6EDF3]">
+                  {quizTitle}
+                </h3>
+
+                <p className="text-xs text-[#475569] dark:text-[#9BA8B7] leading-relaxed max-w-xl">
+                  {questionCount} comprehensive questions covering all key concepts from this module. Score at least {passingThreshold}% on this assessment to unlock subsequent course modules.
+                </p>
+
+                <div className="flex items-center gap-3 pt-1 text-[11px] font-mono text-[#64748B] dark:text-[#9BA8B7]">
+                  <span>
+                    Lessons completed: {completedModLessons}/{totalModLessons}
+                  </span>
+                  <span>•</span>
+                  <span>
+                    Passing threshold: {passingThreshold}%
+                  </span>
+                  <span>•</span>
+                  <span>
+                    Questions: {questionCount}
+                  </span>
+                </div>
+              </div>
+
+              <div className="flex flex-col sm:items-end gap-2 shrink-0">
+                {activeTab === 'quiz' ? (
+                  <button
+                    type="button"
+                    onClick={() => handleTabClick('content')}
+                    className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-[6px] bg-slate-200 hover:bg-slate-300 dark:bg-[#1E293B] dark:hover:bg-[#334155] text-slate-800 dark:text-slate-200 font-mono text-xs font-semibold transition-colors cursor-pointer"
+                  >
+                    <BookOpen className="w-3.5 h-3.5" />
+                    <span>Return to Lesson Guide</span>
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => handleTabClick('quiz')}
+                    className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-[6px] bg-[#0E7490] hover:bg-[#0891b2] text-white font-mono text-xs font-bold transition-all shadow-sm hover:shadow-md cursor-pointer"
+                  >
+                    <HelpCircle className="w-4 h-4" />
+                    <span>
+                      {hasPassed ? 'Retake Assessment Quiz' : 'Start Assessment Quiz'}
+                    </span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </button>
+                )}
+
+                {!allLessonsFinished && !hasPassed && (
+                  <p className="text-[10px] font-mono text-amber-600 dark:text-amber-400">
+                    Tip: Complete remaining {totalModLessons - completedModLessons} lesson(s) first for optimal preparation.
+                  </p>
+                )}
+              </div>
+            </div>
+          </div>
+        );
+      })()}
+
       {/* Lesson Navigation Controls */}
       <LessonNavigation
         courseSlug={courseSlug}
@@ -261,6 +382,12 @@ export const LessonContentSections: React.FC<LessonContentSectionsProps> = ({
         isCompleted={isLessonCompleted}
         onToggleComplete={onToggleComplete}
         onSelectLesson={onSelectLesson}
+        onOpenQuiz={() => handleTabClick('quiz')}
+        hasQuiz={hasModuleQuiz}
+        isLastLessonInModule={
+          currentModuleLessons.length > 0 &&
+          currentModuleLessons[currentModuleLessons.length - 1].id === activeLesson.id
+        }
       />
     </div>
   );

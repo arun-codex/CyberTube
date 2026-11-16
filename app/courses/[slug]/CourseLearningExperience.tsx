@@ -10,6 +10,7 @@ import { getCourseLessons, getRelatedResourcesForLesson } from '../../../src/lib
 interface CourseLearningExperienceProps {
   course: Course;
   initialLessonSlug?: string;
+  initialTab?: 'content' | 'lab' | 'quiz' | 'capstone' | 'pcaps';
 }
 
 /**
@@ -19,6 +20,7 @@ interface CourseLearningExperienceProps {
 export const CourseLearningExperience: React.FC<CourseLearningExperienceProps> = ({
   course,
   initialLessonSlug,
+  initialTab,
 }) => {
   const viewModel = toCourseLearningViewModel(course);
   const completionStats = getComprehensiveCourseCompletion(course);
@@ -34,6 +36,7 @@ export const CourseLearningExperience: React.FC<CourseLearningExperienceProps> =
     <UniversalCourseLearningLayout
       course={viewModel}
       initialLessonSlug={initialLessonSlug}
+      initialTab={initialTab}
       completionStats={completionStats}
       relatedResources={relatedResources}
     />

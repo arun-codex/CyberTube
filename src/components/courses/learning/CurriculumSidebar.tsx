@@ -11,7 +11,7 @@ interface CurriculumSidebarProps {
   completedLessonIds: string[];
   courseSlug: string;
   totalLessons: number;
-  onSelectLesson: (slug: string) => void;
+  onSelectLesson: (slug: string, tab?: 'content' | 'lab' | 'quiz' | 'capstone' | 'pcaps') => void;
   onToggleComplete: (lessonId: string) => void;
   quizScores?: Record<string, number>;
 }
@@ -84,6 +84,7 @@ export const CurriculumSidebar: React.FC<CurriculumSidebarProps> = ({
         {modules.map((module, idx) => {
           let isLocked = false;
           let unlockRequirement = '';
+          let onGoToRequiredQuiz: (() => void) | undefined = undefined;
 
           if (isSequentialQuizCourse && idx > 0) {
             const prevModule = modules[idx - 1];
@@ -93,6 +94,13 @@ export const CurriculumSidebar: React.FC<CurriculumSidebarProps> = ({
             if (prevScore < passingScore) {
               isLocked = true;
               unlockRequirement = `Pass Week ${idx} Quiz (≥ ${passingScore}%) to unlock Week ${idx + 1}. Current best: ${prevScore}%.`;
+              onGoToRequiredQuiz = () => {
+                const targetLesson =
+                  prevModule.lessons?.[prevModule.lessons.length - 1] || prevModule.lessons?.[0];
+                if (targetLesson) {
+                  onSelectLesson(targetLesson.slug, 'quiz');
+                }
+              };
             }
           }
 
@@ -110,6 +118,8 @@ export const CurriculumSidebar: React.FC<CurriculumSidebarProps> = ({
               onToggleComplete={onToggleComplete}
               isLocked={isLocked}
               unlockRequirement={unlockRequirement}
+              quizScore={quizScores[module.id]}
+              onGoToRequiredQuiz={onGoToRequiredQuiz}
             />
           );
         })}
