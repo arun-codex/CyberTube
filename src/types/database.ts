@@ -472,6 +472,215 @@ export interface Database {
           updated_at?: string;
         };
       };
+      admin_users: {
+        Row: {
+          id: string;
+          user_id: string;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          user_id: string;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          user_id?: string;
+          created_at?: string;
+        };
+      };
+      study_categories: {
+        Row: {
+          id: string;
+          slug: string;
+          title: string;
+          description: string | null;
+          sort_order: number;
+          is_published: boolean;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          slug: string;
+          title: string;
+          description?: string | null;
+          sort_order?: number;
+          is_published?: boolean;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          slug?: string;
+          title?: string;
+          description?: string | null;
+          sort_order?: number;
+          is_published?: boolean;
+          updated_at?: string;
+        };
+      };
+      study_documents: {
+        Row: {
+          id: string;
+          category_id: string | null;
+          title: string;
+          slug: string;
+          description: string | null;
+          original_filename: string;
+          source_checksum: string;
+          storage_key: string;
+          page_count: number;
+          thumbnail_key: string | null;
+          difficulty: string | null;
+          tags: Json | null;
+          sort_order: number;
+          is_published: boolean;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          category_id?: string | null;
+          title: string;
+          slug: string;
+          description?: string | null;
+          original_filename: string;
+          source_checksum: string;
+          storage_key: string;
+          page_count: number;
+          thumbnail_key?: string | null;
+          difficulty?: string | null;
+          tags?: Json | null;
+          sort_order?: number;
+          is_published?: boolean;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          category_id?: string | null;
+          title?: string;
+          slug?: string;
+          description?: string | null;
+          original_filename?: string;
+          source_checksum?: string;
+          storage_key?: string;
+          page_count?: number;
+          thumbnail_key?: string | null;
+          difficulty?: string | null;
+          tags?: Json | null;
+          sort_order?: number;
+          is_published?: boolean;
+          updated_at?: string;
+        };
+      };
+      study_document_pages: {
+        Row: {
+          id: string;
+          document_id: string;
+          page_number: number;
+          private_asset_key: string;
+          width: number | null;
+          height: number | null;
+        };
+        Insert: {
+          id?: string;
+          document_id: string;
+          page_number: number;
+          private_asset_key: string;
+          width?: number | null;
+          height?: number | null;
+        };
+        Update: {
+          id?: string;
+          document_id?: string;
+          page_number?: number;
+          private_asset_key?: string;
+          width?: number | null;
+          height?: number | null;
+        };
+      };
+      user_study_progress: {
+        Row: {
+          id: string;
+          user_id: string;
+          document_id: string;
+          last_page: number;
+          highest_page: number;
+          completion_percent: number;
+          is_completed: boolean;
+          revision: number;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          user_id: string;
+          document_id: string;
+          last_page: number;
+          highest_page: number;
+          completion_percent?: number;
+          is_completed?: boolean;
+          revision?: number;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          user_id?: string;
+          document_id?: string;
+          last_page?: number;
+          highest_page?: number;
+          completion_percent?: number;
+          is_completed?: boolean;
+          revision?: number;
+          updated_at?: string;
+        };
+      };
+      user_study_page_views: {
+        Row: {
+          user_id: string;
+          document_id: string;
+          page_number: number;
+          viewed_at: string;
+        };
+        Insert: {
+          user_id: string;
+          document_id: string;
+          page_number: number;
+          viewed_at?: string;
+        };
+        Update: {
+          user_id?: string;
+          document_id?: string;
+          page_number?: number;
+          viewed_at?: string;
+        };
+      };
+      user_study_bookmarks: {
+        Row: {
+          id: string;
+          user_id: string;
+          document_id: string;
+          page_number: number;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          user_id: string;
+          document_id: string;
+          page_number: number;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          user_id?: string;
+          document_id?: string;
+          page_number?: number;
+          created_at?: string;
+        };
+      };
     };
   };
 }
