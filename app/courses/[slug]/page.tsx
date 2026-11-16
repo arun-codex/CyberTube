@@ -9,6 +9,8 @@ interface CourseDetailPageProps {
   }>;
   searchParams?: Promise<{
     lesson?: string;
+    tab?: string;
+    quiz?: string;
   }>;
 }
 
@@ -38,10 +40,17 @@ export default async function CourseDetailPage({ params, searchParams }: CourseD
   const activeLessonSlug = resolvedSearchParams?.lesson || allLessons[0]?.slug;
   const activeLesson = allLessons.find((l) => l.slug === activeLessonSlug || l.id === activeLessonSlug) || allLessons[0];
 
+  const rawTab = resolvedSearchParams?.tab || (resolvedSearchParams?.quiz === 'true' ? 'quiz' : undefined);
+  const initialTab =
+    rawTab === 'quiz' || rawTab === 'lab' || rawTab === 'capstone' || rawTab === 'pcaps' || rawTab === 'content'
+      ? rawTab
+      : undefined;
+
   return (
     <CourseLearningExperience
       course={course}
       initialLessonSlug={activeLesson?.slug}
+      initialTab={initialTab}
     />
   );
 }

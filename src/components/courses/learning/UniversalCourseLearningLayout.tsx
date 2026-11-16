@@ -21,6 +21,7 @@ import { onCourseProgressChange } from '../../../lib/course-progress';
 interface UniversalCourseLearningLayoutProps {
   course: CourseLearningViewModel;
   initialLessonSlug?: string;
+  initialTab?: 'content' | 'lab' | 'quiz' | 'capstone' | 'pcaps';
   completionStats: ComprehensiveCourseCompletion;
   relatedResources?: Resource[];
 }
@@ -28,6 +29,7 @@ interface UniversalCourseLearningLayoutProps {
 export const UniversalCourseLearningLayout: React.FC<UniversalCourseLearningLayoutProps> = ({
   course,
   initialLessonSlug,
+  initialTab,
   completionStats: initialCompletionStats,
   relatedResources = [],
 }) => {
@@ -36,6 +38,9 @@ export const UniversalCourseLearningLayout: React.FC<UniversalCourseLearningLayo
   const [activeLessonSlug, setActiveLessonSlug] = useState<string>(
     initialLessonSlug || allLessons[0]?.slug || ''
   );
+  const [activeTabOverride, setActiveTabOverride] = useState<
+    'content' | 'lab' | 'quiz' | 'capstone' | 'pcaps' | undefined
+  >(initialTab);
 
   const [completedLessonIds, setCompletedLessonIds] = useState<string[]>([]);
   const [quizScores, setQuizScores] = useState<Record<string, number>>({});
@@ -52,6 +57,12 @@ export const UniversalCourseLearningLayout: React.FC<UniversalCourseLearningLayo
       setActiveLessonSlug(initialLessonSlug);
     }
   }, [initialLessonSlug]);
+
+  useEffect(() => {
+    if (initialTab) {
+      setActiveTabOverride(initialTab);
+    }
+  }, [initialTab]);
 
   // Load progress and subscribe to updates
   useEffect(() => {
@@ -124,10 +135,12 @@ export const UniversalCourseLearningLayout: React.FC<UniversalCourseLearningLayo
   }, [activeLesson, activeVideo]);
 
   const handleSelectLesson = useCallback(
-    (slug: string) => {
+    (slug: string, tab?: 'content' | 'lab' | 'quiz' | 'capstone' | 'pcaps') => {
       setActiveLessonSlug(slug);
+      setActiveTabOverride(tab || 'content');
       if (typeof window !== 'undefined') {
-        window.history.pushState(null, '', `/courses/${course.slug}?lesson=${slug}`);
+        const tabQuery = tab && tab !== 'content' ? `&tab=${tab}` : '';
+        window.history.pushState(null, '', `/courses/${course.slug}?lesson=${slug}${tabQuery}`);
       }
     },
     [course.slug]
@@ -274,11 +287,27 @@ export const UniversalCourseLearningLayout: React.FC<UniversalCourseLearningLayo
               </p>
             </div>
             <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
+              {prerequisiteModule?.quiz && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    const targetLesson =
+                      prerequisiteModule.lessons?.[prerequisiteModule.lessons.length - 1] ||
+                      prerequisiteModule.lessons?.[0];
+                    if (targetLesson) {
+                      handleSelectLesson(targetLesson.slug, 'quiz');
+                    }
+                  }}
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-[6px] bg-[#0E7490] hover:bg-[#0891B2] text-white font-mono text-xs font-bold transition-all shadow-sm cursor-pointer hover:shadow-md"
+                >
+                  <span>Go to Required Quiz ({prerequisiteModule.title})</span>
+                </button>
+              )}
               {prerequisiteModule?.lessons?.[0] && (
                 <button
                   type="button"
                   onClick={() => handleSelectLesson(prerequisiteModule.lessons[0].slug)}
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-[6px] bg-[#0E7490] hover:bg-[#0891B2] text-white font-mono text-xs font-semibold transition-colors cursor-pointer"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-[6px] bg-slate-200 hover:bg-slate-300 dark:bg-[#1E293B] dark:hover:bg-[#334155] text-slate-800 dark:text-slate-200 font-mono text-xs font-semibold transition-colors cursor-pointer"
                 >
                   <ArrowLeft className="w-3.5 h-3.5" />
                   <span>Return to {prerequisiteModule.title}</span>
@@ -337,6 +366,13 @@ export const UniversalCourseLearningLayout: React.FC<UniversalCourseLearningLayo
               isLessonCompleted={isLessonCompleted}
               onToggleComplete={() => handleToggleLessonComplete(activeLesson.id)}
               onSelectLesson={handleSelectLesson}
+              activeTabOverride={activeTabOverride}
+              onTabChange={setActiveTabOverride}
+              completedLessonIds={completedLessonIds}
+              quizScores={quizScores}
+              currentModuleLessons={
+                course.modules.find((m) => m.id === activeLesson.moduleId)?.lessons || []
+              }
               capstone={course.capstone}
               pcapResources={course.pcapResources}
               prerequisites={course.prerequisites}

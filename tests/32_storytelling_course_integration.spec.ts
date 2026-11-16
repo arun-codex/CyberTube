@@ -197,9 +197,96 @@ test.describe('Storytelling Masterclass Course Integration', () => {
     // Video iframe must NOT be displayed
     const iframe = page.locator('iframe[src*="youtube.com/embed/"]');
     await expect(iframe).not.toBeVisible();
+
+    // Verify "Go to Required Quiz" action exists in locked overlay
+    const goToQuizBtn = lockedOverlay.getByRole('button', { name: /Go to Required Quiz/i });
+    await expect(goToQuizBtn).toBeVisible();
+
+    // Clicking "Go to Required Quiz" navigates directly to Week 01 Assessment Quiz
+    await goToQuizBtn.click();
+    await expect(page).toHaveURL(/tab=quiz/);
+    await expect(page.locator('text=Module Knowledge Assessment').first()).toBeVisible();
   });
 
-  test('8. Cloud mapping & UUID resolution helper maps deterministic course, module and lesson UUIDs', async () => {
+  test('8. Assessment Quiz section and sidebar quiz rows provide prominent entry points', async ({ page }) => {
+    await page.goto(`/courses/${courseSlug}?lesson=w01-l5-first-analysis`);
+    await page.waitForLoadState('domcontentloaded');
+
+    // Assessment Quiz Section Card is visible on the lesson view
+    const assessmentSection = page.locator('[data-testid="module-quiz-assessment-section"]');
+    await expect(assessmentSection).toBeVisible();
+    await expect(assessmentSection.getByText('Assessment Quiz', { exact: true })).toBeVisible();
+    await expect(assessmentSection.getByText('Passing threshold: 70%').first()).toBeVisible();
+    await expect(assessmentSection.getByRole('button', { name: /Start Assessment Quiz/i })).toBeVisible();
+
+    // Lesson navigation controls also provide "Take Module Quiz →" on the final lesson
+    const navQuizBtn = page.getByRole('button', { name: /Take Module Quiz →/i });
+    await expect(navQuizBtn).toBeVisible();
+
+    // Sidebar displays Week 01 Assessment Quiz row
+    const sidebarQuizRow = page.locator('[data-testid="module-quiz-sidebar-row-mod-storytelling-w01"]');
+    await expect(sidebarQuizRow).toBeVisible();
+
+    // Clicking "Start Assessment Quiz" opens the quiz tab
+    await assessmentSection.getByRole('button', { name: /Start Assessment Quiz/i }).click();
+    await expect(page.locator('text=Module Knowledge Assessment').first()).toBeVisible();
+  });
+
+  test('9. Reactive Unlocking: Passing Week 1 Quiz immediately unlocks Week 2 without manual refresh', async ({ page }) => {
+    // 1. Visit lesson 5 of Week 1
+    await page.goto(`/courses/${courseSlug}?lesson=w01-l5-first-analysis`);
+    await page.waitForLoadState('domcontentloaded');
+
+    // Verify Week 2 is currently locked in the sidebar
+    await expect(page.locator('text=Module 02').first()).toBeVisible();
+    await expect(page.locator('text=Locked').first()).toBeVisible();
+
+    // 2. Open quiz
+    const startQuizBtn = page.locator('[data-testid="module-quiz-assessment-section"] button:has-text("Start Assessment Quiz")');
+    await startQuizBtn.click();
+    await expect(page.locator('text=Module Knowledge Assessment').first()).toBeVisible();
+
+    // 3. Fill in all 10 correct answers
+    const mod1Key = STORYTELLING_QUIZ_KEYS['mod-storytelling-w01'];
+    for (const q of mod1Key.questions) {
+      // Find question item and select correct option
+      const qContainer = page.locator(`[data-testid="quiz-question-${q.index}"]`);
+      if (await qContainer.count() > 0) {
+        await qContainer.locator(`input[type="radio"]`).nth(q.correctAnswerIndex).check();
+      } else {
+        // Fallback to global radio inputs indexing (10 questions * 4 options = 40)
+        await page.locator(`input[type="radio"]`).nth(q.index * 4 + q.correctAnswerIndex).check();
+      }
+    }
+
+    // Submit quiz
+    const submitBtn = page.locator('button:has-text("Submit Quiz")');
+    await expect(submitBtn).toBeEnabled();
+    await submitBtn.click();
+
+    // Verify pass status is displayed in quiz view
+    await expect(page.locator('text=Assessment Passed').first()).toBeVisible({ timeout: 10000 });
+
+    // Verify Week 2 is immediately unlocked in the curriculum sidebar without manual reload
+    const week2ModuleHeader = page.locator('button:has-text("Module 02")');
+    await expect(week2ModuleHeader).not.toContainText('Locked');
+
+    // Click Week 2 Lesson 1 in sidebar — it should navigate and open without locked overlay
+    const week2Lesson1 = page.locator('text=Week 02 • Lesson 1: Collect observations').first();
+    await week2Lesson1.click();
+
+    const lockedOverlay = page.locator('[data-testid="locked-lesson-overlay"]');
+    await expect(lockedOverlay).not.toBeVisible();
+    await expect(page.locator('h2').first()).toContainText('Week 02 • Lesson 1: Collect observations');
+
+    // 4. Reload page and confirm persistence
+    await page.reload();
+    await page.waitForLoadState('domcontentloaded');
+    await expect(page.locator('[data-testid="locked-lesson-overlay"]')).not.toBeVisible();
+    await expect(page.locator('h2').first()).toContainText('Week 02 • Lesson 1: Collect observations');
+  });
+
+  test('10. Cloud mapping & UUID resolution helper maps deterministic course, module and lesson UUIDs', async () => {
     const { resolveStorytellingCourseUuid, resolveStorytellingModuleUuid, resolveStorytellingLessonUuid, resolveApplicationLessonId } = await import('../src/lib/courses/storytelling-uuid-map');
     
     // Course UUID
