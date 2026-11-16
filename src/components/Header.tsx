@@ -69,6 +69,7 @@ export function Header() {
   const primaryNavLinks = [
     { label: 'Learning Paths', href: '/learning-paths' },
     { label: 'Courses', href: '/courses' },
+    { label: 'Study Library', href: '/study-materials' },
     { label: 'Discover', href: '/discover' },
     { label: 'Library', href: '/library' },
     { label: 'Labs', href: '/labs' },

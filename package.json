@@ -8,14 +8,12 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "tsx --test test/catalog.test.js && tsx --test test/phase17-1-sync-hardening.test.ts && tsx --test test/phase20-3-security-hardening.test.ts && tsx --test test/phase22-storytelling-quiz-security.test.ts && node test/http-check.js"
+    "test": "tsx --test test/catalog.test.js && tsx --test test/phase17-1-sync-hardening.test.ts && tsx --test test/phase20-3-security-hardening.test.ts && tsx --test test/phase22-storytelling-quiz-security.test.ts && tsx --test test/study-library.test.ts && node test/http-check.js"
   },
   "dependencies": {
     "@designcodeio/threeui": "^1.2.0",
-    "@napi-rs/canvas": "^1.1.1",
     "@supabase/ssr": "^0.12.7",
     "@supabase/supabase-js": "^2.118.0",
-    "canvas": "^3.2.3",
     "clsx": "^2.1.1",
     "lucide-react": "^0.453.0",
     "next": "^15.5.29",

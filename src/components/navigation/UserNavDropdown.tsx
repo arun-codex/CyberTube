@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { User, Settings, LogOut, ChevronDown, Award } from 'lucide-react';
+import { User, Settings, LogOut, ChevronDown, Award, BookOpen, ShieldCheck } from 'lucide-react';
 import { useAuth } from '@/lib/auth';
 import { UserAvatar } from '@/components/ui/UserAvatar';
 
@@ -17,7 +17,7 @@ export function UserNavDropdown({ userEmail, avatarUrl, displayName }: UserNavDr
   const [isOpen, setIsOpen] = useState(false);
   const [isSigningOut, setIsSigningOut] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const { signOut } = useAuth();
+  const { signOut, isAdmin } = useAuth();
   const router = useRouter();
 
   const handleSignOut = async (e: React.MouseEvent) => {
@@ -87,6 +87,15 @@ export function UserNavDropdown({ userEmail, avatarUrl, displayName }: UserNavDr
           {/* Links */}
           <div className="py-1">
             <Link
+              href="/study-materials"
+              onClick={() => setIsOpen(false)}
+              className="flex items-center gap-2.5 px-3.5 py-2 text-xs text-[#403f53] dark:text-[#c0c0d4] hover:text-[#303055] dark:hover:text-[#f0f0f8] hover:bg-[#f4f4f9] dark:hover:bg-[#1c1c2c] transition-colors"
+              role="menuitem"
+            >
+              <BookOpen className="w-3.5 h-3.5 text-[#6366f1]" />
+              <span className="font-semibold text-[#303055] dark:text-[#f0f0f8]">Study Materials</span>
+            </Link>
+            <Link
               href="/profile"
               onClick={() => setIsOpen(false)}
               className="flex items-center gap-2.5 px-3.5 py-2 text-xs text-[#403f53] dark:text-[#c0c0d4] hover:text-[#303055] dark:hover:text-[#f0f0f8] hover:bg-[#f4f4f9] dark:hover:bg-[#1c1c2c] transition-colors"
@@ -113,6 +122,17 @@ export function UserNavDropdown({ userEmail, avatarUrl, displayName }: UserNavDr
               <Award className="w-3.5 h-3.5 text-[#6b6b7b]" />
               <span>Saved Bookmarks</span>
             </Link>
+            {isAdmin && (
+              <Link
+                href="/admin/study-materials"
+                onClick={() => setIsOpen(false)}
+                className="flex items-center gap-2.5 px-3.5 py-2 text-xs text-amber-600 dark:text-amber-400 hover:bg-[#f4f4f9] dark:hover:bg-[#1c1c2c] transition-colors border-t border-[#f4f4f9] dark:border-[#1c1c2c]"
+                role="menuitem"
+              >
+                <ShieldCheck className="w-3.5 h-3.5 text-amber-500" />
+                <span className="font-semibold">Manage Study Materials</span>
+              </Link>
+            )}
           </div>
 
           {/* Sign Out */}

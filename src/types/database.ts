@@ -575,32 +575,6 @@ export interface Database {
           updated_at?: string;
         };
       };
-      study_document_pages: {
-        Row: {
-          id: string;
-          document_id: string;
-          page_number: number;
-          private_asset_key: string;
-          width: number | null;
-          height: number | null;
-        };
-        Insert: {
-          id?: string;
-          document_id: string;
-          page_number: number;
-          private_asset_key: string;
-          width?: number | null;
-          height?: number | null;
-        };
-        Update: {
-          id?: string;
-          document_id?: string;
-          page_number?: number;
-          private_asset_key?: string;
-          width?: number | null;
-          height?: number | null;
-        };
-      };
       user_study_progress: {
         Row: {
           id: string;
@@ -610,6 +584,7 @@ export interface Database {
           highest_page: number;
           completion_percent: number;
           is_completed: boolean;
+          last_read_at: string;
           revision: number;
           created_at: string;
           updated_at: string;
@@ -618,10 +593,11 @@ export interface Database {
           id?: string;
           user_id: string;
           document_id: string;
-          last_page: number;
-          highest_page: number;
+          last_page?: number;
+          highest_page?: number;
           completion_percent?: number;
           is_completed?: boolean;
+          last_read_at?: string;
           revision?: number;
           created_at?: string;
           updated_at?: string;
@@ -634,6 +610,7 @@ export interface Database {
           highest_page?: number;
           completion_percent?: number;
           is_completed?: boolean;
+          last_read_at?: string;
           revision?: number;
           updated_at?: string;
         };
@@ -664,6 +641,7 @@ export interface Database {
           user_id: string;
           document_id: string;
           page_number: number;
+          title: string | null;
           created_at: string;
         };
         Insert: {
@@ -671,6 +649,7 @@ export interface Database {
           user_id: string;
           document_id: string;
           page_number: number;
+          title?: string | null;
           created_at?: string;
         };
         Update: {
@@ -678,6 +657,7 @@ export interface Database {
           user_id?: string;
           document_id?: string;
           page_number?: number;
+          title?: string | null;
           created_at?: string;
         };
       };
