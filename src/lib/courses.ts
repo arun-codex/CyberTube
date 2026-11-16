@@ -205,21 +205,33 @@ export async function getCourseBySlugWithDb(slug: string): Promise<Course | unde
     }
 
     const dynamicModules = dbModules.map((m: any) => {
+      const staticModule = staticCourse?.modules.find(
+        (sm) => sm.order === m.order_index || sm.title === m.title || sm.id === m.id
+      );
+
       const moduleLessons: Lesson[] = dbLessons
         .filter((l: any) => l.module_id === m.id && !inactiveLessonIds.has(l.id))
-        .map((l: any) => ({
-          id: l.id,
-          slug: l.slug,
-          title: l.title,
-          description: l.description,
-          youtubeVideoId: l.youtube_video_id,
-          durationMinutes: l.duration_minutes,
-          order: Math.max(1, l.order_index || 1),
-          moduleTitle: m.title,
-          objectives: Array.isArray(l.objectives) ? l.objectives : [],
-          tags: Array.isArray(l.tags) ? l.tags : [],
-          skillsTaught: Array.isArray(l.skills_taught) ? l.skills_taught : [],
-        }));
+        .map((l: any) => {
+          const staticLesson = staticModule?.lessons.find(
+            (sl) => sl.slug === l.slug || sl.id === l.id || sl.order === l.order_index
+          );
+
+          return {
+            id: l.id,
+            slug: l.slug,
+            title: l.title,
+            description: l.description,
+            youtubeVideoId: l.youtube_video_id,
+            durationMinutes: l.duration_minutes,
+            order: Math.max(1, l.order_index || 1),
+            moduleTitle: m.title,
+            objectives: Array.isArray(l.objectives) ? l.objectives : staticLesson?.objectives || [],
+            tags: Array.isArray(l.tags) ? l.tags : staticLesson?.tags || [],
+            skillsTaught: Array.isArray(l.skills_taught) ? l.skills_taught : staticLesson?.skillsTaught || [],
+            richContent: staticLesson?.richContent,
+            quiz: staticLesson?.quiz,
+          };
+        });
 
       return {
         id: m.id,
@@ -227,6 +239,9 @@ export async function getCourseBySlugWithDb(slug: string): Promise<Course | unde
         description: m.description,
         order: Math.max(1, m.order_index || 1),
         lessons: moduleLessons,
+        quiz: staticModule?.quiz,
+        practicalLab: staticModule?.practicalLab,
+        capstoneAssessment: staticModule?.capstoneAssessment,
       };
     });
 
@@ -257,6 +272,8 @@ export async function getCourseBySlugWithDb(slug: string): Promise<Course | unde
       sourcePlaylistId: dbCourse.source_playlist_id || staticCourse?.sourcePlaylistId,
       sourcePlaylistUrl: dbCourse.source_playlist_url || staticCourse?.sourcePlaylistUrl,
       modules: dynamicModules,
+      capstone: staticCourse?.capstone,
+      pcapResources: staticCourse?.pcapResources,
     };
 
     return mergedCourse;
