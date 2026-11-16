@@ -8,8 +8,9 @@ import assert from 'node:assert/strict';
 import { build } from 'esbuild';
 import { chromium } from '@playwright/test';
 
-const inventory=JSON.parse(await fs.readFile(process.env.STUDY_INVENTORY,'utf8'));
-const output=path.dirname(process.env.STUDY_INVENTORY);
+const inventoryPath = (process.env.STUDY_INVENTORY || '').trim();
+const inventory=JSON.parse(await fs.readFile(inventoryPath,'utf8'));
+const output=path.dirname(inventoryPath);
 const work=path.resolve('tmp/reader-browser');
 await fs.mkdir(work,{recursive:true});
 await fs.writeFile(path.join(work,'entry.tsx'),`import React from 'react';
