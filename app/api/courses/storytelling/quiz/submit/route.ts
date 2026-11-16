@@ -7,6 +7,7 @@ import {
   STORYTELLING_COURSE_ID,
   STORYTELLING_COURSE_SLUG,
   STORYTELLING_MODULE_ID_TO_UUID,
+  STORYTELLING_MODULE_UUID_TO_ID,
   getStorytellingModuleUuid,
 } from '@/lib/courses/storytelling-uuid-map';
 
@@ -37,6 +38,9 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Support both canonical module ID (mod-storytelling-w01) and database UUID (c0000000-0000-4000-8000-000000000101)
+    const normalizedModuleId = STORYTELLING_MODULE_UUID_TO_ID[moduleId] || moduleId;
+
     if (
       !selectedAnswers ||
       typeof selectedAnswers !== 'object' ||
@@ -62,8 +66,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Determine week number from module ID (e.g. mod-storytelling-w02 -> 2)
-    const weekMatch = moduleId.match(/w(\d{2})$/);
+    // Determine week number from normalized module ID (e.g. mod-storytelling-w02 -> 2)
+    const weekMatch = normalizedModuleId.match(/w(\d{2})$/);
     if (!weekMatch) {
       return NextResponse.json(
         { error: `Unrecognized module format: ${moduleId}` },
@@ -80,7 +84,7 @@ export async function POST(request: NextRequest) {
 
     // Resolve current module database UUID
     const currentModuleUuid =
-      STORYTELLING_MODULE_ID_TO_UUID[moduleId] || getStorytellingModuleUuid(currentWeekNum);
+      STORYTELLING_MODULE_ID_TO_UUID[normalizedModuleId] || getStorytellingModuleUuid(currentWeekNum);
     if (!currentModuleUuid) {
       return NextResponse.json(
         { error: `Unknown course module: ${moduleId}` },
@@ -197,7 +201,7 @@ export async function POST(request: NextRequest) {
 
     // Server-side trusted evaluation using secret answer keys
     // Only executed after prerequisite checks pass!
-    const result = gradeStorytellingQuiz(moduleId, selectedAnswers);
+    const result = gradeStorytellingQuiz(normalizedModuleId, selectedAnswers);
 
     let savedAttemptId: string | null = null;
     const submittedAtIso = new Date().toISOString();

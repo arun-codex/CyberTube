@@ -527,3 +527,106 @@ test('10. Cron route authorization & readiness check with deterministic assertio
     process.env.YOUTUBE_API_KEY = originalYouTube;
   }
 });
+
+test('11. getCourseBySlugWithDb preserves module.quiz, module.practicalLab, and lesson.richContent from static definitions', async () => {
+  const courseUuid = 'c0000000-0000-4000-8000-000000000001';
+  const mod1Uuid = 'c0000000-0000-4000-8000-000000000101';
+  const l1Uuid = 'c0000000-0000-4000-8000-000000000101';
+  const l5Uuid = 'c0000000-0000-4000-8000-000000000105';
+
+  const mockDbClient = {
+    from: (table: string) => ({
+      select: () => {
+        const q: any = {
+          eq: () => q,
+          maybeSingle: async () => ({
+            data: {
+              id: courseUuid,
+              slug: 'free-storytelling-masterclass',
+              title: 'Free Storytelling Masterclass (DB)',
+              short_description: 'Database loaded description',
+              description: 'Full database description',
+              difficulty: 'beginner',
+              status: 'published',
+              estimated_duration: '100 hours',
+              total_duration_minutes: 6000,
+            },
+            error: null,
+          }),
+          order: () => {
+            if (table === 'course_modules') {
+              return Promise.resolve({
+                data: [
+                  {
+                    id: mod1Uuid,
+                    course_id: courseUuid,
+                    title: 'Level 1: Foundations (Weeks 1–4): Week 01 — What is a story?',
+                    order_index: 1,
+                  },
+                ],
+                error: null,
+              });
+            }
+            if (table === 'lessons') {
+              return Promise.resolve({
+                data: [
+                  {
+                    id: l1Uuid,
+                    course_id: courseUuid,
+                    module_id: mod1Uuid,
+                    slug: 'w01-l1-story-versus-information',
+                    title: 'Week 01 • Lesson 1: Story versus information',
+                    youtube_video_id: '1rMnzNZkIX0',
+                    order_index: 1,
+                  },
+                  {
+                    id: l5Uuid,
+                    course_id: courseUuid,
+                    module_id: mod1Uuid,
+                    slug: 'w01-l5-first-analysis',
+                    title: 'Week 01 • Lesson 5: First complete story analysis',
+                    youtube_video_id: '4ZaeN_7sX6Y',
+                    order_index: 5,
+                  },
+                ],
+                error: null,
+              });
+            }
+            return Promise.resolve({ data: [], error: null });
+          },
+          then: (resolve: any) => {
+            if (table === 'course_playlist_items') {
+              resolve({
+                data: [],
+                error: null,
+              });
+            } else {
+              resolve({ data: [], error: null });
+            }
+          },
+        };
+        return q;
+      },
+    }),
+  };
+
+  setPublicSupabaseClientForTesting(mockDbClient);
+  try {
+    const course = await getCourseBySlugWithDb('free-storytelling-masterclass');
+    assert.ok(course, 'Should return hydrated course');
+    assert.equal(course.id, courseUuid);
+    assert.equal(course.modules.length, 1);
+
+    const m1 = course.modules[0];
+    assert.ok(m1.quiz, 'Module 1 must have quiz preserved from staticCourse definition');
+    assert.equal(m1.quiz?.questions?.length, 10, 'Module 1 quiz must have 10 questions');
+    assert.equal(m1.quiz?.passingScorePercent, 70, 'Module 1 quiz must have 70% threshold');
+
+    assert.equal(m1.lessons.length, 2);
+    const l1 = m1.lessons[0];
+    assert.ok(l1.richContent, 'Lesson 1 must have richContent preserved from staticLesson definition');
+    assert.ok(l1.richContent?.introduction, 'Lesson 1 richContent must contain introduction');
+  } finally {
+    setPublicSupabaseClientForTesting(null);
+  }
+});
