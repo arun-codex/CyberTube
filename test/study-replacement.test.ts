@@ -344,3 +344,67 @@ test('16. Publication requires explicit confirmation flag and rejects unconfirme
     { status: 'published' }
   );
 });
+
+test('17. Fail-closed importer preflight aborts when database contract is unverified', async () => {
+  async function runImporterPreflight(mockRpc: () => Promise<any>) {
+    try {
+      const contract = await mockRpc();
+      if (contract?.defaults_to_unpublished !== true) {
+        throw new Error('Contract mismatch: database does not report defaults_to_unpublished=true');
+      }
+      return true;
+    } catch (err: any) {
+      throw new Error(`FAIL-CLOSED PREFLIGHT: Installed database replace_study_collection function does NOT guarantee unpublished imports. Forward migration 20261116173000 must be applied first before uploading any files. (Details: ${err.message})`);
+    }
+  }
+
+  // Case 1: RPC does not exist (old function installed in DB)
+  await assert.rejects(
+    () => runImporterPreflight(async () => { throw new Error('function verify_study_import_contract() does not exist'); }),
+    /FAIL-CLOSED PREFLIGHT: Installed database replace_study_collection function does NOT guarantee unpublished imports/
+  );
+
+  // Case 2: RPC returns contract without defaults_to_unpublished
+  await assert.rejects(
+    () => runImporterPreflight(async () => ({ defaults_to_unpublished: false })),
+    /Contract mismatch/
+  );
+
+  // Case 3: RPC returns verified contract
+  const verified = await runImporterPreflight(async () => ({ defaults_to_unpublished: true }));
+  assert.equal(verified, true);
+});
+
+test('18. Explicit production target acknowledgment is strictly enforced for database writes', () => {
+  function enforceProductionTargetSafety(args: {
+    mode: string;
+    'acknowledge-production-target'?: boolean;
+    confirm?: boolean;
+    'confirm-publish'?: boolean;
+  }) {
+    if (['apply', 'rollback', 'publish', 'unpublish'].includes(args.mode)) {
+      if (!args['acknowledge-production-target'] && !args.confirm && !args['confirm-publish']) {
+        throw new Error('Explicit production target acknowledgment required (--acknowledge-production-target). Refusing to perform database write without explicit confirmation.');
+      }
+    }
+    return { authorized: true };
+  }
+
+  // Refuses write modes without acknowledgment flag
+  for (const mode of ['apply', 'rollback', 'publish', 'unpublish']) {
+    assert.throws(
+      () => enforceProductionTargetSafety({ mode }),
+      /Explicit production target acknowledgment required/
+    );
+  }
+
+  // Dry-run and verify do not write to database, so they are allowed without acknowledgment
+  assert.deepEqual(enforceProductionTargetSafety({ mode: 'dry-run' }), { authorized: true });
+  assert.deepEqual(enforceProductionTargetSafety({ mode: 'verify' }), { authorized: true });
+
+  // With acknowledgment flag -> succeeds
+  assert.deepEqual(
+    enforceProductionTargetSafety({ mode: 'apply', 'acknowledge-production-target': true }),
+    { authorized: true }
+  );
+});

@@ -170,3 +170,23 @@ GRANT EXECUTE ON FUNCTION public.publish_study_collection(text, boolean) TO serv
 
 REVOKE ALL ON FUNCTION public.publish_study_document(uuid, boolean) FROM public, anon, authenticated;
 GRANT EXECUTE ON FUNCTION public.publish_study_document(uuid, boolean) TO service_role;
+
+-- 4. Contract verification function for fail-closed preflight check.
+-- The importer calls this to verify that the active database functions enforce
+-- unpublished imports BEFORE uploading any files to storage.
+CREATE OR REPLACE FUNCTION public.verify_study_import_contract()
+RETURNS jsonb
+LANGUAGE sql
+STABLE
+SET search_path = ''
+AS $$
+  SELECT jsonb_build_object(
+    'version', 2,
+    'defaults_to_unpublished', true,
+    'requires_explicit_publish', true,
+    'isolated_admin_role', true
+  );
+$$;
+
+REVOKE ALL ON FUNCTION public.verify_study_import_contract() FROM public, anon, authenticated;
+GRANT EXECUTE ON FUNCTION public.verify_study_import_contract() TO service_role;

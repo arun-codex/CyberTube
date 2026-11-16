@@ -87,6 +87,7 @@ async function main() {
     mode: { type:'string', default:'dry-run' }, zip: { type:'string' }, output: { type:'string' },
     project: { type:'string' }, run: { type:'string' }, 'old-dir': { type:'string' }, mapping: { type:'string' },
     confirm: { type:'boolean' }, 'confirm-publish': { type:'boolean' }, 'expect-unpublished': { type:'boolean' },
+    'acknowledge-production-target': { type:'boolean' },
   }});
   if (!args.output) throw new Error('--output is required (private directory outside repository)');
   const output = path.resolve(args.output);
@@ -104,6 +105,11 @@ async function main() {
     return;
   }
   if (!['dry-run','apply','verify','rollback','publish','unpublish'].includes(args.mode)) throw new Error('Unknown mode');
+  if (['apply','rollback','publish','unpublish'].includes(args.mode)) {
+    if (!args['acknowledge-production-target'] && !args.confirm && !args['confirm-publish']) {
+      throw new Error('Explicit production target acknowledgment required (--acknowledge-production-target). Refusing to perform database write without explicit confirmation.');
+    }
+  }
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const secret = process.env.SUPABASE_SECRET_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY;
   assertStaging(url, args.project);
@@ -199,6 +205,17 @@ async function main() {
     replace:plan.documents.filter(d=>d.action==='replace').length,retire:plan.retired.length,duplicates:plan.duplicates.length,problems:plan.problems}));
   if (args.mode==='dry-run') return;
   if (plan.problems.length) throw new Error('Validation HOLD: resolve problematic PDFs before activation; manifest has exact filenames');
+
+  // FAIL-CLOSED PREFLIGHT: Verify that the installed database function guarantees unpublished imports
+  try {
+    const contract = await checked(client.rpc('verify_study_import_contract'));
+    if (contract?.defaults_to_unpublished !== true) {
+      throw new Error('Contract mismatch: database does not report defaults_to_unpublished=true');
+    }
+  } catch (err) {
+    throw new Error(`FAIL-CLOSED PREFLIGHT: Installed database replace_study_collection function does NOT guarantee unpublished imports. Forward migration 20261116173000 must be applied first before uploading any files. (Details: ${err.message})`);
+  }
+
   await stageFiles(client,plan.documents,inventory.documents);
   const manifest=plan.documents.map(({action,...d})=>d);
   const activated=await checked(client.rpc('replace_study_collection',{run_id:runId,manifest,expected_documents:snapshot.documents}));
