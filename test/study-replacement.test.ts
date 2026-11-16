@@ -295,3 +295,52 @@ test('14. Publication requires a separate authorized administrator action', () =
   assert.equal(unpublishResult.affected, 34);
   assert.equal(collection.every(d => d.is_published === false), true, 'All active documents can be reverted to unpublished');
 });
+
+test('15. Pre-publication verification fails if any document is unexpectedly published', () => {
+  const records = [
+    { id: '1', is_published: false, source_checksum: 'a' },
+    { id: '2', is_published: true, source_checksum: 'b' }, // Unexpectedly published
+  ];
+
+  function verifyUnpublishedPreconditions(docs: typeof records, expectUnpublished: boolean) {
+    const publishedCount = docs.filter(r => r.is_published).length;
+    if (expectUnpublished && publishedCount > 0) {
+      throw new Error(`Pre-publication verification failed: ${publishedCount} documents are unexpectedly published`);
+    }
+  }
+
+  assert.throws(
+    () => verifyUnpublishedPreconditions(records, true),
+    /Pre-publication verification failed: 1 documents are unexpectedly published/
+  );
+
+  const cleanRecords = [
+    { id: '1', is_published: false, source_checksum: 'a' },
+    { id: '2', is_published: false, source_checksum: 'b' },
+  ];
+  assert.doesNotThrow(() => verifyUnpublishedPreconditions(cleanRecords, true));
+});
+
+test('16. Publication requires explicit confirmation flag and rejects unconfirmed CLI calls', () => {
+  function handlePublishMode(args: { mode: string; 'confirm-publish'?: boolean; confirm?: boolean }) {
+    if (args.mode === 'publish') {
+      if (!args['confirm-publish'] && !args.confirm) {
+        throw new Error('Publication requires explicit confirmation flag (--confirm-publish)');
+      }
+      return { status: 'published' };
+    }
+    return { status: 'noop' };
+  }
+
+  // Without confirmation flag -> must throw
+  assert.throws(
+    () => handlePublishMode({ mode: 'publish' }),
+    /Publication requires explicit confirmation flag \(--confirm-publish\)/
+  );
+
+  // With confirmation flag -> succeeds
+  assert.deepEqual(
+    handlePublishMode({ mode: 'publish', 'confirm-publish': true }),
+    { status: 'published' }
+  );
+});

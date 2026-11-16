@@ -86,6 +86,7 @@ async function main() {
   const { values: args } = parseArgs({ options: {
     mode: { type:'string', default:'dry-run' }, zip: { type:'string' }, output: { type:'string' },
     project: { type:'string' }, run: { type:'string' }, 'old-dir': { type:'string' }, mapping: { type:'string' },
+    confirm: { type:'boolean' }, 'confirm-publish': { type:'boolean' }, 'expect-unpublished': { type:'boolean' },
   }});
   if (!args.output) throw new Error('--output is required (private directory outside repository)');
   const output = path.resolve(args.output);
@@ -114,11 +115,17 @@ async function main() {
     return;
   }
   if (args.mode === 'publish') {
+    if (!args['confirm-publish'] && !args.confirm) {
+      throw new Error('Publication requires explicit confirmation flag (--confirm-publish)');
+    }
     const result = await checked(client.rpc('publish_study_collection', { target_collection: 'bug-bounty', should_publish: true }));
     console.log('Published collection:', result);
     return;
   }
   if (args.mode === 'unpublish') {
+    if (!args.confirm) {
+      throw new Error('Unpublishing requires explicit confirmation flag (--confirm)');
+    }
     const result = await checked(client.rpc('publish_study_collection', { target_collection: 'bug-bounty', should_publish: false }));
     console.log('Unpublished collection:', result);
     return;
@@ -140,6 +147,10 @@ async function main() {
   }
   if (args.mode === 'verify') {
     const records = await checked(client.from('study_documents').select('*').eq('collection_slug','bug-bounty').is('retired_at',null));
+    const publishedCount = records.filter(r => r.is_published).length;
+    if (args['expect-unpublished'] && publishedCount > 0) {
+      throw new Error(`Pre-publication verification failed: ${publishedCount} documents are unexpectedly published`);
+    }
     const expected = [...new Set(inventory.documents.map(d=>d.sha256))].sort();
     if (JSON.stringify(records.map(d=>d.source_checksum).sort()) !== JSON.stringify(expected)) throw new Error('Active collection differs from archive');
     for(const record of records) {
@@ -147,8 +158,8 @@ async function main() {
       if(record.page_count!==source.page_count || record.file_size!==source.file_size || record.storage_key!==`bug-bounty/${source.sha256}.pdf`) throw new Error(`Metadata mismatch: ${source.original_filename}`);
     }
     await verifyFiles(client,records.map(d=>({...d,sha256:d.source_checksum})));
-    await fs.writeFile(path.join(output,'storage-verification.json'),JSON.stringify({verified:records.length,at:new Date().toISOString(),published:records.filter(r=>r.is_published).length,unpublished:records.filter(r=>!r.is_published).length},null,2));
-    console.log(`Verified ${records.length} active private PDFs (published: ${records.filter(r=>r.is_published).length}, unpublished: ${records.filter(r=>!r.is_published).length})`);
+    await fs.writeFile(path.join(output,'storage-verification.json'),JSON.stringify({verified:records.length,at:new Date().toISOString(),published:publishedCount,unpublished:records.length - publishedCount},null,2));
+    console.log(`Verified ${records.length} active private PDFs (published: ${publishedCount}, unpublished: ${records.length - publishedCount})`);
     return;
   }
   const snapshot = await checked(client.rpc('study_collection_snapshot'));

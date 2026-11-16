@@ -103,7 +103,8 @@ BEGIN
 END $$;
 
 -- 2. Explicit administrator publication function (separate from import)
-CREATE OR REPLACE FUNCTION public.publish_study_collection(target_collection text DEFAULT 'bug-bounty', should_publish boolean DEFAULT true)
+-- Requires explicit boolean argument (no default) to prevent accidental publication.
+CREATE OR REPLACE FUNCTION public.publish_study_collection(target_collection text, should_publish boolean)
 RETURNS jsonb
 LANGUAGE plpgsql
 SET search_path = ''
@@ -111,6 +112,10 @@ AS $$
 DECLARE
   affected_count integer;
 BEGIN
+  IF should_publish IS NULL THEN
+    RAISE EXCEPTION 'Explicit boolean should_publish argument is required';
+  END IF;
+
   PERFORM pg_advisory_xact_lock(91261116);
   LOCK TABLE public.study_documents IN SHARE ROW EXCLUSIVE MODE;
 
@@ -129,7 +134,8 @@ BEGIN
 END $$;
 
 -- 3. Explicit granular per-document administrator publication function
-CREATE OR REPLACE FUNCTION public.publish_study_document(doc_id uuid, should_publish boolean DEFAULT true)
+-- Requires explicit boolean argument (no default) to prevent accidental publication.
+CREATE OR REPLACE FUNCTION public.publish_study_document(doc_id uuid, should_publish boolean)
 RETURNS jsonb
 LANGUAGE plpgsql
 SET search_path = ''
@@ -137,6 +143,9 @@ AS $$
 DECLARE
   target_doc public.study_documents;
 BEGIN
+  IF should_publish IS NULL THEN
+    RAISE EXCEPTION 'Explicit boolean should_publish argument is required';
+  END IF;
   SELECT * INTO target_doc FROM public.study_documents WHERE id = doc_id AND retired_at IS NULL FOR UPDATE;
   IF NOT FOUND THEN
     RAISE EXCEPTION 'Document not found or retired' USING ERRCODE = 'P0002';
