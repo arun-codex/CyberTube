@@ -321,36 +321,124 @@ test('15. Pre-publication verification fails if any document is unexpectedly pub
   assert.doesNotThrow(() => verifyUnpublishedPreconditions(cleanRecords, true));
 });
 
-test('16. Publication requires explicit confirmation flag and rejects unconfirmed CLI calls', () => {
-  function handlePublishMode(args: { mode: string; 'confirm-publish'?: boolean; confirm?: boolean }) {
-    if (args.mode === 'publish') {
-      if (!args['confirm-publish'] && !args.confirm) {
-        throw new Error('Publication requires explicit confirmation flag (--confirm-publish)');
+test('16. Strict independent confirmation flags for write modes', () => {
+  function enforceCliFlags(args: {
+    mode: string;
+    'acknowledge-production-target'?: boolean;
+    'confirm-publish'?: boolean;
+    'confirm-unpublish'?: boolean;
+    'confirm-rollback'?: boolean;
+    run?: string;
+  }) {
+    if (['apply', 'rollback', 'publish', 'unpublish'].includes(args.mode)) {
+      if (!args['acknowledge-production-target']) {
+        throw new Error('Explicit production target acknowledgment required (--acknowledge-production-target). Refusing to perform database write without explicit confirmation.');
       }
-      return { status: 'published' };
     }
-    return { status: 'noop' };
+    if (args.mode === 'publish' && !args['confirm-publish']) {
+      throw new Error('Publication requires explicit confirmation flag (--confirm-publish).');
+    }
+    if (args.mode === 'unpublish' && !args['confirm-unpublish']) {
+      throw new Error('Unpublishing requires explicit confirmation flag (--confirm-unpublish).');
+    }
+    if (args.mode === 'rollback') {
+      if (!args.run) throw new Error('--run <run_id> is required for rollback');
+      if (!args['confirm-rollback']) throw new Error('Rollback requires explicit confirmation flag (--confirm-rollback).');
+    }
+    return { authorized: true };
   }
 
-  // Without confirmation flag -> must throw
-  assert.throws(
-    () => handlePublishMode({ mode: 'publish' }),
-    /Publication requires explicit confirmation flag \(--confirm-publish\)/
-  );
+  // 1. apply requires --acknowledge-production-target
+  assert.throws(() => enforceCliFlags({ mode: 'apply' }), /Explicit production target acknowledgment required/);
+  // Passing publication flag to apply does NOT authorize it
+  assert.throws(() => enforceCliFlags({ mode: 'apply', 'confirm-publish': true }), /Explicit production target acknowledgment required/);
+  assert.deepEqual(enforceCliFlags({ mode: 'apply', 'acknowledge-production-target': true }), { authorized: true });
 
-  // With confirmation flag -> succeeds
-  assert.deepEqual(
-    handlePublishMode({ mode: 'publish', 'confirm-publish': true }),
-    { status: 'published' }
-  );
+  // 2. publish requires BOTH --acknowledge-production-target AND --confirm-publish
+  assert.throws(() => enforceCliFlags({ mode: 'publish' }), /Explicit production target acknowledgment required/);
+  assert.throws(() => enforceCliFlags({ mode: 'publish', 'confirm-publish': true }), /Explicit production target acknowledgment required/);
+  assert.throws(() => enforceCliFlags({ mode: 'publish', 'acknowledge-production-target': true }), /Publication requires explicit confirmation flag \(--confirm-publish\)/);
+  assert.deepEqual(enforceCliFlags({ mode: 'publish', 'acknowledge-production-target': true, 'confirm-publish': true }), { authorized: true });
+
+  // 3. unpublish requires BOTH --acknowledge-production-target AND --confirm-unpublish
+  assert.throws(() => enforceCliFlags({ mode: 'unpublish' }), /Explicit production target acknowledgment required/);
+  assert.throws(() => enforceCliFlags({ mode: 'unpublish', 'confirm-unpublish': true }), /Explicit production target acknowledgment required/);
+  assert.throws(() => enforceCliFlags({ mode: 'unpublish', 'acknowledge-production-target': true }), /Unpublishing requires explicit confirmation flag \(--confirm-unpublish\)/);
+  assert.deepEqual(enforceCliFlags({ mode: 'unpublish', 'acknowledge-production-target': true, 'confirm-unpublish': true }), { authorized: true });
+
+  // 4. rollback requires --acknowledge-production-target, --run, AND --confirm-rollback
+  assert.throws(() => enforceCliFlags({ mode: 'rollback' }), /Explicit production target acknowledgment required/);
+  assert.throws(() => enforceCliFlags({ mode: 'rollback', 'acknowledge-production-target': true }), /--run <run_id> is required for rollback/);
+  assert.throws(() => enforceCliFlags({ mode: 'rollback', 'acknowledge-production-target': true, run: 'run-1' }), /Rollback requires explicit confirmation flag \(--confirm-rollback\)/);
+  assert.deepEqual(enforceCliFlags({ mode: 'rollback', 'acknowledge-production-target': true, run: 'run-1', 'confirm-rollback': true }), { authorized: true });
 });
 
-test('17. Fail-closed importer preflight aborts when database contract is unverified', async () => {
+test('17. Dynamic contract verification rejects old production function with is_published=true', () => {
+  const oldFunctionSql = `
+    CREATE OR REPLACE FUNCTION public.replace_study_collection(run_id text, manifest jsonb, expected_documents jsonb)
+    ...
+    insert into public.study_documents(id,title,slug,original_filename,source_checksum,storage_key,page_count,file_size,category_id,collection_slug,validation_status,is_published,retired_at)
+    values((item->>'id')::uuid,item->>'title',item->>'slug',item->>'original_filename',item->>'sha256',item->>'storage_key',
+      (item->>'page_count')::integer,(item->>'file_size')::bigint,(item->>'category_id')::uuid,'bug-bounty','verified',true,null)
+    on conflict(id) do update set title=excluded.title,original_filename=excluded.original_filename,source_checksum=excluded.source_checksum,
+      storage_key=excluded.storage_key,page_count=excluded.page_count,file_size=excluded.file_size,category_id=excluded.category_id,
+      thumbnail_key=null,validation_status='verified',is_published=true,retired_at=null,updated_at=now();
+  `;
+
+  const newFunctionSql = `
+    CREATE OR REPLACE FUNCTION public.replace_study_collection(run_id text, manifest jsonb, expected_documents jsonb)
+    ...
+    insert into public.study_documents(id,title,slug,original_filename,source_checksum,storage_key,page_count,file_size,category_id,collection_slug,validation_status,is_published,retired_at)
+    values((item->>'id')::uuid,item->>'title',item->>'slug',item->>'original_filename',item->>'sha256',item->>'storage_key',
+      (item->>'page_count')::integer,(item->>'file_size')::bigint,(item->>'category_id')::uuid,'bug-bounty','verified',false,null)
+    on conflict(id) do update set title=excluded.title,original_filename=excluded.original_filename,source_checksum=excluded.source_checksum,
+      storage_key=excluded.storage_key,page_count=excluded.page_count,file_size=excluded.file_size,category_id=excluded.category_id,
+      thumbnail_key=null,validation_status='verified',is_published=false,retired_at=null,updated_at=now();
+  `;
+
+  function evaluateContract(funcDef: string | null) {
+    if (!funcDef) {
+      return { verified: false, defaults_to_unpublished: false, error: 'replace_study_collection function not found' };
+    }
+    const hasOldPublishedTrue = /is_published\s*=\s*true/i.test(funcDef);
+    const hasUnpublishedInsert = /bug-bounty.*?verified.*?false.*?null/i.test(funcDef);
+    const hasUnpublishedUpdate = /is_published\s*=\s*false/i.test(funcDef);
+
+    if (hasOldPublishedTrue || !hasUnpublishedInsert || !hasUnpublishedUpdate) {
+      return {
+        verified: false,
+        defaults_to_unpublished: false,
+        hasOldPublishedTrue,
+        hasUnpublishedInsert,
+        hasUnpublishedUpdate,
+        error: 'Installed replace_study_collection does NOT enforce unpublished default (detected is_published=true or missing is_published=false)',
+      };
+    }
+    return { verified: true, defaults_to_unpublished: true };
+  }
+
+  // 1. Old function MUST be rejected
+  const oldResult = evaluateContract(oldFunctionSql);
+  assert.equal(oldResult.verified, false, 'Old production function must fail contract verification');
+  assert.equal(oldResult.defaults_to_unpublished, false);
+  assert.equal(oldResult.hasOldPublishedTrue, true);
+
+  // 2. New function MUST be accepted
+  const newResult = evaluateContract(newFunctionSql);
+  assert.equal(newResult.verified, true, 'New corrected function must pass contract verification');
+  assert.equal(newResult.defaults_to_unpublished, true);
+
+  // 3. Missing function MUST be rejected
+  const missingResult = evaluateContract(null);
+  assert.equal(missingResult.verified, false);
+});
+
+test('18. Fail-closed importer preflight aborts when database contract is unverified', async () => {
   async function runImporterPreflight(mockRpc: () => Promise<any>) {
     try {
       const contract = await mockRpc();
-      if (contract?.defaults_to_unpublished !== true) {
-        throw new Error('Contract mismatch: database does not report defaults_to_unpublished=true');
+      if (contract?.verified !== true || contract?.defaults_to_unpublished !== true) {
+        throw new Error(`Database contract verification failed: ${contract?.error || 'defaults_to_unpublished is not true'}`);
       }
       return true;
     } catch (err: any) {
@@ -358,53 +446,50 @@ test('17. Fail-closed importer preflight aborts when database contract is unveri
     }
   }
 
-  // Case 1: RPC does not exist (old function installed in DB)
+  // Case 1: RPC does not exist (old function in DB)
   await assert.rejects(
     () => runImporterPreflight(async () => { throw new Error('function verify_study_import_contract() does not exist'); }),
     /FAIL-CLOSED PREFLIGHT: Installed database replace_study_collection function does NOT guarantee unpublished imports/
   );
 
-  // Case 2: RPC returns contract without defaults_to_unpublished
+  // Case 2: RPC returns contract with verified: false (e.g. old function still in pg_proc)
   await assert.rejects(
-    () => runImporterPreflight(async () => ({ defaults_to_unpublished: false })),
-    /Contract mismatch/
+    () => runImporterPreflight(async () => ({ verified: false, defaults_to_unpublished: false, error: 'Detected is_published=true' })),
+    /Database contract verification failed: Detected is_published=true/
   );
 
-  // Case 3: RPC returns verified contract
-  const verified = await runImporterPreflight(async () => ({ defaults_to_unpublished: true }));
+  // Case 3: RPC returns genuine verified contract
+  const verified = await runImporterPreflight(async () => ({ verified: true, defaults_to_unpublished: true }));
   assert.equal(verified, true);
 });
 
-test('18. Explicit production target acknowledgment is strictly enforced for database writes', () => {
-  function enforceProductionTargetSafety(args: {
-    mode: string;
-    'acknowledge-production-target'?: boolean;
-    confirm?: boolean;
-    'confirm-publish'?: boolean;
-  }) {
-    if (['apply', 'rollback', 'publish', 'unpublish'].includes(args.mode)) {
-      if (!args['acknowledge-production-target'] && !args.confirm && !args['confirm-publish']) {
-        throw new Error('Explicit production target acknowledgment required (--acknowledge-production-target). Refusing to perform database write without explicit confirmation.');
+test('19. Importer validates supplied --zip against inventory and rejects mismatched archives', () => {
+  const authoritativeSha = '37f45d3329ca8c07b783f74a0206699ecf8605909fac94d1ad77c650cf9b0b9d';
+  const mismatchedSha = '1111111111111111111111111111111111111111111111111111111111111111';
+
+  const inventory = {
+    zip_sha256: authoritativeSha,
+    documents: [],
+  };
+
+  function validateZipWithInventory(suppliedZipSha: string | null, inv: typeof inventory | null, mode: string) {
+    if (!inv && ['dry-run', 'apply', 'verify'].includes(mode)) {
+      throw new Error('inventory.json not found in output directory. You must first run inventory mode.');
+    }
+    if (suppliedZipSha && inv) {
+      if (suppliedZipSha !== inv.zip_sha256) {
+        throw new Error(`Mismatched archive: supplied --zip SHA-256 (${suppliedZipSha}) does not match inventory SHA-256 (${inv.zip_sha256}). Re-run inventory mode first.`);
       }
     }
-    return { authorized: true };
+    return true;
   }
 
-  // Refuses write modes without acknowledgment flag
-  for (const mode of ['apply', 'rollback', 'publish', 'unpublish']) {
-    assert.throws(
-      () => enforceProductionTargetSafety({ mode }),
-      /Explicit production target acknowledgment required/
-    );
-  }
+  // Missing inventory.json throws
+  assert.throws(() => validateZipWithInventory(authoritativeSha, null, 'apply'), /inventory.json not found/);
 
-  // Dry-run and verify do not write to database, so they are allowed without acknowledgment
-  assert.deepEqual(enforceProductionTargetSafety({ mode: 'dry-run' }), { authorized: true });
-  assert.deepEqual(enforceProductionTargetSafety({ mode: 'verify' }), { authorized: true });
+  // Mismatched ZIP SHA-256 throws
+  assert.throws(() => validateZipWithInventory(mismatchedSha, inventory, 'apply'), /Mismatched archive/);
 
-  // With acknowledgment flag -> succeeds
-  assert.deepEqual(
-    enforceProductionTargetSafety({ mode: 'apply', 'acknowledge-production-target': true }),
-    { authorized: true }
-  );
+  // Matching ZIP SHA-256 passes
+  assert.equal(validateZipWithInventory(authoritativeSha, inventory, 'apply'), true);
 });

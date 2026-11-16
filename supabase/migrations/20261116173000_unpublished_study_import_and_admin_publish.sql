@@ -171,21 +171,63 @@ GRANT EXECUTE ON FUNCTION public.publish_study_collection(text, boolean) TO serv
 REVOKE ALL ON FUNCTION public.publish_study_document(uuid, boolean) FROM public, anon, authenticated;
 GRANT EXECUTE ON FUNCTION public.publish_study_document(uuid, boolean) TO service_role;
 
--- 4. Contract verification function for fail-closed preflight check.
--- The importer calls this to verify that the active database functions enforce
--- unpublished imports BEFORE uploading any files to storage.
+-- 4. Dynamic contract verification function for fail-closed preflight check.
+-- The importer calls this to verify that the active database function replace_study_collection
+-- genuinely enforces unpublished imports BEFORE uploading any files to storage.
+-- It dynamically inspects pg_proc to verify that replace_study_collection
+-- has is_published = false and NO is_published = true.
 CREATE OR REPLACE FUNCTION public.verify_study_import_contract()
 RETURNS jsonb
-LANGUAGE sql
+LANGUAGE plpgsql
 STABLE
 SET search_path = ''
 AS $$
-  SELECT jsonb_build_object(
-    'version', 2,
+DECLARE
+  func_def text;
+  has_old_published_true boolean;
+  has_unpublished_insert boolean;
+  has_unpublished_update boolean;
+BEGIN
+  -- Retrieve the exact installed function definition from pg_proc
+  SELECT pg_get_functiondef(p.oid) INTO func_def
+  FROM pg_proc p
+  JOIN pg_namespace n ON p.pronamespace = n.oid
+  WHERE p.proname = 'replace_study_collection'
+    AND n.nspname = 'public';
+
+  IF func_def IS NULL THEN
+    RETURN jsonb_build_object(
+      'verified', false,
+      'defaults_to_unpublished', false,
+      'error', 'replace_study_collection function not found in public schema'
+    );
+  END IF;
+
+  has_old_published_true := (func_def ~* 'is_published\s*=\s*true');
+  has_unpublished_insert := (func_def ~* 'bug-bounty.*?verified.*?false.*?null');
+  has_unpublished_update := (func_def ~* 'is_published\s*=\s*false');
+
+  IF has_old_published_true OR NOT has_unpublished_insert OR NOT has_unpublished_update THEN
+    RETURN jsonb_build_object(
+      'verified', false,
+      'defaults_to_unpublished', false,
+      'has_old_published_true', has_old_published_true,
+      'has_unpublished_insert', has_unpublished_insert,
+      'has_unpublished_update', has_unpublished_update,
+      'error', 'Installed replace_study_collection does NOT enforce unpublished default (detected is_published=true or missing is_published=false)'
+    );
+  END IF;
+
+  RETURN jsonb_build_object(
+    'verified', true,
+    'contract_version', '2026-11-16-unpublished',
     'defaults_to_unpublished', true,
     'requires_explicit_publish', true,
-    'isolated_admin_role', true
+    'has_old_published_true', false,
+    'has_unpublished_insert', true,
+    'has_unpublished_update', true
   );
+END;
 $$;
 
 REVOKE ALL ON FUNCTION public.verify_study_import_contract() FROM public, anon, authenticated;

@@ -86,7 +86,8 @@ async function main() {
   const { values: args } = parseArgs({ options: {
     mode: { type:'string', default:'dry-run' }, zip: { type:'string' }, output: { type:'string' },
     project: { type:'string' }, run: { type:'string' }, 'old-dir': { type:'string' }, mapping: { type:'string' },
-    confirm: { type:'boolean' }, 'confirm-publish': { type:'boolean' }, 'expect-unpublished': { type:'boolean' },
+    'confirm-publish': { type:'boolean' }, 'confirm-unpublish': { type:'boolean' },
+    'confirm-rollback': { type:'boolean' }, 'expect-unpublished': { type:'boolean' },
     'acknowledge-production-target': { type:'boolean' },
   }});
   if (!args.output) throw new Error('--output is required (private directory outside repository)');
@@ -105,38 +106,68 @@ async function main() {
     return;
   }
   if (!['dry-run','apply','verify','rollback','publish','unpublish'].includes(args.mode)) throw new Error('Unknown mode');
+
+  // Enforce explicit production target acknowledgment independently for any database write
   if (['apply','rollback','publish','unpublish'].includes(args.mode)) {
-    if (!args['acknowledge-production-target'] && !args.confirm && !args['confirm-publish']) {
+    if (!args['acknowledge-production-target']) {
       throw new Error('Explicit production target acknowledgment required (--acknowledge-production-target). Refusing to perform database write without explicit confirmation.');
     }
   }
+
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const secret = process.env.SUPABASE_SECRET_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY;
   assertStaging(url, args.project);
   if (!secret || /your_|placeholder/.test(secret)) throw new Error('Configure staging service credential in environment');
   const client = createClient(url,secret,{auth:{persistSession:false,autoRefreshToken:false}});
+
   if (args.mode === 'rollback') {
-    if (!args.run) throw new Error('--run is required');
+    if (!args.run) throw new Error('--run <run_id> is required for rollback');
+    if (!args['confirm-rollback']) {
+      throw new Error('Rollback requires explicit confirmation flag (--confirm-rollback).');
+    }
     console.log(await checked(client.rpc('rollback_study_collection',{run_id:args.run})));
     return;
   }
   if (args.mode === 'publish') {
-    if (!args['confirm-publish'] && !args.confirm) {
-      throw new Error('Publication requires explicit confirmation flag (--confirm-publish)');
+    if (!args['confirm-publish']) {
+      throw new Error('Publication requires explicit confirmation flag (--confirm-publish).');
     }
     const result = await checked(client.rpc('publish_study_collection', { target_collection: 'bug-bounty', should_publish: true }));
     console.log('Published collection:', result);
     return;
   }
   if (args.mode === 'unpublish') {
-    if (!args.confirm) {
-      throw new Error('Unpublishing requires explicit confirmation flag (--confirm)');
+    if (!args['confirm-unpublish']) {
+      throw new Error('Unpublishing requires explicit confirmation flag (--confirm-unpublish).');
     }
     const result = await checked(client.rpc('publish_study_collection', { target_collection: 'bug-bounty', should_publish: false }));
     console.log('Unpublished collection:', result);
     return;
   }
-  const inventory = JSON.parse(await fs.readFile(path.join(output,'inventory.json'),'utf8'));
+
+  const inventoryPath = path.join(output, 'inventory.json');
+  let inventory;
+  try {
+    inventory = JSON.parse(await fs.readFile(inventoryPath, 'utf8'));
+  } catch (err) {
+    if (['dry-run', 'apply', 'verify'].includes(args.mode)) {
+      throw new Error(`inventory.json not found in output directory (${output}). You must first run inventory mode: node scripts/study-replace.mjs --mode inventory --zip "<zip_path>" --output "${output}"`);
+    }
+  }
+
+  // If a ZIP path is supplied during dry-run or apply, validate it against the inventory
+  if (args.zip && inventory) {
+    let zipBytes;
+    try {
+      zipBytes = await fs.readFile(path.resolve(args.zip));
+    } catch {
+      throw new Error(`Supplied --zip file not found: ${args.zip}`);
+    }
+    const zipSha = checksum(zipBytes);
+    if (zipSha !== inventory.zip_sha256) {
+      throw new Error(`Mismatched archive: supplied --zip SHA-256 (${zipSha}) does not match inventory SHA-256 (${inventory.zip_sha256}). Re-run inventory mode first.`);
+    }
+  }
   if (args.mode==='apply') {
     const prior=await checked(client.from('study_import_runs').select('status,manifest').eq('id',inventory.zip_sha256).maybeSingle());
     if (prior?.status==='active') {
@@ -209,8 +240,8 @@ async function main() {
   // FAIL-CLOSED PREFLIGHT: Verify that the installed database function guarantees unpublished imports
   try {
     const contract = await checked(client.rpc('verify_study_import_contract'));
-    if (contract?.defaults_to_unpublished !== true) {
-      throw new Error('Contract mismatch: database does not report defaults_to_unpublished=true');
+    if (contract?.verified !== true || contract?.defaults_to_unpublished !== true) {
+      throw new Error(`Database contract verification failed: ${contract?.error || 'defaults_to_unpublished is not true'}`);
     }
   } catch (err) {
     throw new Error(`FAIL-CLOSED PREFLIGHT: Installed database replace_study_collection function does NOT guarantee unpublished imports. Forward migration 20261116173000 must be applied first before uploading any files. (Details: ${err.message})`);
