@@ -722,3 +722,183 @@ test('11. Client ModuleQuizView lifecycle: fresh key on retake, preserved key on
   assert.equal(key1.length, 36, 'UUID string length must be 36 characters');
   assert.ok(/^[0-9a-f-]{36}$/i.test(key1), 'UUID format must be valid');
 });
+
+test('12. Independent Cross-Device Cloud Persistence & User Isolation Verification', async () => {
+  const { CloudCourseProgressService } = await import('../src/lib/cloud-course-progress');
+
+  const userA = { id: 'user-a-1111-2222-3333-444444444444', email: 'learner.a@cybertube.test' };
+  const userB = { id: 'user-b-5555-6666-7777-888888888888', email: 'learner.b@cybertube.test' };
+
+  // Mock database storage partitioned by user_id
+  const cloudQuizAttemptsStore: Record<string, any[]> = {
+    [userA.id]: [
+      {
+        id: 'attempt-a-1',
+        user_id: userA.id,
+        course_id: STORYTELLING_COURSE_UUID,
+        module_id: getStorytellingModuleUuid(1),
+        score: 100,
+        correct_count: 10,
+        total_questions: 10,
+        passed: true,
+        verified_by_server: true,
+        submitted_at: '2026-11-16T10:00:00.000Z',
+      },
+    ],
+    [userB.id]: [],
+  };
+
+  const cloudLessonProgressStore: Record<string, any[]> = {
+    [userA.id]: [
+      {
+        user_id: userA.id,
+        course_id: STORYTELLING_COURSE_UUID,
+        lesson_id: 'c0000000-0000-4000-8000-000000000101',
+        is_completed: true,
+        last_accessed_at: '2026-11-16T10:00:00.000Z',
+        completed_at: '2026-11-16T10:00:00.000Z',
+      },
+    ],
+    [userB.id]: [],
+  };
+
+  function createMockSupabaseForUser(currentUser: any) {
+    return {
+      auth: {
+        getUser: async () => ({ data: { user: currentUser }, error: null }),
+        onAuthStateChange: () => ({ data: { subscription: { unsubscribe: () => {} } } }),
+      },
+      from: (table: string) => {
+        return {
+          select: () => {
+            const queryState: any = {
+              eq: (col: string, val: any) => {
+                queryState[col] = val;
+                return queryState;
+              },
+              order: () => queryState,
+              then: (resolve: any) => {
+                if (!currentUser) {
+                  return resolve({ data: [], error: null });
+                }
+                // Enforce RLS: queries must strictly filter by authenticated currentUser.id
+                if (queryState.user_id && queryState.user_id !== currentUser.id) {
+                  return resolve({ data: [], error: { message: 'Row level security violation: permission denied' } });
+                }
+
+                if (table === 'user_quiz_attempts') {
+                  const userAttempts = cloudQuizAttemptsStore[currentUser.id] || [];
+                  const filtered = userAttempts.filter(
+                    (a) => a.course_id === queryState.course_id && (!queryState.module_id || a.module_id === queryState.module_id)
+                  );
+                  return resolve({ data: filtered, error: null });
+                }
+
+                if (table === 'user_lesson_progress') {
+                  const userLessons = cloudLessonProgressStore[currentUser.id] || [];
+                  const filtered = userLessons.filter((l) => l.course_id === queryState.course_id);
+                  return resolve({ data: filtered, error: null });
+                }
+
+                return resolve({ data: [], error: null });
+              },
+            };
+            return queryState;
+          },
+        };
+      },
+    };
+  }
+
+  // Session 1: User A logs in on Browser Context 1 (e.g. Workstation)
+  // Simulate browser environment with in-memory localStorage
+  const localStorageStore = new Map<string, string>();
+  (global as any).window = {
+    dispatchEvent: () => true,
+  };
+  (global as any).localStorage = {
+    getItem: (key: string) => localStorageStore.get(key) || null,
+    setItem: (key: string, val: string) => localStorageStore.set(key, val),
+    removeItem: (key: string) => localStorageStore.delete(key),
+    clear: () => localStorageStore.clear(),
+  };
+
+  try {
+    const clientA1 = createMockSupabaseForUser(userA);
+    const serviceA1 = new CloudCourseProgressService(clientA1);
+    await serviceA1.syncCourseProgress('free-storytelling-masterclass');
+
+    // Verify User A has 100% quiz score and passed status
+    const localAState = (await import('../src/lib/course-progress')).localCourseProgressService.getProgress('free-storytelling-masterclass');
+    assert.equal(localAState.quizScores?.['mod-storytelling-w01'], 100, 'User A Browser 1 must hydrate 100% quiz score from cloud');
+
+    // Session 2: User A logs in on Browser Context 2 (e.g. Laptop / Mobile) with fresh local state
+    localStorageStore.clear();
+    const freshLocal = (await import('../src/lib/course-progress')).localCourseProgressService.getProgress('free-storytelling-masterclass');
+    assert.equal(freshLocal.quizScores?.['mod-storytelling-w01'], undefined, 'New browser starts with clean storage');
+
+    const clientA2 = createMockSupabaseForUser(userA);
+    const serviceA2 = new CloudCourseProgressService(clientA2);
+    await serviceA2.syncCourseProgress('free-storytelling-masterclass');
+
+    const syncedLocalA2 = (await import('../src/lib/course-progress')).localCourseProgressService.getProgress('free-storytelling-masterclass');
+    assert.equal(syncedLocalA2.quizScores?.['mod-storytelling-w01'], 100, 'User A Browser 2 must sync passing attempt from Supabase across devices');
+
+    // Session 3: User B logs in on Browser Context 3 (Unrelated user isolation)
+    localStorageStore.clear();
+    const clientB = createMockSupabaseForUser(userB);
+    const serviceB = new CloudCourseProgressService(clientB);
+    await serviceB.syncCourseProgress('free-storytelling-masterclass');
+
+    const syncedLocalB = (await import('../src/lib/course-progress')).localCourseProgressService.getProgress('free-storytelling-masterclass');
+    assert.equal(syncedLocalB.quizScores?.['mod-storytelling-w01'], undefined, 'User B must NOT see User A quiz score');
+
+    // Clean up window/localStorage mock before server API call
+    delete (global as any).window;
+    delete (global as any).localStorage;
+
+    // Session 4: Tampered Client-Side Progress Rejection
+    // If User B tampers local storage to set quizScores = 100% and attempts to submit Week 2 quiz:
+    const serverAuthMod = await import('../src/lib/supabase/server');
+    const adminMod = await import('../src/lib/supabase/admin');
+    const routeMod = await import('../app/api/courses/storytelling/quiz/submit/route');
+
+    // Server authenticates User B (who has NO verified attempt in database)
+    serverAuthMod.setAuthenticatedUserForTesting(userB);
+    adminMod.setAdminClientForTesting({
+      from: (table: string) => {
+        assert.equal(table, 'user_quiz_attempts');
+        const q: any = {
+          eq: () => q,
+          maybeSingle: () => Promise.resolve({ data: null, error: null }),
+          then: (resolve: any) => resolve({ data: [], error: null }),
+        };
+        return {
+          select: () => q,
+        };
+      },
+    });
+
+    const reqTamperedB = new NextRequest('http://localhost:3000/api/courses/storytelling/quiz/submit', {
+      method: 'POST',
+      body: JSON.stringify({
+        courseId: STORYTELLING_COURSE_UUID,
+        moduleId: 'mod-storytelling-w02',
+        selectedAnswers: { 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0 },
+        idempotencyKey: 'idem-tampered-user-b-key',
+      }),
+    });
+
+    const resTamperedB = await routeMod.POST(reqTamperedB);
+    assert.equal(resTamperedB.status, 403, 'Server must reject Week 2 submission when Week 1 prerequisite is unverified in DB');
+    const bodyTamperedB = await resTamperedB.json();
+    assert.ok(bodyTamperedB.error.includes('Prerequisite unfulfilled'), 'Error must inform prerequisite requirement');
+
+    // Clean up mocks
+    serverAuthMod.setAuthenticatedUserForTesting(null);
+    adminMod.setAdminClientForTesting(null);
+  } finally {
+    delete (global as any).window;
+    delete (global as any).localStorage;
+  }
+});
