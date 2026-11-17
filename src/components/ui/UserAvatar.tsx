@@ -73,11 +73,11 @@ export function UserAvatar({
   const [imageError, setImageError] = useState(false);
   const [prevTargetUrl, setPrevTargetUrl] = useState<string | null | undefined>(rawTargetUrl);
 
-  // Synchronously reset imageError whenever target URL changes (new upload, refresh, or reset)
-  if (rawTargetUrl !== prevTargetUrl) {
+  // Reset imageError whenever target URL changes (new upload, refresh, or reset)
+  React.useEffect(() => {
     setPrevTargetUrl(rawTargetUrl);
     setImageError(false);
-  }
+  }, [rawTargetUrl]);
 
   // Compute fallback initial
   const initial = (displayName || email || 'P').trim().charAt(0).toUpperCase();
