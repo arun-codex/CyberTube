@@ -189,6 +189,7 @@ test('11. Import verification succeeds without requiring published records', asy
 
   for (const record of records) {
     const source = inventory.documents.find(d => d.sha256 === record.source_checksum);
+    assert.ok(source, `Source document for checksum ${record.source_checksum} should exist`);
     assert.equal(record.page_count, source.page_count);
     assert.equal(record.file_size, source.file_size);
     assert.equal(record.storage_key, `bug-bounty/${source.sha256}.pdf`);

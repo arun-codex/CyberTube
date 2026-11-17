@@ -15,7 +15,7 @@ export async function GET(request: NextRequest) {
   if (request.nextUrl.searchParams.get('check') === 'readiness') {
     const isCronConfigured = Boolean(process.env.CRON_SECRET);
     const isYouTubeConfigured = Boolean(process.env.YOUTUBE_API_KEY);
-    const isSupabaseConfigured = Boolean(process.env.SUPABASE_SERVICE_ROLE_KEY && process.env.NEXT_PUBLIC_SUPABASE_URL);
+    const isSupabaseConfigured = Boolean((process.env.SUPABASE_SECRET_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY) && process.env.NEXT_PUBLIC_SUPABASE_URL);
 
     return NextResponse.json({
       ready: isCronConfigured && isYouTubeConfigured && isSupabaseConfigured,

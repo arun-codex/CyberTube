@@ -155,7 +155,7 @@ export async function syncAllEnabledPlaylists(options?: SyncOptions): Promise<Sy
     return {
       success: false,
       environment: environmentLabel,
-      error: 'Supabase admin client could not be initialized. Missing SUPABASE_SERVICE_ROLE_KEY or NEXT_PUBLIC_SUPABASE_URL.',
+      error: 'Supabase admin client could not be initialized. Missing SUPABASE_SECRET_KEY (or SUPABASE_SERVICE_ROLE_KEY) or NEXT_PUBLIC_SUPABASE_URL.',
     };
   }
 
