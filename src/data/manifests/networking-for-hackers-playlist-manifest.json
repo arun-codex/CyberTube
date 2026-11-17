@@ -5,17 +5,17 @@
   "channel": "Bitten Tech",
   "track": "cybersecurity",
   "domain": "network-security",
-  "totalPlaylistEntries": 7,
-  "playableLessonsCount": 6,
+  "totalPlaylistEntries": 10,
+  "playableLessonsCount": 9,
   "unavailableEntriesCount": 1,
-  "totalPlayableDurationSeconds": 19015,
-  "totalPlayableDurationMinutes": 317,
-  "estimatedDuration": "5 hours 17 mins",
-  "extractedAt": "2026-11-05T21:11:00Z",
+  "totalPlayableDurationSeconds": 29728,
+  "totalPlayableDurationMinutes": 495,
+  "estimatedDuration": "8 hours 15 mins",
+  "extractedAt": "2026-11-17T10:30:00Z",
   "entries": [
     {
       "learningSequence": 1,
-      "playlistPosition": 6,
+      "playlistPosition": 8,
       "videoId": "4hLax8DmQHY",
       "title": "Networking for Hackers #1 | Introduction",
       "durationSeconds": 2162,
@@ -29,7 +29,7 @@
     },
     {
       "learningSequence": 2,
-      "playlistPosition": 5,
+      "playlistPosition": 7,
       "videoId": "4-Ea5EI6LrM",
       "title": "Networking for Hackers #2 | History of your Internet",
       "durationSeconds": 3466,
@@ -43,10 +43,10 @@
     },
     {
       "learningSequence": 3,
-      "playlistPosition": 4,
+      "playlistPosition": 6,
       "videoId": "A31izTClLqs",
       "title": "Networking for Hackers #3 | How Data Travels & Who Can See It",
-      "durationSeconds": 3222,
+      "durationSeconds": 3221,
       "durationMinutes": 54,
       "channel": "Bitten Tech",
       "url": "https://www.youtube.com/watch?v=A31izTClLqs",
@@ -57,7 +57,7 @@
     },
     {
       "learningSequence": 4,
-      "playlistPosition": 3,
+      "playlistPosition": 5,
       "videoId": "Yb48nfFBT0I",
       "title": "Networking for Hackers #4 | Devices, Topologies & Security Rules",
       "durationSeconds": 4056,
@@ -71,7 +71,7 @@
     },
     {
       "learningSequence": 5,
-      "playlistPosition": 2,
+      "playlistPosition": 4,
       "videoId": "e6tMigLffZc",
       "title": "Networking for Hackers #5 | Bandwidth, Speed & Delays",
       "durationSeconds": 3365,
@@ -85,10 +85,10 @@
     },
     {
       "learningSequence": 6,
-      "playlistPosition": 1,
+      "playlistPosition": 3,
       "videoId": "J_fUOMgl4CE",
       "title": "Networking for Hackers #6 | TCP/IP, OSI & Encapsulation",
-      "durationSeconds": 2744,
+      "durationSeconds": 2743,
       "durationMinutes": 46,
       "channel": "Bitten Tech",
       "url": "https://www.youtube.com/watch?v=J_fUOMgl4CE",
@@ -98,8 +98,50 @@
       "availability": "public"
     },
     {
+      "learningSequence": 7,
+      "playlistPosition": 2,
+      "videoId": "BkB4Vtvwyc0",
+      "title": "Networking for Hackers #7 | MAC Addresses, Ethernet & Switches (Wireshark Lab)",
+      "durationSeconds": 4289,
+      "durationMinutes": 71,
+      "channel": "Bitten Tech",
+      "url": "https://www.youtube.com/watch?v=BkB4Vtvwyc0",
+      "thumbnail": "https://i.ytimg.com/vi/BkB4Vtvwyc0/maxresdefault.jpg",
+      "status": "playable",
+      "embeddable": true,
+      "availability": "public"
+    },
+    {
+      "learningSequence": 8,
+      "playlistPosition": 1,
+      "videoId": "aQCqgKIEpHA",
+      "title": "Networking for Hackers #8 | IP Addresses, ARP & ARP Poisoning",
+      "durationSeconds": 2776,
+      "durationMinutes": 46,
+      "channel": "Bitten Tech",
+      "url": "https://www.youtube.com/watch?v=aQCqgKIEpHA",
+      "thumbnail": "https://i.ytimg.com/vi/aQCqgKIEpHA/maxresdefault.jpg",
+      "status": "playable",
+      "embeddable": true,
+      "availability": "public"
+    },
+    {
+      "learningSequence": 9,
+      "playlistPosition": 9,
+      "videoId": "7ethLpR3mMY",
+      "title": "Networking for Hackers #9 | Subnetting, CIDR & Network Segmentation",
+      "durationSeconds": 3650,
+      "durationMinutes": 61,
+      "channel": "Bitten Tech",
+      "url": "https://www.youtube.com/watch?v=7ethLpR3mMY",
+      "thumbnail": "https://i.ytimg.com/vi/7ethLpR3mMY/maxresdefault.jpg",
+      "status": "playable",
+      "embeddable": true,
+      "availability": "public"
+    },
+    {
       "learningSequence": null,
-      "playlistPosition": 7,
+      "playlistPosition": 10,
       "videoId": "qHkemPeWD3w",
       "title": null,
       "durationSeconds": null,
@@ -114,4 +156,3 @@
     }
   ]
 }
-

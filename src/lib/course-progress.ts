@@ -233,6 +233,7 @@ export function getComprehensiveCourseCompletion(course: Course): ComprehensiveC
     labCompletionPercent,
     labsCompleted,
     totalLabs,
+    hasCapstone,
     capstoneSubmitted,
     capstonePassed,
     isFullyCompleted,
