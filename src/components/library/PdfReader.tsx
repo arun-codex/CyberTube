@@ -172,6 +172,7 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1, initialSe
 
     return () => {
       isCancelled = true;
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       searchGeneration.current++;
       if (saveTimeoutRef.current) clearTimeout(saveTimeoutRef.current);
       if (renderTaskRef.current) renderTaskRef.current.cancel();
@@ -429,6 +430,7 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1, initialSe
     const timer = setTimeout(() => { void searchRunnerRef.current(searchQuery); }, 180);
     return () => {
       clearTimeout(timer);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       searchGeneration.current++;
     };
   }, [isSearchOpen, isLoading, searchQuery, applySearchHighlights]);

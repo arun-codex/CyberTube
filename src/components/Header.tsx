@@ -72,17 +72,16 @@ export function Header() {
   }, []);
 
   const primaryNavLinks = [
-    { label: 'Courses', href: '/courses' },
+    { label: 'Home', href: '/' },
     { label: 'Library', href: '/library' },
-    { label: 'Learning Paths', href: '/learning-paths' },
+    { label: 'Courses', href: '/courses' },
     { label: 'Discover', href: '/discover' },
-    { label: 'Labs', href: '/labs' },
-    { label: 'Domains', href: '/domains' },
-    { label: 'Saved', href: '/saved' },
   ];
 
   const secondaryNavLinks = [
-    { label: 'Study Library', href: '/study-materials' },
+    { label: 'Learning Paths', href: '/learning-paths', badge: 'Soon' },
+    { label: 'Practice Labs', href: '/labs', badge: 'Soon' },
+    { label: 'Domains', href: '/domains' },
     { label: 'Skills Map', href: '/skills' },
     { label: 'Certifications', href: '/certifications' },
     { label: 'Career Paths', href: '/careers' },
@@ -163,11 +162,17 @@ export function Header() {
                           key={subLink.href}
                           href={subLink.href}
                           onClick={() => setExploreMenuOpen(false)}
-                          className="block px-4 py-2 text-xs text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-subtle)] transition-colors"
+                          className="flex items-center justify-between px-4 py-2 text-xs text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-subtle)] transition-colors"
                         >
-                          {subLink.label}
+                          <span>{subLink.label}</span>
+                          {subLink.badge && (
+                            <span className="px-1 py-0.2 rounded text-[9px] font-mono uppercase bg-amber-500/15 text-amber-600 dark:text-amber-400 font-bold border border-amber-500/30">
+                              {subLink.badge}
+                            </span>
+                          )}
                         </Link>
                       ))}
+                      {/* Deep-link route preserved for backward compatibility: /study-materials */}
                     </div>
                   )}
                 </div>
@@ -210,7 +215,7 @@ export function Header() {
 
               {/* Authentication Status */}
               {isAuthLoading ? (
-                <div className="w-8 h-8 rounded-full bg-[var(--surface-subtle)] animate-pulse" />
+                <div className="h-[38px] w-8 sm:w-28 rounded-lg bg-[var(--surface-subtle)] animate-pulse border border-[var(--border)]" />
               ) : userEmail ? (
                 <UserNavDropdown userEmail={userEmail} displayName={userProfile?.displayName} avatarUrl={userProfile?.avatarUrl} />
               ) : (
@@ -254,7 +259,7 @@ export function Header() {
           <div className="lg:hidden border-b border-[var(--border)] bg-[var(--card-bg)] px-4 pt-3 pb-6 space-y-3">
             <div className="space-y-1">
               <div className="text-[10px] font-mono uppercase tracking-wider text-[var(--text-muted)] px-3 py-1">
-                Learning & Courses
+                Main Navigation
               </div>
               {primaryNavLinks.map((link) => (
                 <Link
