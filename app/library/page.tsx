@@ -1,43 +1,81 @@
 import React from 'react';
 import { Metadata } from 'next';
 import { getAllAuthoritativeResources } from '@/lib/authoritativeCatalog';
-import { LibraryClientView } from '@/components/library/LibraryClientView';
-import { BookOpen, ShieldCheck } from 'lucide-react';
+import { getAuthenticatedUser, createClient } from '@/lib/supabase/server';
+import { UnifiedLibraryHubClient } from '@/components/library/UnifiedLibraryHubClient';
 
 export const metadata: Metadata = {
-  title: 'Course & Lab Library | CyberTube',
-  description: 'Authoritative index of 21 verified free cybersecurity courses, video walkthroughs, and legal lab environments.',
+  title: 'Library Hub | CyberTube',
+  description: 'Central cybersecurity knowledge hub: 34 authenticated Bug Bounty study materials, cheat sheets, video courses, and legal practice labs.',
 };
 
-export default function LibraryPage() {
-  const resources = getAllAuthoritativeResources();
+export default async function LibraryPage() {
+  const courseResources = getAllAuthoritativeResources();
+  const user = await getAuthenticatedUser();
+  const supabase = await createClient();
+
+  let documents: any[] = [];
+  let categories: any[] = [];
+  let progressList: any[] = [];
+  let bookmarks: any[] = [];
+
+  if (supabase) {
+    try {
+      const [
+        { data: categoriesData },
+        { data: documentsData },
+      ] = await Promise.all([
+        supabase
+          .from('study_categories')
+          .select('id, title, slug, description')
+          .eq('is_published', true)
+          .order('sort_order', { ascending: true }),
+        supabase
+          .from('study_documents')
+          .select('id, title, slug, description, category_id, difficulty, page_count, is_published, study_categories(title, slug)')
+          .eq('is_published', true)
+          .eq('collection_slug', 'bug-bounty')
+          .is('retired_at', null)
+          .order('sort_order', { ascending: true }),
+      ]);
+
+      documents = (documentsData as any[]) || [];
+      const usedCategories = new Set(documents.map((d) => d.category_id));
+      categories = ((categoriesData as any[]) || []).filter((c) => usedCategories.has(c.id));
+
+      if (user) {
+        const [
+          { data: progressData },
+          { data: bookmarksData },
+        ] = await Promise.all([
+          supabase
+            .from('user_study_progress')
+            .select('document_id, last_page, highest_page, completion_percent, is_completed, last_read_at')
+            .eq('user_id', user.id),
+          supabase
+            .from('user_study_bookmarks')
+            .select('document_id, page_number, title, created_at, study_documents(title)')
+            .eq('user_id', user.id)
+            .order('created_at', { ascending: false }),
+        ]);
+
+        const activeIds = new Set(documents.map((d) => d.id));
+        progressList = ((progressData as any[]) || []).filter((p: any) => activeIds.has(p.document_id));
+        bookmarks = ((bookmarksData as any[]) || []).filter((b: any) => activeIds.has(b.document_id));
+      }
+    } catch (err) {
+      console.warn('Could not fetch database study materials for library hub:', err);
+    }
+  }
 
   return (
-    <div className="container-max py-10 space-y-8">
-      {/* Header */}
-      <div className="space-y-3">
-        <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-[#0E7490] dark:text-[#22D3EE]">
-          <BookOpen className="w-4 h-4" />
-          <span>Curated Resource Index</span>
-        </div>
-        <h1 className="text-3xl sm:text-4xl font-bold font-space-grotesk text-[#0F172A] dark:text-[#E6EDF3]">
-          Cybersecurity Course & Lab Library
-        </h1>
-        <p className="text-sm sm:text-base text-[#475569] dark:text-[#9BA8B7] max-w-2xl leading-relaxed">
-          Explore all {resources.length} hand-picked free YouTube courses, certified training playlists, and hands-on practice labs. Filter by track, difficulty level, or pricing model.
-        </p>
-      </div>
-
-      {/* Freshness Disclaimer Notice */}
-      <div className="rounded-xl border border-[#E2E8F0] dark:border-[#243044] bg-[#F8FAFC] dark:bg-[#121A26] p-4 flex items-start gap-3 text-xs text-[#475569] dark:text-[#9BA8B7]">
-        <ShieldCheck className="w-5 h-5 text-[#34D399] shrink-0 mt-0.5" />
-        <div>
-          <strong className="text-[#0F172A] dark:text-[#E6EDF3]">Content Integrity Guarantee:</strong> All YouTube courses and lab platforms are attributed directly to their original creators. Videos are embedded with privacy protection (no tracking cookies before user interaction) and remain hosted on their original platforms.
-        </div>
-      </div>
-
-      {/* Client-side search, sort & filters */}
-      <LibraryClientView initialResources={resources} />
-    </div>
+    <UnifiedLibraryHubClient
+      documents={documents}
+      categories={categories}
+      progressList={progressList}
+      bookmarks={bookmarks}
+      courseResources={courseResources}
+      isUserLoggedIn={Boolean(user)}
+    />
   );
 }

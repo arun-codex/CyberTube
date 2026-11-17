@@ -28,6 +28,7 @@ interface PdfReaderProps {
   documentId: string;
   initialTitle: string;
   initialPage?: number;
+  initialSearchQuery?: string;
 }
 
 interface SearchMatch {
@@ -36,7 +37,18 @@ interface SearchMatch {
   end: number;
 }
 
-export function PdfReader({ documentId, initialTitle, initialPage = 1 }: PdfReaderProps) {
+let cachedPdfjsPromise: Promise<any> | null = null;
+function getPdfjsLib(): Promise<any> {
+  if (!cachedPdfjsPromise) {
+    cachedPdfjsPromise = import('pdfjs-dist/build/pdf.mjs').then((lib) => {
+      lib.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.mjs';
+      return lib;
+    });
+  }
+  return cachedPdfjsPromise;
+}
+
+export function PdfReader({ documentId, initialTitle, initialPage = 1, initialSearchQuery }: PdfReaderProps) {
   const [currentPage, setCurrentPage] = useState<number>(initialPage);
   const [totalPages, setTotalPages] = useState<number>(1);
   const [scale, setScale] = useState<number>(1.2);
@@ -50,8 +62,8 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1 }: PdfRead
   const [pageInput, setPageInput] = useState<string>(String(initialPage));
 
   // Search State
-  const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
-  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [isSearchOpen, setIsSearchOpen] = useState<boolean>(Boolean(initialSearchQuery));
+  const [searchQuery, setSearchQuery] = useState<string>(initialSearchQuery || '');
   const [isSearching, setIsSearching] = useState<boolean>(false);
   const [searchMatches, setSearchMatches] = useState<SearchMatch[]>([]);
   const [activeMatchIndex, setActiveMatchIndex] = useState<number>(-1);
@@ -82,28 +94,18 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1 }: PdfRead
       setErrorMessage(null);
 
       try {
-        // Fetch saved progress from Supabase
         let resumePage = initialPage;
-        try {
-          const res = await fetch(`/api/study-progress?documentId=${documentId}`);
-          if (res.ok) {
-            const data = await res.json();
-            if (data.progress?.last_page && !window.location.search.includes('page=')) {
-              resumePage = data.progress.last_page;
-            }
-            if (Array.isArray(data.bookmarks)) {
-              const hasBookmark = data.bookmarks.some((b: any) => b.page_number === resumePage);
-              setIsBookmarked(hasBookmark);
-            }
-          }
-        } catch (e) {
-          console.warn('Could not fetch saved progress:', e);
-        }
+        // Start PDF.js and progress fetch concurrently for optimal latency
+        const progressPromise = fetch(`/api/study-progress?documentId=${documentId}`)
+          .then((r) => (r.ok ? r.json() : null))
+          .catch((e) => {
+            console.warn('Could not fetch saved progress:', e);
+            return null;
+          });
 
-        // Dynamically import PDF.js
-        const pdfjsLib = await import('pdfjs-dist/build/pdf.mjs');
+        const pdfjsLib = await getPdfjsLib();
+        if (isCancelled) return;
         pdfjsLibRef.current = pdfjsLib;
-        pdfjsLib.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.mjs';
 
         const loadingTask = pdfjsLib.getDocument({
           url: `/api/study-materials/${documentId}/pdf`,
@@ -111,16 +113,35 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1 }: PdfRead
         });
 
         loadingTaskRef.current = loadingTask;
-        const doc = await loadingTask.promise;
+        const [doc, progressData] = await Promise.all([
+          loadingTask.promise,
+          progressPromise,
+        ]);
         if (isCancelled) { await loadingTask.destroy(); return; }
 
         pdfDocRef.current = doc;
         setTotalPages(doc.numPages);
 
+        if (progressData?.progress?.last_page && typeof window !== 'undefined' && !window.location.search.includes('page=')) {
+          resumePage = progressData.progress.last_page;
+        }
+        if (Array.isArray(progressData?.bookmarks)) {
+          const hasBookmark = progressData.bookmarks.some((b: any) => b.page_number === resumePage);
+          setIsBookmarked(hasBookmark);
+        }
+
         const safePage = Math.min(Math.max(1, resumePage), doc.numPages);
         setCurrentPage(safePage);
         setPageInput(String(safePage));
         setIsLoading(false);
+
+        // Auto-trigger search if query passed via URL or prop
+        const urlParams = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
+        const targetQ = urlParams?.get('q') || initialSearchQuery;
+        if (targetQ) {
+          setIsSearchOpen(true);
+          setSearchQuery(targetQ);
+        }
       } catch (err: any) {
         if (!isCancelled) {
           console.error('Failed to load PDF:', err);
@@ -398,6 +419,28 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1 }: PdfRead
     document.addEventListener('fullscreenchange', update);
     return () => document.removeEventListener('fullscreenchange', update);
   }, []);
+
+  // Keyboard navigation for fluent page flipping
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (['INPUT', 'TEXTAREA', 'SELECT'].includes((e.target as HTMLElement).tagName)) return;
+      if (e.key === 'ArrowRight' || e.key === 'PageDown') {
+        e.preventDefault();
+        setCurrentPage((p) => Math.min(totalPages, p + 1));
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        e.preventDefault();
+        setCurrentPage((p) => Math.max(1, p - 1));
+      } else if (e.key === 'Home') {
+        e.preventDefault();
+        setCurrentPage(1);
+      } else if (e.key === 'End') {
+        e.preventDefault();
+        setCurrentPage(totalPages);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [totalPages]);
 
   // Page Navigation Handlers
   const goToPage = (newPage: number) => {

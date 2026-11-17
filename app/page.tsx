@@ -1,7 +1,23 @@
 import React from 'react';
 import Link from 'next/link';
-import { Terminal, Shield, ArrowRight, BookOpen, Compass, Layers, CheckCircle2, Youtube, ExternalLink } from 'lucide-react';
+import {
+  Terminal,
+  Shield,
+  ArrowRight,
+  BookOpen,
+  Compass,
+  Layers,
+  CheckCircle2,
+  Youtube,
+  ExternalLink,
+  Sparkles,
+  FileSearch,
+  Lock,
+  Cpu,
+  Wifi,
+} from 'lucide-react';
 import { getAllAuthoritativeResources, getAllAuthoritativePaths } from '@/lib/authoritativeCatalog';
+import { BugBountyLogo } from '@/components/ui/BugBountyLogo';
 
 export default function HomePage() {
   const resources = getAllAuthoritativeResources();
@@ -11,53 +27,130 @@ export default function HomePage() {
 
   return (
     <div className="space-y-16 py-8">
-      {/* 1. Terminal-Style Hero */}
-      <section className="container-max dark:bg-[#121A26] rounded-2xl">
-        <div className="rounded-2xl border border-[#E2E8F0] dark:border-[#243044] bg-white dark:bg-[#121A26] p-6 sm:p-12 shadow-sm relative overflow-hidden">
-          {/* Subtle background grid */}
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none opacity-50 dark:opacity-20" />
+      {/* 1. Terminal & 3D Cyber-Engineered Hero */}
+      <section className="container-max">
+        <div className="relative rounded-2xl border border-[#E2E8F0] dark:border-[#1E2D42] bg-white dark:bg-[#0D1420] p-6 sm:p-12 shadow-xl overflow-hidden transition-all duration-300">
+          {/* Subtle Ambient Cyber Mesh Grids */}
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(34,211,238,0.12),transparent_50%)] pointer-events-none" />
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808010_1px,transparent_1px),linear-gradient(to_bottom,#80808010_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none opacity-60 dark:opacity-25" />
 
-                    <div className="relative z-10 max-w-3xl space-y-6">
-            {/* System Status Eyebrow */}
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-[var(--surface-subtle)] border border-[var(--border)] font-mono text-xs text-[var(--accent-cyan)] font-semibold">
-              <span className="w-2 h-2 rounded-full bg-[var(--accent-emerald)] inline-block" />
-              <span>Free, Structured & Hands-On Cyber Education</span>
+          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            {/* Left Column: Heading and CTAs */}
+            <div className="lg:col-span-7 space-y-6">
+              {/* System Status Eyebrow */}
+              <div className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-[var(--surface-subtle)] border border-[var(--border)] font-mono text-xs text-[var(--accent-cyan)] font-semibold shadow-xs">
+                <span className="w-2 h-2 rounded-full bg-[var(--accent-emerald)] inline-block animate-pulse" />
+                <span className="tracking-wide uppercase text-[11px]">System Status: Operational • 34 Guides Active</span>
+              </div>
+
+              <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-[var(--text-primary)] leading-[1.12] font-space-grotesk">
+                Learn Cybersecurity the Right Way.{' '}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--accent-cyan)] to-[var(--accent-emerald)]">
+                  Free, Structured & Hands-On.
+                </span>
+              </h1>
+
+              <p className="text-sm sm:text-base text-[var(--text-secondary)] leading-relaxed max-w-xl">
+                CyberTube organizes verified YouTube courses, authenticated Bug Bounty methodologies, and legal lab environments into transparent, progressive roadmaps. No paywalls, no marketing hype—pure practical skills development.
+              </p>
+
+              {/* Primary Call to Actions */}
+              <div className="flex flex-wrap items-center gap-3.5 pt-2">
+                <Link
+                  href="/library"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-[var(--accent-cyan)] hover:bg-[var(--accent-cyan-hover)] text-[#090D14] font-bold text-sm transition-all shadow-md hover:shadow-cyan-500/20 hover:-translate-y-0.5"
+                >
+                  <BugBountyLogo size={20} />
+                  <span>Explore Study Library</span>
+                  <ArrowRight className="w-4 h-4 ml-1" />
+                </Link>
+
+                <Link
+                  href="/courses"
+                  className="inline-flex items-center gap-2 px-5 py-3 rounded-lg border border-[var(--border)] bg-[var(--card-bg)] text-[var(--text-primary)] font-semibold text-sm hover:border-[var(--accent-cyan)] hover:text-[var(--accent-cyan)] transition-all hover:-translate-y-0.5"
+                >
+                  <Youtube className="w-4 h-4 text-[#F87171]" />
+                  <span>Video Courses</span>
+                </Link>
+
+                <Link
+                  href="/learning-paths"
+                  className="inline-flex items-center gap-2 px-4 py-3 rounded-lg text-xs font-mono text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
+                >
+                  <Compass className="w-4 h-4 text-[var(--accent-cyan)]" />
+                  <span>Learning Paths A–E</span>
+                </Link>
+              </div>
             </div>
 
-            <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-[var(--text-primary)] leading-[1.15]">
-              Learn Cybersecurity the Right Way. Free, Structured & Hands-On.
-            </h1>
+            {/* Right Column: 3D-Engineered Perspective Badge Card */}
+            <div className="lg:col-span-5 flex justify-center">
+              <div className="relative w-full max-w-md p-6 rounded-2xl border border-[var(--accent-cyan)]/30 bg-gradient-to-br from-[var(--surface-subtle)] via-[var(--card-bg)] to-[var(--surface-elevated)] shadow-2xl backdrop-blur-md transform-gpu hover:scale-[1.02] transition-transform duration-300">
+                <div className="flex items-center justify-between pb-4 border-b border-[var(--border)]">
+                  <div className="flex items-center gap-2">
+                    <BugBountyLogo size={32} showText={false} />
+                    <div>
+                      <div className="text-xs font-bold font-space-grotesk text-[var(--text-primary)]">
+                        Bug Bounty Library
+                      </div>
+                      <div className="text-[10px] font-mono text-[var(--accent-cyan)]">
+                        v2.4 Production Catalog
+                      </div>
+                    </div>
+                  </div>
+                  <span className="px-2 py-0.5 rounded-full text-[10px] font-mono uppercase bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 font-bold border border-emerald-500/30">
+                    Live Cloud Sync
+                  </span>
+                </div>
 
-            <p className="text-sm sm:text-base text-[var(--text-secondary)] leading-relaxed">
-              CyberTube organizes verified YouTube courses, certified syllabi, and legal practice labs into transparent, progressive roadmaps. No paywalls, no false hype—pure practical skills development.
-            </p>
+                <div className="py-4 space-y-3">
+                  <div className="flex items-center justify-between text-xs font-mono">
+                    <span className="text-[var(--text-secondary)] flex items-center gap-1.5">
+                      <FileSearch className="w-3.5 h-3.5 text-[var(--accent-cyan)]" />
+                      Full-Text PDF Search
+                    </span>
+                    <span className="font-bold text-[var(--text-primary)]">Across 34 PDFs</span>
+                  </div>
 
-            {/* CTA Buttons */}
-            <div className="flex flex-wrap gap-4 pt-2">
-              <Link
-                href="/learning-paths"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-[var(--accent-cyan)] hover:bg-[var(--accent-cyan-hover)] text-[#090D14] font-semibold text-sm transition-all shadow-sm"
-              >
-                <span>Start Your Path</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
+                  <div className="flex items-center justify-between text-xs font-mono">
+                    <span className="text-[var(--text-secondary)] flex items-center gap-1.5">
+                      <Lock className="w-3.5 h-3.5 text-amber-500" />
+                      Session & Auth Security
+                    </span>
+                    <span className="font-bold text-[var(--text-primary)]">2FA, IDOR, ATO</span>
+                  </div>
 
-              <Link
-                href="/library"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-lg border border-[var(--border)] bg-[var(--surface-subtle)] text-[var(--text-primary)] font-medium text-sm hover:border-[var(--accent-cyan)] transition-colors"
-              >
-                <BookOpen className="w-4 h-4 text-[var(--accent-cyan)]" />
-                <span>Browse {resources.length} Verified Resources</span>
-              </Link>
+                  <div className="flex items-center justify-between text-xs font-mono">
+                    <span className="text-[var(--text-secondary)] flex items-center gap-1.5">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
+                      Progress Tracking
+                    </span>
+                    <span className="font-bold text-emerald-500">Cross-Device</span>
+                  </div>
+                </div>
+
+                <div className="pt-3 border-t border-[var(--border)] flex items-center justify-between">
+                  <span className="text-[11px] font-mono text-[var(--text-muted)]">
+                    Total Pages: 138
+                  </span>
+                  <Link
+                    href="/library"
+                    className="inline-flex items-center gap-1 text-xs font-bold text-[var(--accent-cyan)] hover:underline"
+                  >
+                    <span>Open Hub</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 2. Three Value Cards */}
+      {/* 2. Three Value Pillar Cards */}
       <section className="container-max">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="rounded-xl border border-[#E2E8F0] dark:border-[#243044] bg-white dark:bg-[#121A26] p-6 space-y-3">
+          <div className="rounded-xl border border-[#E2E8F0] dark:border-[#243044] bg-white dark:bg-[#121A26] p-6 space-y-3 hover:border-[var(--accent-cyan)]/40 hover:-translate-y-0.5 transition-all shadow-sm">
             <div className="w-10 h-10 rounded-lg bg-[#34D399]/10 text-[#34D399] flex items-center justify-center">
               <CheckCircle2 className="w-5 h-5" />
             </div>
@@ -65,11 +158,11 @@ export default function HomePage() {
               1. Free-First Education
             </h2>
             <p className="text-xs sm:text-sm text-[#475569] dark:text-[#9BA8B7] leading-relaxed">
-              Every course and video playlist is 100% free on YouTube from industry leaders like Jeremy&apos;s IT Lab, Professor Messer, and TCM Security. No hidden subscription traps.
+              Every course and video playlist is 100% free on YouTube from industry leaders like Jeremy&apos;s IT Lab, Professor Messer, and Netsec Explained. No hidden subscription traps.
             </p>
           </div>
 
-          <div className="rounded-xl border border-[#E2E8F0] dark:border-[#243044] bg-white dark:bg-[#121A26] p-6 space-y-3">
+          <div className="rounded-xl border border-[#E2E8F0] dark:border-[#243044] bg-white dark:bg-[#121A26] p-6 space-y-3 hover:border-[var(--accent-cyan)]/40 hover:-translate-y-0.5 transition-all shadow-sm">
             <div className="w-10 h-10 rounded-lg bg-[#22D3EE]/10 text-[#22D3EE] flex items-center justify-center">
               <Terminal className="w-5 h-5" />
             </div>
@@ -77,11 +170,11 @@ export default function HomePage() {
               2. Lab-First Practice
             </h2>
             <p className="text-xs sm:text-sm text-[#475569] dark:text-[#9BA8B7] leading-relaxed">
-              Theory is paired step-by-step with free wargames and legal targets like OverTheWire, PortSwigger Academy, TryHackMe, and OWASP Juice Shop.
+              Theory is paired step-by-step with free wargames and legal targets like OverTheWire, PortSwigger Web Security Academy, TryHackMe, and OWASP Juice Shop.
             </p>
           </div>
 
-          <div className="rounded-xl border border-[#E2E8F0] dark:border-[#243044] bg-white dark:bg-[#121A26] p-6 space-y-3">
+          <div className="rounded-xl border border-[#E2E8F0] dark:border-[#243044] bg-white dark:bg-[#121A26] p-6 space-y-3 hover:border-[var(--accent-cyan)]/40 hover:-translate-y-0.5 transition-all shadow-sm">
             <div className="w-10 h-10 rounded-lg bg-[#FBBF24]/10 text-[#FBBF24] flex items-center justify-center">
               <Shield className="w-5 h-5" />
             </div>
@@ -95,7 +188,39 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 3. Learning Paths Preview */}
+      {/* 3. Featured Bug Bounty Study Library Spotlight */}
+      <section className="container-max">
+        <div className="rounded-2xl border border-[var(--accent-cyan)]/30 bg-gradient-to-r from-[var(--surface-subtle)] via-[var(--card-bg)] to-[var(--surface-subtle)] p-6 sm:p-10 shadow-lg relative overflow-hidden">
+          <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+            <div className="space-y-3 max-w-2xl">
+              <div className="flex items-center gap-2">
+                <BugBountyLogo size={24} />
+                <span className="font-mono text-xs uppercase tracking-wider text-[var(--accent-cyan)] font-semibold">
+                  Featured Resource Collection
+                </span>
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-bold font-space-grotesk text-[var(--text-primary)]">
+                Bug Bounty Study Library — 34 Verified Field Guides
+              </h2>
+              <p className="text-xs sm:text-sm text-[var(--text-secondary)] leading-relaxed">
+                Complete methodology checklists covering 2FA Bypass, IDOR, Account Takeover, Business Logic, SSRF, and Client-Side Injection. Includes in-document search, page bookmarking, and distinct-page cloud progress tracking.
+              </p>
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-3 w-full lg:w-auto shrink-0">
+              <Link
+                href="/library?tab=study"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-[var(--accent-cyan)] hover:bg-[var(--accent-cyan-hover)] text-[#090D14] font-bold text-xs shadow-md transition-all"
+              >
+                <span>Open 34 Study Guides</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. Learning Paths Preview (Marked Coming Soon) */}
       <section className="container-max space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div>
@@ -104,7 +229,7 @@ export default function HomePage() {
               <span>Step-by-Step Tracks</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-bold font-space-grotesk text-[#0F172A] dark:text-[#E6EDF3]">
-              Curated Learning Roadmaps
+              Curated Learning Roadmaps (A–E)
             </h2>
           </div>
           <Link
@@ -121,12 +246,14 @@ export default function HomePage() {
             <Link
               key={p.id}
               href={`/learning-paths/${p.slug}`}
-              className="rounded-xl border border-[#E2E8F0] dark:border-[#243044] bg-white dark:bg-[#121A26] p-5 space-y-3 hover:border-[#22D3EE]/50 hover:shadow-sm transition-all group flex flex-col justify-between"
+              className="rounded-xl border border-[#E2E8F0] dark:border-[#243044] bg-white dark:bg-[#121A26] p-5 space-y-3 hover:border-[#22D3EE]/50 hover:shadow-md transition-all group flex flex-col justify-between"
             >
               <div className="space-y-2">
                 <div className="flex items-center justify-between text-[11px] font-mono">
                   <span className="text-[#0E7490] dark:text-[#22D3EE] uppercase">{p.level}</span>
-                  <span className="text-[#475569] dark:text-[#9BA8B7]">{p.duration}</span>
+                  <span className="px-1.5 py-0.2 rounded text-[10px] font-mono uppercase bg-amber-500/15 text-amber-600 dark:text-amber-400 font-semibold border border-amber-500/30">
+                    Coming Soon
+                  </span>
                 </div>
                 <h3 className="text-base font-bold font-space-grotesk text-[#0F172A] dark:text-[#E6EDF3] group-hover:text-[#0E7490] dark:group-hover:text-[#22D3EE] transition-colors">
                   {p.title}
@@ -137,7 +264,7 @@ export default function HomePage() {
               </div>
 
               <div className="pt-3 border-t border-[#E2E8F0] dark:border-[#243044] flex items-center justify-between text-xs text-[#0E7490] dark:text-[#22D3EE] font-medium">
-                <span>View Roadmap</span>
+                <span>View Syllabus</span>
                 <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
               </div>
             </Link>
@@ -145,7 +272,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 4. Featured Playlists */}
+      {/* 5. Featured YouTube Courses */}
       <section className="container-max space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div>
@@ -154,14 +281,14 @@ export default function HomePage() {
               <span>Free Video Series</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-bold font-space-grotesk text-[#0F172A] dark:text-[#E6EDF3]">
-              Featured YouTube Courses
+              Featured Video Courses
             </h2>
           </div>
           <Link
-            href="/library"
+            href="/courses"
             className="text-xs sm:text-sm font-semibold text-[#0E7490] dark:text-[#22D3EE] hover:underline flex items-center gap-1"
           >
-            <span>View All in Library</span>
+            <span>View All Courses</span>
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
@@ -206,7 +333,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 5. Ethics Banner */}
+      {/* 6. Ethics Banner */}
       <section className="container-max">
         <div className="rounded-xl border border-[#34D399]/30 bg-[#34D399]/5 p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
           <div className="space-y-2 max-w-2xl">
@@ -230,7 +357,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 6. Legal Practice Platform Preview */}
+      {/* 7. Legal Practice Platform Preview */}
       <section className="container-max space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div>
@@ -246,7 +373,7 @@ export default function HomePage() {
             href="/labs"
             className="text-xs sm:text-sm font-semibold text-[#0E7490] dark:text-[#22D3EE] hover:underline flex items-center gap-1"
           >
-            <span>View All 7 Labs</span>
+            <span>View All Labs</span>
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
@@ -287,4 +414,3 @@ export default function HomePage() {
     </div>
   );
 }
-
