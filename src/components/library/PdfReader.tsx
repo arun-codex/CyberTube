@@ -84,6 +84,8 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1, initialSe
   const renderTaskRef = useRef<any>(null);
   const textLayerTaskRef = useRef<any>(null);
   const saveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const bookmarkedPagesRef = useRef(new Set<number>());
+  const pageTextCache = useRef(new Map<number, string>());
 
   // Load PDF Document & Initial Progress
   useEffect(() => {
@@ -92,12 +94,22 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1, initialSe
     async function initPdf() {
       setIsLoading(true);
       setErrorMessage(null);
+      bookmarkedPagesRef.current.clear();
+      pageTextCache.current.clear();
 
       try {
         let resumePage = initialPage;
         // Start PDF.js and progress fetch concurrently for optimal latency
-        const progressPromise = fetch(`/api/study-progress?documentId=${documentId}`)
+        const hasExplicitPage = new URLSearchParams(window.location.search).has('page');
+        const progressPromise = fetch(`/api/study-progress?documentId=${documentId}`, { signal: AbortSignal.timeout(4000) })
           .then((r) => (r.ok ? r.json() : null))
+          .then((data) => {
+            if (!isCancelled && Array.isArray(data?.bookmarks)) {
+              bookmarkedPagesRef.current = new Set(data.bookmarks.map((b: any) => b.page_number));
+              setIsBookmarked(bookmarkedPagesRef.current.has(initialPage));
+            }
+            return data;
+          })
           .catch((e) => {
             console.warn('Could not fetch saved progress:', e);
             return null;
@@ -115,7 +127,7 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1, initialSe
         loadingTaskRef.current = loadingTask;
         const [doc, progressData] = await Promise.all([
           loadingTask.promise,
-          progressPromise,
+          hasExplicitPage ? Promise.resolve(null) : progressPromise,
         ]);
         if (isCancelled) { await loadingTask.destroy(); return; }
 
@@ -124,10 +136,25 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1, initialSe
 
         if (progressData?.progress?.last_page && typeof window !== 'undefined' && !window.location.search.includes('page=')) {
           resumePage = progressData.progress.last_page;
+        } else if (typeof window !== 'undefined' && !window.location.search.includes('page=')) {
+          try {
+            const local = localStorage.getItem(`study_progress_${documentId}`);
+            if (local) {
+              const parsed = JSON.parse(local);
+              if (typeof parsed?.last_page === 'number') {
+                resumePage = parsed.last_page;
+              }
+            }
+          } catch {}
         }
         if (Array.isArray(progressData?.bookmarks)) {
           const hasBookmark = progressData.bookmarks.some((b: any) => b.page_number === resumePage);
           setIsBookmarked(hasBookmark);
+        } else if (typeof window !== 'undefined') {
+          try {
+            const localBm = localStorage.getItem(`study_bm_${documentId}_${resumePage}`);
+            if (localBm === '1') setIsBookmarked(true);
+          } catch {}
         }
 
         const safePage = Math.min(Math.max(1, resumePage), doc.numPages);
@@ -155,12 +182,14 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1, initialSe
 
     return () => {
       isCancelled = true;
+      searchGeneration.current++;
+      if (saveTimeoutRef.current) clearTimeout(saveTimeoutRef.current);
       if (renderTaskRef.current) renderTaskRef.current.cancel();
       if (textLayerTaskRef.current) textLayerTaskRef.current.cancel?.();
       void loadingTaskRef.current?.destroy();
       pdfDocRef.current = null;
     };
-  }, [documentId, initialPage]);
+  }, [documentId, initialPage, initialSearchQuery]);
 
   // Highlight matches in current text layer
   const applySearchHighlights = useCallback(
@@ -293,6 +322,13 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1, initialSe
         clearTimeout(saveTimeoutRef.current);
       }
 
+      // Update local storage cache immediately for zero-loss offline resiliency
+      try {
+        if (typeof window !== 'undefined') {
+          localStorage.setItem(`study_progress_${documentId}`, JSON.stringify({ last_page: page, timestamp: Date.now() }));
+        }
+      } catch {}
+
       setSaveStatus('saving');
 
       saveTimeoutRef.current = setTimeout(async () => {
@@ -339,11 +375,16 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1, initialSe
 
     try {
       for (let p = 1; p <= totalPages; p++) {
-        const page = await pdfDocRef.current.getPage(p);
-        const textContent = await page.getTextContent();
+        let pageText = pageTextCache.current.get(p);
+        if (pageText === undefined) {
+          const page = await pdfDocRef.current.getPage(p);
+          const textContent = await page.getTextContent();
+          pageText = textContent.items.map((i: any) => ('str' in i ? i.str : '')).join('');
+          if (generation !== searchGeneration.current) return;
+          pageTextCache.current.set(p, pageText!);
+        }
         if (generation !== searchGeneration.current) return;
-        const pageText = textContent.items.map((i: any) => ('str' in i ? i.str : '')).join('');
-        for (const match of findTextMatches(pageText, q)) matches.push({ pageNumber: p, ...match });
+        for (const match of findTextMatches(pageText!, q)) matches.push({ pageNumber: p, ...match });
       }
 
       setSearchMatches(matches);
@@ -380,6 +421,26 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1, initialSe
       goToPage(targetMatch.pageNumber);
     }
   };
+
+  const searchRunnerRef = useRef(executeSearch);
+  searchRunnerRef.current = executeSearch;
+  useEffect(() => {
+    if (!isSearchOpen) {
+      searchGeneration.current++;
+      setIsSearching(false);
+      setSearchQuery('');
+      setSearchMatches([]);
+      setActiveMatchIndex(-1);
+      applySearchHighlights('');
+      return;
+    }
+    if (isLoading) return;
+    const timer = setTimeout(() => { void searchRunnerRef.current(searchQuery); }, 180);
+    return () => {
+      clearTimeout(timer);
+      searchGeneration.current++;
+    };
+  }, [isSearchOpen, isLoading, searchQuery, applySearchHighlights]);
 
   const handlePrevMatch = () => {
     if (searchMatches.length === 0) return;
@@ -420,43 +481,13 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1, initialSe
     return () => document.removeEventListener('fullscreenchange', update);
   }, []);
 
-  // Keyboard navigation for fluent page flipping
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (['INPUT', 'TEXTAREA', 'SELECT'].includes((e.target as HTMLElement).tagName)) return;
-      if (e.key === 'ArrowRight' || e.key === 'PageDown') {
-        e.preventDefault();
-        setCurrentPage((p) => Math.min(totalPages, p + 1));
-      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
-        e.preventDefault();
-        setCurrentPage((p) => Math.max(1, p - 1));
-      } else if (e.key === 'Home') {
-        e.preventDefault();
-        setCurrentPage(1);
-      } else if (e.key === 'End') {
-        e.preventDefault();
-        setCurrentPage(totalPages);
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [totalPages]);
-
   // Page Navigation Handlers
   const goToPage = (newPage: number) => {
     if (newPage < 1 || newPage > totalPages || newPage === currentPage) return;
     setCurrentPage(newPage);
     setPageInput(String(newPage));
 
-    // Update bookmark status for newly active page
-    fetch(`/api/study-progress?documentId=${documentId}`)
-      .then((res) => res.json())
-      .then((data) => {
-        if (Array.isArray(data.bookmarks)) {
-          setIsBookmarked(data.bookmarks.some((b: any) => b.page_number === newPage));
-        }
-      })
-      .catch(() => {});
+    setIsBookmarked(bookmarkedPagesRef.current.has(newPage));
   };
 
   const handleNextPage = () => goToPage(currentPage + 1);
@@ -510,9 +541,40 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1, initialSe
       if (res.ok) {
         const data = await res.json();
         setIsBookmarked(data.bookmarked);
+        if (data.bookmarked) bookmarkedPagesRef.current.add(currentPage);
+        else bookmarkedPagesRef.current.delete(currentPage);
+        if (typeof window !== 'undefined') {
+          if (data.bookmarked) {
+            localStorage.setItem(`study_bm_${documentId}_${currentPage}`, '1');
+          } else {
+            localStorage.removeItem(`study_bm_${documentId}_${currentPage}`);
+          }
+        }
+      } else {
+        // Offline / guest local fallback
+        if (typeof window !== 'undefined') {
+          const current = localStorage.getItem(`study_bm_${documentId}_${currentPage}`) === '1';
+          if (current) {
+            localStorage.removeItem(`study_bm_${documentId}_${currentPage}`);
+            setIsBookmarked(false);
+          } else {
+            localStorage.setItem(`study_bm_${documentId}_${currentPage}`, '1');
+            setIsBookmarked(true);
+          }
+        }
       }
     } catch (e) {
       console.error('Bookmark toggle failed:', e);
+      if (typeof window !== 'undefined') {
+        const current = localStorage.getItem(`study_bm_${documentId}_${currentPage}`) === '1';
+        if (current) {
+          localStorage.removeItem(`study_bm_${documentId}_${currentPage}`);
+          setIsBookmarked(false);
+        } else {
+          localStorage.setItem(`study_bm_${documentId}_${currentPage}`, '1');
+          setIsBookmarked(true);
+        }
+      }
     }
   };
 
@@ -527,7 +589,7 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1, initialSe
         return;
       }
 
-      if (['INPUT', 'TEXTAREA'].includes((e.target as HTMLElement).tagName)) {
+      if (['INPUT', 'TEXTAREA', 'SELECT', 'BUTTON', 'A'].includes((e.target as HTMLElement).tagName) || (e.target as HTMLElement).isContentEditable) {
         if (e.key === 'Escape') {
           setIsSearchOpen(false);
         }
@@ -540,6 +602,12 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1, initialSe
       } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
         e.preventDefault();
         handlePrevPage();
+      } else if (e.key === 'Home') {
+        e.preventDefault();
+        goToPage(1);
+      } else if (e.key === 'End') {
+        e.preventDefault();
+        goToPage(totalPages);
       } else if (e.key === 'Escape' && isFullscreen) {
         handleToggleFullscreen();
       }
@@ -563,7 +631,7 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1, initialSe
         {/* Left: Back button & Title */}
         <div className="flex items-center gap-3 min-w-0">
           <Link
-            href="/study-materials"
+            href="/library"
             className="flex items-center gap-1.5 text-xs font-semibold text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors p-1.5 rounded-lg hover:bg-[var(--surface-subtle)]"
           >
             <ArrowLeft className="w-4 h-4" />
@@ -635,6 +703,7 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1, initialSe
               if (!isSearchOpen) setTimeout(() => searchInputRef.current?.focus(), 100);
             }}
             aria-label="Search inside document"
+            aria-pressed={isSearchOpen}
             className={`h-8 w-8 p-0 ${isSearchOpen ? 'border-[var(--accent-cyan)] text-[var(--accent-cyan)] bg-[var(--accent-cyan)]/10' : ''}`}
           >
             <Search className="w-4 h-4" />
@@ -716,7 +785,6 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1, initialSe
               value={searchQuery}
               onChange={(e) => {
                 setSearchQuery(e.target.value);
-                executeSearch(e.target.value);
               }}
               onKeyDown={(e) => {
                 if (e.key === 'Enter') {
