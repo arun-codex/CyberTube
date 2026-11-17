@@ -41,10 +41,11 @@ export async function POST(req: NextRequest) {
   }
 
   try {
+    // Strictly rely on standard environment guards in syncAllEnabledPlaylists:
+    // Do NOT pass allowPreview or allowProductionWrite overrides so preview deployments
+    // and unauthorized standalone environments fail closed against cloud Supabase.
     const result = await syncAllEnabledPlaylists({
       adminClient: admin,
-      allowPreview: process.env.NODE_ENV !== 'production' || process.env.VERCEL_ENV === 'preview',
-      allowProductionWrite: true,
     });
 
     return NextResponse.json({
