@@ -35,8 +35,7 @@ export const CourseProgressHeader: React.FC<CourseProgressHeaderProps> = ({
     completionStats &&
     (completionStats.totalQuizzes > 0 ||
       completionStats.totalLabs > 0 ||
-      completionStats.capstoneSubmitted ||
-      completionStats.capstonePassed);
+      completionStats.hasCapstone);
 
   return (
     <div className="space-y-4">
@@ -153,12 +152,16 @@ export const CourseProgressHeader: React.FC<CourseProgressHeaderProps> = ({
                 2. Module Quizzes (≥70%)
               </div>
               <div className="text-sm font-bold text-[#0F172A] dark:text-[#E6EDF3]">
-                {completionStats.quizzesPassed} / {completionStats.totalQuizzes} passed
+                {completionStats.totalQuizzes > 0
+                  ? `${completionStats.quizzesPassed} / ${completionStats.totalQuizzes} passed`
+                  : 'Not configured'}
               </div>
               <div className="text-[11px] text-[#64748B] dark:text-[#9BA8B7]">
-                {completionStats.quizzesPassed === completionStats.totalQuizzes
-                  ? '✓ All Quizzes Passed'
-                  : `${completionStats.quizzesPassed} of ${completionStats.totalQuizzes} passing`}
+                {completionStats.totalQuizzes > 0
+                  ? completionStats.quizzesPassed === completionStats.totalQuizzes
+                    ? '✓ All Quizzes Passed'
+                    : `${completionStats.quizzesPassed} of ${completionStats.totalQuizzes} passing`
+                  : 'No quizzes required'}
               </div>
             </div>
 
@@ -168,12 +171,16 @@ export const CourseProgressHeader: React.FC<CourseProgressHeaderProps> = ({
                 3. Hands-On Labs
               </div>
               <div className="text-sm font-bold text-[#0F172A] dark:text-[#E6EDF3]">
-                {completionStats.labsCompleted} / {completionStats.totalLabs} completed
+                {completionStats.totalLabs > 0
+                  ? `${completionStats.labsCompleted} / ${completionStats.totalLabs} completed`
+                  : 'Not available'}
               </div>
               <div className="text-[11px] text-[#64748B] dark:text-[#9BA8B7]">
-                {completionStats.labsCompleted === completionStats.totalLabs
-                  ? '✓ All Labs Verified'
-                  : `${completionStats.labsCompleted} of ${completionStats.totalLabs} done`}
+                {completionStats.totalLabs > 0
+                  ? completionStats.labsCompleted === completionStats.totalLabs
+                    ? '✓ All Labs Verified'
+                    : `${completionStats.labsCompleted} of ${completionStats.totalLabs} done`
+                  : 'No lab modules'}
               </div>
             </div>
 
@@ -183,14 +190,18 @@ export const CourseProgressHeader: React.FC<CourseProgressHeaderProps> = ({
                 4. SOC Capstone
               </div>
               <div className="text-sm font-bold text-[#0F172A] dark:text-[#E6EDF3]">
-                {completionStats.capstonePassed
+                {!completionStats.hasCapstone
+                  ? 'Not available'
+                  : completionStats.capstonePassed
                   ? 'Passed (≥75)'
                   : completionStats.capstoneSubmitted
                   ? 'Submitted (Review)'
                   : 'Pending'}
               </div>
               <div className="text-[11px] text-[#64748B] dark:text-[#9BA8B7]">
-                {completionStats.capstonePassed
+                {!completionStats.hasCapstone
+                  ? 'No capstone for course'
+                  : completionStats.capstonePassed
                   ? '✓ Threshold Met (≥75)'
                   : 'Req: ≥75/100 self-assessment'}
               </div>

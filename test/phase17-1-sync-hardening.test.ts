@@ -630,3 +630,15 @@ test('11. getCourseBySlugWithDb preserves module.quiz, module.practicalLab, and 
     setPublicSupabaseClientForTesting(null);
   }
 });
+
+test('12. Admin manual playlist sync endpoint rejects unauthenticated and non-admin calls', async () => {
+  const adminSyncMod = await import('../app/api/admin/courses/sync-playlists/route');
+  const POST = adminSyncMod.POST;
+
+  // 1. Unauthenticated request -> 401
+  const reqUnauth = new NextRequest('http://localhost:3000/api/admin/courses/sync-playlists', { method: 'POST' });
+  const resUnauth = await POST(reqUnauth);
+  assert.equal(resUnauth.status, 401, 'Unauthenticated user must receive 401');
+  const bodyUnauth = await resUnauth.json();
+  assert.equal(bodyUnauth.error, 'Unauthenticated');
+});

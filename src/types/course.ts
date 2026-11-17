@@ -183,6 +183,7 @@ export interface ComprehensiveCourseCompletion {
   labCompletionPercent: number;
   labsCompleted: number;
   totalLabs: number;
+  hasCapstone: boolean;
   capstoneSubmitted: boolean;
   capstonePassed: boolean;
   isFullyCompleted: boolean;
