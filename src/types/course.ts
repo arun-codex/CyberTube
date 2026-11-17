@@ -252,6 +252,8 @@ export interface Course {
   pcapResources?: PCAPResource[];
   capstone?: CapstoneAssessment;
   videoResources?: LessonVideoResource[];
+  isComingSoon?: boolean;
+  comingSoonNotice?: string;
 }
 
 export type VideoResourceStatus =

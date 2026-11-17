@@ -67,6 +67,17 @@ export const CourseHeader: React.FC<CourseHeaderProps> = ({ course }) => {
               {course.description}
             </p>
 
+            {course.isComingSoon && (
+              <div className="flex items-start gap-2.5 p-3.5 rounded-lg border border-amber-500/30 bg-amber-500/10 text-xs text-amber-800 dark:text-amber-300">
+                <span className="font-bold uppercase tracking-wider font-mono text-[11px] px-1.5 py-0.5 rounded bg-amber-500/20 shrink-0">
+                  Coming Soon
+                </span>
+                <span className="leading-relaxed">
+                  {course.comingSoonNotice || 'This course curriculum is currently undergoing final verification. You can review the syllabus and lessons below.'}
+                </span>
+              </div>
+            )}
+
             {/* Meta Row */}
             <div className="flex flex-wrap items-center gap-4 text-xs font-mono text-[#6b6b7b] pt-1">
               <span className="flex items-center gap-1.5">

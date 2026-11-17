@@ -26,6 +26,16 @@ export default function LearningPathsIndexPage() {
         <p className="text-sm sm:text-base text-[#475569] dark:text-[#9BA8B7] leading-relaxed">
           Structured step-by-step tracks connecting verified free YouTube courses with hands-on practice labs. Follow one clear path instead of getting lost in tutorial paralysis.
         </p>
+
+        {/* Coming Soon Notice */}
+        <div className="flex items-center gap-2.5 p-3.5 rounded-lg border border-amber-500/30 bg-amber-500/10 text-xs text-amber-800 dark:text-amber-300">
+          <span className="font-bold uppercase tracking-wider font-mono text-[11px] px-2 py-0.5 rounded bg-amber-500/20 shrink-0">
+            Coming Soon
+          </span>
+          <span className="leading-relaxed">
+            Learning Paths A–E are currently in active curriculum development. You can preview all path milestones, companion labs, and syllabi below while interactive progress tracking is finalized.
+          </span>
+        </div>
       </div>
 
       {/* Grid of 5 Paths */}
@@ -37,9 +47,14 @@ export default function LearningPathsIndexPage() {
           >
             <div className="p-6 space-y-4">
               <div className="flex items-center justify-between gap-2 flex-wrap">
-                <span className="px-2.5 py-0.5 text-xs font-mono uppercase tracking-wider rounded-md bg-[#22D3EE]/10 text-[#22D3EE] border border-[#22D3EE]/30">
-                  {path.level}
-                </span>
+                <div className="flex items-center gap-2">
+                  <span className="px-2.5 py-0.5 text-xs font-mono uppercase tracking-wider rounded-md bg-[#22D3EE]/10 text-[#22D3EE] border border-[#22D3EE]/30">
+                    {path.level}
+                  </span>
+                  <span className="px-2 py-0.5 text-[10px] font-mono uppercase tracking-wider rounded-md bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30 font-semibold">
+                    Coming Soon
+                  </span>
+                </div>
                 <span className="text-xs font-mono text-[#475569] dark:text-[#9BA8B7]">
                   {path.duration}
                 </span>
@@ -64,9 +79,9 @@ export default function LearningPathsIndexPage() {
                 </div>
               )}
 
-              {path.isComingSoon && (
+              {path.tracks && (
                 <div className="pt-2 text-xs font-mono text-[#FBBF24]">
-                  4 specialized sub-tracks under review
+                  {path.tracks.length} specialized sub-tracks under review
                 </div>
               )}
             </div>

@@ -33,6 +33,8 @@ export const COURSES: Course[] = [
     ],
     featured: true,
     track: 'cybersecurity',
+    isComingSoon: true,
+    comingSoonNotice: 'Course syllabus and silicon reverse-engineering lab environments are currently being prepared.',
     modules: [
       {
         id: 'mod-x86-internals',
@@ -88,6 +90,8 @@ export const COURSES: Course[] = [
     ],
     featured: false,
     track: 'cybersecurity',
+    isComingSoon: true,
+    comingSoonNotice: 'Vernacular Hindi curriculum modules and packet addressing lab walkthroughs are currently in production.',
     modules: [
       {
         id: 'mod-hi-net-foundations',
