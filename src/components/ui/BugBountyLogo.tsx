@@ -18,6 +18,7 @@ export function BugBountyLogo({ size = 36, className = '', showText = false }: B
         className="shrink-0 transition-transform duration-200 group-hover:scale-105"
         aria-label="Bug Bounty Study Library Logo"
       >
+        <title>CyberTube Bug Bounty Study Library</title>
         <defs>
           <linearGradient id="shieldGrad" x1="4" y1="4" x2="44" y2="44" gradientUnits="userSpaceOnUse">
             <stop offset="0%" stopColor="#22D3EE" />
