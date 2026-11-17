@@ -15,10 +15,13 @@ import {
   FileText,
   Shield,
   Filter,
+  FileSearch,
 } from 'lucide-react';
 import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
+import { BugBountyLogo } from '@/components/ui/BugBountyLogo';
+import { DocumentSearchResult, LibrarySearchResponse } from '@/lib/pdf/library-search';
 
 export interface StudyDoc {
   id: string;
@@ -70,6 +73,7 @@ export function StudyDashboardClient({
   bookmarks,
 }: StudyDashboardClientProps) {
   const [searchQuery, setSearchQuery] = useState('');
+  const [searchInsidePdfs, setSearchInsidePdfs] = useState<boolean>(false);
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [statusFilter, setStatusFilter] = useState<'all' | 'in-progress' | 'completed' | 'bookmarked'>('all');
 
@@ -90,6 +94,70 @@ export function StudyDashboardClient({
     }
     return map;
   }, [bookmarks]);
+
+  // Full-Text PDF Search (Authenticated Server-Side Search)
+  const [pdfMatchesByDocId, setPdfMatchesByDocId] = useState<Map<string, DocumentSearchResult>>(new Map());
+  const [isPdfSearching, setIsPdfSearching] = useState<boolean>(false);
+  const [searchError, setSearchError] = useState<string | null>(null);
+
+  React.useEffect(() => {
+    if (!searchInsidePdfs || searchQuery.trim().length < 2) {
+      setPdfMatchesByDocId(new Map());
+      setIsPdfSearching(false);
+      setSearchError(null);
+      return;
+    }
+
+    const abortController = new AbortController();
+    let isStale = false;
+
+    setIsPdfSearching(true);
+    setSearchError(null);
+
+    const timer = setTimeout(async () => {
+      try {
+        const res = await fetch(
+          `/api/study-materials/search?q=${encodeURIComponent(searchQuery.trim())}`,
+          { signal: abortController.signal }
+        );
+
+        if (isStale) return;
+
+        if (!res.ok) {
+          const errData = await res.json().catch(() => ({}));
+          setSearchError(errData.error || `Search unavailable (HTTP ${res.status})`);
+          setPdfMatchesByDocId(new Map());
+          setIsPdfSearching(false);
+          return;
+        }
+
+        const data: LibrarySearchResponse = await res.json();
+        if (isStale) return;
+
+        const map = new Map<string, DocumentSearchResult>();
+        for (const r of data.results || []) {
+          map.set(r.documentId, r);
+          map.set(r.slug, r);
+          map.set(r.title.toLowerCase(), r);
+        }
+        setPdfMatchesByDocId(map);
+      } catch (err: any) {
+        if (err.name === 'AbortError') return;
+        if (!isStale) {
+          setSearchError('Network error while searching. Please check your connection.');
+          setPdfMatchesByDocId(new Map());
+        }
+      } finally {
+        if (!isStale) setIsPdfSearching(false);
+      }
+    }, 250);
+
+    return () => {
+      isStale = true;
+      abortController.abort();
+      clearTimeout(timer);
+    };
+  }, [searchInsidePdfs, searchQuery]);
 
   // Real Database Statistics
   const totalDocuments = documents.length;
@@ -135,29 +203,48 @@ export function StudyDashboardClient({
       // Search query
       if (searchQuery.trim()) {
         const q = searchQuery.toLowerCase();
-        const titleMatch = doc.title.toLowerCase().includes(q);
-        const descMatch = (doc.description || '').toLowerCase().includes(q);
-        const catMatch = (doc.study_categories?.title || '').toLowerCase().includes(q);
-        if (!titleMatch && !descMatch && !catMatch) return false;
+        if (searchInsidePdfs) {
+          const inPdf = pdfMatchesByDocId.has(doc.id) || pdfMatchesByDocId.has(doc.slug) || pdfMatchesByDocId.has(doc.title.toLowerCase());
+          const titleMatch = doc.title.toLowerCase().includes(q);
+          const descMatch = (doc.description || '').toLowerCase().includes(q);
+          if (!inPdf && !titleMatch && !descMatch) return false;
+        } else {
+          const titleMatch = doc.title.toLowerCase().includes(q);
+          const descMatch = (doc.description || '').toLowerCase().includes(q);
+          const catMatch = (doc.study_categories?.title || '').toLowerCase().includes(q);
+          if (!titleMatch && !descMatch && !catMatch) return false;
+        }
       }
 
       return true;
+    }).sort((a, b) => {
+      if (searchInsidePdfs && searchQuery.trim().length >= 2) {
+        const aMatches = (pdfMatchesByDocId.get(a.id) || pdfMatchesByDocId.get(a.slug))?.totalMatches || 0;
+        const bMatches = (pdfMatchesByDocId.get(b.id) || pdfMatchesByDocId.get(b.slug))?.totalMatches || 0;
+        return bMatches - aMatches;
+      }
+      return 0;
     });
-  }, [documents, selectedCategory, statusFilter, searchQuery, categories, progressMap, bookmarksMap]);
+  }, [documents, selectedCategory, statusFilter, searchQuery, categories, progressMap, bookmarksMap, searchInsidePdfs, pdfMatchesByDocId]);
 
   return (
     <div className="space-y-8">
       {/* Header Banner */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[var(--border)] pb-6">
         <div>
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-[var(--accent-cyan)] flex items-center justify-center text-[#090D14] shadow-sm">
-              <BookOpen className="w-5 h-5" />
+          <div className="flex items-center gap-3.5">
+            <div className="p-1 rounded-xl bg-gradient-to-br from-[var(--accent-cyan)]/20 to-[var(--accent-emerald)]/10 border border-[var(--accent-cyan)]/30 shadow-sm">
+              <BugBountyLogo size={42} showText={false} />
             </div>
             <div>
-              <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-[var(--text-primary)]">
-                Bug Bounty Study Library
-              </h1>
+              <div className="flex items-center gap-2">
+                <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-[var(--text-primary)]">
+                  Bug Bounty Study Library
+                </h1>
+                <span className="hidden sm:inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-[var(--accent-cyan)]/15 text-[var(--accent-cyan)] border border-[var(--accent-cyan)]/30">
+                  34 Guides Verified
+                </span>
+              </div>
               <p className="text-xs sm:text-sm text-[var(--text-secondary)] mt-0.5">
                 Login-protected study materials, checklists, and methodologies with cloud-synced progress.
               </p>
@@ -204,6 +291,7 @@ export function StudyDashboardClient({
       {/* Continue Reading Section (if user has active reading session) */}
       {continueReadingDoc && (
         <Card className="p-6 bg-gradient-to-r from-[var(--surface-subtle)] to-[var(--card-bg)] border border-[var(--accent-cyan)]/30 shadow-sm relative overflow-hidden">
+          <link rel="prefetch" href={`/api/study-materials/${continueReadingDoc.doc.id}/pdf`} />
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div className="space-y-1.5 max-w-xl">
               <div className="flex items-center gap-2">
@@ -273,22 +361,52 @@ export function StudyDashboardClient({
 
       {/* Search & Filters Toolbar */}
       <div className="space-y-4">
-        <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between">
-          {/* Search Box */}
-          <div className="relative flex-1 max-w-md">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--text-muted)]" />
-            <input
-              type="text"
-              aria-label="Search study library"
-              placeholder="Search study guides, tags, topics..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-4 py-2 rounded-lg border border-[var(--border)] bg-[var(--surface-subtle)] text-xs text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:ring-1 focus:ring-[var(--accent-cyan)]"
-            />
+        <div className="flex flex-col md:flex-row gap-3 items-stretch md:items-center justify-between">
+          {/* Search Box + PDF Toggle */}
+          <div className="flex flex-col sm:flex-row gap-2.5 flex-1 max-w-xl">
+            <div className="relative flex-1">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--text-muted)]" />
+              <input
+                type="text"
+                aria-label="Search study library"
+                placeholder={searchInsidePdfs ? "Search all 34 PDF contents (e.g. bypass, jwt, rate limit)..." : "Search study guides, tags, topics..."}
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-9 pr-4 py-2 rounded-lg border border-[var(--border)] bg-[var(--surface-subtle)] text-xs text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:ring-1 focus:ring-[var(--accent-cyan)] min-h-[38px]"
+              />
+            </div>
+
+            {/* ON/OFF Toggle for PDF content search */}
+            <button
+              type="button"
+              onClick={() => setSearchInsidePdfs(!searchInsidePdfs)}
+              role="switch"
+              aria-checked={searchInsidePdfs}
+              aria-label="Toggle search inside PDF contents"
+              className={`inline-flex items-center gap-2 px-3 py-2 rounded-lg border text-xs font-mono transition-all whitespace-nowrap min-h-[38px] ${
+                searchInsidePdfs
+                  ? 'bg-[var(--accent-cyan-subtle)] border-[var(--accent-cyan)] text-[var(--accent-cyan)] font-semibold shadow-xs'
+                  : 'bg-[var(--surface-subtle)] border-[var(--border)] text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:border-[var(--border-strong)]'
+              }`}
+            >
+              <span
+                className={`w-2.5 h-2.5 rounded-full transition-colors ${
+                  searchInsidePdfs ? 'bg-[var(--accent-cyan)] shadow-[0_0_8px_var(--accent-cyan)]' : 'bg-slate-400'
+                }`}
+              />
+              <span>Search PDF Contents: <strong className={searchInsidePdfs ? 'text-[var(--accent-cyan)]' : 'text-[var(--text-muted)]'}>{searchInsidePdfs ? 'ON' : 'OFF'}</strong></span>
+            </button>
           </div>
 
+          {/* Search Error or Degradation Alert */}
+          {searchInsidePdfs && searchError && (
+            <div className="w-full text-xs text-amber-400 bg-amber-950/30 border border-amber-800/40 rounded-lg p-2.5 flex items-center gap-2" role="alert">
+              <span className="font-semibold">Search Notice:</span> {searchError}
+            </div>
+          )}
+
           {/* Status Filter Buttons */}
-          <div className="flex items-center gap-1 bg-[var(--surface-subtle)] p-1 rounded-lg border border-[var(--border)] self-start sm:self-auto overflow-x-auto">
+          <div className="flex items-center gap-1 bg-[var(--surface-subtle)] p-1 rounded-lg border border-[var(--border)] self-start md:self-auto overflow-x-auto">
             <button
               type="button"
               onClick={() => setStatusFilter('all')}
@@ -391,11 +509,12 @@ export function StudyDashboardClient({
             const completionPercent = prog?.completion_percent ?? 0;
             const lastPage = prog?.last_page ?? 1;
             const categoryName = doc.study_categories?.title || 'Study Guide';
+            const pdfMatch = searchInsidePdfs ? (pdfMatchesByDocId.get(doc.id) || pdfMatchesByDocId.get(doc.slug)) : null;
 
             return (
               <Card
                 key={doc.id}
-                className="group flex flex-col justify-between p-5 bg-[var(--card-bg)] border-[var(--border)] hover:border-[var(--accent-cyan)] transition-all hover:shadow-md"
+                className="group flex flex-col justify-between p-5 bg-[var(--card-bg)] border-[var(--border)] hover:border-[var(--accent-cyan)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md"
               >
                 <div>
                   <div className="flex items-center justify-between gap-2 mb-3">
@@ -425,6 +544,32 @@ export function StudyDashboardClient({
                     <p className="mt-2 text-xs text-[var(--text-secondary)] line-clamp-3">
                       {doc.description}
                     </p>
+                  )}
+
+                  {/* Matching PDF Snippets */}
+                  {pdfMatch && pdfMatch.matchingPages.length > 0 && (
+                    <div className="mt-3 p-2.5 rounded-lg bg-[var(--surface-subtle)] border border-[var(--border)] space-y-2">
+                      <div className="flex items-center justify-between text-[11px] font-mono text-[var(--accent-cyan)] font-semibold">
+                        <span>{pdfMatch.totalMatches} match{pdfMatch.totalMatches === 1 ? '' : 'es'} inside PDF</span>
+                      </div>
+                      <div className="space-y-1.5 max-h-36 overflow-y-auto">
+                        {pdfMatch.matchingPages.slice(0, 3).map((match, mIdx) => (
+                          <Link
+                            key={mIdx}
+                            href={`/study-materials/bug-bounty/${doc.id}?page=${match.pageNumber}&q=${encodeURIComponent(searchQuery)}`}
+                            className="block p-1.5 rounded hover:bg-[var(--card-bg)] text-[11px] border border-transparent hover:border-[var(--border)] transition-colors group/match"
+                          >
+                            <div className="flex items-center justify-between font-mono text-[10px] text-[var(--accent-emerald)] font-medium">
+                              <span>Page {match.pageNumber}</span>
+                              <span className="opacity-0 group-hover/match:opacity-100 transition-opacity">Jump →</span>
+                            </div>
+                            <p className="text-[11px] text-[var(--text-secondary)] line-clamp-2 mt-0.5 font-sans leading-relaxed">
+                              {match.snippet}
+                            </p>
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
                   )}
                 </div>
 

@@ -6,26 +6,59 @@ import {
   Bookmark,
   Search,
   Trash2,
+  Cloud,
+  CheckCircle2,
+  RefreshCw,
+  FileText,
+  ExternalLink,
+  Laptop,
 } from 'lucide-react';
 import { getAllResources } from '../../src/lib/catalog';
-import { localSavedService, onSavedChange } from '../../src/lib/saved';
+import { localSavedService, onSavedChange, syncSavedWithCloud, getStudySavedItems, getSavedSyncState } from '../../src/lib/saved';
+import { StudyBookmarkItem } from '../../src/lib/cloud-saved';
 import { ResourceCard } from '../../src/components/ResourceCard';
 import { RESOURCE_TYPES } from '../../src/data/metadata';
 
 export default function SavedResourcesPage() {
+  const [activeTab, setActiveTab] = useState<'resources' | 'study'>('resources');
   const [savedIds, setSavedIds] = useState<string[]>([]);
+  const [studyBookmarks, setStudyBookmarks] = useState<StudyBookmarkItem[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedType, setSelectedType] = useState<string>('all');
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isSyncing, setIsSyncing] = useState(false);
+  const [isCloudSynced, setIsCloudSynced] = useState<boolean | null>(null);
+  const [syncError, setSyncError] = useState<string | null>(null);
 
   const allResources = useMemo(() => getAllResources(), []);
 
-  useEffect(() => {
-    setSavedIds(localSavedService.getSavedIds());
-    setIsLoaded(true);
+  const handleSync = async () => {
+    setIsSyncing(true);
+    try {
+      await syncSavedWithCloud();
+    } catch {
+      setIsCloudSynced(false);
+      setSyncError('Unable to refresh cloud bookmarks. Your local changes are preserved.');
+    } finally {
+      setIsSyncing(false);
+    }
+  };
 
-    const unsub = onSavedChange((ids) => setSavedIds(ids));
-    return unsub;
+  useEffect(() => {
+    const update = () => {
+      const state = getSavedSyncState();
+      setSavedIds(state.savedIds);
+      setStudyBookmarks(getStudySavedItems().map(item => ({
+        ...item, id: `study:${item.documentId}:${item.pageNumber}`,
+      })));
+      setIsCloudSynced(state.authenticated && state.synced);
+      setSyncError(state.error || null);
+    };
+    update();
+    setIsLoaded(true);
+    const unsubscribe = onSavedChange(update);
+    void syncSavedWithCloud();
+    return unsubscribe;
   }, []);
 
   const savedResources = useMemo(() => {
@@ -51,97 +84,238 @@ export default function SavedResourcesPage() {
     });
   }, [savedResources, selectedType, searchQuery]);
 
+  const displayedStudyBookmarks = useMemo(() => {
+    if (!searchQuery.trim()) return studyBookmarks;
+    const q = searchQuery.toLowerCase().trim();
+    return studyBookmarks.filter((bm) => {
+      const matchesTitle = bm.title?.toLowerCase().includes(q);
+      const matchesPage = `page ${bm.pageNumber}`.includes(q);
+      return matchesTitle || matchesPage;
+    });
+  }, [studyBookmarks, searchQuery]);
+
   const handleClearAll = () => {
-    if (window.confirm('Remove all saved resources from this device?')) {
-      savedIds.forEach((id) => localSavedService.remove(id));
+    if (window.confirm('Remove all saved resources from this account and device?')) {
+      if (typeof localSavedService.clearAll === 'function') {
+        localSavedService.clearAll();
+      } else {
+        savedIds.forEach((id) => localSavedService.remove(id));
+      }
+      setSavedIds([]);
     }
   };
 
   return (
     <div className="container-max py-8 space-y-6">
+      {syncError && <p role="status" className="text-sm text-amber-700 dark:text-amber-300">{syncError}</p>}
       {/* Header Banner */}
-      <div className="rounded-[8px] border border-[#e4e4ed] dark:border-[#243044] bg-[#f4f4f9] dark:bg-[#121A26] p-6 sm:p-8 space-y-4">
+      <div className="rounded-xl border border-border/80 bg-gradient-to-r from-card via-card to-cyan-500/5 p-6 sm:p-8 space-y-4 shadow-sm">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div className="space-y-1">
-            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-[4px] bg-white dark:bg-[#1A2433] border border-[#e4e4ed] dark:border-[#243044] text-xs font-mono text-[#0E7490] dark:text-[#22D3EE] mb-1">
-              <Bookmark className="w-3.5 h-3.5 fill-current" />
-              <span>Offline Bookmarks</span>
+          <div className="space-y-1.5">
+            <div className="flex items-center gap-2 flex-wrap">
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-cyan-500/10 border border-cyan-500/20 text-xs font-mono text-cyan-700 dark:text-cyan-400">
+                <Bookmark className="w-3.5 h-3.5 fill-current" />
+                <span>Reading List & Bookmarks</span>
+              </div>
+
+              {/* Cloud Sync Status Indicator */}
+              {isCloudSynced === true ? (
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/20 text-xs font-mono text-emerald-700 dark:text-emerald-400">
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                  </span>
+                  <Cloud className="w-3.5 h-3.5" />
+                  <span>Cloud Synced</span>
+                </span>
+              ) : isCloudSynced === false ? (
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-amber-500/10 border border-amber-500/20 text-xs font-mono text-amber-700 dark:text-amber-400">
+                  <Laptop className="w-3.5 h-3.5" />
+                  <span>Saved on this device</span>
+                </span>
+              ) : null}
             </div>
-            <h1 className="font-rajdhani text-3xl sm:text-4xl font-bold text-[#0F172A] dark:text-[#E6EDF3] tracking-tight">
+
+            <h1 className="font-rajdhani text-3xl sm:text-4xl font-bold text-foreground tracking-tight">
               Saved Resources
             </h1>
-            <p className="text-xs sm:text-sm text-[#475569] dark:text-[#9BA8B7] leading-relaxed max-w-2xl">
-              Personal reading list and lab references saved locally on this device.
+            <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed max-w-2xl">
+              Personal cybersecurity reading list, lab references, and bookmarked study guide pages synchronized across your devices.
             </p>
           </div>
 
-          {savedResources.length > 0 && (
+          <div className="flex items-center gap-2.5 self-start sm:self-auto flex-wrap">
             <button
-              onClick={handleClearAll}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[4px] border border-[#e8b5b5] dark:border-[#7f1d1d] text-[#984e4d] dark:text-[#f87171] bg-[#fbeaea] dark:bg-[#450a0a]/30 hover:bg-[#f8d5d5] dark:hover:bg-[#7f1d1d]/40 text-xs font-mono transition-colors self-start sm:self-auto min-h-[36px]"
+              onClick={handleSync}
+              disabled={isSyncing}
+              title="Sync bookmarks with cloud"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border hover:border-cyan-500/30 bg-background text-xs font-mono text-foreground hover:text-cyan-600 dark:hover:text-cyan-400 min-h-[36px] transition-colors"
             >
-              <Trash2 className="w-3.5 h-3.5" />
-              <span>Clear all ({savedResources.length})</span>
+              <RefreshCw className={`w-3.5 h-3.5 ${isSyncing ? 'animate-spin text-cyan-500' : ''}`} />
+              <span>{isSyncing ? 'Syncing...' : 'Sync'}</span>
             </button>
-          )}
+
+            {savedResources.length > 0 && activeTab === 'resources' && (
+              <button
+                onClick={handleClearAll}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-red-200 dark:border-red-900/40 text-red-700 dark:text-red-400 bg-red-50 dark:bg-red-950/30 hover:bg-red-100 dark:hover:bg-red-900/40 text-xs font-mono transition-colors min-h-[36px]"
+              >
+                <Trash2 className="w-3.5 h-3.5" />
+                <span>Clear all ({savedResources.length})</span>
+              </button>
+            )}
+          </div>
+        </div>
+
+        {/* Tab Switcher: Catalog vs PDF Study Bookmarks */}
+        <div className="flex items-center gap-2 border-t border-border/60 pt-4">
+          <button
+            onClick={() => setActiveTab('resources')}
+            className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-mono font-medium transition-all ${
+              activeTab === 'resources'
+                ? 'bg-cyan-500/10 text-cyan-700 dark:text-cyan-400 border border-cyan-500/30'
+                : 'text-muted-foreground hover:text-foreground'
+            }`}
+          >
+            <Bookmark className="w-3.5 h-3.5" />
+            <span>Catalog Resources ({savedResources.length})</span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab('study')}
+            className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-mono font-medium transition-all ${
+              activeTab === 'study'
+                ? 'bg-cyan-500/10 text-cyan-700 dark:text-cyan-400 border border-cyan-500/30'
+                : 'text-muted-foreground hover:text-foreground'
+            }`}
+          >
+            <FileText className="w-3.5 h-3.5" />
+            <span>Study Guide Bookmarks ({studyBookmarks.length})</span>
+          </button>
         </div>
       </div>
 
       {!isLoaded ? (
-        <div className="py-20 text-center font-mono text-xs text-[#64748B] dark:text-[#9BA8B7]">
+        <div className="py-20 text-center font-mono text-xs text-muted-foreground">
           Loading bookmarks...
         </div>
-      ) : savedResources.length === 0 ? (
-        <div className="text-center py-20 px-4 rounded-[8px] border border-[#e4e4ed] dark:border-[#243044] bg-white dark:bg-[#121A26] space-y-3">
-          <Bookmark className="w-8 h-8 text-[#64748B] dark:text-[#9BA8B7] mx-auto stroke-1" />
-          <h2 className="text-base font-semibold font-rajdhani text-[#0F172A] dark:text-[#E6EDF3]">No saved resources yet</h2>
-          <p className="text-xs text-[#475569] dark:text-[#9BA8B7] max-w-sm mx-auto">
-            Browse the discovery engine or video courses to bookmark talks and labs for later study.
-          </p>
-          <div className="pt-2">
-            <Link
-              href="/discover"
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-[4px] bg-[#0F172A] dark:bg-[#22D3EE] text-white dark:text-[#0B1018] text-xs font-medium hover:bg-[#1E293B] dark:hover:bg-[#06b6d4] min-h-[40px] transition-colors"
-            >
-              Explore Discover Catalog
-            </Link>
+      ) : activeTab === 'resources' ? (
+        savedResources.length === 0 ? (
+          <div className="text-center py-20 px-4 rounded-xl border border-border bg-card space-y-3">
+            <Bookmark className="w-8 h-8 text-muted-foreground mx-auto stroke-1" />
+            <h2 className="text-base font-semibold font-rajdhani text-foreground">No saved resources yet</h2>
+            <p className="text-xs text-muted-foreground max-w-sm mx-auto">
+              Browse the discovery engine, labs, or video courses to bookmark talks and references for later study.
+            </p>
+            <div className="pt-2 flex items-center justify-center gap-3">
+              <Link
+                href="/discover"
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-medium min-h-[40px] transition-colors"
+              >
+                Explore Discover Catalog
+              </Link>
+              <Link
+                href="/library"
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border bg-background hover:bg-muted text-xs font-medium min-h-[40px] transition-colors"
+              >
+                Bug Bounty Library
+              </Link>
+            </div>
           </div>
-        </div>
-      ) : (
-        <div className="space-y-6">
-          {/* Filter Bar */}
-          <div className="flex flex-col sm:flex-row gap-3">
-            <div className="relative flex-1">
-              <Search className="w-4 h-4 text-[#64748B] dark:text-[#9BA8B7] absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
-              <input
-                type="text"
-                placeholder="Search saved resources..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-white dark:bg-[#1A2433] border border-[#e4e4ed] dark:border-[#243044] rounded-[4px] pl-9 pr-3 py-2 text-xs font-mono text-[#0F172A] dark:text-[#E6EDF3] placeholder:text-[#64748B] dark:placeholder:text-[#9BA8B7] focus:outline-none focus:border-[#0E7490] dark:focus:border-[#22D3EE] min-h-[38px] transition-colors"
-              />
+        ) : (
+          <div className="space-y-6">
+            {/* Filter Bar */}
+            <div className="flex flex-col sm:flex-row gap-3">
+              <div className="relative flex-1">
+                <Search className="w-4 h-4 text-muted-foreground absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                <input
+                  type="text"
+                  placeholder="Search saved resources..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full bg-card border border-border rounded-lg pl-9 pr-3 py-2 text-xs font-mono text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-cyan-500 min-h-[38px] transition-colors"
+                />
+              </div>
+
+              <select
+                value={selectedType}
+                onChange={(e) => setSelectedType(e.target.value)}
+                className="px-3 py-2 text-xs font-mono rounded-lg bg-card border border-border text-foreground focus:outline-none focus:border-cyan-500 min-h-[38px] transition-colors"
+              >
+                <option value="all">All Formats ({savedResources.length})</option>
+                {RESOURCE_TYPES.map((t) => (
+                  <option key={t.id} value={t.id}>
+                    {t.label}
+                  </option>
+                ))}
+              </select>
             </div>
 
-            <select
-              value={selectedType}
-              onChange={(e) => setSelectedType(e.target.value)}
-              className="px-3 py-2 text-xs font-mono rounded-[4px] bg-white dark:bg-[#1A2433] border border-[#e4e4ed] dark:border-[#243044] text-[#475569] dark:text-[#9BA8B7] focus:outline-none focus:border-[#0E7490] dark:focus:border-[#22D3EE] min-h-[38px] transition-colors"
-            >
-              <option value="all">All Formats ({savedResources.length})</option>
-              {RESOURCE_TYPES.map((t) => (
-                <option key={t.id} value={t.id}>
-                  {t.label}
-                </option>
+            {/* Cards Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {displayedResources.map((resource) => (
+                <ResourceCard key={resource.id} resource={resource} />
               ))}
-            </select>
+            </div>
+          </div>
+        )
+      ) : (
+        /* Study Guide PDF Bookmarks Tab */
+        <div className="space-y-6">
+          <div className="relative">
+            <Search className="w-4 h-4 text-muted-foreground absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+            <input
+              type="text"
+              placeholder="Search bookmarked pages..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full bg-card border border-border rounded-lg pl-9 pr-3 py-2 text-xs font-mono text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-cyan-500 min-h-[38px] transition-colors"
+            />
           </div>
 
-          {/* Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {displayedResources.map((resource) => (
-              <ResourceCard key={resource.id} resource={resource} />
-            ))}
-          </div>
+          {displayedStudyBookmarks.length === 0 ? (
+            <div className="text-center py-20 px-4 rounded-xl border border-border bg-card space-y-3">
+              <FileText className="w-8 h-8 text-muted-foreground mx-auto stroke-1" />
+              <h2 className="text-base font-semibold font-rajdhani text-foreground">No PDF guide bookmarks yet</h2>
+              <p className="text-xs text-muted-foreground max-w-sm mx-auto">
+                While reading any of the 34 Bug Bounty Study Library PDF documents, click the bookmark icon in the viewer header to save key pages for instant recall.
+              </p>
+              <div className="pt-2">
+                <Link
+                  href="/library"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-medium min-h-[40px] transition-colors"
+                >
+                  Open Bug Bounty Study Library
+                </Link>
+              </div>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {displayedStudyBookmarks.map((bm) => (
+                <Link
+                  key={bm.id}
+                  href={`/study-materials/bug-bounty/${bm.documentId}?page=${bm.pageNumber}`}
+                  className="group block p-4 rounded-xl border border-border hover:border-cyan-500/40 bg-card hover:bg-cyan-500/5 transition-all"
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="space-y-1">
+                      <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[11px] font-mono text-amber-700 dark:text-amber-400 bg-amber-500/10">
+                        <Bookmark className="w-3 h-3 fill-current" />
+                        <span>Page {bm.pageNumber}</span>
+                      </div>
+                      <h3 className="font-rajdhani text-sm font-semibold text-foreground group-hover:text-cyan-500 transition-colors line-clamp-1">
+                        {bm.title || `Document ${bm.documentId.slice(0, 8)}...`}
+                      </h3>
+                      <p className="text-[11px] font-mono text-muted-foreground">
+                        Bookmarked {new Date(bm.createdAt).toLocaleDateString()}
+                      </p>
+                    </div>
+                    <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-cyan-500 transition-colors shrink-0 mt-1" />
+                  </div>
+                </Link>
+              ))}
+            </div>
+          )}
         </div>
       )}
     </div>

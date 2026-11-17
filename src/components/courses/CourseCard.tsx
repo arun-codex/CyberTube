@@ -41,7 +41,15 @@ export const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
 
   // Button label
   let buttonLabel = 'Start →';
-  if (status === 'completed') {
+  if (course.isComingSoon) {
+    if (status === 'completed') {
+      buttonLabel = 'Review Course →';
+    } else if (status === 'in_progress' || percentage > 0) {
+      buttonLabel = 'Resume →';
+    } else {
+      buttonLabel = 'Coming Soon';
+    }
+  } else if (status === 'completed') {
     buttonLabel = 'Review Course →';
   } else if (status === 'in_progress' || percentage > 0) {
     buttonLabel = 'Resume →';
@@ -68,10 +76,17 @@ export const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
 
         {/* Badges */}
         <div className="absolute top-2.5 left-2.5 right-2.5 flex items-center justify-between pointer-events-none">
-          <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-[4px] bg-white/95 dark:bg-[#0B1018]/90 border border-[#e4e4ed] dark:border-[#243044] text-[11px] font-mono text-[#0F172A] dark:text-[#E6EDF3] font-medium backdrop-blur-xs">
-            <BookOpen className="w-3 h-3 text-[#0E7490] dark:text-[#22D3EE]" />
-            {trackBadgeLabel}
-          </span>
+          <div className="flex items-center gap-1.5">
+            <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-[4px] bg-white/95 dark:bg-[#0B1018]/90 border border-[#e4e4ed] dark:border-[#243044] text-[11px] font-mono text-[#0F172A] dark:text-[#E6EDF3] font-medium backdrop-blur-xs">
+              <BookOpen className="w-3 h-3 text-[#0E7490] dark:text-[#22D3EE]" />
+              {trackBadgeLabel}
+            </span>
+            {course.isComingSoon && (
+              <span className="inline-flex items-center px-1.5 py-0.5 rounded-[4px] bg-amber-500/90 text-[#0B1018] font-bold text-[10px] font-mono uppercase tracking-wider backdrop-blur-xs shadow-xs">
+                Coming Soon
+              </span>
+            )}
+          </div>
           <span className="px-1.5 py-0.5 rounded-[4px] bg-white/95 dark:bg-[#0B1018]/90 border border-[#e4e4ed] dark:border-[#243044] text-[11px] font-mono text-[#475569] dark:text-[#9BA8B7] capitalize backdrop-blur-xs">
             {course.difficulty}
           </span>
@@ -195,6 +210,8 @@ export const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
                   ? 'bg-[#059669] dark:bg-[#10b981] text-white hover:bg-[#047857]'
                   : percentage > 0
                   ? 'bg-[#0E7490] dark:bg-[#22D3EE] text-white dark:text-[#0B1018] hover:bg-[#0891b2] dark:hover:bg-[#06b6d4]'
+                  : course.isComingSoon
+                  ? 'bg-amber-500/10 text-amber-700 dark:text-amber-300 border border-amber-500/30 hover:bg-amber-500/20'
                   : 'bg-[#0F172A] dark:bg-[#22D3EE] text-white dark:text-[#0B1018] hover:bg-[#1E293B] dark:hover:bg-[#06b6d4]'
               }`}
             >

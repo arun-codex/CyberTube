@@ -23,11 +23,14 @@ import {
 } from 'lucide-react';
 import { findTextMatches } from '@/lib/pdf/search';
 import { Button } from '@/components/ui/Button';
+import { useAuth } from '@/lib/auth';
+import { getStudySavedItems, saveStudyBookmark, onSavedChange } from '@/lib/saved';
 
 interface PdfReaderProps {
   documentId: string;
   initialTitle: string;
   initialPage?: number;
+  initialSearchQuery?: string;
 }
 
 interface SearchMatch {
@@ -36,7 +39,20 @@ interface SearchMatch {
   end: number;
 }
 
-export function PdfReader({ documentId, initialTitle, initialPage = 1 }: PdfReaderProps) {
+let cachedPdfjsPromise: Promise<any> | null = null;
+function getPdfjsLib(): Promise<any> {
+  if (!cachedPdfjsPromise) {
+    cachedPdfjsPromise = import('pdfjs-dist/build/pdf.mjs').then((lib) => {
+      lib.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.mjs';
+      return lib;
+    });
+  }
+  return cachedPdfjsPromise;
+}
+
+export function PdfReader({ documentId, initialTitle, initialPage = 1, initialSearchQuery }: PdfReaderProps) {
+  const { userId, isAuthLoading } = useAuth();
+  const progressCacheKey = `study_progress_v2_${userId || 'guest'}_${documentId}`;
   const [currentPage, setCurrentPage] = useState<number>(initialPage);
   const [totalPages, setTotalPages] = useState<number>(1);
   const [scale, setScale] = useState<number>(1.2);
@@ -50,8 +66,8 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1 }: PdfRead
   const [pageInput, setPageInput] = useState<string>(String(initialPage));
 
   // Search State
-  const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
-  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [isSearchOpen, setIsSearchOpen] = useState<boolean>(Boolean(initialSearchQuery));
+  const [searchQuery, setSearchQuery] = useState<string>(initialSearchQuery || '');
   const [isSearching, setIsSearching] = useState<boolean>(false);
   const [searchMatches, setSearchMatches] = useState<SearchMatch[]>([]);
   const [activeMatchIndex, setActiveMatchIndex] = useState<number>(-1);
@@ -72,38 +88,34 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1 }: PdfRead
   const renderTaskRef = useRef<any>(null);
   const textLayerTaskRef = useRef<any>(null);
   const saveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const bookmarkedPagesRef = useRef(new Set<number>());
+  const pageTextCache = useRef(new Map<number, string>());
 
   // Load PDF Document & Initial Progress
   useEffect(() => {
+    if (isAuthLoading) return;
     let isCancelled = false;
 
     async function initPdf() {
       setIsLoading(true);
       setErrorMessage(null);
+      bookmarkedPagesRef.current.clear();
+      pageTextCache.current.clear();
 
       try {
-        // Fetch saved progress from Supabase
         let resumePage = initialPage;
-        try {
-          const res = await fetch(`/api/study-progress?documentId=${documentId}`);
-          if (res.ok) {
-            const data = await res.json();
-            if (data.progress?.last_page && !window.location.search.includes('page=')) {
-              resumePage = data.progress.last_page;
-            }
-            if (Array.isArray(data.bookmarks)) {
-              const hasBookmark = data.bookmarks.some((b: any) => b.page_number === resumePage);
-              setIsBookmarked(hasBookmark);
-            }
-          }
-        } catch (e) {
-          console.warn('Could not fetch saved progress:', e);
-        }
+        // Start PDF.js and progress fetch concurrently for optimal latency
+        const hasExplicitPage = new URLSearchParams(window.location.search).has('page');
+        const progressPromise = fetch(`/api/study-progress?documentId=${documentId}`, { signal: AbortSignal.timeout(4000) })
+          .then((r) => (r.ok ? r.json() : null))
+          .catch((e) => {
+            console.warn('Could not fetch saved progress:', e);
+            return null;
+          });
 
-        // Dynamically import PDF.js
-        const pdfjsLib = await import('pdfjs-dist/build/pdf.mjs');
+        const pdfjsLib = await getPdfjsLib();
+        if (isCancelled) return;
         pdfjsLibRef.current = pdfjsLib;
-        pdfjsLib.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.mjs';
 
         const loadingTask = pdfjsLib.getDocument({
           url: `/api/study-materials/${documentId}/pdf`,
@@ -111,16 +123,42 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1 }: PdfRead
         });
 
         loadingTaskRef.current = loadingTask;
-        const doc = await loadingTask.promise;
+        const [doc, progressData] = await Promise.all([
+          loadingTask.promise,
+          hasExplicitPage ? Promise.resolve(null) : progressPromise,
+        ]);
         if (isCancelled) { await loadingTask.destroy(); return; }
 
         pdfDocRef.current = doc;
         setTotalPages(doc.numPages);
 
+        if (progressData?.progress?.last_page && typeof window !== 'undefined' && !window.location.search.includes('page=')) {
+          resumePage = progressData.progress.last_page;
+        }
+        if (!hasExplicitPage) {
+          try {
+            const local = localStorage.getItem(progressCacheKey);
+            if (local) {
+              const parsed = JSON.parse(local);
+              const remoteTime = Date.parse(progressData?.progress?.last_read_at || '') || 0;
+              if (Number.isInteger(parsed?.last_page) && parsed.last_page > 0 && parsed.timestamp > remoteTime) {
+                resumePage = parsed.last_page;
+              }
+            }
+          } catch {}
+        }
         const safePage = Math.min(Math.max(1, resumePage), doc.numPages);
         setCurrentPage(safePage);
         setPageInput(String(safePage));
         setIsLoading(false);
+
+        // Auto-trigger search if query passed via URL or prop
+        const urlParams = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
+        const targetQ = urlParams?.get('q') || initialSearchQuery;
+        if (targetQ) {
+          setIsSearchOpen(true);
+          setSearchQuery(targetQ);
+        }
       } catch (err: any) {
         if (!isCancelled) {
           console.error('Failed to load PDF:', err);
@@ -134,12 +172,14 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1 }: PdfRead
 
     return () => {
       isCancelled = true;
+      searchGeneration.current++;
+      if (saveTimeoutRef.current) clearTimeout(saveTimeoutRef.current);
       if (renderTaskRef.current) renderTaskRef.current.cancel();
       if (textLayerTaskRef.current) textLayerTaskRef.current.cancel?.();
       void loadingTaskRef.current?.destroy();
       pdfDocRef.current = null;
     };
-  }, [documentId, initialPage]);
+  }, [documentId, initialPage, initialSearchQuery, isAuthLoading, progressCacheKey]);
 
   // Highlight matches in current text layer
   const applySearchHighlights = useCallback(
@@ -272,6 +312,13 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1 }: PdfRead
         clearTimeout(saveTimeoutRef.current);
       }
 
+      // Update local storage cache immediately for zero-loss offline resiliency
+      try {
+        if (typeof window !== 'undefined') {
+          localStorage.setItem(progressCacheKey, JSON.stringify({ last_page: page, timestamp: Date.now() }));
+        }
+      } catch {}
+
       setSaveStatus('saving');
 
       saveTimeoutRef.current = setTimeout(async () => {
@@ -279,7 +326,8 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1 }: PdfRead
           const res = await fetch('/api/study-progress', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ documentId, page }),
+            body: JSON.stringify({ documentId, page, expectedUserId: userId }),
+            keepalive: true,
           });
 
           if (res.ok) {
@@ -294,7 +342,7 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1 }: PdfRead
         }
       }, 800);
     },
-    [documentId]
+    [documentId, progressCacheKey, userId]
   );
 
   useEffect(() => {
@@ -318,11 +366,16 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1 }: PdfRead
 
     try {
       for (let p = 1; p <= totalPages; p++) {
-        const page = await pdfDocRef.current.getPage(p);
-        const textContent = await page.getTextContent();
+        let pageText = pageTextCache.current.get(p);
+        if (pageText === undefined) {
+          const page = await pdfDocRef.current.getPage(p);
+          const textContent = await page.getTextContent();
+          pageText = textContent.items.map((i: any) => ('str' in i ? i.str : '')).join('');
+          if (generation !== searchGeneration.current) return;
+          pageTextCache.current.set(p, pageText!);
+        }
         if (generation !== searchGeneration.current) return;
-        const pageText = textContent.items.map((i: any) => ('str' in i ? i.str : '')).join('');
-        for (const match of findTextMatches(pageText, q)) matches.push({ pageNumber: p, ...match });
+        for (const match of findTextMatches(pageText!, q)) matches.push({ pageNumber: p, ...match });
       }
 
       setSearchMatches(matches);
@@ -359,6 +412,26 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1 }: PdfRead
       goToPage(targetMatch.pageNumber);
     }
   };
+
+  const searchRunnerRef = useRef(executeSearch);
+  searchRunnerRef.current = executeSearch;
+  useEffect(() => {
+    if (!isSearchOpen) {
+      searchGeneration.current++;
+      setIsSearching(false);
+      setSearchQuery('');
+      setSearchMatches([]);
+      setActiveMatchIndex(-1);
+      applySearchHighlights('');
+      return;
+    }
+    if (isLoading) return;
+    const timer = setTimeout(() => { void searchRunnerRef.current(searchQuery); }, 180);
+    return () => {
+      clearTimeout(timer);
+      searchGeneration.current++;
+    };
+  }, [isSearchOpen, isLoading, searchQuery, applySearchHighlights]);
 
   const handlePrevMatch = () => {
     if (searchMatches.length === 0) return;
@@ -405,15 +478,7 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1 }: PdfRead
     setCurrentPage(newPage);
     setPageInput(String(newPage));
 
-    // Update bookmark status for newly active page
-    fetch(`/api/study-progress?documentId=${documentId}`)
-      .then((res) => res.json())
-      .then((data) => {
-        if (Array.isArray(data.bookmarks)) {
-          setIsBookmarked(data.bookmarks.some((b: any) => b.page_number === newPage));
-        }
-      })
-      .catch(() => {});
+    setIsBookmarked(bookmarkedPagesRef.current.has(newPage));
   };
 
   const handleNextPage = () => goToPage(currentPage + 1);
@@ -456,22 +521,21 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1 }: PdfRead
     }
   };
 
-  // Toggle Bookmark
-  const handleToggleBookmark = async () => {
-    try {
-      const res = await fetch('/api/study-bookmarks', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ documentId, pageNumber: currentPage }),
-      });
-      if (res.ok) {
-        const data = await res.json();
-        setIsBookmarked(data.bookmarked);
-      }
-    } catch (e) {
-      console.error('Bookmark toggle failed:', e);
-    }
+  // Explicit desired state stays queued until acknowledged, including offline removals.
+  const handleToggleBookmark = () => {
+    saveStudyBookmark(documentId, currentPage, !isBookmarked);
   };
+
+  useEffect(() => {
+    const update = () => {
+      const pages = getStudySavedItems().filter(item => item.documentId === documentId);
+      bookmarkedPagesRef.current = new Set(pages.map(item => item.pageNumber));
+      setIsBookmarked(bookmarkedPagesRef.current.has(currentPage));
+    };
+    update();
+    const unsubscribe = onSavedChange(update);
+    return unsubscribe;
+  }, [documentId, currentPage]);
 
   // Keyboard navigation
   useEffect(() => {
@@ -484,7 +548,7 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1 }: PdfRead
         return;
       }
 
-      if (['INPUT', 'TEXTAREA'].includes((e.target as HTMLElement).tagName)) {
+      if (['INPUT', 'TEXTAREA', 'SELECT', 'BUTTON', 'A'].includes((e.target as HTMLElement).tagName) || (e.target as HTMLElement).isContentEditable) {
         if (e.key === 'Escape') {
           setIsSearchOpen(false);
         }
@@ -497,6 +561,12 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1 }: PdfRead
       } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
         e.preventDefault();
         handlePrevPage();
+      } else if (e.key === 'Home') {
+        e.preventDefault();
+        goToPage(1);
+      } else if (e.key === 'End') {
+        e.preventDefault();
+        goToPage(totalPages);
       } else if (e.key === 'Escape' && isFullscreen) {
         handleToggleFullscreen();
       }
@@ -520,7 +590,7 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1 }: PdfRead
         {/* Left: Back button & Title */}
         <div className="flex items-center gap-3 min-w-0">
           <Link
-            href="/study-materials"
+            href="/library"
             className="flex items-center gap-1.5 text-xs font-semibold text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors p-1.5 rounded-lg hover:bg-[var(--surface-subtle)]"
           >
             <ArrowLeft className="w-4 h-4" />
@@ -592,6 +662,7 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1 }: PdfRead
               if (!isSearchOpen) setTimeout(() => searchInputRef.current?.focus(), 100);
             }}
             aria-label="Search inside document"
+            aria-pressed={isSearchOpen}
             className={`h-8 w-8 p-0 ${isSearchOpen ? 'border-[var(--accent-cyan)] text-[var(--accent-cyan)] bg-[var(--accent-cyan)]/10' : ''}`}
           >
             <Search className="w-4 h-4" />
@@ -673,7 +744,6 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1 }: PdfRead
               value={searchQuery}
               onChange={(e) => {
                 setSearchQuery(e.target.value);
-                executeSearch(e.target.value);
               }}
               onKeyDown={(e) => {
                 if (e.key === 'Enter') {

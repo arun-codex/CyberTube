@@ -48,6 +48,8 @@ export const NETWORK_PACKET_FORENSICS_COURSE: Course = {
   ],
   "featured": true,
   "track": "cybersecurity",
+  "isComingSoon": true,
+  "comingSoonNotice": "Network Packet Forensics Masterclass is currently undergoing final verification. You can review the complete syllabus, modules, and PCAP analysis worksheets.",
   "sourcePlatform": "youtube",
   "pcapResources": [
     {

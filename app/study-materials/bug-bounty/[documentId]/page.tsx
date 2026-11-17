@@ -6,7 +6,7 @@ import { PdfReader } from '@/components/library/PdfReader';
 
 interface PageProps {
   params: Promise<{ documentId: string }>;
-  searchParams: Promise<{ page?: string }>;
+  searchParams: Promise<{ page?: string; q?: string }>;
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function StudyDocumentReaderPage({ params, searchParams }: PageProps) {
   const user = await getAuthenticatedUser();
   const { documentId } = await params;
-  const { page } = await searchParams;
+  const { page, q } = (await searchParams) || {};
 
   if (!user) {
     redirect(`/login?redirect=/study-materials/bug-bounty/${documentId}`);
@@ -93,6 +93,7 @@ export default async function StudyDocumentReaderPage({ params, searchParams }: 
         documentId={docData.id}
         initialTitle={docData.title}
         initialPage={isNaN(initialPage) ? 1 : initialPage}
+        initialSearchQuery={q}
       />
     </div>
   );

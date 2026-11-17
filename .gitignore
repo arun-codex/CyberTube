@@ -44,7 +44,10 @@ tmp/
 *.zip
 data/repaired_pdfs/
 __pycache__/
-
+scratch/
+src/data/study-pdf-index.json
+*study-pdf-index*.json
+.agents/
 scratch/
 src/data/study-pdf-index.json
 *study-pdf-index*.json

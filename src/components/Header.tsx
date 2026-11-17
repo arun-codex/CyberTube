@@ -30,6 +30,11 @@ export function Header() {
 
   const { userEmail, userProfile, isAdmin, isAuthLoading } = useAuth();
 
+  useEffect(() => {
+    setMobileMenuOpen(false);
+    setExploreMenuOpen(false);
+  }, [pathname]);
+
   // Global '/' shortcut to open search
   useEffect(() => {
     const handleGlobalKeyDown = (e: KeyboardEvent) => {
@@ -67,17 +72,17 @@ export function Header() {
   }, []);
 
   const primaryNavLinks = [
-    { label: 'Learning Paths', href: '/learning-paths' },
     { label: 'Courses', href: '/courses' },
-    { label: 'Study Library', href: '/study-materials' },
-    { label: 'Discover', href: '/discover' },
     { label: 'Library', href: '/library' },
+    { label: 'Learning Paths', href: '/learning-paths' },
+    { label: 'Discover', href: '/discover' },
     { label: 'Labs', href: '/labs' },
     { label: 'Domains', href: '/domains' },
     { label: 'Saved', href: '/saved' },
   ];
 
   const secondaryNavLinks = [
+    { label: 'Study Library', href: '/study-materials' },
     { label: 'Skills Map', href: '/skills' },
     { label: 'Certifications', href: '/certifications' },
     { label: 'Career Paths', href: '/careers' },
@@ -90,7 +95,7 @@ export function Header() {
 
   return (
     <>
-      <header className="sticky top-0 z-40 w-full bg-[var(--canvas)]/90 backdrop-blur-md border-b border-[var(--border)] transition-colors">
+      <header className="sticky top-0 z-40 w-full bg-[var(--canvas)]/85 backdrop-blur-xl border-b border-[var(--border)] transition-colors shadow-[0_1px_3px_0_rgba(0,0,0,0.02)]">
         <div className="container-max">
           <div className="flex items-center justify-between h-16 min-w-0">
             {/* Logo & Brand Identity */}
@@ -120,9 +125,10 @@ export function Header() {
                     <Link
                       key={link.href}
                       href={link.href}
-                      className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+                      aria-current={isActive ? 'page' : undefined}
+                      className={`relative px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-150 ${
                         isActive
-                          ? 'text-[var(--text-primary)] bg-[var(--surface-subtle)] font-semibold shadow-xs'
+                          ? 'text-[var(--accent-cyan)] bg-[var(--accent-cyan-subtle)] font-semibold shadow-xs'
                           : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-subtle)]'
                       }`}
                     >

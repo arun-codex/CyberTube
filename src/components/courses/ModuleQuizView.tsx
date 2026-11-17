@@ -234,7 +234,7 @@ export const ModuleQuizView: React.FC<ModuleQuizViewProps> = ({
             <HelpCircle className="w-3.5 h-3.5" />
             <span>Module Knowledge Assessment ({quiz.questions.length} Questions)</span>
           </div>
-          <h3 className="font-rajdhani font-bold text-xl text-[#0F172A] dark:text-[#E6EDF3] mt-1">
+          <h3 data-testid="active-module-quiz-title" className="font-rajdhani font-bold text-xl text-[#0F172A] dark:text-[#E6EDF3] mt-1">
             {quiz.title || 'Module Assessment Quiz'}
           </h3>
         </div>
