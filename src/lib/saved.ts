@@ -5,6 +5,7 @@ const EVENT_NAME = 'cybertube:saved-changed';
 let owner: string | null = null;
 let inFlight: Promise<SavedSyncResult> | null = null;
 let syncingOwner: string | null = null;
+let syncState: SavedSyncResult | null = null;
 interface Pending { id: string; saved: boolean; token: string }
 export interface SavedSyncResult {
   authenticated: boolean;
@@ -60,11 +61,18 @@ function getAllIds(): string[] {
 export function getStoredIds(): string[] {
   return getAllIds().filter(id => !id.startsWith('study:'));
 }
-export function getStudySavedItems(): { documentId: string; pageNumber: number }[] {
+export function getStudySavedItems(): { documentId: string; pageNumber: number; title: string | null; createdAt: string }[] {
+  let metadata: Record<string, { title?: string; createdAt?: string }> = {};
+  if (typeof window !== 'undefined') {
+    try { metadata = JSON.parse(localStorage.getItem(`${scopeKey()}:study-metadata`) || '{}') || {}; } catch {}
+  }
   return getAllIds().filter(id => id.startsWith('study:')).map(id => {
     const [, documentId, page] = id.split(':');
-    return { documentId, pageNumber: Number(page) };
+    return { documentId, pageNumber: Number(page), title: metadata[id]?.title || null, createdAt: metadata[id]?.createdAt || '' };
   });
+}
+export function getSavedSyncState(): SavedSyncResult {
+  return { authenticated: Boolean(owner), synced: false, syncedCount: 0, ...syncState, savedIds: getStoredIds() };
 }
 export function saveStudyBookmark(documentId: string, page: number, saved: boolean): void {
   change(`study:${documentId}:${page}`, saved);
@@ -82,6 +90,7 @@ function enqueue(id: string, saved: boolean) {
 export function setSavedUser(userId: string | null): void {
   if (typeof window === 'undefined') return;
   owner = userId;
+  syncState = null;
   // Preserve and import the old single-device list once. Keep its original copy as backup.
   if (localStorage.getItem(`${PREFIX}legacy-imported`) === null) {
     const oldIds = readIds(LEGACY_KEY);
@@ -103,6 +112,7 @@ export function setSavedUser(userId: string | null): void {
 function change(id: string, saved: boolean) {
   if (typeof window === 'undefined') return;
   enqueue(id, saved);
+  syncState = null;
   emit();
   void syncSavedWithCloud();
 }
@@ -117,6 +127,7 @@ export const localSavedService: SavedResourceService = {
     return saved;
   },
   clearAll() {
+    syncState = null;
     // Delete the observed list only, preserving concurrent additions on another device.
     for (const id of getStoredIds()) enqueue(id, false);
     emit();
@@ -157,6 +168,10 @@ async function synchronize(): Promise<SavedSyncResult> {
     // Replace the old cloud snapshot: union would resurrect another device's deletions.
     const studyIds = (data.studyBookmarks || []).map((b: { document_id: string; page_number: number }) =>
       `study:${b.document_id}:${b.page_number}`);
+    const metadata = Object.fromEntries((data.studyBookmarks || []).map((b: {
+      document_id: string; page_number: number; title: string | null; created_at: string;
+    }) => [`study:${b.document_id}:${b.page_number}`, { title: b.title, createdAt: b.created_at }]));
+    localStorage.setItem(`${scopeKey(user)}:study-metadata`, JSON.stringify(metadata));
     setStoredIds([...data.savedIds, ...studyIds]);
     return { authenticated: true, synced: pending(user).length === 0, savedIds: getStoredIds(), syncedCount };
   } catch (error) {
@@ -170,10 +185,19 @@ export function syncSavedWithCloud(): Promise<SavedSyncResult> {
     return inFlight;
   }
   syncingOwner = owner;
+  const requestedOwner = owner;
   const run = () => synchronize();
   // Coordinate tabs on the same origin where Web Locks are supported.
   inFlight = (typeof navigator !== 'undefined' && navigator.locks
     ? navigator.locks.request('cybertube-saved-sync', run) : run())
+    .then((result: any) => {
+      const resolved = result as SavedSyncResult;
+      if (owner === requestedOwner) {
+        syncState = resolved;
+        if (typeof window !== 'undefined') emit();
+      }
+      return resolved;
+    })
     .finally(() => { inFlight = null; });
   return inFlight;
 }

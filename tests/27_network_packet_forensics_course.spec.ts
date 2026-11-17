@@ -351,10 +351,10 @@ test.describe('Phase 18 — Network Packet Forensics Masterclass Integration', (
     await expect(quizTab).toBeVisible();
     await quizTab.click();
 
-    const activeQuizTitle = page.getByTestId('active-module-quiz-title');
+    const activeQuizTitle = page.getByTestId('active-module-quiz-title').first();
     await expect(activeQuizTitle).toBeVisible();
     await expect(activeQuizTitle).toHaveText('Module 00 Assessment: Networking Prerequisites');
-    const submitBtn = page.locator('button:has-text("Submit Quiz")');
+    const submitBtn = page.locator('button:has-text("Submit Quiz")').first();
     await expect(submitBtn).toBeVisible();
   });
 

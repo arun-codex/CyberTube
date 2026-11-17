@@ -14,8 +14,8 @@ import {
   Laptop,
 } from 'lucide-react';
 import { getAllResources } from '../../src/lib/catalog';
-import { localSavedService, onSavedChange, syncSavedWithCloud } from '../../src/lib/saved';
-import { cloudSavedService, StudyBookmarkItem } from '../../src/lib/cloud-saved';
+import { localSavedService, onSavedChange, syncSavedWithCloud, getStudySavedItems, getSavedSyncState } from '../../src/lib/saved';
+import { StudyBookmarkItem } from '../../src/lib/cloud-saved';
 import { ResourceCard } from '../../src/components/ResourceCard';
 import { RESOURCE_TYPES } from '../../src/data/metadata';
 
@@ -35,14 +35,7 @@ export default function SavedResourcesPage() {
   const handleSync = async () => {
     setIsSyncing(true);
     try {
-      const syncResult = await syncSavedWithCloud();
-      setIsCloudSynced(syncResult.authenticated && syncResult.synced);
-      setSyncError(syncResult.error || null);
-      setSavedIds(syncResult.savedIds);
-
-      // Also refresh study bookmarks
-      const studyBms = await cloudSavedService.getStudyBookmarks();
-      setStudyBookmarks(studyBms);
+      await syncSavedWithCloud();
     } catch {
       setIsCloudSynced(false);
       setSyncError('Unable to refresh cloud bookmarks. Your local changes are preserved.');
@@ -52,20 +45,20 @@ export default function SavedResourcesPage() {
   };
 
   useEffect(() => {
-    // 1. Initial fast local load
-    setSavedIds(localSavedService.getSavedIds());
+    const update = () => {
+      const state = getSavedSyncState();
+      setSavedIds(state.savedIds);
+      setStudyBookmarks(getStudySavedItems().map(item => ({
+        ...item, id: `study:${item.documentId}:${item.pageNumber}`,
+      })));
+      setIsCloudSynced(state.authenticated && state.synced);
+      setSyncError(state.error || null);
+    };
+    update();
     setIsLoaded(true);
-
-    // 2. React to local storage changes
-    const unsub = onSavedChange((ids) => {
-      setSavedIds(ids);
-      setIsCloudSynced(false);
-    });
-
-    // 3. Background cloud sync & study bookmarks fetch
-    handleSync();
-
-    return unsub;
+    const unsubscribe = onSavedChange(update);
+    void syncSavedWithCloud();
+    return unsubscribe;
   }, []);
 
   const savedResources = useMemo(() => {

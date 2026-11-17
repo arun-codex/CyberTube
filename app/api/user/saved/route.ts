@@ -16,13 +16,13 @@ export async function GET(_req: NextRequest) {
     if (!db) return json({ error: 'Database service unavailable' }, 503);
     // Use the user's session so database RLS remains an independent boundary.
     const [resources, study] = await Promise.all([
-      db.from('bookmarks').select('resource_id').eq('user_id', user.id),
-      db.from('user_study_bookmarks').select('id, document_id, page_number, title, created_at')
+      (db as any).from('bookmarks').select('resource_id').eq('user_id', user.id),
+      (db as any).from('user_study_bookmarks').select('id, document_id, page_number, title, created_at')
         .eq('user_id', user.id).order('created_at', { ascending: false }),
     ]);
     if (resources.error || study.error) return json({ error: 'Unable to load saved items. Please retry.' }, 503);
     return json({ authenticated: true, userId: user.id,
-      savedIds: (resources.data || []).map(b => b.resource_id), studyBookmarks: study.data || [] });
+      savedIds: (resources.data || []).map((b: any) => b.resource_id), studyBookmarks: study.data || [] });
   } catch {
     return json({ error: 'Unable to load saved items. Please retry.' }, 503);
   }
@@ -57,17 +57,17 @@ export async function POST(req: NextRequest) {
         if (denied) return denied;
       }
       const result = action === 'save'
-        ? await db.from('user_study_bookmarks').upsert({ user_id: user.id, document_id: documentId, page_number: page },
+        ? await (db as any).from('user_study_bookmarks').upsert({ user_id: user.id, document_id: documentId, page_number: page },
             { onConflict: 'user_id,document_id,page_number', ignoreDuplicates: true })
-        : await db.from('user_study_bookmarks').delete().eq('user_id', user.id)
+        : await (db as any).from('user_study_bookmarks').delete().eq('user_id', user.id)
             .eq('document_id', documentId).eq('page_number', page);
       if (result.error) return json({ error: 'Unable to save PDF bookmark. Please retry.' }, 503);
       return json({ ok: true, userId: user.id, saved: action === 'save' });
     }
     const result = action === 'save'
-      ? await db.from('bookmarks').upsert({ user_id: user.id, resource_id: resourceId },
+      ? await (db as any).from('bookmarks').upsert({ user_id: user.id, resource_id: resourceId },
           { onConflict: 'user_id,resource_id', ignoreDuplicates: true })
-      : await db.from('bookmarks').delete().eq('user_id', user.id).eq('resource_id', resourceId);
+      : await (db as any).from('bookmarks').delete().eq('user_id', user.id).eq('resource_id', resourceId);
     if (result.error) return json({ error: 'Unable to save changes. They remain pending on this device.' }, 503);
     return json({ ok: true, userId: user.id, saved: action === 'save' });
   } catch {
