@@ -12,10 +12,11 @@ test.describe('CyberTube Routes & Navigation', () => {
     // Navigation links in header
     const nav = page.locator('header nav');
     await expect(nav).toBeVisible();
+    await expect(page.locator('header nav a:has-text("Home")')).toBeVisible();
+    await expect(page.locator('header nav a:has-text("Library")')).toBeVisible();
     await expect(page.locator('header nav a:has-text("Courses")')).toBeVisible();
     await expect(page.locator('header nav a:has-text("Discover")')).toBeVisible();
-    await expect(page.locator('header nav a:has-text("Domains")')).toBeVisible();
-    await expect(page.locator('header nav a:has-text("Saved")')).toBeVisible();
+    await expect(page.locator('header a[href="/saved"]')).toBeVisible();
   });
 
   test('Course directory and course detail navigation', async ({ page }) => {
