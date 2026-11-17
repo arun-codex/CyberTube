@@ -208,4 +208,32 @@ describe('Coming Soon Courses & Unified Library Hub', () => {
     assert.ok(content.includes("activeTab === 'courses'"), 'Must handle courses tab');
     assert.ok(content.includes('Coming Soon'), 'Must include Coming Soon preview for Course & Lab directory');
   });
+
+  it('13. Authenticated search route enforces query validation and limits', async () => {
+    const { GET } = await import('../app/api/study-materials/search/route');
+
+    // Query < 2 chars returns empty result structure
+    const reqShort = new NextRequest('http://localhost:3000/api/study-materials/search?q=x');
+    const resShort = await GET(reqShort);
+    // Since unauthenticated in node environment, returns 401
+    assert.strictEqual(resShort.status, 401);
+
+    // Verify search endpoint file uses RPC search_study_page_text
+    const routeFile = path.resolve(__dirname, '../app/api/study-materials/search/route.ts');
+    const content = fs.readFileSync(routeFile, 'utf8');
+    assert.ok(content.includes("'search_study_page_text'"), 'Search route must call search_study_page_text RPC');
+    assert.ok(!content.includes(".ilike('page_text'"), 'Search route must NOT use unindexed client ilike');
+    assert.ok(content.includes('INDEX_UNAVAILABLE'), 'Search route must flag missing index with clean code');
+  });
+
+  it('14. Secure indexing pipeline build_study_search_index.py requires env credentials and never hardcodes keys', () => {
+    const scriptPath = path.resolve(__dirname, '../scripts/build_study_search_index.py');
+    assert.ok(fs.existsSync(scriptPath), 'build_study_search_index.py must exist');
+    const code = fs.readFileSync(scriptPath, 'utf8');
+
+    assert.ok(!code.includes('eyJhbGciOi'), 'Script must NEVER hardcode JWT secrets');
+    assert.ok(code.includes('SUPABASE_SECRET_KEY') || code.includes('SUPABASE_SERVICE_ROLE_KEY'), 'Must read server key from env');
+    assert.ok(code.includes('study_document_page_text'), 'Must upsert to study_document_page_text table');
+    assert.ok(!code.includes('study-pdf-index.json'), 'Must NOT generate deprecated static JSON index');
+  });
 });

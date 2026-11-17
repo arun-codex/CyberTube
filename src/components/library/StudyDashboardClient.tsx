@@ -98,25 +98,42 @@ export function StudyDashboardClient({
   // Full-Text PDF Search (Authenticated Server-Side Search)
   const [pdfMatchesByDocId, setPdfMatchesByDocId] = useState<Map<string, DocumentSearchResult>>(new Map());
   const [isPdfSearching, setIsPdfSearching] = useState<boolean>(false);
+  const [searchError, setSearchError] = useState<string | null>(null);
 
   React.useEffect(() => {
     if (!searchInsidePdfs || searchQuery.trim().length < 2) {
       setPdfMatchesByDocId(new Map());
       setIsPdfSearching(false);
+      setSearchError(null);
       return;
     }
 
-    let active = true;
+    const abortController = new AbortController();
+    let isStale = false;
+
     setIsPdfSearching(true);
+    setSearchError(null);
+
     const timer = setTimeout(async () => {
       try {
-        const res = await fetch(`/api/study-materials/search?q=${encodeURIComponent(searchQuery.trim())}`);
+        const res = await fetch(
+          `/api/study-materials/search?q=${encodeURIComponent(searchQuery.trim())}`,
+          { signal: abortController.signal }
+        );
+
+        if (isStale) return;
+
         if (!res.ok) {
-          if (active) setIsPdfSearching(false);
+          const errData = await res.json().catch(() => ({}));
+          setSearchError(errData.error || `Search unavailable (HTTP ${res.status})`);
+          setPdfMatchesByDocId(new Map());
+          setIsPdfSearching(false);
           return;
         }
+
         const data: LibrarySearchResponse = await res.json();
-        if (!active) return;
+        if (isStale) return;
+
         const map = new Map<string, DocumentSearchResult>();
         for (const r of data.results || []) {
           map.set(r.documentId, r);
@@ -124,15 +141,20 @@ export function StudyDashboardClient({
           map.set(r.title.toLowerCase(), r);
         }
         setPdfMatchesByDocId(map);
-      } catch {
-        if (active) setPdfMatchesByDocId(new Map());
+      } catch (err: any) {
+        if (err.name === 'AbortError') return;
+        if (!isStale) {
+          setSearchError('Network error while searching. Please check your connection.');
+          setPdfMatchesByDocId(new Map());
+        }
       } finally {
-        if (active) setIsPdfSearching(false);
+        if (!isStale) setIsPdfSearching(false);
       }
     }, 250);
 
     return () => {
-      active = false;
+      isStale = true;
+      abortController.abort();
       clearTimeout(timer);
     };
   }, [searchInsidePdfs, searchQuery]);
@@ -375,6 +397,13 @@ export function StudyDashboardClient({
               <span>Search PDF Contents: <strong className={searchInsidePdfs ? 'text-[var(--accent-cyan)]' : 'text-[var(--text-muted)]'}>{searchInsidePdfs ? 'ON' : 'OFF'}</strong></span>
             </button>
           </div>
+
+          {/* Search Error or Degradation Alert */}
+          {searchInsidePdfs && searchError && (
+            <div className="w-full text-xs text-amber-400 bg-amber-950/30 border border-amber-800/40 rounded-lg p-2.5 flex items-center gap-2" role="alert">
+              <span className="font-semibold">Search Notice:</span> {searchError}
+            </div>
+          )}
 
           {/* Status Filter Buttons */}
           <div className="flex items-center gap-1 bg-[var(--surface-subtle)] p-1 rounded-lg border border-[var(--border)] self-start md:self-auto overflow-x-auto">

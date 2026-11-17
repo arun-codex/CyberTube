@@ -87,12 +87,20 @@ SET search_path = public
 AS $$
 DECLARE
   v_cleaned_query TEXT;
+  v_tsquery tsquery;
 BEGIN
   -- Strict query validation
   v_cleaned_query := trim(p_query);
   IF length(v_cleaned_query) < 2 OR length(v_cleaned_query) > 100 THEN
     RETURN;
   END IF;
+
+  -- Build safe tsquery using websearch_to_tsquery or fallback to plainto_tsquery
+  BEGIN
+    v_tsquery := websearch_to_tsquery('english', v_cleaned_query);
+  EXCEPTION WHEN OTHERS THEN
+    v_tsquery := plainto_tsquery('english', v_cleaned_query);
+  END;
 
   RETURN QUERY
   SELECT
@@ -101,14 +109,19 @@ BEGIN
     sd.slug AS document_slug,
     sd.category_id,
     pt.page_number,
-    ts_headline('english', pt.page_text, plainto_tsquery('english', v_cleaned_query), 'StartSel=<<, StopSel=>>, MaxWords=25, MinWords=10') AS headline,
+    ts_headline(
+      'english',
+      pt.page_text,
+      COALESCE(v_tsquery, plainto_tsquery('english', v_cleaned_query)),
+      'StartSel=<<, StopSel=>>, MaxWords=25, MinWords=10'
+    ) AS headline,
     count(*) OVER (PARTITION BY sd.id) AS total_matches
   FROM public.study_document_page_text pt
   JOIN public.study_documents sd ON sd.id = pt.document_id
   WHERE sd.is_published = TRUE
     AND sd.retired_at IS NULL
     AND (
-      pt.search_vector @@ plainto_tsquery('english', v_cleaned_query)
+      (v_tsquery IS NOT NULL AND pt.search_vector @@ v_tsquery)
       OR pt.page_text ILIKE '%' || v_cleaned_query || '%'
     )
   ORDER BY total_matches DESC, sd.sort_order ASC, pt.page_number ASC

@@ -48,5 +48,6 @@ scratch/
 src/data/study-pdf-index.json
 *study-pdf-index*.json
 .agents/
+scratch/
 src/data/study-pdf-index.json
 *study-pdf-index*.json
