@@ -23,6 +23,8 @@ import {
 } from 'lucide-react';
 import { findTextMatches } from '@/lib/pdf/search';
 import { Button } from '@/components/ui/Button';
+import { useAuth } from '@/lib/auth';
+import { getStudySavedItems, saveStudyBookmark, onSavedChange } from '@/lib/saved';
 
 interface PdfReaderProps {
   documentId: string;
@@ -49,6 +51,8 @@ function getPdfjsLib(): Promise<any> {
 }
 
 export function PdfReader({ documentId, initialTitle, initialPage = 1, initialSearchQuery }: PdfReaderProps) {
+  const { userId, isAuthLoading } = useAuth();
+  const progressCacheKey = `study_progress_v2_${userId || 'guest'}_${documentId}`;
   const [currentPage, setCurrentPage] = useState<number>(initialPage);
   const [totalPages, setTotalPages] = useState<number>(1);
   const [scale, setScale] = useState<number>(1.2);
@@ -89,6 +93,7 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1, initialSe
 
   // Load PDF Document & Initial Progress
   useEffect(() => {
+    if (isAuthLoading) return;
     let isCancelled = false;
 
     async function initPdf() {
@@ -103,13 +108,6 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1, initialSe
         const hasExplicitPage = new URLSearchParams(window.location.search).has('page');
         const progressPromise = fetch(`/api/study-progress?documentId=${documentId}`, { signal: AbortSignal.timeout(4000) })
           .then((r) => (r.ok ? r.json() : null))
-          .then((data) => {
-            if (!isCancelled && Array.isArray(data?.bookmarks)) {
-              bookmarkedPagesRef.current = new Set(data.bookmarks.map((b: any) => b.page_number));
-              setIsBookmarked(bookmarkedPagesRef.current.has(initialPage));
-            }
-            return data;
-          })
           .catch((e) => {
             console.warn('Could not fetch saved progress:', e);
             return null;
@@ -136,27 +134,19 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1, initialSe
 
         if (progressData?.progress?.last_page && typeof window !== 'undefined' && !window.location.search.includes('page=')) {
           resumePage = progressData.progress.last_page;
-        } else if (typeof window !== 'undefined' && !window.location.search.includes('page=')) {
+        }
+        if (!hasExplicitPage) {
           try {
-            const local = localStorage.getItem(`study_progress_${documentId}`);
+            const local = localStorage.getItem(progressCacheKey);
             if (local) {
               const parsed = JSON.parse(local);
-              if (typeof parsed?.last_page === 'number') {
+              const remoteTime = Date.parse(progressData?.progress?.last_read_at || '') || 0;
+              if (Number.isInteger(parsed?.last_page) && parsed.last_page > 0 && parsed.timestamp > remoteTime) {
                 resumePage = parsed.last_page;
               }
             }
           } catch {}
         }
-        if (Array.isArray(progressData?.bookmarks)) {
-          const hasBookmark = progressData.bookmarks.some((b: any) => b.page_number === resumePage);
-          setIsBookmarked(hasBookmark);
-        } else if (typeof window !== 'undefined') {
-          try {
-            const localBm = localStorage.getItem(`study_bm_${documentId}_${resumePage}`);
-            if (localBm === '1') setIsBookmarked(true);
-          } catch {}
-        }
-
         const safePage = Math.min(Math.max(1, resumePage), doc.numPages);
         setCurrentPage(safePage);
         setPageInput(String(safePage));
@@ -189,7 +179,7 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1, initialSe
       void loadingTaskRef.current?.destroy();
       pdfDocRef.current = null;
     };
-  }, [documentId, initialPage, initialSearchQuery]);
+  }, [documentId, initialPage, initialSearchQuery, isAuthLoading, progressCacheKey]);
 
   // Highlight matches in current text layer
   const applySearchHighlights = useCallback(
@@ -325,7 +315,7 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1, initialSe
       // Update local storage cache immediately for zero-loss offline resiliency
       try {
         if (typeof window !== 'undefined') {
-          localStorage.setItem(`study_progress_${documentId}`, JSON.stringify({ last_page: page, timestamp: Date.now() }));
+          localStorage.setItem(progressCacheKey, JSON.stringify({ last_page: page, timestamp: Date.now() }));
         }
       } catch {}
 
@@ -336,7 +326,8 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1, initialSe
           const res = await fetch('/api/study-progress', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ documentId, page }),
+            body: JSON.stringify({ documentId, page, expectedUserId: userId }),
+            keepalive: true,
           });
 
           if (res.ok) {
@@ -351,7 +342,7 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1, initialSe
         }
       }, 800);
     },
-    [documentId]
+    [documentId, progressCacheKey, userId]
   );
 
   useEffect(() => {
@@ -530,53 +521,21 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1, initialSe
     }
   };
 
-  // Toggle Bookmark
-  const handleToggleBookmark = async () => {
-    try {
-      const res = await fetch('/api/study-bookmarks', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ documentId, pageNumber: currentPage }),
-      });
-      if (res.ok) {
-        const data = await res.json();
-        setIsBookmarked(data.bookmarked);
-        if (data.bookmarked) bookmarkedPagesRef.current.add(currentPage);
-        else bookmarkedPagesRef.current.delete(currentPage);
-        if (typeof window !== 'undefined') {
-          if (data.bookmarked) {
-            localStorage.setItem(`study_bm_${documentId}_${currentPage}`, '1');
-          } else {
-            localStorage.removeItem(`study_bm_${documentId}_${currentPage}`);
-          }
-        }
-      } else {
-        // Offline / guest local fallback
-        if (typeof window !== 'undefined') {
-          const current = localStorage.getItem(`study_bm_${documentId}_${currentPage}`) === '1';
-          if (current) {
-            localStorage.removeItem(`study_bm_${documentId}_${currentPage}`);
-            setIsBookmarked(false);
-          } else {
-            localStorage.setItem(`study_bm_${documentId}_${currentPage}`, '1');
-            setIsBookmarked(true);
-          }
-        }
-      }
-    } catch (e) {
-      console.error('Bookmark toggle failed:', e);
-      if (typeof window !== 'undefined') {
-        const current = localStorage.getItem(`study_bm_${documentId}_${currentPage}`) === '1';
-        if (current) {
-          localStorage.removeItem(`study_bm_${documentId}_${currentPage}`);
-          setIsBookmarked(false);
-        } else {
-          localStorage.setItem(`study_bm_${documentId}_${currentPage}`, '1');
-          setIsBookmarked(true);
-        }
-      }
-    }
+  // Explicit desired state stays queued until acknowledged, including offline removals.
+  const handleToggleBookmark = () => {
+    saveStudyBookmark(documentId, currentPage, !isBookmarked);
   };
+
+  useEffect(() => {
+    const update = () => {
+      const pages = getStudySavedItems().filter(item => item.documentId === documentId);
+      bookmarkedPagesRef.current = new Set(pages.map(item => item.pageNumber));
+      setIsBookmarked(bookmarkedPagesRef.current.has(currentPage));
+    };
+    update();
+    const unsubscribe = onSavedChange(update);
+    return unsubscribe;
+  }, [documentId, currentPage]);
 
   // Keyboard navigation
   useEffect(() => {

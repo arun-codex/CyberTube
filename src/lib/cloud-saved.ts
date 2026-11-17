@@ -1,4 +1,4 @@
-﻿import { localSavedService, syncSavedWithCloud } from './saved';
+import { localSavedService, syncSavedWithCloud, getStudySavedItems } from './saved';
 
 export interface StudyBookmarkItem {
   id: string;
@@ -17,10 +17,13 @@ export class CloudBookmarkService {
     const response = await fetch('/api/user/saved', { cache: 'no-store' });
     if (!response.ok) throw new Error('Unable to load PDF bookmarks. Please retry.');
     const data = await response.json();
-    return Array.isArray(data.studyBookmarks) ? data.studyBookmarks.map((b: any) => ({
-      id: b.id, documentId: b.document_id, pageNumber: b.page_number,
-      title: b.title, createdAt: b.created_at,
-    })) : [];
+    const rows = Array.isArray(data.studyBookmarks) ? data.studyBookmarks : [];
+    // The local view includes pending saves and hides pending removals.
+    return getStudySavedItems().map(item => {
+      const row = rows.find((b: any) => b.document_id === item.documentId && b.page_number === item.pageNumber);
+      return { id: row?.id || `study:${item.documentId}:${item.pageNumber}`, ...item,
+        title: row?.title || null, createdAt: row?.created_at || '' };
+    });
   }
   async toggleBookmark(resourceId: string): Promise<boolean> {
     return localSavedService.toggle(resourceId);

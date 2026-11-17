@@ -26,7 +26,7 @@ export async function GET(req: NextRequest) {
   const accessError = await checkStudyDocument(admin, documentId);
   if (accessError) return accessError;
 
-  const [{ data: progress }, { data: bookmarks }, { data: pageViews }] = await Promise.all([
+  const [{ data: progress, error: progressError }, { data: bookmarks, error: bookmarksError }, { data: pageViews, error: viewsError }] = await Promise.all([
     admin
       .from('user_study_progress')
       .select('*')
@@ -45,6 +45,10 @@ export async function GET(req: NextRequest) {
       .eq('user_id', user.id)
       .eq('document_id', documentId),
   ]);
+
+  if (progressError || bookmarksError || viewsError) {
+    return NextResponse.json({ error: 'Unable to load study progress' }, { status: 503 });
+  }
 
   return NextResponse.json({
     progress: progress || null,
@@ -70,6 +74,9 @@ export async function POST(req: NextRequest) {
   }
 
   const payload = await req.json().catch(() => null);
+  if (payload && 'expectedUserId' in payload && payload.expectedUserId !== user.id) {
+    return NextResponse.json({ error: 'Account changed' }, { status: 409 });
+  }
   const { documentId, page } = payload || {};
   if (!documentId || typeof page !== 'number' || page < 1) {
     return NextResponse.json({ error: 'Invalid payload' }, { status: 400 });

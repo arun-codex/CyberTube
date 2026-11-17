@@ -1,5 +1,6 @@
-﻿import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { getAuthenticatedUser, createClient } from '@/lib/supabase/server';
+import { checkStudyDocument } from '@/lib/pdf/access';
 
 export const dynamic = 'force-dynamic';
 const headers = { 'Cache-Control': 'no-store' };
@@ -44,6 +45,25 @@ export async function POST(req: NextRequest) {
     const db = await createClient();
     if (!db) return json({ error: 'Database service unavailable' }, 503);
     // Explicit desired state is retry-safe; a toggle would invert state on retry.
+    if (resourceId.startsWith('study:')) {
+      const parts = resourceId.split(':');
+      const documentId = parts[1];
+      const page = Number(parts[2]);
+      if (parts.length !== 3 || !/^[0-9a-f-]{36}$/i.test(documentId) || !Number.isInteger(page) || page < 1) {
+        return json({ error: 'Invalid PDF bookmark' }, 400);
+      }
+      if (action === 'save') {
+        const denied = await checkStudyDocument(db, documentId, page);
+        if (denied) return denied;
+      }
+      const result = action === 'save'
+        ? await db.from('user_study_bookmarks').upsert({ user_id: user.id, document_id: documentId, page_number: page },
+            { onConflict: 'user_id,document_id,page_number', ignoreDuplicates: true })
+        : await db.from('user_study_bookmarks').delete().eq('user_id', user.id)
+            .eq('document_id', documentId).eq('page_number', page);
+      if (result.error) return json({ error: 'Unable to save PDF bookmark. Please retry.' }, 503);
+      return json({ ok: true, userId: user.id, saved: action === 'save' });
+    }
     const result = action === 'save'
       ? await db.from('bookmarks').upsert({ user_id: user.id, resource_id: resourceId },
           { onConflict: 'user_id,resource_id', ignoreDuplicates: true })

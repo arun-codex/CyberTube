@@ -1,4 +1,4 @@
-﻿/** Account-scoped cache with durable, retry-safe desired-state operations. */
+/** Account-scoped cache with durable, retry-safe desired-state operations. */
 const LEGACY_KEY = 'cybertube_saved_v1';
 const PREFIX = 'cybertube_saved_v2:';
 const EVENT_NAME = 'cybertube:saved-changed';
@@ -53,9 +53,21 @@ function overlay(ids: string[], operations: Pending[]): string[] {
 function emit() {
   window.dispatchEvent(new CustomEvent(EVENT_NAME, { detail: getStoredIds() }));
 }
-export function getStoredIds(): string[] {
+function getAllIds(): string[] {
   if (typeof window === 'undefined') return [];
   return overlay(readIds(scopeKey()), pending());
+}
+export function getStoredIds(): string[] {
+  return getAllIds().filter(id => !id.startsWith('study:'));
+}
+export function getStudySavedItems(): { documentId: string; pageNumber: number }[] {
+  return getAllIds().filter(id => id.startsWith('study:')).map(id => {
+    const [, documentId, page] = id.split(':');
+    return { documentId, pageNumber: Number(page) };
+  });
+}
+export function saveStudyBookmark(documentId: string, page: number, saved: boolean): void {
+  change(`study:${documentId}:${page}`, saved);
 }
 export function setStoredIds(ids: string[]): void {
   if (typeof window === 'undefined') return;
@@ -73,6 +85,11 @@ export function setSavedUser(userId: string | null): void {
   // Preserve and import the old single-device list once. Keep its original copy as backup.
   if (localStorage.getItem(`${PREFIX}legacy-imported`) === null) {
     const oldIds = readIds(LEGACY_KEY);
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      const match = key?.match(/^study_bm_([0-9a-f-]{36})_(\d+)$/i);
+      if (match && localStorage.getItem(key!) === '1') oldIds.push(`study:${match[1]}:${match[2]}`);
+    }
     localStorage.setItem(scopeKey(null), JSON.stringify(oldIds));
     localStorage.setItem(`${PREFIX}legacy-imported`, '1');
   }
@@ -138,7 +155,9 @@ async function synchronize(): Promise<SavedSyncResult> {
       return { ...base, savedIds: getStoredIds(), error: 'Session changed. Please sign in again to sync.' };
     }
     // Replace the old cloud snapshot: union would resurrect another device's deletions.
-    setStoredIds(data.savedIds);
+    const studyIds = (data.studyBookmarks || []).map((b: { document_id: string; page_number: number }) =>
+      `study:${b.document_id}:${b.page_number}`);
+    setStoredIds([...data.savedIds, ...studyIds]);
     return { authenticated: true, synced: pending(user).length === 0, savedIds: getStoredIds(), syncedCount };
   } catch (error) {
     return { ...base, savedIds: getStoredIds(), syncedCount,
