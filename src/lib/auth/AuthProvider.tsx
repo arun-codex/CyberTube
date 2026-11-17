@@ -12,6 +12,7 @@ import React, {
 import type { User, Session } from '@supabase/supabase-js';
 import { createClient } from '@/lib/supabase/client';
 import { AVATAR_UPDATED_EVENT, AvatarUpdatedDetail } from '@/lib/avatar';
+import { setSavedUser, syncSavedWithCloud } from '@/lib/saved';
 
 export interface UserProfile {
   displayName?: string | null;
@@ -54,7 +55,21 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   // Sequence counter preventing asynchronous profile requests from an old account
   // overwriting a newer account's profile state
   const profileRequestIdRef = useRef<number>(0);
+  const profileOwnerRef = useRef<string | null>(null);
   const isMountedRef = useRef<boolean>(true);
+
+  useEffect(() => {
+    if (isAuthLoading) return;
+    setSavedUser(userId);
+    const retry = () => { void syncSavedWithCloud(); };
+    retry();
+    window.addEventListener('online', retry);
+    window.addEventListener('focus', retry);
+    return () => {
+      window.removeEventListener('online', retry);
+      window.removeEventListener('focus', retry);
+    };
+  }, [userId, isAuthLoading]);
 
   const determineIsAdmin = useCallback((email?: string | null): boolean => {
     if (!email) return false;
@@ -80,10 +95,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         targetMetadata?.name ||
         (targetEmail ? targetEmail.split('@')[0] : 'Practitioner');
 
-      setUserProfile({
-        displayName: initialDisplayName,
-        avatarUrl: null,
-      });
+      const sameUser = profileOwnerRef.current === targetUserId;
+      profileOwnerRef.current = targetUserId;
+      setUserProfile((previous) => ({
+        displayName: sameUser ? previous?.displayName || initialDisplayName : initialDisplayName,
+        avatarUrl: sameUser ? previous?.avatarUrl || null : null,
+      }));
 
       if (!supabase) return;
 
@@ -101,10 +118,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         const resolvedDisplayName = profileData?.display_name || initialDisplayName;
 
         if (profileData) {
-          setUserProfile({
+          setUserProfile((previous) => ({
             displayName: resolvedDisplayName,
-            avatarUrl: profileData.avatar_url || null,
-          });
+            avatarUrl: previous?.avatarUrl || profileData.avatar_url || null,
+          }));
         }
 
         // Fetch fresh signed avatar URL from /api/user/avatar
@@ -202,7 +219,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
    * Immediately clears in-memory state and notifies subscribers without requiring reload.
    */
   const signOut = useCallback(async () => {
+    setSavedUser(null);
     profileRequestIdRef.current++;
+    profileOwnerRef.current = null;
     setUser(null);
     setUserId(null);
     setUserEmail(null);
@@ -284,6 +303,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         }
         case 'SIGNED_OUT': {
           profileRequestIdRef.current++;
+          profileOwnerRef.current = null;
           setUser(null);
           setUserId(null);
           setUserEmail(null);

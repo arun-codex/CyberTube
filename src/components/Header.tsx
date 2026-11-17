@@ -30,6 +30,11 @@ export function Header() {
 
   const { userEmail, userProfile, isAdmin, isAuthLoading } = useAuth();
 
+  useEffect(() => {
+    setMobileMenuOpen(false);
+    setExploreMenuOpen(false);
+  }, [pathname]);
+
   // Global '/' shortcut to open search
   useEffect(() => {
     const handleGlobalKeyDown = (e: KeyboardEvent) => {
@@ -120,6 +125,7 @@ export function Header() {
                     <Link
                       key={link.href}
                       href={link.href}
+                      aria-current={isActive ? 'page' : undefined}
                       className={`relative px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-150 ${
                         isActive
                           ? 'text-[var(--accent-cyan)] bg-[var(--accent-cyan-subtle)] font-semibold shadow-xs'

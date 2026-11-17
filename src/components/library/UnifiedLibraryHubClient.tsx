@@ -34,16 +34,14 @@ export function UnifiedLibraryHubClient({
   );
 
   useEffect(() => {
-    if (tabParam === 'courses' || tabParam === 'study') {
-      setActiveTab(tabParam);
-    }
+    setActiveTab(tabParam === 'courses' ? 'courses' : 'study');
   }, [tabParam]);
 
   const handleTabChange = (newTab: 'study' | 'courses') => {
     setActiveTab(newTab);
     const url = new URL(window.location.href);
     url.searchParams.set('tab', newTab);
-    window.history.replaceState({}, '', url.toString());
+    router.push(`${url.pathname}${url.search}`, { scroll: false });
   };
 
   return (
@@ -67,10 +65,11 @@ export function UnifiedLibraryHubClient({
       </div>
 
       {/* Unified Tab Switcher */}
-      <div className="flex items-center gap-2 p-1.5 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)] max-w-xl">
+      <div role="group" aria-label="Library sections" className="flex flex-col sm:flex-row items-stretch gap-2 p-1.5 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)] max-w-xl">
         <button
           type="button"
           onClick={() => handleTabChange('study')}
+          aria-pressed={activeTab === 'study'}
           className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg text-xs font-medium transition-all ${
             activeTab === 'study'
               ? 'bg-[var(--card-bg)] text-[var(--text-primary)] font-bold shadow-xs border border-[var(--border)]'
@@ -87,6 +86,7 @@ export function UnifiedLibraryHubClient({
         <button
           type="button"
           onClick={() => handleTabChange('courses')}
+          aria-pressed={activeTab === 'courses'}
           className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg text-xs font-medium transition-all ${
             activeTab === 'courses'
               ? 'bg-[var(--card-bg)] text-[var(--text-primary)] font-bold shadow-xs border border-[var(--border)]'
