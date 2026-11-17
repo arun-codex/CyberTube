@@ -191,7 +191,7 @@ def main():
         docs = fetch_documents_from_db(supabase_url, service_key, args.collection, args.document_id)
         print(f"Loaded {len(docs)} documents from database.")
     else:
-        print("\n[Dry Run] No database credentials supplied; checking local files only.")
+        print("\n[Dry Run] No database credentials supplied; discovering documents from local files...")
         docs = []
 
     # Prepare PDF source (ZIP archive or Directory)
@@ -209,6 +209,30 @@ def main():
         print(f"Reading PDFs from directory: {source_dir.resolve()}")
     else:
         print(f"Warning: Neither --zip nor source directory '{source_dir}' found.", file=sys.stderr)
+
+    # In dry-run without DB connection, populate docs from source archive/directory
+    if not docs and args.dry_run:
+        if zip_archive:
+            names = [n for n in zip_archive.namelist() if n.lower().endswith(".pdf") and not n.startswith("__MACOSX")]
+            for idx, n in enumerate(sorted(names)):
+                base = Path(n).name
+                docs.append({
+                    "id": f"dry-run-doc-{idx+1:02d}",
+                    "title": base.replace(".pdf", "").replace("_", " "),
+                    "slug": base.lower().replace(".pdf", "").replace("_", "-"),
+                    "original_filename": base,
+                    "page_count": None,
+                })
+        elif source_dir.exists():
+            for idx, p in enumerate(sorted(source_dir.glob("*.pdf"))):
+                docs.append({
+                    "id": f"dry-run-doc-{idx+1:02d}",
+                    "title": p.stem.replace("_", " "),
+                    "slug": p.stem.lower().replace("_", "-"),
+                    "original_filename": p.name,
+                    "page_count": None,
+                })
+        print(f"Discovered {len(docs)} local documents for dry-run verification.")
 
     total_docs_processed = 0
     total_pages_indexed = 0
