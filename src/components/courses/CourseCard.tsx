@@ -33,9 +33,11 @@ export const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
 
   // Action button destination
   let actionHref = `/courses/${course.slug}`;
-  if (status === 'in_progress' && lastActiveLessonSlug) {
+  if (course.isComingSoon && percentage === 0) {
+    actionHref = `/courses/${course.slug}`;
+  } else if (status === 'in_progress' && lastActiveLessonSlug) {
     actionHref = `/courses/${course.slug}?lesson=${lastActiveLessonSlug}`;
-  } else if (firstLesson) {
+  } else if (firstLesson && !course.isComingSoon) {
     actionHref = `/courses/${course.slug}?lesson=${firstLesson.slug}`;
   }
 

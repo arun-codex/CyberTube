@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react';
 import { Metadata } from 'next';
-import { getAllAuthoritativeResources } from '@/lib/authoritativeCatalog';
+import { getAllAuthoritativeResources, getAllAuthoritativePaths } from '@/lib/authoritativeCatalog';
 import { getAuthenticatedUser, createClient } from '@/lib/supabase/server';
 import { UnifiedLibraryHubClient } from '@/components/library/UnifiedLibraryHubClient';
 
@@ -84,6 +84,7 @@ export default async function LibraryPage() {
         progressList={progressList}
         bookmarks={bookmarks}
         courseResources={courseResources}
+        learningPaths={getAllAuthoritativePaths()}
         isUserLoggedIn={Boolean(user)}
       />
     </Suspense>

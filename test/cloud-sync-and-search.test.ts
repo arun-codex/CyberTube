@@ -200,13 +200,27 @@ describe('Coming Soon Courses & Unified Library Hub', () => {
     assert.ok(content.includes('CyberTube Bug Bounty Study Library'), 'Must have descriptive accessibility title');
   });
 
-  it('12. Unified Library Hub Client exists and handles study & course tabs', () => {
+  it('12. Unified Library Hub Client exists and handles all 4 primary tabs (study, courses, paths, saved)', () => {
     const hubFile = path.resolve(__dirname, '../src/components/library/UnifiedLibraryHubClient.tsx');
     assert.ok(fs.existsSync(hubFile), 'UnifiedLibraryHubClient.tsx must exist');
     const content = fs.readFileSync(hubFile, 'utf8');
     assert.ok(content.includes("activeTab === 'study'"), 'Must handle study tab');
     assert.ok(content.includes("activeTab === 'courses'"), 'Must handle courses tab');
+    assert.ok(content.includes("activeTab === 'paths'"), 'Must handle paths tab');
+    assert.ok(content.includes("activeTab === 'saved'"), 'Must handle saved tab');
     assert.ok(content.includes('Coming Soon'), 'Must include Coming Soon preview for Course & Lab directory');
+  });
+
+  it('12b. Header implements unified navigation Home | Library | Courses | Discover | More', () => {
+    const headerPath = path.resolve(__dirname, '../src/components/Header.tsx');
+    const headerCode = fs.readFileSync(headerPath, 'utf8');
+    assert.ok(headerCode.includes("label: 'Home'"), 'Header primary nav must include Home');
+    assert.ok(headerCode.includes("label: 'Library'"), 'Header primary nav must include Library');
+    assert.ok(headerCode.includes("label: 'Courses'"), 'Header primary nav must include Courses');
+    assert.ok(headerCode.includes("label: 'Discover'"), 'Header primary nav must include Discover');
+    // Ensure no standalone duplicate Study Library in primary nav
+    const primaryNavBlock = headerCode.match(/const primaryNavLinks\s*=\s*\[([\s\S]*?)\];/)?.[1] || '';
+    assert.ok(!primaryNavBlock.includes('Study Library'), 'Study Library must not be duplicated in primary nav');
   });
 
   it('13. Authenticated search route enforces query validation and limits', async () => {

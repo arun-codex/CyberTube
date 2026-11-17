@@ -40,6 +40,12 @@ export interface AuthContextValue {
 
 const AuthContext = createContext<AuthContextValue | null>(null);
 
+interface CachedAvatar {
+  url: string | null;
+  expiresAt: number;
+}
+const avatarCache = new Map<string, CachedAvatar>();
+
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [supabase] = useState(() => (typeof window !== 'undefined' ? createClient() : null));
   const [user, setUser] = useState<User | null>(null);
@@ -95,11 +101,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         targetMetadata?.name ||
         (targetEmail ? targetEmail.split('@')[0] : 'Practitioner');
 
+      // Check existing cached avatar
+      const cachedAvatar = avatarCache.get(targetUserId);
+      const isAvatarFresh = Boolean(cachedAvatar && cachedAvatar.expiresAt > Date.now() + 5 * 60 * 1000);
+
       const sameUser = profileOwnerRef.current === targetUserId;
       profileOwnerRef.current = targetUserId;
       setUserProfile((previous) => ({
         displayName: sameUser ? previous?.displayName || initialDisplayName : initialDisplayName,
-        avatarUrl: sameUser ? previous?.avatarUrl || null : null,
+        avatarUrl: sameUser ? previous?.avatarUrl || cachedAvatar?.url || null : cachedAvatar?.url || null,
       }));
 
       if (!supabase) return;
@@ -120,26 +130,32 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         if (profileData) {
           setUserProfile((previous) => ({
             displayName: resolvedDisplayName,
-            avatarUrl: previous?.avatarUrl || profileData.avatar_url || null,
+            avatarUrl: previous?.avatarUrl || cachedAvatar?.url || profileData.avatar_url || null,
           }));
         }
 
-        // Fetch fresh signed avatar URL from /api/user/avatar
-        const avatarRes = await fetch('/api/user/avatar', { cache: 'no-store' });
-        if (!isMountedRef.current || profileRequestIdRef.current !== currentRequestId) {
-          return;
-        }
+        // Only fetch fresh signed avatar URL from /api/user/avatar if not cached or expiring soon
+        if (!isAvatarFresh) {
+          const avatarRes = await fetch('/api/user/avatar', { cache: 'no-store' });
+          if (!isMountedRef.current || profileRequestIdRef.current !== currentRequestId) {
+            return;
+          }
 
-        if (avatarRes.ok) {
-          const avatarJson = await avatarRes.json();
-          if (
-            avatarJson?.avatarUrl !== undefined &&
-            profileRequestIdRef.current === currentRequestId
-          ) {
-            setUserProfile({
-              displayName: resolvedDisplayName,
-              avatarUrl: avatarJson.avatarUrl,
-            });
+          if (avatarRes.ok) {
+            const avatarJson = await avatarRes.json();
+            if (
+              avatarJson?.avatarUrl !== undefined &&
+              profileRequestIdRef.current === currentRequestId
+            ) {
+              avatarCache.set(targetUserId, {
+                url: avatarJson.avatarUrl,
+                expiresAt: Date.now() + 50 * 60 * 1000,
+              });
+              setUserProfile({
+                displayName: resolvedDisplayName,
+                avatarUrl: avatarJson.avatarUrl,
+              });
+            }
           }
         }
       } catch {
@@ -219,6 +235,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
    * Immediately clears in-memory state and notifies subscribers without requiring reload.
    */
   const signOut = useCallback(async () => {
+    const currentUid = profileOwnerRef.current;
+    if (currentUid) {
+      avatarCache.delete(currentUid);
+    }
     setSavedUser(null);
     profileRequestIdRef.current++;
     profileOwnerRef.current = null;
@@ -349,6 +369,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const handleAvatarUpdated = (e: Event) => {
       const customEvent = e as CustomEvent<AvatarUpdatedDetail>;
       if (customEvent.detail?.avatarUrl !== undefined) {
+        const currentUid = profileOwnerRef.current;
+        if (currentUid) {
+          avatarCache.set(currentUid, {
+            url: customEvent.detail.avatarUrl,
+            expiresAt: Date.now() + 50 * 60 * 1000,
+          });
+        }
         setUserProfile((prev) => ({
           displayName: prev?.displayName || null,
           avatarUrl: customEvent.detail.avatarUrl,
