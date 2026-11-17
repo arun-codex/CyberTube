@@ -21,7 +21,7 @@ import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
 import { BugBountyLogo } from '@/components/ui/BugBountyLogo';
-import { searchStudyDocuments, DocumentSearchResult } from '@/lib/pdf/library-search';
+import { DocumentSearchResult, LibrarySearchResponse } from '@/lib/pdf/library-search';
 
 export interface StudyDoc {
   id: string;
@@ -95,22 +95,47 @@ export function StudyDashboardClient({
     return map;
   }, [bookmarks]);
 
-  // Full-Text PDF Search
-  const pdfSearchResults = useMemo(() => {
-    if (!searchInsidePdfs || searchQuery.trim().length < 2) return null;
-    return searchStudyDocuments(searchQuery);
-  }, [searchInsidePdfs, searchQuery]);
+  // Full-Text PDF Search (Authenticated Server-Side Search)
+  const [pdfMatchesByDocId, setPdfMatchesByDocId] = useState<Map<string, DocumentSearchResult>>(new Map());
+  const [isPdfSearching, setIsPdfSearching] = useState<boolean>(false);
 
-  const pdfMatchesByDocId = useMemo(() => {
-    const map = new Map<string, DocumentSearchResult>();
-    if (!pdfSearchResults) return map;
-    for (const res of pdfSearchResults.results) {
-      map.set(res.documentId, res);
-      map.set(res.slug, res);
-      map.set(res.title.toLowerCase(), res);
+  React.useEffect(() => {
+    if (!searchInsidePdfs || searchQuery.trim().length < 2) {
+      setPdfMatchesByDocId(new Map());
+      setIsPdfSearching(false);
+      return;
     }
-    return map;
-  }, [pdfSearchResults]);
+
+    let active = true;
+    setIsPdfSearching(true);
+    const timer = setTimeout(async () => {
+      try {
+        const res = await fetch(`/api/study-materials/search?q=${encodeURIComponent(searchQuery.trim())}`);
+        if (!res.ok) {
+          if (active) setIsPdfSearching(false);
+          return;
+        }
+        const data: LibrarySearchResponse = await res.json();
+        if (!active) return;
+        const map = new Map<string, DocumentSearchResult>();
+        for (const r of data.results || []) {
+          map.set(r.documentId, r);
+          map.set(r.slug, r);
+          map.set(r.title.toLowerCase(), r);
+        }
+        setPdfMatchesByDocId(map);
+      } catch {
+        if (active) setPdfMatchesByDocId(new Map());
+      } finally {
+        if (active) setIsPdfSearching(false);
+      }
+    }, 250);
+
+    return () => {
+      active = false;
+      clearTimeout(timer);
+    };
+  }, [searchInsidePdfs, searchQuery]);
 
   // Real Database Statistics
   const totalDocuments = documents.length;

@@ -85,7 +85,7 @@ END $$;
 CREATE TABLE IF NOT EXISTS public.user_generic_progress (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
-  entity_type TEXT NOT NULL CHECK (entity_type IN ('course', 'module', 'lesson', 'lab', 'assessment')),
+  entity_type TEXT NOT NULL CHECK (entity_type IN ('course', 'module', 'lesson', 'lab')),
   entity_id TEXT NOT NULL,
   progress_percent NUMERIC(5,2) NOT NULL DEFAULT 0.00 CHECK (progress_percent >= 0.00 AND progress_percent <= 100.00),
   is_completed BOOLEAN NOT NULL DEFAULT FALSE,
@@ -152,6 +152,11 @@ BEGIN
   v_user_id := auth.uid();
   IF v_user_id IS NULL THEN
     RAISE EXCEPTION 'Unauthenticated';
+  END IF;
+
+  -- Assessment & Certification Protection: Graded exams MUST remain server-authoritative
+  IF p_entity_type IN ('assessment', 'quiz', 'capstone', 'certification') THEN
+    RAISE EXCEPTION 'Assessments and quizzes require server-authoritative evaluation and cannot be self-reported.';
   END IF;
 
   INSERT INTO public.user_generic_progress (

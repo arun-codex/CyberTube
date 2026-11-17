@@ -1,4 +1,7 @@
-import rawIndex from '../../data/study-pdf-index.json';
+/**
+ * Pure type definitions and utilities for authenticated server-side study search.
+ * Private PDF content must NEVER be bundled into client JavaScript or static JSON.
+ */
 import { findTextMatches } from './search';
 
 export interface PageMatch {
@@ -11,9 +14,9 @@ export interface DocumentSearchResult {
   documentId: string;
   title: string;
   slug: string;
-  originalFilename: string;
-  categoryId: string | null;
-  pageCount: number;
+  originalFilename?: string;
+  categoryId?: string | null;
+  pageCount?: number;
   totalMatches: number;
   matchingPages: PageMatch[];
 }
@@ -25,27 +28,11 @@ export interface LibrarySearchResponse {
   results: DocumentSearchResult[];
 }
 
-interface IndexedPage {
-  pageNumber: number;
-  text: string;
-}
-
-interface IndexedDocument {
-  documentId: string;
-  title: string;
-  slug: string;
-  originalFilename: string;
-  categoryId: string | null;
-  pageCount: number;
-  pages: IndexedPage[];
-}
-
-const studyIndex: IndexedDocument[] = rawIndex as IndexedDocument[];
-
 /**
  * Generate a clean snippet around the first occurrence of match in text.
  */
-function createSnippet(text: string, query: string, maxLength = 130): string {
+export function createSnippet(text: string, query: string, maxLength = 130): string {
+  if (!text || !query) return '';
   const lowerText = text.toLowerCase();
   const lowerQuery = query.toLowerCase();
   const idx = lowerText.indexOf(lowerQuery);
@@ -64,9 +51,20 @@ function createSnippet(text: string, query: string, maxLength = 130): string {
 }
 
 /**
- * Searches across all 34 indexed PDF documents for the query text.
+ * In-memory / mock search executor for server-side testing and staging.
  */
-export function searchStudyDocuments(query: string, limit = 20): LibrarySearchResponse {
+export function searchDocumentPagesInMemory(
+  documents: Array<{
+    documentId: string;
+    title: string;
+    slug: string;
+    categoryId?: string | null;
+    pageCount?: number;
+    pages: Array<{ pageNumber: number; text: string }>;
+  }>,
+  query: string,
+  limit = 20
+): LibrarySearchResponse {
   const trimmed = (query || '').trim();
   if (!trimmed || trimmed.length < 2) {
     return {
@@ -80,7 +78,7 @@ export function searchStudyDocuments(query: string, limit = 20): LibrarySearchRe
   const results: DocumentSearchResult[] = [];
   let totalMatchingPages = 0;
 
-  for (const doc of studyIndex) {
+  for (const doc of documents) {
     const matchingPages: PageMatch[] = [];
     let docMatchCount = 0;
 
@@ -102,16 +100,17 @@ export function searchStudyDocuments(query: string, limit = 20): LibrarySearchRe
         documentId: doc.documentId,
         title: doc.title,
         slug: doc.slug,
-        originalFilename: doc.originalFilename,
-        categoryId: doc.categoryId,
-        pageCount: doc.pageCount,
+        categoryId: doc.categoryId || null,
+        pageCount: doc.pageCount || doc.pages.length,
         totalMatches: docMatchCount,
-        matchingPages: matchingPages.slice(0, 5), // top 5 pages per document in overview
+        matchingPages: matchingPages.slice(0, 5),
       });
     }
+
+    if (results.length >= limit) break;
   }
 
-  // Sort by highest match count first
+  // Sort by highest matches first
   results.sort((a, b) => b.totalMatches - a.totalMatches);
 
   return {
