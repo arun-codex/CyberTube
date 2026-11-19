@@ -262,3 +262,67 @@ test('8. Fractional, out-of-bounds and retired-document progress writes are reje
   }
   setAuthenticatedUserForTesting(null);setAdminClientForTesting(null);
 });
+
+test('9. Study Materials PDF Endpoint — CORS, OPTIONS, and multi-bucket fallback', async () => {
+  const { GET, OPTIONS } = await import('../app/api/study-materials/[docId]/pdf/route');
+
+  // Test OPTIONS handler
+  const optReq = new Request('http://localhost:3000/api/study-materials/doc-1/pdf', {
+    method: 'OPTIONS',
+    headers: { origin: 'https://cybertube-mu.vercel.app' },
+  });
+  const optRes = await OPTIONS(optReq as any);
+  assert.equal(optRes.status, 204);
+  assert.equal(optRes.headers.get('Access-Control-Allow-Origin'), 'https://cybertube-mu.vercel.app');
+  assert.ok(optRes.headers.get('Access-Control-Allow-Methods')?.includes('GET'));
+
+  // Test multi-bucket fallback: 'study-materials' succeeds
+  const mockUser = { id: 'user-bucket-test', email: 'reader@test.com' };
+  setAuthenticatedUserForTesting(mockUser);
+
+  const pdfBytes = studyPdf();
+  const mockDoc = {
+    id: 'doc-bucket-test',
+    storage_key: 'study-materials/025e6c870a21bd16893fa59d9877328bf13f3cbf57081f25e8e78e2f57e14525.pdf',
+    is_published: true,
+  };
+
+  let triedBuckets: string[] = [];
+  setAdminClientForTesting({
+    from: () => ({
+      select: () => ({
+        eq: () => ({
+          single: async () => ({ data: mockDoc, error: null }),
+        }),
+      }),
+    }),
+    storage: {
+      from: (bucket: string) => {
+        triedBuckets.push(bucket);
+        return {
+          download: async (key: string) => {
+            if (bucket === 'study-materials') {
+              return { data: new Blob([new Uint8Array(pdfBytes)]), error: null };
+            }
+            return { data: null, error: { message: 'Bucket not found' } };
+          },
+        };
+      },
+    },
+  });
+
+  const getReq = new Request('http://localhost:3000/api/study-materials/doc-bucket-test/pdf', {
+    headers: { origin: 'https://cybertube-mu.vercel.app' },
+  });
+  const getRes = await GET(getReq as any, {
+    params: Promise.resolve({ docId: 'doc-bucket-test' }),
+  });
+
+  assert.equal(getRes.status, 200);
+  assert.ok(triedBuckets.includes('study-materials'), 'Must try study-materials bucket');
+  assert.equal(getRes.headers.get('Access-Control-Allow-Origin'), 'https://cybertube-mu.vercel.app');
+  assert.ok(getRes.headers.get('Access-Control-Expose-Headers')?.includes('Content-Range'));
+
+  setAuthenticatedUserForTesting(null);
+  setAdminClientForTesting(null);
+});

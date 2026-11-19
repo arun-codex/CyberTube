@@ -123,8 +123,11 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1, initialSe
         });
 
         loadingTaskRef.current = loadingTask;
+        const loadTimeout = new Promise<never>((_, reject) => {
+          setTimeout(() => reject(new Error('Document loading timed out. Please check your connection and retry.')), 20000);
+        });
         const [doc, progressData] = await Promise.all([
-          loadingTask.promise,
+          Promise.race([loadingTask.promise, loadTimeout]),
           hasExplicitPage ? Promise.resolve(null) : progressPromise,
         ]);
         if (isCancelled) { await loadingTask.destroy(); return; }
@@ -162,7 +165,15 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1, initialSe
       } catch (err: any) {
         if (!isCancelled) {
           console.error('Failed to load PDF:', err);
-          setErrorMessage(err?.message || 'Failed to load PDF document.');
+          let userMsg = err?.message || 'Failed to load PDF document.';
+          if (err?.name === 'UnexpectedResponseException' || (typeof err?.status === 'number' && err.status >= 500)) {
+            userMsg = 'Study material storage is currently unavailable or updating. Please try again shortly.';
+          } else if (err?.status === 401 || err?.status === 403) {
+            userMsg = 'You must be logged in to view this study material.';
+          } else if (err?.status === 404) {
+            userMsg = 'This study document was not found or has been retired.';
+          }
+          setErrorMessage(userMsg);
           setIsLoading(false);
         }
       }
