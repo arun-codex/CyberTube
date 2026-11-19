@@ -19,6 +19,7 @@ import { onSavedChange, localSavedService } from '../lib/saved';
 import { ThemeToggle } from './theme/ThemeToggle';
 import { GlobalSearchDialog } from './search/GlobalSearchDialog';
 import { UserNavDropdown } from './navigation/UserNavDropdown';
+import { CyberTubeLogo } from './ui/CyberTubeLogo';
 import { useAuth } from '../lib/auth';
 
 export function Header() {
@@ -103,9 +104,7 @@ export function Header() {
                 href="/"
                 className="flex items-center gap-2.5 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-cyan)] rounded-lg p-1 flex-shrink-0"
               >
-                <div className="w-8 h-8 rounded-lg bg-[var(--accent-cyan)] flex items-center justify-center text-[#090D14] shadow-sm">
-                  <Shield className="w-4 h-4 fill-current stroke-none" />
-                </div>
+                <CyberTubeLogo size={32} showText={false} className="shrink-0" />
                 <div className="flex items-baseline gap-1.5">
                   <span className="font-sans font-bold text-base tracking-tight text-[var(--text-primary)]">
                     CyberTube

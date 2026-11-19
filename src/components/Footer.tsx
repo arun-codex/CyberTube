@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { Shield } from 'lucide-react';
+import { CyberTubeLogo } from './ui/CyberTubeLogo';
 
 export const Footer: React.FC = () => {
   return (
@@ -10,9 +10,7 @@ export const Footer: React.FC = () => {
           {/* Brand Info */}
           <div className="space-y-3">
             <Link href="/" className="flex items-center gap-2">
-              <div className="w-6 h-6 rounded-md bg-[var(--accent-cyan)] flex items-center justify-center text-[#090D14]">
-                <Shield className="w-3.5 h-3.5 fill-current stroke-none" />
-              </div>
+              <CyberTubeLogo size={24} showText={false} className="shrink-0" />
               <span className="font-semibold text-sm text-[var(--text-primary)]">
                 CyberTube
               </span>
