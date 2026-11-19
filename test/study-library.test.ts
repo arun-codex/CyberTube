@@ -321,7 +321,57 @@ test('9. Study Materials PDF Endpoint — CORS, OPTIONS, and multi-bucket fallba
   assert.equal(getRes.status, 200);
   assert.ok(triedBuckets.includes('study-materials'), 'Must try study-materials bucket');
   assert.equal(getRes.headers.get('Access-Control-Allow-Origin'), 'https://cybertube-mu.vercel.app');
+  assert.equal(getRes.headers.get('Access-Control-Allow-Credentials'), 'true');
+  assert.equal(getRes.headers.get('Vary'), 'Origin');
   assert.ok(getRes.headers.get('Access-Control-Expose-Headers')?.includes('Content-Range'));
+
+  // Test request without origin: should NOT set Access-Control-Allow-Origin: * when credentials could be present
+  const noOriginReq = new Request('http://localhost:3000/api/study-materials/doc-bucket-test/pdf');
+  const noOriginRes = await GET(noOriginReq as any, {
+    params: Promise.resolve({ docId: 'doc-bucket-test' }),
+  });
+  assert.equal(noOriginRes.status, 200);
+  assert.equal(noOriginRes.headers.get('Access-Control-Allow-Origin'), null);
+  assert.equal(noOriginRes.headers.get('Access-Control-Allow-Credentials'), null);
+
+  // Test slug lookup fallback
+  const mockSlugDoc = {
+    id: 'doc-slug-uuid',
+    storage_key: '025e6c870a21bd16893fa59d9877328bf13f3cbf57081f25e8e78e2f57e14525.pdf',
+    is_published: true,
+  };
+  let triedKeys: string[] = [];
+  setAdminClientForTesting({
+    from: () => ({
+      select: () => ({
+        eq: (col: string, val: string) => ({
+          single: async () => {
+            if (col === 'id') return { data: null, error: { message: 'Not found by id' } };
+            if (col === 'slug' && val === '2fa-bypass') return { data: mockSlugDoc, error: null };
+            return { data: null, error: { message: 'Not found' } };
+          },
+        }),
+      }),
+    }),
+    storage: {
+      from: () => ({
+        download: async (key: string) => {
+          triedKeys.push(key);
+          if (key.includes('bug-bounty/025e6c870a21bd16893fa59d9877328bf13f3cbf57081f25e8e78e2f57e14525.pdf')) {
+            return { data: new Blob([new Uint8Array(pdfBytes)]), error: null };
+          }
+          return { data: null, error: { message: 'File not found' } };
+        },
+      }),
+    },
+  });
+
+  const slugReq = new Request('http://localhost:3000/api/study-materials/2fa-bypass/pdf');
+  const slugRes = await GET(slugReq as any, {
+    params: Promise.resolve({ docId: '2fa-bypass' }),
+  });
+  assert.equal(slugRes.status, 200);
+  assert.ok(triedKeys.some((k) => k.startsWith('bug-bounty/')), 'Must try prefixed candidate keys for bare storage key');
 
   setAuthenticatedUserForTesting(null);
   setAdminClientForTesting(null);

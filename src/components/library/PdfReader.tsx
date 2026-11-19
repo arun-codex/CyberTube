@@ -42,10 +42,15 @@ interface SearchMatch {
 let cachedPdfjsPromise: Promise<any> | null = null;
 function getPdfjsLib(): Promise<any> {
   if (!cachedPdfjsPromise) {
-    cachedPdfjsPromise = import('pdfjs-dist/build/pdf.mjs').then((lib) => {
-      lib.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.mjs';
-      return lib;
-    });
+    cachedPdfjsPromise = import('pdfjs-dist/build/pdf.mjs')
+      .then((lib) => {
+        lib.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.mjs';
+        return lib;
+      })
+      .catch((err) => {
+        cachedPdfjsPromise = null;
+        throw err;
+      });
   }
   return cachedPdfjsPromise;
 }
@@ -123,13 +128,18 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1, initialSe
         });
 
         loadingTaskRef.current = loadingTask;
+        let timeoutId: NodeJS.Timeout | null = null;
         const loadTimeout = new Promise<never>((_, reject) => {
-          setTimeout(() => reject(new Error('Document loading timed out. Please check your connection and retry.')), 20000);
+          timeoutId = setTimeout(() => {
+            void loadingTaskRef.current?.destroy().catch(() => {});
+            reject(new Error('Document loading timed out. Please check your connection and retry.'));
+          }, 20000);
         });
         const [doc, progressData] = await Promise.all([
           Promise.race([loadingTask.promise, loadTimeout]),
           hasExplicitPage ? Promise.resolve(null) : progressPromise,
         ]);
+        if (timeoutId) clearTimeout(timeoutId);
         if (isCancelled) { await loadingTask.destroy(); return; }
 
         pdfDocRef.current = doc;
@@ -166,7 +176,11 @@ export function PdfReader({ documentId, initialTitle, initialPage = 1, initialSe
         if (!isCancelled) {
           console.error('Failed to load PDF:', err);
           let userMsg = err?.message || 'Failed to load PDF document.';
-          if (err?.name === 'UnexpectedResponseException' || (typeof err?.status === 'number' && err.status >= 500)) {
+          if (
+            err?.name === 'UnexpectedResponseException' ||
+            err?.name === 'ResponseException' ||
+            (typeof err?.status === 'number' && err.status >= 500)
+          ) {
             userMsg = 'Study material storage is currently unavailable or updating. Please try again shortly.';
           } else if (err?.status === 401 || err?.status === 403) {
             userMsg = 'You must be logged in to view this study material.';
