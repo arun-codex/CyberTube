@@ -150,6 +150,8 @@ export const UniversalCourseLearningLayout: React.FC<UniversalCourseLearningLayo
     (lessonId = activeLesson?.id) => {
       if (!lessonId) return;
       cloudCourseProgressService.toggleLessonCompletion(course.courseId, lessonId);
+      const state = cloudCourseProgressService.getProgress(course.courseId);
+      setCompletedLessonIds(state.completedLessonIds);
     },
     [course.courseId, activeLesson?.id]
   );
