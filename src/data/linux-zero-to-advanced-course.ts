@@ -4192,14 +4192,14 @@ export const LINUX_ZERO_TO_ADVANCED_COURSE: Course = {
         {
           "id": "les-linux-m12-l02",
           "slug": "m12-l2-long-command-line-course-lvm",
-          "title": "Module 12 - Lesson 2: Long command-line course: LVM",
-          "description": "Video lesson presented by MichaelsTechTutorials. Covers core concepts of Module 12: LVM, snapshots and modern Linux filesystems. Practice the commands in your Ubuntu lab environment.",
-          "youtubeVideoId": "avg65oY7sj4",
+          "title": "Module 12 - Lesson 2: Linux Logical Volume Manager (LVM) Deep Dive Tutorial",
+          "description": "Video lesson presented by Learn Linux TV. Covers core concepts of Module 12: LVM, physical volumes, volume groups, logical volumes, and snapshots. Practice the commands in your Ubuntu lab environment.",
+          "youtubeVideoId": "MeltFN-bXrQ",
           "videoAttribution": {
-            "creator": "MichaelsTechTutorials",
+            "creator": "Learn Linux TV",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 42,
           "order": 2,
           "moduleTitle": "Module 12: LVM, snapshots and modern Linux filesystems",
           "objectives": [

@@ -2,8 +2,10 @@ import { Course } from '../types/course';
 import { LINUX_ZERO_TO_ADVANCED_COURSE } from './linux-zero-to-advanced-course';
 import { NETWORK_PACKET_FORENSICS_COURSE } from './network-packet-forensics-course';
 import { STORYTELLING_MASTERCLASS_COURSE } from './storytelling-masterclass-course';
+import { WINDOWS_SECURITY_ZERO_TO_ADVANCED_COURSE } from './windows-security-course';
 
 export const COURSES: Course[] = [
+  WINDOWS_SECURITY_ZERO_TO_ADVANCED_COURSE,
   LINUX_ZERO_TO_ADVANCED_COURSE,
   STORYTELLING_MASTERCLASS_COURSE,
   NETWORK_PACKET_FORENSICS_COURSE,
