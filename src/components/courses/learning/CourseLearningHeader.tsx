@@ -16,12 +16,12 @@ export const CourseLearningHeader: React.FC<CourseLearningHeaderProps> = ({ cour
       <div>
         <Link
           href="/courses"
-          className="inline-flex items-center gap-1.5 text-xs font-mono text-[#64748B] dark:text-[#9BA8B7] hover:text-[#0F172A] dark:hover:text-[#E6EDF3] transition-colors"
+          className="inline-flex items-center gap-1.5 text-xs font-mono text-[#64748B] dark:text-[#9BA8B7] hover:text-[#0F172A] dark:hover:text-[#E6EDF3] transition-colors max-w-full"
         >
-          <ArrowLeft className="w-3.5 h-3.5" />
-          <span>Courses</span>
-          <span>/</span>
-          <span className="text-[#0F172A] dark:text-[#E6EDF3] font-medium truncate max-w-xs sm:max-w-md">
+          <ArrowLeft className="w-3.5 h-3.5 shrink-0" />
+          <span className="shrink-0">Courses</span>
+          <span className="shrink-0">/</span>
+          <span className="text-[#0F172A] dark:text-[#E6EDF3] font-medium truncate max-w-[140px] sm:max-w-xs md:max-w-md">
             {course.title}
           </span>
         </Link>
