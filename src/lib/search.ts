@@ -239,7 +239,8 @@ function buildStaticSearchIndex(): SearchResultItem[] {
       id: 'tryhackme-section:' + section.id,
       type: 'tryhackme-section',
       title: section.title,
-      description: section.rooms.length + ' rooms · ' + section.suggestedLevel + ' · TryHackMe Roadmap section',
+      description: section.rooms.filter(room => !('accessNote' in room && room.accessNote)).length +
+        ' source-listed free rooms · ' + section.suggestedLevel + ' · Practical Labs section',
       url: '/labs?section=' + section.id,
       badge: 'THM SECTION',
       category: section.suggestedLevel,
