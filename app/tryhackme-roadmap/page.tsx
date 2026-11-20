@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Suspense } from 'react';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 import { TryHackMeRoadmapExplorer } from '@/components/tryhackme/TryHackMeRoadmapExplorer';
@@ -15,7 +16,9 @@ export default function TryHackMeRoadmapPage() {
         <ArrowLeft className="w-4 h-4" />
         Back to Practice Labs
       </Link>
-      <TryHackMeRoadmapExplorer />
+      <Suspense fallback={<div className="rounded-xl border border-[var(--border)] p-8 text-sm text-[var(--text-secondary)]">Loading TryHackMe roadmap...</div>}>
+        <TryHackMeRoadmapExplorer />
+      </Suspense>
     </div>
   );
 }
