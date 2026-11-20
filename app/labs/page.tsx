@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import { Metadata } from 'next';
 import { ExternalLink, Terminal, Shield, CheckCircle2, AlertCircle } from 'lucide-react';
 import { getAllAuthoritativeResources } from '@/lib/authoritativeCatalog';
@@ -39,6 +40,20 @@ export default function LabsPage() {
           </p>
         </div>
       </div>
+
+      <section className="rounded-xl border border-[#22D3EE]/30 bg-[#22D3EE]/5 p-5 sm:p-6 flex flex-col sm:flex-row gap-4 sm:items-center sm:justify-between">
+        <div className="space-y-1">
+          <h2 className="text-lg font-bold text-[#0F172A] dark:text-[#E6EDF3]">
+            Explore the TryHackMe Room Roadmap
+          </h2>
+          <p className="text-sm text-[#475569] dark:text-[#9BA8B7]">
+            502 room entries across 28 organized sections — from beginner fundamentals to advanced CTF challenges.
+          </p>
+        </div>
+        <Link href="/tryhackme-roadmap" className="shrink-0 inline-flex items-center justify-center px-4 py-2.5 rounded-lg bg-[#0E7490] dark:bg-[#22D3EE] text-white dark:text-[#0B1018] text-xs font-semibold hover:opacity-90">
+          Browse All TryHackMe Rooms
+        </Link>
+      </section>
 
       {/* Grid of Labs */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
