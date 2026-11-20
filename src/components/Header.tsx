@@ -85,8 +85,7 @@ export function Header() {
 
   const secondaryNavLinks = [
     { label: 'Learning Paths', href: '/learning-paths', badge: 'Soon' },
-    { label: 'Practice Labs', href: '/labs', badge: 'Soon' },
-    { label: 'TryHackMe Roadmap', href: '/tryhackme-roadmap', badge: '502' },
+    { label: 'Practical Labs', href: '/labs' },
     { label: 'Domains', href: '/domains' },
     { label: 'Skills Map', href: '/skills' },
     { label: 'Certifications', href: '/certifications' },
