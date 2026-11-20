@@ -1,192 +1,235 @@
 # CyberTube 🛡️
 
-> **Discover. Learn. Practice. Secure.**  
-> An all-in-one cybersecurity learning ecosystem and resource discovery engine for students, independent researchers, and industry professionals.
+**Discover. Learn. Practice. Secure.**
 
-CyberTube combines the rapid discovery patterns of reference directory platforms with a dedicated, taxonomy-rich cybersecurity catalog and cloud-synced learning paths.
+CyberTube is a cybersecurity education platform bringing together guided courses, practical labs, a searchable study library, certifications and career resources, and a personalized cybersecurity/technology discovery feed.
 
----
+**Website:** https://cybertube-mu.vercel.app · **Repository:** https://github.com/arun-codex/CyberTube
 
-## 🚀 Key Features
+> **Release note:** The default branch contains the latest implemented features. A successful merge or build does **not** guarantee that the production deployment has caught up. Check your Vercel deployment status before treating a feature as live.
 
-### Phase 1 (Product Foundation + Resource Discovery Engine)
-1. **Curated Cybersecurity Catalog**:
-   - 22 high-impact, verified learning resources across documentation, labs, books, videos, CTFs, podcasts, and cheat sheets.
-   - Comprehensive metadata: duration, difficulty, cost (free/paid), prerequisites, skills acquired, and direct canonical outbound links.
-2. **11 Cybersecurity Domains**:
-   - Web Security, Network Security, Reverse Engineering, Binary Exploitation / Pwn, Cloud & Container Security, Digital Forensics & Incident Response (DFIR), Cryptography, Governance, Risk & Compliance (GRC), Red Teaming & Penetration Testing, Blue Teaming & SOC Operations, Threat Intelligence.
-3. **11 Resource Formats**:
-   - Video, Course, Article, Documentation, GitHub Repository, Lab, CTF, Podcast, Research Paper, Certification Resource, Exam Preparation.
-4. **Deterministic Multi-Facet Discovery**:
-   - Conjunction filtering (`AND` across facets, `OR` within facets).
-   - Instant search tokenization across titles, descriptions, skills, and tags.
-   - Live facet counts that update dynamically.
-   - URL query parameter state synchronization for sharing and bookmarks.
-5. **Private Local Bookmarking**:
-   - Zero-server, client-side bookmarks via browser `localStorage`.
-   - Reactive badge counter in navigation bar synchronized across tabs/components.
+## Explore CyberTube
 
-### Phase 2 (Backend Architecture + Supabase + Authentication + Admin CMS)
-1. **Normalized PostgreSQL Schema**:
-   - 10 tables covering `profiles`, `resources`, `domains`, `resource_domains`, `tags`, `resource_tags`, `bookmarks`, `collections`, `collection_resources`, and `resource_submissions`.
-2. **Supabase Authentication via Next.js SSR**:
-   - Cookie-based authentication using `@supabase/ssr` (replaces deprecated auth-helpers).
-   - Routes: `/login`, `/register`, `/account`.
-   - Automatic session refresh and path protection in Next.js Edge `middleware.ts`.
-3. **Strict Row Level Security (RLS)**:
-   - Separate policies for SELECT, INSERT, UPDATE, and DELETE.
-   - User isolation on bookmarks, collections, and submissions via `auth.uid() = user_id`.
-   - Draft and archived resources are hidden from public view.
-4. **Personal Library Cloud Synchronization**:
-   - Signed-in users sync bookmarks seamlessly to PostgreSQL.
-   - Idempotent migration helper (`syncLocalBookmarksToCloud()`) that uploads local bookmarks to cloud upon login without duplicate records or data loss.
-5. **Administrative CMS**:
-   - Protected `/admin` dashboard verifying server-side email allowlist (`CYBERTUBE_ADMIN_EMAILS`).
-   - Catalog management, KPI metrics, community submission queue, and domain oversight.
+| Area | What you can do | Route |
+| --- | --- | --- |
+| Home | Explore the learning platform and featured content | [Home](https://cybertube-mu.vercel.app/) |
+| Courses | Learn cybersecurity through structured, multi-module courses and videos | [Courses](https://cybertube-mu.vercel.app/courses) |
+| Practical Labs | Browse hands-on training platforms and source-listed TryHackMe free rooms | [Labs](https://cybertube-mu.vercel.app/labs) |
+| Discover | Browse video, security news, tech, interview, internship and personal-growth content | [Discover](https://cybertube-mu.vercel.app/discover) |
+| Library | Access learning resources, study material and saved items | [Library](https://cybertube-mu.vercel.app/library) |
+| Global Search | Search public pages, lessons, resources and TryHackMe rooms | [Search](https://cybertube-mu.vercel.app/search) |
+| Learning Paths | Follow structured routes through cybersecurity topics | [Learning Paths](https://cybertube-mu.vercel.app/learning-paths) |
+| Skills | Explore relevant cybersecurity skills | [Skills](https://cybertube-mu.vercel.app/skills) |
+| Certifications | Browse certification information and learning resources | [Certifications](https://cybertube-mu.vercel.app/certifications) |
+| Careers | Explore career resources and guidance | [Careers](https://cybertube-mu.vercel.app/careers) |
+| Profile | View your learning progress and watch history after signing in | [Profile](https://cybertube-mu.vercel.app/profile) |
 
----
+Other sections include [Study Materials](https://cybertube-mu.vercel.app/study-materials), [Cheat Sheets](https://cybertube-mu.vercel.app/cheat-sheets), [Glossary](https://cybertube-mu.vercel.app/glossary), and [Domains](https://cybertube-mu.vercel.app/domains).
 
-## 🛠️ Tech Stack
+## Features
 
-- **Framework**: [Next.js 14.2.15](https://nextjs.org/) (App Router, Server Actions, Middleware & Static Site Generation)
-- **Language**: TypeScript (Strict mode enabled)
-- **Database & Auth**: [Supabase](https://supabase.com/) (PostgreSQL + Supabase Auth + RLS)
-- **Integration**: `@supabase/supabase-js` + `@supabase/ssr`
-- **Styling**: Tailwind CSS
-- **Icons**: [Lucide React](https://lucide.dev/)
-- **Testing**: Node.js Test Runner + `tsx` (Unit + Route Integration tests)
-- **Linting**: ESLint (Next.js Core Web Vitals)
+### Cybersecurity courses and learning progress
 
----
+- Structured lessons, modules, learning objectives, quizzes and hands-on exercises.
+- Curricula covering **Cybersecurity: Zero to Advanced**, **SOC/SIEM**, **Incident Response**, **Linux**, **Windows Security**, and **Network Packet Forensics**, alongside additional educational tracks.
+- YouTube-supported course videos with playback/resume and progress tracking where available.
+- Signed-in learner progress synchronized through Supabase; relevant guest features may use browser-local storage.
 
-## 📁 Project Structure
+Course content is managed in \`src/data/courses.ts\`, dedicated course data modules, and Supabase course/lesson tables. Course visibility and available content depend on the published state and associated source metadata.
 
-```text
-├── app/                           # Next.js App Router
-│   ├── account/                   # User profile onboarding & learning goals
-│   ├── actions/auth.ts            # Server Actions for authentication
-│   ├── admin/                     # Protected administrative CMS dashboard
-│   ├── discover/                  # Multi-facet search and filter catalog
-│   ├── domains/                   # Cybersecurity domains taxonomy directory
-│   ├── login/                     # Sign-in portal with Suspense boundary
-│   ├── register/                  # Account registration portal
-│   ├── resources/[slug]/          # Static pre-rendered detailed resource views
-│   ├── saved/                     # Browser bookmark manager
-│   ├── globals.css                # Base styles, dark theme, and scrollbars
-│   ├── layout.tsx                 # Root layout with Header, Footer, and theme init
-│   ├── not-found.tsx              # Styled 404 page
-│   └── page.tsx                   # Homepage (Hero, Featured, Domain Grid, Quick Filters)
-├── docs/                          # Architecture, Reference, and Testing docs
-│   ├── phase-1-architecture.md
-│   ├── phase-1-final-audit.md
-│   ├── phase-2-architecture.md
-│   ├── phase-2-database-schema.md
-│   ├── phase-2-authentication.md
-│   ├── phase-2-security.md
-│   ├── phase-2-setup.md
-│   ├── phase-2-testing-report.md
-│   └── phase-2-implementation-report.md
-├── middleware.ts                  # Edge session refresh & path guard
-├── src/
-│   ├── components/                # Reusable UI & layout components
-│   │   ├── Header.tsx             # Navbar with Auth & Admin status
-│   │   ├── Footer.tsx             # Global footer
-│   │   └── ResourceCard.tsx       # Standard resource card
-│   ├── data/                      # Core verified data
-│   │   ├── metadata.ts            # Taxonomy labels, icons, and descriptions
-│   │   └── resources.ts           # 22 verified cybersecurity resources
-│   ├── lib/                       # Pure utility and business logic
-│   │   ├── catalog.ts             # Search, filter, facet count, and sort engine
-│   │   ├── cloud-saved.ts         # Supabase cloud bookmark & sync service
-│   │   ├── saved.ts               # LocalStorage bookmark management service
-│   │   ├── theme.ts               # Dark/light theme initialization
-│   │   └── supabase/              # Supabase clients (client, server, admin)
-│   └── types/
-│       ├── database.ts            # Generated Supabase PostgreSQL database types
-│       └── resource.ts            # Resource and filter domain models
-├── supabase/
-│   ├── config.toml                # Local Supabase CLI configuration
-│   ├── migrations/                # Database migration scripts
-│   │   └── 20261104000000_initial_schema.sql
-│   └── seed.sql                   # SQL seed data (11 domains & 22 resources)
-├── test/                          # Unit and integration test suites
-│   ├── catalog.test.js            # Catalog unit tests
-│   ├── phase2-auth-db.test.js     # Auth, RLS, and sync tests
-│   ├── http-check.js              # Production HTTP route validation
-│   ├── catalog-deep-audit.js      # Deep schema validator
-│   └── security-audit.js          # Automated security & link audit
-├── .env.example                   # Environment variable template
-├── package.json
-├── tailwind.config.ts
-└── tsconfig.json
-```
+### Practical Labs: TryHackMe Free Labs
 
----
+- 28 source-roadmap sections, organized section-by-section and level-by-level with searchable room links.
+- A **source-listed free** view of **499 entries / 479 unique rooms**; some rooms occur in multiple sections.
+- Suggested learning levels, room search, incomplete-only filtering, and completion checkboxes.
+- Signed-in completion saved per user to Supabase. Older browser-only checkmarks can be imported without overwriting existing cloud records.
+- The former \`/tryhackme-roadmap\` route redirects to the explorer in \`/labs\`.
 
-## 🏃 Getting Started
+**Important:** The underlying [Hunterdii TryHackMe-Roadmap](https://github.com/Hunterdii/TryHackMe-Roadmap) snapshot contains **502 entries / 482 unique rooms**. Three rooms flagged by the source as no longer free are excluded from the free-labs view. Other rooms are **not independently live-verified as free** and may change access. Completion is self-reported in CyberTube; it does **not** update completion inside TryHackMe.
 
-### Prerequisites
+See [TryHackMe integration notes](docs/tryhackme-roadmap.md).
 
-- Node.js 18.x or 20.x installed.
-- npm installed.
-- Supabase project credentials (see `.env.example`).
+### Personalized Discover feed
 
-### Installation
+The current codebase includes a redesigned \`/discover\` experience with:
 
-```bash
-git clone <repo-url>
-cd REA_Project
-npm install
-```
+- Feed sections for **For You**, **Latest**, **Videos**, **Cyber News**, **Tech & AI**, **Careers & Internships**, **Growth & Communication**, **Watch History**, and the original **Resource Directory**.
+- Allowlisted public YouTube Atom feeds, cybersecurity/technology RSS sources, GitHub Security Advisories, and a curated CyberTube course-video fallback.
+- Search, topical filters, content cards, pagination, and selected-interest preferences.
+- Personalized ranking for signed-in users based on followed interests and CyberTube viewing behavior. Guests receive a general feed.
+- An in-site viewing interface using the **official YouTube IFrame Player**, with resume, viewing progress, theater layout and playback-speed controls where supported.
+- Private, account-scoped cloud watch history, video progress bars, and a recent-history section on the profile.
 
-### Environment Setup
+**Playback and source limitations:** CyberTube does not download, rehost, or independently stream YouTube videos. Video quality, captions and other provider-specific controls depend on the **native YouTube player**; the IFrame API cannot force a chosen resolution. External feeds may be unavailable or delayed. Live source items are distinguished from evergreen course/resource content. The platform does not sync viewing activity to your YouTube account.
 
-Copy `.env.example` to `.env.local` and add your Supabase credentials:
+The predefined Discover source feeds do **not** require a YouTube Data API key. Separately, the course-playlist synchronization job **does** require one when enabled.
 
-```bash
+See [Discover architecture, privacy and verification](docs/discover-personalized-v2.md).
+
+### Global search and study library
+
+- Sitewide public-content search: pages, courses, lessons, paths, skills, glossary, certificates, resources and TryHackMe room metadata.
+- Dedicated \`/search\` results with type filters, pagination, relevance ranking and roadmap deep links.
+- Search shortcuts: \`Ctrl/Cmd + K\` or \`/\` outside input fields.
+- Study documents, reader/progress tracking, bookmarks, and saved content with signed-in account synchronization where supported.
+- Public search does not intentionally index private learner records or unpublished documents.
+
+### Accounts and security
+
+- Supabase Authentication with Next.js SSR cookie sessions.
+- Profile and account settings, bookmarks, interests, course/lab progress and private watch history.
+- Row Level Security (RLS) on user-owned records, with user identity derived from authenticated sessions rather than client-provided user IDs.
+- Server-side administrative functionality and guarded background jobs.
+
+## Technology
+
+| Layer | Technology |
+| --- | --- |
+| Application | **Next.js 15** App Router, **React 18**, **TypeScript** |
+| UI | Tailwind CSS, Lucide React, light/dark themes |
+| Database & authentication | Supabase PostgreSQL, Supabase Auth, \`@supabase/ssr\`, RLS |
+| Video playback | Official YouTube IFrame Player API |
+| External discovery | Allowlisted YouTube Atom feeds, RSS and GitHub advisory API |
+| Deployment | Vercel (Next.js app and configured cron job) |
+| Validation | ESLint, Node.js test runner, \`tsx\`, Python study-inventory tests, Playwright tooling |
+
+For precise dependency versions, consult [\`package.json\`](package.json).
+
+## Local development
+
+### Requirements
+
+- **Node.js 22** recommended (the repository currently uses Next.js 15).
+- npm.
+- A Supabase project for authentication and synchronized user data.
+- Supabase CLI / Docker if you want to run a local Supabase instance.
+
+### 1. Clone and install
+
+\`\`\`bash
+git clone https://github.com/arun-codex/CyberTube.git
+cd CyberTube
+npm ci
+\`\`\`
+
+### 2. Configure the environment
+
+\`\`\`bash
 cp .env.example .env.local
-```
+\`\`\`
 
-### Database Migration & Seed
+If you're using Windows without a Unix-compatible shell, copy \`.env.example\` to \`.env.local\` using your file manager or PowerShell:
 
-Run the SQL migration in [`supabase/migrations/20261104000000_initial_schema.sql`](supabase/migrations/20261104000000_initial_schema.sql) and seed data in [`supabase/seed.sql`](supabase/seed.sql) in your Supabase SQL Editor.
+\`\`\`powershell
+Copy-Item .env.example .env.local
+\`\`\`
 
-### Running Tests & Linting
+Fill in the values for **your own** Supabase instance; do not paste real credentials into issues, commits or screenshots.
 
-```bash
-# Run all tests (unit tests + production server HTTP checks)
-npm test
+| Variable | Purpose | Exposure |
+| --- | --- | --- |
+| \`NEXT_PUBLIC_SITE_URL\` | Site origin for links/callbacks | Public |
+| \`NEXT_PUBLIC_SUPABASE_URL\` | Supabase project URL | Public |
+| \`NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY\` | Supabase browser/API publishable key | Public |
+| \`SUPABASE_SECRET_KEY\` | Privileged server-side Supabase actions (alternative legacy name: \`SUPABASE_SERVICE_ROLE_KEY\`) | **Server only** |
+| \`CYBERTUBE_ADMIN_EMAILS\` | Comma-separated server-side admin email allowlist | **Server only** |
+| \`YOUTUBE_API_KEY\` | Optional YouTube Data API access for course playlist synchronization (not required for Discover's public feeds) | **Server only** |
+| \`CRON_SECRET\` | Authenticates protected cron jobs such as playlist sync | **Server only** |
+| \`GOOGLE_SITE_VERIFICATION\` | Optional site ownership verification | Server configuration |
 
-# Run Phase 2 specific auth & database invariants test
-npx tsx test/phase2-auth-db.test.js
+Use [\`.env.example\`](.env.example) as the starting point. Never prefix secret values with \`NEXT_PUBLIC_\`.
 
-# Run ESLint
-npm run lint
-```
+### 3. Database setup
 
-### Production Build & Local Server
+The schema is versioned under [\`supabase/migrations/\`](supabase/migrations/). In particular:
 
-```bash
-# Start local dev server
+- Course/lesson/progress and authentication-adjacent data have their own migrations.
+- TryHackMe progress reuses the RLS-protected \`user_generic_progress\` table.
+- Discover watch history uses \`20261120150000_discover_video_history.sql\` with owner-scoped RLS and the \`save_discover_video_progress\` RPC.
+
+For a linked **development** Supabase project, review pending changes and then run:
+
+\`\`\`bash
+npx supabase login
+npx supabase link --project-ref YOUR_DEV_PROJECT_REF
+npx supabase db push
+\`\`\`
+
+**Do not blindly run migrations or seeds against production.** Check the target project, applied migration history, RLS policies, and any data-migration/rollback instructions first. Initial catalog seed data is in \`supabase/seed.sql\`; it is not required for every update.
+
+### 4. Run the app
+
+\`\`\`bash
 npm run dev
+\`\`\`
 
-# Compile optimized static & server build
+Open http://localhost:3000.
+
+### 5. Build and test
+
+\`\`\`bash
 npm run build
+npm run lint
+npm run test:search
+npm run test:labs
+npm run test:study
+\`\`\`
 
-# Start production server
-npm start
-```
+\`npm test\` runs a broader suite, including an HTTP check that may require a running/configured website or test environment. See [\`package.json\`](package.json) and the [\`test/\`](test/) directory for the full commands.
+
+## Project layout
+
+\`\`\`text
+app/
+  api/                  # Public search, Discover, history, labs, study, admin and cron routes
+  courses/              # Course discovery and lessons
+  discover/             # Personalized content feed
+  labs/                 # Practical Labs and TryHackMe Free Labs
+  library/              # Learning library
+  search/               # Sitewide search
+  study-materials/      # Study documents and reader
+  profile/              # Learning and watch-history profile
+  account/              # User settings
+src/
+  components/           # Shared UI, course and discovery/player components
+  data/                 # Course definitions, learning paths and TryHackMe snapshot
+  lib/
+    discovery/          # Live feed retrieval, classification and personalization
+    progress/           # Progress helpers
+    supabase/           # Browser, SSR and privileged server clients
+    search.ts           # Public global search index
+supabase/
+  migrations/           # Versioned SQL schema, security policies and data updates
+docs/                   # Architecture, operational and integration notes
+test/                   # Unit, integration and regression tests
+vercel.json             # Hosting configuration and scheduled playlist synchronization
+\`\`\`
+
+## Deployment and operations
+
+CyberTube is configured for Vercel. Configure the same required environment variables on Vercel, deploy the intended \`main\` commit, and inspect build/runtime logs.
+
+- The playlist synchronization cron is configured in [\`vercel.json\`](vercel.json) and requires \`CRON_SECRET\`, \`YOUTUBE_API_KEY\` and the appropriate server-side Supabase credentials.
+- Automatic **Discover** source retrieval is cached server-side; the predefined feeds are fetched on request rather than requiring a per-user scheduled task.
+- Keep schema migrations and application code compatible when releasing new cloud-progress features.
+- Verify **both** the GitHub build and the **production deployment commit**. A merged PR alone does not update the live site when deployment limits or build errors block Vercel.
+
+Useful documentation: [Discover](docs/discover-personalized-v2.md) · [TryHackMe Labs](docs/tryhackme-roadmap.md) · [Migration/deployment guidance](docs/phase-3b2-migration-deployment-and-rollback.md).
+
+## Privacy and responsible use
+
+- Account-scoped viewing and learning activity is stored in Supabase with relevant RLS policies. Anonymous visitors are not given another user's watch history.
+- CyberTube viewing progress is separate from YouTube's account history and TryHackMe room completion.
+- Third-party content, feeds, course videos and linked lab platforms remain owned and governed by their respective providers.
+- Use security tools and labs **only** on systems you own or are explicitly authorized to test. CyberTube does not grant permission to assess unrelated systems.
+- Report vulnerabilities responsibly; do not include API keys, access tokens, passwords or other private data in public issues.
+
+## Attribution and licensing
+
+- The TryHackMe room roadmap incorporates a snapshot of [Hunterdii/TryHackMe-Roadmap](https://github.com/Hunterdii/TryHackMe-Roadmap), which identifies its content as **CC0-1.0**. CyberTube is not affiliated with or endorsed by TryHackMe.
+- YouTube video metadata and playback are attributed to their original creators. Embedded media remains subject to provider terms.
+- **Repository code license:** There is currently **no top-level \`LICENSE\` file** in this repository. Do not assume the project code is MIT-licensed based on an older README; contact the maintainer for reuse permissions until a license is explicitly published.
 
 ---
 
-## 🔒 Security & Privacy Notice
-
-- **Zero Secret Leakage**: The Supabase service role secret is restricted exclusively to server-side code (`src/lib/supabase/admin.ts`) and is never prefixed with `NEXT_PUBLIC_`.
-- **Public Guest Access**: Unauthenticated learners can browse and bookmark resources locally without tracking or forced sign-up.
-- **External Outbound Links**: All external learning platforms and resources open securely with `rel="noopener noreferrer" target="_blank"`.
-
----
-
-## 📄 License
-
-MIT
+**CyberTube — Discover. Learn. Practice. Secure.**
