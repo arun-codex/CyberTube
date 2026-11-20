@@ -73,7 +73,12 @@ export default function SkillsClientView({skills,resources}:Props){
     owner.current=current;
     let disposed=false;
     setProgress({});setDrafts({});setPending([]);setRoleId('all');setNotice('');
-    setLegacy(legacyIds(allowed));
+    setLegacy([
+      ...new Set([
+        ...legacyIds(allowed),
+        ...Object.entries(guestState(allowed)).filter(([,item])=>item.level===3).map(([id])=>id),
+      ]),
+    ]);
     if(!current){
       const local=guestState(allowed);
       setProgress(local);
@@ -115,6 +120,7 @@ export default function SkillsClientView({skills,resources}:Props){
     if(!account){
       const updated={...progress,[id]:next};
       setProgress(updated);setDrafts(old=>({...old,[id]:cleaned}));saveGuest(updated);
+      try{localStorage.removeItem(LEGACY);}catch{}
       return;
     }
     setNotice('');setPending(old=>[...old,id]);
