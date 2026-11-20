@@ -108,7 +108,7 @@ export function AuthExperience({
           </div>
           <div className="mx-auto mt-7 flex w-full max-w-[420px] items-center justify-center gap-1.5 text-center text-[11px] text-[var(--text-muted)]">
             <CircleHelp className="h-3.5 w-3.5 shrink-0" aria-hidden="true"/>
-            Need help? <Link href="/contact" className="font-semibold text-[var(--accent-cyan)] hover:underline">Contact CyberTube</Link>
+            Need help? <Link href="/support" className="font-semibold text-[var(--accent-cyan)] hover:underline">Contact CyberTube</Link>
           </div>
         </section>
       </div>
