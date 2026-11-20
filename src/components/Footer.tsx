@@ -64,6 +64,11 @@ export const Footer: React.FC = () => {
                 </Link>
               </li>
               <li>
+                <Link href="/tryhackme-roadmap" className="hover:text-[var(--accent-cyan)] transition-colors">
+                  TryHackMe Room Roadmap
+                </Link>
+              </li>
+              <li>
                 <Link href="/skills" className="hover:text-[var(--accent-cyan)] transition-colors">
                   Skills Map & Checklist
                 </Link>
