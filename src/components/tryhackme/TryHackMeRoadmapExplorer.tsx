@@ -37,6 +37,8 @@ export function TryHackMeRoadmapExplorer() {
   const { userId, isAuthLoading } = useAuth();
   const requestOwnerRef = useRef<string | null>(null);
   const pendingRef = useRef(0);
+  // Reject stale refresh responses that began before a completion update.
+  const mutationVersionRef = useRef(0);
   const searchParams = useSearchParams();
   const requestedQuery = searchParams.get('q') || '';
   const requestedSection = searchParams.get('section') || '';
@@ -76,6 +78,7 @@ export function TryHackMeRoadmapExplorer() {
     setPendingIds([]);
     setSyncError('');
     setSyncStatus('loading');
+    mutationVersionRef.current += 1;
 
     function getLegacyIds(): string[] {
       try {
@@ -97,6 +100,7 @@ export function TryHackMeRoadmapExplorer() {
     const ownerId = userId;
     const fetchProgress = async () => {
       if (pendingRef.current > 0) return;
+      const startMutationVersion = mutationVersionRef.current;
       try {
         const response = await fetch('/api/labs/tryhackme-progress', {
           cache: 'no-store', credentials: 'same-origin',
@@ -122,12 +126,14 @@ export function TryHackMeRoadmapExplorer() {
             // Successful cloud sync remains authoritative if storage is unavailable.
           }
         }
-        if (disposed || requestOwnerRef.current !== ownerId) return;
+        if (disposed || requestOwnerRef.current !== ownerId ||
+            mutationVersionRef.current !== startMutationVersion) return;
         setCompletedIds((data.completedIds || []).filter(id => uniqueRoomIds.has(id)));
         setSyncStatus('synced');
         setSyncError('');
       } catch (error) {
-        if (disposed || requestOwnerRef.current !== ownerId) return;
+        if (disposed || requestOwnerRef.current !== ownerId ||
+            mutationVersionRef.current !== startMutationVersion) return;
         setSyncStatus('error');
         setSyncError(error instanceof Error ? error.message : 'Unable to sync account progress');
       } finally {
@@ -175,6 +181,7 @@ export function TryHackMeRoadmapExplorer() {
     const ownerId = userId;
     setPendingIds(previous => [...previous, id]);
     pendingRef.current += 1;
+    mutationVersionRef.current += 1;
     setSyncStatus('saving');
     setSyncError('');
 
@@ -194,7 +201,8 @@ export function TryHackMeRoadmapExplorer() {
       setCompletedIds(previous => completed
         ? [...new Set([...previous, id])]
         : previous.filter(item => item !== id));
-      setSyncStatus('synced');
+      setSyncStatus(current => current === 'error' ? 'error'
+        : pendingRef.current > 1 ? 'saving' : 'synced');
     } catch (error) {
       if (requestOwnerRef.current !== ownerId) return;
       setSyncError(error instanceof Error ? error.message : 'Saving failed');
