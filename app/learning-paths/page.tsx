@@ -38,6 +38,20 @@ export default function LearningPathsIndexPage() {
         </div>
       </div>
 
+      <section className="rounded-xl border border-[#22D3EE]/30 bg-[#22D3EE]/5 p-5 sm:p-6 flex flex-col sm:flex-row gap-4 sm:items-center sm:justify-between">
+        <div className="space-y-1">
+          <h2 className="text-base font-bold text-[#0F172A] dark:text-[#E6EDF3]">
+            TryHackMe Free Labs (Free)
+          </h2>
+          <p className="text-xs sm:text-sm text-[#475569] dark:text-[#9BA8B7]">
+            Available now in Practical Labs: source-listed free TryHackMe rooms, skill levels, and signed-in server-synced completion.
+          </p>
+        </div>
+        <Link href="/labs#tryhackme" className="shrink-0 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-[#0E7490] dark:bg-[#22D3EE] text-white dark:text-[#0B1018] text-xs font-semibold hover:opacity-90">
+          Open Practical Labs <ArrowRight className="w-4 h-4" />
+        </Link>
+      </section>
+
       {/* Grid of 5 Paths */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {paths.map((path) => (

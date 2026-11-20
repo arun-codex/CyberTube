@@ -8,9 +8,11 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "tsx --test test/catalog.test.js && tsx --test test/phase17-1-sync-hardening.test.ts && tsx --test test/phase20-3-security-hardening.test.ts && tsx --test test/phase22-storytelling-quiz-security.test.ts && tsx --test test/cloud-sync-and-search.test.ts && npm run test:study && node test/http-check.js",
+    "test": "npm run test:labs && tsx --test test/global-search.test.ts && tsx --test test/catalog.test.js && tsx --test test/phase17-1-sync-hardening.test.ts && tsx --test test/phase20-3-security-hardening.test.ts && tsx --test test/phase22-storytelling-quiz-security.test.ts && tsx --test test/cloud-sync-and-search.test.ts && tsx --test test/cybersecurity-zero-to-advanced.test.ts && npm run test:study && node test/http-check.js",
     "test:study": "tsx --test test/study-library.test.ts test/study-replacement.test.ts test/study-progress.test.ts test/phase23-study-library-simplified.test.ts && python -m unittest discover -s test -p study_inventory_test.py",
-    "test:reader": "node test/reader-browser.mjs"
+    "test:reader": "node test/reader-browser.mjs",
+    "test:search": "tsx --test test/global-search.test.ts",
+    "test:labs": "tsx --test test/tryhackme-free-labs.test.ts"
   },
   "dependencies": {
     "@designcodeio/threeui": "^1.2.0",

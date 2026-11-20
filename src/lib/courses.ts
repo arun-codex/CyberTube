@@ -326,11 +326,20 @@ export async function getAllCoursesWithDb(): Promise<Course[]> {
 
     const mergedCourses: Course[] = [];
 
-    // 2. Hydrate published database courses
-    for (const slug of publishedDbSlugs) {
-      const hydrated = await getCourseBySlugWithDb(slug);
-      if (hydrated) {
-        mergedCourses.push(hydrated);
+    // 2. Hydrate published courses in small concurrent batches.
+    // Previously each course waited for its own course -> modules -> lessons ->
+    // playlist-items queries before the next course could start, leading to
+    // N * network latency on the /courses page. Keep concurrency bounded to
+    // avoid overwhelming Supabase as the catalog grows.
+    const publishedSlugs = Array.from(publishedDbSlugs);
+    const HYDRATION_BATCH_SIZE = 4;
+    for (let start = 0; start < publishedSlugs.length; start += HYDRATION_BATCH_SIZE) {
+      const batch = publishedSlugs.slice(start, start + HYDRATION_BATCH_SIZE);
+      const hydratedCourses = await Promise.all(
+        batch.map((slug) => getCourseBySlugWithDb(slug))
+      );
+      for (const hydrated of hydratedCourses) {
+        if (hydrated) mergedCourses.push(hydrated);
       }
     }
 

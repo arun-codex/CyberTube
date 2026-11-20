@@ -1,4 +1,5 @@
 import { Course } from '../types/course';
+import { CYBERSECURITY_ZERO_TO_ADVANCED_COURSE } from './cybersecurity-zero-to-advanced-course';
 import { INCIDENT_RESPONSE_ZERO_TO_ADVANCED_COURSE } from './incident-response-zero-to-advanced-course';
 import { LINUX_ZERO_TO_ADVANCED_COURSE } from './linux-zero-to-advanced-course';
 import { NETWORK_PACKET_FORENSICS_COURSE } from './network-packet-forensics-course';
@@ -9,6 +10,7 @@ import { WINDOWS_SECURITY_ZERO_TO_ADVANCED_COURSE } from './windows-security-cou
 export const COURSES: Course[] = [
   INCIDENT_RESPONSE_ZERO_TO_ADVANCED_COURSE,
   SIEM_ZERO_TO_ADVANCED_COURSE,
+  CYBERSECURITY_ZERO_TO_ADVANCED_COURSE,
   WINDOWS_SECURITY_ZERO_TO_ADVANCED_COURSE,
   LINUX_ZERO_TO_ADVANCED_COURSE,
   STORYTELLING_MASTERCLASS_COURSE,
