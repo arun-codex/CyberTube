@@ -10,6 +10,7 @@ const support = read('src/components/support/SupportCyberTubeButton.tsx');
 const footer = read('src/components/Footer.tsx');
 const home = read('app/page.tsx');
 const header = read('src/components/Header.tsx');
+const css = read('app/globals.css');
 
 test('support is placed in the Home page and normal footer document flow', () => {
   assert.match(home, /<SupportCyberTubeButton variant="secondary"/);
@@ -18,6 +19,13 @@ test('support is placed in the Home page and normal footer document flow', () =>
   assert.match(header, /Support ☕.*#support-cybertube/);
   assert.doesNotMatch(footer, /fixed bottom-|fixed right-|z-\[2147483/);
   assert.doesNotMatch(home, /chai-support.*bottom-right|ChaiSupport.*position=/);
+});
+
+test('legacy ChaiKit floating hosts are suppressed; inline hosts remain allowed', () => {
+  assert.match(css, /chai-support\\[position="bottom-right"\\]/);
+  assert.match(css, /chai-support\\[position="bottom-left"\\]/);
+  assert.match(css, /display: none !important/);
+  assert.doesNotMatch(css, /chai-support\\[position="inline"\\]\\s*\\{\\s*display:\\s*none/);
 });
 
 test('light and dark colors inherit CyberTube semantic theme tokens', () => {
