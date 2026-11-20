@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useMemo, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { BookOpen, CheckCircle2, ExternalLink, Filter, Search, ShieldCheck } from 'lucide-react';
 import roadmap from '@/data/tryhackme-roadmap.json';
 
@@ -25,12 +26,28 @@ const uniqueRoomIds = new Set(sections.flatMap((section) => section.rooms.map((r
 const allRoomCount = sections.reduce((total, section) => total + section.rooms.length, 0);
 
 export function TryHackMeRoadmapExplorer() {
+  const searchParams = useSearchParams();
+  const requestedQuery = searchParams.get('q') || '';
+  const requestedSection = searchParams.get('section') || '';
   const [level, setLevel] = useState('All levels');
   const [activeSection, setActiveSection] = useState('intro-rooms');
   const [query, setQuery] = useState('');
   const [incompleteOnly, setIncompleteOnly] = useState(false);
   const [completedIds, setCompletedIds] = useState<string[]>([]);
   const [storageReady, setStorageReady] = useState(false);
+
+  // Search result links can deep-link into a specific room or entire section.
+  useEffect(() => {
+    if (requestedQuery) {
+      setQuery(requestedQuery);
+      setActiveSection('all');
+      setLevel('All levels');
+    } else if (requestedSection && sections.some(section => section.id === requestedSection)) {
+      setQuery('');
+      setLevel('All levels');
+      setActiveSection(requestedSection);
+    }
+  }, [requestedQuery, requestedSection]);
 
   useEffect(() => {
     try {

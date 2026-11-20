@@ -34,20 +34,24 @@ export function Header() {
   useEffect(() => {
     setMobileMenuOpen(false);
     setExploreMenuOpen(false);
+    setSearchDialogOpen(false);
   }, [pathname]);
 
-  // Global '/' shortcut to open search
+  // Standard global shortcuts: "/" (outside editable fields) or Ctrl/Cmd+K.
   useEffect(() => {
-    const handleGlobalKeyDown = (e: KeyboardEvent) => {
-      if (
-        e.key === '/' &&
-        !['INPUT', 'TEXTAREA', 'SELECT'].includes((e.target as HTMLElement).tagName)
-      ) {
-        e.preventDefault();
+    const handleGlobalKeyDown = (event: KeyboardEvent) => {
+      const target = event.target as HTMLElement | null;
+      const editing = Boolean(
+        target?.isContentEditable ||
+        target?.closest('input, textarea, select, [contenteditable="true"]')
+      );
+      const shortcutK = (event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k';
+      const shortcutSlash = event.key === '/' && !editing && !event.metaKey && !event.ctrlKey && !event.altKey;
+      if (shortcutK || shortcutSlash) {
+        event.preventDefault();
         setSearchDialogOpen(true);
       }
     };
-
     window.addEventListener('keydown', handleGlobalKeyDown);
     return () => window.removeEventListener('keydown', handleGlobalKeyDown);
   }, []);
