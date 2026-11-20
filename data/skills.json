@@ -9,7 +9,10 @@
       "Can explain the difference between Layer 2 (MAC/switch) and Layer 3 (IP/router) forwarding",
       "Can trace a DNS request, TCP 3-way handshake, and TLS session setup in Wireshark"
     ],
-    "linkedResourceIds": ["net-01", "net-02"]
+    "linkedResourceIds": [
+      "net-01",
+      "net-02"
+    ]
   },
   {
     "id": "skill-found-02",
@@ -21,7 +24,10 @@
       "Correctly diagnoses permission denied errors and applies minimum required privileges (e.g. 640 vs 777)",
       "Can pipeline terminal commands to extract specific fields from multi-gigabyte log files"
     ],
-    "linkedResourceIds": ["lin-01", "lin-02"]
+    "linkedResourceIds": [
+      "lin-01",
+      "lin-02"
+    ]
   },
   {
     "id": "skill-found-03",
@@ -33,7 +39,10 @@
       "Inspects running processes, open network sockets, and handles with system diagnostic tools",
       "Understands the difference between virtual machines (hypervisors) and containerized processes (Docker)"
     ],
-    "linkedResourceIds": ["lin-01", "lab-01"]
+    "linkedResourceIds": [
+      "lin-01",
+      "lab-01"
+    ]
   },
   {
     "id": "skill-sec-01",
@@ -45,7 +54,10 @@
       "Can break down a web application into data flows, trust boundaries, and threat categories using STRIDE",
       "Understands why security is a risk-reduction process rather than a binary state of absolute protection"
     ],
-    "linkedResourceIds": ["sec-01", "sec-02"]
+    "linkedResourceIds": [
+      "sec-01",
+      "sec-02"
+    ]
   },
   {
     "id": "skill-sec-02",
@@ -57,7 +69,11 @@
       "Designs role-based access control (RBAC) schemas adhering strictly to the Principle of Least Privilege",
       "Understands Broken Object Level Authorization (BOLA) and how missing server-side checks cause data leaks"
     ],
-    "linkedResourceIds": ["sec-01", "sec-03", "off-03"]
+    "linkedResourceIds": [
+      "sec-01",
+      "sec-03",
+      "off-03"
+    ]
   },
   {
     "id": "skill-sec-03",
@@ -69,7 +85,10 @@
       "Understands TLS handshakes, certificate authorities (CAs), root stores, and certificate expiration",
       "Recognizes legacy deprecated algorithms (MD5, SHA-1, DES, ECB mode) and replaces them with secure standards"
     ],
-    "linkedResourceIds": ["sec-01", "sec-02"]
+    "linkedResourceIds": [
+      "sec-01",
+      "sec-02"
+    ]
   },
   {
     "id": "skill-script-01",
@@ -81,7 +100,10 @@
       "Automates log rotation, backup archiving, and automated user auditing tasks",
       "Can parse system state and output formatted JSON or CSV reports for reporting"
     ],
-    "linkedResourceIds": ["lin-01", "lin-02"]
+    "linkedResourceIds": [
+      "lin-01",
+      "lin-02"
+    ]
   },
   {
     "id": "skill-script-02",
@@ -93,7 +115,9 @@
       "Parses multi-megabyte JSON and CSV security telemetry with pandas or python stdlib",
       "Automates port scanning or HTTP header security auditing using clean modular code"
     ],
-    "linkedResourceIds": ["prog-01"]
+    "linkedResourceIds": [
+      "prog-01"
+    ]
   },
   {
     "id": "skill-def-01",
@@ -105,7 +129,11 @@
       "Constructs targeted search queries to track lateral movement across multiple host machines",
       "Distinguishes legitimate administrative tool execution (PsExec, PowerShell) from suspicious adversary activity"
     ],
-    "linkedResourceIds": ["sec-01", "lab-04", "lab-05"]
+    "linkedResourceIds": [
+      "sec-01",
+      "lab-04",
+      "lab-05"
+    ]
   },
   {
     "id": "skill-def-02",
@@ -117,7 +145,11 @@
       "Identifies DNS tunneling, unusual TTL values, and beaconing intervals in captured PCAPs",
       "Follows TCP and TLS streams to reconstruct application transactions and identify anomalies"
     ],
-    "linkedResourceIds": ["net-01", "sec-01", "lab-04"]
+    "linkedResourceIds": [
+      "net-01",
+      "sec-01",
+      "lab-04"
+    ]
   },
   {
     "id": "skill-def-03",
@@ -129,7 +161,11 @@
       "Documents chronological timelines with verified timestamps and preserved cryptographic hashes",
       "Contributes meaningful root-cause analysis and preventive action items in post-incident reviews"
     ],
-    "linkedResourceIds": ["sec-01", "sec-03", "lab-04"]
+    "linkedResourceIds": [
+      "sec-01",
+      "sec-03",
+      "lab-04"
+    ]
   },
   {
     "id": "skill-off-01",
@@ -141,7 +177,11 @@
       "Utilizes NSE (Nmap Scripting Engine) safely with focused script categories (default, banner, safe)",
       "Documents network topology findings systematically and avoids scanning unauthorized ranges"
     ],
-    "linkedResourceIds": ["off-01", "off-02", "lab-02"]
+    "linkedResourceIds": [
+      "off-01",
+      "off-02",
+      "lab-02"
+    ]
   },
   {
     "id": "skill-off-02",
@@ -153,7 +193,11 @@
       "Demonstrates impact with harmless proof-of-concepts rather than destructive payloads",
       "Provides developers with concrete, language-specific code remediation recommendations"
     ],
-    "linkedResourceIds": ["off-03", "lab-03", "lab-06"]
+    "linkedResourceIds": [
+      "off-03",
+      "lab-03",
+      "lab-06"
+    ]
   },
   {
     "id": "skill-cloud-01",
@@ -165,7 +209,10 @@
       "Enforces temporary credential issuance via STS/OIDC over long-lived static API access keys",
       "Detects and audits public object storage buckets (S3/GCS) and unencrypted storage volumes"
     ],
-    "linkedResourceIds": ["sec-01", "adv-01"]
+    "linkedResourceIds": [
+      "sec-01",
+      "adv-01"
+    ]
   },
   {
     "id": "skill-cloud-02",
@@ -177,7 +224,10 @@
       "Implements strict tool-calling permission limits preventing autonomous file system or API tampering",
       "Evaluates AI prompts for direct and indirect prompt injection vulnerabilities"
     ],
-    "linkedResourceIds": ["sec-01", "adv-01"]
+    "linkedResourceIds": [
+      "sec-01",
+      "adv-01"
+    ]
   },
   {
     "id": "skill-soft-01",
@@ -189,7 +239,10 @@
       "Explains complex technical risk clearly to non-technical C-suite stakeholders without hyperbole",
       "Delivers constructive, respectful feedback that empowers engineering teams rather than blaming them"
     ],
-    "linkedResourceIds": ["off-01", "sec-01"]
+    "linkedResourceIds": [
+      "off-01",
+      "sec-01"
+    ]
   },
   {
     "id": "skill-soft-02",
@@ -201,7 +254,188 @@
       "Immediately pauses testing and reports out-of-scope discoveries or critical PII exposure to leadership",
       "Follows coordinated vulnerability disclosure timelines (90 days) giving vendors time to remediate"
     ],
-    "linkedResourceIds": ["sec-01", "off-01"]
+    "linkedResourceIds": [
+      "sec-01",
+      "off-01"
+    ]
+  },
+  {
+    "id": "skill-found-04",
+    "category": "Foundations",
+    "title": "Windows Administration & Event Logging",
+    "beginnerExplanation": "Understand Windows services, processes, PowerShell, Event Viewer and basic Active Directory administration.",
+    "whatGoodLooksLike": [
+      "Collect and filter Windows Security and Sysmon events in an authorized VM",
+      "Explain local vs domain accounts and the role of Group Policy",
+      "Troubleshoot service, process and permissions changes without damaging evidence"
+    ],
+    "linkedResourceIds": [
+      "sec-01",
+      "lab-04"
+    ]
+  },
+  {
+    "id": "skill-found-05",
+    "category": "Foundations",
+    "title": "DNS, HTTP, TLS & Web Protocols",
+    "beginnerExplanation": "Follow a browser request from name resolution through encrypted transport and application response.",
+    "whatGoodLooksLike": [
+      "Explain DNS records, HTTPS certificates and secure cookies",
+      "Interpret HTTP request/response headers and status codes",
+      "Trace connection setup in Wireshark and identify unexpected destinations"
+    ],
+    "linkedResourceIds": [
+      "net-01",
+      "sec-03"
+    ]
+  },
+  {
+    "id": "skill-sec-04",
+    "category": "Security basics",
+    "title": "Vulnerability Management & Prioritization",
+    "beginnerExplanation": "Discover, validate, prioritize and track security weaknesses based on risk and business impact.",
+    "whatGoodLooksLike": [
+      "Explain CVSS versus contextual asset risk and exploitation evidence",
+      "Maintain a remediation tracker with owner, due date and verification steps",
+      "Document how a patch or compensating control reduces exposure"
+    ],
+    "linkedResourceIds": [
+      "sec-02",
+      "lab-01"
+    ]
+  },
+  {
+    "id": "skill-sec-05",
+    "category": "Security basics",
+    "title": "Identity Security & Phishing Defense",
+    "beginnerExplanation": "Defend accounts and users through least privilege, MFA, phishing detection and recovery procedures.",
+    "whatGoodLooksLike": [
+      "Inspect suspicious email headers and links safely",
+      "Explain MFA fatigue, phishing-resistant authentication and conditional access",
+      "Write a safe account-compromise containment checklist"
+    ],
+    "linkedResourceIds": [
+      "sec-01",
+      "sec-02"
+    ]
+  },
+  {
+    "id": "skill-script-03",
+    "category": "Scripting",
+    "title": "Git, APIs & Detection Automation",
+    "beginnerExplanation": "Version control scripts and automate repeatable collection, parsing and reporting tasks without leaking credentials.",
+    "whatGoodLooksLike": [
+      "Use Git branches and meaningful commit messages for scripts",
+      "Read an API with proper authentication and rate limiting",
+      "Store secrets safely and add meaningful errors/tests to an automation script"
+    ],
+    "linkedResourceIds": [
+      "prog-01"
+    ]
+  },
+  {
+    "id": "skill-def-04",
+    "category": "Defensive",
+    "title": "MITRE ATT&CK & Threat Intelligence",
+    "beginnerExplanation": "Connect observed behavior and threat intelligence to TTPs, indicators, detection hypotheses and response.",
+    "whatGoodLooksLike": [
+      "Differentiate indicators from behaviors and ATT&CK techniques",
+      "Build an analyst timeline linking evidence to plausible technique IDs",
+      "Explain threat-intelligence confidence and false-positive handling"
+    ],
+    "linkedResourceIds": [
+      "sec-01",
+      "lab-04"
+    ]
+  },
+  {
+    "id": "skill-def-05",
+    "category": "Defensive",
+    "title": "Endpoint Telemetry, EDR & Detection Rules",
+    "beginnerExplanation": "Interpret process trees, endpoint events and detection logic to identify suspicious activity.",
+    "whatGoodLooksLike": [
+      "Trace parent-child process execution using Windows/Sysmon logs",
+      "Write and test one basic detection rule on an authorized sample dataset",
+      "Document exclusions, false positives and response thresholds"
+    ],
+    "linkedResourceIds": [
+      "sec-01",
+      "lab-04"
+    ]
+  },
+  {
+    "id": "skill-def-06",
+    "category": "Defensive",
+    "title": "Digital Forensics & Evidence Handling",
+    "beginnerExplanation": "Acquire, hash, preserve and analyze digital artifacts while documenting chain of custody.",
+    "whatGoodLooksLike": [
+      "Record timestamps and cryptographic hashes for a sample evidence file",
+      "Explain volatile vs nonvolatile artifacts and safe collection order",
+      "Produce a short incident timeline with cited artifacts"
+    ],
+    "linkedResourceIds": [
+      "lab-04",
+      "sec-01"
+    ]
+  },
+  {
+    "id": "skill-off-03",
+    "category": "Offensive",
+    "title": "Burp Suite, APIs & Broken Access Control",
+    "beginnerExplanation": "Safely test authentication, authorization and input validation in deliberately vulnerable applications.",
+    "whatGoodLooksLike": [
+      "Replay authorized API requests and document expected vs actual results",
+      "Detect an IDOR/BOLA issue without accessing unrelated user data",
+      "Recommend server-side fixes and least-privilege tests"
+    ],
+    "linkedResourceIds": [
+      "lab-01",
+      "off-03"
+    ]
+  },
+  {
+    "id": "skill-off-04",
+    "category": "Offensive",
+    "title": "CTF Methodology & Remediation Reporting",
+    "beginnerExplanation": "Solve scoped practice challenges systematically and translate findings into defensible remediation guidance.",
+    "whatGoodLooksLike": [
+      "Maintain an evidence-based notebook during a legal CTF",
+      "Explain root cause without sharing destructive production payloads",
+      "Write reproduction steps and an actionable mitigation for the issue"
+    ],
+    "linkedResourceIds": [
+      "off-02",
+      "lab-02"
+    ]
+  },
+  {
+    "id": "skill-cloud-03",
+    "category": "Cloud & AI security",
+    "title": "Cloud Logs & Container Security",
+    "beginnerExplanation": "Review cloud audit trails, object storage access and container isolation and configuration.",
+    "whatGoodLooksLike": [
+      "Find a suspicious API action in sample cloud audit logs",
+      "Spot publicly exposed storage and overly broad access policies",
+      "Identify unsafe container image or Kubernetes configuration"
+    ],
+    "linkedResourceIds": [
+      "sec-01",
+      "adv-01"
+    ]
+  },
+  {
+    "id": "skill-soft-03",
+    "category": "Soft skills",
+    "title": "SOC Interview, Teamwork & Career Portfolio",
+    "beginnerExplanation": "Communicate incident findings, collaborate on tickets and demonstrate evidence of practical learning.",
+    "whatGoodLooksLike": [
+      "Explain one lab investigation to a nontechnical interviewer in two minutes",
+      "Build a concise project write-up with context, work, evidence and outcome",
+      "Use a respectful handoff note with priority, scope and next actions"
+    ],
+    "linkedResourceIds": [
+      "sec-01",
+      "off-02"
+    ]
   }
 ]
-
