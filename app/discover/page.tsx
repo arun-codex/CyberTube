@@ -152,6 +152,7 @@ function DiscoverContent() {
   const [mobileFilters,setMobileFilters]=useState(false);
   const [catalogFilters,setCatalogFilters]=useState<ResourceFilterOptions>(emptyFilters);
   const playRef=useRef<HTMLDivElement|null>(null);
+  const onInterestsChange=useCallback(()=>setPreferencesVersion(version=>version+1),[]);
   const catalog=useMemo(()=>getAllResources(),[]);
   const catalogMatches=useMemo(()=>filterResources(catalog,catalogFilters),[catalog,catalogFilters]);
   const facets=useMemo(()=>getFacetCounts(catalog),[catalog]);
@@ -312,7 +313,7 @@ function DiscoverContent() {
           {tabs.map(tab=>{
             const Icon=tab.icon;
             return <button key={tab.id} type="button" aria-pressed={activeTab===tab.id}
-              onClick={()=>navigate(tab.id)}
+              onClick={()=>navigate(tab.id,'')}
               className={'inline-flex items-center gap-2 px-3.5 py-2.5 shrink-0 whitespace-nowrap text-xs font-semibold rounded-lg border transition-colors '+
                 (activeTab===tab.id
                   ?'bg-[var(--accent-cyan)] text-[#090D14] border-[var(--accent-cyan)]'
@@ -341,7 +342,7 @@ function DiscoverContent() {
               <span className="inline-flex gap-2 items-center"><Filter className="w-4 h-4"/> Customize interests for better recommendations <ChevronDown className="w-4 h-4"/></span>
             </summary>
             <div className="px-4 pb-4">
-              <InterestSelector onInterestsChange={()=>setPreferencesVersion(v=>v+1)}/>
+              <InterestSelector onInterestsChange={onInterestsChange}/>
             </div>
           </details>
         </div>
