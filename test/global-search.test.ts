@@ -2,10 +2,10 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { searchCatalogPage, searchGlobalCatalog } from '../src/lib/search';
 
-test('global search finds TryHackMe roadmap instead of no matches', () => {
+test('global search finds TryHackMe free labs in Practical Labs', () => {
   const response = searchCatalogPage('tryhackme', { pageSize: 20 });
   assert.ok(response.total > 0);
-  assert.equal(response.results[0]?.url, '/tryhackme-roadmap');
+  assert.equal(response.results[0]?.url, '/labs#tryhackme');
   assert.ok(response.results.some(result => result.type === 'page' && result.title.includes('TryHackMe')));
 });
 
@@ -31,14 +31,14 @@ test('search covers all core public website destinations', () => {
 test('TryHackMe room search uses internal deep link and unique IDs', () => {
   const hits = searchCatalogPage('overpass', { type: 'tryhackme-room', pageSize: 50 });
   assert.ok(hits.total >= 1);
-  assert.ok(hits.results.every(result => result.url.startsWith('/tryhackme-roadmap?q=')));
+  assert.ok(hits.results.every(result => result.url.startsWith('/labs?q=')));
   const ids = hits.results.map(result => result.id);
   assert.equal(ids.length, new Set(ids).size);
 });
 
 test('TryHackMe section search links to the correct source section', () => {
   const hits = searchCatalogPage('linux fundamentals', { type: 'tryhackme-section', pageSize: 25 });
-  assert.ok(hits.results.some(result => result.url === '/tryhackme-roadmap?section=linux-fundamentals'));
+  assert.ok(hits.results.some(result => result.url === '/labs?section=linux-fundamentals'));
 });
 
 test('specific cybersecurity terms find lessons, skills, and reference information', () => {
