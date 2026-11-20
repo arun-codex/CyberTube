@@ -22,10 +22,10 @@ test('support is placed in the Home page and normal footer document flow', () =>
 });
 
 test('legacy ChaiKit floating hosts are suppressed; inline hosts remain allowed', () => {
-  assert.match(css, /chai-support\\[position="bottom-right"\\]/);
-  assert.match(css, /chai-support\\[position="bottom-left"\\]/);
-  assert.match(css, /display: none !important/);
-  assert.doesNotMatch(css, /chai-support\\[position="inline"\\]\\s*\\{\\s*display:\\s*none/);
+  assert.ok(css.includes('chai-support[position="bottom-right"]'));
+  assert.ok(css.includes('chai-support[position="bottom-left"]'));
+  assert.ok(css.includes('display: none !important;'));
+  assert.ok(!css.includes('chai-support[position="inline"] { display: none'));
 });
 
 test('light and dark colors inherit CyberTube semantic theme tokens', () => {
