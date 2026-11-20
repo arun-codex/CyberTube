@@ -2,7 +2,7 @@
 
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
-import { CheckCircle2, Cloud, Download, ExternalLink, Target, BookOpen, RotateCcw, Sparkles, ChevronDown } from 'lucide-react';
+import { CheckCircle2, Cloud, Download, ExternalLink, Target, BookOpen, RotateCcw, Sparkles, ChevronDown, ShieldCheck } from 'lucide-react';
 import { useAuth } from '@/lib/auth';
 import type { Resource, SkillItem } from '@/types/catalog';
 import {
