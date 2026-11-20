@@ -5,6 +5,7 @@ import { Mail, Settings, Shield, BookOpen, Layers, Award, Terminal, ArrowRight, 
 import { createClient } from '@/lib/supabase/server';
 import { CYBERSECURITY_DOMAINS } from '@/data/metadata';
 import { EnrolledCoursesList } from './EnrolledCoursesList';
+import { ProfileWatchHistory } from './ProfileWatchHistory';
 import { UserAvatar } from '@/components/ui/UserAvatar';
 import { resolveProfileAvatarUrl } from '@/lib/avatar';
 
@@ -172,6 +173,9 @@ export default async function ProfilePage() {
 
         <EnrolledCoursesList userId={user.id} />
       </div>
+
+      {/* All watch history is account-scoped and comes from the private API. */}
+      <ProfileWatchHistory />
     </div>
   );
 }

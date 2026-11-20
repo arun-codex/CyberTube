@@ -1,150 +1,70 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient, getAuthenticatedUser } from '@/lib/supabase/server';
-import { FeedItem, FeedResponse, ContentType } from '@/lib/discovery/discovery-types';
-import { DISCOVERY_CONFIG } from '@/lib/discovery/config';
+import { loadDiscoverSources, personalizeFeed, type FeedPreferences, type WatchSignal } from '@/lib/discovery/live-feed';
 
 export const dynamic = 'force-dynamic';
+const tabs = new Set([
+  'for-you','latest','videos','news','tech-updates','career','growth',
+  'research','security-alerts','open-source','popular',
+]);
+const categories = new Set(['','all','cybersecurity','technology','career','growth','networking','cloud','research']);
 
-export async function GET(request: NextRequest) {
-  try {
-    const { searchParams } = new URL(request.url);
-    const category = searchParams.get('category');
-    const topic = searchParams.get('topic');
-    const type = searchParams.get('type') as ContentType | null;
-    const tab = searchParams.get('tab') || 'latest';
-
-    const page = Math.max(1, parseInt(searchParams.get('page') || '1', 10));
-    const rawPageSize = parseInt(searchParams.get('pageSize') || String(DISCOVERY_CONFIG.defaultPageSize), 10);
-    const pageSize = Math.min(Math.max(1, rawPageSize), DISCOVERY_CONFIG.maxPageSize);
-
-    const supabase = await createClient();
-
-    if (!supabase) {
-      return NextResponse.json<FeedResponse>({
-        items: [],
-        total: 0,
-        page,
-        pageSize,
-        hasMore: false,
-      });
-    }
-
-    // For You tab: Filter by authenticated user's followed topics
-    let userFollowedTopicIds: string[] = [];
-    if (tab === 'for-you') {
-      const user = await getAuthenticatedUser();
-      if (!user) {
-        // Guest user viewing For You tab: return empty set prompting authentication/topic following
-        return NextResponse.json<FeedResponse>({
-          items: [],
-          total: 0,
-          page,
-          pageSize,
-          hasMore: false,
-        });
-      }
-
-      const { data: interestRows } = await supabase
-        .from('user_interests')
-        .select('topic_id')
-        .eq('user_id', user.id);
-
-      if (interestRows && interestRows.length > 0) {
-        userFollowedTopicIds = interestRows.map((r: any) => r.topic_id);
-      } else {
-        // User has not followed any topics yet
-        return NextResponse.json<FeedResponse>({
-          items: [],
-          total: 0,
-          page,
-          pageSize,
-          hasMore: false,
-        });
-      }
-    }
-
-    let query = supabase
-      .from('discovery_items')
-      .select(`
-        id,
-        title,
-        description,
-        url,
-        thumbnail_url,
-        published_at,
-        author,
-        content_type,
-        discovery_categories ( slug, name ),
-        discovery_topics ( slug, name ),
-        discovery_sources ( name )
-      `, { count: 'exact' })
-      .eq('published', true);
-
-    if (category) {
-      // Allow filtering by category slug or UUID
-      query = query.or(`category_id.eq.${category},discovery_categories.slug.eq.${category}`);
-    }
-
-    if (topic) {
-      query = query.or(`topic_id.eq.${topic},discovery_topics.slug.eq.${topic}`);
-    }
-
-    if (type) {
-      query = query.eq('content_type', type);
-    }
-
-    if (tab === 'for-you' && userFollowedTopicIds.length > 0) {
-      query = query.in('topic_id', userFollowedTopicIds);
-    }
-
-    // Sorting
-    query = query.order('published_at', { ascending: false });
-
-    // Pagination
-    const from = (page - 1) * pageSize;
-    const to = from + pageSize - 1;
-    query = query.range(from, to);
-
-    const { data, count, error } = await query;
-
-    if (error) {
-      return NextResponse.json<FeedResponse>({
-        items: [],
-        total: 0,
-        page,
-        pageSize,
-        hasMore: false,
-      });
-    }
-
-    const items: FeedItem[] = (data || []).map((row: any) => ({
-      id: row.id,
-      title: row.title,
-      description: row.description,
-      url: row.url,
-      thumbnail_url: row.thumbnail_url,
-      published_at: row.published_at,
-      category_slug: row.discovery_categories?.slug || null,
-      category_name: row.discovery_categories?.name || null,
-      topic_slug: row.discovery_topics?.slug || null,
-      topic_name: row.discovery_topics?.name || null,
-      author: row.author,
-      content_type: row.content_type,
-      source_name: row.discovery_sources?.name || null,
-    }));
-
-    const total = count || 0;
-    const hasMore = from + items.length < total;
-
-    return NextResponse.json<FeedResponse>({
-      items,
-      total,
-      page,
-      pageSize,
-      hasMore,
-    });
-  } catch (error: any) {
-    return NextResponse.json({ error: 'Failed to retrieve feed' }, { status: 500 });
-  }
+function safeNumber(value: string | null, fallback: number, maximum: number): number {
+  const number=Number(value);
+  return Number.isFinite(number)&&number>0?Math.min(maximum,Math.floor(number)):fallback;
 }
 
+export async function GET(request: NextRequest) {
+  const params=request.nextUrl.searchParams;
+  const tab=params.get('tab')||'for-you';
+  const category=params.get('category')||'';
+  const query=(params.get('q')||'').trim().slice(0,100);
+  const page=safeNumber(params.get('page'),1,100);
+  const pageSize=safeNumber(params.get('pageSize'),24,36);
+  if(!tabs.has(tab)||!categories.has(category)){
+    return NextResponse.json({error:'Invalid discovery filter'}, {status:400});
+  }
+
+  const prefs:FeedPreferences={interests:[],watchHistory:[]};
+  const user=await getAuthenticatedUser();
+  if(user){
+    const db=await createClient();
+    if(db){
+      const [interests,history]=await Promise.all([
+        (db.from('user_interests') as any).select('topic_id,discovery_topics(name,slug,keywords)').eq('user_id',user.id).limit(80),
+        (db.from('user_discover_video_progress') as any)
+          .select('video_id,category,progress_percent,last_watched_at')
+          .eq('user_id',user.id).order('last_watched_at',{ascending:false}).limit(250),
+      ]);
+      if(!interests.error){
+        prefs.interests=(interests.data||[]).flatMap((row:any)=>{
+          const t=row.discovery_topics;
+          return t?[t.slug,...(t.keywords||[])]:[];
+        });
+      }
+      if(!history.error){
+        prefs.watchHistory=(history.data||[]) as WatchSignal[];
+      }
+    }
+  }
+  try {
+    const source=await loadDiscoverSources();
+    const ranked=personalizeFeed(source.items,{
+      tab:tab==='popular'?'for-you':tab,category,query,page,pageSize,
+    },prefs);
+    return NextResponse.json({
+      ...ranked,
+      tab,
+      personalized:Boolean(user)&&tab==='for-you',
+      liveSources:source.sourceCount,
+      liveItemCount:source.liveCount,
+      progress:Object.fromEntries(prefs.watchHistory.map(entry=>[entry.video_id,{
+        percent:entry.progress_percent,updatedAt:entry.last_watched_at,
+      }])),
+    },{
+      headers:{'Cache-Control':'private, no-store','Vary':'Cookie'},
+    });
+  }catch{
+    return NextResponse.json({error:'Discover feed temporarily unavailable',items:[]},{status:503});
+  }
+}
