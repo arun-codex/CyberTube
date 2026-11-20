@@ -71,6 +71,8 @@ export function TryHackMeRoadmapExplorer() {
     if (isAuthLoading) return;
     const owner = userId || 'guest';
     requestOwnerRef.current = owner;
+    // In-flight requests from another account must never block the next user's load.
+    pendingRef.current = 0;
     let disposed = false;
 
     setStorageReady(false);
