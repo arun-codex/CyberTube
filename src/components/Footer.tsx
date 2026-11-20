@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { CyberTubeLogo } from './ui/CyberTubeLogo';
+import { SupportCyberTubeButton } from './support/SupportCyberTubeButton';
 
 export const Footer: React.FC = () => {
   return (
@@ -97,7 +98,7 @@ export const Footer: React.FC = () => {
               Governance & Integrity
             </h2>
             <p className="text-xs text-[var(--text-secondary)] leading-relaxed mb-3">
-              Strictly non-commercial education. All offensive skills must be tested strictly within authorized lab environments.
+              Free-first education. Support is optional and never required for learning. Only practise security skills in authorized lab environments.
             </p>
             <ul className="space-y-1.5 text-xs mb-3">
               <li>
@@ -134,6 +135,32 @@ export const Footer: React.FC = () => {
             </div>
           </div>
         </div>
+
+        {/* In normal document flow on every page, never fixed or floating. */}
+        <section
+          id="support-cybertube"
+          aria-labelledby="support-cybertube-title"
+          className="scroll-mt-24 mt-10 rounded-2xl border border-[var(--border)] bg-[var(--card-bg)] px-5 py-6 sm:px-7 sm:py-7"
+        >
+          <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+            <div className="max-w-xl space-y-2">
+              <p className="text-[11px] font-mono font-semibold uppercase tracking-wider text-[var(--accent-cyan)]">
+                Support free education
+              </p>
+              <h2 id="support-cybertube-title" className="text-xl font-bold text-[var(--text-primary)]">
+                Help CyberTube keep learning free ☕
+              </h2>
+              <p className="text-sm leading-relaxed text-[var(--text-secondary)]">
+                Support free cybersecurity education. Buy us a chai!
+                Every contribution is optional, and courses and labs remain free.
+              </p>
+              <p className="text-xs text-[var(--text-muted)]">
+                Support is in preview mode — real UPI payments are not enabled.
+              </p>
+            </div>
+            <SupportCyberTubeButton className="w-full sm:w-auto sm:shrink-0" />
+          </div>
+        </section>
 
         <div className="border-t border-[var(--border)] mt-10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] font-mono text-[var(--text-muted)]">
           <div>
