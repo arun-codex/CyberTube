@@ -203,7 +203,7 @@ function buildStaticSearchIndex(): SearchResultItem[] {
       url: '/glossary',
       badge: 'GLOSSARY',
       category: term.category,
-      tags: [term.plainEnglishExplanation, ...(term.relatedTerms || [])],
+      tags: [term.plainEnglishExplanation, term.exampleOrAnalogy],
     });
   }
 
