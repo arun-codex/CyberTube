@@ -12,7 +12,8 @@
     "test:study": "tsx --test test/study-library.test.ts test/study-replacement.test.ts test/study-progress.test.ts test/phase23-study-library-simplified.test.ts && python -m unittest discover -s test -p study_inventory_test.py",
     "test:reader": "node test/reader-browser.mjs",
     "test:search": "tsx --test test/global-search.test.ts",
-    "test:labs": "tsx --test test/tryhackme-free-labs.test.ts"
+    "test:labs": "tsx --test test/tryhackme-free-labs.test.ts",
+    "test:support": "tsx --test test/support-layout.test.ts"
   },
   "dependencies": {
     "@designcodeio/threeui": "^1.2.0",

@@ -278,3 +278,15 @@
   outline: 2px solid #ea580c;
   border-radius: 2px;
 }
+
+/*
+ * Legacy localhost ChaiKit compatibility:
+ * Never show an old bottom-corner floating launcher in CyberTube.
+ * A future approved ChaiKit payment integration must use the in-flow
+ * position="inline" or headless trigger instead.
+ * This rule hides only the old floating host element, not an inline widget.
+ */
+chai-support[position="bottom-right"],
+chai-support[position="bottom-left"] {
+  display: none !important;
+}

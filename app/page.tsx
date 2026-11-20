@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import { getAllAuthoritativeResources, getAllAuthoritativePaths } from '@/lib/authoritativeCatalog';
 import { BugBountyLogo } from '@/components/ui/BugBountyLogo';
+import { SupportCyberTubeButton } from '@/components/support/SupportCyberTubeButton';
 
 export default function HomePage() {
   const resources = getAllAuthoritativeResources();
@@ -80,6 +81,9 @@ export default function HomePage() {
                   <Compass className="w-4 h-4 text-[var(--accent-cyan)]" />
                   <span>Learning Paths A–E</span>
                 </Link>
+
+                {/* Optional support entry in the Home tab; never a floating launcher. */}
+                <SupportCyberTubeButton variant="secondary" className="text-xs" />
               </div>
             </div>
 
