@@ -33,7 +33,39 @@ const newsSources: Array<{ name: string; url: string; category: Category }> = [
   { name: 'GitHub Blog', url: 'https://github.blog/feed/', category: 'technology' },
   { name: 'freeCodeCamp News', url: 'https://www.freecodecamp.org/news/rss/', category: 'technology' },
 ];
+const featuredVideos: DiscoverItem[] = [
+  {id:'youtube:8UEAjsHh92E',video_id:'8UEAjsHh92E',title:'Could You Pass This SOC Analyst Interview? Junior vs Senior',
+   description:'See how candidates at different levels respond to a real SOC incident scenario and communicate decisions to a hiring manager.',
+   url:'https://www.youtube.com/watch?v=8UEAjsHh92E',thumbnail_url:'https://i.ytimg.com/vi/8UEAjsHh92E/hqdefault.jpg',
+   published_at:'2026-06-08T00:00:00.000Z',content_type:'video',category_slug:'career',category_name:'Careers & Internships',
+   source_name:'Simply Cyber',source_mode:'resource',tags:['career','soc analyst','interview','incident response']},
+  {id:'youtube:AAksD0ebyHU',video_id:'AAksD0ebyHU',title:'How to Get Cybersecurity Internships in 2026',
+   description:'Practical guidance for students and beginners: applications, career portfolios, networking and interviews.',
+   url:'https://www.youtube.com/watch?v=AAksD0ebyHU',thumbnail_url:'https://i.ytimg.com/vi/AAksD0ebyHU/hqdefault.jpg',
+   published_at:'2026-01-29T00:00:00.000Z',content_type:'video',category_slug:'career',category_name:'Careers & Internships',
+   source_name:'Meera Tamboli',source_mode:'resource',tags:['internship','jobs','entry level','resume']},
+  {id:'youtube:HlY0Awdpf9U',video_id:'HlY0Awdpf9U',title:'The Only Video You Need to Fix Your Communication Skills',
+   description:'A practical collection of communication, speaking, interviews, confidence and presentation lessons.',
+   url:'https://www.youtube.com/watch?v=HlY0Awdpf9U',thumbnail_url:'https://i.ytimg.com/vi/HlY0Awdpf9U/hqdefault.jpg',
+   published_at:'2026-02-06T00:00:00.000Z',content_type:'video',category_slug:'growth',category_name:'Growth & Communication',
+   source_name:'Vinh Giang',source_mode:'resource',tags:['communication','public speaking','confidence','interviews']},
+  {id:'youtube:nxgF9NfYjRc',video_id:'nxgF9NfYjRc',title:'How to Speak More Clearly at Work (Even if You Are Introverted)',
+   description:'Four actionable strategies for clarity, stronger presentation delivery, and professional confidence.',
+   url:'https://www.youtube.com/watch?v=nxgF9NfYjRc',thumbnail_url:'https://i.ytimg.com/vi/nxgF9NfYjRc/hqdefault.jpg',
+   published_at:'2026-06-30T00:00:00.000Z',content_type:'video',category_slug:'growth',category_name:'Growth & Communication',
+   source_name:'Jessica Chen',source_mode:'resource',tags:['communication','presentation','confidence','career growth']},
+];
 const careerResources: DiscoverItem[] = [
+  { id:'resource:cisa-news', title:'Current CISA Cybersecurity Advisories',
+    description:'Open the official advisories directory for current alerts and vulnerability guidance.',
+    url:'https://www.cisa.gov/news-events/cybersecurity-advisories',published_at:'',
+    content_type:'article',category_slug:'cybersecurity',category_name:'Cybersecurity',
+    source_name:'CISA',source_mode:'resource',tags:['security alerts','vulnerabilities','news']},
+  { id:'resource:ghsa', title:'GitHub Advisory Database',
+    description:'Security advisories and affected packages, updated by their maintainers.',
+    url:'https://github.com/advisories',published_at:'',
+    content_type:'article',category_slug:'cybersecurity',category_name:'Cybersecurity',
+    source_name:'GitHub Security',source_mode:'resource',tags:['security news','open source','vulnerabilities']},
   { id:'resource:nice', title:'NICE Cybersecurity Workforce Framework',description:'Explore security job roles, knowledge, skills and career pathways from NIST.',url:'https://www.nist.gov/itl/applied-cybersecurity/nice/nice-framework-resource-center',published_at:'',content_type:'article',category_slug:'career',category_name:'Careers & Internships',source_name:'NIST NICE',source_mode:'resource',tags:['career','interview','cybersecurity','soc analyst'] },
   { id:'resource:cyberseek', title:'CyberSeek Cybersecurity Career Pathway',description:'Explore cybersecurity roles and pathways to support your job search.',url:'https://www.cyberseek.org/pathway.html',published_at:'',content_type:'article',category_slug:'career',category_name:'Careers & Internships',source_name:'CyberSeek',source_mode:'resource',tags:['career','jobs','internship','entry level'] },
   { id:'resource:internships', title:'Find current internship opportunities',description:'Browse internship postings on an external jobs portal. Check each employer, location and eligibility.',url:'https://internshala.com/internships/',published_at:'',content_type:'article',category_slug:'career',category_name:'Careers & Internships',source_name:'Internshala',source_mode:'resource',tags:['internship','jobs','interview','students'] },
@@ -122,6 +154,26 @@ async function rssArticles(source: typeof newsSources[number]): Promise<Discover
     }catch{return [];}
   });
 }
+async function githubAdvisories():Promise<DiscoverItem[]> {
+  const response=await fetch('https://api.github.com/advisories?per_page=20',{
+    headers:{Accept:'application/vnd.github+json','User-Agent':'CyberTube-Discover'},
+    next:{revalidate:1200},signal:AbortSignal.timeout(4500),
+  });
+  if(!response.ok)throw Error('GitHub advisories '+response.status);
+  const rows:unknown=await response.json();
+  if(!Array.isArray(rows))return [];
+  return rows.flatMap((a:any)=>{
+    if(typeof a.html_url!=='string'||!/^https:\/\/github\.com\/advisories\/GHSA-/.test(a.html_url))return [];
+    return [{
+      id:'article:'+a.html_url,title:String(a.summary||a.ghsa_id).slice(0,240),
+      description:String(a.description||'Published software security advisory').slice(0,320),
+      url:a.html_url,published_at:published(a.published_at||a.updated_at||''),
+      content_type:'article' as const,category_slug:'cybersecurity' as const,
+      category_name:'Cybersecurity',source_name:'GitHub Security Advisories',
+      source_mode:'live' as const,tags:['vulnerability','security advisory',String(a.ghsa_id||'')],
+    }];
+  });
+}
 function curriculumVideos(): DiscoverItem[] {
   const seen=new Set<string>();
   const entries:DiscoverItem[]=[];
@@ -157,6 +209,7 @@ export async function loadDiscoverSources():Promise<{items:DiscoverItem[];liveCo
   const results=await Promise.allSettled([
     ...channels.map(youtubeChannel),
     ...newsSources.map(rssArticles),
+    githubAdvisories(),
   ]);
   const live:DiscoverItem[]=[];
   let sourceCount=0;
@@ -167,7 +220,7 @@ export async function loadDiscoverSources():Promise<{items:DiscoverItem[];liveCo
     }
   }
   const keyed=new Map<string,DiscoverItem>();
-  for(const item of [...live,...library,...careerResources]){
+  for(const item of [...live,...featuredVideos,...library,...careerResources]){
     if(!keyed.has(item.id))keyed.set(item.id,item);
   }
   return {items:[...keyed.values()],liveCount:live.length,sourceCount};
