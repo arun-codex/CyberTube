@@ -91,19 +91,11 @@ export function TryHackMeRoadmapExplorer() {
   return (
     <div className="space-y-7">
       <div className="rounded-2xl border border-[var(--border)] bg-[var(--card-bg)] p-5 sm:p-7 space-y-5">
-        <div className="flex flex-wrap gap-3 items-center justify-between">
+        <div className="flex flex-wrap gap-3 items-center">
           <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-[var(--accent-cyan)]">
             <ShieldCheck className="w-4 h-4" />
             Independent TryHackMe room roadmap
           </div>
-          <a
-            href={roadmap.source.repository}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-xs text-[var(--accent-cyan)] hover:underline inline-flex items-center gap-1"
-          >
-            Original roadmap by Hunterdii <ExternalLink className="w-3 h-3" />
-          </a>
         </div>
         <div>
           <h1 className="text-3xl sm:text-4xl font-bold font-space-grotesk text-[var(--text-primary)]">
