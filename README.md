@@ -35,7 +35,7 @@ Other sections include [Study Materials](https://cybertube-mu.vercel.app/study-m
 - YouTube-supported course videos with playback/resume and progress tracking where available.
 - Signed-in learner progress synchronized through Supabase; relevant guest features may use browser-local storage.
 
-Course content is managed in \`src/data/courses.ts\`, dedicated course data modules, and Supabase course/lesson tables. Course visibility and available content depend on the published state and associated source metadata.
+Course content is managed in `src/data/courses.ts`, dedicated course data modules, and Supabase course/lesson tables. Course visibility and available content depend on the published state and associated source metadata.
 
 ### Practical Labs: TryHackMe Free Labs
 
@@ -43,7 +43,7 @@ Course content is managed in \`src/data/courses.ts\`, dedicated course data modu
 - A **source-listed free** view of **499 entries / 479 unique rooms**; some rooms occur in multiple sections.
 - Suggested learning levels, room search, incomplete-only filtering, and completion checkboxes.
 - Signed-in completion saved per user to Supabase. Older browser-only checkmarks can be imported without overwriting existing cloud records.
-- The former \`/tryhackme-roadmap\` route redirects to the explorer in \`/labs\`.
+- The former `/tryhackme-roadmap` route redirects to the explorer in `/labs`.
 
 **Important:** The underlying [Hunterdii TryHackMe-Roadmap](https://github.com/Hunterdii/TryHackMe-Roadmap) snapshot contains **502 entries / 482 unique rooms**. Three rooms flagged by the source as no longer free are excluded from the free-labs view. Other rooms are **not independently live-verified as free** and may change access. Completion is self-reported in CyberTube; it does **not** update completion inside TryHackMe.
 
@@ -51,7 +51,7 @@ See [TryHackMe integration notes](docs/tryhackme-roadmap.md).
 
 ### Personalized Discover feed
 
-The current codebase includes a redesigned \`/discover\` experience with:
+The current codebase includes a redesigned `/discover` experience with:
 
 - Feed sections for **For You**, **Latest**, **Videos**, **Cyber News**, **Tech & AI**, **Careers & Internships**, **Growth & Communication**, **Watch History**, and the original **Resource Directory**.
 - Allowlisted public YouTube Atom feeds, cybersecurity/technology RSS sources, GitHub Security Advisories, and a curated CyberTube course-video fallback.
@@ -69,8 +69,8 @@ See [Discover architecture, privacy and verification](docs/discover-personalized
 ### Global search and study library
 
 - Sitewide public-content search: pages, courses, lessons, paths, skills, glossary, certificates, resources and TryHackMe room metadata.
-- Dedicated \`/search\` results with type filters, pagination, relevance ranking and roadmap deep links.
-- Search shortcuts: \`Ctrl/Cmd + K\` or \`/\` outside input fields.
+- Dedicated `/search` results with type filters, pagination, relevance ranking and roadmap deep links.
+- Search shortcuts: `Ctrl/Cmd + K` or `/` outside input fields.
 - Study documents, reader/progress tracking, bookmarks, and saved content with signed-in account synchronization where supported.
 - Public search does not intentionally index private learner records or unpublished documents.
 
@@ -87,13 +87,13 @@ See [Discover architecture, privacy and verification](docs/discover-personalized
 | --- | --- |
 | Application | **Next.js 15** App Router, **React 18**, **TypeScript** |
 | UI | Tailwind CSS, Lucide React, light/dark themes |
-| Database & authentication | Supabase PostgreSQL, Supabase Auth, \`@supabase/ssr\`, RLS |
+| Database & authentication | Supabase PostgreSQL, Supabase Auth, `@supabase/ssr`, RLS |
 | Video playback | Official YouTube IFrame Player API |
 | External discovery | Allowlisted YouTube Atom feeds, RSS and GitHub advisory API |
 | Deployment | Vercel (Next.js app and configured cron job) |
-| Validation | ESLint, Node.js test runner, \`tsx\`, Python study-inventory tests, Playwright tooling |
+| Validation | ESLint, Node.js test runner, `tsx`, Python study-inventory tests, Playwright tooling |
 
-For precise dependency versions, consult [\`package.json\`](package.json).
+For precise dependency versions, consult [`package.json`](package.json).
 
 ## Local development
 
@@ -106,80 +106,80 @@ For precise dependency versions, consult [\`package.json\`](package.json).
 
 ### 1. Clone and install
 
-\`\`\`bash
+```bash
 git clone https://github.com/arun-codex/CyberTube.git
 cd CyberTube
 npm ci
-\`\`\`
+```
 
 ### 2. Configure the environment
 
-\`\`\`bash
+```bash
 cp .env.example .env.local
-\`\`\`
+```
 
-If you're using Windows without a Unix-compatible shell, copy \`.env.example\` to \`.env.local\` using your file manager or PowerShell:
+If you're using Windows without a Unix-compatible shell, copy `.env.example` to `.env.local` using your file manager or PowerShell:
 
-\`\`\`powershell
+```powershell
 Copy-Item .env.example .env.local
-\`\`\`
+```
 
 Fill in the values for **your own** Supabase instance; do not paste real credentials into issues, commits or screenshots.
 
 | Variable | Purpose | Exposure |
 | --- | --- | --- |
-| \`NEXT_PUBLIC_SITE_URL\` | Site origin for links/callbacks | Public |
-| \`NEXT_PUBLIC_SUPABASE_URL\` | Supabase project URL | Public |
-| \`NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY\` | Supabase browser/API publishable key | Public |
-| \`SUPABASE_SECRET_KEY\` | Privileged server-side Supabase actions (alternative legacy name: \`SUPABASE_SERVICE_ROLE_KEY\`) | **Server only** |
-| \`CYBERTUBE_ADMIN_EMAILS\` | Comma-separated server-side admin email allowlist | **Server only** |
-| \`YOUTUBE_API_KEY\` | Optional YouTube Data API access for course playlist synchronization (not required for Discover's public feeds) | **Server only** |
-| \`CRON_SECRET\` | Authenticates protected cron jobs such as playlist sync | **Server only** |
-| \`GOOGLE_SITE_VERIFICATION\` | Optional site ownership verification | Server configuration |
+| `NEXT_PUBLIC_SITE_URL` | Site origin for links/callbacks | Public |
+| `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL | Public |
+| `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Supabase browser/API publishable key | Public |
+| `SUPABASE_SECRET_KEY` | Privileged server-side Supabase actions (alternative legacy name: `SUPABASE_SERVICE_ROLE_KEY`) | **Server only** |
+| `CYBERTUBE_ADMIN_EMAILS` | Comma-separated server-side admin email allowlist | **Server only** |
+| `YOUTUBE_API_KEY` | Optional YouTube Data API access for course playlist synchronization (not required for Discover's public feeds) | **Server only** |
+| `CRON_SECRET` | Authenticates protected cron jobs such as playlist sync | **Server only** |
+| `GOOGLE_SITE_VERIFICATION` | Optional site ownership verification | Server configuration |
 
-Use [\`.env.example\`](.env.example) as the starting point. Never prefix secret values with \`NEXT_PUBLIC_\`.
+Use [`.env.example`](.env.example) as the starting point. Never prefix secret values with `NEXT_PUBLIC_`.
 
 ### 3. Database setup
 
-The schema is versioned under [\`supabase/migrations/\`](supabase/migrations/). In particular:
+The schema is versioned under [`supabase/migrations/`](supabase/migrations/). In particular:
 
 - Course/lesson/progress and authentication-adjacent data have their own migrations.
-- TryHackMe progress reuses the RLS-protected \`user_generic_progress\` table.
-- Discover watch history uses \`20261120150000_discover_video_history.sql\` with owner-scoped RLS and the \`save_discover_video_progress\` RPC.
+- TryHackMe progress reuses the RLS-protected `user_generic_progress` table.
+- Discover watch history uses `20261120150000_discover_video_history.sql` with owner-scoped RLS and the `save_discover_video_progress` RPC.
 
 For a linked **development** Supabase project, review pending changes and then run:
 
-\`\`\`bash
+```bash
 npx supabase login
 npx supabase link --project-ref YOUR_DEV_PROJECT_REF
 npx supabase db push
-\`\`\`
+```
 
-**Do not blindly run migrations or seeds against production.** Check the target project, applied migration history, RLS policies, and any data-migration/rollback instructions first. Initial catalog seed data is in \`supabase/seed.sql\`; it is not required for every update.
+**Do not blindly run migrations or seeds against production.** Check the target project, applied migration history, RLS policies, and any data-migration/rollback instructions first. Initial catalog seed data is in `supabase/seed.sql`; it is not required for every update.
 
 ### 4. Run the app
 
-\`\`\`bash
+```bash
 npm run dev
-\`\`\`
+```
 
 Open http://localhost:3000.
 
 ### 5. Build and test
 
-\`\`\`bash
+```bash
 npm run build
 npm run lint
 npm run test:search
 npm run test:labs
 npm run test:study
-\`\`\`
+```
 
-\`npm test\` runs a broader suite, including an HTTP check that may require a running/configured website or test environment. See [\`package.json\`](package.json) and the [\`test/\`](test/) directory for the full commands.
+`npm test` runs a broader suite, including an HTTP check that may require a running/configured website or test environment. See [`package.json`](package.json) and the [`test/`](test/) directory for the full commands.
 
 ## Project layout
 
-\`\`\`text
+```text
 app/
   api/                  # Public search, Discover, history, labs, study, admin and cron routes
   courses/              # Course discovery and lessons
@@ -203,13 +203,13 @@ supabase/
 docs/                   # Architecture, operational and integration notes
 test/                   # Unit, integration and regression tests
 vercel.json             # Hosting configuration and scheduled playlist synchronization
-\`\`\`
+```
 
 ## Deployment and operations
 
-CyberTube is configured for Vercel. Configure the same required environment variables on Vercel, deploy the intended \`main\` commit, and inspect build/runtime logs.
+CyberTube is configured for Vercel. Configure the same required environment variables on Vercel, deploy the intended `main` commit, and inspect build/runtime logs.
 
-- The playlist synchronization cron is configured in [\`vercel.json\`](vercel.json) and requires \`CRON_SECRET\`, \`YOUTUBE_API_KEY\` and the appropriate server-side Supabase credentials.
+- The playlist synchronization cron is configured in [`vercel.json`](vercel.json) and requires `CRON_SECRET`, `YOUTUBE_API_KEY` and the appropriate server-side Supabase credentials.
 - Automatic **Discover** source retrieval is cached server-side; the predefined feeds are fetched on request rather than requiring a per-user scheduled task.
 - Keep schema migrations and application code compatible when releasing new cloud-progress features.
 - Verify **both** the GitHub build and the **production deployment commit**. A merged PR alone does not update the live site when deployment limits or build errors block Vercel.
@@ -228,7 +228,7 @@ Useful documentation: [Discover](docs/discover-personalized-v2.md) · [TryHackMe
 
 - The TryHackMe room roadmap incorporates a snapshot of [Hunterdii/TryHackMe-Roadmap](https://github.com/Hunterdii/TryHackMe-Roadmap), which identifies its content as **CC0-1.0**. CyberTube is not affiliated with or endorsed by TryHackMe.
 - YouTube video metadata and playback are attributed to their original creators. Embedded media remains subject to provider terms.
-- **Repository code license:** There is currently **no top-level \`LICENSE\` file** in this repository. Do not assume the project code is MIT-licensed based on an older README; contact the maintainer for reuse permissions until a license is explicitly published.
+- **Repository code license:** There is currently **no top-level `LICENSE` file** in this repository. Do not assume the project code is MIT-licensed based on an older README; contact the maintainer for reuse permissions until a license is explicitly published.
 
 ---
 
