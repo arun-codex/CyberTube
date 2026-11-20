@@ -47,9 +47,10 @@ export function SocialAuthButtons({
       }
 
       // If data.url is returned, navigate to the provider authentication endpoint
-      if (data?.url) {
-        window.location.href = data.url;
+      if (!data?.url) {
+        throw new Error('The sign-in provider did not return an authorization URL. Please retry.');
       }
+      window.location.assign(data.url);
     } catch (err: any) {
       console.error(`OAuth login error (${provider}):`, err);
       const friendlyMessage =
@@ -64,19 +65,19 @@ export function SocialAuthButtons({
   const isInteracting = disabled || loadingProvider !== null;
 
   return (
-    <div className="space-y-2.5 w-full">
+    <div className="w-full space-y-2.5">
       {/* Google Button */}
       <button
         type="button"
         onClick={() => handleOAuthSignIn('google')}
         disabled={isInteracting}
         aria-label="Continue with Google"
-        className="w-full flex items-center justify-center gap-3 px-4 py-2.5 rounded-[4px] border border-[#e4e4ed] bg-white hover:bg-[#f4f4f9] text-[#303055] text-xs font-medium transition-colors disabled:opacity-50 min-h-[44px] shadow-sm hover:border-[#d2d2dc] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#303055]"
+        className="group flex min-h-[46px] w-full items-center justify-center gap-3 rounded-xl border border-[var(--border-strong)] bg-[var(--card-bg)] px-4 py-3 text-sm font-semibold text-[var(--text-primary)] shadow-sm outline-none transition-[transform,border-color,background-color,box-shadow] duration-200 hover:-translate-y-0.5 hover:border-[var(--accent-cyan)] hover:bg-[var(--surface-subtle)] hover:shadow-md focus-visible:ring-2 focus-visible:ring-[var(--accent-cyan)] active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0"
       >
         {loadingProvider === 'google' ? (
-          <div className="w-4 h-4 border-2 border-[#303055] border-t-transparent rounded-full animate-spin" />
+          <div className="h-4 w-4 animate-spin motion-reduce:animate-none rounded-full border-2 border-[var(--accent-cyan)] border-t-transparent" />
         ) : (
-          <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24">
+          <svg className="h-4 w-4 shrink-0" viewBox="0 0 24 24">
             <path
               fill="#4285F4"
               d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
@@ -104,12 +105,12 @@ export function SocialAuthButtons({
         onClick={() => handleOAuthSignIn('github')}
         disabled={isInteracting}
         aria-label="Continue with GitHub"
-        className="w-full flex items-center justify-center gap-3 px-4 py-2.5 rounded-[4px] border border-[#e4e4ed] bg-white hover:bg-[#f4f4f9] text-[#303055] text-xs font-medium transition-colors disabled:opacity-50 min-h-[44px] shadow-sm hover:border-[#d2d2dc] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#303055]"
+        className="group flex min-h-[46px] w-full items-center justify-center gap-3 rounded-xl border border-[var(--border-strong)] bg-[var(--card-bg)] px-4 py-3 text-sm font-semibold text-[var(--text-primary)] shadow-sm outline-none transition-[transform,border-color,background-color,box-shadow] duration-200 hover:-translate-y-0.5 hover:border-[var(--accent-cyan)] hover:bg-[var(--surface-subtle)] hover:shadow-md focus-visible:ring-2 focus-visible:ring-[var(--accent-cyan)] active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0"
       >
         {loadingProvider === 'github' ? (
           <div className="w-4 h-4 border-2 border-[#303055] border-t-transparent rounded-full animate-spin" />
         ) : (
-          <svg className="w-4 h-4 shrink-0 fill-[#24292F]" viewBox="0 0 24 24">
+          <svg className="h-4 w-4 shrink-0 fill-current text-[var(--text-primary)]" viewBox="0 0 24 24">
             <path
               fillRule="evenodd"
               clipRule="evenodd"

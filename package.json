@@ -8,14 +8,15 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "npm run test:skills && npm run test:chaikit && npm run test:support && npm run test:labs && tsx --test test/global-search.test.ts && tsx --test test/catalog.test.js && tsx --test test/phase17-1-sync-hardening.test.ts && tsx --test test/phase20-3-security-hardening.test.ts && tsx --test test/phase22-storytelling-quiz-security.test.ts && tsx --test test/cloud-sync-and-search.test.ts && tsx --test test/cybersecurity-zero-to-advanced.test.ts && npm run test:study && node test/http-check.js",
+    "test": "npm run test:auth-ui && npm run test:skills && npm run test:chaikit && npm run test:support && npm run test:labs && tsx --test test/global-search.test.ts && tsx --test test/catalog.test.js && tsx --test test/phase17-1-sync-hardening.test.ts && tsx --test test/phase20-3-security-hardening.test.ts && tsx --test test/phase22-storytelling-quiz-security.test.ts && tsx --test test/cloud-sync-and-search.test.ts && tsx --test test/cybersecurity-zero-to-advanced.test.ts && npm run test:study && node test/http-check.js",
     "test:study": "tsx --test test/study-library.test.ts test/study-replacement.test.ts test/study-progress.test.ts test/phase23-study-library-simplified.test.ts && python -m unittest discover -s test -p study_inventory_test.py",
     "test:reader": "node test/reader-browser.mjs",
     "test:search": "tsx --test test/global-search.test.ts",
     "test:labs": "tsx --test test/tryhackme-free-labs.test.ts",
     "test:support": "tsx --test test/support-layout.test.ts",
     "test:chaikit": "tsx --test test/chaikit-integration.test.ts",
-    "test:skills": "tsx --test test/skills-map-v2.test.ts"
+    "test:skills": "tsx --test test/skills-map-v2.test.ts",
+    "test:auth-ui": "tsx --test test/auth-experience-v2.test.ts"
   },
   "dependencies": {
     "@designcodeio/threeui": "^1.2.0",

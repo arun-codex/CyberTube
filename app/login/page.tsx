@@ -1,187 +1,117 @@
 'use client';
 
-import React, { useState, Suspense } from 'react';
+import React, { Suspense, useState } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Shield, Lock, Mail, AlertCircle } from 'lucide-react';
+import { AlertCircle, ArrowRight, LoaderCircle, LockKeyhole } from 'lucide-react';
 import { useAuth } from '@/lib/auth';
+import { getSafeRedirectPath } from '@/lib/canonicalUrl';
 import { SocialAuthButtons } from '@/components/auth/SocialAuthButtons';
+import {
+  AuthDivider, AuthExperience, AuthHeading, AuthLegal, AuthPasswordField,
+  AuthTextField, authSubmitClass,
+} from '@/components/auth/AuthExperience';
 
 function LoginForm() {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const { signInWithPassword, isSigningIn } = useAuth();
-  const rawRedirect = searchParams.get('redirect') || searchParams.get('next') || '/';
-  // Safely ensure redirect does not lead to external domain
-  const redirectPath = rawRedirect.startsWith('/') && !rawRedirect.startsWith('//')
-    ? rawRedirect
-    : '/';
-  const reason = searchParams.get('reason');
-  const urlError = searchParams.get('error');
+  const router=useRouter();
+  const searchParams=useSearchParams();
+  const {signInWithPassword,isSigningIn}=useAuth();
+  const redirectPath=getSafeRedirectPath(searchParams.get('redirect')||searchParams.get('next'),'/');
+  const reason=searchParams.get('reason');
+  const urlError=searchParams.get('error');
 
-  const initialError = reason === 'identity_link_conflict'
-    ? 'GitHub authorization completed, but Supabase could not safely match the returned verified email addresses to one CyberTube account. Your existing account and learning data have not been changed.'
-    : reason === 'auth_required'
-      ? 'Authentication is required to view this area.'
-      : urlError;
+  const initialError=reason==='identity_link_conflict'
+    ?'GitHub authorization completed, but your verified email addresses could not be safely matched to one CyberTube account. Your existing account and learning data have not been changed.'
+    :reason==='auth_required'
+      ?'Sign in to continue to this page.'
+      :urlError;
 
-  const [error, setError] = useState<string | null>(initialError);
-  const [loading, setLoading] = useState(false);
+  const [error,setError]=useState<string|null>(initialError);
+  const [loading,setLoading]=useState(false);
+  const [email,setEmail]=useState('');
+  const [password,setPassword]=useState('');
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
+  async function handleSubmit(event:React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if(loading||isSigningIn)return;
     setError(null);
-    setLoading(true);
 
-    const form = e.currentTarget;
-    const emailInput = form.elements.namedItem('email') as HTMLInputElement | null;
-    const passwordInput = form.elements.namedItem('password') as HTMLInputElement | null;
-
-    const email = emailInput?.value?.trim() || '';
-    const password = passwordInput?.value || '';
-
-    if (!email || !password) {
+    if(!email.trim()||!password){
       setError('Please enter both email and password.');
-      setLoading(false);
       return;
     }
-
-    try {
-      const res = await signInWithPassword(email, password);
-      if (!res.success) {
-        setError(res.error || 'Failed to sign in. Please verify your credentials.');
+    setLoading(true);
+    try{
+      const result=await signInWithPassword(email.trim(),password);
+      if(!result.success){
+        setError(result.error||'Sign in failed. Please check your credentials.');
         setLoading(false);
         return;
       }
-
-      // Client navigation without reload:
-      // AuthProvider already emitted SIGNED_IN, Header updated, ProgressProvider hydrating.
+      // The AuthProvider updates account state. Keep the existing safe redirect.
       router.replace(redirectPath);
       router.refresh();
-    } catch (err: any) {
-      setError(err?.message || 'Failed to sign in. Please try again.');
+    }catch(err:unknown){
+      setError(err instanceof Error?err.message:'Unable to sign in. Please try again.');
       setLoading(false);
     }
   }
 
+  const busy=loading||isSigningIn;
   return (
-    <div className="max-w-md w-full mx-auto space-y-6 bg-white border border-[#e4e4ed] rounded-[8px] p-6 sm:p-8">
-      <div className="text-center space-y-2">
-        <div className="inline-flex items-center justify-center w-10 h-10 rounded-[4px] bg-[#303055] text-white mx-auto">
-          <Shield className="w-5 h-5 fill-white stroke-none" />
-        </div>
-        <h1 className="text-xl font-semibold text-[#303055]">Sign in to CyberTube</h1>
-        <p className="text-xs text-[#6b6b7b]">
-          Access persistent course progress and synchronized bookmarks.
+    <AuthExperience mode="login">
+      <AuthHeading mode="login"/>
+      {error&&<div role="alert" aria-live="assertive"
+        className="mb-5 flex items-start gap-2.5 rounded-xl border border-rose-500/30 bg-rose-500/[0.07] p-3.5 text-xs leading-5 text-rose-700 dark:text-rose-300">
+        <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true"/>
+        <span>{error}</span>
+      </div>}
+      {reason==='identity_link_conflict'&&<div className="mb-5 rounded-xl border border-[var(--border)] bg-[var(--surface-subtle)] p-3.5 text-xs leading-5 text-[var(--text-secondary)]">
+        Sign in with your existing Google or email account first. Then visit Account Settings and connect GitHub under your sign-in accounts. If manual linking is disabled in Supabase, the project owner must enable it. Do not create a duplicate account.
+      </div>}
+
+      <div className="space-y-5">
+        <SocialAuthButtons redirectPath={redirectPath} onError={msg=>setError(msg||null)} disabled={busy}/>
+        <AuthDivider mode="login"/>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <AuthTextField id="login-email" name="email" label="Email address"
+            type="email" placeholder="you@example.com" autoComplete="email"
+            maxLength={254} value={email} onChange={event=>setEmail(event.target.value)} disabled={busy}/>
+          <div className="space-y-2">
+            <AuthPasswordField id="login-password" name="password" label="Password"
+              autoComplete="current-password" value={password}
+              onChange={event=>setPassword(event.target.value)} disabled={busy}/>
+            <div className="flex justify-end">
+              <Link href="/forgot-password"
+                className="rounded-sm text-xs font-semibold text-[var(--accent-cyan)] outline-none hover:underline focus-visible:ring-2 focus-visible:ring-[var(--accent-cyan)]">
+                Forgot password?
+              </Link>
+            </div>
+          </div>
+          <button type="submit" disabled={busy} aria-busy={busy} className={authSubmitClass}>
+            {busy?<>
+              <LoaderCircle className="h-4 w-4 animate-spin motion-reduce:animate-none" aria-hidden="true"/>
+              Signing you in…
+            </>:<>
+              Sign in <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 motion-reduce:transform-none" aria-hidden="true"/>
+            </>}
+          </button>
+        </form>
+        <AuthLegal/>
+        <p className="border-t border-[var(--border)] pt-5 text-center text-sm text-[var(--text-secondary)]">
+          New to CyberTube?{' '}
+          <Link href={'/register?redirect='+encodeURIComponent(redirectPath)}
+            className="font-bold text-[var(--accent-cyan)] outline-none hover:underline focus-visible:ring-2 focus-visible:ring-[var(--accent-cyan)]">
+            Create an account
+          </Link>
         </p>
       </div>
-
-      {error && (
-        <div className="p-3 rounded-[4px] bg-[#fbeaea] border border-[#e8b5b5] text-[#984e4d] text-xs flex items-start gap-2 font-mono">
-          <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
-          <span>{error}</span>
-        </div>
-      )}
-      {reason === 'identity_link_conflict' && (
-        <p className="rounded-[4px] border border-[#d7d7e4] bg-[#f4f4f9] p-3 text-xs leading-5 text-[#403f53]">
-          First sign in with your working Google or email account. Then open Account Settings → Connected sign-in accounts and connect the intended GitHub account. If Supabase reports that manual linking is disabled, the project owner must enable “Allow manual linking” under Supabase Authentication settings. Do not create a second CyberTube account.
-        </p>
-      )}
-
-      {/* Social OAuth Buttons */}
-      <SocialAuthButtons
-        redirectPath={redirectPath}
-        onError={(msg: string) => setError(msg || null)}
-        disabled={loading}
-      />
-
-      <div className="relative flex py-1 items-center">
-        <div className="flex-grow border-t border-[#e4e4ed]"></div>
-        <span className="flex-shrink mx-3 text-[11px] font-mono text-[#6b6b7b] uppercase">
-          or continue with email
-        </span>
-        <div className="flex-grow border-t border-[#e4e4ed]"></div>
-      </div>
-
-      <form className="space-y-4" onSubmit={handleSubmit}>
-        <div className="space-y-1.5">
-          <label className="block text-xs font-mono uppercase tracking-wider text-[#6b6b7b]">
-            Email Address
-          </label>
-          <div className="relative">
-            <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#6b6b7b]" />
-            <input
-              name="email"
-              type="email"
-              required
-              placeholder="analyst@cybertube.local"
-              className="w-full bg-[#f4f4f9] border border-[#e4e4ed] rounded-[4px] pl-9 pr-3 py-2 text-xs font-mono text-[#303055] placeholder-[#6b6b7b] focus:outline-none focus:border-[#303055] min-h-[38px]"
-            />
-          </div>
-        </div>
-
-        <div className="space-y-1.5">
-          <label className="block text-xs font-mono uppercase tracking-wider text-[#6b6b7b]">
-            Password
-          </label>
-          <div className="relative">
-            <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#6b6b7b]" />
-            <input
-              name="password"
-              type="password"
-              required
-              placeholder="••••••••••••"
-              className="w-full bg-[#f4f4f9] border border-[#e4e4ed] rounded-[4px] pl-9 pr-3 py-2 text-xs font-mono text-[#303055] placeholder-[#6b6b7b] focus:outline-none focus:border-[#303055] min-h-[38px]"
-            />
-          </div>
-          <div className="flex justify-end">
-            <Link
-              href="/forgot-password"
-              className="text-[11px] font-medium text-[#303055] hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-[#303055] rounded-sm"
-            >
-              Forgot password?
-            </Link>
-          </div>
-        </div>
-
-        <button
-          type="submit"
-          disabled={loading || isSigningIn}
-          className="w-full py-2.5 px-4 rounded-[4px] bg-[#303055] hover:bg-[#252542] text-white text-xs font-medium transition-colors disabled:opacity-50 min-h-[44px]"
-        >
-          {loading || isSigningIn ? 'Authenticating...' : 'Sign In'}
-        </button>
-      </form>
-
-      <p className="text-[11px] text-center text-[#6b6b7b] leading-relaxed">
-        By continuing, you agree to our{' '}
-        <Link href="/terms" className="text-[#303055] underline hover:opacity-80 font-medium">
-          Terms of Service
-        </Link>{' '}
-        and{' '}
-        <Link href="/privacy" className="text-[#303055] underline hover:opacity-80 font-medium">
-          Privacy Policy
-        </Link>
-        .
-      </p>
-
-      <div className="pt-3 border-t border-[#e4e4ed] text-center text-xs text-[#6b6b7b]">
-        Don&apos;t have an account?{' '}
-        <Link href="/register" className="text-[#303055] font-medium hover:underline">
-          Create account
-        </Link>
-      </div>
-    </div>
+    </AuthExperience>
   );
 }
 
 export default function LoginPage() {
-  return (
-    <div className="min-h-[calc(100vh-140px)] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-[#ffffff]">
-      <Suspense fallback={<div className="font-mono text-xs text-[#6b6b7b]">Loading session...</div>}>
-        <LoginForm />
-      </Suspense>
-    </div>
-  );
+  return <Suspense fallback={<div className="flex min-h-[70vh] w-full items-center justify-center text-sm text-[var(--text-secondary)]">Loading sign-in form…</div>}>
+    <LoginForm/>
+  </Suspense>;
 }
-

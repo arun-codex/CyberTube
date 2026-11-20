@@ -1,194 +1,158 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { Suspense, useState } from 'react';
 import Link from 'next/link';
-import { Shield, Lock, Mail, User, AlertCircle, CheckCircle2 } from 'lucide-react';
+import { useSearchParams } from 'next/navigation';
+import { AlertCircle, ArrowRight, Check, CheckCircle2, LoaderCircle, UserRound } from 'lucide-react';
 import { registerAction } from '@/app/actions/auth';
+import { getSafeRedirectPath } from '@/lib/canonicalUrl';
 import { SocialAuthButtons } from '@/components/auth/SocialAuthButtons';
+import {
+  AuthDivider, AuthExperience, AuthHeading, AuthLegal, AuthPasswordField,
+  AuthTextField, authSubmitClass,
+} from '@/components/auth/AuthExperience';
 
-export default function RegisterPage() {
-  const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
+function passwordGuide(value:string){
+  if(value.length<8)return {level:0,label:'Use at least 8 characters'};
+  const variety=[/[a-z]/.test(value),/[A-Z]/.test(value),/\d/.test(value),/[^A-Za-z0-9]/.test(value)].filter(Boolean).length;
+  if(value.length>=12&&variety>=3)return {level:3,label:'Stronger password'};
+  if(value.length>=10&&variety>=2)return {level:2,label:'Good start — make it longer or more varied'};
+  return {level:1,label:'Try a longer, more varied password'};
+}
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
+function RegisterForm(){
+  const searchParams=useSearchParams();
+  const redirectPath=getSafeRedirectPath(searchParams.get('redirect')||searchParams.get('next'),'/');
+  const [displayName,setDisplayName]=useState('');
+  const [email,setEmail]=useState('');
+  const [password,setPassword]=useState('');
+  const [confirm,setConfirm]=useState('');
+  const [error,setError]=useState<string|null>(null);
+  const [success,setSuccess]=useState<string|null>(null);
+  const [loading,setLoading]=useState(false);
+  const guidance=passwordGuide(password);
+  const mismatch=confirm.length>0&&confirm!==password;
+
+  async function handleSubmit(event:React.FormEvent<HTMLFormElement>){
+    event.preventDefault();
+    if(loading)return;
     setError(null);
     setSuccess(null);
-    setLoading(true);
 
-    const formData = new FormData(e.currentTarget);
-    const password = formData.get('password') as string;
-    const confirmPassword = formData.get('confirmPassword') as string;
-
-    if (password !== confirmPassword) {
-      setError('Passwords do not match.');
-      setLoading(false);
+    if(displayName.trim().length<2){
+      setError('Enter a display name with at least two characters.');
+      return;
+    }
+    if(password.length<8){
+      setError('Your password must contain at least 8 characters.');
+      return;
+    }
+    if(password!==confirm){
+      setError('Passwords do not match. Please check both fields.');
       return;
     }
 
-    try {
-      const res = await registerAction(formData);
-      if (res?.error) {
-        setError(res.error);
-      } else if (res?.success) {
-        setSuccess(res.message);
-      }
-    } catch (err: any) {
-      setError(err?.message || 'Failed to register. Please try again.');
-    } finally {
-      setLoading(false);
-    }
+    const formData=new FormData(event.currentTarget);
+    formData.set('displayName',displayName.trim());
+    formData.delete('confirmPassword');
+    setLoading(true);
+    try{
+      const result=await registerAction(formData);
+      if(result?.error)setError(result.error);
+      else if(result?.success)setSuccess(result.message);
+      else setError('Unable to create your account. Please try again.');
+    }catch(err:unknown){
+      setError(err instanceof Error?err.message:'Unable to register. Please try again.');
+    }finally{setLoading(false);}
   }
 
   return (
-    <div className="min-h-[calc(100vh-140px)] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-[#ffffff]">
-      <div className="max-w-md w-full mx-auto space-y-6 bg-white border border-[#e4e4ed] rounded-[8px] p-6 sm:p-8">
-        <div className="text-center space-y-2">
-          <div className="inline-flex items-center justify-center w-10 h-10 rounded-[4px] bg-[#303055] text-white mx-auto">
-            <Shield className="w-5 h-5 fill-white stroke-none" />
+    <AuthExperience mode="register">
+      <AuthHeading mode="register"/>
+      {error&&<div role="alert" aria-live="assertive"
+        className="mb-5 flex items-start gap-2.5 rounded-xl border border-rose-500/30 bg-rose-500/[0.07] p-3.5 text-xs leading-5 text-rose-700 dark:text-rose-300">
+        <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true"/>
+        <span>{error}</span>
+      </div>}
+      {success?<div role="status" aria-live="polite" className="auth-enter space-y-4 rounded-2xl border border-emerald-500/25 bg-emerald-500/[0.07] p-5">
+        <div className="flex items-center gap-3">
+          <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
+            <CheckCircle2 className="h-6 w-6"/>
+          </span>
+          <div>
+            <h2 className="text-base font-bold text-[var(--text-primary)]">Account request received</h2>
+            <p className="text-xs text-[var(--text-secondary)]">Your next step</p>
           </div>
-          <h2 className="text-xl font-semibold text-[#303055]">Join CyberTube</h2>
-          <p className="text-xs text-[#6b6b7b]">
-            Create a practitioner profile to sync courses, bookmarks, and learning roadmaps.
-          </p>
         </div>
-
-        {error && (
-          <div className="p-3 rounded-[4px] bg-[#fbeaea] border border-[#e8b5b5] text-[#984e4d] text-xs flex items-start gap-2 font-mono">
-            <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
-            <span>{error}</span>
-          </div>
-        )}
-
-        {success && (
-          <div className="p-4 rounded-[4px] bg-[#f4f4f9] border border-[#e4e4ed] text-[#303055] text-xs space-y-2">
-            <div className="flex items-center gap-2 font-medium">
-              <CheckCircle2 className="w-4 h-4 text-[#303055]" />
-              <span>Registration Successful</span>
-            </div>
-            <p className="text-[#403f53]">{success}</p>
-            <Link
-              href="/login"
-              className="inline-block mt-2 font-mono text-xs text-[#303055] font-semibold underline"
-            >
-              Proceed to Sign In →
-            </Link>
-          </div>
-        )}
-
-        {!success && (
-          <>
-            {/* Social OAuth Buttons */}
-            <SocialAuthButtons
-              redirectPath="/"
-              onError={(msg: string) => setError(msg || null)}
-              disabled={loading}
-            />
-
-            <div className="relative flex py-1 items-center">
-              <div className="flex-grow border-t border-[#e4e4ed]"></div>
-              <span className="flex-shrink mx-3 text-[11px] font-mono text-[#6b6b7b] uppercase">
-                or register with email
-              </span>
-              <div className="flex-grow border-t border-[#e4e4ed]"></div>
-            </div>
-
-            <form className="space-y-4" onSubmit={handleSubmit}>
-              <div className="space-y-1.5">
-                <label className="block text-xs font-mono uppercase tracking-wider text-[#6b6b7b]">
-                  Display Name
-                </label>
-                <div className="relative">
-                  <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#6b6b7b]" />
-                  <input
-                    name="displayName"
-                    type="text"
-                    required
-                    placeholder="Practitioner / Analyst"
-                    className="w-full bg-[#f4f4f9] border border-[#e4e4ed] rounded-[4px] pl-9 pr-3 py-2 text-xs font-mono text-[#303055] placeholder-[#6b6b7b] focus:outline-none focus:border-[#303055] min-h-[38px]"
-                  />
-                </div>
-              </div>
-
-              <div className="space-y-1.5">
-                <label className="block text-xs font-mono uppercase tracking-wider text-[#6b6b7b]">
-                  Email Address
-                </label>
-                <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#6b6b7b]" />
-                  <input
-                    name="email"
-                    type="email"
-                    required
-                    placeholder="analyst@cybertube.local"
-                    className="w-full bg-[#f4f4f9] border border-[#e4e4ed] rounded-[4px] pl-9 pr-3 py-2 text-xs font-mono text-[#303055] placeholder-[#6b6b7b] focus:outline-none focus:border-[#303055] min-h-[38px]"
-                  />
-                </div>
-              </div>
-
-              <div className="space-y-1.5">
-                <label className="block text-xs font-mono uppercase tracking-wider text-[#6b6b7b]">
-                  Password
-                </label>
-                <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#6b6b7b]" />
-                  <input
-                    name="password"
-                    type="password"
-                    required
-                    placeholder="••••••••••••"
-                    className="w-full bg-[#f4f4f9] border border-[#e4e4ed] rounded-[4px] pl-9 pr-3 py-2 text-xs font-mono text-[#303055] placeholder-[#6b6b7b] focus:outline-none focus:border-[#303055] min-h-[38px]"
-                  />
-                </div>
-              </div>
-
-              <div className="space-y-1.5">
-                <label className="block text-xs font-mono uppercase tracking-wider text-[#6b6b7b]">
-                  Confirm Password
-                </label>
-                <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#6b6b7b]" />
-                  <input
-                    name="confirmPassword"
-                    type="password"
-                    required
-                    placeholder="••••••••••••"
-                    className="w-full bg-[#f4f4f9] border border-[#e4e4ed] rounded-[4px] pl-9 pr-3 py-2 text-xs font-mono text-[#303055] placeholder-[#6b6b7b] focus:outline-none focus:border-[#303055] min-h-[38px]"
-                  />
-                </div>
-              </div>
-
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full py-2.5 px-4 rounded-[4px] bg-[#303055] hover:bg-[#252542] text-white text-xs font-medium transition-colors disabled:opacity-50 min-h-[44px]"
-              >
-                {loading ? 'Creating Account...' : 'Register Profile'}
-              </button>
-            </form>
-          </>
-        )}
-
-        <p className="text-[11px] text-center text-[#6b6b7b] leading-relaxed">
-          By registering, you agree to our{' '}
-          <Link href="/terms" className="text-[#303055] underline hover:opacity-80 font-medium">
-            Terms of Service
-          </Link>{' '}
-          and{' '}
-          <Link href="/privacy" className="text-[#303055] underline hover:opacity-80 font-medium">
-            Privacy Policy
-          </Link>
-          .
+        <p className="text-sm leading-6 text-[var(--text-secondary)]">{success}</p>
+        <p className="text-xs text-[var(--text-secondary)]">
+          If an email verification link is required, follow it before signing in.
         </p>
-
-        <div className="pt-3 border-t border-[#e4e4ed] text-center text-xs text-[#6b6b7b]">
+        <Link href={'/login?redirect='+encodeURIComponent(redirectPath)}
+          className="inline-flex min-h-11 items-center gap-2 rounded-xl bg-[var(--accent-cyan)] px-4 py-3 text-sm font-bold text-[#06141D] hover:bg-[var(--accent-cyan-hover)]">
+          Proceed to sign in <ArrowRight className="h-4 w-4" aria-hidden="true"/>
+        </Link>
+      </div>:<div className="space-y-5">
+        <SocialAuthButtons redirectPath={redirectPath} onError={msg=>setError(msg||null)} disabled={loading}/>
+        <AuthDivider mode="register"/>
+        <form className="space-y-4" onSubmit={handleSubmit}>
+          <AuthTextField id="register-name" name="displayName" label="Display name"
+            Icon={UserRound} placeholder="Your name" autoComplete="nickname" minLength={2} maxLength={80}
+            value={displayName} onChange={event=>setDisplayName(event.target.value)} disabled={loading}/>
+          <AuthTextField id="register-email" name="email" label="Email address"
+            type="email" placeholder="you@example.com" autoComplete="email" maxLength={254}
+            value={email} onChange={event=>setEmail(event.target.value)} disabled={loading}/>
+          <div className="space-y-2">
+            <AuthPasswordField id="register-password" name="password" label="Create password"
+              autoComplete="new-password" minLength={8} value={password}
+              onChange={event=>setPassword(event.target.value)} disabled={loading}
+              describedBy="password-guidance"/>
+            <div id="password-guidance" className="space-y-2" aria-live="polite">
+              <div className="grid grid-cols-3 gap-1.5" aria-hidden="true">
+                {[1,2,3].map(segment=><span key={segment}
+                  className={'h-1.5 rounded-full transition-colors duration-200 '+
+                    (guidance.level>=segment
+                      ?'bg-[var(--accent-emerald)]'
+                      :'bg-[var(--border)]')}/>)}
+              </div>
+              <p className="text-[11px] text-[var(--text-secondary)]">{guidance.label}</p>
+            </div>
+          </div>
+          <div className="space-y-1.5">
+            <AuthPasswordField id="register-confirm" name="confirmPassword"
+              label="Confirm password" autoComplete="new-password" minLength={8}
+              value={confirm} onChange={event=>setConfirm(event.target.value)}
+              disabled={loading} describedBy="confirm-password-hint"/>
+            <p id="confirm-password-hint" role={mismatch?'alert':undefined}
+              className={'flex min-h-4 items-center gap-1.5 text-[11px] '+
+                (mismatch?'text-rose-600 dark:text-rose-400':'text-[var(--text-secondary)]')}>
+              {mismatch?'Passwords do not match yet.':confirm.length>0&&password===confirm?<>
+                <Check className="h-3.5 w-3.5 text-[var(--accent-emerald)]" aria-hidden="true"/>
+                Passwords match.
+              </>:'Use a unique password that you do not reuse elsewhere.'}
+            </p>
+          </div>
+          <button type="submit" className={authSubmitClass} disabled={loading} aria-busy={loading}>
+            {loading?<><LoaderCircle className="h-4 w-4 animate-spin motion-reduce:animate-none" aria-hidden="true"/>Creating account…</>:<>
+              Create free account <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 motion-reduce:transform-none" aria-hidden="true"/>
+            </>}
+          </button>
+        </form>
+        <AuthLegal registering/>
+        <p className="border-t border-[var(--border)] pt-5 text-center text-sm text-[var(--text-secondary)]">
           Already have an account?{' '}
-          <Link href="/login" className="text-[#303055] font-medium hover:underline">
+          <Link href={'/login?redirect='+encodeURIComponent(redirectPath)}
+            className="font-bold text-[var(--accent-cyan)] outline-none hover:underline focus-visible:ring-2 focus-visible:ring-[var(--accent-cyan)]">
             Sign in
           </Link>
-        </div>
-      </div>
-    </div>
+        </p>
+      </div>}
+    </AuthExperience>
   );
+}
+
+export default function RegisterPage(){
+  return <Suspense fallback={<div className="flex min-h-[70vh] w-full items-center justify-center text-sm text-[var(--text-secondary)]">Loading registration form…</div>}>
+    <RegisterForm/>
+  </Suspense>;
 }

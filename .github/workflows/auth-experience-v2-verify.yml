@@ -1,0 +1,43 @@
+name: Auth Experience v2 verification
+
+on:
+  push:
+    branches:
+      - feat/auth-experience-professional-motion-v2
+  pull_request:
+    paths:
+      - 'app/login/**'
+      - 'app/register/**'
+      - 'src/components/auth/**'
+      - 'app/globals.css'
+      - 'test/auth-experience-v2.test.ts'
+      - 'tests/37_auth_experience_v2.spec.ts'
+      - 'package.json'
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Configure Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install packages
+        run: npm ci
+      - name: Run auth UI regression tests
+        run: npm run test:auth-ui
+      - name: TypeScript check
+        run: npx tsc --noEmit
+      - name: Production build
+        run: npm run build
+      - name: Install browser for visual interaction tests
+        run: npx playwright install --with-deps chromium
+      - name: Test mobile, keyboard, OAuth actions and reduced motion
+        run: npx playwright test tests/37_auth_experience_v2.spec.ts --project=chromium

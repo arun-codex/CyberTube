@@ -290,3 +290,50 @@ chai-support[position="bottom-right"],
 chai-support[position="bottom-left"] {
   display: none !important;
 }
+
+/* Auth v2: restrained, GPU-friendly motion with reduced-motion support.
+   All effects are visual only; forms, redirects and loading never depend on animation. */
+.auth-glow {
+  background: radial-gradient(circle at 50% 50%, var(--accent-cyan-subtle), transparent 69%);
+  filter: blur(38px);
+}
+.auth-enter {
+  animation: auth-reveal 520ms cubic-bezier(.16, 1, .3, 1) both;
+}
+.auth-enter-delayed {
+  animation: auth-reveal 620ms cubic-bezier(.16, 1, .3, 1) 70ms both;
+}
+.auth-orb {
+  animation: auth-orbit 16s ease-in-out infinite alternate;
+}
+.auth-visual-card {
+  animation: auth-rise 650ms cubic-bezier(.16, 1, .3, 1) 210ms both;
+}
+.auth-stage {
+  animation: auth-reveal 550ms cubic-bezier(.16, 1, .3, 1) both;
+}
+@keyframes auth-reveal {
+  from { opacity: 0; transform: translate3d(0, 13px, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+@keyframes auth-rise {
+  from { opacity: 0; transform: translate3d(0, 20px, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+@keyframes auth-orbit {
+  from { transform: translate3d(0, 0, 0); opacity: .7; }
+  to { transform: translate3d(-20px, 18px, 0); opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .auth-enter,
+  .auth-enter-delayed,
+  .auth-orb,
+  .auth-visual-card,
+  .auth-stage {
+    animation: none !important;
+  }
+  .auth-experience *, .auth-experience *::before, .auth-experience *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
