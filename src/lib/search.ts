@@ -40,9 +40,9 @@ const websitePages: Array<[string, string, string, string]> = [
   ['/library', 'Study Library', 'Cybersecurity study documents, bug bounty guides, videos, and lab resources', 'pdf study materials bug bounty'],
   ['/courses', 'Video Courses', 'All available cybersecurity and technology courses and lessons', 'training playlists modules'],
   ['/discover', 'Discover', 'Browse cybersecurity resource catalog, security news and learning topics', 'explore resources feed'],
-  ['/tryhackme-roadmap', 'TryHackMe Roadmap', '502 TryHackMe room entries, 28 sections, zero to advanced practical CTF labs', 'try hack me THM challenge rooms'],
+  ['/labs#tryhackme', 'TryHackMe Free Labs', 'Source-listed free TryHackMe room entries, 28 sections, practical cybersecurity labs', 'tryhackme try hack me THM roadmap free labs challenge rooms'],
   ['/learning-paths', 'Learning Paths', 'Follow structured paths from beginner foundations to advanced security topics', 'roadmaps milestones'],
-  ['/labs', 'Practice Labs', 'Legal cybersecurity hands-on labs and war games', 'TryHackMe CTF practice'],
+  ['/labs', 'Practical Labs', 'Legal cybersecurity hands-on labs and war games', 'TryHackMe free CTF practice'],
   ['/domains', 'Cybersecurity Domains', 'Explore cybersecurity specializations, technologies and topics', 'security fields'],
   ['/skills', 'Skills Map', 'Practical cybersecurity skill checklists and professional competencies', 'SOC scripting offensive defensive'],
   ['/certifications', 'Certifications', 'Cybersecurity certification guide including Security+, Network+, CCNA and OSCP', 'cert exams'],
@@ -240,12 +240,13 @@ function buildStaticSearchIndex(): SearchResultItem[] {
       type: 'tryhackme-section',
       title: section.title,
       description: section.rooms.length + ' rooms · ' + section.suggestedLevel + ' · TryHackMe Roadmap section',
-      url: '/tryhackme-roadmap?section=' + section.id,
+      url: '/labs?section=' + section.id,
       badge: 'THM SECTION',
       category: section.suggestedLevel,
       tags: ['TryHackMe', 'roadmap', section.title],
     });
     for (const room of section.rooms) {
+      if ('accessNote' in room && room.accessNote) continue;
       const old = roomById.get(room.id);
       if (old) {
         old.tags?.push(section.title);
@@ -256,7 +257,7 @@ function buildStaticSearchIndex(): SearchResultItem[] {
         type: 'tryhackme-room',
         title: room.title,
         description: 'TryHackMe room · ' + section.title + ' · ' + section.suggestedLevel,
-        url: '/tryhackme-roadmap?q=' + encodeURIComponent(room.title),
+        url: '/labs?q=' + encodeURIComponent(room.title),
         badge: 'THM ROOM',
         category: section.title,
         tags: [room.id, section.title, section.suggestedLevel],
