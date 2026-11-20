@@ -239,9 +239,9 @@ export function TryHackMeRoadmapExplorer() {
           </div>
         </div>
         <div>
-          <h1 className="text-3xl sm:text-4xl font-bold font-space-grotesk text-[var(--text-primary)]">
+          <h2 className="text-3xl sm:text-4xl font-bold font-space-grotesk text-[var(--text-primary)]">
             TryHackMe Free Labs (Free)
-          </h1>
+          </h2>
           <p className="mt-3 max-w-3xl text-sm leading-relaxed text-[var(--text-secondary)]">
             Explore source-listed free TryHackMe rooms by topic and suggested skill level.
             Open each lab on TryHackMe and mark it complete after finishing it.
