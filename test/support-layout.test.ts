@@ -38,7 +38,7 @@ test('payment preview never reveals a payee or enables payment handoff', () => {
   assert.match(support, /Preview only/);
   assert.match(support, /disabled\s*\n\s*type="button"/);
   assert.doesNotMatch(support, /upi:\/\/pay|upi:\/\/|aruninzone@ptaxis/);
-  assert.doesNotMatch(support, /payable QR|generateQrCode\(/i);
+  assert.doesNotMatch(support, /buildUpiUri\(|generateQrCode\(|window\.location\.href\s*=\s*['"]upi:/i);
 });
 
 test('support modal is labelled and keyboard-dismissible', () => {
