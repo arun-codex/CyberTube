@@ -22,7 +22,7 @@ async function main() {
       await delay(100);
     }
     if (!ready) throw new Error('Production server startup timed out: ' + output);
-    const routes = ['/', '/library', '/discover', '/domains', '/resources/portswigger-sql-injection-lab', '/resources/blackhat-hardware-backdoors-x86', '/saved'];
+    const routes = ['/', '/library', '/discover', '/domains', '/resources/portswigger-sql-injection-lab', '/resources/blackhat-hardware-backdoors-x86', '/saved', '/support'];
     for (const route of routes) {
       const response = await fetch(base + route, { signal: AbortSignal.timeout(10000) });
       assert.equal(response.status, 200, route);
