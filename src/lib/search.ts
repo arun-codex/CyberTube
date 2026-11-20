@@ -289,8 +289,8 @@ function rank(item: SearchResultItem, query: string, words: string[]): number {
   for (const word of words) {
     if (title.split(/[^a-z0-9+#.-]+/).some(part => part.startsWith(word))) score += 11;
   }
-  if (item.type === 'page') score += 16;
-  else if (item.type === 'course' || item.type === 'learning-path') score += 5;
+  if (item.type === 'page') score += 75;
+  else if (item.type === 'course' || item.type === 'learning-path') score += 15;
   return score;
 }
 
