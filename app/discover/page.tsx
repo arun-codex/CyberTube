@@ -487,7 +487,7 @@ function DiscoverContent() {
       )}
       <div className="border-t border-[var(--border)] pt-5 text-xs text-[var(--text-secondary)] space-y-1">
         <p>Discover combines public source feeds with the CyberTube course catalog. Live posts are dated by their original publishers; course videos are not labeled as newly published.</p>
-        <p>Videos use YouTube's official player. Viewer history is saved only for signed-in CyberTube accounts; it does not change your YouTube watch history.</p>
+        <p>Videos use the official YouTube player. Viewer history is saved only for signed-in CyberTube accounts; it does not change your YouTube watch history.</p>
       </div>
     </div>
   );
