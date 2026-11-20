@@ -81,6 +81,7 @@ export function Header() {
     { label: 'Library', href: '/library' },
     { label: 'Courses', href: '/courses' },
     { label: 'Discover', href: '/discover' },
+    { label: 'Support ☕', href: '/#support-cybertube' },
   ];
 
   const secondaryNavLinks = [
