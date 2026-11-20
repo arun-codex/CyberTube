@@ -93,10 +93,10 @@ export function AuthExperience({
           </div>
         </aside>
 
-        <section className="auth-enter-delayed flex min-w-0 flex-col justify-center px-5 py-8 sm:px-9 sm:py-10 lg:px-10 xl:px-14">
+        <section aria-labelledby="auth-heading" className="auth-enter-delayed flex min-w-0 flex-col justify-center px-5 py-8 sm:px-9 sm:py-10 lg:px-10 xl:px-14">
           <div className="mx-auto w-full max-w-[420px]">
             <div className="mb-7 flex flex-wrap items-center justify-between gap-3">
-              <Link href="/" className="inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--text-secondary)] transition-colors hover:text-[var(--accent-cyan)] lg:opacity-0 lg:pointer-events-none">
+              <Link href="/" className="inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--text-secondary)] transition-colors hover:text-[var(--accent-cyan)] lg:hidden">
                 <ArrowRight className="h-3.5 w-3.5 rotate-180" aria-hidden="true"/> Back to home
               </Link>
               <span className="inline-flex items-center gap-1.5 rounded-full border border-[var(--border)] bg-[var(--surface-subtle)] px-3 py-1.5 text-[11px] font-medium text-[var(--text-secondary)]">
