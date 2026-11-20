@@ -1,0 +1,18 @@
+{
+  "received_utc": "2026-11-19T07:51:00Z",
+  "recipient": "finance.user@example.com",
+  "from": "billing@payments.example.com",
+  "reply_to": "support@pay-confirm.example.com",
+  "subject": "Urgent: Please review a transfer",
+  "spf": "fail",
+  "dkim": "none",
+  "attachment": "invoice-review.docx",
+  "user_report": "Unexpected finance request; sender identity not confirmed",
+  "notes": "Synthetic training-only email, no embedded links or live attachments.",
+  "received_chain": [
+    "from mail-out.example.com by mx.company.example.com; 2026-11-19T07:51:00Z"
+  ],
+  "return_path": "bounce@payments.example.com",
+  "authentication_results": "spf=fail; dkim=none; dmarc=fail",
+  "references": "All identities/domains invented for training; email file content and attachment not supplied."
+}

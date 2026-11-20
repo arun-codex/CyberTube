@@ -1,0 +1,7 @@
+time_utc,user,source_ip,result,mfa,device,notes
+2026-11-19T08:02:00Z,finance.user,198.51.100.23,Failure,NA,HLR-FIN-07,Known office VPN test exit
+2026-11-19T08:04:00Z,finance.user,198.51.100.23,Failure,NA,HLR-FIN-07,Known office VPN test exit
+2026-11-19T08:06:00Z,finance.user,198.51.100.23,Failure,NA,HLR-FIN-07,Known office VPN test exit
+2026-11-19T08:07:00Z,finance.user,203.0.113.77,Success,Not recorded,Unknown,Anomaly requires more evidence
+2026-11-19T08:08:00Z,finance.user,198.51.100.23,Success,Yes,HLR-FIN-07,Known office VPN test exit
+2026-11-19T08:32:00Z,helpdesk.tech,198.51.100.23,Success,Yes,HLR-IT-03,Expected IT session

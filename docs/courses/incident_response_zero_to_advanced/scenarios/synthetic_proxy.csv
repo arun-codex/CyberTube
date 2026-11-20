@@ -1,0 +1,5 @@
+time_utc,host,user,destination_ip,destination_domain,bytes_out,action,context
+2026-11-19T08:09:15Z,HLR-FIN-07,finance.user,203.0.113.145,cdn-assets.example.com,1300,allowed,Small outbound TLS session
+2026-11-19T08:11:15Z,HLR-FIN-07,finance.user,203.0.113.145,cdn-assets.example.com,108000,allowed,Correlate with synthetic Sysmon event
+2026-11-19T08:12:20Z,HLR-FIN-07,finance.user,203.0.113.145,cdn-assets.example.com,114000,allowed,Unknown nature and content
+2026-11-19T08:19:00Z,HLR-IT-03,helpdesk.tech,198.51.100.77,updates.example.com,12000,allowed,Approved helpdesk update example

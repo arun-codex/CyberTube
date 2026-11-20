@@ -1,0 +1,6 @@
+time_utc,host,event_id,process,parent_process,destination,note
+2026-11-19T08:09:00Z,HLR-FIN-07,1,chrome.exe,explorer.exe,,Browser opened by logged-in user
+2026-11-19T08:11:00Z,HLR-FIN-07,1,powershell.exe,winword.exe,,Suspicious parent-child pairing in fictional exercise
+2026-11-19T08:11:15Z,HLR-FIN-07,3,powershell.exe,winword.exe,203.0.113.145:443,Training example external connection
+2026-11-19T08:14:00Z,HLR-FIN-07,1,notepad.exe,explorer.exe,,Expected process
+2026-11-19T08:19:00Z,HLR-IT-03,1,powershell.exe,explorer.exe,,Expected helpdesk maintenance

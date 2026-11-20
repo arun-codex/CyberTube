@@ -1,0 +1,6 @@
+time_utc,user,source_ip,country,device,result,mfa,context
+2026-11-19T05:01:00Z,finance.user,198.51.100.23,India,HLR-FIN-07,Success,Yes,Known office VPN exit
+2026-11-19T06:13:00Z,finance.user,203.0.113.31,Germany,Unknown,Failure,NA,May be VPN or probe
+2026-11-19T07:44:00Z,finance.user,203.0.113.41,Singapore,Unknown,Failure,NA,May be VPN or probe
+2026-11-19T08:07:00Z,finance.user,203.0.113.77,United States,Unknown,Success,Unknown,Unknown device and MFA status
+2026-11-19T08:08:00Z,finance.user,198.51.100.23,India,HLR-FIN-07,Success,Yes,Known office VPN exit

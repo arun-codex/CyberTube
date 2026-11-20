@@ -1,0 +1,250 @@
+{
+  "title": "Incident Response Zero to Advanced",
+  "prepared_date": "2026-11-20",
+  "module_count": 30,
+  "topic_count": 150,
+  "module_videos_each": 2,
+  "cluelabs_project_id": 2482,
+  "modules": [
+    {
+      "number": 1,
+      "title": "Incident Response Fundamentals & SOC Analyst Roles",
+      "phase": 1,
+      "filename": "M01_incident-response-fundamentals-soc-analyst-roles.md",
+      "primary_video": "https://www.youtube.com/watch?v=ugRlyWj-9SI",
+      "secondary_video": "https://www.youtube.com/watch?v=gWXgChC9ANg"
+    },
+    {
+      "number": 2,
+      "title": "Modern IR Frameworks, NIST SP 800-61r3 and CISA",
+      "phase": 1,
+      "filename": "M02_modern-ir-frameworks-nist-sp-800-61r3-and-cisa.md",
+      "primary_video": "https://www.youtube.com/watch?v=yQA0Tr62K0k",
+      "secondary_video": "https://www.youtube.com/watch?v=TAqJ3LkVjyc"
+    },
+    {
+      "number": 3,
+      "title": "Computer Networks and Evidence for Incident Responders",
+      "phase": 1,
+      "filename": "M03_computer-networks-and-evidence-for-incident-responders.md",
+      "primary_video": "https://www.youtube.com/watch?v=ygtTDz3X8BQ",
+      "secondary_video": "https://www.youtube.com/watch?v=W7I-2Nv71PY"
+    },
+    {
+      "number": 4,
+      "title": "Linux Logs, Authentication and Live-Response Fundamentals",
+      "phase": 1,
+      "filename": "M04_linux-logs-authentication-and-live-response-fundamentals.md",
+      "primary_video": "https://www.youtube.com/watch?v=3xsIst5t23Y",
+      "secondary_video": "https://www.youtube.com/watch?v=hMXMhArI8UM"
+    },
+    {
+      "number": 5,
+      "title": "Windows Event Logs and Sysmon Essentials",
+      "phase": 1,
+      "filename": "M05_windows-event-logs-and-sysmon-essentials.md",
+      "primary_video": "https://www.youtube.com/watch?v=5FVjQhjj80s",
+      "secondary_video": "https://www.youtube.com/watch?v=VYROU-ZwZX8"
+    },
+    {
+      "number": 6,
+      "title": "Preparation: People, Processes, Systems and Readiness",
+      "phase": 1,
+      "filename": "M06_preparation-people-processes-systems-and-readiness.md",
+      "primary_video": "https://www.youtube.com/watch?v=dQokmRh7430",
+      "secondary_video": "https://www.youtube.com/watch?v=75y6fdUoIgE"
+    },
+    {
+      "number": 7,
+      "title": "Alert Intake, Validation and Fast SOC L1 Triage",
+      "phase": 2,
+      "filename": "M07_alert-intake-validation-and-fast-soc-l1-triage.md",
+      "primary_video": "https://www.youtube.com/watch?v=W7I-2Nv71PY",
+      "secondary_video": "https://www.youtube.com/watch?v=5J1qLKbXGBo"
+    },
+    {
+      "number": 8,
+      "title": "Incident Severity, Priority, Escalation and SLAs",
+      "phase": 2,
+      "filename": "M08_incident-severity-priority-escalation-and-slas.md",
+      "primary_video": "https://www.youtube.com/watch?v=J1uUSQTWskU",
+      "secondary_video": "https://www.youtube.com/watch?v=niuf8nGTzBw"
+    },
+    {
+      "number": 9,
+      "title": "Threat Intelligence, IOCs, Context and ATT&CK",
+      "phase": 2,
+      "filename": "M09_threat-intelligence-iocs-context-and-att-ck.md",
+      "primary_video": "https://www.youtube.com/watch?v=pgcMsv39090",
+      "secondary_video": "https://www.youtube.com/watch?v=C6t5Db-kSiQ"
+    },
+    {
+      "number": 10,
+      "title": "Case Management and Investigation Documentation",
+      "phase": 2,
+      "filename": "M10_case-management-and-investigation-documentation.md",
+      "primary_video": "https://www.youtube.com/watch?v=niuf8nGTzBw",
+      "secondary_video": "https://www.youtube.com/watch?v=6AVBPsTWd5A"
+    },
+    {
+      "number": 11,
+      "title": "SIEM Incident Investigations with Splunk",
+      "phase": 2,
+      "filename": "M11_siem-incident-investigations-with-splunk.md",
+      "primary_video": "https://www.youtube.com/watch?v=CbK9m1MYz6c",
+      "secondary_video": "https://www.youtube.com/watch?v=W7I-2Nv71PY"
+    },
+    {
+      "number": 12,
+      "title": "Microsoft Sentinel, KQL and Incident Operations",
+      "phase": 2,
+      "filename": "M12_microsoft-sentinel-kql-and-incident-operations.md",
+      "primary_video": "https://www.youtube.com/watch?v=5J1qLKbXGBo",
+      "secondary_video": "https://www.youtube.com/watch?v=pgcMsv39090"
+    },
+    {
+      "number": 13,
+      "title": "Endpoint Detection, EDR and Sysmon Investigation",
+      "phase": 3,
+      "filename": "M13_endpoint-detection-edr-and-sysmon-investigation.md",
+      "primary_video": "https://www.youtube.com/watch?v=5FVjQhjj80s",
+      "secondary_video": "https://www.youtube.com/watch?v=CbK9m1MYz6c"
+    },
+    {
+      "number": 14,
+      "title": "Phishing and Email Incident Response",
+      "phase": 3,
+      "filename": "M14_phishing-and-email-incident-response.md",
+      "primary_video": "https://www.youtube.com/watch?v=C6t5Db-kSiQ",
+      "secondary_video": "https://www.youtube.com/watch?v=W7I-2Nv71PY"
+    },
+    {
+      "number": 15,
+      "title": "Identity Compromise, Account Takeover and BEC",
+      "phase": 3,
+      "filename": "M15_identity-compromise-account-takeover-and-bec.md",
+      "primary_video": "https://www.youtube.com/watch?v=5J1qLKbXGBo",
+      "secondary_video": "https://www.youtube.com/watch?v=C6t5Db-kSiQ"
+    },
+    {
+      "number": 16,
+      "title": "Network Forensics with Wireshark and Zeek",
+      "phase": 3,
+      "filename": "M16_network-forensics-with-wireshark-and-zeek.md",
+      "primary_video": "https://www.youtube.com/watch?v=ygtTDz3X8BQ",
+      "secondary_video": "https://www.youtube.com/watch?v=W7I-2Nv71PY"
+    },
+    {
+      "number": 17,
+      "title": "Windows Forensic Artifacts and Timeline Reconstruction",
+      "phase": 3,
+      "filename": "M17_windows-forensic-artifacts-and-timeline-reconstruction.md",
+      "primary_video": "https://www.youtube.com/watch?v=VYROU-ZwZX8",
+      "secondary_video": "https://www.youtube.com/watch?v=5FVjQhjj80s"
+    },
+    {
+      "number": 18,
+      "title": "Disk Imaging, Hashing and Autopsy",
+      "phase": 3,
+      "filename": "M18_disk-imaging-hashing-and-autopsy.md",
+      "primary_video": "https://www.youtube.com/watch?v=gWclBdzBzDM",
+      "secondary_video": "https://www.youtube.com/watch?v=TAqJ3LkVjyc"
+    },
+    {
+      "number": 19,
+      "title": "Memory Forensics and Volatility 3",
+      "phase": 3,
+      "filename": "M19_memory-forensics-and-volatility-3.md",
+      "primary_video": "https://www.youtube.com/watch?v=Uk3DEgY5Ue8",
+      "secondary_video": "https://www.youtube.com/watch?v=VYROU-ZwZX8"
+    },
+    {
+      "number": 20,
+      "title": "Evidence Correlation, Root Cause and Case Timeline",
+      "phase": 3,
+      "filename": "M20_evidence-correlation-root-cause-and-case-timeline.md",
+      "primary_video": "https://www.youtube.com/watch?v=TAqJ3LkVjyc",
+      "secondary_video": "https://www.youtube.com/watch?v=gWclBdzBzDM"
+    },
+    {
+      "number": 21,
+      "title": "Containment: Scope, Approval, Reversibility and Preservation",
+      "phase": 4,
+      "filename": "M21_containment-scope-approval-reversibility-and-preservation.md",
+      "primary_video": "https://www.youtube.com/watch?v=MNu4QhM3LJI",
+      "secondary_video": "https://www.youtube.com/watch?v=5J1qLKbXGBo"
+    },
+    {
+      "number": 22,
+      "title": "Eradication, Eviction and Closing Access Paths",
+      "phase": 4,
+      "filename": "M22_eradication-eviction-and-closing-access-paths.md",
+      "primary_video": "https://www.youtube.com/watch?v=WCr8etx7MxA",
+      "secondary_video": "https://www.youtube.com/watch?v=75y6fdUoIgE"
+    },
+    {
+      "number": 23,
+      "title": "Recovery, Rebuild, Backups and Post-Recovery Monitoring",
+      "phase": 4,
+      "filename": "M23_recovery-rebuild-backups-and-post-recovery-monitoring.md",
+      "primary_video": "https://www.youtube.com/watch?v=WCr8etx7MxA",
+      "secondary_video": "https://www.youtube.com/watch?v=ZORnotWe42A"
+    },
+    {
+      "number": 24,
+      "title": "Ransomware Incident Response and Tabletop Exercise",
+      "phase": 4,
+      "filename": "M24_ransomware-incident-response-and-tabletop-exercise.md",
+      "primary_video": "https://www.youtube.com/watch?v=MNu4QhM3LJI",
+      "secondary_video": "https://www.youtube.com/watch?v=WCr8etx7MxA"
+    },
+    {
+      "number": 25,
+      "title": "Data Exfiltration, Insider Risk and Third-Party Coordination",
+      "phase": 4,
+      "filename": "M25_data-exfiltration-insider-risk-and-third-party-coordination.md",
+      "primary_video": "https://www.youtube.com/watch?v=niuf8nGTzBw",
+      "secondary_video": "https://www.youtube.com/watch?v=ygtTDz3X8BQ"
+    },
+    {
+      "number": 26,
+      "title": "AWS Cloud Incident Response and CloudTrail Evidence",
+      "phase": 5,
+      "filename": "M26_aws-cloud-incident-response-and-cloudtrail-evidence.md",
+      "primary_video": "https://www.youtube.com/watch?v=z2oqdFV1S8Y",
+      "secondary_video": "https://www.youtube.com/watch?v=jjXdwzEaMwo"
+    },
+    {
+      "number": 27,
+      "title": "Azure / Microsoft 365 Cloud & Identity Incident Response",
+      "phase": 5,
+      "filename": "M27_azure-microsoft-365-cloud-identity-incident-response.md",
+      "primary_video": "https://www.youtube.com/watch?v=5J1qLKbXGBo",
+      "secondary_video": "https://www.youtube.com/watch?v=pgcMsv39090"
+    },
+    {
+      "number": 28,
+      "title": "Enterprise DFIR with Velociraptor and Threat Hunting",
+      "phase": 5,
+      "filename": "M28_enterprise-dfir-with-velociraptor-and-threat-hunting.md",
+      "primary_video": "https://www.youtube.com/watch?v=EA40rztSOd4",
+      "secondary_video": "https://www.youtube.com/watch?v=75y6fdUoIgE"
+    },
+    {
+      "number": 29,
+      "title": "Playbooks, SOAR, Sigma and Detection Improvement",
+      "phase": 5,
+      "filename": "M29_playbooks-soar-sigma-and-detection-improvement.md",
+      "primary_video": "https://www.youtube.com/watch?v=pgcMsv39090",
+      "secondary_video": "https://www.youtube.com/watch?v=6AVBPsTWd5A"
+    },
+    {
+      "number": 30,
+      "title": "Final Capstone: End-to-End SOC Incident Response",
+      "phase": 6,
+      "filename": "M30_final-capstone-end-to-end-soc-incident-response.md",
+      "primary_video": "https://www.youtube.com/watch?v=75y6fdUoIgE",
+      "secondary_video": "https://www.youtube.com/watch?v=ZORnotWe42A"
+    }
+  ]
+}

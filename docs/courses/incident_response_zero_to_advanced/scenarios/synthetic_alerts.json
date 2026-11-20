@@ -1,0 +1,35 @@
+[
+  {
+    "alert_id": "ALT-001",
+    "time_utc": "2026-11-19T08:07:00Z",
+    "title": "Unfamiliar source for finance account",
+    "asset": "HLR-FIN-07",
+    "identity": "finance.user",
+    "source_ip": "203.0.113.77",
+    "severity_label": "High",
+    "status": "Uninvestigated",
+    "context": "One successful sign-in from a new example IP; MFA detail missing. Investigate before claiming compromise."
+  },
+  {
+    "alert_id": "ALT-002",
+    "time_utc": "2026-11-19T08:11:00Z",
+    "title": "Unusual Office-to-PowerShell execution",
+    "asset": "HLR-FIN-07",
+    "identity": "finance.user",
+    "source_ip": null,
+    "severity_label": "Medium",
+    "status": "Uninvestigated",
+    "context": "Process tree plus network metadata exists; not proven malicious by itself."
+  },
+  {
+    "alert_id": "ALT-003",
+    "time_utc": "2026-11-19T08:19:00Z",
+    "title": "PowerShell activity on helpdesk workstation",
+    "asset": "HLR-IT-03",
+    "identity": "helpdesk.tech",
+    "source_ip": "198.51.100.23",
+    "severity_label": "Low",
+    "status": "Uninvestigated",
+    "context": "Known authorized helpdesk maintenance planned; verify change record and process."
+  }
+]

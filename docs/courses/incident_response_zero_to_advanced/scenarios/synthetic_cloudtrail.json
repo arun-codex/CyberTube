@@ -1,0 +1,32 @@
+{
+  "Records": [
+    {
+      "eventTime": "2026-11-19T09:01:00Z",
+      "eventSource": "iam.amazonaws.com",
+      "eventName": "ListUsers",
+      "awsRegion": "us-east-1",
+      "sourceIPAddress": "203.0.113.8",
+      "userIdentity": {
+        "type": "IAMUser",
+        "userName": "training-auditor"
+      },
+      "requestParameters": {},
+      "notes": "Known scheduled authorized inventory in fictional lab"
+    },
+    {
+      "eventTime": "2026-11-19T09:06:00Z",
+      "eventSource": "iam.amazonaws.com",
+      "eventName": "CreateAccessKey",
+      "awsRegion": "us-east-1",
+      "sourceIPAddress": "203.0.113.120",
+      "userIdentity": {
+        "type": "AssumedRole",
+        "arn": "arn:aws:sts::000000000000:assumed-role/TrainingAuditRole/example-session"
+      },
+      "requestParameters": {
+        "userName": "training-auditor"
+      },
+      "notes": "Alert warrants role/account activity correlation; mock only, no real key exists"
+    }
+  ]
+}
