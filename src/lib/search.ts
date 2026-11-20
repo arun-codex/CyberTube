@@ -100,17 +100,17 @@ function buildStaticSearchIndex(): SearchResultItem[] {
       tags: [...(course.tags || []), ...(course.domains || []), course.track || ''],
     });
 
-    for (const module of course.modules || []) {
-      for (const lesson of module.lessons || []) {
+    for (const courseModule of course.modules || []) {
+      for (const lesson of courseModule.lessons || []) {
         entries.push({
           id: 'lesson:' + course.slug + ':' + lesson.slug,
           type: 'lesson',
           title: lesson.title,
-          description: (lesson.description || module.title) + ' · ' + course.title,
+          description: (lesson.description || courseModule.title) + ' · ' + course.title,
           url: '/courses/' + course.slug + '?lesson=' + encodeURIComponent(lesson.slug),
           badge: 'LESSON',
           category: course.title,
-          tags: [module.title, course.title, ...(lesson.tags || [])],
+          tags: [courseModule.title, course.title, ...(lesson.tags || [])],
         });
       }
     }
