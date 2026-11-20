@@ -1,0 +1,39 @@
+name: Skills Map v2 verification
+
+on:
+  push:
+    branches:
+      - feat/skills-map-v2-career-readiness-cloud-progress
+  pull_request:
+    paths:
+      - 'app/skills/**'
+      - 'app/api/skills/**'
+      - 'src/components/skills/**'
+      - 'src/lib/skills/**'
+      - 'data/skills.json'
+      - 'test/skills-map-v2.test.ts'
+      - 'package.json'
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Skill logic and security regression tests
+        run: npm run test:skills
+      - name: Type check
+        run: npx tsc --noEmit
+      - name: Production Next.js build
+        run: npm run build
