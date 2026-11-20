@@ -1,9 +1,12 @@
 'use client';
 
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { BookOpen, CheckCircle2, ExternalLink, Filter, Search, ShieldCheck } from 'lucide-react';
 import roadmap from '@/data/tryhackme-roadmap.json';
+import { useAuth } from '@/lib/auth';
+import Link from 'next/link';
+import { Cloud, Loader2 } from 'lucide-react';
 
 type RoadmapRoom = {
   id: string;
@@ -19,13 +22,21 @@ type RoadmapSection = {
   rooms: RoadmapRoom[];
 };
 
-const sections: RoadmapSection[] = roadmap.sections;
+// This is a source-curated free-labs view, not an assertion that TryHackMe has
+// verified every room as free today. Exclude the three source-flagged paid rooms.
+const sections: RoadmapSection[] = roadmap.sections.map(section => ({
+  ...section,
+  rooms: section.rooms.filter(room => !room.accessNote),
+}));
 const levels = ['All levels', 'Beginner', 'Intermediate', 'Advanced', 'Expert', 'Mixed'];
 const storageKey = 'cybertube:tryhackme-roadmap:completed:v1';
 const uniqueRoomIds = new Set(sections.flatMap((section) => section.rooms.map((room) => room.id)));
 const allRoomCount = sections.reduce((total, section) => total + section.rooms.length, 0);
 
 export function TryHackMeRoadmapExplorer() {
+  const { userId, isAuthLoading } = useAuth();
+  const requestOwnerRef = useRef<string | null>(null);
+  const pendingRef = useRef(0);
   const searchParams = useSearchParams();
   const requestedQuery = searchParams.get('q') || '';
   const requestedSection = searchParams.get('section') || '';
@@ -35,6 +46,9 @@ export function TryHackMeRoadmapExplorer() {
   const [incompleteOnly, setIncompleteOnly] = useState(false);
   const [completedIds, setCompletedIds] = useState<string[]>([]);
   const [storageReady, setStorageReady] = useState(false);
+  const [syncStatus, setSyncStatus] = useState<'loading' | 'guest' | 'saving' | 'synced' | 'error'>('loading');
+  const [syncError, setSyncError] = useState('');
+  const [pendingIds, setPendingIds] = useState<string[]>([]);
 
   // Search result links can deep-link into a specific room or entire section.
   useEffect(() => {
@@ -49,37 +63,147 @@ export function TryHackMeRoadmapExplorer() {
     }
   }, [requestedQuery, requestedSection]);
 
+  // Load cloud progress for authenticated users. Local state is only used for guests
+  // and for one-time migration of progress from the old browser-only tracker.
   useEffect(() => {
-    try {
-      const raw = window.localStorage.getItem(storageKey);
-      const saved: unknown = raw ? JSON.parse(raw) : [];
-      if (Array.isArray(saved)) {
-        setCompletedIds(
-          saved.filter((id): id is string => typeof id === 'string' && uniqueRoomIds.has(id))
-        );
+    if (isAuthLoading) return;
+    const owner = userId || 'guest';
+    requestOwnerRef.current = owner;
+    let disposed = false;
+
+    setStorageReady(false);
+    setCompletedIds([]);
+    setPendingIds([]);
+    setSyncError('');
+    setSyncStatus('loading');
+
+    function getLegacyIds(): string[] {
+      try {
+        const saved: unknown = JSON.parse(window.localStorage.getItem(storageKey) || '[]');
+        if (!Array.isArray(saved)) return [];
+        return [...new Set(saved.filter((id): id is string => typeof id === 'string' && uniqueRoomIds.has(id)))];
+      } catch {
+        return [];
       }
-    } catch {
-      // Private browsing or storage restrictions should never block the roadmap.
-    } finally {
-      setStorageReady(true);
     }
-  }, []);
+
+    if (!userId) {
+      setCompletedIds(getLegacyIds());
+      setSyncStatus('guest');
+      setStorageReady(true);
+      return () => { disposed = true; };
+    }
+
+    const ownerId = userId;
+    const fetchProgress = async () => {
+      if (pendingRef.current > 0) return;
+      try {
+        const response = await fetch('/api/labs/tryhackme-progress', {
+          cache: 'no-store', credentials: 'same-origin',
+        });
+        if (!response.ok) throw new Error('Could not load account progress');
+        let data: { userId: string; completedIds: string[] } = await response.json();
+        if (data.userId !== ownerId) throw new Error('Account changed while loading progress');
+
+        const legacy = getLegacyIds();
+        if (legacy.length) {
+          const migration = await fetch('/api/labs/tryhackme-progress', {
+            method: 'PUT',
+            credentials: 'same-origin',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ completedIds: legacy }),
+          });
+          if (!migration.ok) throw new Error('Unable to move previous browser progress to your account');
+          data = await migration.json();
+          if (data.userId !== ownerId) throw new Error('Account changed during import');
+          try {
+            window.localStorage.removeItem(storageKey);
+          } catch {
+            // Successful cloud sync remains authoritative if storage is unavailable.
+          }
+        }
+        if (disposed || requestOwnerRef.current !== ownerId) return;
+        setCompletedIds((data.completedIds || []).filter(id => uniqueRoomIds.has(id)));
+        setSyncStatus('synced');
+        setSyncError('');
+      } catch (error) {
+        if (disposed || requestOwnerRef.current !== ownerId) return;
+        setSyncStatus('error');
+        setSyncError(error instanceof Error ? error.message : 'Unable to sync account progress');
+      } finally {
+        if (!disposed && requestOwnerRef.current === ownerId) setStorageReady(true);
+      }
+    };
+
+    void fetchProgress();
+    const refresh = () => {
+      if (document.visibilityState !== 'hidden') void fetchProgress();
+    };
+    window.addEventListener('focus', refresh);
+    window.addEventListener('online', refresh);
+    document.addEventListener('visibilitychange', refresh);
+    return () => {
+      disposed = true;
+      window.removeEventListener('focus', refresh);
+      window.removeEventListener('online', refresh);
+      document.removeEventListener('visibilitychange', refresh);
+    };
+  }, [userId, isAuthLoading]);
 
   const completedSet = useMemo(() => new Set(completedIds), [completedIds]);
   const completedCount = useMemo(
-    () => [...uniqueRoomIds].filter((id) => completedSet.has(id)).length,
+    () => [...uniqueRoomIds].filter(id => completedSet.has(id)).length,
     [completedSet]
   );
 
-  function toggleCompleted(id: string) {
-    const next = completedSet.has(id)
-      ? completedIds.filter((savedId) => savedId !== id)
-      : [...completedIds, id];
-    setCompletedIds(next);
+  async function toggleCompleted(id: string) {
+    if (!uniqueRoomIds.has(id) || !storageReady || isAuthLoading ||
+        pendingIds.includes(id) || (userId && syncStatus === 'error')) return;
+    const completed = !completedSet.has(id);
+
+    if (!userId) {
+      const next = completed ? [...completedIds, id] : completedIds.filter(item => item !== id);
+      setCompletedIds(next);
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(next));
+      } catch {
+        setSyncError('Browser storage is disabled; your guest progress may not persist.');
+      }
+      return;
+    }
+
+    const ownerId = userId;
+    setPendingIds(previous => [...previous, id]);
+    pendingRef.current += 1;
+    setSyncStatus('saving');
+    setSyncError('');
+
     try {
-      window.localStorage.setItem(storageKey, JSON.stringify(next));
-    } catch {
-      // Completion still works for the current tab when storage is unavailable.
+      const response = await fetch('/api/labs/tryhackme-progress', {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ roomId: id, completed }),
+      });
+      if (!response.ok) throw new Error('Unable to save lab completion to your account');
+      const result: { userId: string; roomId: string; completed: boolean; saved: boolean } = await response.json();
+      if (!result.saved || result.userId !== ownerId || result.roomId !== id) {
+        throw new Error('Account changed while saving; please reload progress');
+      }
+      if (requestOwnerRef.current !== ownerId) return;
+      setCompletedIds(previous => completed
+        ? [...new Set([...previous, id])]
+        : previous.filter(item => item !== id));
+      setSyncStatus('synced');
+    } catch (error) {
+      if (requestOwnerRef.current !== ownerId) return;
+      setSyncError(error instanceof Error ? error.message : 'Saving failed');
+      setSyncStatus('error');
+    } finally {
+      pendingRef.current = Math.max(0, pendingRef.current - 1);
+      if (requestOwnerRef.current === ownerId) {
+        setPendingIds(previous => previous.filter(item => item !== id));
+      }
     }
   }
 
@@ -111,17 +235,17 @@ export function TryHackMeRoadmapExplorer() {
         <div className="flex flex-wrap gap-3 items-center">
           <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-[var(--accent-cyan)]">
             <ShieldCheck className="w-4 h-4" />
-            Independent TryHackMe room roadmap
+            Practical Labs · TryHackMe Free Rooms
           </div>
         </div>
         <div>
           <h1 className="text-3xl sm:text-4xl font-bold font-space-grotesk text-[var(--text-primary)]">
-            TryHackMe Roadmap: Zero to Advanced
+            TryHackMe Free Labs (Free)
           </h1>
           <p className="mt-3 max-w-3xl text-sm leading-relaxed text-[var(--text-secondary)]">
-            Browse every room in the source roadmap, topic by topic, with suggested learning
-            levels. Open each lab on TryHackMe and mark it completed here when you finish.
-            These levels are CyberTube suggestions, not official TryHackMe difficulty ratings.
+            Explore source-listed free TryHackMe rooms by topic and suggested skill level.
+            Open each lab on TryHackMe and mark it complete after finishing it.
+            These levels are CyberTube suggestions, not official difficulty ratings.
           </p>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -149,10 +273,24 @@ export function TryHackMeRoadmapExplorer() {
             style={{ width: (100 * completedCount / uniqueRoomIds.size) + '%' }} />
         </div>
         <p className="text-xs text-[var(--text-muted)]">
-          {storageReady ? 'Completion is saved on this browser only; it does not sync with TryHackMe or other devices.'
-            : 'Loading your browser-saved progress...'}
-          {' '}Some source-listed rooms may now require a subscription; check access on TryHackMe.
+          {isAuthLoading || !storageReady || syncStatus === 'loading'
+            ? 'Loading lab progress…'
+            : syncStatus === 'guest'
+              ? 'Guest mode: progress is saved in this browser. Sign in to synchronize across your devices.'
+              : syncStatus === 'saving'
+                ? 'Saving progress to your account…'
+                : syncStatus === 'synced'
+                  ? 'Account progress synced to CyberTube server (not to TryHackMe).'
+                  : 'Server sync is unavailable. Completion changes are paused until reloaded.'}
+          {' '}Free status is based on the source list and can change; check access on TryHackMe.
         </p>
+        <div className="flex flex-wrap items-center gap-3 text-xs" role="status" aria-live="polite">
+          {syncStatus === 'synced' && <span className="inline-flex items-center gap-1.5 text-[var(--accent-emerald)]"><Cloud className="w-4 h-4" /> Server synced</span>}
+          {syncStatus === 'saving' && <span className="inline-flex items-center gap-1.5 text-[var(--accent-cyan)]"><Loader2 className="w-4 h-4 animate-spin" /> Saving…</span>}
+          {syncStatus === 'guest' && <Link href="/login?redirect=/labs" className="font-semibold text-[var(--accent-cyan)] underline">Sign in to sync lab completion</Link>}
+          {syncStatus === 'error' && <button type="button" className="font-semibold text-[var(--accent-cyan)] underline" onClick={() => window.location.reload()}>Retry sync</button>}
+          {syncError && <span className="text-[var(--accent-rose)]" role="alert">{syncError}</span>}
+        </div>
       </div>
 
       <div className="rounded-xl border border-[var(--border)] bg-[var(--card-bg)] p-4 space-y-4">
@@ -210,7 +348,7 @@ export function TryHackMeRoadmapExplorer() {
 
       <div className="grid grid-cols-1 lg:grid-cols-[250px_minmax(0,1fr)] gap-5 items-start">
         <nav className="rounded-xl border border-[var(--border)] bg-[var(--card-bg)] p-3 lg:sticky lg:top-20 lg:max-h-[calc(100vh-7rem)] lg:overflow-y-auto"
-          aria-label="TryHackMe roadmap sections">
+          aria-label="TryHackMe free lab sections">
           <p className="px-2 py-2 text-xs uppercase font-mono font-semibold tracking-wide text-[var(--text-muted)]">
             Sections ({navSections.length})
           </p>
@@ -287,7 +425,8 @@ export function TryHackMeRoadmapExplorer() {
                         <input
                           type="checkbox"
                           checked={completedSet.has(room.id)}
-                          onChange={() => toggleCompleted(room.id)}
+                          disabled={!storageReady || isAuthLoading || pendingIds.includes(room.id) || (Boolean(userId) && syncStatus === 'error')}
+                          onChange={() => { void toggleCompleted(room.id); }}
                           aria-label={'Mark ' + room.title + ' as completed'}
                           className="w-4 h-4 accent-cyan-500"
                         />
@@ -309,7 +448,7 @@ export function TryHackMeRoadmapExplorer() {
                         )}
                         {completedSet.has(room.id) && (
                           <span className="flex items-center gap-1 mt-1 text-[11px] text-[var(--accent-emerald)]">
-                            <CheckCircle2 className="w-3 h-3" /> Completed on this browser
+                            <CheckCircle2 className="w-3 h-3" /> {userId ? 'Completed · server saved' : 'Completed · browser only'}
                           </span>
                         )}
                       </div>
@@ -334,7 +473,9 @@ export function TryHackMeRoadmapExplorer() {
           {' '}<a href={roadmap.source.repository} target="_blank" rel="noopener noreferrer"
             className="underline hover:text-[var(--accent-cyan)]">TryHackMe-Roadmap</a>.
           Maintainer checkboxes were intentionally not imported as your own progress.
-          Some rooms appear in multiple sections, but share one completion state.
+          Rooms appear in multiple sections but share one completion state.
+          Three source-flagged non-free rooms are excluded from this free-labs view.
+          Remaining rooms were described as free by the source, but are not individually live-verified.
           Room content and access are provided by TryHackMe; CyberTube is independent of TryHackMe.
         </p>
         <p>Only practise on explicitly authorized labs and environments.</p>
