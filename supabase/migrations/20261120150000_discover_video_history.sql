@@ -84,3 +84,26 @@ END;
 $$;
 REVOKE ALL ON FUNCTION public.save_discover_video_progress(text,text,text,text,integer,integer,boolean) FROM PUBLIC, anon;
 GRANT EXECUTE ON FUNCTION public.save_discover_video_progress(text,text,text,text,integer,integer,boolean) TO authenticated;
+
+
+-- Extend the discover interest taxonomy beyond technical disciplines.
+INSERT INTO public.discovery_categories (slug,name,description,icon,enabled)
+VALUES
+  ('career-development','Career & Internships','Interview preparation, cybersecurity roles, internships and job searches.','briefcase',true),
+  ('professional-growth','Communication & Personal Growth','Workplace communication, leadership and lifelong learning.','graduation-cap',true)
+ON CONFLICT (slug) DO UPDATE SET
+  name=EXCLUDED.name,description=EXCLUDED.description,enabled=true;
+
+INSERT INTO public.discovery_topics (category_id,slug,name,description,keywords,enabled)
+SELECT category.id,topic.slug,topic.name,topic.description,topic.keywords,true
+FROM (VALUES
+  ('career-development','soc-careers','SOC Analyst Careers','Entry-level security operations roles, career progress and interviews',ARRAY['soc analyst','jobs','interview','security operations']::text[]),
+  ('career-development','cyber-internships','Cybersecurity Internships','Find internships, build a portfolio and prepare applications',ARRAY['internship','freshers','students','experience','applications']::text[]),
+  ('career-development','interview-preparation','Interview Preparation','Technical and behavioral interview practice',ARRAY['interview','resume','recruiter','career']::text[]),
+  ('career-development','cyber-certifications','Certifications & Job Skills','Build practical skills and plan professional certification goals',ARRAY['certification','compTIA','CCNA','OSCP','skills']::text[]),
+  ('professional-growth','communication-skills','Workplace Communication','Clarity, public speaking, teamwork and explaining technical concepts',ARRAY['communication','public speaking','presentations','confidence']::text[]),
+  ('professional-growth','personal-development','Personal Growth & Productivity','Habits, productivity, confidence, time management and leadership',ARRAY['growth','productivity','habits','leadership','confidence']::text[])
+) topic(category_slug,slug,name,description,keywords)
+JOIN public.discovery_categories category ON category.slug=topic.category_slug
+ON CONFLICT (slug) DO UPDATE SET
+  name=EXCLUDED.name,description=EXCLUDED.description,keywords=EXCLUDED.keywords,enabled=true;
