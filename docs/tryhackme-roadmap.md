@@ -1,29 +1,38 @@
-# TryHackMe Roadmap integration
+# TryHackMe Free Labs in CyberTube Practical Labs
 
-## Source
+## Public experience
 
-- Repository: https://github.com/Hunterdii/TryHackMe-Roadmap
-- License: CC0-1.0 (maintainer attribution retained in the user interface)
-- Snapshot/revision: see src/data/tryhackme-roadmap.json -> source.revision
-- As imported: 2026-11-20
+- Main page: **/labs** — “Practical Labs & Wargames”, with the **TryHackMe Free Labs (Free)** explorer followed by other legal practical training platforms.
+- Compatibility: `/tryhackme-roadmap` redirects to `/labs`, preserving room `?q=` and section `?section=` deep links.
+- Navigation: “Practical Labs” in the site's More menu (no “Coming Soon” badge), the footer, and the Learning Paths page.
+- Search: the global search index links to `/labs#tryhackme`, `/labs?section=<slug>`, and `/labs?q=<room title>`.
+- Suggested Beginner through Expert learning levels, section navigation, room search, incomplete-only filter, and per-room completion.
+- External room links open TryHackMe. Only practise in authorized labs.
 
-The imported snapshot preserves all **502 section entries** from the source README across **28 ordered categories**, with **482 distinct room URLs**. The same room may occur in several sections; do not deduplicate those placements. The source author's checked boxes are **not** an indication of the CyberTube learner's progress and were not imported.
+## Source and free-status limits
 
-## Pages
+- Source: https://github.com/Hunterdii/TryHackMe-Roadmap (CC0-1.0)
+- Original snapshot: `src/data/tryhackme-roadmap.json` — **502 entries**, **482 unique rooms**, **28 source sections**.
+- Free-labs view: **499 entries**, **479 unique room IDs**, **28 sections**, keeping duplicate placements.
+- Excluded because source reports they are no longer free: `linuxfundamentalspart2`, `linuxfundamentalspart3`, `introtolan`.
+- Remaining rooms are source-listed as free, **not independently confirmed free as of today**. TryHackMe can change access; do not promise every displayed room is currently free.
+- Maintainer's checkboxes are *not* imported as learner progress.
 
-- Main catalog: /tryhackme-roadmap
-- Discoverable through the header More menu, footer, Practice Labs page, and Learning Paths page.
-- All external room links open https://tryhackme.com/room/... in a new tab.
-- Search, suggested-level filter, section navigation, and Incomplete-only filter.
-- Completion state is per-browser using localStorage (cybertube:tryhackme-roadmap:completed:v1), shared by repeated room IDs. It does not sync to CyberTube account data or TryHackMe.
-- Suggested level buckets are CyberTube editorial groupings. The source does not provide official TryHackMe difficulty ratings for each topic section.
+## Secure cross-device lab progress
 
-## Access & accuracy
-
-The source describes its list as free, but marks three rooms as potentially no longer free. These warnings are preserved in the catalog. Do not claim that every room is presently accessible without a subscription, or that all 502 links were individually live-checked. To update the snapshot, review the source README and re-run the import logic, preserving section order, source URLs, warnings, and provenance.
+- Reuses existing RLS-enabled `public.user_generic_progress` table. No new schema or service-role keys.
+- Authenticated endpoints at `/api/labs/tryhackme-progress`:
+  - `GET` retrieves signed-in user's completed and known room IDs.
+  - `POST {roomId, completed}` updates an explicitly allowed room's completion, including unchecking.
+  - `PUT {completedIds}` imports older guest/browser completion **without overwriting any existing server record**, including intentionally unchecked records.
+- Server validates room IDs against source-listed free rooms, derives user identity from authenticated cookies, and relies on per-user RLS. No client-supplied user ID or privileged keys.
+- Each room is represented by `entity_type='lab'`, `entity_id='tryhackme:<room id>'`. Duplicate section placements share progress.
+- Signed-in status is only marked “Server synced” after a successful response. Failed reads/writes display errors; controls do not silently claim sync.
+- Guest checkmarks remain browser-local until the guest signs in and imports them. After a successful import the old local key is removed to prevent leaking checkmarks into a different account.
+- Cloud progress syncs between CyberTube sessions/devices, **not with TryHackMe's own completion API**; the user self-reports completion.
 
 ## Verification
 
-Run: node --test test/tryhackme-roadmap.test.js
-
-Then run the normal Next.js type/build checks and manually verify navigation, mobile layouts, search, level filters, browser progress, duplicate completion, and external links.
+- Run `npm run test:labs`, `npm run test:search`, and `npm run build`.
+- Check signed-in completion, reload, separate-device account sync, unchecking, duplicate-section checkmarks, guest-to-account import, sign-out isolation, rejected invalid/paid IDs, responsive layouts, and legacy route redirects.
+- Postgres `user_generic_progress` has per-user SELECT, INSERT and UPDATE RLS policies with `auth.uid()=user_id`; no schema change was required.

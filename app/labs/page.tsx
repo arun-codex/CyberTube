@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { Suspense } from 'react';
+import { TryHackMeRoadmapExplorer } from '@/components/tryhackme/TryHackMeRoadmapExplorer';
 import Link from 'next/link';
 import { Metadata } from 'next';
 import { ExternalLink, Terminal, Shield, CheckCircle2, AlertCircle } from 'lucide-react';
 import { getAllAuthoritativeResources } from '@/lib/authoritativeCatalog';
 
 export const metadata: Metadata = {
-  title: 'Legal Labs & Practice Platforms | CyberTube',
-  description: 'Verified legal environments to practise Linux terminal, networking, CTF wargames, and web application exploitation.',
+  title: 'Practical Labs & TryHackMe Free Rooms | CyberTube',
+  description: 'Explore source-listed free TryHackMe rooms and authorized cybersecurity practical labs, grouped by topic and difficulty.',
 };
 
 export default function LabsPage() {
@@ -21,10 +22,10 @@ export default function LabsPage() {
           <span>Hands-On Environments</span>
         </div>
         <h1 className="text-3xl sm:text-4xl font-bold font-space-grotesk text-[#0F172A] dark:text-[#E6EDF3]">
-          Legal Practice Labs & Wargames
+          Practical Labs & Wargames
         </h1>
         <p className="text-sm sm:text-base text-[#475569] dark:text-[#9BA8B7] leading-relaxed">
-          Theory without keyboard time will not make you a cybersecurity practitioner. These 7 platforms are purpose-built for legal, hands-on vulnerability exploration and defensive testing.
+          Theory becomes practical experience through authorized labs. Explore source-listed free TryHackMe challenges and other legal cybersecurity training platforms.
         </p>
       </div>
 
@@ -41,18 +42,16 @@ export default function LabsPage() {
         </div>
       </div>
 
-      <section className="rounded-xl border border-[#22D3EE]/30 bg-[#22D3EE]/5 p-5 sm:p-6 flex flex-col sm:flex-row gap-4 sm:items-center sm:justify-between">
-        <div className="space-y-1">
-          <h2 className="text-lg font-bold text-[#0F172A] dark:text-[#E6EDF3]">
-            Explore the TryHackMe Room Roadmap
-          </h2>
-          <p className="text-sm text-[#475569] dark:text-[#9BA8B7]">
-            502 room entries across 28 organized sections — from beginner fundamentals to advanced CTF challenges.
-          </p>
-        </div>
-        <Link href="/tryhackme-roadmap" className="shrink-0 inline-flex items-center justify-center px-4 py-2.5 rounded-lg bg-[#0E7490] dark:bg-[#22D3EE] text-white dark:text-[#0B1018] text-xs font-semibold hover:opacity-90">
-          Browse All TryHackMe Rooms
-        </Link>
+      {/* The free TryHackMe room explorer is part of Practical Labs, not a separate coming-soon feature. */}
+      <section id="tryhackme" className="scroll-mt-24 space-y-5" aria-label="TryHackMe free practical labs">
+        <Suspense fallback={<div className="rounded-xl border border-[var(--border)] p-8 text-sm text-[var(--text-secondary)]">Loading TryHackMe free labs…</div>}>
+          <TryHackMeRoadmapExplorer />
+        </Suspense>
+      </section>
+
+      <section className="space-y-2">
+        <h2 className="text-2xl font-bold text-[var(--text-primary)]">More Practical Lab Platforms</h2>
+        <p className="text-sm text-[var(--text-secondary)]">Additional authorized training environments and wargames.</p>
       </section>
 
       {/* Grid of Labs */}

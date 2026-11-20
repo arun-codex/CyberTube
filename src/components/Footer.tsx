@@ -60,12 +60,7 @@ export const Footer: React.FC = () => {
             <ul className="space-y-2 text-xs">
               <li>
                 <Link href="/labs" className="hover:text-[var(--accent-cyan)] transition-colors">
-                  Legal Practice Labs
-                </Link>
-              </li>
-              <li>
-                <Link href="/tryhackme-roadmap" className="hover:text-[var(--accent-cyan)] transition-colors">
-                  TryHackMe Room Roadmap
+                  Practical Labs
                 </Link>
               </li>
               <li>
