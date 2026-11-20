@@ -121,6 +121,11 @@ export const Footer: React.FC = () => {
                   About CyberTube
                 </Link>
               </li>
+              <li>
+                <Link href="/support" className="hover:text-[var(--accent-cyan)] transition-colors">
+                  Support CyberTube ☕
+                </Link>
+              </li>
             </ul>
             <div className="flex flex-wrap gap-1.5">
               <span className="px-2 py-0.5 rounded bg-[var(--surface-subtle)] border border-[var(--border)] text-[10px] font-mono text-[var(--accent-cyan)]">
@@ -170,6 +175,7 @@ export const Footer: React.FC = () => {
             <Link href="/privacy" className="hover:text-[var(--accent-cyan)] transition-colors">Privacy</Link>
             <Link href="/terms" className="hover:text-[var(--accent-cyan)] transition-colors">Terms</Link>
             <Link href="/ethics" className="hover:text-[var(--accent-cyan)] transition-colors">Ethics</Link>
+            <Link href="/support" className="hover:text-[var(--accent-cyan)] transition-colors">Support ☕</Link>
             <Link href="/about" className="hover:text-[var(--accent-cyan)] transition-colors">About</Link>
           </div>
         </div>

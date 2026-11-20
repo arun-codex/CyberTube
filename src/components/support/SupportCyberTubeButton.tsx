@@ -72,11 +72,12 @@ export function SupportCyberTubeButton({
       }
     }
 
+    const triggerEl = triggerRef.current;
     document.addEventListener('keydown', onKeyDown);
     return () => {
       document.body.style.overflow = originalOverflow;
       document.removeEventListener('keydown', onKeyDown);
-      triggerRef.current?.focus();
+      triggerEl?.focus();
     };
   }, [open]);
 

@@ -51,6 +51,7 @@ const websitePages: Array<[string, string, string, string]> = [
   ['/glossary', 'Glossary', 'Definitions of cybersecurity terms and techniques', 'dictionary vocabulary'],
   ['/ethics', 'Ethics & Rules', 'Rules for authorized cybersecurity practice, legal hacking and ethical research', 'responsible hacking'],
   ['/about', 'About CyberTube', 'About our cybersecurity learning project and platform', 'information'],
+  ['/support', 'Support CyberTube', 'Support free cybersecurity education with an optional chai contribution', 'support buy me a chai donation chai sponsor contribute'],
   ['/privacy', 'Privacy Policy', 'How CyberTube protects personal information and privacy', 'policy'],
   ['/terms', 'Terms of Service', 'CyberTube user terms and conditions', 'conditions'],
   ['/login', 'Sign In', 'Login to your CyberTube account', 'authentication account'],
