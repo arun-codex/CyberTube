@@ -74,6 +74,17 @@ See [Discover architecture, privacy and verification](docs/discover-personalized
 - Study documents, reader/progress tracking, bookmarks, and saved content with signed-in account synchronization where supported.
 - Public search does not intentionally index private learner records or unpublished documents.
 
+### Optional Chai support (preview only)
+
+- Optional **Support CyberTube ☕** button on the Home page and an inline support panel near the end of every page in the footer.
+- No floating or bottom-right launcher is mounted by the committed implementation.
+- Theme colors, backgrounds, borders and focus states match CyberTube's own light and dark themes.
+- Cutting, Kadak, Tandoori and Premium chai tiers show preview amounts of ₹10 / ₹25 / ₹50 / ₹100.
+- **Live UPI payments are disabled.** The preview generates no payable QR/UPI intent and displays no recipient account until the owner explicitly authorizes activation after payee verification.
+- Existing/unmerged localhost ChaiKit integrations need to remove their independent floating mounting point to avoid duplicate controls.
+
+For ownership, package installation, safety and eventual payment activation, see [Chai support integration instructions](docs/chaikit-support-integration.md).
+
 ### Accounts and security
 
 - Supabase Authentication with Next.js SSR cookie sessions.
