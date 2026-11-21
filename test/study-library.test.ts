@@ -266,25 +266,12 @@ test('8. Fractional, out-of-bounds and retired-document progress writes are reje
 test('9. Study Materials PDF Endpoint — same-origin-only OPTIONS and multi-bucket fallback', async () => {
   const { GET, OPTIONS } = await import('../app/api/study-materials/[docId]/pdf/route');
 
-  // Same-origin preflight must succeed without advertising any CORS grant.
-  const optReq = new Request('https://cybertube-mu.vercel.app/api/study-materials/doc-1/pdf', {
-    method: 'OPTIONS',
-    headers: { origin: 'https://cybertube-mu.vercel.app' },
-  });
-  const optRes = await OPTIONS(optReq as any);
-  assert.equal(optRes.status, 204);
+  // Cross-origin preflight must not grant permission to fetch private PDF bytes.
+  const optRes = OPTIONS();
+  assert.equal(optRes.status, 405);
+  assert.equal(optRes.headers.get('Allow'), 'GET');
   assert.equal(optRes.headers.get('Access-Control-Allow-Origin'), null);
   assert.equal(optRes.headers.get('Access-Control-Allow-Credentials'), null);
-  assert.ok(optRes.headers.get('Allow')?.includes('GET'));
-
-  // Foreign credentialed preflights are explicitly rejected.
-  const foreignReq = new Request('https://cybertube-mu.vercel.app/api/study-materials/doc-1/pdf', {
-    method: 'OPTIONS',
-    headers: { origin: 'https://untrusted.example' },
-  });
-  const foreignRes = await OPTIONS(foreignReq as any);
-  assert.equal(foreignRes.status, 403);
-  assert.equal(foreignRes.headers.get('Access-Control-Allow-Origin'), null);
 
   // Test multi-bucket fallback: 'study-materials' succeeds
   const mockUser = { id: 'user-bucket-test', email: 'reader@test.com' };

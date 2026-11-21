@@ -4,15 +4,8 @@ import { createAdminClient } from '@/lib/supabase/admin';
 
 // The PDF is a private, cookie-authenticated same-origin resource.
 // Never advertise credentialed cross-origin access, including on errors.
-export async function OPTIONS(req: NextRequest) {
-  const origin = req.headers.get('origin');
-  if (origin && origin !== new URL(req.url).origin) {
-    return new NextResponse(null, { status: 403, headers: { Vary: 'Origin' } });
-  }
-  return new NextResponse(null, {
-    status: 204,
-    headers: { Allow: 'GET, HEAD, OPTIONS', Vary: 'Origin' },
-  });
+export function OPTIONS() {
+  return new NextResponse(null, { status: 405, headers: { Allow: 'GET' } });
 }
 
 /** Streams only the requested authorized private object; no local fallback. */
@@ -24,11 +17,6 @@ export async function GET(req: NextRequest, context: { params: Promise<{ docId: 
       headers: { 'Cache-Control': 'no-store', Vary: 'Origin' },
     });
   }
-  const corsHeaders: Record<string, string> = {
-    'Cross-Origin-Resource-Policy': 'same-origin',
-    Vary: 'Origin',
-  };
-
   const user = await getAuthenticatedUser();
   if (!user) {
     return new NextResponse('Unauthorized: Please log in.', {
@@ -106,6 +94,8 @@ export async function GET(req: NextRequest, context: { params: Promise<{ docId: 
     'Accept-Ranges': 'bytes',
     'Cache-Control': 'private, no-cache, no-store, must-revalidate',
     'X-Content-Type-Options': 'nosniff',
+    'Cross-Origin-Resource-Policy': 'same-origin',
+    'Vary': 'Origin',
   };
 
   const range = req.headers.get('range');
