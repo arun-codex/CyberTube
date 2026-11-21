@@ -1,15 +1,21 @@
 const { spawn } = require('node:child_process');
 const net = require('node:net');
+const path = require('node:path');
 const assert = require('node:assert/strict');
 const { setTimeout: delay } = require('node:timers/promises');
 
 async function main() {
+  const rootDir = path.resolve(__dirname, '..');
   // Reserve a free local port so concurrent verification does not conflict.
   const reservation = net.createServer();
   await new Promise(resolve => reservation.listen(0, '127.0.0.1', resolve));
   const port = reservation.address().port;
   await new Promise(resolve => reservation.close(resolve));
-  const child = spawn(process.execPath, [require.resolve('next/dist/bin/next'), 'start', '-H', '127.0.0.1', '-p', String(port)], { stdio: ['ignore', 'pipe', 'pipe'] });
+  const child = spawn(process.execPath, [require.resolve('next/dist/bin/next'), 'start', '-H', '127.0.0.1', '-p', String(port)], {
+    cwd: rootDir,
+    env: { ...process.env },
+    stdio: ['ignore', 'pipe', 'pipe']
+  });
   let output = '';
   child.stdout.on('data', data => { output += data; });
   child.stderr.on('data', data => { output += data; });
@@ -22,9 +28,12 @@ async function main() {
       await delay(100);
     }
     if (!ready) throw new Error('Production server startup timed out: ' + output);
-    const routes = ['/', '/library', '/discover', '/domains', '/resources/portswigger-sql-injection-lab', '/resources/blackhat-hardware-backdoors-x86', '/saved'];
+    const routes = ['/', '/library', '/discover', '/domains', '/resources/portswigger-sql-injection-lab', '/resources/blackhat-hardware-backdoors-x86', '/saved', '/support'];
     for (const route of routes) {
       const response = await fetch(base + route, { signal: AbortSignal.timeout(10000) });
+      if (response.status !== 200) {
+        console.error(`Route ${route} returned status ${response.status}. Server output:\n`, output);
+      }
       assert.equal(response.status, 200, route);
       assert.ok((await response.text()).length > 0);
       console.log('Verified route', route, response.status);
