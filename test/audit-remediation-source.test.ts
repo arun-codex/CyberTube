@@ -60,6 +60,6 @@ test('Review branch opts out of automatic Vercel deployments',()=>{
 test('F18: do not expose an apparent empty library when RLS hides guest documents',()=>{
   const p=source('src/components/library/UnifiedLibraryHubClient.tsx');
   assert.match(p,/Sign in to access study materials/);
-  assert.match(p,/isUserLoggedIn \? \\(/);
-  assert.doesNotMatch(p,/documents\\.length \\|\\| 34/);
+  assert.ok(p.includes('isUserLoggedIn ? ('));
+  assert.ok(!p.includes('documents.length || 34'));
 });
