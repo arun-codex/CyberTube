@@ -249,24 +249,10 @@ export const UniversalCourseLearningLayout: React.FC<UniversalCourseLearningLayo
       ? allLessons[currentLessonIndex + 1]
       : undefined;
 
-  // Check sequential module locking (e.g. Storytelling Masterclass)
-  const isSequentialQuizCourse = course.slug === 'free-storytelling-masterclass';
-  const activeModuleIndex = course.modules.findIndex((m) => m.id === activeLesson.moduleId);
-  let isCurrentLessonLocked = false;
-  let lockRequirementMessage = '';
-  let prerequisiteModule: any = undefined;
-
-  if (isSequentialQuizCourse && activeModuleIndex > 0) {
-    const prevModule = course.modules[activeModuleIndex - 1];
-    prerequisiteModule = prevModule;
-    const prevScore = quizScores[prevModule.id] ?? 0;
-    const passingScore = prevModule.quiz?.passingScorePercent || 70;
-
-    if (prevScore < passingScore) {
-      isCurrentLessonLocked = true;
-      lockRequirementMessage = `Pass ${prevModule.title} assessment quiz (Score: ${prevScore}%, Required: ≥ ${passingScore}%) to unlock this module.`;
-    }
-  }
+  // No quiz-dependent unlocking: all course modules and lessons are accessible
+  const isCurrentLessonLocked = false;
+  const lockRequirementMessage = '';
+  const prerequisiteModule: any = undefined;
 
   const isLessonCompleted = completedLessonIds.includes(activeLesson.id);
   const activeVideoProgress = activeVideo ? videoProgressMap[activeVideo.videoId] : undefined;

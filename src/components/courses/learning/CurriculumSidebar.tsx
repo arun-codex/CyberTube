@@ -52,8 +52,8 @@ export const CurriculumSidebar: React.FC<CurriculumSidebarProps> = ({
   const coursePercent =
     totalLessons > 0 ? Math.round((completedCount / totalLessons) * 100) : 0;
 
-  // Determine if course enforces sequential quiz unlocking (e.g. Storytelling Masterclass)
-  const isSequentialQuizCourse = courseSlug === 'free-storytelling-masterclass';
+  // All course modules and lessons are accessible without quiz locking
+  const isSequentialQuizCourse = false;
 
   return (
     <aside
