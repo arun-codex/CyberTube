@@ -1,64 +1,35 @@
-# CyberTube Chai Support — Inline Placement, Theme & Activation
+# CyberTube Chai Support — Location, Theme & Live Payment Safety
 
-## Implementation status (20 November 2026)
+For the canonical payment architecture, flags, recipient safety, activation and bank-side verification, see [ChaiKit production integration](chaikit-integration.md).
 
-The public CyberTube repository contains an **inline support preview**, not a live payment gateway.
+## Interface
 
-- **Home page:** a support trigger next to the existing learning actions.
-- **All pages:** a single full-width support section inside the regular footer, below page content, before legal links.
-- **Header:** Support menu item navigates to the footer section.
-- **No fixed or floating support launcher** is mounted by the committed code.
-- **Colors:** all controls and the modal use CyberTube semantic CSS variables (`--card-bg`, `--surface-subtle`, `--border`, `--text-primary`, `--text-secondary`, `--accent-cyan`). The site's theme toggle controls the appearance in both modes.
-- **Preview:** selectable Cutting ₹10, Kadak ₹25, Tandoori ₹50 and Premium ₹100 tiers, plus accurate “not activated” messaging; all payment actions disabled.
-- **Safety:** no receiving UPI address, payable QR or UPI intent is committed or displayed.
+- A support button is available on Home and as an inline section at the end of every page, with a Support navigation link.
+- The button opens a keyboard-accessible dialog containing the real ChaiKit web component in inline mode.
+- The dedicated /support page also uses the same component and configuration endpoint.
+- It is not a floating bottom-right launcher.
+- Dark and light modes inherit CyberTube semantic colors and cyan accent. The ChaiKit QR itself uses a high-contrast white background.
+- The four preset contributions are ₹10/₹25/₹50/₹100, with custom amounts supported.
 
-### Localhost warning
+## Approved owner details (21 November 2026)
 
-A screenshot from a developer's local `localhost:3000` environment showed a floating ChaiKit launcher and a separately styled footer link, **neither of which existed in the GitHub `main` branch when this change began**. They are almost certainly from unpublished/local code or a different worktree. Pulling the updated repository does not remove additional untracked code from your local folder. Check your own local changes and remove the original floating mounting point, or replace its `position="bottom-right"` with ChaiKit's supported `position="inline"` or `headless` mode. Render one support control per intended placement, not an old floating launcher plus a new footer trigger. Do not delete unrelated local work.
+The owner explicitly chose direct UPI, custom amounts and authorized real payments after stating that the receiving account had been verified as Arun Kumar. The exact UPI ID is set in the production server environment and checked against a reviewed allowlist, not accepted from user-supplied browser inputs.
 
-## Owner configuration already supplied privately
+This attestation does not constitute independent bank-side verification by CyberTube or ChatGPT.
 
-The owner previously supplied these details for a future live integration:
+## Deployment gates and truthfulness
 
-| Setting | Known choice |
-| --- | --- |
-| Creator display name | CyberTube |
-| Support description | Support free cybersecurity education. Buy us a chai! |
-| Button text | Support CyberTube ☕ |
-| Currency | INR |
-| Chai tiers | ₹10, ₹25, ₹50, ₹100 |
-| Preferred placement | Inline at the bottom of the page and an entry on Home, **not floating** |
-| Themes | Match CyberTube light/dark |
-| Optional 3D | Enabled when live ChaiKit is integrated |
+Live payments require the server flags and exact approved payee described in [the integration guide](chaikit-integration.md). Without them the UI shows a demo-only, non-payable ChaiKit QR. If configuration cannot load, the UI displays an unavailable state, **not** a payable fallback.
 
-A receiving UPI ID and expected bank/UPI payee name were supplied previously. **Do not publish those values, copy them into the client code, or activate any payment handoff without the owner's explicit approval.**
+In live mode, ChaiKit's creator-name is set to the verified **bank payee name** so the generated UPI pn field is correct. The CyberTube identity remains displayed in the surrounding interface.
 
-## Requirements to activate actual UPI support
+A QR code or UPI app handoff does not confirm payment, and the site must never show fabricated success, receipts, donor counts or transfer verification. Bank account owners should perform an independent small test and check the actual receiving bank statement before declaring funds received.
 
-1. Get **explicit payment activation approval** from the owner. Existing configuration is not authorization.
-2. Independently validate that the provided UPI ID belongs to the intended recipient. Send a small actual test contribution from a separate UPI app/account and verify the **displayed payee name**, correct recipient and real receipt in the bank/UPI statement. Do not take the browser's word for it.
-3. Confirm live mode should use direct UPI QR / intent, whether the amounts should remain ₹10/₹25/₹50/₹100, and whether to allow a custom amount. These defaults can be retained unless explicitly changed.
-4. Verify the `@chaikit/widget` or `@chaikit/react` **v1.0.0** release actually exists and is installable before adding a dependency and lockfile change. Do not install an unverified similarly named npm package. See [ChaiKit](https://github.com/arun-codex/chaikit).
-5. Integrate the original ChaiKit **in inline/headless mode**, not as a floating widget; adapt its `theme` to the website's resolved `next-themes` theme, and override its Shadow DOM CSS variables on `<chai-support>` to match CyberTube's semantic palette.
-6. Make a fresh test on **mobile and desktop**, **light and dark**, including the correct amount and QR/UPI handoff. Verify this with the receiving bank/account, not by displaying a fake “payment success” screen.
-7. Enable live mode **only in a separate reviewed commit after approval and verified test**. Do not alter `NEXT_PUBLIC_*` variables or introduce payment deeplinks while still in preview.
+## Files
 
-### Payment verification boundaries
-
-ChaiKit is a direct-URL/QR handoff, not an acquiring bank or payment processor. A web browser **cannot authoritatively verify a UPI transfer**. Never display a fake confirmation, automatic support count, verified-payee badge, receipt, or “payment successful” status. Bank-side verification or a properly integrated gateway would be needed for authenticated server-side payment status.
-
-### Security and user experience
-
-- Never send the UPI address to analytics or commit credentials.
-- No payments are accepted by the preview and no donor data is collected.
-- A future production support widget must be optional, clearly identified, keyboard/screen-reader accessible, and must not block education content.
-- Respect the site's light/dark toggle instead of merely checking operating-system color preference.
-
-## Implementation references
-
-- Site preview: `src/components/support/SupportCyberTubeButton.tsx`
-- Home: `app/page.tsx`
-- Header: `src/components/Header.tsx`
-- Footer: `src/components/Footer.tsx`
-- UI smoke checks: `test/support-layout.test.ts`
-- Upstream component API: [ChaiKit configuration](https://github.com/arun-codex/chaikit/blob/main/docs/configuration.md) and [headless triggers](https://github.com/arun-codex/chaikit/blob/main/docs/customization.md).
+- src/components/support/SupportCyberTubeButton.tsx
+- src/components/support/ChaiKitPaymentPanel.tsx
+- src/lib/chaikit/config.ts
+- app/api/support/config/route.ts
+- app/support/page.tsx
+- tests/39_chaikit_live_direct_upi.spec.ts

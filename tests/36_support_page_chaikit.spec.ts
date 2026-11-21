@@ -1,15 +1,15 @@
 import { expect, test } from '@playwright/test';
 
 test.describe('Dedicated Support Page (/support) & ChaiKit Integration', () => {
-  test('renders dedicated support page with genuine ChaiKit inline component and safe demo mode', async ({ page }) => {
+  test('renders dedicated support page with genuine ChaiKit inline component', async ({ page }) => {
     await page.goto('/support');
 
     // Page title and hero
     await expect(page).toHaveTitle(/Support CyberTube/i);
     await expect(page.getByRole('heading', { level: 1 })).toContainText('Help Keep Cybersecurity Education Free');
 
-    // Safe demo mode notice
-    await expect(page.getByText('Safe Demonstration Preview (Demo Mode Active)')).toBeVisible();
+    // Neutral notice applies to both active UPI and preview-only configurations.
+    await expect(page.getByText('Direct UPI • Verify before paying')).toBeVisible();
 
     // Genuine ChaiKit mounting container
     const widgetContainer = page.locator('[data-testid="support-page-inline-widget"]');
@@ -20,7 +20,8 @@ test.describe('Dedicated Support Page (/support) & ChaiKit Integration', () => {
     await expect(chaiSupport).toBeVisible();
     await expect(chaiSupport).toHaveAttribute('position', 'inline');
     await expect(chaiSupport).toHaveAttribute('creator-name', 'CyberTube');
-    await expect(chaiSupport).toHaveAttribute('default-tier', 'kadak');
+    // ChaiKit defaults to Kadak ₹25 even if React normalizes the custom-element attribute.
+    await expect(chaiSupport.locator('.chai-payment-amount')).toContainText('25');
 
     // Trust and transparency sections
     await expect(page.getByRole('heading', { name: /What Your Contribution Supports/i })).toBeVisible();

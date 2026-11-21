@@ -1,8 +1,7 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Link from 'next/link';
-import { useTheme } from 'next-themes';
 import {
   Coffee,
   ShieldCheck,
@@ -15,44 +14,20 @@ import {
   ExternalLink,
   CheckCircle2,
 } from 'lucide-react';
-import { loadChaiKitScript } from '../../src/lib/chaikit/loader';
-import { defaultSupportConfig } from '../../src/lib/chaikit/config';
+import { ChaiKitPaymentPanel } from '../../src/components/support/ChaiKitPaymentPanel';
 
 export default function SupportPage() {
-  const { theme } = useTheme();
-  const [isWidgetLoaded, setIsWidgetLoaded] = useState(false);
-  const [loadError, setLoadError] = useState<string | null>(null);
-
   useEffect(() => {
     document.title = 'Support CyberTube ☕ | Free Cybersecurity Education';
-    let mounted = true;
-    loadChaiKitScript()
-      .then(() => {
-        if (mounted) {
-          setIsWidgetLoaded(true);
-        }
-      })
-      .catch((err) => {
-        if (mounted) {
-          console.warn('Could not load ChaiKit bundle on /support:', err);
-          setLoadError('Supporter widget bundle is currently unavailable.');
-        }
-      });
-
-    return () => {
-      mounted = false;
-    };
   }, []);
-
-  const widgetTheme = theme === 'light' ? 'cream' : (defaultSupportConfig.theme || 'dark');
 
   return (
     <div className="min-h-screen bg-[var(--canvas)] text-[var(--text-primary)] transition-colors">
       {/* Background Ambience */}
-      <div className="relative overflow-hidden border-b border-[var(--border)] bg-gradient-to-b from-amber-500/5 via-transparent to-transparent py-16 sm:py-24">
+      <div className="relative overflow-hidden border-b border-[var(--border)] bg-gradient-to-b from-[var(--accent-cyan-subtle)] via-transparent to-transparent py-16 sm:py-24">
         <div className="container-max relative z-10 mx-auto px-4 sm:px-6">
           <div className="max-w-3xl mx-auto text-center space-y-6">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 text-amber-500 text-xs font-mono uppercase tracking-wider">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[var(--accent-cyan)]/30 bg-[var(--accent-cyan-subtle)] text-[var(--accent-cyan)] text-xs font-mono uppercase tracking-wider">
               <Coffee className="w-4 h-4 animate-bounce" />
               <span>Voluntary Creator Support</span>
             </div>
@@ -67,17 +42,17 @@ export default function SupportPage() {
               development with a small, optional chai contribution.
             </p>
 
-            {/* Safe Demo Notice Banner */}
+            {/* Always-true, honest payment handoff notice. */}
             <div className="p-4 rounded-xl border border-amber-500/30 bg-amber-500/10 text-left flex items-start gap-3 text-xs text-[var(--text-secondary)]">
               <AlertTriangle className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
               <div className="space-y-1">
                 <p className="font-semibold text-amber-500 font-mono uppercase tracking-wider">
-                  Safe Demonstration Preview (Demo Mode Active)
+                  Direct UPI • Verify before paying
                 </p>
                 <p>
-                  Real bank payment initiation is strictly disabled until final verification.
-                  The QR code displayed below demonstrates ChaiKit’s authentic interface without
-                  initiating real financial transactions.
+                  If the panel shows Direct UPI, check the bank recipient and amount in your own payment app
+                  before sending money. App handoff does not confirm a transfer. If it shows Preview Only,
+                  the QR is intentionally non-payable.
                 </p>
               </div>
             </div>
@@ -95,7 +70,7 @@ export default function SupportPage() {
                 <span className="flex items-center gap-1.5 text-amber-500 font-semibold">
                   <Coffee className="w-4 h-4" /> ChaiKit Interactive Widget
                 </span>
-                <span>Powered by ChaiKit 1.0</span>
+                <span>Powered by ChaiKit</span>
               </div>
 
               {/* Inline Web Component Mounting Container */}
@@ -103,40 +78,7 @@ export default function SupportPage() {
                 className="chaikit-inline-wrapper flex justify-center w-full min-h-[520px] rounded-2xl bg-[var(--surface-subtle)] p-2 sm:p-4 border border-[var(--border)] shadow-xl transition-all"
                 data-testid="support-page-inline-widget"
               >
-                {isWidgetLoaded ? (
-                  // @ts-expect-error Registered custom element
-                  <chai-support
-                    creator-name={defaultSupportConfig.creatorName}
-                    payment-payee-name={defaultSupportConfig.paymentPayeeName}
-                    upi-id={defaultSupportConfig.upiId}
-                    description={defaultSupportConfig.description}
-                    button-text={defaultSupportConfig.buttonText}
-                    theme={widgetTheme}
-                    position="inline"
-                    default-tier={defaultSupportConfig.defaultTierId}
-                    note={defaultSupportConfig.paymentNote}
-                    tiers={JSON.stringify(defaultSupportConfig.tiers)}
-                    enable-3d={defaultSupportConfig.enable3D ? '' : undefined}
-                    demo-mode=""
-                  />
-                ) : loadError ? (
-                  <div className="flex flex-col items-center justify-center p-8 text-center text-xs text-[var(--text-muted)] space-y-3">
-                    <AlertTriangle className="w-8 h-8 text-amber-500" />
-                    <p>{loadError}</p>
-                    <button
-                      type="button"
-                      onClick={() => window.location.reload()}
-                      className="px-3 py-1.5 rounded-lg border border-[var(--border)] hover:bg-[var(--surface)] text-[var(--text-primary)]"
-                    >
-                      Retry Loading
-                    </button>
-                  </div>
-                ) : (
-                  <div className="flex flex-col items-center justify-center p-12 text-center text-xs text-[var(--text-muted)] space-y-4">
-                    <div className="w-8 h-8 rounded-full border-2 border-amber-500 border-t-transparent animate-spin" />
-                    <p className="font-mono">Loading ChaiKit supporter interface...</p>
-                  </div>
-                )}
+                <ChaiKitPaymentPanel />
               </div>
 
               <div className="mt-3 text-center text-[11px] font-mono text-[var(--text-muted)]">
@@ -217,7 +159,7 @@ export default function SupportPage() {
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5" />
                   <span>
-                    <strong>Payee Verification:</strong> Supporters should always check the payee name displayed in their banking app (expected: <em>{defaultSupportConfig.paymentPayeeName}</em>) before confirming.
+                    <strong>Payee Verification:</strong> Supporters should always check the payee name displayed in their banking app (expected: <em>Arun Kumar</em>) before confirming.
                   </span>
                 </li>
                 <li className="flex items-start gap-2">

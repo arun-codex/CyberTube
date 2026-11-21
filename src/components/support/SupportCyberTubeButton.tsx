@@ -2,228 +2,110 @@
 
 import React, { useEffect, useId, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { Check, Coffee, Heart, ShieldCheck, X } from 'lucide-react';
+import { Coffee, X } from 'lucide-react';
+import { ChaiKitPaymentPanel } from './ChaiKitPaymentPanel';
 
-type SupportButtonProps = {
-  variant?: 'primary' | 'secondary';
-  className?: string;
-};
+type Props={variant?:'primary'|'secondary';className?:string};
 
-const tiers = [
-  { amount: 10, name: 'Cutting Chai', detail: 'A small gesture of support' },
-  { amount: 25, name: 'Kadak Chai', detail: 'Keep free lessons brewing' },
-  { amount: 50, name: 'Tandoori Chai', detail: 'Help improve practical labs' },
-  { amount: 100, name: 'Premium Chai', detail: 'Support more learning resources' },
-] as const;
+function getFocusable(dialog:HTMLElement):HTMLElement[]{
+  const nodes:HTMLElement[]=[];
+  const selector='button:not(:disabled), input:not(:disabled), a[href], textarea:not(:disabled), select:not(:disabled), [tabindex]:not([tabindex="-1"])';
+  function walk(root:HTMLElement|ShadowRoot){
+    root.querySelectorAll<HTMLElement>(selector).forEach(el=>{
+      if(el.getClientRects().length)nodes.push(el);
+    });
+    root.querySelectorAll<HTMLElement>('*').forEach(element=>{
+      if(element.shadowRoot)walk(element.shadowRoot);
+    });
+  }
+  walk(dialog);
+  return nodes;
+}
 
-/**
- * Pre-activation CyberTube / ChaiKit support UI.
- *
- * IMPORTANT: Live UPI payments are intentionally NOT wired up.
- * Never introduce a UPI deeplink, QR code or receiving VPA in this
- * component until the creator explicitly approves payment activation
- * and independently verifies the intended bank/UPI recipient.
- *
- * This is an inline launcher with an accessible dialog, not a floating
- * widget. Uses CyberTube semantic CSS variables so both the light and
- * dark theme match the rest of the website.
+/** Inline Home/footer trigger. The only overlay is a user-invoked dialog;
+ * ChaiKit itself runs position="inline" inside, never as a floating widget.
  */
-export function SupportCyberTubeButton({
-  variant = 'primary',
-  className = '',
-}: SupportButtonProps) {
-  const [open, setOpen] = useState(false);
-  const [amount, setAmount] = useState<number>(25);
-  const titleId = useId();
-  const descriptionId = useId();
-  const dialogRef = useRef<HTMLDivElement>(null);
-  const triggerRef = useRef<HTMLButtonElement>(null);
-  const closeRef = useRef<HTMLButtonElement>(null);
-
-  useEffect(() => {
-    if (!open) return;
-    const originalOverflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
+export function SupportCyberTubeButton({variant='primary',className=''}:Props){
+  const [open,setOpen]=useState(false);
+  const titleId=useId();
+  const dialogRef=useRef<HTMLDivElement>(null);
+  const triggerRef=useRef<HTMLButtonElement>(null);
+  const closeRef=useRef<HTMLButtonElement>(null);
+  useEffect(()=>{
+    if(!open)return;
+    const oldOverflow=document.body.style.overflow;
+    document.body.style.overflow='hidden';
     closeRef.current?.focus();
-
-    function onKeyDown(event: KeyboardEvent) {
-      if (event.key === 'Escape') {
-        event.preventDefault();
-        setOpen(false);
-        return;
+    const trigger=triggerRef.current;
+    function onKeydown(event:KeyboardEvent){
+      if(event.key==='Escape'){
+        event.preventDefault();setOpen(false);return;
       }
-      if (event.key !== 'Tab') return;
-      const dialog = dialogRef.current;
-      if (!dialog) return;
-      const focusable = Array.from(
-        dialog.querySelectorAll<HTMLElement>(
-          'button:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])'
-        )
-      );
-      if (!focusable.length) return;
-      const first = focusable[0];
-      const last = focusable[focusable.length - 1];
-      if (event.shiftKey && document.activeElement === first) {
-        event.preventDefault();
-        last.focus();
-      } else if (!event.shiftKey && document.activeElement === last) {
-        event.preventDefault();
-        first.focus();
+      if(event.key!=='Tab'||!dialogRef.current)return;
+      const focusable=getFocusable(dialogRef.current);
+      if(!focusable.length)return;
+      const first=focusable[0];
+      const last=focusable[focusable.length-1];
+      const active=document.activeElement;
+      const focused=active instanceof HTMLElement && active.shadowRoot
+        ? active.shadowRoot.activeElement||active : active;
+      if(event.shiftKey&&focused===first){
+        event.preventDefault();last.focus();
+      }else if(!event.shiftKey&&focused===last){
+        event.preventDefault();first.focus();
       }
     }
-
-    const triggerEl = triggerRef.current;
-    document.addEventListener('keydown', onKeyDown);
-    return () => {
-      document.body.style.overflow = originalOverflow;
-      document.removeEventListener('keydown', onKeyDown);
-      triggerEl?.focus();
+    document.addEventListener('keydown',onKeydown);
+    return()=>{
+      document.body.style.overflow=oldOverflow;
+      document.removeEventListener('keydown',onKeydown);
+      trigger?.focus();
     };
-  }, [open]);
+  },[open]);
 
-  return (
-    <>
-      <button
-        ref={triggerRef}
-        type="button"
-        onClick={() => setOpen(true)}
-        aria-haspopup="dialog"
-        className={[
-          'inline-flex min-h-[44px] items-center justify-center gap-2 rounded-xl',
-          'px-5 py-3 text-sm font-semibold transition-colors duration-150',
-          'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2',
-          'focus-visible:outline-[var(--accent-cyan)]',
-          variant === 'primary'
-            ? 'bg-[var(--accent-cyan)] text-[#07121B] hover:bg-[var(--accent-cyan-hover)]'
-            : 'border border-[var(--border-strong)] bg-[var(--card-bg)] text-[var(--text-primary)] hover:border-[var(--accent-cyan)] hover:text-[var(--accent-cyan)]',
-          className,
-        ].join(' ')}
-      >
-        <Coffee className="h-4 w-4" aria-hidden="true" />
-        Support CyberTube ☕
-      </button>
-
-      {open && typeof document !== 'undefined' && createPortal(
-        <div
-          className="fixed inset-0 z-[100] flex items-center justify-center overflow-y-auto bg-[#030813]/75 p-3 backdrop-blur-sm sm:p-6"
-          onMouseDown={event => {
-            if (event.target === event.currentTarget) setOpen(false);
-          }}
-        >
-          <div
-            ref={dialogRef}
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby={titleId}
-            aria-describedby={descriptionId}
-            className="my-auto w-full max-w-lg overflow-hidden rounded-2xl border border-[var(--border-strong)] bg-[var(--card-bg)] text-[var(--text-primary)] shadow-2xl"
-          >
-            <div className="flex items-start justify-between gap-4 border-b border-[var(--border)] bg-[var(--surface-subtle)] px-5 py-5 sm:px-6">
-              <div className="flex min-w-0 items-center gap-3">
-                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-[var(--border)] bg-[var(--accent-cyan-subtle)] text-[var(--accent-cyan)]">
-                  <Coffee className="h-6 w-6" aria-hidden="true" />
-                </div>
-                <div>
-                  <p className="text-[11px] font-mono font-semibold uppercase tracking-wider text-[var(--accent-cyan)]">
-                    CyberTube · Chai support
-                  </p>
-                  <h2 id={titleId} className="mt-0.5 text-xl font-bold text-[var(--text-primary)]">
-                    Buy us a chai ☕
-                  </h2>
-                </div>
+  return <>
+    <button ref={triggerRef} type="button" onClick={()=>setOpen(true)}
+      aria-haspopup="dialog"
+      className={[
+        'inline-flex min-h-[44px] items-center justify-center gap-2 rounded-xl px-5 py-3',
+        'text-sm font-semibold transition-colors duration-150 focus-visible:outline-2',
+        'focus-visible:outline-offset-2 focus-visible:outline-[var(--accent-cyan)]',
+        variant==='primary'
+          ? 'bg-[var(--accent-cyan)] text-[#07121B] hover:bg-[var(--accent-cyan-hover)]'
+          : 'border border-[var(--border-strong)] bg-[var(--card-bg)] text-[var(--text-primary)] hover:border-[var(--accent-cyan)]',
+        className,
+      ].join(' ')}>
+      <Coffee className="h-4 w-4" aria-hidden="true"/> Support CyberTube ☕
+    </button>
+    {open&&typeof document!=='undefined'&&createPortal(
+      <div className="fixed inset-0 z-[100] flex items-start justify-center overflow-y-auto bg-[#030813]/75 p-3 backdrop-blur-sm sm:p-6"
+        onMouseDown={event=>{if(event.target===event.currentTarget)setOpen(false);}}>
+        <div ref={dialogRef} role="dialog" aria-modal="true" aria-labelledby={titleId}
+          className="my-auto w-full max-w-[600px] rounded-2xl border border-[var(--border-strong)] bg-[var(--card-bg)] text-[var(--text-primary)] shadow-2xl">
+          <div className="flex items-center justify-between gap-4 rounded-t-2xl border-b border-[var(--border)] bg-[var(--surface-subtle)] px-5 py-4">
+            <div className="flex items-center gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--accent-cyan-subtle)] text-[var(--accent-cyan)]">
+                <Coffee className="h-5 w-5" aria-hidden="true"/>
               </div>
-              <button
-                ref={closeRef}
-                type="button"
-                aria-label="Close support preview"
-                onClick={() => setOpen(false)}
-                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-[var(--border)] text-[var(--text-secondary)] hover:bg-[var(--surface-elevated)] hover:text-[var(--text-primary)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent-cyan)]"
-              >
-                <X className="h-4 w-4" aria-hidden="true" />
-              </button>
-            </div>
-
-            <div className="space-y-5 p-5 sm:p-6">
-              <p id={descriptionId} className="text-sm leading-relaxed text-[var(--text-secondary)]">
-                Support free cybersecurity education. Buy us a chai!
-                Learning resources and practical labs remain free.
-              </p>
-
-              <div className="rounded-lg border border-[var(--accent-cyan)]/40 bg-[var(--accent-cyan-subtle)] px-3 py-3 text-xs text-[var(--text-primary)]">
-                <span className="inline-flex items-center gap-2 font-semibold">
-                  <ShieldCheck className="h-4 w-4 text-[var(--accent-cyan)]" aria-hidden="true" />
-                  Preview only — real UPI payments are disabled
-                </span>
-                <p className="mt-1 text-[var(--text-secondary)]">
-                  Donation amounts below are examples; selecting them will not send money or generate a payable QR.
-                </p>
-              </div>
-
-              <fieldset className="space-y-3">
-                <legend className="text-sm font-semibold text-[var(--text-primary)]">
-                  Choose a chai tier
-                </legend>
-                <div className="grid grid-cols-2 gap-3">
-                  {tiers.map(tier => (
-                    <button
-                      key={tier.amount}
-                      type="button"
-                      aria-pressed={tier.amount === amount}
-                      onClick={() => setAmount(tier.amount)}
-                      className={[
-                        'relative min-h-[92px] rounded-xl border p-3 text-left',
-                        'transition-colors focus-visible:outline-2 focus-visible:outline-offset-2',
-                        'focus-visible:outline-[var(--accent-cyan)]',
-                        tier.amount === amount
-                          ? 'border-[var(--accent-cyan)] bg-[var(--accent-cyan-subtle)]'
-                          : 'border-[var(--border)] bg-[var(--surface-subtle)] hover:border-[var(--accent-cyan)]/70',
-                      ].join(' ')}
-                    >
-                      <span className="block text-lg font-bold text-[var(--text-primary)]">
-                        ₹{tier.amount}
-                      </span>
-                      <span className="mt-1 block text-xs font-semibold text-[var(--text-primary)]">
-                        {tier.name}
-                      </span>
-                      <span className="mt-1 block text-[11px] text-[var(--text-secondary)]">
-                        {tier.detail}
-                      </span>
-                      {tier.amount === amount && (
-                        <Check className="absolute right-3 top-3 h-4 w-4 text-[var(--accent-cyan)]" aria-hidden="true" />
-                      )}
-                    </button>
-                  ))}
-                </div>
-              </fieldset>
-
-              <div className="rounded-xl border border-[var(--border)] bg-[var(--surface-subtle)] p-4">
-                <p className="text-xs font-medium text-[var(--text-secondary)]">
-                  Selected preview amount
-                </p>
-                <p className="mt-1 text-2xl font-bold text-[var(--text-primary)]">
-                  ₹{amount}
-                </p>
-                <button
-                  disabled
-                  type="button"
-                  className="mt-3 w-full cursor-not-allowed rounded-lg border border-[var(--border-strong)] bg-[var(--surface-elevated)] px-4 py-3 text-sm font-semibold text-[var(--text-muted)]"
-                >
-                  UPI support is not activated
-                </button>
-                <p className="mt-3 text-xs leading-relaxed text-[var(--text-secondary)]">
-                  The receiving account must be verified and the CyberTube owner must explicitly approve live payment activation first.
-                </p>
-              </div>
-
-              <div className="flex items-center gap-2 text-xs text-[var(--text-muted)]">
-                <Heart className="h-4 w-4 shrink-0 text-[var(--accent-cyan)]" aria-hidden="true" />
-                Thank you for supporting free cybersecurity education.
+              <div>
+                <p className="text-[11px] font-mono uppercase tracking-wider text-[var(--accent-cyan)]">CyberTube · Chai Support</p>
+                <h2 id={titleId} className="text-xl font-bold">Buy us a chai ☕</h2>
               </div>
             </div>
+            <button ref={closeRef} type="button" onClick={()=>setOpen(false)}
+              aria-label="Close support dialog"
+              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-[var(--border)] text-[var(--text-secondary)] hover:border-[var(--accent-cyan)] focus-visible:outline-2 focus-visible:outline-[var(--accent-cyan)]">
+              <X className="h-4 w-4" aria-hidden="true"/>
+            </button>
           </div>
-        </div>,
-        document.body
-      )}
-    </>
-  );
+          <div className="space-y-4 p-4 sm:p-5">
+            <p className="text-sm leading-relaxed text-[var(--text-secondary)]">
+              Support free cybersecurity education. Buy us a chai!
+              Courses and practical labs remain free for everyone.
+            </p>
+            <ChaiKitPaymentPanel/>
+          </div>
+        </div>
+      </div>,document.body)}
+  </>;
 }
