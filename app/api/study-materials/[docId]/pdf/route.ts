@@ -33,13 +33,13 @@ export async function GET(req: NextRequest, context: { params: Promise<{ docId: 
   if (!user) {
     return new NextResponse('Unauthorized: Please log in.', {
       status: 401,
-      headers: corsHeaders,
+      headers: { 'Cache-Control': 'private, no-store' },
     });
   }
 
   const { docId } = await context.params;
   const admin = createAdminClient();
-  if (!admin) return new NextResponse('Storage unavailable', { status: 503, headers: corsHeaders });
+  if (!admin) return new NextResponse('Storage unavailable', { status: 503 });
 
   let { data: doc, error } = await admin
     .from('study_documents')
@@ -59,11 +59,11 @@ export async function GET(req: NextRequest, context: { params: Promise<{ docId: 
     }
   }
 
-  if (error || !doc || doc.retired_at) return new NextResponse('Document not found', { status: 404, headers: corsHeaders });
+  if (error || !doc || doc.retired_at) return new NextResponse('Document not found', { status: 404 });
 
   if (!doc.is_published) {
     const { data: administrator } = await admin.from('admin_users').select('id').eq('user_id', user.id).single();
-    if (!administrator) return new NextResponse('Forbidden: Document is unpublished', { status: 403, headers: corsHeaders });
+    if (!administrator) return new NextResponse('Forbidden: Document is unpublished', { status: 403 });
   }
 
   // Support both 'study-materials' and 'original-pdfs' storage buckets with flexible path formats
@@ -97,7 +97,7 @@ export async function GET(req: NextRequest, context: { params: Promise<{ docId: 
 
   if (!file) {
     console.error(`Document storage unavailable for docId=${docId}, key=${doc.storage_key}:`, lastStorageError);
-    return new NextResponse('Document storage unavailable', { status: 502, headers: corsHeaders });
+    return new NextResponse('Document storage unavailable', { status: 502 });
   }
 
   const bytes = new Uint8Array(await file.arrayBuffer());
@@ -106,7 +106,6 @@ export async function GET(req: NextRequest, context: { params: Promise<{ docId: 
     'Accept-Ranges': 'bytes',
     'Cache-Control': 'private, no-cache, no-store, must-revalidate',
     'X-Content-Type-Options': 'nosniff',
-    ...corsHeaders,
   };
 
   const range = req.headers.get('range');

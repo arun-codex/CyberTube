@@ -84,7 +84,7 @@ export function UnifiedLibraryHubClient({
               Cybersecurity Knowledge & Study Library
             </h1>
             <p className="text-sm sm:text-base text-[var(--text-secondary)] max-w-2xl mt-1 leading-relaxed">
-              Explore 34 authenticated Bug Bounty study guides and methodologies with cross-device cloud sync, full-text PDF search, and legal lab environments.
+              Explore sign-in-protected Bug Bounty study guides and methodologies with cross-device cloud sync, full-text PDF search, and legal lab environments.
             </p>
           </div>
         </div>
@@ -109,7 +109,7 @@ export function UnifiedLibraryHubClient({
           <BugBountyLogo size={16} showText={false} />
           <span>Bug Bounty Library</span>
           <span className="px-1.5 py-0.2 rounded text-[10px] font-mono bg-[var(--accent-cyan)]/15 text-[var(--accent-cyan)] font-semibold">
-            {documents.length || 34}
+            {isUserLoggedIn ? documents.length : 'Sign in'}
           </span>
         </button>
 
@@ -167,15 +167,37 @@ export function UnifiedLibraryHubClient({
         </button>
       </div>
 
-      {/* Tab 1: Bug Bounty Study Library (Available) */}
+      {/* Tab 1: A guest must not mistake RLS-hidden documents for missing content. */}
       {activeTab === 'study' && (
         <div className="space-y-6 animate-in fade-in duration-200">
-          <StudyDashboardClient
-            categories={categories}
-            documents={documents}
-            progressList={progressList}
-            bookmarks={bookmarks}
-          />
+          {isUserLoggedIn ? (
+            <StudyDashboardClient
+              categories={categories}
+              documents={documents}
+              progressList={progressList}
+              bookmarks={bookmarks}
+            />
+          ) : (
+            <section
+              aria-labelledby="study-library-signin-title"
+              className="mx-auto max-w-2xl rounded-2xl border border-[var(--border)] bg-[var(--card-bg)] p-6 text-center sm:p-10"
+            >
+              <Shield className="mx-auto mb-4 h-10 w-10 text-[var(--accent-cyan)]" aria-hidden="true" />
+              <h2 id="study-library-signin-title" className="text-xl font-bold text-[var(--text-primary)]">
+                Sign in to access study materials
+              </h2>
+              <p className="mx-auto mt-3 max-w-lg text-sm leading-relaxed text-[var(--text-secondary)]">
+                Bug Bounty study documents are available to signed-in learners.
+                Sign in to browse the guides, search PDF content, and sync reading progress.
+              </p>
+              <Link
+                href="/login?redirect=%2Flibrary"
+                className="mt-6 inline-flex min-h-[44px] items-center justify-center gap-2 rounded-lg bg-[var(--accent-cyan)] px-5 py-2.5 text-sm font-semibold text-[#07121B] hover:opacity-90"
+              >
+                Sign in to open the library <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
+            </section>
+          )}
         </div>
       )}
 

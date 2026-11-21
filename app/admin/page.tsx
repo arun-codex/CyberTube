@@ -12,7 +12,6 @@ import {
 } from 'lucide-react';
 import { createClient } from '@/lib/supabase/server';
 import { isAuthorizedAdminEmail } from '@/lib/supabase/admin';
-import { getAllResources } from '@/lib/catalog';
 import { CYBERSECURITY_DOMAINS } from '@/data/metadata';
 
 export default async function AdminDashboardPage() {
@@ -46,7 +45,8 @@ export default async function AdminDashboardPage() {
 
   const publishedCount = dbResources ? dbResources.filter((r) => r.publication_status === 'published').length : null;
   const draftCount = dbResources ? dbResources.filter((r) => r.publication_status === 'draft').length : null;
-  const pendingSubmissions = submissions ? submissions.filter((s) => s.review_status === 'pending').length : null;
+  // Database fetch errors must never be turned into fabricated catalog totals.
+  const pendingSubmissions = submissions ? submissions.filter((row) => row.review_status === 'pending').length : null;
 
   return (
     <div className="container-max py-10 space-y-8">
@@ -71,6 +71,9 @@ export default async function AdminDashboardPage() {
             <PlusCircle className="w-4 h-4" />
             Manage Study Materials
           </Link>
+          <span className="text-xs text-[var(--text-secondary)]">
+            Community submission moderation is not available in this CMS.
+          </span>
         </div>
       </div>
 
@@ -81,10 +84,10 @@ export default async function AdminDashboardPage() {
             <span>Published</span>
             <Database className="w-4 h-4 text-[var(--text-primary)]" />
           </div>
-          <p className="text-2xl font-semibold text-[var(--text-primary)]">{publishedCount ?? '—'}</p>
+          <p className="text-2xl font-semibold text-[var(--text-primary)]">{publishedCount ?? 'Unavailable'}</p>
           <p className="text-[11px] font-mono text-[var(--text-secondary)] flex items-center gap-1">
             <CheckCircle2 className="w-3 h-3 text-[var(--text-primary)]" />
-            Across 11 domains
+            Across {CYBERSECURITY_DOMAINS.length} domains
           </p>
         </div>
 
@@ -93,7 +96,7 @@ export default async function AdminDashboardPage() {
             <span>Drafts</span>
             <Clock className="w-4 h-4 text-[var(--text-secondary)]" />
           </div>
-          <p className="text-2xl font-semibold text-[var(--text-primary)]">{draftCount ?? '—'}</p>
+          <p className="text-2xl font-semibold text-[var(--text-primary)]">{draftCount ?? 'Unavailable'}</p>
           <p className="text-[11px] font-mono text-[var(--text-secondary)]">Pending review</p>
         </div>
 
@@ -102,7 +105,7 @@ export default async function AdminDashboardPage() {
             <span>Submissions</span>
             <FileCheck className="w-4 h-4 text-[var(--text-secondary)]" />
           </div>
-          <p className="text-2xl font-semibold text-[var(--text-primary)]">{pendingSubmissions ?? '—'}</p>
+          <p className="text-2xl font-semibold text-[var(--text-primary)]">{pendingSubmissions ?? 'Unavailable'}</p>
           <p className="text-[11px] font-mono text-[var(--text-secondary)]">Community contributions</p>
         </div>
 

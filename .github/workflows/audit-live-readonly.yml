@@ -1,0 +1,41 @@
+name: CyberTube live browser QA — read only (no deploy)
+
+on:
+  push:
+    branches:
+      - audit/remediation-phase-ab-no-deploy-20261121
+    paths:
+      - 'audit/live/**'
+      - 'playwright.live-audit.config.ts'
+      - '.github/workflows/audit-live-readonly.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  live-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install packages
+        run: npm ci
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Inspect live site in Chromium; no writes or transfers
+        run: npx playwright test --config=playwright.live-audit.config.ts
+      - name: Save screenshots, console observations and browser trace
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cybertube-live-browser-evidence
+          path: |
+            test-results/
+            audit/live-report/
+          retention-days: 7
+          if-no-files-found: warn

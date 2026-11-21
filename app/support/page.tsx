@@ -15,6 +15,7 @@ import {
   CheckCircle2,
 } from 'lucide-react';
 import { ChaiKitPaymentPanel } from '../../src/components/support/ChaiKitPaymentPanel';
+import { ChaiExperienceScene } from '../../src/components/support/ChaiExperienceScene';
 
 export default function SupportPage() {
   useEffect(() => {
@@ -23,39 +24,44 @@ export default function SupportPage() {
 
   return (
     <div className="min-h-screen bg-[var(--canvas)] text-[var(--text-primary)] transition-colors">
-      {/* Background Ambience */}
-      <div className="relative overflow-hidden border-b border-[var(--border)] bg-gradient-to-b from-[var(--accent-cyan-subtle)] via-transparent to-transparent py-16 sm:py-24">
-        <div className="container-max relative z-10 mx-auto px-4 sm:px-6">
-          <div className="max-w-3xl mx-auto text-center space-y-6">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[var(--accent-cyan)]/30 bg-[var(--accent-cyan-subtle)] text-[var(--accent-cyan)] text-xs font-mono uppercase tracking-wider">
-              <Coffee className="w-4 h-4 animate-bounce" />
-              <span>Voluntary Creator Support</span>
+      {/* Chai Studio hero: a deliberately lightweight CSS-3D cup, not a payment state. */}
+      <section className="chai-support-hero border-b border-[var(--border)]">
+        <div className="container-max relative z-10 mx-auto grid items-center gap-4 px-4 py-10 sm:px-6 sm:py-16 lg:grid-cols-[minmax(0,1fr)_360px]">
+          <div className="min-w-0 space-y-6">
+            <div className="inline-flex items-center gap-2 rounded-full border border-amber-300/30 bg-amber-300/10 px-4 py-2 text-xs font-semibold tracking-wide text-amber-200">
+              <Coffee className="h-4 w-4" aria-hidden="true" />
+              A little chai. A lot more learning.
             </div>
-
-            <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-[var(--text-primary)]">
-              Help Keep Cybersecurity Education Free.
+            <h1 className="chai-support-hero__title max-w-[800px] text-white">
+              Help Keep Cybersecurity Education <em>Free.</em>
             </h1>
-
-            <p className="text-base sm:text-lg text-[var(--text-secondary)] leading-relaxed">
-              CyberTube provides free cybersecurity courses, learning paths, hands-on labs,
-              and educational resources. If the platform helps you learn, you can support its
-              development with a small, optional chai contribution.
+            <p className="max-w-2xl text-sm leading-7 text-[#dccfcb] sm:text-lg">
+              Free lessons, practical labs and cybersecurity roadmaps are powered by curiosity,
+              community, and the occasional cup of chai. Your support is always optional.
             </p>
-
-            {/* Always-true, honest payment handoff notice. */}
-            <div className="p-4 rounded-xl border border-amber-500/30 bg-amber-500/10 text-left flex items-start gap-3 text-xs text-[var(--text-secondary)]">
-              <AlertTriangle className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
-              <div className="space-y-1">
-                <p className="font-semibold text-amber-500 font-mono uppercase tracking-wider">
-                  Direct UPI • Verify before paying
-                </p>
-                <p>
-                  If the panel shows Direct UPI, check the bank recipient and amount in your own payment app
-                  before sending money. App handoff does not confirm a transfer. If it shows Preview Only,
-                  the QR is intentionally non-payable.
-                </p>
-              </div>
+            <div className="flex flex-wrap gap-2 text-xs text-[#e8caa7]">
+              <span className="rounded-full border border-amber-200/20 bg-white/5 px-3 py-2">☕ One-time contributions</span>
+              <span className="rounded-full border border-amber-200/20 bg-white/5 px-3 py-2">🛡️ No paywalls</span>
+              <span className="rounded-full border border-amber-200/20 bg-white/5 px-3 py-2">✨ Your choice, always</span>
             </div>
+          </div>
+          <div className="relative mx-auto flex w-full max-w-[360px] justify-center">
+            <ChaiExperienceScene size="hero" />
+          </div>
+        </div>
+      </section>
+
+      <div className="container-max mx-auto px-4 pt-7 sm:px-6">
+        {/* Always-true handoff notice, irrespective of current server payment mode. */}
+        <div className="mx-auto flex max-w-6xl items-start gap-3 rounded-2xl border border-amber-500/25 bg-amber-500/10 p-4 text-sm leading-relaxed text-[var(--text-secondary)]">
+          <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0 text-amber-500" aria-hidden="true" />
+          <div>
+            <p className="font-semibold text-[var(--text-primary)]">Direct UPI • Verify before paying</p>
+            <p className="mt-1 text-xs leading-6">
+              If the widget offers Direct UPI, check the recipient and amount in your banking app.
+              Opening a payment app never proves a transfer succeeded. In Preview Only mode,
+              no payable QR or bank instructions are generated.
+            </p>
           </div>
         </div>
       </div>
@@ -75,9 +81,16 @@ export default function SupportPage() {
 
               {/* Inline Web Component Mounting Container */}
               <div
-                className="chaikit-inline-wrapper flex justify-center w-full min-h-[520px] rounded-2xl bg-[var(--surface-subtle)] p-2 sm:p-4 border border-[var(--border)] shadow-xl transition-all"
+                className="chaikit-inline-wrapper chai-support-surface w-full min-w-0 p-3 sm:p-5"
                 data-testid="support-page-inline-widget"
               >
+                <div className="mb-4 flex items-start justify-between gap-3 border-b border-[var(--border)] pb-4">
+                  <div>
+                    <p className="font-mono text-[10px] font-semibold uppercase tracking-[.16em] text-amber-600 dark:text-amber-300">The chai menu</p>
+                    <h2 className="mt-1 text-lg font-bold text-[var(--text-primary)]">Choose your support</h2>
+                  </div>
+                  <span className="rounded-full bg-amber-500/10 px-2.5 py-1.5 text-[10px] font-semibold text-[var(--text-secondary)]">₹25 recommended</span>
+                </div>
                 <ChaiKitPaymentPanel />
               </div>
 

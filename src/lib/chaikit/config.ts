@@ -7,28 +7,28 @@ export const CYBERTUBE_SUPPORT_TIERS: ChaiTier[] = [
     id: 'cutting',
     name: 'Cutting Chai',
     amountPaise: 1000, // ₹10
-    description: 'A small gesture of appreciation for free lessons',
+    description: 'A little thank-you for learning',
     icon: 'cutting',
   },
   {
     id: 'kadak',
     name: 'Kadak Chai',
     amountPaise: 2500, // ₹25 (default)
-    description: 'A stronger cup to support ongoing platform development',
+    description: 'Fuel the next free lesson',
     icon: 'kadak',
   },
   {
     id: 'tandoori',
     name: 'Tandoori Chai',
     amountPaise: 5000, // ₹50
-    description: 'A warm contribution to free cybersecurity resources',
+    description: 'Power more hands-on labs',
     icon: 'tandoori',
   },
   {
     id: 'premium',
     name: 'Premium Chai',
     amountPaise: 10000, // ₹100
-    description: 'A generous chai to keep education accessible to all',
+    description: 'Help keep learning free',
     icon: 'premium',
   },
 ];

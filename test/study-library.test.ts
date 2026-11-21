@@ -263,7 +263,7 @@ test('8. Fractional, out-of-bounds and retired-document progress writes are reje
   setAuthenticatedUserForTesting(null);setAdminClientForTesting(null);
 });
 
-test('9. Study Materials PDF Endpoint — CORS, OPTIONS, and multi-bucket fallback', async () => {
+test('9. Study Materials PDF Endpoint — same-origin-only OPTIONS and multi-bucket fallback', async () => {
   const { GET, OPTIONS } = await import('../app/api/study-materials/[docId]/pdf/route');
 
   // Same-origin preflight must succeed without advertising any CORS grant.
