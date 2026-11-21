@@ -6,7 +6,7 @@ import { createAdminClient } from '@/lib/supabase/admin';
 // Never advertise credentialed cross-origin access, including on errors.
 export async function OPTIONS(req: NextRequest) {
   const origin = req.headers.get('origin');
-  if (origin && origin !== req.nextUrl.origin) {
+  if (origin && origin !== new URL(req.url).origin) {
     return new NextResponse(null, { status: 403, headers: { Vary: 'Origin' } });
   }
   return new NextResponse(null, {
@@ -18,7 +18,7 @@ export async function OPTIONS(req: NextRequest) {
 /** Streams only the requested authorized private object; no local fallback. */
 export async function GET(req: NextRequest, context: { params: Promise<{ docId: string }> }) {
   const origin = req.headers.get('origin');
-  if (origin && origin !== req.nextUrl.origin) {
+  if (origin && origin !== new URL(req.url).origin) {
     return new NextResponse('Cross-origin access is not permitted', {
       status: 403,
       headers: { 'Cache-Control': 'no-store', Vary: 'Origin' },
