@@ -130,6 +130,11 @@ export const CurriculumModule: React.FC<CurriculumModuleProps> = ({
             </div>
           ) : (
             <div className="divide-y divide-[#e4e4ed] dark:divide-[#243044]">
+              {module.lessons.length === 0 && !module.quiz && (
+                <div className="p-4 text-center text-xs text-[#64748B] dark:text-[#9BA8B7] font-mono bg-[#f8fafc]/50 dark:bg-[#121A26]/50">
+                  Planned — upcoming lessons will sync here automatically.
+                </div>
+              )}
               {module.lessons.map((lesson) => (
                 <CurriculumLesson
                   key={lesson.id}

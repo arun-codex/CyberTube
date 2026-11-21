@@ -9,6 +9,7 @@ import {
   CheckCircle2,
   Clock,
   ArrowRight,
+  BookOpen,
 } from 'lucide-react';
 import { createClient } from '@/lib/supabase/server';
 import { isAuthorizedAdminEmail } from '@/lib/supabase/admin';
@@ -44,36 +45,43 @@ export default async function AdminDashboardPage() {
     .from('resource_submissions')
     .select('id, review_status') as { data: Array<{ id: string; review_status: string }> | null };
 
-  const publishedCount = dbResources?.filter((r) => r.publication_status === 'published').length || 22;
+  const publishedCount = dbResources?.filter((r) => r.publication_status === 'published').length || 0;
   const draftCount = dbResources?.filter((r) => r.publication_status === 'draft').length || 0;
   const pendingSubmissions = submissions?.filter((s) => s.review_status === 'pending').length || 0;
 
   return (
     <div className="container-max py-10 space-y-8">
       {/* Top Banner */}
-      <div className="bg-[#f4f4f9] border border-[#e4e4ed] rounded-[8px] p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+      <div className="bg-[#f4f4f9] dark:bg-[#121A26] border border-[#e4e4ed] dark:border-[#243044] rounded-[8px] p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
         <div>
-          <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-[4px] text-xs font-mono bg-white border border-[#e8b5b5] text-[#984e4d] mb-2">
+          <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-[4px] text-xs font-mono bg-white dark:bg-[#1A2638] border border-[#e8b5b5] dark:border-[#4B2525] text-[#984e4d] dark:text-[#F87171] mb-2">
             <ShieldAlert className="w-3.5 h-3.5" />
             Administrative Portal
           </div>
-          <h1 className="text-2xl font-semibold text-[#303055]">CyberTube CMS</h1>
-          <p className="text-xs text-[#6b6b7b] mt-0.5">
-            Oversee educational records, approve community submissions, and curate taxonomies.
+          <h1 className="text-2xl font-semibold text-[#303055] dark:text-[#E6EDF3]">CyberTube CMS</h1>
+          <p className="text-xs text-[#6b6b7b] dark:text-[#9BA8B7] mt-0.5">
+            Oversee educational records, manage study materials, and curate taxonomies.
           </p>
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
           <Link
+            href="/admin/study-materials"
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-[4px] text-xs font-medium text-white bg-[#0E7490] hover:bg-[#0891B2] transition-colors min-h-[38px]"
+          >
+            <BookOpen className="w-4 h-4" />
+            Study Materials
+          </Link>
+          <Link
             href="/admin/resources/new"
-            className="flex items-center gap-1.5 px-3.5 py-2 rounded-[4px] text-xs font-medium text-white bg-[#303055] hover:bg-[#252542] transition-colors min-h-[38px]"
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-[4px] text-xs font-medium text-white bg-[#303055] hover:bg-[#252542] dark:bg-[#1E293B] dark:hover:bg-[#334155] transition-colors min-h-[38px]"
           >
             <PlusCircle className="w-4 h-4" />
             Add Resource
           </Link>
           <Link
             href="/admin/submissions"
-            className="flex items-center gap-1.5 px-3.5 py-2 rounded-[4px] text-xs font-medium text-[#403f53] bg-white hover:bg-[#e8e8f2] border border-[#e4e4ed] transition-colors min-h-[38px]"
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-[4px] text-xs font-medium text-[#403f53] dark:text-[#E6EDF3] bg-white dark:bg-[#1A2638] hover:bg-[#e8e8f2] dark:hover:bg-[#243044] border border-[#e4e4ed] dark:border-[#243044] transition-colors min-h-[38px]"
           >
             <FileCheck className="w-4 h-4" />
             Review Submissions ({pendingSubmissions})

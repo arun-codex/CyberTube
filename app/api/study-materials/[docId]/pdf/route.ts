@@ -1,40 +1,54 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getAuthenticatedUser } from '@/lib/supabase/server';
 import { createAdminClient } from '@/lib/supabase/admin';
+import { CANONICAL_ORIGIN } from '@/lib/canonicalUrl';
 
-export async function OPTIONS(req: NextRequest) {
-  const origin = req.headers.get('origin');
+function isAllowedOrigin(origin: string | null): boolean {
+  if (!origin) return false;
+  try {
+    const parsed = new URL(origin);
+    const host = parsed.hostname.toLowerCase();
+    if (host === 'localhost' || host === '127.0.0.1') return true;
+    if (host === 'cybertube-mu.vercel.app') return true;
+    if (process.env.NEXT_PUBLIC_SITE_URL) {
+      const siteOrigin = new URL(process.env.NEXT_PUBLIC_SITE_URL).origin;
+      if (parsed.origin === siteOrigin) return true;
+    }
+    const canonical = new URL(CANONICAL_ORIGIN).origin;
+    if (parsed.origin === canonical) return true;
+  } catch {
+    return false;
+  }
+  return false;
+}
+
+function getCorsHeaders(origin: string | null): Record<string, string> {
   const headers: Record<string, string> = {
     'Access-Control-Allow-Methods': 'GET, HEAD, OPTIONS',
     'Access-Control-Allow-Headers': 'Range, Authorization, Content-Type, Accept',
+    'Access-Control-Expose-Headers': 'Accept-Ranges, Content-Range, Content-Length, Content-Type',
     'Access-Control-Max-Age': '86400',
   };
-  if (origin) {
+  if (origin && isAllowedOrigin(origin)) {
     headers['Access-Control-Allow-Origin'] = origin;
     headers['Access-Control-Allow-Credentials'] = 'true';
     headers['Vary'] = 'Origin';
-  } else {
-    headers['Access-Control-Allow-Origin'] = '*';
   }
+  return headers;
+}
+
+export async function OPTIONS(req: NextRequest) {
+  const origin = req.headers.get('origin');
   return new NextResponse(null, {
     status: 204,
-    headers,
+    headers: getCorsHeaders(origin),
   });
 }
 
 /** Streams only the requested authorized private object; no local fallback. */
 export async function GET(req: NextRequest, context: { params: Promise<{ docId: string }> }) {
   const origin = req.headers.get('origin');
-  const corsHeaders: Record<string, string> = {
-    'Access-Control-Allow-Methods': 'GET, HEAD, OPTIONS',
-    'Access-Control-Allow-Headers': 'Range, Authorization, Content-Type, Accept',
-    'Access-Control-Expose-Headers': 'Accept-Ranges, Content-Range, Content-Length, Content-Type',
-  };
-  if (origin) {
-    corsHeaders['Access-Control-Allow-Origin'] = origin;
-    corsHeaders['Access-Control-Allow-Credentials'] = 'true';
-    corsHeaders['Vary'] = 'Origin';
-  }
+  const corsHeaders = getCorsHeaders(origin);
 
   const user = await getAuthenticatedUser();
   if (!user) {
