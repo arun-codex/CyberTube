@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   ShieldAlert,
   BookOpen,
@@ -63,6 +63,7 @@ export const LessonContentSections: React.FC<LessonContentSectionsProps> = ({
   prerequisites,
 }) => {
   const [activeTab, setActiveTab] = useState<'content' | 'lab' | 'quiz' | 'capstone' | 'pcaps'>('content');
+  const quizAnchorRef = useRef<HTMLDivElement>(null);
 
   const hasRichContent = !!activeLesson.richContent;
   const hasModuleLab = !!activeLesson.practicalLab;
@@ -84,9 +85,27 @@ export const LessonContentSections: React.FC<LessonContentSectionsProps> = ({
   }, [activeLesson.id, isCapstoneLesson, activeTabOverride]);
 
   const handleTabClick = (tab: 'content' | 'lab' | 'quiz' | 'capstone' | 'pcaps') => {
+    if (tab === 'quiz' && activeTab === 'quiz') {
+      quizAnchorRef.current?.scrollIntoView({block:'start',behavior:'smooth'});
+    }
     setActiveTab(tab);
     onTabChange?.(tab);
   };
+
+  useEffect(() => {
+    if (activeTab !== 'quiz' || !hasModuleQuiz) return;
+    // Wait until the conditional assessment panel is mounted before scrolling.
+    const frame=requestAnimationFrame(() => {
+      const target=quizAnchorRef.current;
+      if (!target) return;
+      target.scrollIntoView({
+        block: 'start',
+        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+      });
+      target.focus({preventScroll:true});
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [activeTab, activeLesson.id, hasModuleQuiz]);
 
   const showEthicalNotice =
     courseSlug === 'wireshark-and-ethical-hacking' ||
@@ -238,11 +257,16 @@ export const LessonContentSections: React.FC<LessonContentSectionsProps> = ({
           )}
 
           {activeTab === 'quiz' && activeLesson.quiz && (
-            <ModuleQuizView
-              quiz={activeLesson.quiz}
-              moduleId={activeLesson.moduleId}
-              courseId={courseId}
-            />
+            <div id="course-quiz-focus" ref={quizAnchorRef} tabIndex={-1}
+              className="scroll-mt-24 rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-cyan)]">
+              <ModuleQuizView
+                key={courseId+'-'+activeLesson.moduleId}
+                quiz={activeLesson.quiz}
+                moduleId={activeLesson.moduleId}
+                courseId={courseId}
+                courseSlug={courseSlug}
+              />
+            </div>
           )}
 
           {activeTab === 'capstone' && capstone && (
@@ -320,7 +344,7 @@ export const LessonContentSections: React.FC<LessonContentSectionsProps> = ({
                 </h3>
 
                 <p className="text-xs text-[#475569] dark:text-[#9BA8B7] leading-relaxed max-w-xl">
-                  {questionCount} comprehensive questions covering all key concepts from this module. Score at least {passingThreshold}% on this assessment to unlock subsequent course modules.
+                  {questionCount} comprehensive questions covering all key concepts from this module. Score at least {passingThreshold}% to pass. Only courses with enforced sequential prerequisites require a passing score to unlock later modules.
                 </p>
 
                 <div className="flex items-center gap-3 pt-1 text-[11px] font-mono text-[#64748B] dark:text-[#9BA8B7]">

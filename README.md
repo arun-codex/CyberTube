@@ -37,6 +37,16 @@ Other sections include [Study Materials](https://cybertube-mu.vercel.app/study-m
 
 Course content is managed in `src/data/courses.ts`, dedicated course data modules, and Supabase course/lesson tables. Course visibility and available content depend on the published state and associated source metadata.
 
+### Course quizzes and MERN playlist learning path
+
+- Every course now uses the correct quiz grading flow: **general-course server grading** or **protected Storytelling assessment** with its existing prerequisite checks.
+- **Start Quiz** in the curriculum opens the assessment directly, scrolls to the questions and skips the lesson video while quiz mode is selected.
+- Signed-in users' general-course best scores are stored with RLS in Supabase; guests can still complete locally graded-after-server-response quizzes. Quiz results remain self-assessed learning indicators, not formal certificates.
+- The existing [MERN Full Stack course](/courses/mern-full-stack-course-with-ai) includes three cataloged source videos, plus original guided React, Express/MongoDB and secure capstone exercises with module quizzes.
+- The provided YouTube playlist ID has **not been independently validated** and an automatic complete import is not claimed. No new videos were invented.
+
+See [quiz fix and MERN upgrade notes](docs/universal-course-quiz-fix-mern-upgrade.md).
+
 ### Practical Labs: TryHackMe Free Labs
 
 - 28 source-roadmap sections, organized section-by-section and level-by-level with searchable room links.

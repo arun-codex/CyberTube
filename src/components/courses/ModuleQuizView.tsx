@@ -24,6 +24,7 @@ interface ModuleQuizViewProps {
   quiz: LessonQuiz;
   moduleId: string;
   courseId: string;
+  courseSlug: string;
 }
 
 interface ServerEvaluationResult {
@@ -42,6 +43,7 @@ export const ModuleQuizView: React.FC<ModuleQuizViewProps> = ({
   quiz,
   moduleId,
   courseId,
+  courseSlug,
 }) => {
   const [selectedAnswers, setSelectedAnswers] = useState<Record<number, number>>({});
   const [submitted, setSubmitted] = useState(false);
@@ -55,7 +57,7 @@ export const ModuleQuizView: React.FC<ModuleQuizViewProps> = ({
   } | null>(null);
   const [currentIdempotencyKey, setCurrentIdempotencyKey] = useState<string>(() => generateIdempotencyKey());
 
-  const passingScorePercent = quiz.passingScorePercent || 70;
+  const passingScorePercent = quiz.passingScorePercent ?? 70;
 
   // Restore saved attempts on mount
   useEffect(() => {
@@ -80,37 +82,31 @@ export const ModuleQuizView: React.FC<ModuleQuizViewProps> = ({
     setSelectedAnswers((prev) => ({ ...prev, [qIdx]: optIdx }));
   };
 
-  const calculateFallbackScore = () => {
-    let correctCount = 0;
-    quiz.questions.forEach((q, idx) => {
-      if (typeof q.correctAnswerIndex === 'number' && selectedAnswers[idx] === q.correctAnswerIndex) {
-        correctCount += 1;
-      }
-    });
-    return Math.round((correctCount / (quiz.questions.length || 1)) * 100);
-  };
 
   const handleSubmit = async () => {
+    if (submitted || submitting || Object.keys(selectedAnswers).length !== quiz.questions.length) return;
     setSubmitting(true);
     setSubmissionError(null);
     let finalScore = 0;
     let finalPassed = false;
     let evalData: ServerEvaluationResult | null = null;
-    let serverAttemptId: string | null = null;
     let serverSubmittedAt: string | null = null;
 
-    const isStorytellingCourse =
-      courseId === 'c0000000-0000-4000-8000-000000000001' ||
-      courseId === 'course-free-storytelling-masterclass' ||
-      courseId.includes('storytelling');
+    // Only Storytelling uses the prerequisite-locked quiz endpoint.
+    // All other courses are graded from authoritative server-side answer keys.
+    const isStorytellingCourse = courseSlug === 'free-storytelling-masterclass';
+    const submitEndpoint = isStorytellingCourse
+      ? '/api/courses/storytelling/quiz/submit'
+      : '/api/courses/quiz/submit';
 
     try {
       // 1. Attempt secure server-side evaluation via API
-      const res = await fetch('/api/courses/storytelling/quiz/submit', {
+      const res = await fetch(submitEndpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           courseId,
+          courseSlug,
           moduleId,
           selectedAnswers,
           idempotencyKey: currentIdempotencyKey,
@@ -119,7 +115,8 @@ export const ModuleQuizView: React.FC<ModuleQuizViewProps> = ({
 
       if (res.ok) {
         const data = await res.json();
-        if (data.success) {
+        if (data.success && typeof data.score === 'number' &&
+            typeof data.passed === 'boolean' && Array.isArray(data.questionResults)) {
           finalScore = data.score;
           finalPassed = data.passed;
           evalData = {
@@ -128,9 +125,6 @@ export const ModuleQuizView: React.FC<ModuleQuizViewProps> = ({
             questionResults: data.questionResults,
           };
           setServerEvaluation(evalData);
-          if (data.attemptId) {
-            serverAttemptId = data.attemptId;
-          }
           if (data.submittedAt) {
             serverSubmittedAt = data.submittedAt;
           }
@@ -172,21 +166,14 @@ export const ModuleQuizView: React.FC<ModuleQuizViewProps> = ({
         }
       }
     } catch (err: any) {
-      console.warn('Server quiz evaluation failed or network error occurred:', err);
-
-      // For Storytelling, NEVER fall back to local grading or fabricate scores
-      if (isStorytellingCourse) {
-        setSubmissionError({
-          type: 'network_error',
-          message: 'Network connection issue or offline status. Your selected answers have been saved. Please check your connection and retry.',
-        });
-        setSubmitting(false);
-        return;
-      }
-
-      // For non-storytelling legacy courses with embedded answers:
-      finalScore = calculateFallbackScore();
-      finalPassed = finalScore >= passingScorePercent;
+      console.warn('Course quiz evaluation failed:', err);
+      // No client-side fallback: every quiz must be graded successfully by
+      // the correct endpoint before we record a score or a passing attempt.
+      setSubmissionError({
+        type: 'network_error',
+        message: 'Unable to verify this quiz submission. Your answers are still selected. Check your connection and retry.',
+      });
+      return;
     } finally {
       setSubmitting(false);
     }

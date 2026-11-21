@@ -144,7 +144,9 @@ export const CurriculumModule: React.FC<CurriculumModuleProps> = ({
 
               {/* Assessment Quiz Entry Row */}
               {module.quiz && (
-                <div
+                <button
+                  type="button"
+                  aria-label={`Start quiz: ${module.title}`}
                   data-testid={`module-quiz-sidebar-row-${module.id}`}
                   onClick={() => {
                     const targetLesson = module.lessons[module.lessons.length - 1] || module.lessons[0];
@@ -152,7 +154,7 @@ export const CurriculumModule: React.FC<CurriculumModuleProps> = ({
                       onSelectLesson(targetLesson.slug, 'quiz');
                     }
                   }}
-                  className="flex items-center justify-between p-3 gap-2.5 bg-[#f8fafc]/80 dark:bg-[#141E2B]/80 hover:bg-[#f1f5f9] dark:hover:bg-[#1A2638] transition-colors cursor-pointer border-t border-dashed border-[#cbd5e1] dark:border-[#334155]"
+                  className="flex w-full items-center justify-between text-left p-3 gap-2.5 bg-[#f8fafc]/80 dark:bg-[#141E2B]/80 hover:bg-[#f1f5f9] dark:hover:bg-[#1A2638] transition-colors cursor-pointer border-t border-dashed border-[#cbd5e1] dark:border-[#334155]"
                 >
                   <div className="flex items-center gap-2.5 min-w-0 flex-1">
                     <div className="w-6 h-6 rounded-full bg-[#0E7490]/10 dark:bg-[#22D3EE]/10 flex items-center justify-center text-[#0E7490] dark:text-[#22D3EE] shrink-0">
@@ -185,7 +187,7 @@ export const CurriculumModule: React.FC<CurriculumModuleProps> = ({
                       </span>
                     )}
                   </div>
-                </div>
+                </button>
               )}
             </div>
           )}
