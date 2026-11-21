@@ -16,15 +16,21 @@ import {
   CheckCircle2,
 } from 'lucide-react';
 import { loadChaiKitScript } from '../../src/lib/chaikit/loader';
+import { usePublicChaiConfig } from '../../src/lib/chaikit/usePublicChaiConfig';
+import { ChaiKitPaymentElement, cyberTubeChaiStyles } from '../../src/components/support/ChaiKitPaymentElement';
 import { defaultSupportConfig } from '../../src/lib/chaikit/config';
 
 export default function SupportPage() {
-  const { theme } = useTheme();
+  const { resolvedTheme } = useTheme();
+  const support = usePublicChaiConfig();
+  const runtime = support.status==='ready' ? support.config : null;
+  const isLive = Boolean(runtime?.livePaymentsEnabled);
   const [isWidgetLoaded, setIsWidgetLoaded] = useState(false);
   const [loadError, setLoadError] = useState<string | null>(null);
 
   useEffect(() => {
     document.title = 'Support CyberTube ☕ | Free Cybersecurity Education';
+    if(support.status!=='ready')return;
     let mounted = true;
     loadChaiKitScript()
       .then(() => {
@@ -42,17 +48,17 @@ export default function SupportPage() {
     return () => {
       mounted = false;
     };
-  }, []);
+  }, [support.status]);
 
-  const widgetTheme = theme === 'light' ? 'cream' : (defaultSupportConfig.theme || 'dark');
+  const widgetTheme = resolvedTheme === 'light' ? 'cream' : 'dark';
 
   return (
     <div className="min-h-screen bg-[var(--canvas)] text-[var(--text-primary)] transition-colors">
       {/* Background Ambience */}
-      <div className="relative overflow-hidden border-b border-[var(--border)] bg-gradient-to-b from-amber-500/5 via-transparent to-transparent py-16 sm:py-24">
+      <div className="relative overflow-hidden border-b border-[var(--border)] bg-gradient-to-b from-cyan-500/5 via-transparent to-transparent py-16 sm:py-24">
         <div className="container-max relative z-10 mx-auto px-4 sm:px-6">
           <div className="max-w-3xl mx-auto text-center space-y-6">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 text-amber-500 text-xs font-mono uppercase tracking-wider">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-cyan-500/30 bg-cyan-500/10 text-cyan-500 text-xs font-mono uppercase tracking-wider">
               <Coffee className="w-4 h-4 animate-bounce" />
               <span>Voluntary Creator Support</span>
             </div>
@@ -68,16 +74,16 @@ export default function SupportPage() {
             </p>
 
             {/* Safe Demo Notice Banner */}
-            <div className="p-4 rounded-xl border border-amber-500/30 bg-amber-500/10 text-left flex items-start gap-3 text-xs text-[var(--text-secondary)]">
-              <AlertTriangle className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
+            <div className="p-4 rounded-xl border border-cyan-500/30 bg-cyan-500/10 text-left flex items-start gap-3 text-xs text-[var(--text-secondary)]">
+              <AlertTriangle className="w-5 h-5 text-cyan-500 shrink-0 mt-0.5" />
               <div className="space-y-1">
-                <p className="font-semibold text-amber-500 font-mono uppercase tracking-wider">
-                  Safe Demonstration Preview (Demo Mode Active)
+                <p className="font-semibold text-cyan-500 font-mono uppercase tracking-wider">
+                  {isLive?'Direct UPI Support Enabled':'Safe Demonstration Preview (Demo Mode Active)'}
                 </p>
                 <p>
-                  Real bank payment initiation is strictly disabled until final verification.
-                  The QR code displayed below demonstrates ChaiKit’s authentic interface without
-                  initiating real financial transactions.
+                  {isLive
+                    ?'Real direct UPI QR codes and payment-app handoff are available. The CyberTube owner reports having checked the recipient. Before sending money, verify that your UPI app shows Arun Kumar and the selected amount. CyberTube cannot verify payment completion or issue a bank-confirmed receipt.'
+                    :'Real bank payment initiation remains disabled in this environment. The demonstration QR is non-payable.'}
                 </p>
               </div>
             </div>
@@ -92,7 +98,7 @@ export default function SupportPage() {
           <div className="lg:col-span-6 flex flex-col items-center justify-center">
             <div className="w-full max-w-[480px]">
               <div className="mb-4 flex items-center justify-between text-xs text-[var(--text-muted)] font-mono">
-                <span className="flex items-center gap-1.5 text-amber-500 font-semibold">
+                <span className="flex items-center gap-1.5 text-cyan-500 font-semibold">
                   <Coffee className="w-4 h-4" /> ChaiKit Interactive Widget
                 </span>
                 <span>Powered by ChaiKit 1.0</span>
@@ -103,26 +109,32 @@ export default function SupportPage() {
                 className="chaikit-inline-wrapper flex justify-center w-full min-h-[520px] rounded-2xl bg-[var(--surface-subtle)] p-2 sm:p-4 border border-[var(--border)] shadow-xl transition-all"
                 data-testid="support-page-inline-widget"
               >
-                {isWidgetLoaded ? (
-                  // @ts-expect-error Registered custom element
-                  <chai-support
-                    creator-name={defaultSupportConfig.creatorName}
-                    payment-payee-name={defaultSupportConfig.paymentPayeeName}
-                    upi-id={defaultSupportConfig.upiId}
-                    description={defaultSupportConfig.description}
-                    button-text={defaultSupportConfig.buttonText}
-                    theme={widgetTheme}
-                    position="inline"
-                    default-tier={defaultSupportConfig.defaultTierId}
-                    note={defaultSupportConfig.paymentNote}
-                    tiers={JSON.stringify(defaultSupportConfig.tiers)}
-                    enable-3d={defaultSupportConfig.enable3D ? '' : undefined}
-                    demo-mode=""
-                  />
-                ) : loadError ? (
+                {isWidgetLoaded && runtime ? (
+                  isLive ? (
+                    <ChaiKitPaymentElement config={runtime} display="inline" theme={widgetTheme}/>
+                  ) : (
+                    // Preview QR is intentionally non-payable; no bank recipient is used.
+                    // @ts-expect-error Registered ChaiKit custom element
+                    <chai-support
+                      creator-name={defaultSupportConfig.creatorName}
+                      upi-id="demo@preview"
+                      description={defaultSupportConfig.description}
+                      button-text={defaultSupportConfig.buttonText}
+                      theme={widgetTheme}
+                      position="inline"
+                      default-tier={defaultSupportConfig.defaultTierId}
+                      min-amount="10"
+                      max-amount="10000"
+                      tiers={JSON.stringify(defaultSupportConfig.tiers)}
+                      note={defaultSupportConfig.paymentNote}
+                      enable-3d=""
+                      demo-mode=""
+                      style={cyberTubeChaiStyles}
+                    />
+                  )                ) : loadError || support.status==='error' ? (
                   <div className="flex flex-col items-center justify-center p-8 text-center text-xs text-[var(--text-muted)] space-y-3">
-                    <AlertTriangle className="w-8 h-8 text-amber-500" />
-                    <p>{loadError}</p>
+                    <AlertTriangle className="w-8 h-8 text-cyan-500" />
+                    <p>{loadError||'Support payment configuration is unavailable. No payment will be initiated.'}</p>
                     <button
                       type="button"
                       onClick={() => window.location.reload()}
@@ -133,14 +145,14 @@ export default function SupportPage() {
                   </div>
                 ) : (
                   <div className="flex flex-col items-center justify-center p-12 text-center text-xs text-[var(--text-muted)] space-y-4">
-                    <div className="w-8 h-8 rounded-full border-2 border-amber-500 border-t-transparent animate-spin" />
+                    <div className="w-8 h-8 rounded-full border-2 border-cyan-500 border-t-transparent animate-spin" />
                     <p className="font-mono">Loading ChaiKit supporter interface...</p>
                   </div>
                 )}
               </div>
 
               <div className="mt-3 text-center text-[11px] font-mono text-[var(--text-muted)]">
-                Selected default: ₹25 (Kadak Chai) &bull; Custom amounts supported
+                Selected default: ₹25 (Kadak Chai) &bull; Custom amounts supported &bull; {isLive?'Direct UPI live':'Non-payable preview'}
               </div>
             </div>
           </div>
@@ -181,7 +193,7 @@ export default function SupportPage() {
 
                 <div className="p-3.5 rounded-xl border border-[var(--border)] bg-[var(--surface-subtle)] space-y-1.5">
                   <div className="flex items-center gap-2 text-xs font-semibold text-[var(--text-primary)]">
-                    <BookOpen className="w-4 h-4 text-amber-500" />
+                    <BookOpen className="w-4 h-4 text-cyan-500" />
                     <span>Study Library & PDF Tooling</span>
                   </div>
                   <p className="text-[11px] text-[var(--text-secondary)] leading-normal">
@@ -217,7 +229,7 @@ export default function SupportPage() {
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5" />
                   <span>
-                    <strong>Payee Verification:</strong> Supporters should always check the payee name displayed in their banking app (expected: <em>{defaultSupportConfig.paymentPayeeName}</em>) before confirming.
+                    <strong>Payee Verification:</strong> Supporters should always check the payee name displayed in their banking app (expected: <em>{isLive ? runtime?.paymentPayeeName : 'the correct intended recipient'}</em>) before confirming.
                   </span>
                 </li>
                 <li className="flex items-start gap-2">
