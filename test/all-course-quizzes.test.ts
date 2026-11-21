@@ -21,13 +21,15 @@ function submit(course:any,module:any,answerIndexes:number[],courseId=course.id)
  }));
 }
 
-test('MERN playlist retains three source-video IDs and adds guided exercises and quizzes',()=>{
+test('MERN playlist contains 34 source videos across 5 structured modules with quizzes',()=>{
  assert.equal(mern.sourcePlaylistId,'PLQl7ZDyS2qk8');
- assert.equal(mern.modules.length,3);
- assert.equal(mern.modules.flatMap(m=>m.lessons).length,6);
- assert.deepEqual(mern.modules.flatMap(m=>m.lessons).map(l=>l.youtubeVideoId).filter(Boolean),
-   ['fFVZ9xbyBlc','aqtA2zHURbg','PNQiabb5ZjY']);
- assert.ok(mern.modules[2].lessons.every(l=>!l.youtubeVideoId));
+ assert.equal(mern.modules.length,5);
+ assert.equal(mern.modules.flatMap(m=>m.lessons).length,34);
+ const videoIds = mern.modules.flatMap(m=>m.lessons).map(l=>l.youtubeVideoId);
+ assert.equal(videoIds.filter(Boolean).length, 34);
+ assert.equal(videoIds[0], 'fFVZ9xbyBlc');
+ assert.equal(videoIds[1], 'aqtA2zHURbg');
+ assert.equal(videoIds[2], 'PNQiabb5ZjY');
  for(const module of mern.modules){
    assert.ok(module.quiz);
    assert.equal(module.quiz?.questions.length,3);
