@@ -1,0 +1,49 @@
+name: CyberTube audit remediation verification
+
+on:
+  pull_request:
+    paths:
+      - 'app/**'
+      - 'src/**'
+      - 'public/robots.txt'
+      - 'test/**'
+      - 'tests/**'
+      - 'package.json'
+      - '.github/workflows/audit-remediation-verify.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: audit-remediation-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Checkout reviewed PR code
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install locked dependencies
+        run: npm ci
+      - name: Unit and security regression suites
+        run: npm test
+      - name: TypeScript check
+        run: npx tsc --noEmit
+      - name: Lint
+        run: npm run lint
+      - name: Production build (no deployment)
+        run: npm run build
+      - name: Install Chromium for local-only browser tests
+        run: npx playwright install --with-deps chromium
+      - name: Local route and responsive Playwright suite
+        run: npx playwright test --project=chromium
