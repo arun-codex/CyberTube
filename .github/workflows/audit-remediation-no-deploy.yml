@@ -1,0 +1,33 @@
+name: CyberTube audit remediation verification (no deploy)
+
+on:
+  push:
+    branches:
+      - audit/remediation-phase-ab-no-deploy-20261121
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install locked dependencies
+        run: npm ci
+      - name: Verify source remediation invariants
+        run: npx tsx --test test/audit-remediation-source.test.ts
+      - name: TypeScript check
+        run: npx tsc --noEmit
+      - name: Production build (build only; NEVER deploy)
+        run: npm run build
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Read-only local browser smoke tests
+        run: npx playwright test tests/40_discover_player_responsive.spec.ts tests/41_audit_public_routes.spec.ts --project=chromium
