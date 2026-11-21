@@ -31,3 +31,12 @@ jobs:
         run: npx playwright install --with-deps chromium
       - name: Read-only local browser smoke tests
         run: npx playwright test tests/40_discover_player_responsive.spec.ts tests/41_audit_public_routes.spec.ts --project=chromium
+      - name: Existing complete unit and integration suite
+        run: npm test
+      - name: Full Chromium regression suite (all existing browser specs)
+        if: always()
+        run: npx playwright test --project=chromium
+      - name: Existing lint script compatibility check
+        if: always()
+        continue-on-error: true
+        run: npm run lint
