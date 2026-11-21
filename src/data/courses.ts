@@ -131,106 +131,702 @@ export const COURSES: Course[] = [
     ],
   },
   {
-    id: 'course-mern-full-stack-ai',
-    slug: 'mern-full-stack-course-with-ai',
-    title: 'MERN Full Stack Course - React, Node & MongoDB with AI',
-    shortDescription: 'Master full-stack development with MongoDB, Express, React, and Node.js integrated with modern AI tooling.',
-    description: 'A structured multi-lesson full-stack curriculum led by Codex Arun. Master end-to-end web engineering spanning frontend component architecture in React, backend API development with Node.js and Express, database modeling in MongoDB, and intelligent AI-augmented features.',
-    domains: [],
-    tags: ['mern', 'react', 'node', 'mongodb', 'ai', 'full-stack', 'web-development', 'javascript'],
-    difficulty: 'beginner',
-    thumbnailUrl: 'https://i.ytimg.com/vi/fFVZ9xbyBlc/maxresdefault.jpg',
-    estimatedDuration: '2 hours 49 mins',
-    totalDurationMinutes: 169,
-    instructor: {
-      name: 'Codex Arun',
-      title: 'Full-Stack Developer & Educator',
-      organization: 'Codex Arun',
+    "id": "course-mern-full-stack-ai",
+    "slug": "mern-full-stack-course-with-ai",
+    "title": "MERN Full Stack — React, Node.js, MongoDB & AI",
+    "shortDescription": "Follow the cataloged MERN playlist videos, then complete guided React, API, database and security practice.",
+    "description": "CyberTube learning pathway built around three cataloged source videos from the supplied YouTube playlist link, plus original guided exercises and a secure full-stack capstone. Live playlist membership and additional video availability have not been independently verified; supplementary guided lessons are not represented as videos from the creator.",
+    "domains": [],
+    "tags": [
+      "mern",
+      "react",
+      "node",
+      "express",
+      "mongodb",
+      "ai",
+      "full-stack",
+      "javascript",
+      "security",
+      "portfolio"
+    ],
+    "difficulty": "beginner",
+    "thumbnailUrl": "https://i.ytimg.com/vi/fFVZ9xbyBlc/maxresdefault.jpg",
+    "estimatedDuration": "2 h 49 m source video + 2 h 30 m guided practice",
+    "totalDurationMinutes": 319,
+    "instructor": {
+      "name": "Codex Arun",
+      "title": "Full-Stack Developer & Educator",
+      "organization": "Codex Arun"
     },
-    prerequisites: [
-      'Basic computer literacy and code editor familiarity (e.g., VS Code)',
-      'Curiosity about building modern full-stack web applications',
+    "prerequisites": [
+      "Basic computer literacy and a text editor",
+      "Node.js LTS and Git for hands-on work",
+      "A local, authorized development environment"
     ],
-    learningObjectives: [
-      'Understand end-to-end MERN architecture and client-server workflows',
-      'Set up a full-stack JavaScript development environment',
-      'Grasp foundational web protocols and browser mechanics',
-      'Prepare to build and deploy database-backed React applications with AI capabilities',
+    "learningObjectives": [
+      "Explain the browser, React, Express, Node.js and MongoDB responsibilities",
+      "Create and debug accessible browser components and HTTP requests",
+      "Implement validated CRUD API operations with safe configuration",
+      "Protect API credentials and recognize common authorization failures",
+      "Build and document a beginner MERN portfolio project with optional safe AI integration"
     ],
-    featured: false,
-    track: 'web-development',
-    sourcePlatform: 'youtube',
-    sourcePlaylistId: 'PLQl7ZDyS2qk8',
-    sourcePlaylistUrl: 'https://www.youtube.com/playlist?list=PLQl7ZDyS2qk8',
-    modules: [
+    "featured": false,
+    "track": "web-development",
+    "sourcePlatform": "youtube",
+    "sourcePlaylistId": "PLQl7ZDyS2qk8",
+    "sourcePlaylistUrl": "https://www.youtube.com/playlist?list=PLQl7ZDyS2qk8",
+    "modules": [
       {
-        id: 'mod-mern-foundations',
-        title: 'Module 1: Course Overview & Full-Stack Foundations',
-        description: 'Orientation to the MERN stack curriculum, architecture roadmap, and foundational full-stack setup.',
-        order: 1,
-        lessons: [
+        "id": "mod-mern-foundations",
+        "title": "Module 1: MERN Architecture & Developer Foundations",
+        "description": "Two cataloged source videos about architecture, tools and developer workflow.",
+        "order": 1,
+        "lessons": [
           {
-            id: 'les-mern-course-intro',
-            slug: '01-mern-course-overview',
-            title: '01 MERN Full Stack Course   React Node MongoDB with AI',
-            description: 'Comprehensive introduction and roadmap for the full-stack MERN course covering React, Node.js, Express, MongoDB, and AI integration.',
-            youtubeVideoId: 'fFVZ9xbyBlc',
-            durationMinutes: 24,
-            order: 1,
-            moduleTitle: 'Module 1: Course Overview & Full-Stack Foundations',
-            objectives: [
-              'Understand the full-stack architecture of MERN applications',
-              'Explore the course roadmap covering React, Node.js, MongoDB, and AI enhancements',
-              'Review the project milestones and full-stack development workflow',
+            "id": "les-mern-course-intro",
+            "slug": "01-mern-course-overview",
+            "title": "MERN Course Overview — React, Node.js, MongoDB and AI",
+            "description": "Source video: an introduction to the MERN architecture, learning sequence and full-stack project goals.",
+            "youtubeVideoId": "fFVZ9xbyBlc",
+            "durationMinutes": 24,
+            "order": 1,
+            "moduleTitle": "Module 1: MERN Architecture & Developer Foundations",
+            "objectives": [
+              "Identify MongoDB, Express, React and Node.js roles",
+              "Explain client-to-API-to-database requests",
+              "Identify safe development prerequisites"
             ],
-            tags: ['mern', 'react', 'node', 'mongodb', 'ai', 'full-stack'],
-            skillsTaught: ['Full-stack architecture overview', 'MERN stack roadmap analysis'],
+            "tags": [
+              "mern",
+              "full-stack",
+              "foundations"
+            ],
+            "skillsTaught": [
+              "MERN component responsibilities",
+              "Project architecture"
+            ],
+            "richContent": {
+              "introduction": "MERN is a JavaScript-oriented stack for user interfaces, APIs and persistent data. Use the three cataloged source videos as your video sequence; the remaining practice lessons are CyberTube-authored exercises.",
+              "keyTerminology": [
+                {
+                  "term": "React",
+                  "definition": "UI library for interactive browser components"
+                },
+                {
+                  "term": "Express",
+                  "definition": "Node.js HTTP server framework"
+                },
+                {
+                  "term": "MongoDB",
+                  "definition": "Document database for structured application data"
+                }
+              ],
+              "theorySections": [
+                {
+                  "title": "Concepts and mental model",
+                  "content": "Use this material alongside the source lecture or self-guided project. Verify every result locally.",
+                  "keyPoints": [
+                    "Frontend and backend are separate trust boundaries",
+                    "Requests and responses are exchanged through HTTP APIs",
+                    "Never put database credentials in frontend bundles"
+                  ]
+                }
+              ],
+              "stepByStepProcedures": [
+                {
+                  "step": 1,
+                  "title": "Sketch architecture",
+                  "instruction": "Draw browser → Express API → MongoDB data flow and note trust boundaries.",
+                  "expectedOutcome": "A labeled data flow with public and private components"
+                },
+                {
+                  "step": 2,
+                  "title": "Create workspace",
+                  "instruction": "Create separate frontend and backend directories in a local project.",
+                  "expectedOutcome": "Both directories exist with short README files"
+                }
+              ],
+              "practicalExercise": {
+                "title": "Architecture map",
+                "objective": "Explain where authentication, validation and database access belong",
+                "instructions": [
+                  "Write a one-page system diagram",
+                  "List three actions that require server-side authorization"
+                ]
+              },
+              "commonMistakes": [
+                "Mixing up frontend, backend, and database responsibilities",
+                "Copying secrets into browser code or screenshots",
+                "Assuming a running demo is automatically secure or production-ready"
+              ],
+              "securityRelevance": "Practice on your own local development environment, never on services or users you do not control.",
+              "summary": "You should be able to explain the MERN architecture before wiring services together."
+            }
           },
           {
-            id: 'les-mern-foundation-session',
-            slug: '02-fullstack-dev-foundation-session',
-            title: '02 Fullstack dev Live 69Foundation Session',
-            description: 'Live foundation session establishing full-stack development prerequisites, developer workflow, and environment orientation.',
-            youtubeVideoId: 'aqtA2zHURbg',
-            durationMinutes: 26,
-            order: 2,
-            moduleTitle: 'Module 1: Course Overview & Full-Stack Foundations',
-            objectives: [
-              'Set up the foundational full-stack developer environment',
-              'Understand full-stack prerequisites and core tooling',
-              'Prepare workspace for live hands-on coding sessions',
+            "id": "les-mern-foundation-session",
+            "slug": "02-fullstack-dev-foundation-session",
+            "title": "Developer Environment & Full-Stack Workflow",
+            "description": "Source video: foundational development setup, editor workflow and project planning.",
+            "youtubeVideoId": "aqtA2zHURbg",
+            "durationMinutes": 26,
+            "order": 2,
+            "moduleTitle": "Module 1: MERN Architecture & Developer Foundations",
+            "objectives": [
+              "Install Node.js and an editor",
+              "Initialize a version-controlled project",
+              "Understand environment variables and package scripts"
             ],
-            tags: ['full-stack', 'foundations', 'development-setup', 'javascript'],
-            skillsTaught: ['Development environment configuration', 'Full-stack workflow preparation'],
-          },
+            "tags": [
+              "node",
+              "git",
+              "developer-tools"
+            ],
+            "skillsTaught": [
+              "Git basics",
+              "Safe project setup"
+            ],
+            "richContent": {
+              "introduction": "A repeatable local environment reduces debugging time and makes collaboration safer.",
+              "keyTerminology": [
+                {
+                  "term": "npm",
+                  "definition": "Node.js package manager"
+                },
+                {
+                  "term": "Version control",
+                  "definition": "Tracked history of source changes"
+                },
+                {
+                  "term": "Environment variable",
+                  "definition": "Runtime configuration that should not expose secrets to browsers"
+                }
+              ],
+              "theorySections": [
+                {
+                  "title": "Concepts and mental model",
+                  "content": "Use this material alongside the source lecture or self-guided project. Verify every result locally.",
+                  "keyPoints": [
+                    "Use supported Node.js LTS releases",
+                    "Read scripts before running them",
+                    "Store local secrets outside Git"
+                  ]
+                }
+              ],
+              "stepByStepProcedures": [
+                {
+                  "step": 1,
+                  "title": "Check tooling",
+                  "instruction": "Run node --version and npm --version in a terminal.",
+                  "expectedOutcome": "Version strings appear with no command errors"
+                },
+                {
+                  "step": 2,
+                  "title": "Create project",
+                  "instruction": "Initialize a new Git repository and commit a README.",
+                  "expectedOutcome": "A clean git status and initial commit"
+                },
+                {
+                  "step": 3,
+                  "title": "Inspect ignore rules",
+                  "instruction": "Add .env files to .gitignore before adding real credentials.",
+                  "expectedOutcome": "No local secret is staged"
+                }
+              ],
+              "practicalExercise": {
+                "title": "Local setup checklist",
+                "objective": "Document editor, Node version, npm, Git and local env steps",
+                "instructions": [
+                  "Create reproducible setup commands in README"
+                ]
+              },
+              "commonMistakes": [
+                "Mixing up frontend, backend, and database responsibilities",
+                "Copying secrets into browser code or screenshots",
+                "Assuming a running demo is automatically secure or production-ready"
+              ],
+              "securityRelevance": "Practice on your own local development environment, never on services or users you do not control.",
+              "summary": "Keep reproducible setup documentation and a clean commit history."
+            }
+          }
         ],
+        "quiz": {
+          "title": "MERN Architecture & Development Setup",
+          "passingScorePercent": 70,
+          "questions": [
+            {
+              "question": "Which layer should store database credentials?",
+              "options": [
+                "Browser bundle",
+                "Server-side application environment",
+                "React component props",
+                "Public README file"
+              ],
+              "correctAnswerIndex": 1,
+              "explanation": "Database credentials must remain on the server, never embedded in client-delivered JavaScript.",
+              "difficulty": "beginner"
+            },
+            {
+              "question": "Which role does React primarily play in a MERN app?",
+              "options": [
+                "Database engine",
+                "Web user interface",
+                "API server runtime",
+                "Infrastructure firewall"
+              ],
+              "correctAnswerIndex": 1,
+              "explanation": "React helps build interactive UI components running in the browser.",
+              "difficulty": "beginner"
+            },
+            {
+              "question": "Why is a project .gitignore important?",
+              "options": [
+                "It replaces version control",
+                "It keeps local secrets and generated files out of commits",
+                "It encrypts a production database",
+                "It authorizes API requests"
+              ],
+              "correctAnswerIndex": 1,
+              "explanation": "Git ignore rules help avoid committing sensitive local configuration and generated files.",
+              "difficulty": "beginner"
+            }
+          ]
+        }
       },
       {
-        id: 'mod-mern-web-basics',
-        title: 'Module 2: Web Basics & Core Technologies',
-        description: 'In-depth exploration of core web building blocks, client-server concepts, and web fundamentals.',
-        order: 2,
-        lessons: [
+        "id": "mod-mern-web-basics",
+        "title": "Module 2: Web Foundations & Browser-to-API Communication",
+        "description": "One cataloged source video plus browser, HTTP and validation practice.",
+        "order": 2,
+        "lessons": [
           {
-            id: 'les-mern-web-basics',
-            slug: '03-introduction-to-web-basics',
-            title: '03  Fullstack dev Live 69L1Introduction to Web Basics',
-            description: 'Comprehensive deep-dive lecture introducing core web architecture, browser mechanics, and foundational web development concepts.',
-            youtubeVideoId: 'PNQiabb5ZjY',
-            durationMinutes: 119,
-            order: 1,
-            moduleTitle: 'Module 2: Web Basics & Core Technologies',
-            objectives: [
-              'Explore foundational web protocols, browser rendering, and document structure',
-              'Understand client-server interactions in modern web applications',
-              'Establish the technical groundwork for building React frontends and Node.js backends',
+            "id": "les-mern-web-basics",
+            "slug": "03-introduction-to-web-basics",
+            "title": "Web Foundations — Browsers, HTML, HTTP and APIs",
+            "description": "Source video: browser and server fundamentals before building a JavaScript full-stack app.",
+            "youtubeVideoId": "PNQiabb5ZjY",
+            "durationMinutes": 119,
+            "order": 1,
+            "moduleTitle": "Module 2: Web Foundations & Browser-to-API Communication",
+            "objectives": [
+              "Describe HTTP request/response lifecycle",
+              "Explain JavaScript in the browser vs Node.js",
+              "Build a simple semantic accessible page"
             ],
-            tags: ['web-basics', 'html', 'css', 'javascript', 'http', 'client-server'],
-            skillsTaught: ['Web fundamentals', 'Browser client-server interaction analysis'],
-          },
+            "tags": [
+              "html",
+              "css",
+              "javascript",
+              "http"
+            ],
+            "skillsTaught": [
+              "HTTP flow",
+              "Web document fundamentals"
+            ],
+            "richContent": {
+              "introduction": "Learn how the browser requests pages and data. Understand request methods, status codes and same-origin policy before using React.",
+              "keyTerminology": [
+                {
+                  "term": "HTTP method",
+                  "definition": "Request operation such as GET or POST"
+                },
+                {
+                  "term": "Status code",
+                  "definition": "Three-digit response classification"
+                },
+                {
+                  "term": "CORS",
+                  "definition": "Browser mechanism for cross-origin request permission"
+                }
+              ],
+              "theorySections": [
+                {
+                  "title": "Concepts and mental model",
+                  "content": "Use this material alongside the source lecture or self-guided project. Verify every result locally.",
+                  "keyPoints": [
+                    "A browser makes network requests but cannot be trusted to enforce authorization",
+                    "Servers must validate inputs and credentials",
+                    "Semantic HTML supports accessible interaction"
+                  ]
+                }
+              ],
+              "stepByStepProcedures": [
+                {
+                  "step": 1,
+                  "title": "Inspect requests",
+                  "instruction": "Open your browser developer tools and inspect a GET response on your local app.",
+                  "expectedOutcome": "You can identify method, URL, status and headers"
+                },
+                {
+                  "step": 2,
+                  "title": "Build a page",
+                  "instruction": "Create a basic HTML page with a form and accessible labels.",
+                  "expectedOutcome": "Form submits locally and labels focus corresponding inputs"
+                },
+                {
+                  "step": 3,
+                  "title": "Describe data flow",
+                  "instruction": "Write a brief timeline for a client fetching /api/items.",
+                  "expectedOutcome": "Each request/response boundary is correctly identified"
+                }
+              ],
+              "practicalExercise": {
+                "title": "HTTP walkthrough",
+                "objective": "Explain 200, 400, 401 and 500 responses",
+                "instructions": [
+                  "Find where user input is validated in a sample app"
+                ]
+              },
+              "commonMistakes": [
+                "Mixing up frontend, backend, and database responsibilities",
+                "Copying secrets into browser code or screenshots",
+                "Assuming a running demo is automatically secure or production-ready"
+              ],
+              "securityRelevance": "Practice on your own local development environment, never on services or users you do not control.",
+              "summary": "Build a clear mental model of web requests before adding more frameworks."
+            }
+          }
         ],
+        "quiz": {
+          "title": "HTTP & Web Fundamentals",
+          "passingScorePercent": 70,
+          "questions": [
+            {
+              "question": "What does an HTTP 400 response usually indicate?",
+              "options": [
+                "Client request is invalid",
+                "Server has restarted successfully",
+                "Browser received a redirect",
+                "Authenticated request succeeded"
+              ],
+              "correctAnswerIndex": 0,
+              "explanation": "400 indicates a malformed or invalid client request.",
+              "difficulty": "beginner"
+            },
+            {
+              "question": "Where must permission to update another user's record be enforced?",
+              "options": [
+                "Only in the React button state",
+                "On the server handling the request",
+                "Only inside browser localStorage",
+                "By hiding the navigation menu"
+              ],
+              "correctAnswerIndex": 1,
+              "explanation": "Authorization decisions must be enforced on the server.",
+              "difficulty": "beginner"
+            },
+            {
+              "question": "What is one appropriate use of browser developer tools?",
+              "options": [
+                "Bypassing backend permissions",
+                "Inspecting HTTP request and response details",
+                "Reading production secret tokens from a server",
+                "Guaranteeing a service has no vulnerabilities"
+              ],
+              "correctAnswerIndex": 1,
+              "explanation": "Network inspection helps debug request methods, status codes and headers.",
+              "difficulty": "beginner"
+            }
+          ]
+        }
       },
-    ],
+      {
+        "id": "mod-mern-practical-project",
+        "title": "Module 3: Guided MERN Build, Security & Portfolio Project",
+        "description": "CyberTube-authored practice lessons; no additional YouTube playlist videos are claimed.",
+        "order": 3,
+        "lessons": [
+          {
+            "id": "les-mern-react-practice",
+            "slug": "04-react-components-self-guided",
+            "title": "Guided Lab: React Components & Accessible Forms",
+            "description": "CyberTube self-guided exercise (no source playlist video). Create an accessible item-list UI with search and form state.",
+            "order": 1,
+            "durationMinutes": 50,
+            "moduleTitle": "Module 3: Guided MERN Build, Security & Portfolio Project",
+            "objectives": [
+              "Build reusable React components and validated form state",
+              "Document an observable success criterion",
+              "Identify at least one appropriate security control"
+            ],
+            "tags": [
+              "react",
+              "jsx",
+              "components",
+              "accessibility"
+            ],
+            "skillsTaught": [
+              "Build reusable React components and validated form state"
+            ],
+            "richContent": {
+              "introduction": "CyberTube self-guided exercise (no source playlist video). Create an accessible item-list UI with search and form state.",
+              "keyTerminology": [
+                {
+                  "term": "Component",
+                  "definition": "Reusable UI unit with props and state"
+                },
+                {
+                  "term": "State",
+                  "definition": "Data managed by the UI across renders"
+                }
+              ],
+              "theorySections": [
+                {
+                  "title": "Concepts and mental model",
+                  "content": "Use this material alongside the source lecture or self-guided project. Verify every result locally.",
+                  "keyPoints": [
+                    "Use accessible labels and semantic buttons",
+                    "Treat user input as untrusted",
+                    "Separate presentation state from API responses"
+                  ]
+                }
+              ],
+              "stepByStepProcedures": [
+                {
+                  "step": 1,
+                  "title": "Plan components",
+                  "instruction": "List components for App, ItemList, ItemForm and SearchField.",
+                  "expectedOutcome": "A component tree with clear responsibilities"
+                },
+                {
+                  "step": 2,
+                  "title": "Implement form",
+                  "instruction": "Create a React form with labeled inputs and local validation.",
+                  "expectedOutcome": "Form rejects empty names and updates visible list"
+                },
+                {
+                  "step": 3,
+                  "title": "Check keyboard flow",
+                  "instruction": "Tab through all controls and verify labels.",
+                  "expectedOutcome": "All inputs can be reached and used without a mouse"
+                }
+              ],
+              "practicalExercise": {
+                "title": "Frontend mini-project",
+                "objective": "Build a responsive item manager",
+                "instructions": [
+                  "Use state and event handlers rather than document-wide mutation",
+                  "Record a short demo or screenshots without personal data"
+                ]
+              },
+              "commonMistakes": [
+                "Mixing up frontend, backend, and database responsibilities",
+                "Copying secrets into browser code or screenshots",
+                "Assuming a running demo is automatically secure or production-ready"
+              ],
+              "securityRelevance": "Practice on your own local development environment, never on services or users you do not control.",
+              "summary": "A reliable UI should work without mouse-only interactions."
+            }
+          },
+          {
+            "id": "les-mern-express-mongodb",
+            "slug": "05-express-mongodb-self-guided",
+            "title": "Guided Lab: Express REST API & MongoDB Data",
+            "description": "CyberTube self-guided exercise (no source playlist video). Implement a local CRUD API with safe input validation.",
+            "order": 2,
+            "durationMinutes": 55,
+            "moduleTitle": "Module 3: Guided MERN Build, Security & Portfolio Project",
+            "objectives": [
+              "Explain and implement validated CRUD operations",
+              "Document an observable success criterion",
+              "Identify at least one appropriate security control"
+            ],
+            "tags": [
+              "node",
+              "express",
+              "mongodb",
+              "api"
+            ],
+            "skillsTaught": [
+              "Explain and implement validated CRUD operations"
+            ],
+            "richContent": {
+              "introduction": "CyberTube self-guided exercise (no source playlist video). Implement a local CRUD API with safe input validation.",
+              "keyTerminology": [
+                {
+                  "term": "CRUD",
+                  "definition": "Create, read, update and delete operations"
+                },
+                {
+                  "term": "Schema validation",
+                  "definition": "Enforce accepted data shape before storing it"
+                }
+              ],
+              "theorySections": [
+                {
+                  "title": "Concepts and mental model",
+                  "content": "Use this material alongside the source lecture or self-guided project. Verify every result locally.",
+                  "keyPoints": [
+                    "Express handles HTTP routes",
+                    "The server alone holds database credentials",
+                    "Reject malformed input with clear 4xx responses"
+                  ]
+                }
+              ],
+              "stepByStepProcedures": [
+                {
+                  "step": 1,
+                  "title": "Create API",
+                  "instruction": "Implement GET /items and POST /items on a local Express server.",
+                  "expectedOutcome": "Valid GET and POST return appropriate status codes"
+                },
+                {
+                  "step": 2,
+                  "title": "Validate input",
+                  "instruction": "Reject missing or wrong-type item fields at the API boundary.",
+                  "expectedOutcome": "Invalid requests return a 400 response"
+                },
+                {
+                  "step": 3,
+                  "title": "Add storage",
+                  "instruction": "Use a local MongoDB instance or a safe in-memory mock while learning.",
+                  "expectedOutcome": "Records can be created and retrieved safely"
+                }
+              ],
+              "practicalExercise": {
+                "title": "API exercise",
+                "objective": "Send requests from curl or a REST client",
+                "instructions": [
+                  "Document validation failures and expected responses",
+                  "Keep any database URI in server-side environment variables"
+                ]
+              },
+              "commonMistakes": [
+                "Mixing up frontend, backend, and database responsibilities",
+                "Copying secrets into browser code or screenshots",
+                "Assuming a running demo is automatically secure or production-ready"
+              ],
+              "securityRelevance": "Practice on your own local development environment, never on services or users you do not control.",
+              "summary": "An API must enforce data validation independently of browser checks."
+            }
+          },
+          {
+            "id": "les-mern-secure-capstone",
+            "slug": "06-mern-security-capstone",
+            "title": "Capstone: Secure MERN Project & Responsible AI Integration",
+            "description": "CyberTube self-guided project (no source playlist video). Combine frontend and API; document trust boundaries and optional AI-service use.",
+            "order": 3,
+            "durationMinutes": 45,
+            "moduleTitle": "Module 3: Guided MERN Build, Security & Portfolio Project",
+            "objectives": [
+              "Deliver an end-to-end project with secure defaults and concise documentation",
+              "Document an observable success criterion",
+              "Identify at least one appropriate security control"
+            ],
+            "tags": [
+              "security",
+              "full-stack",
+              "ai",
+              "portfolio"
+            ],
+            "skillsTaught": [
+              "Deliver an end-to-end project with secure defaults and concise documentation"
+            ],
+            "richContent": {
+              "introduction": "CyberTube self-guided project (no source playlist video). Combine frontend and API; document trust boundaries and optional AI-service use.",
+              "keyTerminology": [
+                {
+                  "term": "Authorization",
+                  "definition": "Server-side permission decision for each protected action"
+                },
+                {
+                  "term": "Secret management",
+                  "definition": "Keep tokens outside browser bundles and version control"
+                }
+              ],
+              "theorySections": [
+                {
+                  "title": "Concepts and mental model",
+                  "content": "Use this material alongside the source lecture or self-guided project. Verify every result locally.",
+                  "keyPoints": [
+                    "Never use client-side checks as authorization",
+                    "Treat AI responses and prompts as untrusted data",
+                    "Apply least privilege and sensible rate limits to public APIs"
+                  ]
+                }
+              ],
+              "stepByStepProcedures": [
+                {
+                  "step": 1,
+                  "title": "Connect UI and API",
+                  "instruction": "Wire React list actions to your local Express endpoints.",
+                  "expectedOutcome": "Create and retrieve items from UI with server responses"
+                },
+                {
+                  "step": 2,
+                  "title": "Review security",
+                  "instruction": "Check validation, authorization decisions and error handling.",
+                  "expectedOutcome": "Document a minimum of three tests and their results"
+                },
+                {
+                  "step": 3,
+                  "title": "Optional AI step",
+                  "instruction": "If adding AI, use a server-side API proxy with budget limits and safe data handling.",
+                  "expectedOutcome": "No provider secret is present in client code"
+                }
+              ],
+              "practicalExercise": {
+                "title": "Portfolio delivery",
+                "objective": "Write a README with architecture and setup",
+                "instructions": [
+                  "Include a short demonstration and troubleshooting notes",
+                  "Create a checklist for input validation, privacy and error handling"
+                ]
+              },
+              "commonMistakes": [
+                "Mixing up frontend, backend, and database responsibilities",
+                "Copying secrets into browser code or screenshots",
+                "Assuming a running demo is automatically secure or production-ready"
+              ],
+              "securityRelevance": "Practice on your own local development environment, never on services or users you do not control.",
+              "summary": "A portfolio project should demonstrate operational discipline, not just a demo page."
+            }
+          }
+        ],
+        "quiz": {
+          "title": "Full-Stack Project & Secure Defaults",
+          "passingScorePercent": 70,
+          "questions": [
+            {
+              "question": "Which component should reject invalid API input before database storage?",
+              "options": [
+                "API server validation layer",
+                "Browser-only CSS",
+                "Navigation menu",
+                "README footer"
+              ],
+              "correctAnswerIndex": 0,
+              "explanation": "The API server must validate inputs even when the UI does so.",
+              "difficulty": "beginner"
+            },
+            {
+              "question": "Where should a third-party AI provider API key be used?",
+              "options": [
+                "In a public React environment variable",
+                "In a server-side proxy with appropriate controls",
+                "Hardcoded in client-side JavaScript",
+                "Inside a public GitHub issue"
+              ],
+              "correctAnswerIndex": 1,
+              "explanation": "Use a server-side service to protect provider credentials and enforce limits.",
+              "difficulty": "beginner"
+            },
+            {
+              "question": "Which evidence best demonstrates completion of a beginner MERN portfolio project?",
+              "options": [
+                "A screenshot alone without details",
+                "A reproducible README, a working demo and documented tests",
+                "An empty repository with a project title",
+                "A list of frameworks without implementation"
+              ],
+              "correctAnswerIndex": 1,
+              "explanation": "A reproducible setup, working behavior and documented tests make a project easier to evaluate.",
+              "difficulty": "beginner"
+            }
+          ]
+        }
+      }
+    ]
   },
   {
     id: 'e7b9e001-4000-4000-a000-000000000001',
