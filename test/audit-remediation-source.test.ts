@@ -56,3 +56,10 @@ test('Review branch opts out of automatic Vercel deployments',()=>{
   const c=JSON.parse(source('vercel.json'));
   assert.equal(c.git.deploymentEnabled['audit/remediation-phase-ab-no-deploy-20261121'],false);
 });
+
+test('F18: do not expose an apparent empty library when RLS hides guest documents',()=>{
+  const p=source('src/components/library/UnifiedLibraryHubClient.tsx');
+  assert.match(p,/Sign in to access study materials/);
+  assert.match(p,/isUserLoggedIn \? \\(/);
+  assert.doesNotMatch(p,/documents\\.length \\|\\| 34/);
+});
