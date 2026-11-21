@@ -31,16 +31,35 @@ test('Chai Studio retains the vetted ChaiKit payment implementation and consent 
   assert.ok(!read('src/components/support/ChaiExperienceScene.tsx').includes('upi://'));
 });
 
-test('Animated scene supports pause and accessible reduced motion', () => {
+test('Chai scene auto-animates with no visible motion controls', () => {
   const scene = read('src/components/support/ChaiExperienceScene.tsx');
   const css = read('app/globals.css');
   assert.ok(scene.includes('data-testid="chai-3d-scene"'));
-  assert.ok(scene.includes('aria-pressed={paused}'));
-  assert.ok(scene.includes('setPaused(value => !value)'));
-  assert.ok(scene.includes('chai-scene--paused'));
+  assert.ok(scene.includes('chai-scene__steam'));
+  assert.ok(scene.includes('chai-scene__cup-wrap'));
+  assert.ok(css.includes('animation:chai-cup-float 4s ease-in-out infinite'));
+  assert.ok(css.includes('animation:chai-steam 2.9s ease-out infinite'));
   assert.ok(css.includes('@media (prefers-reduced-motion: reduce)'));
-  assert.ok(css.includes('.chai-scene--paused *'));
   assert.ok(css.includes('transform-style:preserve-3d'));
+  assert.ok(!scene.includes('useState'));
+  assert.ok(!scene.includes('aria-pressed'));
+  assert.ok(!scene.includes('motion-toggle'));
+  assert.ok(!css.includes('.chai-scene__motion-toggle'));
+  assert.ok(!css.includes('.chai-scene--paused'));
+});
+
+test('Modal has one bounded scroll container with mobile touch scrolling', () => {
+  const support = read('src/components/support/SupportCyberTubeButton.tsx');
+  const css = read('app/globals.css');
+  assert.ok(support.includes('data-testid="chai-studio-dialog"'));
+  assert.match(support, /chai-dialog-backdrop[^"]*overflow-hidden/);
+  assert.match(support, /className="chai-dialog min-h-0/);
+  assert.ok(css.includes('max-height: calc(100dvh - 48px)'));
+  assert.ok(css.includes('max-height: calc(100dvh - 8px)'));
+  assert.ok(css.includes('overflow-y: auto'));
+  assert.ok(css.includes('overscroll-behavior: contain'));
+  assert.ok(css.includes('-webkit-overflow-scrolling: touch'));
+  assert.ok(css.includes('scrollbar-width: thin'));
 });
 
 test('Modal keeps keyboard focus management and no floating launcher', () => {
