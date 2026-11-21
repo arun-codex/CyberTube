@@ -5,5 +5,5 @@ Disallow: /account
 Disallow: /profile
 Disallow: /api/
 
-Sitemap: https://cybertube.vercel.app/sitemap.xml
+Sitemap: https://cybertube-mu.vercel.app/sitemap.xml
 
