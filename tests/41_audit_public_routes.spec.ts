@@ -52,3 +52,11 @@ for(const mode of ['dark','light'] as const) {
     expect(overflow).toBe(false);
   });
 }
+
+test('guest study library clearly requires sign-in rather than claiming 0 guides or Coming Soon',async({page})=>{
+  await page.goto('/library',{waitUntil:'domcontentloaded'});
+  await expect(page.getByRole('heading',{name:'Sign in to access study materials'})).toBeVisible();
+  const link=page.getByRole('link',{name:/Sign in to open the library/});
+  await expect(link).toHaveAttribute('href','/login?redirect=%2Flibrary');
+  await expect(page.getByText('Study Materials Coming Soon')).toHaveCount(0);
+});
