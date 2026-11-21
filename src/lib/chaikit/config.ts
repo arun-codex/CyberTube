@@ -36,23 +36,22 @@ export const CYBERTUBE_SUPPORT_TIERS: ChaiTier[] = [
 export const defaultSupportConfig: CyberTubeSupportConfig = {
   enabled: process.env.NEXT_PUBLIC_CHAIKIT_WIDGET_ENABLED !== 'false',
   
-  // LIVE PAYMENT SAFETY GATE:
-  // Real payments are STRICTLY NOT AUTHORIZED until owner completes bank-side payee validation
-  // and grants explicit activation approval.
-  demoMode: process.env.CYBERTUBE_SUPPORT_LIVE_PAYMENTS_ENABLED === 'true' ? false : true,
+  // Safe public defaults. Actual activation is computed SERVER-SIDE in
+  // server-config.ts and returned by /api/support/config only after both
+  // owner approval and payee confirmation flags are present.
+  demoMode: true,
   livePaymentsEnabled: false,
 
-  // Public branding identity vs verified bank account recipient
   creatorName: 'CyberTube',
-  paymentPayeeName: process.env.CYBERTUBE_SUPPORT_EXPECTED_PAYEE || 'Arun Kumar',
-  upiId: process.env.CYBERTUBE_SUPPORT_UPI_ID || 'aruninzone@ptaxis',
+  paymentPayeeName: '',
+  upiId: '',
 
   description: 'Support free cybersecurity education. Buy us a chai!',
   buttonText: 'Support CyberTube ☕',
   paymentNote: 'Support CyberTube',
 
   theme: 'dark',
-  position: 'bottom-right',
+  position: 'inline',
 
   defaultTierId: 'kadak',
   tiers: CYBERTUBE_SUPPORT_TIERS,
