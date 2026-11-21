@@ -1,0 +1,43 @@
+name: Direct UPI ChaiKit activation verification
+
+on:
+  push:
+    branches:
+      - feat/activate-chaikit-direct-upi-20261121
+  pull_request:
+    paths:
+      - 'src/lib/chaikit/**'
+      - 'src/components/support/**'
+      - 'app/api/support/**'
+      - 'app/support/**'
+      - 'app/globals.css'
+      - 'src/components/Footer.tsx'
+      - 'test/direct-upi-activation.test.ts'
+      - 'tests/39_chaikit_direct_upi.spec.ts'
+      - 'package.json'
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Verify activation policy and vendor integrity
+        run: npm run test:upi && npm run test:chaikit && npm run test:support
+      - name: Verify TypeScript types
+        run: npx tsc --noEmit
+      - name: Build
+        run: npm run build
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Browser test demo and mocked direct UPI flow (no bank transfer)
+        run: npx playwright test tests/39_chaikit_direct_upi.spec.ts --project=chromium
