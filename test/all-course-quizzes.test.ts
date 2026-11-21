@@ -35,6 +35,33 @@ test('MERN playlist retains three source-video IDs and adds guided exercises and
  }
 });
 
+test('every ordinary course module with a quiz has a usable authoritative answer key',()=>{
+  let checked=0;
+  const missing:string[]=[];
+  for(const course of COURSES){
+    if(course.slug==='free-storytelling-masterclass')continue;
+    for(const courseModule of course.modules){
+      const quiz=courseModule.quiz||courseModule.lessons.find(l=>l.quiz)?.quiz;
+      if(!quiz)continue;
+      checked++;
+      if(!Array.isArray(quiz.questions)||quiz.questions.length===0){
+        missing.push(course.slug+'/'+courseModule.id+': empty quiz');
+        continue;
+      }
+      quiz.questions.forEach((q,index)=>{
+        if(!Array.isArray(q.options)||q.options.length<2||
+            !Number.isInteger(q.correctAnswerIndex)||
+            (q.correctAnswerIndex as number)<0||
+            (q.correctAnswerIndex as number)>=q.options.length){
+          missing.push(course.slug+'/'+courseModule.id+': question '+(index+1)+' missing correct answer');
+        }
+      });
+    }
+  }
+  assert.ok(checked>20,'Expected multiple course quizzes to be checked');
+  assert.deepEqual(missing,[],missing.slice(0,15).join('\n'));
+});
+
 test('generic Linux quiz is graded by the correct endpoint, not Storytelling API',async()=>{
  setAuthenticatedUserForTesting(null);
  const module=linux.modules.find(m=>m.quiz&&m.quiz.questions.length>0)!;
