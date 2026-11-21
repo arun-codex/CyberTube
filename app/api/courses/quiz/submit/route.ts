@@ -122,7 +122,7 @@ export async function POST(request:NextRequest){
 
   return reply({
     success:true,
-    courseId:course.id,moduleId:module.id,
+    courseId:course.id,moduleId:courseModule.id,
     score,passed,correctCount,totalQuestions,
     passingScorePercent,questionResults,
     submittedAt,savedToCloud,gradedBy:'cybertube-server',
