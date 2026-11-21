@@ -1,66 +1,32 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getAuthenticatedUser } from '@/lib/supabase/server';
 import { createAdminClient } from '@/lib/supabase/admin';
-import { CANONICAL_ORIGIN } from '@/lib/canonicalUrl';
-
-function isAllowedOrigin(origin: string | null): boolean {
-  if (!origin) return false;
-  try {
-    const parsed = new URL(origin);
-    const host = parsed.hostname.toLowerCase();
-    if (host === 'localhost' || host === '127.0.0.1') return true;
-    if (host === 'cybertube-mu.vercel.app') return true;
-    if (process.env.NEXT_PUBLIC_SITE_URL) {
-      const siteOrigin = new URL(process.env.NEXT_PUBLIC_SITE_URL).origin;
-      if (parsed.origin === siteOrigin) return true;
-    }
-    const canonical = new URL(CANONICAL_ORIGIN).origin;
-    if (parsed.origin === canonical) return true;
-  } catch {
-    return false;
-  }
-  return false;
-}
-
-function getCorsHeaders(origin: string | null): Record<string, string> {
-  const headers: Record<string, string> = {
-    'Access-Control-Allow-Methods': 'GET, HEAD, OPTIONS',
-    'Access-Control-Allow-Headers': 'Range, Authorization, Content-Type, Accept',
-    'Access-Control-Expose-Headers': 'Accept-Ranges, Content-Range, Content-Length, Content-Type',
-    'Access-Control-Max-Age': '86400',
-  };
-  if (origin && isAllowedOrigin(origin)) {
-    headers['Access-Control-Allow-Origin'] = origin;
-    headers['Access-Control-Allow-Credentials'] = 'true';
-    headers['Vary'] = 'Origin';
-  }
-  return headers;
-}
-
-export async function OPTIONS(req: NextRequest) {
-  const origin = req.headers.get('origin');
-  return new NextResponse(null, {
-    status: 204,
-    headers: getCorsHeaders(origin),
-  });
+// The PDF is a private, cookie-authenticated same-origin resource.
+// Never advertise credentialed cross-origin access, including on errors.
+export function OPTIONS() {
+  return new NextResponse(null, { status: 405, headers: { Allow: 'GET' } });
 }
 
 /** Streams only the requested authorized private object; no local fallback. */
 export async function GET(req: NextRequest, context: { params: Promise<{ docId: string }> }) {
   const origin = req.headers.get('origin');
-  const corsHeaders = getCorsHeaders(origin);
-
+  if (origin && origin !== new URL(req.url).origin) {
+    return new NextResponse('Cross-origin access is not permitted', {
+      status: 403,
+      headers: { 'Cache-Control': 'no-store', Vary: 'Origin' },
+    });
+  }
   const user = await getAuthenticatedUser();
   if (!user) {
     return new NextResponse('Unauthorized: Please log in.', {
       status: 401,
-      headers: corsHeaders,
+      headers: { 'Cache-Control': 'private, no-store' },
     });
   }
 
   const { docId } = await context.params;
   const admin = createAdminClient();
-  if (!admin) return new NextResponse('Storage unavailable', { status: 503, headers: corsHeaders });
+  if (!admin) return new NextResponse('Storage unavailable', { status: 503 });
 
   let { data: doc, error } = await admin
     .from('study_documents')
@@ -80,11 +46,11 @@ export async function GET(req: NextRequest, context: { params: Promise<{ docId: 
     }
   }
 
-  if (error || !doc || doc.retired_at) return new NextResponse('Document not found', { status: 404, headers: corsHeaders });
+  if (error || !doc || doc.retired_at) return new NextResponse('Document not found', { status: 404 });
 
   if (!doc.is_published) {
     const { data: administrator } = await admin.from('admin_users').select('id').eq('user_id', user.id).single();
-    if (!administrator) return new NextResponse('Forbidden: Document is unpublished', { status: 403, headers: corsHeaders });
+    if (!administrator) return new NextResponse('Forbidden: Document is unpublished', { status: 403 });
   }
 
   // Support both 'study-materials' and 'original-pdfs' storage buckets with flexible path formats
@@ -118,7 +84,7 @@ export async function GET(req: NextRequest, context: { params: Promise<{ docId: 
 
   if (!file) {
     console.error(`Document storage unavailable for docId=${docId}, key=${doc.storage_key}:`, lastStorageError);
-    return new NextResponse('Document storage unavailable', { status: 502, headers: corsHeaders });
+    return new NextResponse('Document storage unavailable', { status: 502 });
   }
 
   const bytes = new Uint8Array(await file.arrayBuffer());
@@ -127,7 +93,8 @@ export async function GET(req: NextRequest, context: { params: Promise<{ docId: 
     'Accept-Ranges': 'bytes',
     'Cache-Control': 'private, no-cache, no-store, must-revalidate',
     'X-Content-Type-Options': 'nosniff',
-    ...corsHeaders,
+    'Cross-Origin-Resource-Policy': 'same-origin',
+    'Vary': 'Origin',
   };
 
   const range = req.headers.get('range');
