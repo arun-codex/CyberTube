@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useTheme } from 'next-themes';
 import { AlertTriangle, CheckCircle2, LoaderCircle, ShieldCheck } from 'lucide-react';
 import { defaultSupportConfig } from '@/lib/chaikit/config';
@@ -9,6 +9,89 @@ import type { CyberTubeSupportConfig } from '@/lib/chaikit/types';
 
 const EXPECTED_UPI_ID='aruninzone@ptaxis';
 const EXPECTED_PAYEE='Arun Kumar';
+
+/**
+ * ChaiKit is a full standalone card even in inline mode. In CyberTube it is
+ * already placed within our own branded dialog/card, so its extra heading,
+ * margin, border and nested dialog semantics duplicate UI and waste space.
+ * ChaiKit uses an OPEN shadow root; keep its vendor file and integrity hash
+ * untouched and add only a narrowly scoped presentation adapter.
+ */
+const CHAIKIT_COMPACT_STYLES = `
+  :host { display: block !important; width: 100%; min-width: 0; }
+  .chai-inline-card {
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+  .chai-modal-inline { width: 100%; max-width: none; border: 0; background: transparent; }
+  .chai-header { display: none !important; }
+  .chai-3d-stage { display: none !important; }
+  .chai-body {
+    padding: 0 !important;
+    gap: 12px !important;
+    overflow: visible !important;
+    min-width: 0;
+  }
+  .chai-tiers-grid { gap: 8px !important; }
+  .chai-tier-card { min-width: 0; min-height: 103px; padding: 10px 8px !important; }
+  .chai-tier-icon { width: 34px; height: 34px; margin-bottom: 4px; }
+  .chai-tier-name { line-height: 1.35; }
+  .chai-tier-desc {
+    line-height: 1.35;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .chai-custom-amount-wrapper { min-width: 0; }
+  .chai-amount-input { min-width: 0; }
+  .chai-payment-panel { gap: 10px; padding: 12px; min-width: 0; }
+  .chai-qr-actions { flex-wrap: wrap; }
+  @media (max-width: 380px) {
+    .chai-tier-card { min-height: 100px; padding: 8px 6px !important; }
+    .chai-tier-name { font-size: 12px; }
+    .chai-tier-amount { font-size: 14px; }
+    .chai-tier-desc { font-size: 10px; }
+    .chai-payment-panel { padding: 10px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .chai-tier-card, .chai-qr-frame, .chai-btn-primary { animation: none !important; transition: none !important; transform: none !important; }
+  }
+`;
+
+function adaptChaiKitInline(element: HTMLElement): () => void {
+  const root = element.shadowRoot;
+  if (!root) return () => {};
+  const apply = () => {
+    if (!root.querySelector('style[data-cybertube-compact]')) {
+      const style = document.createElement('style');
+      style.setAttribute('data-cybertube-compact', '');
+      style.textContent = CHAIKIT_COMPACT_STYLES;
+      root.appendChild(style);
+    }
+    // Inline mode is an embedded selection group, not a second modal dialog.
+    const embedded = root.querySelector<HTMLElement>('.chai-modal-inline');
+    if (embedded && embedded.getAttribute('role') !== 'group') {
+      embedded.setAttribute('role', 'group');
+      embedded.setAttribute('aria-label', 'Choose your chai and support amount');
+      embedded.removeAttribute('aria-modal');
+      embedded.removeAttribute('aria-labelledby');
+      embedded.removeAttribute('aria-describedby');
+    }
+  };
+  apply();
+  // Vendor can rebuild its shadow content when theme/settings change.
+  const observer = new MutationObserver(apply);
+  observer.observe(root, { childList: true });
+  return () => observer.disconnect();
+}
 
 type Status='loading'|'ready'|'error';
 
@@ -39,6 +122,7 @@ export function ChaiKitPaymentPanel({className=''}:{className?:string}){
   const [config,setConfig]=useState<CyberTubeSupportConfig>(defaultSupportConfig);
   const [status,setStatus]=useState<Status>('loading');
   const [retry,setRetry]=useState(0);
+  const widgetRef = useRef<HTMLElement | null>(null);
 
   useEffect(()=>{
     let cancelled=false;
@@ -65,6 +149,12 @@ export function ChaiKitPaymentPanel({className=''}:{className?:string}){
     });
     return()=>{cancelled=true;controller.abort();};
   },[retry]);
+
+  // Attach styling only after the verified vendor has registered <chai-support>.
+  useEffect(() => {
+    if (status !== 'ready' || !widgetRef.current) return;
+    return adaptChaiKitInline(widgetRef.current);
+  }, [status, config.livePaymentsEnabled]);
 
   const light=(resolvedTheme||theme)==='light';
   const widgetTheme=light?'cream':'dark';
@@ -138,6 +228,9 @@ export function ChaiKitPaymentPanel({className=''}:{className?:string}){
 
     <div className="chai-support-surface w-full min-w-0"
       data-testid="support-payment-inline-widget">
+      {/* CyberTube provides the decorative animated chai in the outer hero.
+          Do not mount ChaiKit's second inline WebGL cup: that duplicate
+          canvas clipped in small viewports, while adding animation overhead. */}
       {/* ChaiKit's UPI pn field comes from creator-name, not payment-payee-name.
           Supplying the verified bank account name prevents a false payee label.
           The surrounding CyberTube UI supplies the project branding. */}
@@ -155,7 +248,7 @@ export function ChaiKitPaymentPanel({className=''}:{className?:string}){
         note={config.paymentNote}
         min-amount="10"
         max-amount="10000"
-        enable-3d={config.enable3D?'':undefined}
+        ref={widgetRef}
         demo-mode={config.livePaymentsEnabled?undefined:''}
         style={themeTokens}
       />
