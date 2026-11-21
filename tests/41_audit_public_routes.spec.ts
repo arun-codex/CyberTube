@@ -40,3 +40,15 @@ test('legacy TryHackMe URL directs users to Practical Labs',async({page})=>{
   await page.goto('/tryhackme-roadmap?q=linux',{waitUntil:'domcontentloaded'});
   await expect(page).toHaveURL(/\/labs(\?|#|$)/);
 });
+
+for(const mode of ['dark','light'] as const) {
+  test('typography preview has no horizontal overflow at 375px in '+mode+' mode',async({page})=>{
+    await page.setViewportSize({width:375,height:812});
+    await page.addInitScript(theme=>localStorage.setItem('theme',theme),mode);
+    await page.goto('/typography-preview',{waitUntil:'domcontentloaded'});
+    const overflow=await page.evaluate(
+      ()=>document.documentElement.scrollWidth>document.documentElement.clientWidth+2
+    );
+    expect(overflow).toBe(false);
+  });
+}
