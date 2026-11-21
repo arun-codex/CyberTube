@@ -36,11 +36,19 @@ The provided screenshots highlighted a mismatch: CyberTube's bright, utility-sty
 5. App-to-bank handoff is **never** presented as successful receipt; no live transfer is executed by tests.
 6. ChaiKit's vendored SHA is unmodified. If an upstream upgrade is later considered, rebuild, re-audit and re-pin it in a separate reviewed change.
 
+## Scroll and automatic animation correction
+
+A later screenshot showed the modal body cut off at the bottom of short-height desktop and mobile windows. The root cause was the `.chai-dialog { overflow: hidden }` rule taking precedence over the utility `overflow-y-auto`, so the long tier and payment form could not be scrolled.
+
+**Fix:** `.chai-dialog` is now the only bounded vertical scroll container (`overflow-y: auto`, touch momentum, accessible mouse wheel and thin scrollbar). The backdrop keeps scroll confined to the modal. Desktop uses `calc(100dvh - 48px)` and narrow screens `calc(100dvh - 8px)`. The close button, all four tiers, custom amount, QR and payment details are reachable.
+
+The decorative CSS chai cup animates automatically. The visible pause/play motion toggle was removed entirely, without introducing any payment behavior. `prefers-reduced-motion: reduce` still disables decorative animation for users who request it. Playwright verifies real wheel scroll to the footer at **375×667** and **1366×650**, alongside automatic motion and reduced-motion behavior.
+
 ## Screenshot-driven correction: clipped 3D and duplicate cards
 
 The 21 November mobile screenshot revealed that the upstream inline ChaiKit component rendered its own card, headline, and WebGL cup *inside* CyberTube's already-branded overlay. In the constrained viewport the WebGL geometry looked like a clipped brown cone, while nested borders, margins, independent scroll and long tier descriptions overwhelmed the menu.
 
-**Fix:** the CyberTube integration now mounts ChaiKit as a compact, single-level tier-and-payment widget. A small `adaptChaiKitInline` presentation adapter injects scoped CSS into its **open shadow root** after registration, hides the duplicate vendor header, removes the inner card margin and border, removes second-dialog semantics while keeping an accessible labelled group, and keeps one scrollbar controlled by the outer dialog. The vendor's built-in 3D stage is **not mounted in this integration**; the accessible lightweight CSS-3D cup in CyberTube's hero remains the visible animation, with its working pause button and OS reduced-motion support. The original ChaiKit vendor bundle and WebGL capability for other host applications are unchanged. Tier names and amounts are unchanged; descriptions have been shortened for narrow screens.
+**Fix:** the CyberTube integration now mounts ChaiKit as a compact, single-level tier-and-payment widget. A small `adaptChaiKitInline` presentation adapter injects scoped CSS into its **open shadow root** after registration, hides the duplicate vendor header, removes the inner card margin and border, removes second-dialog semantics while keeping an accessible labelled group, and keeps one scrollbar controlled by the outer dialog. The vendor's built-in 3D stage is **not mounted in this integration**; the accessible lightweight CSS-3D cup in CyberTube's hero remains the visible animation, with its automatic animation and OS reduced-motion support. The original ChaiKit vendor bundle and WebGL capability for other host applications are unchanged. Tier names and amounts are unchanged; descriptions have been shortened for narrow screens.
 
 **Acceptance:** verify ChaiKit's duplicate header is hidden, no `.chai-3d-stage` is mounted, the outer CSS cup remains visible, four tier cards are usable at 375 px, no horizontal overflow, nonpayable demo QR overlay remains intact, and live-payment activation still requires pre-existing dual server-side checks. QA for these conditions is included in `tests/40_chaikit_studio_ui.spec.ts`.
 
