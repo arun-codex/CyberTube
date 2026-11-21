@@ -13,7 +13,16 @@ test('Chai Studio retains the vetted ChaiKit payment implementation and consent 
   assert.ok(panel.includes("const EXPECTED_PAYEE='Arun Kumar'"));
   assert.ok(panel.includes('livePaymentsEnabled:live'));
   assert.ok(panel.includes("demo-mode={config.livePaymentsEnabled?undefined:''}"));
-  assert.ok(panel.includes('enable-3d={config.enable3D?'));
+  // The already-present CSS-3D hero replaces the clipped duplicate WebGL.
+  // Keep the vetted vendor bundle (and its built-in 3D for standalone use).
+  assert.ok(!panel.includes('enable-3d={config.enable3D?'));
+  assert.ok(panel.includes('adaptChaiKitInline'));
+  assert.ok(panel.includes('MutationObserver'));
+  assert.ok(panel.includes('style[data-cybertube-compact]'));
+  assert.ok(panel.includes("embedded.setAttribute('role', 'group')"));
+  assert.ok(panel.includes('.chai-header { display: none !important; }'));
+  assert.ok(panel.includes('.chai-inline-card {'));
+  assert.ok(panel.includes('.chai-3d-stage { display: none !important; }'));
   assert.ok(panel.includes('default-tier="kadak"'));
   assert.ok(panel.includes('min-amount="10"'));
   assert.ok(panel.includes('max-amount="10000"'));
