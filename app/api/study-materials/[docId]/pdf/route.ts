@@ -2,39 +2,32 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getAuthenticatedUser } from '@/lib/supabase/server';
 import { createAdminClient } from '@/lib/supabase/admin';
 
+// The PDF is a private, cookie-authenticated same-origin resource.
+// Never advertise credentialed cross-origin access, including on errors.
 export async function OPTIONS(req: NextRequest) {
   const origin = req.headers.get('origin');
-  const headers: Record<string, string> = {
-    'Access-Control-Allow-Methods': 'GET, HEAD, OPTIONS',
-    'Access-Control-Allow-Headers': 'Range, Authorization, Content-Type, Accept',
-    'Access-Control-Max-Age': '86400',
-  };
-  if (origin) {
-    headers['Access-Control-Allow-Origin'] = origin;
-    headers['Access-Control-Allow-Credentials'] = 'true';
-    headers['Vary'] = 'Origin';
-  } else {
-    headers['Access-Control-Allow-Origin'] = '*';
+  if (origin && origin !== req.nextUrl.origin) {
+    return new NextResponse(null, { status: 403, headers: { Vary: 'Origin' } });
   }
   return new NextResponse(null, {
     status: 204,
-    headers,
+    headers: { Allow: 'GET, HEAD, OPTIONS', Vary: 'Origin' },
   });
 }
 
 /** Streams only the requested authorized private object; no local fallback. */
 export async function GET(req: NextRequest, context: { params: Promise<{ docId: string }> }) {
   const origin = req.headers.get('origin');
-  const corsHeaders: Record<string, string> = {
-    'Access-Control-Allow-Methods': 'GET, HEAD, OPTIONS',
-    'Access-Control-Allow-Headers': 'Range, Authorization, Content-Type, Accept',
-    'Access-Control-Expose-Headers': 'Accept-Ranges, Content-Range, Content-Length, Content-Type',
-  };
-  if (origin) {
-    corsHeaders['Access-Control-Allow-Origin'] = origin;
-    corsHeaders['Access-Control-Allow-Credentials'] = 'true';
-    corsHeaders['Vary'] = 'Origin';
+  if (origin && origin !== req.nextUrl.origin) {
+    return new NextResponse('Cross-origin access is not permitted', {
+      status: 403,
+      headers: { 'Cache-Control': 'no-store', Vary: 'Origin' },
+    });
   }
+  const corsHeaders: Record<string, string> = {
+    'Cross-Origin-Resource-Policy': 'same-origin',
+    Vary: 'Origin',
+  };
 
   const user = await getAuthenticatedUser();
   if (!user) {
