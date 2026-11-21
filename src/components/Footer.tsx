@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { CyberTubeLogo } from './ui/CyberTubeLogo';
 import { SupportCyberTubeButton } from './support/SupportCyberTubeButton';
+import { SupportStatusMessage } from './support/SupportStatusMessage';
 
 export const Footer: React.FC = () => {
   return (
@@ -159,9 +160,7 @@ export const Footer: React.FC = () => {
                 Support free cybersecurity education. Buy us a chai!
                 Every contribution is optional, and courses and labs remain free.
               </p>
-              <p className="text-xs text-[var(--text-muted)]">
-                Support is in preview mode — real UPI payments are not enabled.
-              </p>
+              <SupportStatusMessage />
             </div>
             <SupportCyberTubeButton className="w-full sm:w-auto sm:shrink-0" />
           </div>
