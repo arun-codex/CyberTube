@@ -54,7 +54,7 @@ test.describe('CyberTube direct UPI activation',()=>{
     await expect(widget.getByRole('button',{name:/Copy UPI ID: aruninzone@ptaxis/})).toBeVisible();
     await expect(widget.getByRole('button',{name:'Open UPI payment in installed mobile app'})).toBeVisible();
     await expect(widget.getByText(/Demo Only/i)).toHaveCount(0);
-    const custom=widget.locator('input[type="number"]');
+    const custom=widget.getByRole('textbox',{name:'Custom contribution amount in rupees'});
     await expect(custom).toBeVisible();
     await custom.fill('75');
     await custom.blur();
