@@ -161,6 +161,7 @@ export function DiscoverVideoPlayer({video,saved,signedIn,onSaved}:PlayerProps){
     const node=document.createElement('div');
     const id='discover-youtube-'+Math.random().toString(36).slice(2);
     node.id=id;
+    node.className='absolute inset-0 h-full w-full';
     wrapper.appendChild(node);
     position.current=saved?.last_position_seconds||0;
     duration.current=saved?.duration_seconds||0;
@@ -174,6 +175,8 @@ export function DiscoverVideoPlayer({video,saved,signedIn,onSaved}:PlayerProps){
     loadYouTube().then(YT=>{
       if(!alive)return;
       playerRef.current=new YT.Player(id,{
+        width:'100%',
+        height:'100%',
         videoId:video.video_id,
         playerVars:{
           enablejsapi:1,origin:window.location.origin,playsinline:1,
@@ -265,7 +268,7 @@ export function DiscoverVideoPlayer({video,saved,signedIn,onSaved}:PlayerProps){
         </a>
       </div>
       <div className={'bg-black mx-auto w-full '+(theater?'max-w-none':'max-w-5xl')}>
-        <div ref={elementRef} className="w-full aspect-video" aria-label={video.title}/>
+        <div ref={elementRef} data-testid="discover-player-viewport" className="relative aspect-video w-full overflow-hidden [&>iframe]:absolute [&>iframe]:inset-0 [&>iframe]:block [&>iframe]:h-full [&>iframe]:w-full" aria-label={video.title}/>
       </div>
       {error&&<div role="alert" className="px-4 py-2 text-xs text-amber-600 dark:text-amber-400">
         {error} <a href={'https://www.youtube.com/watch?v='+video.video_id} target="_blank" rel="noopener noreferrer" className="underline">Open video</a>
