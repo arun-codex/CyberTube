@@ -1,0 +1,460 @@
+{
+  "course_title": "English Communication for Cybersecurity — Zero to Advanced",
+  "status": "draft",
+  "module_count": 30,
+  "lessons_per_module": 4,
+  "total_lessons": 120,
+  "content_studio_project_id": 2486,
+  "modules": [
+    {
+      "number": 1,
+      "title": "Sound Foundations for Security Terms",
+      "level": "Pre-A1/A1",
+      "outcome": "Say English sounds clearly enough to be understood while reading security identifiers.",
+      "file": "modules/01-sound-foundations-for-security-terms.md",
+      "video": "https://www.youtube.com/watch?v=QxQUapA-2w4",
+      "playlist": "https://www.youtube.com/playlist?list=PLcetZ6gSk96-ayXj5thbTpbh2vHWpP08o",
+      "lesson_titles": [
+        "01.1 Recognise common English sounds",
+        "01.2 Pronounce short and long vowels",
+        "01.3 Practise stress in technical words",
+        "01.4 Read a 30-second SOC alert aloud"
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Alphabet, Digits, IP Addresses and Spelling",
+      "level": "A1",
+      "outcome": "Spell identifiers and read digits, times and addresses without confusing the listener.",
+      "file": "modules/02-alphabet-digits-ip-addresses-and-spelling.md",
+      "video": "https://www.youtube.com/watch?v=fdRmGvmeY1U",
+      "playlist": "https://www.youtube.com/playlist?list=PLcetZ6gSk96-XmVQ1xpU3ziEtQvczLpJt",
+      "lesson_titles": [
+        "02.1 Practise alphabet names",
+        "02.2 Read numbers and timestamps",
+        "02.3 Spell email addresses and hostnames",
+        "02.4 Read dummy IP addresses and ticket IDs"
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Greetings, Introductions and SOC Roles",
+      "level": "A1",
+      "outcome": "Introduce yourself and your security-team role politely in a workplace situation.",
+      "file": "modules/03-greetings-introductions-and-soc-roles.md",
+      "video": "https://www.youtube.com/watch?v=sp3xU5WvRjA",
+      "playlist": "https://www.youtube.com/playlist?list=PLcetZ6gSk96-XmVQ1xpU3ziEtQvczLpJt",
+      "lesson_titles": [
+        "03.1 Formal versus informal greetings",
+        "03.2 State your name and team",
+        "03.3 Ask colleagues about their responsibilities",
+        "03.4 Make a short first-day introduction"
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Basic English Sentence Construction",
+      "level": "A1",
+      "outcome": "Write and speak simple subject–verb–object sentences about security events.",
+      "file": "modules/04-basic-english-sentence-construction.md",
+      "video": "https://www.youtube.com/watch?v=jul2urONzOQ",
+      "playlist": "https://www.youtube.com/playlist?list=PLcetZ6gSk96-XmVQ1xpU3ziEtQvczLpJt",
+      "lesson_titles": [
+        "04.1 Build affirmative statements",
+        "04.2 Use negatives without changing meaning",
+        "04.3 Join ideas with and/but/because",
+        "04.4 Describe a short event in three sentences"
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Questions, Confirmation and Basic Dialogue",
+      "level": "A1/A2",
+      "outcome": "Ask focused questions and confirm answers without embarrassment.",
+      "file": "modules/05-questions-confirmation-and-basic-dialogue.md",
+      "video": "https://www.youtube.com/watch?v=pfRw6wg-QqE",
+      "playlist": "https://www.youtube.com/playlist?list=PLcetZ6gSk96-XmVQ1xpU3ziEtQvczLpJt",
+      "lesson_titles": [
+        "05.1 Yes/no questions",
+        "05.2 WH-questions for alert triage",
+        "05.3 Follow-up questions",
+        "05.4 Readback and confirmation"
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Present, Past and Future for Incident Updates",
+      "level": "A1/A2",
+      "outcome": "Distinguish what happened, what is happening and what happens next.",
+      "file": "modules/06-present-past-and-future-for-incident-updates.md",
+      "video": "https://www.youtube.com/watch?v=rZS5qlCGCIY",
+      "playlist": "https://www.youtube.com/playlist?list=PLcetZ6gSk969oGvAI0e4_PgVnlGbm64bp",
+      "lesson_titles": [
+        "06.1 Use present simple/continuous",
+        "06.2 Use past tense for completed actions",
+        "06.3 Use future forms for next steps",
+        "06.4 Contrast observation with intended action"
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Listening Fundamentals and Taking Notes",
+      "level": "A1/A2",
+      "outcome": "Extract who, what, when, where and next action from spoken English.",
+      "file": "modules/07-listening-fundamentals-and-taking-notes.md",
+      "video": "https://www.youtube.com/watch?v=-P3dJV4BD84",
+      "playlist": "https://www.youtube.com/playlist?list=PLcetZ6gSk96-FECmH9l7Vlx5VDigvgZpt",
+      "lesson_titles": [
+        "07.1 Identify key information from audio",
+        "07.2 Listen twice without translating word by word",
+        "07.3 Record keywords and time references",
+        "07.4 Summarise a message in your own words"
+      ]
+    },
+    {
+      "number": 8,
+      "title": "Listening Across Accents and Speaking Speeds",
+      "level": "A2",
+      "outcome": "Understand professional speech at varying speeds and request repetition appropriately.",
+      "file": "modules/08-listening-across-accents-and-speaking-speeds.md",
+      "video": "https://www.youtube.com/watch?v=nbnRm_3_QKU",
+      "playlist": "https://www.youtube.com/playlist?list=PLcetZ6gSk96-ayXj5thbTpbh2vHWpP08o",
+      "lesson_titles": [
+        "08.1 Recognise accent variation",
+        "08.2 Listen for stress rather than every word",
+        "08.3 Request repetition and paraphrase",
+        "08.4 Confirm critical technical strings"
+      ]
+    },
+    {
+      "number": 9,
+      "title": "Clear Speech, Pacing and Confidence",
+      "level": "A2",
+      "outcome": "Deliver short incident statements at a measured pace with understandable phrasing.",
+      "file": "modules/09-clear-speech-pacing-and-confidence.md",
+      "video": "https://www.youtube.com/watch?v=KaA_mxga3PQ",
+      "playlist": "https://www.youtube.com/playlist?list=PLcetZ6gSk969aep15p9VBAwbitfMlsSH0",
+      "lesson_titles": [
+        "09.1 Speak in short chunks",
+        "09.2 Link words naturally",
+        "09.3 Slow down around identifiers",
+        "09.4 Practice repair after misunderstanding"
+      ]
+    },
+    {
+      "number": 10,
+      "title": "Explaining Security Vocabulary in Plain English",
+      "level": "A2",
+      "outcome": "Explain common cybersecurity terms to someone with no security background.",
+      "file": "modules/10-explaining-security-vocabulary-in-plain-english.md",
+      "video": "https://www.youtube.com/watch?v=pfRw6wg-QqE",
+      "playlist": "https://www.youtube.com/playlist?list=PLcetZ6gSk96-PF8EvW5280NI79fUWilWD",
+      "lesson_titles": [
+        "10.1 Distinguish a term from its definition",
+        "10.2 Use simple analogies safely",
+        "10.3 Avoid unexplained acronyms",
+        "10.4 Check listener understanding"
+      ]
+    },
+    {
+      "number": 11,
+      "title": "Describing Devices, Accounts and Networks",
+      "level": "A2/B1",
+      "outcome": "Explain where an alert occurred, which account is involved and what systems are affected.",
+      "file": "modules/11-describing-devices-accounts-and-networks.md",
+      "video": "https://www.youtube.com/watch?v=jul2urONzOQ",
+      "playlist": "https://www.youtube.com/playlist?list=PLcetZ6gSk96-PF8EvW5280NI79fUWilWD",
+      "lesson_titles": [
+        "11.1 Describe hardware in simple English",
+        "11.2 Explain connections between systems",
+        "11.3 Give precise locations and identifiers",
+        "11.4 Compare affected and unaffected assets"
+      ]
+    },
+    {
+      "number": 12,
+      "title": "Asking for Clarification and Active Listening",
+      "level": "A2/B1",
+      "outcome": "Check instructions, restate requests and avoid miscommunication during security work.",
+      "file": "modules/12-asking-for-clarification-and-active-listening.md",
+      "video": "https://www.youtube.com/watch?v=pfRw6wg-QqE",
+      "playlist": "https://www.youtube.com/playlist?list=PLcetZ6gSk96-PF8EvW5280NI79fUWilWD",
+      "lesson_titles": [
+        "12.1 Use clarification question starters",
+        "12.2 Paraphrase a teammate’s instruction",
+        "12.3 Confirm urgency and deadline",
+        "12.4 Close the loop with a readback"
+      ]
+    },
+    {
+      "number": 13,
+      "title": "Reading Security Alerts, Tickets and Instructions",
+      "level": "B1",
+      "outcome": "Identify essential facts and uncertainties in a short English-language security ticket.",
+      "file": "modules/13-reading-security-alerts-tickets-and-instructions.md",
+      "video": "https://www.youtube.com/watch?v=-P3dJV4BD84",
+      "playlist": "https://www.youtube.com/playlist?list=PLcetZ6gSk969oGvAI0e4_PgVnlGbm64bp",
+      "lesson_titles": [
+        "13.1 Skim for purpose and status",
+        "13.2 Scan for identifiers and times",
+        "13.3 Separate observation from opinion",
+        "13.4 Summarise an alert in one paragraph"
+      ]
+    },
+    {
+      "number": 14,
+      "title": "Writing Clear, Concise SOC Notes",
+      "level": "B1",
+      "outcome": "Write short, factual and grammatically clear investigation notes.",
+      "file": "modules/14-writing-clear-concise-soc-notes.md",
+      "video": "https://www.youtube.com/watch?v=VgTqZOZ1UMQ",
+      "playlist": "https://www.youtube.com/playlist?list=PLcetZ6gSk96-PF8EvW5280NI79fUWilWD",
+      "lesson_titles": [
+        "14.1 Use short sentences",
+        "14.2 Write chronological bullet notes",
+        "14.3 Separate evidence and hypothesis",
+        "14.4 Edit ambiguous or emotional wording"
+      ]
+    },
+    {
+      "number": 15,
+      "title": "Professional Email for Security Teams",
+      "level": "B1",
+      "outcome": "Write clear escalation, follow-up and information-request emails.",
+      "file": "modules/15-professional-email-for-security-teams.md",
+      "video": "https://www.youtube.com/watch?v=xay5TeJVSC0",
+      "playlist": "https://www.youtube.com/playlist?list=PLcetZ6gSk96-PF8EvW5280NI79fUWilWD",
+      "lesson_titles": [
+        "15.1 Choose clear subject lines",
+        "15.2 Open with the reason for writing",
+        "15.3 Provide concise evidence and requests",
+        "15.4 End with an owner and response request"
+      ]
+    },
+    {
+      "number": 16,
+      "title": "Professional Chat and Remote Team Messaging",
+      "level": "B1",
+      "outcome": "Use clear, non-alarming language in SOC chat channels and collaborate asynchronously.",
+      "file": "modules/16-professional-chat-and-remote-team-messaging.md",
+      "video": "https://www.youtube.com/watch?v=K7YCzpBA1Nw",
+      "playlist": "https://www.youtube.com/playlist?list=PLcetZ6gSk969oGvAI0e4_PgVnlGbm64bp",
+      "lesson_titles": [
+        "16.1 Use brief status updates",
+        "16.2 Write clear requests in team chat",
+        "16.3 Manage uncertainty and avoid panic",
+        "16.4 Summarise decisions after an exchange"
+      ]
+    },
+    {
+      "number": 17,
+      "title": "Telephone, Video Calls and Conference Etiquette",
+      "level": "B1",
+      "outcome": "Lead a short security verification call, handle audio problems and confirm decisions.",
+      "file": "modules/17-telephone-video-calls-and-conference-etiquette.md",
+      "video": "https://www.youtube.com/watch?v=zNpmtVZFXS0",
+      "playlist": "https://www.youtube.com/playlist?list=PLcetZ6gSk96-PF8EvW5280NI79fUWilWD",
+      "lesson_titles": [
+        "17.1 Open a call professionally",
+        "17.2 Verify identity without soliciting secrets",
+        "17.3 Handle interruptions and dropped audio",
+        "17.4 End with the agreed next action"
+      ]
+    },
+    {
+      "number": 18,
+      "title": "SOC Shift Handover and Status Briefings",
+      "level": "B1/B2",
+      "outcome": "Deliver a structured and concise handover to the next SOC shift.",
+      "file": "modules/18-soc-shift-handover-and-status-briefings.md",
+      "video": "https://www.youtube.com/watch?v=pfRw6wg-QqE",
+      "playlist": "https://www.youtube.com/playlist?list=PLcetZ6gSk96-PF8EvW5280NI79fUWilWD",
+      "lesson_titles": [
+        "18.1 Identify ticket purpose and current state",
+        "18.2 Summarise investigated evidence",
+        "18.3 State open questions and blockers",
+        "18.4 Assign next steps and deadlines clearly"
+      ]
+    },
+    {
+      "number": 19,
+      "title": "Chronological Incident Narratives and Timelines",
+      "level": "B1/B2",
+      "outcome": "Build a consistent, evidence-based spoken and written incident timeline.",
+      "file": "modules/19-chronological-incident-narratives-and-timelines.md",
+      "video": "https://www.youtube.com/watch?v=rZS5qlCGCIY",
+      "playlist": "https://www.youtube.com/playlist?list=PLcetZ6gSk96-FECmH9l7Vlx5VDigvgZpt",
+      "lesson_titles": [
+        "19.1 Order events chronologically",
+        "19.2 Use time connectives",
+        "19.3 Mark uncertain times",
+        "19.4 Explain discrepancies without speculation"
+      ]
+    },
+    {
+      "number": 20,
+      "title": "Triage Findings and Escalation English",
+      "level": "B1/B2",
+      "outcome": "Explain why an alert needs review and request appropriate escalation.",
+      "file": "modules/20-triage-findings-and-escalation-english.md",
+      "video": "https://www.youtube.com/watch?v=VgTqZOZ1UMQ",
+      "playlist": "https://www.youtube.com/playlist?list=PLcetZ6gSk96-PF8EvW5280NI79fUWilWD",
+      "lesson_titles": [
+        "20.1 Summarise the initial alert",
+        "20.2 State supporting and missing evidence",
+        "20.3 Choose measured severity language",
+        "20.4 Request a specific investigation or approval"
+      ]
+    },
+    {
+      "number": 21,
+      "title": "Phishing Communication and User Interviews",
+      "level": "B1/B2",
+      "outcome": "Interview a potential phishing recipient respectfully and document the facts.",
+      "file": "modules/21-phishing-communication-and-user-interviews.md",
+      "video": "https://www.youtube.com/watch?v=zNpmtVZFXS0",
+      "playlist": "https://www.youtube.com/playlist?list=PLcetZ6gSk969oGvAI0e4_PgVnlGbm64bp",
+      "lesson_titles": [
+        "21.1 Ask neutral questions without blame",
+        "21.2 Record the user’s exact account",
+        "21.3 Explain safe next steps in clear English",
+        "21.4 Write a professional phishing summary"
+      ]
+    },
+    {
+      "number": 22,
+      "title": "Vulnerability, Risk and Recommendation Language",
+      "level": "B2",
+      "outcome": "Explain the difference between a finding, possible impact and remediation advice.",
+      "file": "modules/22-vulnerability-risk-and-recommendation-language.md",
+      "video": "https://www.youtube.com/watch?v=fzIxD1jXn44",
+      "playlist": "https://www.youtube.com/playlist?list=PLcetZ6gSk96-PF8EvW5280NI79fUWilWD",
+      "lesson_titles": [
+        "22.1 Describe a finding without exaggeration",
+        "22.2 Distinguish risk and confirmed harm",
+        "22.3 Use may/could versus did",
+        "22.4 Recommend action with priority and owner"
+      ]
+    },
+    {
+      "number": 23,
+      "title": "Reading and Summarising Threat Intelligence",
+      "level": "B2",
+      "outcome": "Convert a lengthy source into an accurate, short analyst summary.",
+      "file": "modules/23-reading-and-summarising-threat-intelligence.md",
+      "video": "https://www.youtube.com/watch?v=VgTqZOZ1UMQ",
+      "playlist": "https://www.youtube.com/playlist?list=PLcetZ6gSk96-FECmH9l7Vlx5VDigvgZpt",
+      "lesson_titles": [
+        "23.1 Identify main claim and evidence",
+        "23.2 Paraphrase without plagiarism",
+        "23.3 Separate relevance from speculation",
+        "23.4 Give a source-attributed oral summary"
+      ]
+    },
+    {
+      "number": 24,
+      "title": "Executive Summaries and Nontechnical Explanations",
+      "level": "B2",
+      "outcome": "Explain technical events and decisions to nontechnical managers.",
+      "file": "modules/24-executive-summaries-and-nontechnical-explanations.md",
+      "video": "https://www.youtube.com/watch?v=pfRw6wg-QqE",
+      "playlist": "https://www.youtube.com/playlist?list=PLcetZ6gSk96-PF8EvW5280NI79fUWilWD",
+      "lesson_titles": [
+        "24.1 Start with impact and current status",
+        "24.2 Translate jargon into clear language",
+        "24.3 Distinguish knowns and unknowns",
+        "24.4 End with decision and update time"
+      ]
+    },
+    {
+      "number": 25,
+      "title": "Participating in and Chairing Security Meetings",
+      "level": "B2",
+      "outcome": "Run a short agenda-driven security meeting and record decisions.",
+      "file": "modules/25-participating-in-and-chairing-security-meetings.md",
+      "video": "https://www.youtube.com/watch?v=vA-E7ryacmI",
+      "playlist": "https://www.youtube.com/playlist?list=PLcetZ6gSk969oGvAI0e4_PgVnlGbm64bp",
+      "lesson_titles": [
+        "25.1 Open meetings with a purpose",
+        "25.2 Give updates and invite questions",
+        "25.3 Manage interruptions",
+        "25.4 Summarise decisions and owners"
+      ]
+    },
+    {
+      "number": 26,
+      "title": "Disagreement, Feedback and Collaborative Problem-Solving",
+      "level": "B2/C1",
+      "outcome": "Disagree without blame while protecting accuracy and team relationships.",
+      "file": "modules/26-disagreement-feedback-and-collaborative-problem-solving.md",
+      "video": "https://www.youtube.com/watch?v=pfRw6wg-QqE",
+      "playlist": "https://www.youtube.com/playlist?list=PLcetZ6gSk969aep15p9VBAwbitfMlsSH0",
+      "lesson_titles": [
+        "26.1 Signal disagreement respectfully",
+        "26.2 Offer evidence rather than labels",
+        "26.3 Ask for alternatives",
+        "26.4 Record agreements and unresolved issues"
+      ]
+    },
+    {
+      "number": 27,
+      "title": "Cybersecurity Presentations and Demos in English",
+      "level": "B2/C1",
+      "outcome": "Give a structured technical explanation with signposting and audience questions.",
+      "file": "modules/27-cybersecurity-presentations-and-demos-in-english.md",
+      "video": "https://www.youtube.com/watch?v=fzIxD1jXn44",
+      "playlist": "https://www.youtube.com/playlist?list=PLcetZ6gSk969aep15p9VBAwbitfMlsSH0",
+      "lesson_titles": [
+        "27.1 Open with purpose",
+        "27.2 Structure three key points",
+        "27.3 Explain a chart or log excerpt clearly",
+        "27.4 Handle questions and uncertainty"
+      ]
+    },
+    {
+      "number": 28,
+      "title": "Stakeholder Updates and High-Pressure Communication",
+      "level": "C1",
+      "outcome": "Give calm, timely and uncertainty-aware security status updates.",
+      "file": "modules/28-stakeholder-updates-and-high-pressure-communication.md",
+      "video": "https://www.youtube.com/watch?v=YAsDeXcYyTg",
+      "playlist": "https://www.youtube.com/playlist?list=PLcetZ6gSk96-PF8EvW5280NI79fUWilWD",
+      "lesson_titles": [
+        "28.1 Prioritise critical facts",
+        "28.2 Say what remains unknown",
+        "28.3 Handle anxious questions",
+        "28.4 Issue the next update promise carefully"
+      ]
+    },
+    {
+      "number": 29,
+      "title": "Cybersecurity Job Interviews and Portfolio Storytelling",
+      "level": "B2/C1",
+      "outcome": "Answer behavioural and technical-communication interview questions fluently.",
+      "file": "modules/29-cybersecurity-job-interviews-and-portfolio-storytelling.md",
+      "video": "https://www.youtube.com/watch?v=nhTcuUvLGOE",
+      "playlist": "https://www.youtube.com/playlist?list=PLcetZ6gSk96-PF8EvW5280NI79fUWilWD",
+      "lesson_titles": [
+        "29.1 Structure self-introductions",
+        "29.2 Use a simple STAR narrative",
+        "29.3 Explain a lab project to a recruiter",
+        "29.4 Describe uncertainty and learning honestly"
+      ]
+    },
+    {
+      "number": 30,
+      "title": "Integrated SOC Communication Capstone",
+      "level": "B2/C1 functional",
+      "outcome": "Communicate through the full fictional incident lifecycle with evidence-based, audience-specific English.",
+      "file": "modules/30-integrated-soc-communication-capstone.md",
+      "video": "https://www.youtube.com/watch?v=xay5TeJVSC0",
+      "playlist": "https://www.youtube.com/playlist?list=PLcetZ6gSk969oGvAI0e4_PgVnlGbm64bp",
+      "lesson_titles": [
+        "30.1 Intake call and fact finding",
+        "30.2 Write ticket and escalation email",
+        "30.3 Brief analyst and stakeholder",
+        "30.4 Conduct handover and self-review"
+      ]
+    }
+  ]
+}
