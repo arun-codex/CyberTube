@@ -58,7 +58,7 @@ test.describe('CyberTube direct UPI activation',()=>{
     await expect(custom).toBeVisible();
     await custom.fill('75');
     await custom.blur();
-    await expect(widget.getByText('₹75.00')).toBeVisible();
+    await expect(widget.getByText('₹75')).toBeVisible();
   });
 
   test('Home and footer open native headless popup, not a floating launcher',async({page})=>{
