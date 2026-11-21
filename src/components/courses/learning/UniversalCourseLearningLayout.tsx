@@ -320,7 +320,7 @@ export const UniversalCourseLearningLayout: React.FC<UniversalCourseLearningLayo
         ) : (
           <>
             {/* 1 & 2. Main Video Player Area & Supplemental Resource Library */}
-            {activeLesson.videos && activeLesson.videos.length > 0 ? (
+            {activeTabOverride !== 'quiz' && (activeLesson.videos && activeLesson.videos.length > 0 ? (
               <div data-testid="lesson-video-resources" className="space-y-6">
                 <LessonVideoSection
                   courseId={course.courseId}
@@ -355,7 +355,7 @@ export const UniversalCourseLearningLayout: React.FC<UniversalCourseLearningLayo
                 onPrevVideo={handlePrevVideo}
                 onNextVideo={handleNextVideo}
               />
-            )}
+            ))}
 
             {/* 3. Standard Lesson Content Sections (Overview, Objectives, Skills, Tabs, Navigation) */}
             <LessonContentSections
