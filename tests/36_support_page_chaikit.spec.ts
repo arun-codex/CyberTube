@@ -21,6 +21,7 @@ test.describe('Dedicated Support Page (/support) & ChaiKit Integration', () => {
     await expect(chaiSupport).toHaveAttribute('position', 'inline');
     await expect(chaiSupport).toHaveAttribute('creator-name', 'CyberTube');
     await expect(chaiSupport).toHaveAttribute('default-tier', 'kadak');
+    await expect(chaiSupport.locator('.chai-payment-amount')).toContainText('25');
 
     // Trust and transparency sections
     await expect(page.getByRole('heading', { name: /What Your Contribution Supports/i })).toBeVisible();
