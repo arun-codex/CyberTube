@@ -28,14 +28,14 @@ test('ChaiKit configuration enforces CyberTube branding, tiers, and safe default
 
   // Branding & owner details
   assert.equal(config.creatorName, 'CyberTube');
-  assert.equal(config.paymentPayeeName, 'Arun Kumar');
-  assert.equal(config.upiId, 'aruninzone@ptaxis');
+  assert.equal(config.paymentPayeeName, '');
+  assert.equal(config.upiId, '');
   assert.equal(config.buttonText, 'Support CyberTube ☕');
   assert.equal(config.paymentNote, 'Support CyberTube');
 
   // Theme & layout
   assert.equal(config.theme, 'dark');
-  assert.equal(config.position, 'bottom-right');
+  assert.equal(config.position, 'inline');
   assert.equal(config.enable3D, true);
   assert.equal(config.allowCustomAmount, true);
 
@@ -75,7 +75,7 @@ test('ChaiKit contribution tiers strictly follow the 4-tier model with exact int
   }
 });
 
-test('Live payment safety gate: real payments are strictly NOT authorized', () => {
+test('Client-safe defaults stay non-payable; activation is server-gated', () => {
   const config = getSupportConfig();
 
   // Critical safety assertions:
