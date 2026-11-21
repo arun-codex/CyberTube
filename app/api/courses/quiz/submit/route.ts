@@ -49,9 +49,9 @@ export async function POST(request:NextRequest){
   if(body.courseId!==course.id){
     return reply({error:'Course ID does not match the selected course.'},400);
   }
-  const module=course.modules.find(entry=>entry.id===body.moduleId);
-  if(!module)return reply({error:'Quiz module not found in this course.'},404);
-  const quiz=module.quiz||module.lessons.find(lesson=>lesson.quiz)?.quiz;
+  const courseModule=course.modules.find(entry=>entry.id===body.moduleId);
+  if(!courseModule)return reply({error:'Quiz module not found in this course.'},404);
+  const quiz=courseModule.quiz||courseModule.lessons.find(lesson=>lesson.quiz)?.quiz;
   if(!quiz||!Array.isArray(quiz.questions)||quiz.questions.length<1||quiz.questions.length>100){
     return reply({error:'This module does not contain an active assessment.'},404);
   }
@@ -88,7 +88,7 @@ export async function POST(request:NextRequest){
   if(user){
     const db=await createClient();
     if(!db)return reply({error:'Cloud progress is temporarily unavailable. Please retry.'},503);
-    const entityId=course.slug+'::'+module.id;
+    const entityId=course.slug+'::'+courseModule.id;
     // The owner-scoped row is a self-contained best score; never decrease
     // the learner's best achievement after a retake.
     const {data:existing,error:readError}=await (db.from('user_generic_progress') as any)
@@ -106,7 +106,7 @@ export async function POST(request:NextRequest){
       progress_percent:bestScore,
       is_completed:nowPassed,
       state_data:{
-        courseSlug:course.slug,moduleId:module.id,bestScore,passingScorePercent,
+        courseSlug:course.slug,moduleId:courseModule.id,bestScore,passingScorePercent,
         lastScore:score,attemptedAt:submittedAt,
         grading:'server-curated-quiz-v1',
       },
@@ -148,7 +148,7 @@ export async function GET(request:NextRequest){
     .like('entity_id',slug+'::%')
     .limit(250);
   if(error)return reply({error:'Could not load cloud quiz results.'},503);
-  const validIds=new Set(course.modules.map(module=>module.id));
+  const validIds=new Set(course.modules.map(item=>item.id));
   const scores:Record<string,number>={};
   for(const row of data||[]){
     const id=String(row.entity_id||'').slice(slug.length+2);
