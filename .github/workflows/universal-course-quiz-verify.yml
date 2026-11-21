@@ -35,3 +35,7 @@ jobs:
         run: npx tsc --noEmit
       - name: Production build
         run: npm run build
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Browser verification of Start Quiz and submissions
+        run: npx playwright test tests/38_universal_course_quiz.spec.ts --project=chromium
