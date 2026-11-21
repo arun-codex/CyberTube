@@ -2,8 +2,27 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { NextRequest } from 'next/server';
-import { GET as getPrivatePdf, OPTIONS as preflightPrivatePdf } from '../app/api/study-materials/[docId]/pdf/route';
-import { GET as getVersion } from '../app/api/version/route';
+
+let getPrivatePdf: typeof import('../app/api/study-materials/[docId]/pdf/route').GET;
+let preflightPrivatePdf: typeof import('../app/api/study-materials/[docId]/pdf/route').OPTIONS;
+let getVersion: typeof import('../app/api/version/route').GET;
+
+test.before(async () => {
+  // The server-only import guard is for Next.js's client/server module graph.
+  // Isolate it in this server-side Node regression suite as the existing
+  // study-library tests do, without mocking auth or storage behavior.
+  try {
+    const modulePath = require.resolve('server-only');
+    require.cache[modulePath] = {
+      exports: {}, id: modulePath, filename: modulePath,
+      loaded: true, children: [], paths: [],
+    } as any;
+  } catch {}
+  const pdf = await import('../app/api/study-materials/[docId]/pdf/route');
+  getPrivatePdf = pdf.GET;
+  preflightPrivatePdf = pdf.OPTIONS;
+  getVersion = (await import('../app/api/version/route')).GET;
+});
 
 const read = (path: string) => readFileSync(path, 'utf8');
 
