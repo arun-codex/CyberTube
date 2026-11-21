@@ -363,7 +363,7 @@ chai-support[position="bottom-left"] {
   box-shadow: 0 36px 100px rgba(0, 0, 0, .5), 0 0 0 1px rgba(255,255,255,.05);
   /* The old overflow:hidden clipped the payment fields below the viewport.
      This is the single scroll container for the modal, with no nested scroll. */
-  max-height: calc(100dvh - 24px);
+  max-height: calc(100dvh - 48px);
   overflow-x: hidden;
   overflow-y: auto;
   overscroll-behavior: contain;
