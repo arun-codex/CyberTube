@@ -1,0 +1,59 @@
+name: Chai Studio UI — no-deploy verification
+
+on:
+  push:
+    branches:
+      - feat/chaikit-cinematic-ui-no-deploy
+  pull_request:
+    paths:
+      - 'app/support/**'
+      - 'app/globals.css'
+      - 'src/components/support/**'
+      - 'src/lib/chaikit/**'
+      - 'test/*chaikit*'
+      - 'test/support-layout.test.ts'
+      - 'tests/3*_support*'
+      - 'tests/39_chaikit_live_direct_upi.spec.ts'
+      - 'tests/40_chaikit_studio_ui.spec.ts'
+      - 'package.json'
+      - 'vercel.json'
+      - '.github/workflows/chaikit-studio-no-deploy.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: chai-studio-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  local-checks-only:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Checkout reviewed branch
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Enforce no-deploy Vercel branch protection
+        run: node -e "const a=require('./vercel.json'); if(a.git?.deploymentEnabled?.['feat/chaikit-cinematic-ui-no-deploy']!==false)process.exit(1)"
+      - name: Install locked packages
+        run: npm ci
+      - name: Verify original ChaiKit integrity and payment safety
+        run: npm run test:chaikit && npm run test:chaikit-live
+      - name: Test support layout and Chai Studio behavior
+        run: npm run test:support && npm run test:chai-studio
+      - name: Type check
+        run: npx tsc --noEmit
+      - name: Compile locally without publishing
+        run: npm run build
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Local browser interactions (never Vercel/live UPI)
+        run: npx playwright test tests/35_support_placement_and_theme.spec.ts tests/36_support_page_chaikit.spec.ts tests/39_chaikit_live_direct_upi.spec.ts tests/40_chaikit_studio_ui.spec.ts --project=chromium
