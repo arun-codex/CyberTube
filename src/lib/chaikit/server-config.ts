@@ -28,7 +28,7 @@ export interface PublicChaiConfig {
   verificationNotice: string;
 }
 
-export function getPublicChaiConfig(env: NodeJS.ProcessEnv = process.env): PublicChaiConfig {
+export function getPublicChaiConfig(env: Record<string,string|undefined> = process.env): PublicChaiConfig {
   const approved = env.CYBERTUBE_SUPPORT_LIVE_PAYMENTS_ENABLED === 'true';
   const verified = env.CYBERTUBE_SUPPORT_PAYEE_VERIFIED === 'true';
   const configuredVpa = (env.CYBERTUBE_SUPPORT_UPI_ID || '').trim();
