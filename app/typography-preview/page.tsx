@@ -4,13 +4,14 @@ import Link from 'next/link';
 export const metadata = {
   title: 'CyberTube Typography System Preview',
   description: 'Visual reference and multi-font typography verification for Orbitron, Rajdhani, Rubik, IBM Plex Mono, and Cyberpunk.',
+  robots: { index: false, follow: false },
 };
 
 export default function TypographyPreviewPage() {
   return (
-    <div className="container-max py-12 space-y-12">
+    <div className="container-max min-w-0 py-12 space-y-12">
       {/* Overview Banner */}
-      <div className="rounded-[8px] border border-[#e4e4ed] bg-[#f4f4f9] p-6 sm:p-8 space-y-3">
+      <div className="min-w-0 rounded-[8px] border border-[#e4e4ed] bg-[#f4f4f9] p-4 sm:p-8 space-y-3">
         <div className="font-mono text-xs uppercase tracking-wider text-[#6b6b7b]">
           Design System & Spec
         </div>
@@ -29,8 +30,8 @@ export default function TypographyPreviewPage() {
       </div>
 
       {/* 1. Orbitron */}
-      <section className="rounded-[8px] border border-[#e4e4ed] bg-white p-6 sm:p-8 space-y-6">
-        <div className="flex items-center justify-between border-b border-[#e4e4ed] pb-3">
+      <section className="min-w-0 rounded-[8px] border border-[#e4e4ed] bg-white p-4 sm:p-8 space-y-6">
+        <div className="flex min-w-0 flex-col items-start gap-2 border-b border-[#e4e4ed] pb-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <span className="font-mono text-xs uppercase text-[#6b6b7b]">Font 1 — Primary Display</span>
             <h2 className="font-orbitron text-xl font-bold text-[#303055]">Orbitron</h2>
@@ -46,19 +47,19 @@ export default function TypographyPreviewPage() {
         <div className="space-y-4">
           <div className="space-y-1">
             <span className="text-xs font-mono text-[#6b6b7b]">Bold 700</span>
-            <div className="font-orbitron font-bold text-3xl sm:text-4xl text-[#303055]">
+            <div className="font-orbitron font-bold break-words [overflow-wrap:anywhere] text-3xl sm:text-4xl text-[#303055]">
               CYBERTUBE // SECURITY INTELLIGENCE
             </div>
           </div>
           <div className="space-y-1">
             <span className="text-xs font-mono text-[#6b6b7b]">SemiBold 600</span>
-            <div className="font-orbitron font-semibold text-2xl sm:text-3xl text-[#303055]">
+            <div className="font-orbitron font-semibold break-words [overflow-wrap:anywhere] text-2xl sm:text-3xl text-[#303055]">
               ADVANCED PENETRATION TESTING & HARDWARE LABS
             </div>
           </div>
           <div className="space-y-1">
             <span className="text-xs font-mono text-[#6b6b7b]">Display Heading (H2)</span>
-            <div className="font-orbitron font-medium text-lg text-[#303055]">
+            <div className="font-orbitron font-medium break-words [overflow-wrap:anywhere] text-lg text-[#303055]">
               DEFENSIVE ARCHITECTURE & THREAT MODELLING
             </div>
           </div>
@@ -66,8 +67,8 @@ export default function TypographyPreviewPage() {
       </section>
 
       {/* 2. Rajdhani */}
-      <section className="rounded-[8px] border border-[#e4e4ed] bg-white p-6 sm:p-8 space-y-6">
-        <div className="flex items-center justify-between border-b border-[#e4e4ed] pb-3">
+      <section className="min-w-0 rounded-[8px] border border-[#e4e4ed] bg-white p-4 sm:p-8 space-y-6">
+        <div className="flex min-w-0 flex-col items-start gap-2 border-b border-[#e4e4ed] pb-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <span className="font-mono text-xs uppercase text-[#6b6b7b]">Font 2 — Technical Headings</span>
             <h2 className="font-rajdhani text-2xl font-bold text-[#303055]">Rajdhani</h2>
@@ -103,8 +104,8 @@ export default function TypographyPreviewPage() {
       </section>
 
       {/* 3. Rubik */}
-      <section className="rounded-[8px] border border-[#e4e4ed] bg-white p-6 sm:p-8 space-y-6">
-        <div className="flex items-center justify-between border-b border-[#e4e4ed] pb-3">
+      <section className="min-w-0 rounded-[8px] border border-[#e4e4ed] bg-white p-4 sm:p-8 space-y-6">
+        <div className="flex min-w-0 flex-col items-start gap-2 border-b border-[#e4e4ed] pb-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <span className="font-mono text-xs uppercase text-[#6b6b7b]">Font 3 — Body & UI Font</span>
             <h2 className="font-sans text-xl font-bold text-[#303055]">Rubik (font-sans)</h2>
@@ -127,7 +128,7 @@ export default function TypographyPreviewPage() {
           </div>
           <div className="space-y-1">
             <span className="text-xs font-mono text-[#6b6b7b]">Medium 500 — Interactive / Button</span>
-            <div className="flex items-center gap-3 pt-1">
+            <div className="flex flex-wrap items-center gap-3 pt-1">
               <button className="px-4 py-2 bg-[#303055] text-white rounded-[4px] font-sans font-medium text-sm">
                 Explore Curriculum
               </button>
@@ -140,8 +141,8 @@ export default function TypographyPreviewPage() {
       </section>
 
       {/* 4. IBM Plex Mono */}
-      <section className="rounded-[8px] border border-[#e4e4ed] bg-white p-6 sm:p-8 space-y-6">
-        <div className="flex items-center justify-between border-b border-[#e4e4ed] pb-3">
+      <section className="min-w-0 rounded-[8px] border border-[#e4e4ed] bg-white p-4 sm:p-8 space-y-6">
+        <div className="flex min-w-0 flex-col items-start gap-2 border-b border-[#e4e4ed] pb-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <span className="font-mono text-xs uppercase text-[#6b6b7b]">Font 4 — Code & Telemetry</span>
             <h2 className="font-mono text-xl font-bold text-[#303055]">IBM Plex Mono</h2>
@@ -155,7 +156,7 @@ export default function TypographyPreviewPage() {
         </p>
 
         <div className="space-y-4">
-          <div className="p-4 rounded-[4px] bg-[#141424] text-[#b0b0c6] font-mono text-xs sm:text-sm space-y-1 border border-[#303055]">
+          <div className="min-w-0 p-4 rounded-[4px] bg-[#141424] text-[#b0b0c6] font-mono text-xs sm:text-sm space-y-1 border border-[#303055] [overflow-wrap:anywhere]">
             <div className="text-[#3b61b0]">$ tshark -i eth0 -Y &quot;tcp.port == 443&quot; -T fields -e ip.src -e ip.dst</div>
             <div className="text-emerald-400">192.168.1.105 -&gt; 104.244.42.1 [TLSv1.3 Application Data]</div>
             <div className="text-[#76769a]">SHA-256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855</div>
@@ -164,8 +165,8 @@ export default function TypographyPreviewPage() {
       </section>
 
       {/* 5. Cyberpunk Display Face */}
-      <section className="rounded-[8px] border border-[#e4e4ed] bg-white p-6 sm:p-8 space-y-6">
-        <div className="flex items-center justify-between border-b border-[#e4e4ed] pb-3">
+      <section className="min-w-0 rounded-[8px] border border-[#e4e4ed] bg-white p-4 sm:p-8 space-y-6">
+        <div className="flex min-w-0 flex-col items-start gap-2 border-b border-[#e4e4ed] pb-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <span className="font-mono text-xs uppercase text-[#6b6b7b]">Cyberpunk Display Face</span>
             <h2 className="font-cyberpunk text-2xl text-[#303055]">Cyberpunk Display (Orbitron OFL-1.1)</h2>
@@ -179,7 +180,7 @@ export default function TypographyPreviewPage() {
         </p>
 
         <div className="p-4 rounded-[4px] bg-[#f4f4f9] border border-[#e4e4ed]">
-          <div className="font-cyberpunk text-xl sm:text-2xl text-[#303055]">
+          <div className="font-cyberpunk break-words [overflow-wrap:anywhere] text-xl sm:text-2xl text-[#303055]">
             CYBERTUBE SYSTEM CORE 2026
           </div>
         </div>

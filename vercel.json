@@ -38,6 +38,7 @@
   ],
   "git": {
     "deploymentEnabled": {
+      "audit/remediation-phase-ab-no-deploy-20261121": false,
       "feat/chaikit-cinematic-ui-no-deploy": false
     }
   }

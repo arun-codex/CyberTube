@@ -12,7 +12,6 @@ import {
 } from 'lucide-react';
 import { createClient } from '@/lib/supabase/server';
 import { isAuthorizedAdminEmail } from '@/lib/supabase/admin';
-import { getAllResources } from '@/lib/catalog';
 import { CYBERSECURITY_DOMAINS } from '@/data/metadata';
 
 export default async function AdminDashboardPage() {
@@ -44,9 +43,10 @@ export default async function AdminDashboardPage() {
     .from('resource_submissions')
     .select('id, review_status') as { data: Array<{ id: string; review_status: string }> | null };
 
-  const publishedCount = dbResources?.filter((r) => r.publication_status === 'published').length || 22;
-  const draftCount = dbResources?.filter((r) => r.publication_status === 'draft').length || 0;
-  const pendingSubmissions = submissions?.filter((s) => s.review_status === 'pending').length || 0;
+  // Database fetch errors must never be turned into fabricated catalog totals.
+  const publishedCount = dbResources ? dbResources.filter((r) => r.publication_status === 'published').length : null;
+  const draftCount = dbResources ? dbResources.filter((r) => r.publication_status === 'draft').length : null;
+  const pendingSubmissions = submissions ? submissions.filter((row) => row.review_status === 'pending').length : null;
 
   return (
     <div className="container-max py-10 space-y-8">
@@ -65,19 +65,15 @@ export default async function AdminDashboardPage() {
 
         <div className="flex flex-wrap items-center gap-2">
           <Link
-            href="/admin/resources/new"
-            className="flex items-center gap-1.5 px-3.5 py-2 rounded-[4px] text-xs font-medium text-white bg-[#303055] hover:bg-[#252542] transition-colors min-h-[38px]"
+            href="/admin/study-materials"
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-medium text-white bg-[#303055] hover:bg-[#252542] transition-colors min-h-[38px]"
           >
             <PlusCircle className="w-4 h-4" />
-            Add Resource
+            Manage Study Materials
           </Link>
-          <Link
-            href="/admin/submissions"
-            className="flex items-center gap-1.5 px-3.5 py-2 rounded-[4px] text-xs font-medium text-[#403f53] bg-white hover:bg-[#e8e8f2] border border-[#e4e4ed] transition-colors min-h-[38px]"
-          >
-            <FileCheck className="w-4 h-4" />
-            Review Submissions ({pendingSubmissions})
-          </Link>
+          <span className="text-xs text-[var(--text-secondary)]">
+            Community submission moderation is not available in this CMS.
+          </span>
         </div>
       </div>
 
@@ -88,10 +84,10 @@ export default async function AdminDashboardPage() {
             <span>Published</span>
             <Database className="w-4 h-4 text-[#303055]" />
           </div>
-          <p className="text-2xl font-semibold text-[#303055]">{publishedCount}</p>
+          <p className="text-2xl font-semibold text-[#303055]">{publishedCount ?? 'Unavailable'}</p>
           <p className="text-[11px] font-mono text-[#6b6b7b] flex items-center gap-1">
             <CheckCircle2 className="w-3 h-3 text-[#303055]" />
-            Across 11 domains
+            Across {CYBERSECURITY_DOMAINS.length} domains
           </p>
         </div>
 
@@ -100,7 +96,7 @@ export default async function AdminDashboardPage() {
             <span>Drafts</span>
             <Clock className="w-4 h-4 text-[#6b6b7b]" />
           </div>
-          <p className="text-2xl font-semibold text-[#303055]">{draftCount}</p>
+          <p className="text-2xl font-semibold text-[#303055]">{draftCount ?? 'Unavailable'}</p>
           <p className="text-[11px] font-mono text-[#6b6b7b]">Pending review</p>
         </div>
 
@@ -109,7 +105,7 @@ export default async function AdminDashboardPage() {
             <span>Submissions</span>
             <FileCheck className="w-4 h-4 text-[#6b6b7b]" />
           </div>
-          <p className="text-2xl font-semibold text-[#303055]">{pendingSubmissions}</p>
+          <p className="text-2xl font-semibold text-[#303055]">{pendingSubmissions ?? 'Unavailable'}</p>
           <p className="text-[11px] font-mono text-[#6b6b7b]">Community contributions</p>
         </div>
 

@@ -45,6 +45,8 @@ export const CurriculumModule: React.FC<CurriculumModuleProps> = ({
       : 0;
 
   const paddedIndex = String(moduleIndex + 1).padStart(2, '0');
+  // An empty published DB module is a planned placeholder, not completed learning.
+  const isPlanned = module.lessons.length === 0 && !module.quiz;
 
   return (
     <div className={`rounded-[8px] border overflow-hidden transition-colors ${
@@ -76,6 +78,10 @@ export const CurriculumModule: React.FC<CurriculumModuleProps> = ({
                 <span className="flex items-center gap-1 text-[10px] font-mono text-amber-600 dark:text-amber-400">
                   <Lock className="w-3 h-3" /> Locked
                 </span>
+              ) : isPlanned ? (
+                <span className="text-[11px] font-mono text-amber-700 dark:text-amber-300">
+                  Planned · No lessons yet
+                </span>
               ) : (
                 <span className="text-[11px] font-mono text-[#64748B] dark:text-[#9BA8B7]">
                   {completedCount}/{module.lessons.length}
@@ -97,7 +103,7 @@ export const CurriculumModule: React.FC<CurriculumModuleProps> = ({
               : 'bg-[#e2e8f0] dark:bg-[#1A2638] text-[#334155] dark:text-[#CBD5E1]'
           }`}
         >
-          {isLocked ? 'Locked' : `${percent}%`}
+          {isLocked ? 'Locked' : isPlanned ? 'Planned' : `${percent}%`}
         </span>
       </button>
 
@@ -128,6 +134,10 @@ export const CurriculumModule: React.FC<CurriculumModuleProps> = ({
                 </button>
               )}
             </div>
+          ) : isPlanned ? (
+            <p className="border-t border-[var(--border)] p-4 text-xs text-[var(--text-secondary)]" role="status">
+              This module is reserved for future playlist additions. No lessons are available yet.
+            </p>
           ) : (
             <div className="divide-y divide-[#e4e4ed] dark:divide-[#243044]">
               {module.lessons.map((lesson) => (

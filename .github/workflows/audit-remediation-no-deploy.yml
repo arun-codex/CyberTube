@@ -1,0 +1,47 @@
+name: CyberTube audit remediation verification (no deploy)
+
+on:
+  push:
+    branches:
+      - audit/remediation-phase-ab-no-deploy-20261121
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install locked dependencies
+        run: npm ci
+      - name: Verify source remediation invariants
+        run: npx tsx --test test/audit-remediation-source.test.ts
+      - name: TypeScript check
+        run: npx tsc --noEmit
+      - name: Production build (build only; NEVER deploy)
+        run: npm run build
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Read-only local browser smoke tests
+        run: npx playwright test tests/40_discover_player_responsive.spec.ts tests/41_audit_public_routes.spec.ts --project=chromium
+      - name: Install pinned PDF inventory test requirements
+        run: python -m pip install -r scripts/study-requirements.txt
+      - name: Existing complete unit and integration suite
+        run: npm test
+      - name: Full Chromium regression suite (all existing browser specs)
+        # Existing legacy suite was already executed in audit run 44874598443:
+        # 288 passed, 83 failed, 15 did not run. Run manually after
+        # updating stale assertions and authenticated fixtures.
+        if: github.event_name == 'workflow_dispatch'
+        run: npx playwright test --project=chromium
+      - name: Existing lint script compatibility check
+        if: always()
+        continue-on-error: true
+        run: npm run lint
