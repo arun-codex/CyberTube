@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getAuthenticatedUser } from '@/lib/supabase/server';
 import { createAdminClient } from '@/lib/supabase/admin';
-
 // The PDF is a private, cookie-authenticated same-origin resource.
 // Never advertise credentialed cross-origin access, including on errors.
 export function OPTIONS() {

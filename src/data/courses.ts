@@ -1339,7 +1339,7 @@ export const COURSES: Course[] = [
       },
       {
         id: 'd6a8e002-5000-4000-a000-000000000005',
-        title: 'Module 5: New Playlist Additions',
+        title: 'Module 5: New Playlist Additions (Planned)',
         description: 'Automatically synchronized lessons added to David Bombal\'s Wireshark playlist over time.',
         order: 5,
         lessons: [],

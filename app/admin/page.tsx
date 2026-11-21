@@ -9,6 +9,7 @@ import {
   CheckCircle2,
   Clock,
   ArrowRight,
+  BookOpen,
 } from 'lucide-react';
 import { createClient } from '@/lib/supabase/server';
 import { isAuthorizedAdminEmail } from '@/lib/supabase/admin';
@@ -68,12 +69,23 @@ export default async function AdminDashboardPage() {
             href="/admin/study-materials"
             className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-sm font-medium text-[var(--text-primary)] bg-[var(--card-bg)] border border-[var(--border)] hover:border-[var(--accent-cyan)] transition-colors min-h-[44px]"
           >
-            <PlusCircle className="w-4 h-4" />
+            <BookOpen className="w-4 h-4" />
             Manage Study Materials
           </Link>
-          <span className="text-xs text-[var(--text-secondary)]">
-            Community submission moderation is not available in this CMS.
-          </span>
+          <Link
+            href="/admin/resources/new"
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-sm font-medium text-[var(--text-primary)] bg-[var(--card-bg)] border border-[var(--border)] hover:border-[var(--accent-cyan)] transition-colors min-h-[44px]"
+          >
+            <PlusCircle className="w-4 h-4" />
+            Add Resource
+          </Link>
+          <Link
+            href="/admin/submissions"
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-sm font-medium text-[var(--text-primary)] bg-[var(--card-bg)] border border-[var(--border)] hover:border-[var(--accent-cyan)] transition-colors min-h-[44px]"
+          >
+            <FileCheck className="w-4 h-4" />
+            Review Submissions ({pendingSubmissions ?? 'Unavailable'})
+          </Link>
         </div>
       </div>
 

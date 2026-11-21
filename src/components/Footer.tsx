@@ -131,8 +131,8 @@ export const Footer: React.FC = () => {
               <span className="px-2 py-0.5 rounded bg-[var(--surface-subtle)] border border-[var(--border)] text-[10px] font-mono text-[var(--accent-cyan)]">
                 No required subscriptions
               </span>
-              <span className="px-2 py-0.5 rounded bg-[var(--surface-subtle)] border border-[var(--border)] text-[10px] font-mono text-[var(--accent-cyan)]">
-                Accessibility improvements ongoing
+              <span className="px-2 py-0.5 rounded bg-[var(--surface-subtle)] border border-[var(--border)] text-[10px] font-mono text-[var(--accent-cyan)]" title="Designed following WCAG 2.2 accessibility principles">
+                WCAG 2.2 Aligned
               </span>
               <span className="px-2 py-0.5 rounded bg-[var(--surface-subtle)] border border-[var(--border)] text-[10px] font-mono text-[var(--accent-emerald)]">
                 Free learning resources
