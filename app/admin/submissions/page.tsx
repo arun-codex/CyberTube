@@ -5,6 +5,15 @@ import { FileCheck, ArrowLeft } from 'lucide-react';
 import { createClient } from '@/lib/supabase/server';
 import { isAuthorizedAdminEmail } from '@/lib/supabase/admin';
 
+interface ResourceSubmission {
+  id: string;
+  title: string;
+  url: string;
+  domain: string;
+  review_status: string;
+  created_at: string;
+}
+
 export default async function AdminSubmissionsPage() {
   const supabase = await createClient();
   if (!supabase) {
@@ -16,10 +25,12 @@ export default async function AdminSubmissionsPage() {
     redirect('/?error=unauthorized_admin');
   }
 
-  const { data: submissions } = await supabase
+  const { data } = await supabase
     .from('resource_submissions')
     .select('id, title, url, domain, review_status, created_at')
     .order('created_at', { ascending: false });
+
+  const submissions = (data as ResourceSubmission[] | null) || [];
 
   return (
     <div className="container-max py-10 space-y-6">
