@@ -63,3 +63,9 @@ test('F18: do not expose an apparent empty library when RLS hides guest document
   assert.ok(p.includes('isUserLoggedIn ? ('));
   assert.ok(!p.includes('documents.length || 34'));
 });
+
+test('F10: avoid unverified accessibility conformance claim before independent audit',()=>{
+  const footer=source('src/components/Footer.tsx');
+  assert.doesNotMatch(footer,/WCAG 2\.2 AA/);
+  assert.match(footer,/Accessibility improvements ongoing/);
+});
