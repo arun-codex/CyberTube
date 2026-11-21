@@ -48,7 +48,7 @@ test('mobile navigation opens and closes without page mutation',async({page})=>{
   const menu=page.getByRole('button',{name:'Toggle mobile navigation menu'});
   await menu.click();
   await expect(page.getByText('Resources & Reference')).toBeVisible();
-  await expect(page.getByRole('link',{name:'Practical Labs'})).toBeVisible();
+  await expect(page.locator('header').getByRole('link',{name:'Practical Labs'})).toBeVisible();
   await menu.click();
   await expect(page.getByText('Resources & Reference')).toBeHidden();
 });
