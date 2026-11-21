@@ -30,6 +30,12 @@ export default async function CourseDetailPage({ params, searchParams }: CourseD
     redirect(`/courses/network-packet-analysis-masterclass${lessonQuery}`);
   }
 
+  // Backward-compatible redirect alias for upgraded Wireshark course
+  if (slug === 'wireshark-and-ethical-hacking') {
+    const lessonQuery = resolvedSearchParams?.lesson ? `?lesson=${encodeURIComponent(resolvedSearchParams.lesson)}` : '';
+    redirect(`/courses/wireshark-zero-to-advanced${lessonQuery}`);
+  }
+
   const course = await getCourseBySlugWithDb(slug);
 
   if (!course) {
@@ -40,9 +46,10 @@ export default async function CourseDetailPage({ params, searchParams }: CourseD
   const activeLessonSlug = resolvedSearchParams?.lesson || allLessons[0]?.slug;
   const activeLesson = allLessons.find((l) => l.slug === activeLessonSlug || l.id === activeLessonSlug) || allLessons[0];
 
-  const rawTab = resolvedSearchParams?.tab || (resolvedSearchParams?.quiz === 'true' ? 'quiz' : undefined);
+  const rawTab = resolvedSearchParams?.tab;
+  // Fall back cleanly if someone bookmarked a quiz URL; quizzes have been retired
   const initialTab =
-    rawTab === 'quiz' || rawTab === 'lab' || rawTab === 'capstone' || rawTab === 'pcaps' || rawTab === 'content'
+    rawTab === 'lab' || rawTab === 'capstone' || rawTab === 'pcaps' || rawTab === 'content'
       ? rawTab
       : undefined;
 
@@ -54,4 +61,3 @@ export default async function CourseDetailPage({ params, searchParams }: CourseD
     />
   );
 }
-

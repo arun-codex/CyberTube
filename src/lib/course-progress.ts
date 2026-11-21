@@ -12,7 +12,7 @@ import {
  * CyberTube — Course Progress Service
  *
  * Implements a clean client-side interface for tracking course, lesson,
- * quiz, practical lab, and capstone progress in browser localStorage.
+ * practical lab, and capstone progress in browser localStorage.
  * Dispatches custom events for reactive UI state updates.
  */
 
@@ -148,15 +148,10 @@ export function getComprehensiveCourseCompletion(course: Course): ComprehensiveC
   const lessonsCompleted = allLessonIds.filter((id) => state.completedLessonIds.includes(id)).length;
   const lessonCompletionPercent = totalLessons > 0 ? Math.round((lessonsCompleted / totalLessons) * 100) : 0;
 
-  // Quizzes
-  const modulesWithQuiz = course.modules.filter((m) => !!m.quiz);
-  const totalQuizzes = modulesWithQuiz.length;
-  const quizzesPassed = modulesWithQuiz.filter((m) => {
-    const passingScore = m.quiz?.passingScorePercent || 70;
-    const score = state.quizScores?.[m.id] ?? 0;
-    return score >= passingScore;
-  }).length;
-  const quizCompletionPercent = totalQuizzes > 0 ? Math.round((quizzesPassed / totalQuizzes) * 100) : 100;
+  // Quizzes removed - reporting 0 / 100% for interface compatibility
+  const totalQuizzes = 0;
+  const quizzesPassed = 0;
+  const quizCompletionPercent = 100;
 
   // Labs
   const modulesWithLab = course.modules.filter((m) => !!m.practicalLab);
@@ -174,37 +169,42 @@ export function getComprehensiveCourseCompletion(course: Course): ComprehensiveC
     ? (!!state.capstoneSubmission?.isSelfAssessedPassed && (state.capstoneScore ?? 0) >= (course.capstone?.passingScore || 75))
     : true;
 
-  const hasAssessmentGates = totalQuizzes > 0 || totalLabs > 0 || hasCapstone;
+  const hasAssessmentGates = totalLabs > 0 || hasCapstone;
   let isFullyCompleted = false;
   let overallProgressPercent = 0;
 
   if (hasAssessmentGates) {
     const allLessonsDone = lessonsCompleted === totalLessons;
-    const allQuizzesDone = quizzesPassed === totalQuizzes;
     const allLabsDone = labsCompleted === totalLabs;
-    isFullyCompleted = allLessonsDone && allQuizzesDone && allLabsDone && capstonePassed;
+    isFullyCompleted = allLessonsDone && allLabsDone && capstonePassed;
 
-    // Weighted progress dimensions:
-    // Lessons: 40%, Quizzes: 20%, Labs: 20%, Capstone: 20%
-    let weighted = (lessonCompletionPercent * 0.4);
-    if (totalQuizzes > 0) weighted += (quizCompletionPercent * 0.2); else weighted += (lessonCompletionPercent * 0.2);
-    if (totalLabs > 0) weighted += (labCompletionPercent * 0.2); else weighted += (lessonCompletionPercent * 0.2);
-    if (hasCapstone) {
+    // Weighted progress dimensions (without quizzes):
+    // Lessons: 50%, Labs: 25%, Capstone: 25% (or proportionally adjusted if lab/capstone absent)
+    let weighted = 0;
+    if (totalLabs > 0 && hasCapstone) {
       let capstoneProg = 0;
       if (capstoneSubmitted) capstoneProg += 50;
       if (capstonePassed) capstoneProg += 50;
-      weighted += (capstoneProg * 0.2);
+      weighted = (lessonCompletionPercent * 0.5) + (labCompletionPercent * 0.25) + (capstoneProg * 0.25);
+    } else if (totalLabs > 0) {
+      weighted = (lessonCompletionPercent * 0.6) + (labCompletionPercent * 0.4);
+    } else if (hasCapstone) {
+      let capstoneProg = 0;
+      if (capstoneSubmitted) capstoneProg += 50;
+      if (capstonePassed) capstoneProg += 50;
+      weighted = (lessonCompletionPercent * 0.6) + (capstoneProg * 0.4);
     } else {
-      weighted += (lessonCompletionPercent * 0.2);
+      weighted = lessonCompletionPercent;
     }
+
     overallProgressPercent = Math.min(100, Math.round(weighted));
     if (isFullyCompleted) {
       overallProgressPercent = 100;
     } else if (overallProgressPercent === 100) {
-      overallProgressPercent = 99; // Cap at 99% until all required assessment gates pass
+      overallProgressPercent = 99; // Cap at 99% until required practical gates pass
     }
   } else {
-    // Standard lesson-only course (e.g. MERN, Networking, Wireshark)
+    // Standard lesson-only course
     isFullyCompleted = lessonsCompleted === totalLessons;
     overallProgressPercent = lessonCompletionPercent;
   }
@@ -212,9 +212,6 @@ export function getComprehensiveCourseCompletion(course: Course): ComprehensiveC
   const remainingRequirements: string[] = [];
   if (lessonsCompleted < totalLessons) {
     remainingRequirements.push(`${totalLessons - lessonsCompleted} lesson${totalLessons - lessonsCompleted === 1 ? '' : 's'}`);
-  }
-  if (totalQuizzes > 0 && quizzesPassed < totalQuizzes) {
-    remainingRequirements.push(`${totalQuizzes - quizzesPassed} quiz${totalQuizzes - quizzesPassed === 1 ? '' : 'zes'}`);
   }
   if (totalLabs > 0 && labsCompleted < totalLabs) {
     remainingRequirements.push(`${totalLabs - labsCompleted} lab${totalLabs - labsCompleted === 1 ? '' : 's'}`);
@@ -255,23 +252,18 @@ export const localCourseProgressService: CourseProgressService = {
   toggleLessonCompletion(courseId: string, lessonId: string): boolean {
     const state = loadState(courseId);
     const isCompleted = state.completedLessonIds.includes(lessonId);
-    let nextCompletedIds: string[];
+    const nextCompletedIds = isCompleted
+      ? state.completedLessonIds.filter((id) => id !== lessonId)
+      : [...state.completedLessonIds, lessonId];
 
-    if (isCompleted) {
-      nextCompletedIds = state.completedLessonIds.filter((id) => id !== lessonId);
-    } else {
-      nextCompletedIds = [...state.completedLessonIds, lessonId];
-    }
-
-    const nextState: CourseProgressState = {
+    saveState({
       ...state,
       completedLessonIds: nextCompletedIds,
       lastCompletedLessonId: !isCompleted ? lessonId : state.lastCompletedLessonId,
       lastActiveLessonId: lessonId,
       lastAccessedAt: new Date().toISOString(),
-    };
+    });
 
-    saveState(nextState);
     return !isCompleted;
   },
 
@@ -325,33 +317,9 @@ export const localCourseProgressService: CourseProgressService = {
     }
   },
 
-  recordQuizScore(courseId: string, quizId: string, scorePercent: number): void {
-    const state = loadState(courseId);
-    const quizScores = { ...(state.quizScores || {}), [quizId]: scorePercent };
-    saveState({
-      ...state,
-      quizScores,
-      lastAccessedAt: new Date().toISOString(),
-    });
-  },
-
-  recordQuizAttempt(courseId: string, moduleId: string, attempt: QuizAttempt): void {
-    const state = loadState(courseId);
-    const existingAttempts = state.quizAttempts?.[moduleId] || [];
-    const nextAttempts = [...existingAttempts, attempt];
-    
-    // Update quizScores with highest score achieved across attempts
-    const highestScore = Math.max(...nextAttempts.map((a) => a.score), 0);
-    const quizScores = { ...(state.quizScores || {}), [moduleId]: highestScore };
-    const quizAttempts = { ...(state.quizAttempts || {}), [moduleId]: nextAttempts };
-
-    saveState({
-      ...state,
-      quizScores,
-      quizAttempts,
-      lastAccessedAt: new Date().toISOString(),
-    });
-  },
+  // Retained as harmless no-ops for interface compatibility
+  recordQuizScore(): void {},
+  recordQuizAttempt(): void {},
 
   recordLabProgress(courseId: string, labId: string, progress: PracticalLabProgress): void {
     const state = loadState(courseId);
