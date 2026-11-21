@@ -267,7 +267,10 @@ test('9. Study Materials PDF Endpoint — same-origin-only OPTIONS and multi-buc
   const { GET, OPTIONS } = await import('../app/api/study-materials/[docId]/pdf/route');
 
   // Cross-origin preflight must not grant permission to fetch private PDF bytes.
-  const optRes = OPTIONS();
+  const optRes = OPTIONS(new Request('http://localhost/api/study-materials/doc-1/pdf', {
+    method: 'OPTIONS',
+    headers: { origin: 'http://localhost' },
+  }) as any);
   assert.equal(optRes.status, 405);
   assert.equal(optRes.headers.get('Allow'), 'GET');
   assert.equal(optRes.headers.get('Access-Control-Allow-Origin'), null);
