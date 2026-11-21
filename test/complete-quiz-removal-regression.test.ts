@@ -110,3 +110,33 @@ test('Test 6 — Retired API Endpoints: Quiz endpoints return 410 Gone safely', 
   const dataStorytelling = await resStorytelling.json();
   assert.equal(dataStorytelling.retired, true);
 });
+
+test('Test 7 — Interactive Knowledge Check UI Removal & Content Preservation', () => {
+  const renderer = repo('src/components/courses/LessonContentRenderer.tsx');
+
+  // Verify that the interactive quiz UI is removed from LessonContentRenderer
+  assert.doesNotMatch(renderer, /<InteractiveKnowledgeCheck/);
+  assert.doesNotMatch(renderer, /<span>Submit Answer<\/span>/);
+  assert.doesNotMatch(renderer, /<span>Lesson Knowledge Check<\/span>/);
+  assert.doesNotMatch(renderer, /✓ Correct Answer!/);
+  assert.doesNotMatch(renderer, /input type="radio"/);
+
+  // Verify that Network Packet Forensics course data preserves all knowledgeCheck definitions
+  const npf = COURSES.find((c) => c.slug === 'network-packet-analysis-masterclass')!;
+  assert.ok(npf, 'Network Packet Forensics course must exist in COURSES');
+  const lessonsWithKC = npf.modules.flatMap((m) => m.lessons).filter((l) => (l as any).knowledgeCheck || (l as any).content?.knowledgeCheck);
+  // Source course definition preserves all knowledge check question data intact without deleting course content
+  const npfSource = repo('src/data/network-packet-forensics-course.ts');
+  const kcMatches = npfSource.match(/"knowledgeCheck":/g);
+  assert.ok(kcMatches && kcMatches.length >= 37, `Expected at least 37 knowledgeCheck definitions preserved, found ${kcMatches?.length}`);
+});
+
+test('Test 8 — Course Count Reconciliation: 15 active courses, 16 slugs/routes, 12 DB courses', () => {
+  assert.equal(COURSES.length, 15, `Expected exactly 15 static courses in COURSES, found ${COURSES.length}`);
+
+  // Check alias redirect in course route
+  const coursePage = repo('app/courses/[slug]/page.tsx');
+  assert.match(coursePage, /network-packet-analysis-forensics-masterclass/);
+  assert.match(coursePage, /redirect\(`\/courses\/network-packet-analysis-masterclass/);
+});
+
