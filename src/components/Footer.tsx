@@ -132,7 +132,7 @@ export const Footer: React.FC = () => {
                 Zero Ads
               </span>
               <span className="px-2 py-0.5 rounded bg-[var(--surface-subtle)] border border-[var(--border)] text-[10px] font-mono text-[var(--accent-cyan)]">
-                WCAG 2.2 AA
+                Accessibility improvements ongoing
               </span>
               <span className="px-2 py-0.5 rounded bg-[var(--surface-subtle)] border border-[var(--border)] text-[10px] font-mono text-[var(--accent-emerald)]">
                 100% Free
