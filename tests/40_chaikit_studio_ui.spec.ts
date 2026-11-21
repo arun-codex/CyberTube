@@ -42,7 +42,12 @@ test('Chai Studio mounts genuine ChaiKit and never creates payable demo QR', asy
   await expect(dialog.getByTestId('chai-3d-scene')).toBeVisible();
   const widget = dialog.locator('chai-support');
   await expect(widget).toHaveAttribute('position', 'inline');
-  await expect(widget).toHaveAttribute('enable-3d', '');
+  await expect(widget).not.toHaveAttribute('enable-3d');
+  await expect(widget.locator('.chai-3d-stage')).toHaveCount(0);
+  await expect(widget.locator('.chai-header')).toBeHidden();
+  await expect(widget.locator('.chai-modal-inline')).toHaveAttribute('role', 'group');
+  await expect(widget.locator('.chai-inline-card')).toHaveCSS('margin-top', '0px');
+  await expect(widget.locator('.chai-inline-card')).toHaveCSS('border-top-width', '0px');
   await expect(widget).toHaveAttribute('upi-id', 'demo@upi');
   await expect(widget).toHaveAttribute('demo-mode', '');
   await expect(dialog.getByText(/Preview only — real UPI payments are disabled/)).toBeVisible();
@@ -52,6 +57,43 @@ test('Chai Studio mounts genuine ChaiKit and never creates payable demo QR', asy
   await page.keyboard.press('Escape');
   await expect(dialog).not.toBeVisible();
   await expect(page.getByRole('button', { name: 'Support CyberTube ☕' }).first()).toBeFocused();
+});
+
+test('Inline ChaiKit shows one compact accessible menu instead of duplicate frames', async ({ page }) => {
+  await page.setViewportSize({ width: 375, height: 760 });
+  await page.goto('/support');
+  const widget = page.getByTestId('chaikit-payment-panel').locator('chai-support');
+  const tiers = widget.locator('.chai-tier-card');
+  await expect(tiers).toHaveCount(4);
+  await expect(widget.locator('.chai-header')).toBeHidden();
+  await expect(widget.locator('.chai-3d-stage')).toHaveCount(0);
+  await expect(widget.locator('.chai-modal-inline')).toHaveAttribute('role', 'group');
+
+  const geometry = await widget.evaluate(element => {
+    const root = element.shadowRoot!;
+    const card = root.querySelector<HTMLElement>('.chai-inline-card')!;
+    const body = root.querySelector<HTMLElement>('.chai-body')!;
+    const firstTier = root.querySelector<HTMLElement>('.chai-tier-card')!;
+    const hostBounds = element.getBoundingClientRect();
+    return {
+      hostWidth: hostBounds.width,
+      cardWidth: card.getBoundingClientRect().width,
+      margin: getComputedStyle(card).marginTop,
+      border: getComputedStyle(card).borderTopWidth,
+      bodyPadding: getComputedStyle(body).paddingTop,
+      tierHeight: firstTier.getBoundingClientRect().height,
+    };
+  });
+
+  expect(geometry.cardWidth).toBeLessThanOrEqual(geometry.hostWidth + 2);
+  expect(geometry.margin).toBe('0px');
+  expect(geometry.border).toBe('0px');
+  expect(geometry.bodyPadding).toBe('0px');
+  expect(geometry.tierHeight).toBeLessThan(150);
+  const horizontalOverflow = await page.evaluate(
+    () => document.documentElement.scrollWidth - document.documentElement.clientWidth
+  );
+  expect(horizontalOverflow).toBeLessThanOrEqual(2);
 });
 
 test('Motion can be paused manually and OS reduced-motion disables scene animation', async ({ page }) => {
