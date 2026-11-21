@@ -128,3 +128,33 @@ export async function POST(request:NextRequest){
     submittedAt,savedToCloud,gradedBy:'cybertube-server',
   });
 }
+
+/** Fetch signed-in learner's existing general-course best scores. */
+export async function GET(request:NextRequest){
+  const slug=request.nextUrl.searchParams.get('courseSlug')||'';
+  if(!/^[a-z0-9-]{1,160}$/.test(slug)||slug==='free-storytelling-masterclass'){
+    return reply({error:'Invalid course slug.'},400);
+  }
+  const user=await getAuthenticatedUser();
+  if(!user)return reply({error:'Authentication required.'},401);
+  const course=await getCourseBySlugWithDb(slug);
+  if(!course)return reply({error:'Course not found or unpublished.'},404);
+  const db=await createClient();
+  if(!db)return reply({error:'Cloud progress unavailable.'},503);
+  const {data,error}=await (db.from('user_generic_progress') as any)
+    .select('entity_id,progress_percent,state_data')
+    .eq('user_id',user.id)
+    .eq('entity_type','course-quiz')
+    .like('entity_id',slug+'::%')
+    .limit(250);
+  if(error)return reply({error:'Could not load cloud quiz results.'},503);
+  const validIds=new Set(course.modules.map(module=>module.id));
+  const scores:Record<string,number>={};
+  for(const row of data||[]){
+    const id=String(row.entity_id||'').slice(slug.length+2);
+    if(!validIds.has(id))continue;
+    const score=Number(row.state_data?.bestScore??row.progress_percent);
+    if(Number.isFinite(score)&&score>=0&&score<=100)scores[id]=Math.max(scores[id]||0,score);
+  }
+  return reply({courseId:course.id,courseSlug:slug,scores});
+}
