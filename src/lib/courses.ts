@@ -243,7 +243,9 @@ export async function getCourseBySlugWithDb(slug: string): Promise<Course | unde
         practicalLab: staticModule?.practicalLab,
         capstoneAssessment: staticModule?.capstoneAssessment,
       };
-    });
+    }).filter((m: { lessons: Lesson[]; quiz?: unknown; practicalLab?: unknown; capstoneAssessment?: unknown }) =>
+      m.lessons.length > 0 || Boolean(m.quiz || m.practicalLab || m.capstoneAssessment)
+    );
 
     const allDynamicLessons = dynamicModules.flatMap((m: any) => m.lessons);
     const totalMinutes = allDynamicLessons.reduce((acc: number, l: any) => acc + (l.durationMinutes || 0), 0);
