@@ -84,16 +84,17 @@ See [Discover architecture, privacy and verification](docs/discover-personalized
 - Study documents, reader/progress tracking, bookmarks, and saved content with signed-in account synchronization where supported.
 - Public search does not intentionally index private learner records or unpublished documents.
 
-### Optional Chai support (preview only)
+### Optional Chai support — direct UPI
 
-- Optional **Support CyberTube ☕** button on the Home page and an inline support panel near the end of every page in the footer.
-- No floating or bottom-right launcher is mounted by the committed implementation.
-- Theme colors, backgrounds, borders and focus states match CyberTube's own light and dark themes.
-- Cutting, Kadak, Tandoori and Premium chai tiers show preview amounts of ₹10 / ₹25 / ₹50 / ₹100.
-- **Live UPI payments are disabled.** The preview generates no payable QR/UPI intent and displays no recipient account until the owner explicitly authorizes activation after payee verification.
-- Existing/unmerged localhost ChaiKit integrations need to remove their independent floating mounting point to avoid duplicate controls.
+- Optional **Support CyberTube ☕** controls on Home and at the bottom of every page, with a dedicated [Support page](https://cybertube-mu.vercel.app/support).
+- Real **direct UPI QR / UPI app handoff** is enabled only when the production server's approved-payee, owner-confirmation and live-payment environment settings all match. Otherwise the site remains in **non-payable demo mode**.
+- Supports Cutting ₹10, Kadak ₹25, Tandoori ₹50, Premium ₹100 and custom ₹10–₹10,000 contributions.
+- The actual UPI payee must be **Arun Kumar**, not the CyberTube display brand; supporters must check the recipient and amount in their UPI app.
+- No floating support launcher, no gateway, no automatic bank payment verification, and no pretend payment receipts or success status.
+- Site-wide light/dark theme integration and a pinned ChaiKit vendor bundle with integrity checks.
 
-For ownership, package installation, safety and eventual payment activation, see [Chai support integration instructions](docs/chaikit-support-integration.md).
+For approved production environment settings, rollback, payment transparency and eventual gateway migration, see [Direct UPI activation and safety guide](docs/chaikit-live-upi-activation.md).
+
 
 ### Accounts and security
 
