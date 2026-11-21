@@ -20,9 +20,9 @@ export default async function AdminDashboardPage() {
   if (!supabase) {
     return (
       <div className="container-max py-12">
-        <div className="bg-[#fbeaea] border border-[#e8b5b5] rounded-[8px] p-6 text-[#984e4d] font-mono text-xs">
+        <div className="bg-[var(--surface)] border border-[var(--border)] rounded-[8px] p-6 text-[var(--text-primary)] font-mono text-xs">
           <h2 className="text-sm font-semibold mb-2">Supabase Database Unconfigured</h2>
-          <p className="text-[#403f53]">
+          <p className="text-[var(--text-secondary)]">
             The Admin Dashboard requires valid Supabase environment credentials in <code>.env.local</code>.
           </p>
         </div>
@@ -43,22 +43,22 @@ export default async function AdminDashboardPage() {
     .from('resource_submissions')
     .select('id, review_status') as { data: Array<{ id: string; review_status: string }> | null };
 
-  // Database fetch errors must never be turned into fabricated catalog totals.
   const publishedCount = dbResources ? dbResources.filter((r) => r.publication_status === 'published').length : null;
   const draftCount = dbResources ? dbResources.filter((r) => r.publication_status === 'draft').length : null;
+  // Database fetch errors must never be turned into fabricated catalog totals.
   const pendingSubmissions = submissions ? submissions.filter((row) => row.review_status === 'pending').length : null;
 
   return (
     <div className="container-max py-10 space-y-8">
       {/* Top Banner */}
-      <div className="bg-[#f4f4f9] border border-[#e4e4ed] rounded-[8px] p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+      <div className="bg-[var(--surface)] border border-[var(--border)] rounded-[8px] p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
         <div>
-          <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-[4px] text-xs font-mono bg-white border border-[#e8b5b5] text-[#984e4d] mb-2">
+          <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-[4px] text-xs font-mono bg-[var(--card-bg)] border border-[var(--border)] text-[var(--text-primary)] mb-2">
             <ShieldAlert className="w-3.5 h-3.5" />
             Administrative Portal
           </div>
-          <h1 className="text-2xl font-semibold text-[#303055]">CyberTube CMS</h1>
-          <p className="text-xs text-[#6b6b7b] mt-0.5">
+          <h1 className="text-2xl font-semibold text-[var(--text-primary)]">CyberTube CMS</h1>
+          <p className="text-xs text-[var(--text-secondary)] mt-0.5">
             Oversee educational records, approve community submissions, and curate taxonomies.
           </p>
         </div>
@@ -66,7 +66,7 @@ export default async function AdminDashboardPage() {
         <div className="flex flex-wrap items-center gap-2">
           <Link
             href="/admin/study-materials"
-            className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-medium text-white bg-[#303055] hover:bg-[#252542] transition-colors min-h-[38px]"
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-sm font-medium text-[var(--text-primary)] bg-[var(--card-bg)] border border-[var(--border)] hover:border-[var(--accent-cyan)] transition-colors min-h-[44px]"
           >
             <PlusCircle className="w-4 h-4" />
             Manage Study Materials
@@ -79,43 +79,43 @@ export default async function AdminDashboardPage() {
 
       {/* KPI Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white border border-[#e4e4ed] rounded-[8px] p-5 space-y-1">
-          <div className="flex items-center justify-between text-xs font-mono text-[#6b6b7b]">
+        <div className="bg-[var(--card-bg)] border border-[var(--border)] rounded-[8px] p-5 space-y-1">
+          <div className="flex items-center justify-between text-xs font-mono text-[var(--text-secondary)]">
             <span>Published</span>
-            <Database className="w-4 h-4 text-[#303055]" />
+            <Database className="w-4 h-4 text-[var(--text-primary)]" />
           </div>
-          <p className="text-2xl font-semibold text-[#303055]">{publishedCount ?? 'Unavailable'}</p>
-          <p className="text-[11px] font-mono text-[#6b6b7b] flex items-center gap-1">
-            <CheckCircle2 className="w-3 h-3 text-[#303055]" />
+          <p className="text-2xl font-semibold text-[var(--text-primary)]">{publishedCount ?? 'Unavailable'}</p>
+          <p className="text-[11px] font-mono text-[var(--text-secondary)] flex items-center gap-1">
+            <CheckCircle2 className="w-3 h-3 text-[var(--text-primary)]" />
             Across {CYBERSECURITY_DOMAINS.length} domains
           </p>
         </div>
 
-        <div className="bg-white border border-[#e4e4ed] rounded-[8px] p-5 space-y-1">
-          <div className="flex items-center justify-between text-xs font-mono text-[#6b6b7b]">
+        <div className="bg-[var(--card-bg)] border border-[var(--border)] rounded-[8px] p-5 space-y-1">
+          <div className="flex items-center justify-between text-xs font-mono text-[var(--text-secondary)]">
             <span>Drafts</span>
-            <Clock className="w-4 h-4 text-[#6b6b7b]" />
+            <Clock className="w-4 h-4 text-[var(--text-secondary)]" />
           </div>
-          <p className="text-2xl font-semibold text-[#303055]">{draftCount ?? 'Unavailable'}</p>
-          <p className="text-[11px] font-mono text-[#6b6b7b]">Pending review</p>
+          <p className="text-2xl font-semibold text-[var(--text-primary)]">{draftCount ?? 'Unavailable'}</p>
+          <p className="text-[11px] font-mono text-[var(--text-secondary)]">Pending review</p>
         </div>
 
-        <div className="bg-white border border-[#e4e4ed] rounded-[8px] p-5 space-y-1">
-          <div className="flex items-center justify-between text-xs font-mono text-[#6b6b7b]">
+        <div className="bg-[var(--card-bg)] border border-[var(--border)] rounded-[8px] p-5 space-y-1">
+          <div className="flex items-center justify-between text-xs font-mono text-[var(--text-secondary)]">
             <span>Submissions</span>
-            <FileCheck className="w-4 h-4 text-[#6b6b7b]" />
+            <FileCheck className="w-4 h-4 text-[var(--text-secondary)]" />
           </div>
-          <p className="text-2xl font-semibold text-[#303055]">{pendingSubmissions ?? 'Unavailable'}</p>
-          <p className="text-[11px] font-mono text-[#6b6b7b]">Community contributions</p>
+          <p className="text-2xl font-semibold text-[var(--text-primary)]">{pendingSubmissions ?? 'Unavailable'}</p>
+          <p className="text-[11px] font-mono text-[var(--text-secondary)]">Community contributions</p>
         </div>
 
-        <div className="bg-white border border-[#e4e4ed] rounded-[8px] p-5 space-y-1">
-          <div className="flex items-center justify-between text-xs font-mono text-[#6b6b7b]">
+        <div className="bg-[var(--card-bg)] border border-[var(--border)] rounded-[8px] p-5 space-y-1">
+          <div className="flex items-center justify-between text-xs font-mono text-[var(--text-secondary)]">
             <span>Domains</span>
-            <ArrowRight className="w-4 h-4 text-[#6b6b7b]" />
+            <ArrowRight className="w-4 h-4 text-[var(--text-secondary)]" />
           </div>
-          <p className="text-2xl font-semibold text-[#303055]">{CYBERSECURITY_DOMAINS.length}</p>
-          <p className="text-[11px] font-mono text-[#6b6b7b]">Core security tracks</p>
+          <p className="text-2xl font-semibold text-[var(--text-primary)]">{CYBERSECURITY_DOMAINS.length}</p>
+          <p className="text-[11px] font-mono text-[var(--text-secondary)]">Core security tracks</p>
         </div>
       </div>
     </div>

@@ -20,7 +20,7 @@ export const Footer: React.FC = () => {
               Curated free cybersecurity video courses, roadmaps, and legal practice labs.
             </p>
             <p className="text-[11px] font-mono text-[var(--text-muted)] pt-1">
-              Videos belong to their creators. Content verified November 2026.
+              Videos belong to their creators. External links and availability can change.
             </p>
           </div>
 
@@ -129,13 +129,13 @@ export const Footer: React.FC = () => {
             </ul>
             <div className="flex flex-wrap gap-1.5">
               <span className="px-2 py-0.5 rounded bg-[var(--surface-subtle)] border border-[var(--border)] text-[10px] font-mono text-[var(--accent-cyan)]">
-                Zero Ads
+                No required subscriptions
               </span>
               <span className="px-2 py-0.5 rounded bg-[var(--surface-subtle)] border border-[var(--border)] text-[10px] font-mono text-[var(--accent-cyan)]">
                 Accessibility improvements ongoing
               </span>
               <span className="px-2 py-0.5 rounded bg-[var(--surface-subtle)] border border-[var(--border)] text-[10px] font-mono text-[var(--accent-emerald)]">
-                100% Free
+                Free learning resources
               </span>
             </div>
           </div>

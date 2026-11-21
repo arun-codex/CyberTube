@@ -60,13 +60,18 @@ export async function GET() {
       totalItems,
     };
 
-    // The persisted discovery_items table and runtime RSS/YouTube feed are
-    // separate sources. Never advertise an empty DB as an empty live feed.
+    // The actual learner feed is assembled on demand by /api/discover/feed.
+    // Persisted database counts must never be advertised as the live feed count.
     return NextResponse.json({
       ...status,
-      persistedItemCount: persistedCountKnown ? totalItems : null,
-      countScope: 'persisted-discovery-index',
+      feedSource: 'runtime',
       liveFeedEndpoint: '/api/discover/feed',
+      persistedItemCount: persistedCountKnown ? totalItems : null,
+      totalItemsIncludesRuntimeFeed: false,
+      freshnessVerified: false,
+    // The persisted discovery_items table and runtime RSS/YouTube feed are
+    // separate sources. Never advertise an empty DB as an empty live feed.
+      countScope: 'persisted-discovery-index',
       liveFeedMode: 'runtime-source-aggregation',
       note: 'totalItems counts the persisted discovery index only; request /api/discover/feed to inspect current runtime source availability.',
     }, { headers: { 'Cache-Control': 'no-store' } });
@@ -74,4 +79,3 @@ export async function GET() {
     return NextResponse.json({ error: 'Failed to retrieve discovery status' }, { status: 500 });
   }
 }
-
