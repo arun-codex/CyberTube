@@ -47,7 +47,8 @@ test('Chai Studio mounts genuine ChaiKit and never creates payable demo QR', asy
   await expect(widget).toHaveAttribute('demo-mode', '');
   await expect(dialog.getByText(/Preview only — real UPI payments are disabled/)).toBeVisible();
   await expect(widget.locator('.chai-payment-amount')).toContainText('25');
-  await expect(widget.locator('.chai-qr-frame')).toHaveCount(0);
+  await expect(widget.locator('.chai-qr-frame')).toHaveCount(1);
+  await expect(widget.locator('.chai-demo-qr-overlay')).toBeVisible();
   await page.keyboard.press('Escape');
   await expect(dialog).not.toBeVisible();
   await expect(page.getByRole('button', { name: 'Support CyberTube ☕' }).first()).toBeFocused();
