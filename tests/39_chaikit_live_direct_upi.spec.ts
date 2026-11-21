@@ -23,7 +23,7 @@ test('approved direct UPI displays exact verified payee, a scannable QR and cust
   await expect(panel).toBeVisible();
   await expect(panel.getByText('Direct UPI contribution to CyberTube')).toBeVisible();
   await expect(panel.getByText(/Bank recipient:/)).toContainText('Arun Kumar');
-  await expect(panel.getByText(/UPI ID:/)).toContainText('aruninzone@ptaxis');
+  await expect(panel.locator('[role="note"]').first()).toContainText('aruninzone@ptaxis');
 
   const widget=panel.locator('chai-support');
   await expect(widget).toBeVisible();
