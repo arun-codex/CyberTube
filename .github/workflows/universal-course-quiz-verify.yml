@@ -1,0 +1,37 @@
+name: Universal Course Quiz & MERN validation
+
+on:
+  push:
+    branches:
+      - fix/quiz-routing-all-courses-mern-playlist-20261121
+  pull_request:
+    paths:
+      - 'app/api/courses/quiz/**'
+      - 'src/components/courses/**'
+      - 'src/data/courses.ts'
+      - 'test/all-course-quizzes.test.ts'
+      - 'package.json'
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install
+        run: npm ci
+      - name: Verify all-course quiz behavior
+        run: npm run test:course-quizzes
+      - name: Verify existing Storytelling quiz security
+        run: npx tsx --test test/phase22-storytelling-quiz-security.test.ts
+      - name: Typecheck
+        run: npx tsc --noEmit
+      - name: Production build
+        run: npm run build
