@@ -1,0 +1,837 @@
+{
+  "metadata": {
+    "as_of": "2026-11-21",
+    "attack": "Enterprise v20.1",
+    "nist": "SP 800-61r3",
+    "status": "working draft"
+  },
+  "modules": [
+    {
+      "n": 1,
+      "phase": "Foundations",
+      "title": "SOC and Incident Response Orientation",
+      "level": "Zero",
+      "hours": 5,
+      "video": "IR",
+      "resources": [
+        "NIST",
+        "NIST_IR",
+        "ATTACK_INTRO"
+      ],
+      "scope": "Incident detection vs investigation vs response",
+      "lessons": [
+        "Security operations roles and escalation",
+        "Alerts versus events versus confirmed incidents",
+        "CIA impact and business context",
+        "SOC L1 responsibilities and boundaries",
+        "Writing a fact-based incident ticket"
+      ],
+      "scenario": "A suspicious alert comes from an endpoint monitoring console with little context. Decide what is known, unknown and who must be notified.",
+      "artifact": "One-page SOC triage ticket, glossary of 20 terms and a role-escalation chart",
+      "filename": "01-soc-and-incident-response-orientation.md"
+    },
+    {
+      "n": 2,
+      "phase": "Foundations",
+      "title": "Incident Response Frameworks and NIST SP 800-61r3",
+      "level": "Zero",
+      "hours": 6,
+      "video": "CISA",
+      "resources": [
+        "NIST",
+        "NIST_IR"
+      ],
+      "scope": "Preparation; Detect; Respond; Recover; continuous improvement",
+      "lessons": [
+        "IR objectives, roles and authorized scope",
+        "NIST SP 800-61r3 and CSF 2.0 alignment",
+        "Difference between older linear phases and modern lifecycle",
+        "Incident declaration and severity thresholds",
+        "Exercise plans and improvement follow-through"
+      ],
+      "scenario": "An organization has a malware detection with uncertain customer impact. Create an IR action sequence without assuming a breach.",
+      "artifact": "IR lifecycle diagram, authority matrix and severity/notification draft",
+      "filename": "02-incident-response-frameworks-and-nist-sp-800-61r3.md"
+    },
+    {
+      "n": 3,
+      "phase": "Foundations",
+      "title": "MITRE ATT&CK: What It Is and Why Responders Use It",
+      "level": "Zero",
+      "hours": 5,
+      "video": "F1",
+      "resources": [
+        "ATTACK",
+        "TRAIN_FUN",
+        "ATTACK_INTRO"
+      ],
+      "scope": "ATT&CK Enterprise, adversary behavior and evidence",
+      "lessons": [
+        "What ATT&CK models and what it does not",
+        "Enterprise, Mobile and ICS domain distinctions",
+        "How incident responders use behavioral context",
+        "Tactics versus techniques versus evidence",
+        "Why ATT&CK is not a chronological kill chain"
+      ],
+      "scenario": "A brief incident description references unusual PowerShell and account access. Identify behavior without jumping to attribution.",
+      "artifact": "Plain-language ATT&CK explanation plus 5 evidence-versus-inference examples",
+      "filename": "03-mitre-att-ck-what-it-is-and-why-responders-use-it.md"
+    },
+    {
+      "n": 4,
+      "phase": "Foundations",
+      "title": "Tactics, Techniques, Sub-techniques and Procedures",
+      "level": "Beginner",
+      "hours": 6,
+      "video": "F2",
+      "resources": [
+        "ATTACK",
+        "ATTACK_DATA",
+        "TRAIN_FUN"
+      ],
+      "scope": "ATT&CK object vocabulary and confidence",
+      "lessons": [
+        "Identify tactics and their purpose",
+        "Locate technique and sub-technique IDs",
+        "Separate a technique from a specific procedure",
+        "Read mitigations, detection strategies and analytics",
+        "Use confidence qualifiers in mappings"
+      ],
+      "scenario": "Given a fictional SSH and suspicious command timeline, map two behaviors to possible tactics and document uncertainty.",
+      "artifact": "Technique mapping worksheet with links, supporting facts and confidence",
+      "filename": "04-tactics-techniques-sub-techniques-and-procedures.md"
+    },
+    {
+      "n": 5,
+      "phase": "Foundations",
+      "title": "ATT&CK Enterprise v20.1 Navigation and Version Control",
+      "level": "Beginner",
+      "hours": 5,
+      "video": "F3",
+      "resources": [
+        "ATTACK",
+        "ATTACK_VERSIONS",
+        "ATTACK_DATA"
+      ],
+      "scope": "Enterprise v20.1 and tactic updates",
+      "lessons": [
+        "Navigate platform filters and Enterprise matrix",
+        "Read the 15-tactic current Enterprise matrix",
+        "Understand Stealth and Defense Impairment categories",
+        "Find technique versions and deprecated objects",
+        "Record mapping date and matrix version"
+      ],
+      "scenario": "Compare an archived screenshot using Defense Evasion to the current Enterprise matrix and identify outdated labels.",
+      "artifact": "Versioned ATT&CK reference sheet and corrected legacy-to-current notes",
+      "filename": "05-att-ck-enterprise-v20-1-navigation-and-version-control.md"
+    },
+    {
+      "n": 6,
+      "phase": "Foundations",
+      "title": "Turn Incident Narratives into ATT&CK Mappings",
+      "level": "Beginner",
+      "hours": 7,
+      "video": "F3",
+      "resources": [
+        "ATTACK",
+        "CISA_MAP",
+        "CTI"
+      ],
+      "scope": "Evidentiary technique mapping",
+      "lessons": [
+        "Extract observable actions from reports",
+        "Identify the relevant platform and tactic",
+        "Select a precise supported technique",
+        "Distinguish evidence from hypotheses",
+        "Write a confidence and alternate-explanation note"
+      ],
+      "scenario": "A report shows a user opening a lure, a script running and later connection attempts. Map only what is actually supported.",
+      "artifact": "Annotated incident narrative with supported, tentative and rejected mappings",
+      "filename": "06-turn-incident-narratives-into-att-ck-mappings.md"
+    },
+    {
+      "n": 7,
+      "phase": "Operational IR",
+      "title": "IR Preparedness: Playbooks, Contacts and Evidence Readiness",
+      "level": "Beginner",
+      "hours": 6,
+      "video": "CISA",
+      "resources": [
+        "NIST",
+        "NIST_IR"
+      ],
+      "scope": "Preparedness, runbooks and responsibilities",
+      "lessons": [
+        "Create a business-aware incident playbook",
+        "Identify approval and response authority",
+        "Inventory critical hosts and log sources",
+        "Define secure evidence storage and case naming",
+        "Run a tabletop exercise and capture gaps"
+      ],
+      "scenario": "A simulated small company has no agreed-on process for handling a suspected account takeover.",
+      "artifact": "Playbook v1, contact/approval checklist and tabletop notes",
+      "filename": "07-ir-preparedness-playbooks-contacts-and-evidence-readiness.md"
+    },
+    {
+      "n": 8,
+      "phase": "Operational IR",
+      "title": "SOC Alert Triage, Severity and Escalation",
+      "level": "Beginner",
+      "hours": 6,
+      "video": "S1",
+      "resources": [
+        "TRAIN_SOC",
+        "NIST"
+      ],
+      "scope": "SOC incident workflow and ATT&CK triage",
+      "lessons": [
+        "Triage incoming SIEM/EDR alerts",
+        "Validate time zones, hosts and identities",
+        "Assess false positives and alert quality",
+        "Estimate scope, severity and confidence",
+        "Escalate through documented authority"
+      ],
+      "scenario": "Given 5 fictional alerts, identify one urgent incident and justify why others need more investigation.",
+      "artifact": "Five triage tickets, severity rationale and escalation decision log",
+      "filename": "08-soc-alert-triage-severity-and-escalation.md"
+    },
+    {
+      "n": 9,
+      "phase": "Operational IR",
+      "title": "Digital Evidence, Preservation and Chain of Custody",
+      "level": "Beginner",
+      "hours": 7,
+      "video": "IR",
+      "resources": [
+        "NIST",
+        "NIST_IR",
+        "VOL"
+      ],
+      "scope": "Evidence provenance and admissibility awareness",
+      "lessons": [
+        "Identify volatile and persistent evidence",
+        "Avoid altering suspect systems unnecessarily",
+        "Record acquisition time and system context",
+        "Generate and verify cryptographic checksums",
+        "Build a basic chain-of-custody record"
+      ],
+      "scenario": "A device may have active malware and a pending reboot. Document what evidence is at risk and plan safe preservation.",
+      "artifact": "Acquisition checklist, hashes, custody ledger and integrity verification note",
+      "filename": "09-digital-evidence-preservation-and-chain-of-custody.md"
+    },
+    {
+      "n": 10,
+      "phase": "Endpoint IR",
+      "title": "Windows Authentication and Identity Investigation",
+      "level": "Intermediate",
+      "hours": 7,
+      "video": "WIN",
+      "resources": [
+        "THM",
+        "DATASETS",
+        "ATTACK"
+      ],
+      "scope": "Authentication patterns and credential access evidence",
+      "lessons": [
+        "Read Windows Event Viewer and filtering",
+        "Interpret 4624 and 4625 with context",
+        "Correlate 4720-4733 account changes",
+        "Recognize password spraying versus user error",
+        "Map observed behavior cautiously to ATT&CK"
+      ],
+      "scenario": "A synthetic log export contains repeated failed sign-ins followed by a successful remote logon.",
+      "artifact": "Authentication timeline, host/account scope, ATT&CK map and false-positive analysis",
+      "filename": "10-windows-authentication-and-identity-investigation.md"
+    },
+    {
+      "n": 11,
+      "phase": "Endpoint IR",
+      "title": "Windows Process, PowerShell and Sysmon Telemetry",
+      "level": "Intermediate",
+      "hours": 8,
+      "video": "WIN",
+      "resources": [
+        "THM",
+        "DATASETS",
+        "SIGMA"
+      ],
+      "scope": "Execution and persistence detection evidence",
+      "lessons": [
+        "Interpret process and parent-child relationships",
+        "Understand Sysmon Event 1 context",
+        "Investigate script and PowerShell logging",
+        "Track suspicious scheduled tasks and services",
+        "Create an evidence table for executable behavior"
+      ],
+      "scenario": "A fabricated process tree shows an office application launching an unexpected shell.",
+      "artifact": "Process-tree diagram, ATT&CK mapping, SIEM query sketch and response recommendation",
+      "filename": "11-windows-process-powershell-and-sysmon-telemetry.md"
+    },
+    {
+      "n": 12,
+      "phase": "Endpoint IR",
+      "title": "Linux and SSH Incident Investigation",
+      "level": "Intermediate",
+      "hours": 7,
+      "video": "IR",
+      "resources": [
+        "DATASETS",
+        "ATTACK",
+        "NIST"
+      ],
+      "scope": "Linux auth, processes and services",
+      "lessons": [
+        "Read SSH and authentication logs across distros",
+        "Use journalctl and systemctl read-only",
+        "Inspect users, groups and sudo history",
+        "Review processes, network sockets and cron indicators",
+        "Document volatile data and safe collection"
+      ],
+      "scenario": "A Linux server shows many SSH authentication failures followed by a successful connection from an unfamiliar source.",
+      "artifact": "Linux log timeline, probable scope and safe preservation steps",
+      "filename": "12-linux-and-ssh-incident-investigation.md"
+    },
+    {
+      "n": 13,
+      "phase": "Network IR",
+      "title": "Network Forensics: DNS, HTTP, TLS and PCAP",
+      "level": "Intermediate",
+      "hours": 9,
+      "video": "NET",
+      "resources": [
+        "DATASETS",
+        "ATTACK",
+        "PLAYBOOK"
+      ],
+      "scope": "Network observations, beaconing and exfiltration clues",
+      "lessons": [
+        "Review packet captures safely",
+        "Filter DNS and HTTP metadata",
+        "Interpret ports, flows and TLS limitations",
+        "Identify possible beacon patterns without overclaiming",
+        "Correlate network and endpoint evidence"
+      ],
+      "scenario": "A sample PCAP shows periodic outbound requests from an endpoint with suspicious process activity.",
+      "artifact": "Packet evidence table, filtered-flow screenshots and alternative explanation",
+      "filename": "13-network-forensics-dns-http-tls-and-pcap.md"
+    },
+    {
+      "n": 14,
+      "phase": "Attack Behaviors",
+      "title": "Phishing, Initial Access and User Execution",
+      "level": "Intermediate",
+      "hours": 8,
+      "video": "IR",
+      "resources": [
+        "ATTACK",
+        "THM",
+        "NIST"
+      ],
+      "scope": "Phishing, suspicious attachments and initial access",
+      "lessons": [
+        "Recognize phishing evidence and email headers",
+        "Trace user-reported click times",
+        "Examine URLs and documents without executing them",
+        "Determine if payload execution is supported",
+        "Recommend mailbox, identity and host response actions"
+      ],
+      "scenario": "A fictional employee reports a suspicious email and a subsequent browser redirect.",
+      "artifact": "Phishing investigation report including evidence, scope, ATT&CK and containment options",
+      "filename": "14-phishing-initial-access-and-user-execution.md"
+    },
+    {
+      "n": 15,
+      "phase": "Attack Behaviors",
+      "title": "Credential Access and Compromised Identity",
+      "level": "Intermediate",
+      "hours": 8,
+      "video": "WIN",
+      "resources": [
+        "ATTACK",
+        "THM",
+        "DATASETS"
+      ],
+      "scope": "Credentials, anomalous sign-ins and privilege use",
+      "lessons": [
+        "Assess password spraying and account takeover signals",
+        "Distinguish credential access from lateral movement",
+        "Investigate new sign-in devices and session activity",
+        "Consider MFA fatigue and token misuse evidence",
+        "Draft least-disruptive identity containment options"
+      ],
+      "scenario": "Synthetic sign-in logs show unusual logins, MFA anomalies and new resource access.",
+      "artifact": "Identity incident timeline, ATT&CK mapping and containment approval request",
+      "filename": "15-credential-access-and-compromised-identity.md"
+    },
+    {
+      "n": 16,
+      "phase": "Attack Behaviors",
+      "title": "Persistence and Privilege Escalation",
+      "level": "Intermediate",
+      "hours": 8,
+      "video": "WIN",
+      "resources": [
+        "ATTACK",
+        "DATASETS",
+        "SIGMA"
+      ],
+      "scope": "Persistence mechanisms and privilege changes",
+      "lessons": [
+        "Recognize scheduled tasks and service modifications",
+        "Inspect account creation and local administrators",
+        "Read autorun and relevant system evidence",
+        "Separate privilege escalation from legitimate admin tasks",
+        "Define follow-on checks after containing a host"
+      ],
+      "scenario": "Investigation data contains a new local account, scheduled task and elevated process activity.",
+      "artifact": "Persistence checklist, privilege trace and validation steps",
+      "filename": "16-persistence-and-privilege-escalation.md"
+    },
+    {
+      "n": 17,
+      "phase": "Attack Behaviors",
+      "title": "Stealth and Defense Impairment (Current ATT&CK)",
+      "level": "Intermediate",
+      "hours": 7,
+      "video": "S2",
+      "resources": [
+        "ATTACK",
+        "ATTACK_VERSIONS",
+        "TRAIN_SOC"
+      ],
+      "scope": "Stealth; Defense Impairment; monitoring blind spots",
+      "lessons": [
+        "Distinguish hiding activity from disabling defense",
+        "Read security-agent state changes",
+        "Identify logging gaps and tampering indicators",
+        "Consider expected admin maintenance",
+        "Escalate monitoring impairment rapidly and safely"
+      ],
+      "scenario": "A log sequence indicates telemetry stops immediately after a configuration change.",
+      "artifact": "Defense-impairment investigation, telemetry-gap timeline and remediation plan",
+      "filename": "17-stealth-and-defense-impairment-current-att-ck.md"
+    },
+    {
+      "n": 18,
+      "phase": "Attack Behaviors",
+      "title": "Discovery and Lateral Movement Investigation",
+      "level": "Advanced",
+      "hours": 8,
+      "video": "S2",
+      "resources": [
+        "ATTACK",
+        "DATASETS",
+        "TRAIN_SOC"
+      ],
+      "scope": "Discovery, remote services and account scope",
+      "lessons": [
+        "Interpret discovery behaviors in endpoint logs",
+        "Review RDP/SMB/WinRM evidence",
+        "Build source-to-destination host relationships",
+        "Separate authorized administration from suspect access",
+        "Contain lateral movement while preserving business-critical services"
+      ],
+      "scenario": "A synthetic graph shows a workstation accessing multiple servers after an anomalous login.",
+      "artifact": "Host movement graph, evidence-cited timeline and response priorities",
+      "filename": "18-discovery-and-lateral-movement-investigation.md"
+    },
+    {
+      "n": 19,
+      "phase": "Attack Behaviors",
+      "title": "Collection, C2 and Exfiltration Analysis",
+      "level": "Advanced",
+      "hours": 9,
+      "video": "NET",
+      "resources": [
+        "ATTACK",
+        "DATASETS",
+        "PLAYBOOK"
+      ],
+      "scope": "Collection, command and control, exfiltration",
+      "lessons": [
+        "Understand staging, compression and collection evidence",
+        "Identify unusual network destinations",
+        "Compare periodic activity against baselines",
+        "Correlate file, process and network artifacts",
+        "Estimate potential exposure without unsupported certainty"
+      ],
+      "scenario": "Synthetic proxy and endpoint logs show archive creation and unexplained outbound transfer.",
+      "artifact": "Exfiltration hypothesis, scope table and next-evidence requirements",
+      "filename": "19-collection-c2-and-exfiltration-analysis.md"
+    },
+    {
+      "n": 20,
+      "phase": "Incident Scenarios",
+      "title": "Ransomware, Impact and Crisis Containment",
+      "level": "Advanced",
+      "hours": 9,
+      "video": "RECOVERY",
+      "resources": [
+        "NIST",
+        "NIST_IR",
+        "ATTACK"
+      ],
+      "scope": "Impact techniques, ransomware response and recovery",
+      "lessons": [
+        "Recognize impact indicators without detonating malware",
+        "Prioritize isolation and evidence preservation",
+        "Identify service dependencies and recovery priorities",
+        "Coordinate approvals and executive communication",
+        "Validate restoration and watch for reinfection"
+      ],
+      "scenario": "Fictional file servers become unavailable while backups are being checked.",
+      "artifact": "Ransomware IR decision log, containment options and safe recovery checklist",
+      "filename": "20-ransomware-impact-and-crisis-containment.md"
+    },
+    {
+      "n": 21,
+      "phase": "Digital Forensics",
+      "title": "Forensic Acquisition and Memory Fundamentals",
+      "level": "Advanced",
+      "hours": 9,
+      "video": "MEM",
+      "resources": [
+        "VOL",
+        "NIST",
+        "THM"
+      ],
+      "scope": "Memory and disk evidence principles",
+      "lessons": [
+        "Compare live and offline acquisition decisions",
+        "Understand evidence hashing and metadata",
+        "Inspect a provided memory image with Volatility 3",
+        "Review processes, command lines and network connections",
+        "Describe limitations of missing or incomplete memory"
+      ],
+      "scenario": "A pre-provided, harmless training memory image requires process and connection inventory.",
+      "artifact": "Volatility worksheet, acquisition log and evidence-based findings",
+      "filename": "21-forensic-acquisition-and-memory-fundamentals.md"
+    },
+    {
+      "n": 22,
+      "phase": "Digital Forensics",
+      "title": "Timeline Reconstruction and Case Management",
+      "level": "Advanced",
+      "hours": 8,
+      "video": "IR",
+      "resources": [
+        "VELOCIRAPTOR",
+        "NIST",
+        "DATASETS"
+      ],
+      "scope": "Unified timelines, investigation case notes",
+      "lessons": [
+        "Normalize time zones and clock drift",
+        "Correlate host, identity and network events",
+        "Distinguish direct observations from analytical conclusions",
+        "Create a defensible incident timeline",
+        "Produce a repeatable case note structure"
+      ],
+      "scenario": "Synthetic multi-source logs disagree on time zone and several records are missing.",
+      "artifact": "Unified timeline CSV, evidence index, assumptions and gaps register",
+      "filename": "22-timeline-reconstruction-and-case-management.md"
+    },
+    {
+      "n": 23,
+      "phase": "Digital Forensics",
+      "title": "Malware and Suspicious Document Triage",
+      "level": "Advanced",
+      "hours": 8,
+      "video": "IR",
+      "resources": [
+        "THM",
+        "VOL",
+        "NIST"
+      ],
+      "scope": "Safe triage of suspicious files",
+      "lessons": [
+        "Triage safely using metadata and known indicators",
+        "Review hashes and file types without execution",
+        "Inspect static indicators in an isolated environment",
+        "Avoid unsafe upload of confidential samples",
+        "Recommend containment and deeper specialist analysis"
+      ],
+      "scenario": "A suspicious attachment has a mismatched extension and an endpoint alert.",
+      "artifact": "Static-triage report, evidence chain and next-step recommendations",
+      "filename": "23-malware-and-suspicious-document-triage.md"
+    },
+    {
+      "n": 24,
+      "phase": "Detection & Hunting",
+      "title": "SIEM Searching, Correlation and Case Enrichment",
+      "level": "Advanced",
+      "hours": 9,
+      "video": "S2",
+      "resources": [
+        "DATASETS",
+        "SIGMA",
+        "TRAIN_SOC"
+      ],
+      "scope": "SIEM queries and correlation",
+      "lessons": [
+        "Normalize fields across security log sources",
+        "Filter by host, user, IP and time",
+        "Correlate authentication and process signals",
+        "Enrich a detection with ATT&CK context",
+        "Measure noise and identify investigation priorities"
+      ],
+      "scenario": "A public example dataset includes login anomalies and suspicious process events.",
+      "artifact": "Search-query notes, correlated case record and false-positive summary",
+      "filename": "24-siem-searching-correlation-and-case-enrichment.md"
+    },
+    {
+      "n": 25,
+      "phase": "Detection & Hunting",
+      "title": "Detection Engineering and ATT&CK Analytics",
+      "level": "Advanced",
+      "hours": 9,
+      "video": "H5",
+      "resources": [
+        "ATTACK_DETECTION",
+        "SIGMA",
+        "PLAYBOOK"
+      ],
+      "scope": "Detection strategies, analytics and rule quality",
+      "lessons": [
+        "Form a clear detection hypothesis",
+        "Select reliable log data components",
+        "Describe analytics, required context and thresholds",
+        "Draft a Sigma-like rule for training data",
+        "Test positive and negative examples and tune false positives"
+      ],
+      "scenario": "Create a detector for unusual account creation coupled with suspicious session behavior.",
+      "artifact": "Detection spec, sample rule, test results and ATT&CK mapping",
+      "filename": "25-detection-engineering-and-att-ck-analytics.md"
+    },
+    {
+      "n": 26,
+      "phase": "Detection & Hunting",
+      "title": "TTP-Based Threat Hunting",
+      "level": "Advanced",
+      "hours": 10,
+      "video": "H1",
+      "resources": [
+        "TRAIN_HUNT",
+        "PLAYBOOK",
+        "DATASETS"
+      ],
+      "scope": "Proactive hunting and behavior hypothesis",
+      "lessons": [
+        "Contrast hunting and reactive triage",
+        "Choose a threat-informed hunt hypothesis",
+        "Bound scope by assets and telemetry",
+        "Evaluate evidence that supports or refutes the hypothesis",
+        "Convert useful findings into new detection ideas"
+      ],
+      "scenario": "Hunt for patterns suggesting remote execution in historical training telemetry.",
+      "artifact": "Hunt plan, queries, results, limitations and recommended detections",
+      "filename": "26-ttp-based-threat-hunting.md"
+    },
+    {
+      "n": 27,
+      "phase": "Detection & Hunting",
+      "title": "Data Requirements, Coverage and Blind-Spot Analysis",
+      "level": "Advanced",
+      "hours": 8,
+      "video": "H3",
+      "resources": [
+        "TRAIN_HUNT",
+        "ATTACK_DETECTION",
+        "TRAIN_SOC"
+      ],
+      "scope": "Telemetry completeness and ATT&CK mapping",
+      "lessons": [
+        "Map ATT&CK behaviors to observable evidence",
+        "Identify required hosts and data sources",
+        "Track absent, delayed and low-quality telemetry",
+        "Prioritize coverage based on relevance and risk",
+        "Write an actionable logging improvement proposal"
+      ],
+      "scenario": "A team has endpoint logs but no DNS records for a suspected outbound connection.",
+      "artifact": "Coverage matrix, gap register and prioritized collection plan",
+      "filename": "27-data-requirements-coverage-and-blind-spot-analysis.md"
+    },
+    {
+      "n": 28,
+      "phase": "Detection & Hunting",
+      "title": "ATT&CK Navigator, SOC Maturity and Reporting",
+      "level": "Advanced",
+      "hours": 9,
+      "video": "S3",
+      "resources": [
+        "NAVIGATOR",
+        "TRAIN_SOC",
+        "ATTACK"
+      ],
+      "scope": "ATT&CK Navigator coverage reporting",
+      "lessons": [
+        "Create a Navigator layer for an incident",
+        "Color supported and suspected technique mappings differently",
+        "Avoid treating colored techniques as proof of full detection",
+        "Assess SOC people, process and technology capabilities",
+        "Summarize coverage strengths and remaining gaps for stakeholders"
+      ],
+      "scenario": "Create an ATT&CK layer from three sample incidents and plan coverage improvements.",
+      "artifact": "Navigator JSON layer, SOC assessment summary and improvement roadmap",
+      "filename": "28-att-ck-navigator-soc-maturity-and-reporting.md"
+    },
+    {
+      "n": 29,
+      "phase": "Advanced IR",
+      "title": "Containment, Eradication, Recovery and Communications",
+      "level": "Advanced",
+      "hours": 9,
+      "video": "RECOVERY",
+      "resources": [
+        "NIST",
+        "NIST_IR",
+        "ATTACK"
+      ],
+      "scope": "Business-aware response decision making",
+      "lessons": [
+        "Weigh isolation choices against operational risk",
+        "Preserve evidence before destructive actions",
+        "Plan credential resets, patching and restoration",
+        "Communicate situation and uncertainty clearly",
+        "Run a lessons-learned review with measurable actions"
+      ],
+      "scenario": "A multi-system intrusion requires response choices across IT operations, business continuity and security.",
+      "artifact": "IR action plan, status updates, recovery tests and retrospective",
+      "filename": "29-containment-eradication-recovery-and-communications.md"
+    },
+    {
+      "n": 30,
+      "phase": "Capstone",
+      "title": "Full ATT&CK-Informed Incident Investigation Capstone",
+      "level": "Advanced",
+      "hours": 14,
+      "video": "H6",
+      "resources": [
+        "NIST",
+        "ATTACK",
+        "NAVIGATOR",
+        "DATASETS",
+        "SIGMA",
+        "PLAYBOOK"
+      ],
+      "scope": "End-to-end incident response and ATT&CK evidence mapping",
+      "lessons": [
+        "Receive incident intake and define authority",
+        "Analyze host, sign-in and network evidence",
+        "Build a supported ATT&CK behavior timeline",
+        "Choose containment, eradication and recovery steps",
+        "Deliver analyst report, Navigator layer and executive briefing"
+      ],
+      "scenario": "A fictitious phishing-origin intrusion includes authentication anomalies, unusual process behavior, remote access and attempted data transfer.",
+      "artifact": "Final report, cited evidence timeline, confidence-rated ATT&CK layer, detection proposal and executive briefing",
+      "filename": "30-full-att-ck-informed-incident-investigation-capstone.md"
+    }
+  ],
+  "videos": {
+    "INTRO": {
+      "title": "MITRE ATT&CK Framework — MITRE Corporation",
+      "url": "https://www.youtube.com/watch?v=Yxv1suJYMI8",
+      "provider": "MITRE"
+    },
+    "BASICS": {
+      "title": "MITRE ATT&CK Basics for Cybersecurity Beginners — Coursera",
+      "url": "https://www.youtube.com/watch?v=Me7CPihpG2I",
+      "provider": "Coursera"
+    },
+    "F1": {
+      "title": "Understanding ATT&CK — MITRE official fundamentals, Module 1",
+      "url": "https://www.youtube.com/watch?v=THOGnEqoStQ",
+      "provider": "MITRE"
+    },
+    "F2": {
+      "title": "Benefits of using ATT&CK — MITRE fundamentals, Module 2",
+      "url": "https://www.youtube.com/watch?v=l7vj_L9GOL4",
+      "provider": "MITRE"
+    },
+    "F3": {
+      "title": "Operationalizing ATT&CK — MITRE fundamentals, Module 3",
+      "url": "https://www.youtube.com/watch?v=r0FXhxjTN0c",
+      "provider": "MITRE"
+    },
+    "S1": {
+      "title": "Overview of ATT&CK-Based SOC Assessments — MITRE",
+      "url": "https://www.youtube.com/watch?v=lEXwtkJqlx4",
+      "provider": "MITRE"
+    },
+    "S2": {
+      "title": "Analyzing SOC Components with ATT&CK — MITRE",
+      "url": "https://www.youtube.com/watch?v=TFgO_6pO0ww",
+      "provider": "MITRE"
+    },
+    "S3": {
+      "title": "Synthesizing SOC Assessments — MITRE",
+      "url": "https://www.youtube.com/watch?v=B_IDPp5STBY",
+      "provider": "MITRE"
+    },
+    "H1": {
+      "title": "Threat Hunting Fundamentals — MITRE",
+      "url": "https://www.youtube.com/watch?v=zSVnJWV5kpE",
+      "provider": "MITRE"
+    },
+    "H2": {
+      "title": "Developing Hunting Hypotheses and Abstract Analysis — MITRE",
+      "url": "https://www.youtube.com/watch?v=fccC9koH4ak",
+      "provider": "MITRE"
+    },
+    "H3": {
+      "title": "Determining Hunting Data Requirements — MITRE",
+      "url": "https://www.youtube.com/watch?v=DbbiEPDeNXs",
+      "provider": "MITRE"
+    },
+    "H4": {
+      "title": "Identify and Mitigate Data Collection Gaps — MITRE",
+      "url": "https://www.youtube.com/watch?v=_rNG-EiPasM",
+      "provider": "MITRE"
+    },
+    "H5": {
+      "title": "Implement and Test Analytics — MITRE",
+      "url": "https://www.youtube.com/watch?v=gc3QcPdZaQU",
+      "provider": "MITRE"
+    },
+    "H6": {
+      "title": "Hunt and Investigation — MITRE",
+      "url": "https://www.youtube.com/watch?v=jtBnbpi7q1s",
+      "provider": "MITRE"
+    },
+    "IR": {
+      "title": "Introduction to Digital Forensics and Incident Response — TryHackMe walkthrough",
+      "url": "https://www.youtube.com/watch?v=bY8UjFW0k3I",
+      "provider": "Motasem Hamdan"
+    },
+    "RECOVERY": {
+      "title": "Incident Response Plan: Eradication, Recovery and Lessons Learned",
+      "url": "https://www.youtube.com/watch?v=dnuc26bV_UE",
+      "provider": "Etactics"
+    },
+    "WIN": {
+      "title": "Windows Logging for SOC Analysts — TryHackMe walkthrough",
+      "url": "https://www.youtube.com/watch?v=svxqs_yvJIk",
+      "provider": "WireDogSec"
+    },
+    "NET": {
+      "title": "Incident Response Training, Network Forensics, Day 13",
+      "url": "https://www.youtube.com/watch?v=ygtTDz3X8BQ",
+      "provider": "BlackPerl DFIR"
+    },
+    "MEM": {
+      "title": "Introduction to Memory Forensics with Volatility 3",
+      "url": "https://www.youtube.com/watch?v=Uk3DEgY5Ue8",
+      "provider": "DFIRScience"
+    },
+    "ATOMIC": {
+      "title": "How To Use Atomic Red Team Tests — Red Canary",
+      "url": "https://www.youtube.com/watch?v=iNl_rltYmoo",
+      "provider": "Red Canary"
+    },
+    "CISA": {
+      "title": "CISA Incident Response Training — official YouTube playlist",
+      "url": "https://www.youtube.com/playlist?list=PL-BF3N9rHBLKfP00HodbpwPmnrH2LgRuW",
+      "provider": "CISA"
+    }
+  }
+}
