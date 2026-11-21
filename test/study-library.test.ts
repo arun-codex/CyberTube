@@ -266,15 +266,25 @@ test('8. Fractional, out-of-bounds and retired-document progress writes are reje
 test('9. Study Materials PDF Endpoint — CORS, OPTIONS, and multi-bucket fallback', async () => {
   const { GET, OPTIONS } = await import('../app/api/study-materials/[docId]/pdf/route');
 
-  // Test OPTIONS handler
-  const optReq = new Request('http://localhost:3000/api/study-materials/doc-1/pdf', {
+  // Same-origin preflight must succeed without advertising any CORS grant.
+  const optReq = new Request('https://cybertube-mu.vercel.app/api/study-materials/doc-1/pdf', {
     method: 'OPTIONS',
     headers: { origin: 'https://cybertube-mu.vercel.app' },
   });
   const optRes = await OPTIONS(optReq as any);
   assert.equal(optRes.status, 204);
-  assert.equal(optRes.headers.get('Access-Control-Allow-Origin'), 'https://cybertube-mu.vercel.app');
-  assert.ok(optRes.headers.get('Access-Control-Allow-Methods')?.includes('GET'));
+  assert.equal(optRes.headers.get('Access-Control-Allow-Origin'), null);
+  assert.equal(optRes.headers.get('Access-Control-Allow-Credentials'), null);
+  assert.ok(optRes.headers.get('Allow')?.includes('GET'));
+
+  // Foreign credentialed preflights are explicitly rejected.
+  const foreignReq = new Request('https://cybertube-mu.vercel.app/api/study-materials/doc-1/pdf', {
+    method: 'OPTIONS',
+    headers: { origin: 'https://untrusted.example' },
+  });
+  const foreignRes = await OPTIONS(foreignReq as any);
+  assert.equal(foreignRes.status, 403);
+  assert.equal(foreignRes.headers.get('Access-Control-Allow-Origin'), null);
 
   // Test multi-bucket fallback: 'study-materials' succeeds
   const mockUser = { id: 'user-bucket-test', email: 'reader@test.com' };
@@ -311,7 +321,7 @@ test('9. Study Materials PDF Endpoint — CORS, OPTIONS, and multi-bucket fallba
     },
   });
 
-  const getReq = new Request('http://localhost:3000/api/study-materials/doc-bucket-test/pdf', {
+  const getReq = new Request('https://cybertube-mu.vercel.app/api/study-materials/doc-bucket-test/pdf', {
     headers: { origin: 'https://cybertube-mu.vercel.app' },
   });
   const getRes = await GET(getReq as any, {
@@ -320,10 +330,10 @@ test('9. Study Materials PDF Endpoint — CORS, OPTIONS, and multi-bucket fallba
 
   assert.equal(getRes.status, 200);
   assert.ok(triedBuckets.includes('study-materials'), 'Must try study-materials bucket');
-  assert.equal(getRes.headers.get('Access-Control-Allow-Origin'), 'https://cybertube-mu.vercel.app');
-  assert.equal(getRes.headers.get('Access-Control-Allow-Credentials'), 'true');
+  assert.equal(getRes.headers.get('Access-Control-Allow-Origin'), null);
+  assert.equal(getRes.headers.get('Access-Control-Allow-Credentials'), null);
   assert.equal(getRes.headers.get('Vary'), 'Origin');
-  assert.ok(getRes.headers.get('Access-Control-Expose-Headers')?.includes('Content-Range'));
+  assert.equal(getRes.headers.get('Cross-Origin-Resource-Policy'), 'same-origin');
 
   // Test request without origin: should NOT set Access-Control-Allow-Origin: * when credentials could be present
   const noOriginReq = new Request('http://localhost:3000/api/study-materials/doc-bucket-test/pdf');
