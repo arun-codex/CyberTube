@@ -94,7 +94,7 @@ export function SupportCyberTubeButton({ variant = 'primary', className = '' }: 
 
     {open && typeof document !== 'undefined' && createPortal(
       <div
-        className="chai-dialog-backdrop fixed inset-0 z-[100] flex items-end justify-center overflow-y-auto px-0 pt-2 sm:items-center sm:p-5"
+        className="chai-dialog-backdrop fixed inset-0 z-[100] flex items-end justify-center overflow-hidden px-0 pt-2 sm:items-center sm:p-5"
         onMouseDown={event => { if (event.target === event.currentTarget) setOpen(false); }}
       >
         <div
@@ -103,7 +103,7 @@ export function SupportCyberTubeButton({ variant = 'primary', className = '' }: 
           aria-modal="true"
           aria-labelledby={titleId}
           aria-describedby={descriptionId}
-          className="chai-dialog my-auto max-h-[calc(100dvh-8px)] w-full max-w-[680px] overflow-x-hidden overflow-y-auto overscroll-contain sm:max-h-[calc(100dvh-40px)]"
+          className="chai-dialog min-h-0 w-full max-w-[680px] shrink-0"
           data-testid="chai-studio-dialog"
         >
           <div className="chai-dialog__hero">
