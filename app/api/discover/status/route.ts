@@ -58,7 +58,16 @@ export async function GET() {
       totalItems,
     };
 
-    return NextResponse.json(status);
+    // The actual learner feed is assembled on demand by /api/discover/feed.
+    // Persisted database counts must never be advertised as the live feed count.
+    return NextResponse.json({
+      ...status,
+      feedSource: 'runtime',
+      liveFeedEndpoint: '/api/discover/feed',
+      persistedItemCount: totalItems,
+      totalItemsIncludesRuntimeFeed: false,
+      freshnessVerified: false,
+    }, { headers: { 'Cache-Control': 'no-store' } });
   } catch (error: any) {
     return NextResponse.json({ error: 'Failed to retrieve discovery status' }, { status: 500 });
   }
