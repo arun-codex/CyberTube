@@ -84,16 +84,18 @@ See [Discover architecture, privacy and verification](docs/discover-personalized
 - Study documents, reader/progress tracking, bookmarks, and saved content with signed-in account synchronization where supported.
 - Public search does not intentionally index private learner records or unpublished documents.
 
-### Optional Chai support (preview only)
+### Optional Chai support (direct UPI)
 
-- Optional **Support CyberTube ☕** button on the Home page and an inline support panel near the end of every page in the footer.
-- No floating or bottom-right launcher is mounted by the committed implementation.
-- Theme colors, backgrounds, borders and focus states match CyberTube's own light and dark themes.
-- Cutting, Kadak, Tandoori and Premium chai tiers show preview amounts of ₹10 / ₹25 / ₹50 / ₹100.
-- **Live UPI payments are disabled.** The preview generates no payable QR/UPI intent and displays no recipient account until the owner explicitly authorizes activation after payee verification.
-- Existing/unmerged localhost ChaiKit integrations need to remove their independent floating mounting point to avoid duplicate controls.
+- The **Support CyberTube ☕** button on Home and near the end of every page opens the original ChaiKit component in normal document flow. No floating launcher is used.
+- Contributions are voluntary: Cutting ₹10, Kadak ₹25, Tandoori ₹50 and Premium ₹100; custom rupee amounts are supported.
+- A scannable QR and mobile UPI-app handoff are available **only when production activation flags, recipient verification attestation and an exact server-side payee allowlist all match**.
+- The bank recipient is **Arun Kumar** at **aruninzone@ptaxis**. ChaiKit's UPI payee-name field is set to the bank recipient's name rather than the CyberTube project name.
+- In missing, disabled or mismatched configuration, a clearly labeled non-payable demo QR remains. Any configuration-loading error displays an unavailable state rather than a payment link.
+- The website cannot verify direct UPI settlement or issue genuine bank payment receipts. Supporters must check recipient/amount in their UPI app; only bank-side evidence confirms receipt.
 
-For ownership, package installation, safety and eventual payment activation, see [Chai support integration instructions](docs/chaikit-support-integration.md).
+The owner authorized direct UPI activation on 21 November 2026 and reported verifying the recipient account. This is not independent bank-side verification by ChatGPT.
+
+See [ChaiKit production integration](docs/chaikit-integration.md) and [support layout](docs/chaikit-support-integration.md).
 
 ### Accounts and security
 
