@@ -10,7 +10,12 @@ test.describe('Inline Chai Support',()=>{
         description:'Support free cybersecurity education. Buy us a chai!',
         buttonText:'Support CyberTube ☕',paymentNote:'Support CyberTube',
         theme:'dark',position:'inline',defaultTierId:'kadak',enable3D:true,
-        allowCustomAmount:true,tiers:[],
+        allowCustomAmount:true,tiers:[
+          {id:'cutting',name:'Cutting Chai',amountPaise:1000,icon:'cutting'},
+          {id:'kadak',name:'Kadak Chai',amountPaise:2500,icon:'kadak'},
+          {id:'tandoori',name:'Tandoori Chai',amountPaise:5000,icon:'tandoori'},
+          {id:'premium',name:'Premium Chai',amountPaise:10000,icon:'premium'},
+        ],
       }),
     }));
     await page.goto('/');
