@@ -31,9 +31,9 @@ test('modal is labelled and keyboard-dismissible with a real inline payment pane
   assert.match(support,/<ChaiKitPaymentPanel/);
   assert.match(support,/getFocusable/);
 });
-test('light and dark ChaiKit use CyberTube semantic tokens',()=>{
+test('light and dark ChaiKit use safe CyberTube semantics and warm theme overrides',()=>{
   for(const token of [
-    '--card-bg','--surface-subtle',
+    '--surface-subtle',
     '--text-primary','--text-secondary','--border','--accent-cyan',
   ])assert.ok(panel.includes('var('+token+')'),'missing '+token);
   assert.match(panel,/resolvedTheme/);
