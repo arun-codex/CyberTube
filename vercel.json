@@ -35,5 +35,10 @@
         }
       ]
     }
-  ]
+  ],
+  "git": {
+    "deploymentEnabled": {
+      "feat/chaikit-cinematic-ui-no-deploy": false
+    }
+  }
 }
