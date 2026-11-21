@@ -25,19 +25,22 @@ test('support remains in the Home page and footer, not a floating launcher',()=>
 test('modal is labelled and keyboard-dismissible with a real inline payment panel',()=>{
   assert.match(support,/aria-modal="true"/);
   assert.match(support,/aria-labelledby=\{titleId\}/);
-  assert.match(support,/event\.key==='Escape'/);
-  assert.match(support,/event\.key!=='Tab'/);
+  assert.match(support,/event\.key\s*===\s*'Escape'/);
+  assert.match(support,/event\.key\s*!==\s*'Tab'/);
   assert.match(support,/setOpen\(false\)/);
   assert.match(support,/<ChaiKitPaymentPanel/);
   assert.match(support,/getFocusable/);
 });
 test('light and dark ChaiKit use CyberTube semantic tokens',()=>{
   for(const token of [
-    '--card-bg','--surface-subtle','--surface-elevated',
+    '--card-bg','--surface-subtle',
     '--text-primary','--text-secondary','--border','--accent-cyan',
   ])assert.ok(panel.includes('var('+token+')'),'missing '+token);
   assert.match(panel,/resolvedTheme/);
   assert.match(panel,/theme=\{widgetTheme\}/);
+  assert.match(panel,/--chai-font/);
+  assert.match(panel,/--chai-accent/);
+  assert.match(panel,/--chai-radius/);
 });
 test('bank recipient, custom tiers and honest payment status are enforced',()=>{
   assert.match(panel,/creator-name=\{config\.livePaymentsEnabled\?config\.paymentPayeeName:config\.creatorName\}/);
