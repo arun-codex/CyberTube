@@ -4,6 +4,7 @@ import Link from 'next/link';
 export const metadata = {
   title: 'CyberTube Typography System Preview',
   description: 'Visual reference and multi-font typography verification for Orbitron, Rajdhani, Rubik, IBM Plex Mono, and Cyberpunk.',
+  robots: { index: false, follow: false },
 };
 
 export default function TypographyPreviewPage() {
