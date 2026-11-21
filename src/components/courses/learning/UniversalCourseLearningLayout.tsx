@@ -17,6 +17,7 @@ import { Lock, AlertCircle, ArrowLeft } from 'lucide-react';
 import { ComprehensiveCourseCompletion } from '../../../types/course';
 import { cloudCourseProgressService } from '../../../lib/cloud-course-progress';
 import { onCourseProgressChange } from '../../../lib/course-progress';
+import { useAuth } from '@/lib/auth';
 
 interface UniversalCourseLearningLayoutProps {
   course: CourseLearningViewModel;
@@ -34,6 +35,7 @@ export const UniversalCourseLearningLayout: React.FC<UniversalCourseLearningLayo
   relatedResources = [],
 }) => {
   const allLessons = course.allLessons;
+  const { userId, isAuthLoading } = useAuth();
 
   const [activeLessonSlug, setActiveLessonSlug] = useState<string>(
     initialLessonSlug || allLessons[0]?.slug || ''
@@ -89,6 +91,30 @@ export const UniversalCourseLearningLayout: React.FC<UniversalCourseLearningLayo
     return unsub;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [course.courseId]);
+
+  // General course quiz results are stored privately in Supabase. Restore the
+  // best score on every signed-in device without replacing a higher local score.
+  useEffect(() => {
+    if(isAuthLoading || !userId || course.slug==='free-storytelling-masterclass') return;
+    const controller=new AbortController();
+    fetch('/api/courses/quiz/submit?courseSlug='+encodeURIComponent(course.slug),{
+      cache:'no-store',credentials:'same-origin',signal:controller.signal,
+    }).then(async res=>{
+      if(!res.ok)throw Error('Cloud quiz history unavailable');
+      return res.json();
+    }).then(data=>{
+      if(controller.signal.aborted||data.courseId!==course.courseId)return;
+      for(const [moduleId,value] of Object.entries(data.scores||{})){
+        const remote=Number(value);
+        if(!Number.isFinite(remote)||remote<0||remote>100)continue;
+        const current=cloudCourseProgressService.getProgress(course.courseId).quizScores?.[moduleId]||0;
+        if(remote>current)cloudCourseProgressService.recordQuizScore?.(course.courseId,moduleId,remote);
+      }
+    }).catch(error=>{
+      if(!controller.signal.aborted)console.warn('[course-quiz] Could not restore saved scores:',error);
+    });
+    return()=>controller.abort();
+  },[course.courseId,course.slug,userId,isAuthLoading]);
 
   // Active lesson lookup
   const activeLesson: NormalizedLesson | undefined = useMemo(() => {
