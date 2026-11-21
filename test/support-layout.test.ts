@@ -3,57 +3,49 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
-const root = process.cwd();
-const read = (path: string) => readFileSync(join(root, path), 'utf8');
+const read=(file:string)=>readFileSync(join(process.cwd(),file),'utf8');
+const support=read('src/components/support/SupportCyberTubeButton.tsx');
+const panel=read('src/components/support/ChaiKitPaymentPanel.tsx');
+const footer=read('src/components/Footer.tsx');
+const home=read('app/page.tsx');
+const header=read('src/components/Header.tsx');
+const css=read('app/globals.css');
 
-const support = read('src/components/support/SupportCyberTubeButton.tsx');
-const footer = read('src/components/Footer.tsx');
-const home = read('app/page.tsx');
-const header = read('src/components/Header.tsx');
-const css = read('app/globals.css');
-
-test('support is placed in the Home page and normal footer document flow', () => {
-  assert.match(home, /<SupportCyberTubeButton variant="secondary"/);
-  assert.match(footer, /id="support-cybertube"/);
-  assert.match(footer, /<SupportCyberTubeButton/);
-  assert.match(header, /Support ☕.*#support-cybertube/);
-  assert.doesNotMatch(footer, /fixed bottom-|fixed right-|z-\[2147483/);
-  assert.doesNotMatch(home, /chai-support.*bottom-right|ChaiSupport.*position=/);
-});
-
-test('legacy ChaiKit floating hosts are suppressed; inline hosts remain allowed', () => {
+test('support remains in the Home page and footer, not a floating launcher',()=>{
+  assert.match(home,/<SupportCyberTubeButton variant="secondary"/);
+  assert.match(footer,/id="support-cybertube"/);
+  assert.match(footer,/<SupportCyberTubeButton/);
+  assert.match(header,/Support ☕.*#support-cybertube/);
+  assert.doesNotMatch(home,/ChaiSupport.*bottom-right|chai-support.*bottom-right/);
   assert.ok(css.includes('chai-support[position="bottom-right"]'));
   assert.ok(css.includes('chai-support[position="bottom-left"]'));
-  assert.ok(css.includes('display: none !important;'));
-  assert.ok(!css.includes('chai-support[position="inline"] { display: none'));
+  assert.doesNotMatch(panel,/position="bottom-right"/);
+  assert.match(panel,/position="inline"/);
 });
-
-test('light and dark colors inherit CyberTube semantic theme tokens', () => {
-  for (const token of [
-    '--card-bg', '--surface-subtle', '--surface-elevated',
-    '--text-primary', '--text-secondary', '--border', '--accent-cyan',
-  ]) {
-    assert.ok(support.includes('var(' + token + ')'), 'missing theme token ' + token);
-  }
-  assert.doesNotMatch(support, /prefers-color-scheme/);
-  assert.doesNotMatch(support, /position="bottom-right"/);
+test('modal is labelled and keyboard-dismissible with a real inline payment panel',()=>{
+  assert.match(support,/aria-modal="true"/);
+  assert.match(support,/aria-labelledby=\{titleId\}/);
+  assert.match(support,/event\.key==='Escape'/);
+  assert.match(support,/event\.key!=='Tab'/);
+  assert.match(support,/setOpen\(false\)/);
+  assert.match(support,/<ChaiKitPaymentPanel/);
+  assert.match(support,/getFocusable/);
 });
-
-test('payment preview never reveals a payee or enables payment handoff', () => {
-  for (const amount of ['10', '25', '50', '100']) {
-    assert.match(support, new RegExp('amount: ' + amount + '\\b'));
-  }
-  assert.match(support, /Preview only/);
-  assert.match(support, /disabled\s*\n\s*type="button"/);
-  assert.doesNotMatch(support, /upi:\/\/pay|upi:\/\/|payeeVpa|upiId:/);
-  assert.doesNotMatch(support, /buildUpiUri\(|generateQrCode\(|window\.location\.href\s*=\s*['"]upi:/i);
+test('light and dark ChaiKit use CyberTube semantic tokens',()=>{
+  for(const token of [
+    '--card-bg','--surface-subtle','--surface-elevated',
+    '--text-primary','--text-secondary','--border','--accent-cyan',
+  ])assert.ok(panel.includes('var('+token+')'),'missing '+token);
+  assert.match(panel,/resolvedTheme/);
+  assert.match(panel,/theme=\{widgetTheme\}/);
 });
-
-test('support modal is labelled and keyboard-dismissible', () => {
-  assert.match(support, /aria-modal="true"/);
-  assert.match(support, /aria-labelledby=\{titleId\}/);
-  assert.match(support, /event\.key === 'Escape'/);
-  assert.match(support, /event\.key !== 'Tab'/);
-  assert.match(support, /setOpen\(false\)/);
-  assert.match(support, /focus-visible:outline-\[var\(--accent-cyan\)\]/);
+test('bank recipient, custom tiers and honest payment status are enforced',()=>{
+  assert.match(panel,/creator-name=\{config\.livePaymentsEnabled\?config\.paymentPayeeName:config\.creatorName\}/);
+  assert.match(panel,/demo-mode=\{config\.livePaymentsEnabled\?undefined:''\}/);
+  assert.match(panel,/min-amount="10"/);
+  assert.match(panel,/max-amount="10000"/);
+  assert.match(panel,/Opening a UPI app does not confirm a payment/);
+  assert.doesNotMatch(panel,/Payment successful|payment verified|received donation/i);
+  assert.doesNotMatch(panel,/window\.location\.href\s*=/);
+  assert.match(panel,/\/api\/support\/config/);
 });
