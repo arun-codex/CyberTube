@@ -71,17 +71,23 @@ export function ChaiKitPaymentPanel({className=''}:{className?:string}){
   // Inline custom properties override the bundled chai-brown palette while
   // preserving ChaiKit's accessible contrast and QR's required white background.
   const themeTokens={
-    '--chai-bg':'var(--card-bg)',
-    '--chai-card-bg':'var(--card-bg)',
-    '--chai-surface':'var(--surface-subtle)',
-    '--chai-surface-hover':'var(--surface-elevated)',
-    '--chai-text':'var(--text-primary)',
-    '--chai-text-muted':'var(--text-secondary)',
-    '--chai-border':'var(--border)',
-    '--chai-border-hover':'var(--accent-cyan)',
-    '--chai-accent':'var(--accent-cyan)',
-    '--chai-accent-hover':'var(--accent-cyan-hover)',
-    '--chai-accent-text':'#06141D',
+    // The verified ChaiKit bundle stays the source of truth for amount
+    // selection, custom amounts, WebGL 3D and (when separately approved) UPI.
+    // Styling is limited to the vendor's documented custom properties.
+    '--chai-font':'var(--font-rubik), Rubik, system-ui, sans-serif',
+    '--chai-bg':light?'#fffaf3':'#1a171e',
+    '--chai-card-bg':light?'#fffaf3':'#1a171e',
+    '--chai-surface':light?'#f9ecdf':'#25202a',
+    '--chai-surface-hover':light?'#f4e2cf':'#322835',
+    '--chai-text':light?'#2b2230':'#fff4e8',
+    '--chai-text-muted':light?'#665866':'#c6b4b2',
+    '--chai-border':light?'rgba(126,82,59,.2)':'rgba(237,180,118,.2)',
+    '--chai-border-hover':light?'#bc783f':'#efb473',
+    '--chai-accent':light?'#ae622e':'#edb473',
+    '--chai-accent-hover':light?'#8e4d23':'#f5c68e',
+    '--chai-accent-text':light?'#fff9f4':'#20141b',
+    '--chai-radius':'17px',
+    '--chai-radius-sm':'12px',
     '--chai-qr-bg':'#FFFFFF',
     '--chai-qr-fg':'#131C28',
     '--chai-shadow':'none',
@@ -110,7 +116,7 @@ export function ChaiKitPaymentPanel({className=''}:{className?:string}){
 
   return <div className={'space-y-3 '+className} data-testid="chaikit-payment-panel">
     {config.livePaymentsEnabled?
-      <div className="rounded-xl border border-[var(--accent-cyan)]/35 bg-[var(--accent-cyan-subtle)] px-4 py-3 text-xs leading-relaxed text-[var(--text-primary)]" role="note">
+      <div className="rounded-2xl border border-amber-500/30 bg-gradient-to-r from-amber-500/10 to-transparent px-4 py-3 text-xs leading-relaxed text-[var(--text-primary)]" role="note">
         <span className="inline-flex items-center gap-2 font-semibold">
           <ShieldCheck className="h-4 w-4 text-[var(--accent-cyan)]" aria-hidden="true"/>
           Direct UPI contribution to CyberTube
@@ -121,7 +127,7 @@ export function ChaiKitPaymentPanel({className=''}:{className?:string}){
           {' '}Check the payee and amount in your banking app before approving.
         </p>
       </div>:
-      <div className="rounded-xl border border-[var(--accent-cyan)]/35 bg-[var(--accent-cyan-subtle)] px-4 py-3 text-xs leading-relaxed" role="note">
+      <div className="rounded-2xl border border-amber-500/30 bg-gradient-to-r from-amber-500/10 via-amber-500/5 to-transparent px-4 py-3 text-xs leading-relaxed" role="note">
         <span className="inline-flex items-center gap-2 font-semibold text-[var(--text-primary)]">
           <ShieldCheck className="h-4 w-4 text-[var(--accent-cyan)]"/> Preview only — real UPI payments are disabled
         </span>
@@ -130,7 +136,7 @@ export function ChaiKitPaymentPanel({className=''}:{className?:string}){
         </p>
       </div>}
 
-    <div className="w-full overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--card-bg)]"
+    <div className="chai-support-surface w-full min-w-0"
       data-testid="support-payment-inline-widget">
       {/* ChaiKit's UPI pn field comes from creator-name, not payment-payee-name.
           Supplying the verified bank account name prevents a false payee label.
