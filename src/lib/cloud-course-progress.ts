@@ -315,50 +315,9 @@ export class CloudCourseProgressService implements CourseProgressService {
       });
     }
 
-    // Also fetch remote quiz attempts for this course
+    // Retain existing local quiz records without querying remote tables
     let mergedQuizScores = { ...(localState.quizScores || {}) };
     let mergedQuizAttempts = { ...(localState.quizAttempts || {}) };
-    try {
-      const { data: quizRows } = await (this.supabase
-        .from('user_quiz_attempts') as any)
-        .select('*')
-        .eq('user_id', user.id)
-        .eq('course_id', dbCourseId)
-        .order('submitted_at', { ascending: true });
-
-      if (Array.isArray(quizRows) && quizRows.length > 0) {
-        quizRows.forEach((qr: any) => {
-          const rawModId = String(qr.module_id);
-          const appModId = STORYTELLING_MODULE_UUID_TO_ID[rawModId] || rawModId;
-
-          // Update best score
-          const currentBest = mergedQuizScores[appModId] ?? 0;
-          if (qr.score > currentBest) {
-            mergedQuizScores[appModId] = qr.score;
-          }
-
-          if (!mergedQuizAttempts[appModId]) {
-            mergedQuizAttempts[appModId] = [];
-          }
-
-          // Avoid duplicating attempts if already stored locally
-          const alreadyExists = mergedQuizAttempts[appModId].some(
-            (a: any) => a.submittedAt === qr.submitted_at || (a.score === qr.score && a.attemptNumber === qr.id)
-          );
-          if (!alreadyExists) {
-            mergedQuizAttempts[appModId].push({
-              attemptNumber: mergedQuizAttempts[appModId].length + 1,
-              selectedAnswers: {},
-              score: qr.score,
-              passed: qr.passed,
-              submittedAt: qr.submitted_at,
-            });
-          }
-        });
-      }
-    } catch (qErr) {
-      console.warn('Could not sync quiz attempts for course:', qErr);
-    }
 
     // Also fetch remote video progress for this course
     let mergedVideoProgress = { ...(localState.videoProgress || {}) };

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { ArrowLeft, ArrowRight, CheckCircle2, Circle, HelpCircle } from 'lucide-react';
+import { ArrowLeft, ArrowRight, CheckCircle2, Circle } from 'lucide-react';
 import { NormalizedLesson } from '../../../types/learning-view-model';
 
 interface LessonNavigationProps {
@@ -12,9 +12,7 @@ interface LessonNavigationProps {
   nextLesson?: NormalizedLesson;
   isCompleted: boolean;
   onToggleComplete: () => void;
-  onSelectLesson?: (slug: string, tab?: 'content' | 'lab' | 'quiz' | 'capstone' | 'pcaps') => void;
-  onOpenQuiz?: () => void;
-  hasQuiz?: boolean;
+  onSelectLesson?: (slug: string, tab?: 'content' | 'lab' | 'capstone' | 'pcaps') => void;
   isLastLessonInModule?: boolean;
 }
 
@@ -26,8 +24,6 @@ export const LessonNavigation: React.FC<LessonNavigationProps> = ({
   isCompleted,
   onToggleComplete,
   onSelectLesson,
-  onOpenQuiz,
-  hasQuiz = false,
   isLastLessonInModule = false,
 }) => {
   return (
@@ -78,19 +74,8 @@ export const LessonNavigation: React.FC<LessonNavigationProps> = ({
         )}
       </button>
 
-      {/* Next Lesson or Quiz Action Button */}
+      {/* Next Lesson Action Button */}
       <div className="w-full sm:w-auto flex flex-wrap items-center gap-2">
-        {hasQuiz && isLastLessonInModule && onOpenQuiz && (
-          <button
-            type="button"
-            onClick={onOpenQuiz}
-            className="inline-flex items-center gap-2 px-3.5 py-2 rounded-[4px] text-xs font-mono font-bold text-white bg-[#0E7490] hover:bg-[#0891b2] border border-[#0E7490] transition-colors w-full sm:w-auto justify-center min-h-[44px] sm:min-h-[36px] shadow-sm cursor-pointer"
-          >
-            <HelpCircle className="w-3.5 h-3.5" />
-            <span>Take Module Quiz →</span>
-          </button>
-        )}
-
         {nextLesson ? (
           <Link
             href={`/courses/${courseSlug}?lesson=${nextLesson.slug}`}
@@ -114,4 +99,3 @@ export const LessonNavigation: React.FC<LessonNavigationProps> = ({
     </div>
   );
 };
-

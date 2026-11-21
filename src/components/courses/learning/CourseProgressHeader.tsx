@@ -33,9 +33,7 @@ export const CourseProgressHeader: React.FC<CourseProgressHeaderProps> = ({
 
   const hasMultiDimensionStats =
     completionStats &&
-    (completionStats.totalQuizzes > 0 ||
-      completionStats.totalLabs > 0 ||
-      completionStats.hasCapstone);
+    (completionStats.totalLabs > 0 || completionStats.hasCapstone);
 
   return (
     <div className="space-y-4">
@@ -130,7 +128,7 @@ export const CourseProgressHeader: React.FC<CourseProgressHeaderProps> = ({
             </div>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs font-mono">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs font-mono">
             {/* Dimension 1: Lessons */}
             <div className="p-3 rounded-[6px] bg-[#f8fafc] dark:bg-[#1A2638] border border-[#e2e8f0] dark:border-[#243044] space-y-1">
               <div className="text-[11px] text-[#64748B] dark:text-[#9BA8B7] uppercase tracking-wider">
@@ -146,27 +144,10 @@ export const CourseProgressHeader: React.FC<CourseProgressHeaderProps> = ({
               </div>
             </div>
 
-            {/* Dimension 2: Quizzes (only rendered when course has quizzes) */}
-            {completionStats.totalQuizzes > 0 && (
-              <div className="p-3 rounded-[6px] bg-[#f8fafc] dark:bg-[#1A2638] border border-[#e2e8f0] dark:border-[#243044] space-y-1">
-                <div className="text-[11px] text-[#64748B] dark:text-[#9BA8B7] uppercase tracking-wider">
-                  2. Module Quizzes (≥70%)
-                </div>
-                <div className="text-sm font-bold text-[#0F172A] dark:text-[#E6EDF3]">
-                  {`${completionStats.quizzesPassed} / ${completionStats.totalQuizzes} passed`}
-                </div>
-                <div className="text-[11px] text-[#64748B] dark:text-[#9BA8B7]">
-                  {completionStats.quizzesPassed === completionStats.totalQuizzes
-                    ? '✓ All Quizzes Passed'
-                    : `${completionStats.quizzesPassed} of ${completionStats.totalQuizzes} passing`}
-                </div>
-              </div>
-            )}
-
-            {/* Dimension 3: Practical Labs */}
+            {/* Dimension 2: Practical Labs */}
             <div className="p-3 rounded-[6px] bg-[#f8fafc] dark:bg-[#1A2638] border border-[#e2e8f0] dark:border-[#243044] space-y-1">
               <div className="text-[11px] text-[#64748B] dark:text-[#9BA8B7] uppercase tracking-wider">
-                3. Hands-On Labs
+                2. Hands-On Labs
               </div>
               <div className="text-sm font-bold text-[#0F172A] dark:text-[#E6EDF3]">
                 {completionStats.totalLabs > 0
@@ -182,10 +163,10 @@ export const CourseProgressHeader: React.FC<CourseProgressHeaderProps> = ({
               </div>
             </div>
 
-            {/* Dimension 4: SOC Capstone */}
+            {/* Dimension 3: SOC Capstone */}
             <div className="p-3 rounded-[6px] bg-[#f8fafc] dark:bg-[#1A2638] border border-[#e2e8f0] dark:border-[#243044] space-y-1">
               <div className="text-[11px] text-[#64748B] dark:text-[#9BA8B7] uppercase tracking-wider">
-                4. SOC Capstone
+                3. SOC Capstone
               </div>
               <div className="text-sm font-bold text-[#0F172A] dark:text-[#E6EDF3]">
                 {!completionStats.hasCapstone
