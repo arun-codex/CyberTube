@@ -3,6 +3,10 @@
 import React, { useEffect, useId, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Check, Coffee, Heart, ShieldCheck, X } from 'lucide-react';
+import { useTheme } from 'next-themes';
+import { loadChaiKitScript } from '@/lib/chaikit/loader';
+import { usePublicChaiConfig } from '@/lib/chaikit/usePublicChaiConfig';
+import { ChaiKitPaymentElement, type ChaiKitHTMLElement } from './ChaiKitPaymentElement';
 
 type SupportButtonProps = {
   variant?: 'primary' | 'secondary';
@@ -33,12 +37,45 @@ export function SupportCyberTubeButton({
   className = '',
 }: SupportButtonProps) {
   const [open, setOpen] = useState(false);
+  const configState = usePublicChaiConfig();
+  const { resolvedTheme } = useTheme();
+  const [vendorReady, setVendorReady] = useState(false);
+  const [vendorError, setVendorError] = useState(false);
+  const paymentWidgetRef = useRef<ChaiKitHTMLElement>(null);
+  const activeConfig = configState.status==='ready' ? configState.config : null;
+  const isLive = Boolean(activeConfig?.livePaymentsEnabled);
   const [amount, setAmount] = useState<number>(25);
   const titleId = useId();
   const descriptionId = useId();
   const dialogRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if(!isLive)return;
+    let current=true;
+    loadChaiKitScript()
+      .then(()=>{if(current)setVendorReady(true);})
+      .catch(()=>{if(current)setVendorError(true);});
+    return ()=>{current=false;};
+  },[isLive]);
+
+  useEffect(() => {
+    // If the visitor opened the safe holding modal while the provider loaded,
+    // switch to ChaiKit once mounted. This does not initiate a UPI payment.
+    if(open&&isLive&&vendorReady&&paymentWidgetRef.current){
+      setOpen(false);
+      paymentWidgetRef.current.open();
+    }
+  },[open,isLive,vendorReady]);
+
+  function handleSupportClick(){
+    if(isLive && vendorReady && paymentWidgetRef.current){
+      paymentWidgetRef.current.open();
+    } else {
+      setOpen(true);
+    }
+  }
 
   useEffect(() => {
     if (!open) return;
@@ -86,7 +123,7 @@ export function SupportCyberTubeButton({
       <button
         ref={triggerRef}
         type="button"
-        onClick={() => setOpen(true)}
+        onClick={handleSupportClick}
         aria-haspopup="dialog"
         className={[
           'inline-flex min-h-[44px] items-center justify-center gap-2 rounded-xl',
@@ -102,6 +139,15 @@ export function SupportCyberTubeButton({
         <Coffee className="h-4 w-4" aria-hidden="true" />
         Support CyberTube ☕
       </button>
+
+      {isLive && vendorReady && activeConfig &&
+        <ChaiKitPaymentElement
+          config={activeConfig}
+          display="headless"
+          theme={resolvedTheme==='light'?'cream':'dark'}
+          elementRef={paymentWidgetRef}
+        />
+      }
 
       {open && typeof document !== 'undefined' && createPortal(
         <div
@@ -152,10 +198,18 @@ export function SupportCyberTubeButton({
               <div className="rounded-lg border border-[var(--accent-cyan)]/40 bg-[var(--accent-cyan-subtle)] px-3 py-3 text-xs text-[var(--text-primary)]">
                 <span className="inline-flex items-center gap-2 font-semibold">
                   <ShieldCheck className="h-4 w-4 text-[var(--accent-cyan)]" aria-hidden="true" />
-                  Preview only — real UPI payments are disabled
+                  {configState.status==='loading'
+                    ?'Checking payment availability…'
+                    :configState.status==='error'
+                      ?'Payment service unavailable — no payment can be started'
+                      :isLive
+                        ?vendorError?'Payment interface could not load':'Preparing direct UPI payments…'
+                        :'Preview only — real UPI payments are disabled'}
                 </span>
                 <p className="mt-1 text-[var(--text-secondary)]">
-                  Donation amounts below are examples; selecting them will not send money or generate a payable QR.
+                  {isLive
+                    ?'Only continue when the UPI interface loads. Verify Arun Kumar and the amount inside your banking app. CyberTube cannot confirm that a payment succeeded.'
+                    :'These amounts are previews. No payable QR or UPI app handoff is available.'}
                 </p>
               </div>
 
@@ -208,10 +262,12 @@ export function SupportCyberTubeButton({
                   type="button"
                   className="mt-3 w-full cursor-not-allowed rounded-lg border border-[var(--border-strong)] bg-[var(--surface-elevated)] px-4 py-3 text-sm font-semibold text-[var(--text-muted)]"
                 >
-                  UPI support is not activated
+                  {isLive?'Payment interface unavailable':'UPI support is not activated'}
                 </button>
                 <p className="mt-3 text-xs leading-relaxed text-[var(--text-secondary)]">
-                  The receiving account must be verified and the CyberTube owner must explicitly approve live payment activation first.
+                  {isLive
+                    ?'If this screen persists, reload or try the Support page. No transfer is initiated from this disabled preview.'
+                    :'Live payments require an approved and verified bank recipient. Your current selection is not payable.'}
                 </p>
               </div>
 
