@@ -286,8 +286,10 @@
  * position="inline" or headless trigger instead.
  * This rule hides only the old floating host element, not an inline widget.
  */
-chai-support[position="bottom-right"],
-chai-support[position="bottom-left"] {
+/* Suppress only old floating launchers, never the authorized headless
+   payment dialog. Headless components have no floating button. */
+chai-support[position="bottom-right"]:not([headless]),
+chai-support[position="bottom-left"]:not([headless]) {
   display: none !important;
 }
 
