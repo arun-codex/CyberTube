@@ -160,7 +160,7 @@ export const Footer: React.FC = () => {
                 Every contribution is optional, and courses and labs remain free.
               </p>
               <p className="text-xs text-[var(--text-muted)]">
-                Support is in preview mode — real UPI payments are not enabled.
+                Direct UPI support is optional. Confirm the payee and amount in your banking app before paying.
               </p>
             </div>
             <SupportCyberTubeButton className="w-full sm:w-auto sm:shrink-0" />
