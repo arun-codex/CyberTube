@@ -96,21 +96,53 @@ test('Inline ChaiKit shows one compact accessible menu instead of duplicate fram
   expect(horizontalOverflow).toBeLessThanOrEqual(2);
 });
 
-test('Motion can be paused manually and OS reduced-motion disables scene animation', async ({ page }) => {
+test('Chai cup animates by default, has no motion toggle, and respects reduced motion', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
   await page.goto('/support');
   const scene = page.getByTestId('chai-3d-scene');
   await expect(scene).toBeVisible();
-  const pause = scene.getByRole('button', { name: 'Pause decorative chai animations' });
-  await pause.click();
-  await expect(scene).toHaveClass(/chai-scene--paused/);
-  await expect(scene.getByRole('button', { name: 'Resume decorative chai animations' })).toHaveAttribute('aria-pressed', 'true');
-  await scene.getByRole('button', { name: 'Resume decorative chai animations' }).click();
-  await expect(scene).not.toHaveClass(/chai-scene--paused/);
+  await expect(scene.getByRole('button')).toHaveCount(0);
+  const cupAnimation = await scene.locator('.chai-scene__cup-wrap')
+    .evaluate(el => getComputedStyle(el).animationName);
+  expect(cupAnimation).toContain('chai-cup-float');
 
   await page.emulateMedia({ reducedMotion: 'reduce' });
-  const animation = await scene.locator('.chai-scene__cup-wrap').evaluate(el => getComputedStyle(el).animationName);
-  expect(animation).toBe('none');
+  const reducedAnimation = await scene.locator('.chai-scene__cup-wrap')
+    .evaluate(el => getComputedStyle(el).animationName);
+  expect(reducedAnimation).toBe('none');
 });
+
+for (const viewport of [{ width: 375, height: 667 }, { width: 1366, height: 650 }]) {
+  test(`Support modal scrolls to bottom at ${viewport.width}x${viewport.height}`, async ({ page }) => {
+    await page.setViewportSize(viewport);
+    await page.goto('/');
+    await page.getByRole('button', { name: 'Support CyberTube ☕' }).first().click();
+    const dialog = page.getByTestId('chai-studio-dialog');
+    await expect(dialog).toBeVisible();
+    await expect(dialog.getByRole('button', { name: 'Close support dialog' })).toBeVisible();
+    const metrics = await dialog.evaluate(el => ({
+      content: el.scrollHeight,
+      viewport: el.clientHeight,
+      cssOverflow: getComputedStyle(el).overflowY,
+      maxHeight: getComputedStyle(el).maxHeight,
+    }));
+    expect(metrics.content).toBeGreaterThan(metrics.viewport + 100);
+    expect(metrics.cssOverflow).toBe('auto');
+    expect(parseFloat(metrics.maxHeight)).toBeLessThan(viewport.height);
+
+    // Simulate the actual user action; don't mistake a clipped, non-scrollable
+    // document for a successful programmatic scroll.
+    await dialog.hover();
+    await page.mouse.wheel(0, 1600);
+    await expect.poll(() => dialog.evaluate(el => el.scrollTop)).toBeGreaterThan(100);
+    await expect(dialog.locator('.chai-dialog__footer')).toBeInViewport();
+
+    // The visible close button remains usable after scrolling back to the top.
+    await dialog.evaluate(el => { el.scrollTop = 0; });
+    await dialog.getByRole('button', { name: 'Close support dialog' }).click();
+    await expect(dialog).not.toBeVisible();
+  });
+}
 
 for (const width of [375, 768, 1440]) {
   test(`Support dialog stays within viewport width ${width}px`, async ({ page }) => {
