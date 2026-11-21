@@ -1,7 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
-import { Pause, Play } from 'lucide-react';
+import React from 'react';
 
 type ChaiExperienceSceneProps = {
   size?: 'compact' | 'hero';
@@ -10,15 +9,13 @@ type ChaiExperienceSceneProps = {
 
 /**
  * Lightweight layered CSS-3D cup. It is decorative, is never a payment signal,
- * and remains legible with motion disabled or WebGL unavailable.
- * ChaiKit's own optional WebGL cup still lives inside the verified widget.
+ * animates automatically, and respects system reduced-motion preferences.
+ * No extra controls, toggles, WebGL, or payment state are required.
  */
 export function ChaiExperienceScene({ size = 'hero', className = '' }: ChaiExperienceSceneProps) {
-  const [paused, setPaused] = useState(false);
-
   return (
     <div
-      className={['chai-scene', paused ? 'chai-scene--paused' : '', className].filter(Boolean).join(' ')}
+      className={['chai-scene', className].filter(Boolean).join(' ')}
       data-size={size}
       data-testid="chai-3d-scene"
     >
@@ -50,16 +47,6 @@ export function ChaiExperienceScene({ size = 'hero', className = '' }: ChaiExper
           <div className="chai-scene__saucer" />
         </div>
       </div>
-      <button
-        type="button"
-        className="chai-scene__motion-toggle"
-        aria-label={paused ? 'Resume decorative chai animations' : 'Pause decorative chai animations'}
-        aria-pressed={paused}
-        onClick={() => setPaused(value => !value)}
-      >
-        {paused ? <Play size={14} aria-hidden="true" /> : <Pause size={14} aria-hidden="true" />}
-        <span>{paused ? 'Play motion' : 'Pause motion'}</span>
-      </button>
     </div>
   );
 }
