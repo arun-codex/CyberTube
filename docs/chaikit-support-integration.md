@@ -1,3 +1,5 @@
+> **Updated 2026-11-21:** This file describes an earlier preview/floating integration and contains outdated implementation details. Current approved direct UPI behavior, correct payee mapping, server-side activation and non-floating layout are documented in [Direct UPI activation and safety guide](chaikit-live-upi-activation.md). Follow that newer guide instead.
+
 # CyberTube Chai Support — Inline Placement, Theme & Activation
 
 ## Implementation status (20 November 2026)
