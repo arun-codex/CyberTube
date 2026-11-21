@@ -131,7 +131,8 @@ export default function SupportPage() {
                       demo-mode=""
                       style={cyberTubeChaiStyles}
                     />
-                  )                ) : loadError || support.status==='error' ? (
+                  )
+                ) : loadError || support.status==='error' ? (
                   <div className="flex flex-col items-center justify-center p-8 text-center text-xs text-[var(--text-muted)] space-y-3">
                     <AlertTriangle className="w-8 h-8 text-cyan-500" />
                     <p>{loadError||'Support payment configuration is unavailable. No payment will be initiated.'}</p>
