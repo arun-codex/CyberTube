@@ -8,7 +8,7 @@ export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   title: 'Library Hub | CyberTube',
-  description: 'Central cybersecurity knowledge hub: 34 authenticated Bug Bounty study materials, cheat sheets, video courses, and legal practice labs.',
+  description: 'Find study guides, cheat sheets, video courses and practice labs.',
 };
 
 export default async function LibraryPage() {
