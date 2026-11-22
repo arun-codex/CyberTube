@@ -27,9 +27,6 @@ export function ChaiExperienceScene({ size = 'hero', className = '' }: ChaiExper
       >
         <span className="chai-scene__orbit chai-scene__orbit--outer" aria-hidden="true" />
         <span className="chai-scene__orbit chai-scene__orbit--inner" aria-hidden="true" />
-        <span className="chai-scene__spark chai-scene__spark--one" aria-hidden="true">✦</span>
-        <span className="chai-scene__spark chai-scene__spark--two" aria-hidden="true">✦</span>
-        <span className="chai-scene__spark chai-scene__spark--three" aria-hidden="true">✦</span>
         <div className="chai-scene__cup-wrap" aria-hidden="true">
           <div className="chai-scene__steam">
             <span /><span /><span />

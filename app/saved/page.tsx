@@ -55,10 +55,12 @@ export default function SavedResourcesPage() {
       setSyncError(state.error || null);
     };
     update();
-    setIsLoaded(true);
+    let mounted = true;
     const unsubscribe = onSavedChange(update);
-    void syncSavedWithCloud();
-    return unsubscribe;
+    void syncSavedWithCloud().catch(() => {
+      if (mounted) setSyncError('Could not refresh bookmarks. Retry sync to check again.');
+    }).finally(() => { if (mounted) setIsLoaded(true); });
+    return () => { mounted = false; unsubscribe(); };
   }, []);
 
   const savedResources = useMemo(() => {
@@ -178,7 +180,7 @@ export default function SavedResourcesPage() {
             }`}
           >
             <Bookmark className="w-3.5 h-3.5" />
-            <span>Catalog Resources ({savedResources.length})</span>
+            <span>Catalog Resources{isLoaded && ` (${savedResources.length})`}</span>
           </button>
 
           <button
@@ -190,7 +192,7 @@ export default function SavedResourcesPage() {
             }`}
           >
             <FileText className="w-3.5 h-3.5" />
-            <span>Study Guide Bookmarks ({studyBookmarks.length})</span>
+            <span>Study Guide Bookmarks{isLoaded && ` (${studyBookmarks.length})`}</span>
           </button>
         </div>
       </div>
