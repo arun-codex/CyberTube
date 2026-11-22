@@ -198,8 +198,13 @@ export default function SavedResourcesPage() {
       </div>
 
       {!isLoaded ? (
-        <div className="py-20 text-center font-mono text-xs text-muted-foreground">
-          Loading bookmarks...
+        <div className="space-y-6 animate-pulse py-8" aria-busy="true" aria-label="Loading bookmarks">
+          <div className="h-10 w-full max-w-sm rounded-lg bg-[var(--surface-subtle)]" />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[1, 2, 3].map((i) => (
+              <div key={i} className="h-44 rounded-xl border border-[var(--border)] bg-[var(--surface-subtle)]" />
+            ))}
+          </div>
         </div>
       ) : activeTab === 'resources' ? (
         savedResources.length === 0 ? (
@@ -209,7 +214,13 @@ export default function SavedResourcesPage() {
             <p className="text-xs text-muted-foreground max-w-sm mx-auto">
               Browse the discovery engine, labs, or video courses to bookmark talks and references for later study.
             </p>
-            <div className="pt-2 flex items-center justify-center gap-3">
+            <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
+              <Link
+                href="/courses"
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[var(--accent-cyan)] text-[#090D14] text-xs font-semibold min-h-[40px] hover:opacity-90 transition-opacity"
+              >
+                Browse courses
+              </Link>
               <Link
                 href="/discover"
                 className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-medium min-h-[40px] transition-colors"

@@ -49,51 +49,64 @@ export const CourseLearningHeader: React.FC<CourseLearningHeaderProps> = ({ cour
             ))}
         </div>
 
-        {/* Title */}
-        <h1 className="text-2xl sm:text-3xl font-semibold text-[#0F172A] dark:text-[#E6EDF3] tracking-tight">
-          {course.title}
-        </h1>
-
-        {/* Description */}
-        <p className="text-sm text-[#475569] dark:text-[#9BA8B7] leading-relaxed max-w-4xl">
-          {course.description}
-        </p>
-
-        {/* Metadata Row */}
-        <div className="flex flex-wrap items-center gap-4 text-xs font-mono text-[#64748B] dark:text-[#9BA8B7] pt-2 border-t border-[#f1f5f9] dark:border-[#1E293B]">
-          <span className="flex items-center gap-1.5">
-            <User className="w-3.5 h-3.5 text-[#0E7490] dark:text-[#22D3EE]" />
-            <span className="text-[#0F172A] dark:text-[#E6EDF3] font-medium">{course.instructor.name}</span>
-            {course.instructor.organization && (
-              <span>({course.instructor.organization})</span>
-            )}
-          </span>
-          <span>•</span>
-          <span className="flex items-center gap-1">
-            <Clock className="w-3.5 h-3.5 text-[#64748B] dark:text-[#9BA8B7]" />
-            {course.estimatedDuration}
-          </span>
-          <span>•</span>
-          <span className="flex items-center gap-1">
-            <Layers className="w-3.5 h-3.5 text-[#64748B] dark:text-[#9BA8B7]" />
-            {course.totalModules} {course.totalModules === 1 ? 'module' : 'modules'} ({course.totalLessons} lessons)
-          </span>
-
-          {course.sourcePlaylistUrl && (
-            <>
-              <span>•</span>
-              <a
-                href={course.sourcePlaylistUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 text-[#0E7490] dark:text-[#22D3EE] hover:underline"
-              >
-                <ExternalLink className="w-3 h-3" />
-                <span>Original Playlist ({course.sourcePlaylistId})</span>
-              </a>
-            </>
-          )}
+        {/* Title & Top Meta */}
+        <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-3">
+          <h1 className="text-2xl sm:text-3xl font-semibold text-[#0F172A] dark:text-[#E6EDF3] tracking-tight">
+            {course.title}
+          </h1>
+          <div className="flex items-center gap-3 text-xs font-mono text-[#64748B] dark:text-[#9BA8B7] shrink-0">
+            <span>{course.instructor.name}</span>
+            <span>•</span>
+            <span>{course.totalLessons} lessons</span>
+          </div>
         </div>
+
+        {/* Collapsible Course Description & Metadata */}
+        <details className="text-xs group">
+          <summary className="cursor-pointer font-mono text-[#0E7490] dark:text-[#22D3EE] hover:underline list-none inline-flex items-center gap-1.5 font-medium">
+            <span>View course description & syllabus information</span>
+            <span className="text-[10px] transition-transform group-open:rotate-180">▼</span>
+          </summary>
+          <div className="mt-3 pt-3 border-t border-[#f1f5f9] dark:border-[#1E293B] space-y-3">
+            <p className="text-sm text-[#475569] dark:text-[#9BA8B7] leading-relaxed max-w-4xl">
+              {course.description}
+            </p>
+            <div className="flex flex-wrap items-center gap-4 text-xs font-mono text-[#64748B] dark:text-[#9BA8B7] pt-2 border-t border-[#f1f5f9] dark:border-[#1E293B]">
+              <span className="flex items-center gap-1.5">
+                <User className="w-3.5 h-3.5 text-[#0E7490] dark:text-[#22D3EE]" />
+                <span className="text-[#0F172A] dark:text-[#E6EDF3] font-medium">{course.instructor.name}</span>
+                {course.instructor.organization && (
+                  <span>({course.instructor.organization})</span>
+                )}
+              </span>
+              <span>•</span>
+              <span className="flex items-center gap-1">
+                <Clock className="w-3.5 h-3.5 text-[#64748B] dark:text-[#9BA8B7]" />
+                {course.estimatedDuration}
+              </span>
+              <span>•</span>
+              <span className="flex items-center gap-1">
+                <Layers className="w-3.5 h-3.5 text-[#64748B] dark:text-[#9BA8B7]" />
+                {course.totalModules} {course.totalModules === 1 ? 'module' : 'modules'} ({course.totalLessons} lessons)
+              </span>
+
+              {course.sourcePlaylistUrl && (
+                <>
+                  <span>•</span>
+                  <a
+                    href={course.sourcePlaylistUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-[#0E7490] dark:text-[#22D3EE] hover:underline"
+                  >
+                    <ExternalLink className="w-3 h-3" />
+                    <span>Original Playlist ({course.sourcePlaylistId})</span>
+                  </a>
+                </>
+              )}
+            </div>
+          </div>
+        </details>
       </div>
     </div>
   );

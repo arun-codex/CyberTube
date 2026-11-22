@@ -199,26 +199,22 @@ export function UnifiedLibraryHubClient({
       {/* Tab 2: Course & Lab Library (Coming Soon) */}
       {activeTab === 'courses' && (
         <div className="space-y-6 animate-in fade-in duration-200">
-          <div className="rounded-xl border border-amber-500/30 bg-amber-500/10 p-5 flex items-start gap-3.5 text-xs text-amber-800 dark:text-amber-300">
-            <AlertCircle className="w-5 h-5 shrink-0 mt-0.5 text-amber-600 dark:text-amber-400" />
+          <div className="rounded-xl border border-[var(--border)] bg-[var(--surface-subtle)] p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="space-y-1">
-              <strong className="text-sm font-bold text-amber-900 dark:text-amber-200">
-                Cybersecurity Course & Lab Library — Coming Soon
-              </strong>
-              <p className="leading-relaxed">
-                The curated course and practice lab catalog is currently undergoing verification and syllabus alignment. You can preview the catalog below or explore our active 34-document Bug Bounty Study Library.
+              <h2 className="text-base font-bold text-[var(--text-primary)]">
+                Video-Guided Cybersecurity Curricula
+              </h2>
+              <p className="text-xs sm:text-sm text-[var(--text-secondary)]">
+                Explore our full course catalog covering networking, Linux, Wireshark packet analysis, and incident response.
               </p>
-              <div className="pt-1">
-                <button
-                  type="button"
-                  onClick={() => handleTabChange('study')}
-                  className="inline-flex items-center gap-1 font-semibold text-[var(--accent-cyan)] hover:underline"
-                >
-                  <span>Switch to Bug Bounty Study Library (34 Active Guides)</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </button>
-              </div>
             </div>
+            <Link
+              href="/courses"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[var(--accent-cyan)] text-[#090D14] text-xs font-semibold hover:opacity-90 transition-opacity shrink-0"
+            >
+              <span>Explore all courses</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
           </div>
 
           <div className="rounded-xl border border-[var(--border)] bg-[var(--surface-subtle)] p-4 flex items-start gap-3 text-xs text-[var(--text-secondary)]">
@@ -235,16 +231,22 @@ export function UnifiedLibraryHubClient({
       {/* Tab 3: Learning Paths (Coming Soon) */}
       {activeTab === 'paths' && (
         <div className="space-y-6 animate-in fade-in duration-200">
-          <div className="rounded-xl border border-indigo-500/30 bg-indigo-500/10 p-5 flex items-start gap-3.5 text-xs text-indigo-900 dark:text-indigo-200">
-            <AlertCircle className="w-5 h-5 shrink-0 mt-0.5 text-indigo-600 dark:text-indigo-400" />
+          <div className="rounded-xl border border-[var(--border)] bg-[var(--surface-subtle)] p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="space-y-1">
-              <strong className="text-sm font-bold text-indigo-950 dark:text-indigo-100">
-                Learning Paths A–E — Coming Soon
-              </strong>
-              <p className="leading-relaxed">
-                Structured step-by-step tracks connecting verified free YouTube courses with hands-on practice labs. We are finalizing interactive progress tracking for these 5 comprehensive roadmaps.
+              <h2 className="text-base font-bold text-[var(--text-primary)]">
+                Structured Learning Roadmaps A–E
+              </h2>
+              <p className="text-xs sm:text-sm text-[var(--text-secondary)]">
+                Step-by-step curricula with verified milestones, study guides, and hands-on practice rooms.
               </p>
             </div>
+            <Link
+              href="/learning-paths"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[var(--accent-cyan)] text-[#090D14] text-xs font-semibold hover:opacity-90 transition-opacity shrink-0"
+            >
+              <span>View all roadmaps</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -258,8 +260,8 @@ export function UnifiedLibraryHubClient({
                     <span className="px-2 py-0.5 text-[11px] font-mono uppercase tracking-wider rounded bg-[var(--accent-cyan)]/10 text-[var(--accent-cyan)] border border-[var(--accent-cyan)]/30 font-semibold">
                       {p.level}
                     </span>
-                    <span className="px-2 py-0.5 text-[10px] font-mono uppercase tracking-wider rounded bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 border border-indigo-500/30 font-bold">
-                      Coming Soon
+                    <span className="px-2 py-0.5 text-[10px] font-mono uppercase tracking-wider rounded bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 font-bold">
+                      Syllabus Ready
                     </span>
                   </div>
                   <h3 className="text-base font-bold text-[var(--text-primary)]">
@@ -272,10 +274,10 @@ export function UnifiedLibraryHubClient({
                 <div className="pt-4 mt-4 border-t border-[var(--border)] flex items-center justify-between text-xs font-mono text-[var(--text-muted)]">
                   <span>{p.duration}</span>
                   <Link
-                    href={`/learning-paths/${p.id}`}
+                    href={`/learning-paths/${(p as any).slug || p.id}`}
                     className="inline-flex items-center gap-1 font-semibold text-[var(--accent-cyan)] hover:underline"
                   >
-                    <span>Preview Roadmap</span>
+                    <span>Preview syllabus</span>
                     <ArrowRight className="w-3.5 h-3.5" />
                   </Link>
                 </div>
