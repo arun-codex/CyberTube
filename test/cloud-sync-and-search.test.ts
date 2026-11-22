@@ -211,16 +211,13 @@ describe('Coming Soon Courses & Unified Library Hub', () => {
     assert.ok(content.includes('Coming Soon'), 'Must include Coming Soon preview for Course & Lab directory');
   });
 
-  it('12b. Header implements unified navigation Home | Library | Courses | Discover | More', () => {
-    const headerPath = path.resolve(__dirname, '../src/components/Header.tsx');
-    const headerCode = fs.readFileSync(headerPath, 'utf8');
-    assert.ok(headerCode.includes("label: 'Home'"), 'Header primary nav must include Home');
-    assert.ok(headerCode.includes("label: 'Library'"), 'Header primary nav must include Library');
-    assert.ok(headerCode.includes("label: 'Courses'"), 'Header primary nav must include Courses');
-    assert.ok(headerCode.includes("label: 'Discover'"), 'Header primary nav must include Discover');
-    // Ensure no standalone duplicate Study Library in primary nav
-    const primaryNavBlock = headerCode.match(/const primaryNavLinks\s*=\s*\[([\s\S]*?)\];/)?.[1] || '';
-    assert.ok(!primaryNavBlock.includes('Study Library'), 'Study Library must not be duplicated in primary nav');
+  it('12b. Learners can reach courses, practice, references, Discover and Saved', () => {
+    const header = fs.readFileSync(path.resolve(__dirname, '../src/components/Header.tsx'), 'utf8');
+    for (const destination of ['/courses', '/learning-paths', '/library', '/labs', '/glossary', '/cheat-sheets', '/saved', '/discover']) {
+      assert.ok(header.includes(destination), destination);
+    }
+    assert.ok(header.includes("title: 'Learn'"));
+    assert.ok(header.includes("title: 'Reference'"));
   });
 
   it('13. Authenticated search route enforces query validation and limits', async () => {
