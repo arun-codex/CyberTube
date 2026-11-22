@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { Course, CourseTrack } from '../../types/course';
 import { CourseCard } from './CourseCard';
-import { BookOpen, Shield, Code, Cpu, Filter } from 'lucide-react';
+import { Shield, Code, Cpu, Filter } from 'lucide-react';
 
 interface CoursesDirectoryViewProps {
   courses: Course[];
@@ -57,25 +57,15 @@ export const CoursesDirectoryView: React.FC<CoursesDirectoryViewProps> = ({ cour
     <div className="space-y-8">
       {/* Header Banner */}
       <div className="rounded-[8px] border border-[#e4e4ed] dark:border-[#243044] bg-[#f4f4f9] dark:bg-[#121A26] p-6 sm:p-8 space-y-4">
-        <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-[4px] bg-white dark:bg-[#1A2433] border border-[#e4e4ed] dark:border-[#243044] text-xs font-mono text-[#0E7490] dark:text-[#22D3EE]">
-          <BookOpen className="w-3.5 h-3.5 text-[#0E7490] dark:text-[#22D3EE]" />
-          <span>Course Directory</span>
-        </div>
         <h1 className="font-rajdhani text-3xl sm:text-4xl font-bold text-[#0F172A] dark:text-[#E6EDF3] tracking-tight">
-          Video Courses & Learning Tracks
+          Courses
         </h1>
         <p className="text-sm text-[#475569] dark:text-[#9BA8B7] max-w-2xl leading-relaxed">
-          Step-by-step modular curricula covering cybersecurity engineering, full-stack web development, and computing technologies.
+          Choose a track to find courses in cybersecurity, web development and computing.
         </p>
 
         <div className="flex flex-wrap items-center gap-4 pt-1 text-xs font-mono text-[#64748B] dark:text-[#9BA8B7]">
           <span>{courses.length} courses</span>
-          <span>•</span>
-          <span>Multiple learning tracks</span>
-          <span>•</span>
-          <span>Zero paywalls</span>
-          <span>•</span>
-          <span>Progress persistence</span>
         </div>
       </div>
 

@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import {
-  BookOpen,
   Sparkles,
   Shield,
   Layers,
@@ -74,17 +73,13 @@ export function UnifiedLibraryHubClient({
     <div className="container-max py-8 space-y-8">
       {/* Central Hub Eyebrow & Title */}
       <div className="space-y-3">
-        <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-[var(--accent-cyan)] font-semibold">
-          <BookOpen className="w-4 h-4" />
-          <span>Central Library Hub</span>
-        </div>
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <h1 className="text-3xl sm:text-4xl font-bold font-space-grotesk tracking-tight text-[var(--text-primary)]">
-              Cybersecurity Knowledge & Study Library
+              Study library
             </h1>
             <p className="text-sm sm:text-base text-[var(--text-secondary)] max-w-2xl mt-1 leading-relaxed">
-              Explore sign-in-protected Bug Bounty study guides and methodologies with cross-device cloud sync, full-text PDF search, and legal lab environments.
+              Browse reference material by section. Sign in to read study guides and save your place across devices.
             </p>
           </div>
         </div>
