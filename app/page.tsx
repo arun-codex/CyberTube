@@ -1,23 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
-import {
-  Terminal,
-  Shield,
-  ArrowRight,
-  BookOpen,
-  Compass,
-  Layers,
-  CheckCircle2,
-  Youtube,
-  ExternalLink,
-  Sparkles,
-  FileSearch,
-  Lock,
-  Cpu,
-  Wifi,
-} from 'lucide-react';
+import { ArrowRight, Compass, ExternalLink, Layers, Shield, Youtube } from 'lucide-react';
 import { getAllAuthoritativeResources, getAllAuthoritativePaths } from '@/lib/authoritativeCatalog';
-import { BugBountyLogo } from '@/components/ui/BugBountyLogo';
 import { SupportCyberTubeButton } from '@/components/support/SupportCyberTubeButton';
 
 export default function HomePage() {
@@ -28,200 +12,21 @@ export default function HomePage() {
 
   return (
     <div className="space-y-16 py-8">
-      {/* 1. Terminal & 3D Cyber-Engineered Hero */}
-      <section className="container-max">
-        <div className="relative rounded-2xl border border-[#E2E8F0] dark:border-[#1E2D42] bg-white dark:bg-[#0D1420] p-6 sm:p-12 shadow-xl overflow-hidden transition-all duration-300">
-          {/* Subtle Ambient Cyber Mesh Grids */}
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(34,211,238,0.12),transparent_50%)] pointer-events-none" />
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808010_1px,transparent_1px),linear-gradient(to_bottom,#80808010_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none opacity-60 dark:opacity-25" />
-
-          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            {/* Left Column: Heading and CTAs */}
-            <div className="lg:col-span-7 space-y-6">
-              {/* System Status Eyebrow */}
-              <div className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-[var(--surface-subtle)] border border-[var(--border)] font-mono text-xs text-[var(--accent-cyan)] font-semibold shadow-xs">
-                <span className="w-2 h-2 rounded-full bg-[var(--accent-emerald)] inline-block animate-pulse" />
-                <span className="tracking-wide uppercase text-[11px]">System Status: Operational • 34 Guides Active</span>
-              </div>
-
-              <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-[var(--text-primary)] leading-[1.12] font-space-grotesk">
-                Learn Cybersecurity the Right Way.{' '}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--accent-cyan)] to-[var(--accent-emerald)]">
-                  Free, Structured & Hands-On.
-                </span>
-              </h1>
-
-              <p className="text-sm sm:text-base text-[var(--text-secondary)] leading-relaxed max-w-xl">
-                CyberTube organizes verified YouTube courses, authenticated Bug Bounty methodologies, and legal lab environments into transparent, progressive roadmaps. No paywalls, no marketing hype—pure practical skills development.
-              </p>
-
-              {/* Primary Call to Actions */}
-              <div className="flex flex-wrap items-center gap-3.5 pt-2">
-                <Link
-                  href="/library"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-[var(--accent-cyan)] hover:bg-[var(--accent-cyan-hover)] text-[#090D14] font-bold text-sm transition-all shadow-md hover:shadow-cyan-500/20 hover:-translate-y-0.5"
-                >
-                  <BugBountyLogo size={20} />
-                  <span>Explore Study Library</span>
-                  <ArrowRight className="w-4 h-4 ml-1" />
-                </Link>
-
-                <Link
-                  href="/courses"
-                  className="inline-flex items-center gap-2 px-5 py-3 rounded-lg border border-[var(--border)] bg-[var(--card-bg)] text-[var(--text-primary)] font-semibold text-sm hover:border-[var(--accent-cyan)] hover:text-[var(--accent-cyan)] transition-all hover:-translate-y-0.5"
-                >
-                  <Youtube className="w-4 h-4 text-[#F87171]" />
-                  <span>Video Courses</span>
-                </Link>
-
-                <Link
-                  href="/learning-paths"
-                  className="inline-flex items-center gap-2 px-4 py-3 rounded-lg text-xs font-mono text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
-                >
-                  <Compass className="w-4 h-4 text-[var(--accent-cyan)]" />
-                  <span>Learning Paths A–E</span>
-                </Link>
-
-                {/* Optional support entry in the Home tab; never a floating launcher. */}
-                <SupportCyberTubeButton variant="secondary" className="text-xs" />
-              </div>
-            </div>
-
-            {/* Right Column: 3D-Engineered Perspective Badge Card */}
-            <div className="lg:col-span-5 flex justify-center">
-              <div className="relative w-full max-w-md p-6 rounded-2xl border border-[var(--accent-cyan)]/30 bg-gradient-to-br from-[var(--surface-subtle)] via-[var(--card-bg)] to-[var(--surface-elevated)] shadow-2xl backdrop-blur-md transform-gpu hover:scale-[1.02] transition-transform duration-300">
-                <div className="flex items-center justify-between pb-4 border-b border-[var(--border)]">
-                  <div className="flex items-center gap-2">
-                    <BugBountyLogo size={32} showText={false} />
-                    <div>
-                      <div className="text-xs font-bold font-space-grotesk text-[var(--text-primary)]">
-                        Bug Bounty Library
-                      </div>
-                      <div className="text-[10px] font-mono text-[var(--accent-cyan)]">
-                        v2.4 Production Catalog
-                      </div>
-                    </div>
-                  </div>
-                  <span className="px-2 py-0.5 rounded-full text-[10px] font-mono uppercase bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 font-bold border border-emerald-500/30">
-                    Live Cloud Sync
-                  </span>
-                </div>
-
-                <div className="py-4 space-y-3">
-                  <div className="flex items-center justify-between text-xs font-mono">
-                    <span className="text-[var(--text-secondary)] flex items-center gap-1.5">
-                      <FileSearch className="w-3.5 h-3.5 text-[var(--accent-cyan)]" />
-                      Full-Text PDF Search
-                    </span>
-                    <span className="font-bold text-[var(--text-primary)]">Across 34 PDFs</span>
-                  </div>
-
-                  <div className="flex items-center justify-between text-xs font-mono">
-                    <span className="text-[var(--text-secondary)] flex items-center gap-1.5">
-                      <Lock className="w-3.5 h-3.5 text-amber-500" />
-                      Session & Auth Security
-                    </span>
-                    <span className="font-bold text-[var(--text-primary)]">2FA, IDOR, ATO</span>
-                  </div>
-
-                  <div className="flex items-center justify-between text-xs font-mono">
-                    <span className="text-[var(--text-secondary)] flex items-center gap-1.5">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
-                      Progress Tracking
-                    </span>
-                    <span className="font-bold text-emerald-500">Cross-Device</span>
-                  </div>
-                </div>
-
-                <div className="pt-3 border-t border-[var(--border)] flex items-center justify-between">
-                  <span className="text-[11px] font-mono text-[var(--text-muted)]">
-                    Total Pages: 138
-                  </span>
-                  <Link
-                    href="/library"
-                    className="inline-flex items-center gap-1 text-xs font-bold text-[var(--accent-cyan)] hover:underline"
-                  >
-                    <span>Open Hub</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
+      <section className="container-max grid gap-8 border-b border-slate-300 pb-10 dark:border-slate-700 lg:grid-cols-[2fr_1fr] lg:items-end">
+        <div className="max-w-2xl">
+          <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">Study cybersecurity</h1>
+          <p className="mt-4 max-w-xl text-lg leading-relaxed text-slate-600 dark:text-slate-300">
+            Follow a course, work through a practice lab, or keep a field guide open while you study.
+          </p>
+          <Link href="/courses" className="mt-6 inline-flex rounded-lg bg-slate-900 px-5 py-3 font-semibold text-white dark:bg-slate-100 dark:text-slate-900">
+            Browse courses
+          </Link>
         </div>
-      </section>
-
-      {/* 2. Three Value Pillar Cards */}
-      <section className="container-max">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="rounded-xl border border-[#E2E8F0] dark:border-[#243044] bg-white dark:bg-[#121A26] p-6 space-y-3 hover:border-[var(--accent-cyan)]/40 hover:-translate-y-0.5 transition-all shadow-sm">
-            <div className="w-10 h-10 rounded-lg bg-[#34D399]/10 text-[#34D399] flex items-center justify-center">
-              <CheckCircle2 className="w-5 h-5" />
-            </div>
-            <h2 className="text-base font-bold font-space-grotesk text-[#0F172A] dark:text-[#E6EDF3]">
-              1. Free-First Education
-            </h2>
-            <p className="text-xs sm:text-sm text-[#475569] dark:text-[#9BA8B7] leading-relaxed">
-              Every course and video playlist is 100% free on YouTube from industry leaders like Jeremy&apos;s IT Lab, Professor Messer, and Netsec Explained. No hidden subscription traps.
-            </p>
-          </div>
-
-          <div className="rounded-xl border border-[#E2E8F0] dark:border-[#243044] bg-white dark:bg-[#121A26] p-6 space-y-3 hover:border-[var(--accent-cyan)]/40 hover:-translate-y-0.5 transition-all shadow-sm">
-            <div className="w-10 h-10 rounded-lg bg-[#22D3EE]/10 text-[#22D3EE] flex items-center justify-center">
-              <Terminal className="w-5 h-5" />
-            </div>
-            <h2 className="text-base font-bold font-space-grotesk text-[#0F172A] dark:text-[#E6EDF3]">
-              2. Lab-First Practice
-            </h2>
-            <p className="text-xs sm:text-sm text-[#475569] dark:text-[#9BA8B7] leading-relaxed">
-              Theory is paired step-by-step with free wargames and legal targets like OverTheWire, PortSwigger Web Security Academy, TryHackMe, and OWASP Juice Shop.
-            </p>
-          </div>
-
-          <div className="rounded-xl border border-[#E2E8F0] dark:border-[#243044] bg-white dark:bg-[#121A26] p-6 space-y-3 hover:border-[var(--accent-cyan)]/40 hover:-translate-y-0.5 transition-all shadow-sm">
-            <div className="w-10 h-10 rounded-lg bg-[#FBBF24]/10 text-[#FBBF24] flex items-center justify-center">
-              <Shield className="w-5 h-5" />
-            </div>
-            <h2 className="text-base font-bold font-space-grotesk text-[#0F172A] dark:text-[#E6EDF3]">
-              3. Legal & Ethical Focus
-            </h2>
-            <p className="text-xs sm:text-sm text-[#475569] dark:text-[#9BA8B7] leading-relaxed">
-              Strict rules of engagement. Learn defensive postures and responsible vulnerability disclosure without ever compromising real-world systems.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* 3. Featured Bug Bounty Study Library Spotlight */}
-      <section className="container-max">
-        <div className="rounded-2xl border border-[var(--accent-cyan)]/30 bg-gradient-to-r from-[var(--surface-subtle)] via-[var(--card-bg)] to-[var(--surface-subtle)] p-6 sm:p-10 shadow-lg relative overflow-hidden">
-          <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
-            <div className="space-y-3 max-w-2xl">
-              <div className="flex items-center gap-2">
-                <BugBountyLogo size={24} />
-                <span className="font-mono text-xs uppercase tracking-wider text-[var(--accent-cyan)] font-semibold">
-                  Featured Resource Collection
-                </span>
-              </div>
-              <h2 className="text-2xl sm:text-3xl font-bold font-space-grotesk text-[var(--text-primary)]">
-                Bug Bounty Study Library — 34 Verified Field Guides
-              </h2>
-              <p className="text-xs sm:text-sm text-[var(--text-secondary)] leading-relaxed">
-                Complete methodology checklists covering 2FA Bypass, IDOR, Account Takeover, Business Logic, SSRF, and Client-Side Injection. Includes in-document search, page bookmarking, and distinct-page cloud progress tracking.
-              </p>
-            </div>
-
-            <div className="flex flex-col sm:flex-row gap-3 w-full lg:w-auto shrink-0">
-              <Link
-                href="/library?tab=study"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-[var(--accent-cyan)] hover:bg-[var(--accent-cyan-hover)] text-[#090D14] font-bold text-xs shadow-md transition-all"
-              >
-                <span>Open 34 Study Guides</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
-          </div>
-        </div>
+        <aside className="border-l-2 border-teal-600 pl-5">
+          <h2 className="text-xl font-semibold">Study library</h2>
+          <p className="my-2 text-slate-600 dark:text-slate-300">Find reference guides and bookmark pages for your next session.</p>
+          <Link href="/library" className="font-medium underline underline-offset-4">Open the library</Link>
+        </aside>
       </section>
 
       {/* 4. Learning Paths Preview (Marked Coming Soon) */}
@@ -415,6 +220,7 @@ export default function HomePage() {
           ))}
         </div>
       </section>
+      <div className="container-max"><SupportCyberTubeButton variant="secondary" className="text-xs" /></div>
     </div>
   );
 }
