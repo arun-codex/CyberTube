@@ -2,7 +2,7 @@ import React, { Suspense } from 'react';
 import { TryHackMeRoadmapExplorer } from '@/components/tryhackme/TryHackMeRoadmapExplorer';
 import Link from 'next/link';
 import { Metadata } from 'next';
-import { ExternalLink, Terminal, Shield, CheckCircle2, AlertCircle } from 'lucide-react';
+import { ExternalLink, Shield, CheckCircle2, AlertCircle } from 'lucide-react';
 import { getAllAuthoritativeResources } from '@/lib/authoritativeCatalog';
 
 export const metadata: Metadata = {
@@ -17,15 +17,11 @@ export default function LabsPage() {
     <div className="container-max py-10 space-y-10">
       {/* Header */}
       <div className="space-y-3 max-w-3xl">
-        <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-[#0E7490] dark:text-[#22D3EE]">
-          <Terminal className="w-4 h-4" />
-          <span>Hands-On Environments</span>
-        </div>
         <h1 className="text-3xl sm:text-4xl font-bold font-space-grotesk text-[#0F172A] dark:text-[#E6EDF3]">
           Practical Labs & Wargames
         </h1>
         <p className="text-sm sm:text-base text-[#475569] dark:text-[#9BA8B7] leading-relaxed">
-          Theory becomes practical experience through authorized labs. Explore source-listed free TryHackMe challenges and other legal cybersecurity training platforms.
+          Choose a TryHackMe room by topic and difficulty, or browse the other practice platforms below.
         </p>
       </div>
 
