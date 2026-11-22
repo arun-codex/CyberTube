@@ -283,12 +283,9 @@ function DiscoverContent() {
       <div className="rounded-2xl border border-[var(--border)] bg-[var(--card-bg)] p-5 sm:p-7 space-y-5">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div className="space-y-2">
-            <p className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-[var(--accent-cyan)]">
-              <Compass className="w-4 h-4"/> CyberTube Discovery
-            </p>
-            <h1 className="text-3xl sm:text-4xl font-bold text-[var(--text-primary)]">Discover what moves you forward</h1>
+            <h1 className="text-3xl sm:text-4xl font-bold text-[var(--text-primary)]">Discover</h1>
             <p className="max-w-3xl text-sm leading-relaxed text-[var(--text-secondary)]">
-              Cybersecurity videos, fresh security news, AI and technology, interview skills, internships, communication and career growth — in one personalized feed.
+              Browse videos and articles by topic, or return to a video in your watch history.
             </p>
           </div>
           {userId?(
