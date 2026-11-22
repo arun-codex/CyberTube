@@ -51,7 +51,7 @@ export default function CheatSheetClientView({ data }: CheatSheetClientViewProps
               : 'border-transparent text-slate-500 hover:text-slate-800 dark:hover:text-slate-200'
           }`}
         >
-          Linux Commands Reference
+          Linux commands
         </button>
         <button
           onClick={() => setActiveTab('ports')}
@@ -61,7 +61,7 @@ export default function CheatSheetClientView({ data }: CheatSheetClientViewProps
               : 'border-transparent text-slate-500 hover:text-slate-800 dark:hover:text-slate-200'
           }`}
         >
-          Common Ports & Protocols (TCP / UDP)
+          Ports and protocols
         </button>
       </div>
 

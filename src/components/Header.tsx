@@ -27,13 +27,13 @@ export function Header() {
   const [savedCount, setSavedCount] = useState(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchDialogOpen, setSearchDialogOpen] = useState(false);
-  const [exploreMenuOpen, setExploreMenuOpen] = useState(false);
+  const [exploreMenuOpen, setExploreMenuOpen] = useState<string | null>(null);
 
   const { userEmail, userProfile, isAdmin, isAuthLoading } = useAuth();
 
   useEffect(() => {
     setMobileMenuOpen(false);
-    setExploreMenuOpen(false);
+    setExploreMenuOpen(null);
     setSearchDialogOpen(false);
   }, [pathname]);
 
@@ -61,7 +61,7 @@ export function Header() {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         setMobileMenuOpen(false);
-        setExploreMenuOpen(false);
+        setExploreMenuOpen(null);
       }
     };
     window.addEventListener('keydown', handleEscape);
@@ -76,27 +76,15 @@ export function Header() {
     return () => unsub();
   }, []);
 
-  const primaryNavLinks = [
-    { label: 'Home', href: '/' },
-    { label: 'Library', href: '/library' },
-    { label: 'Courses', href: '/courses' },
-    { label: 'Discover', href: '/discover' },
-    { label: 'Support ☕', href: '/#support-cybertube' },
+  const groups = [
+    { title: 'Learn', links: [['Courses','/courses'], ['Learning paths','/learning-paths'], ['Domains','/domains'], ['Skills','/skills'], ['Careers','/careers'], ['Certifications','/certifications']] },
+    { title: 'Reference', links: [['Study library','/library'], ['Cheat sheets','/cheat-sheets'], ['Glossary','/glossary'], ['Ethics','/ethics'], ['Support ☕','/#support-cybertube']] },
   ];
-
-  const secondaryNavLinks = [
-    { label: 'Learning Paths', href: '/learning-paths', badge: 'Soon' },
-    { label: 'Practical Labs', href: '/labs' },
-    { label: 'Domains', href: '/domains' },
-    { label: 'Skills Map', href: '/skills' },
-    { label: 'Certifications', href: '/certifications' },
-    { label: 'Career Paths', href: '/careers' },
-    { label: 'Cheat Sheets', href: '/cheat-sheets' },
-    { label: 'Glossary', href: '/glossary' },
-    { label: 'Ethics & Rules', href: '/ethics' },
-  ];
-
-  const isExploreActive = secondaryNavLinks.some((l) => pathname === l.href);
+  const navLink = (label: string, href: string) => (
+    <Link key={href} href={href} aria-current={pathname === href ? 'page' : undefined}
+      className="block rounded px-3 py-2 text-sm hover:bg-[var(--surface-subtle)] aria-[current=page]:font-bold"
+      onClick={() => { setExploreMenuOpen(null); setMobileMenuOpen(false); }}>{label}</Link>
+  );
 
   return (
     <>
@@ -122,64 +110,17 @@ export function Header() {
 
               {/* Desktop Navigation Groups */}
               <nav className="hidden lg:flex items-center gap-1 min-w-0" aria-label="Main Navigation">
-                {primaryNavLinks.map((link) => {
-                  const isActive = pathname === link.href;
-                  return (
-                    <Link
-                      key={link.href}
-                      href={link.href}
-                      aria-current={isActive ? 'page' : undefined}
-                      className={`relative px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-150 ${
-                        isActive
-                          ? 'text-[var(--accent-cyan)] bg-[var(--accent-cyan-subtle)] font-semibold shadow-xs'
-                          : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-subtle)]'
-                      }`}
-                    >
-                      {link.label}
-                    </Link>
-                  );
-                })}
-
-                {/* More / Reference Dropdown */}
-                <div className="relative">
-                  <button
-                    type="button"
-                    onClick={() => setExploreMenuOpen(!exploreMenuOpen)}
-                    aria-expanded={exploreMenuOpen}
-                    className={`inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-medium transition-colors ${
-                      isExploreActive
-                        ? 'text-[var(--text-primary)] bg-[var(--surface-subtle)] font-semibold'
-                        : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-subtle)]'
-                    }`}
-                  >
-                    <span>More</span>
-                    <ChevronDown className="w-3 h-3 opacity-70" />
-                  </button>
-
-                  {exploreMenuOpen && (
-                    <div
-                      className="absolute left-0 mt-2 w-48 rounded-xl border border-[var(--border)] bg-[var(--card-bg)] shadow-lg py-1 z-50 animate-in fade-in zoom-in-95 duration-100"
-                      onMouseLeave={() => setExploreMenuOpen(false)}
-                    >
-                      {secondaryNavLinks.map((subLink) => (
-                        <Link
-                          key={subLink.href}
-                          href={subLink.href}
-                          onClick={() => setExploreMenuOpen(false)}
-                          className="flex items-center justify-between px-4 py-2 text-xs text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-subtle)] transition-colors"
-                        >
-                          <span>{subLink.label}</span>
-                          {subLink.badge && (
-                            <span className="px-1 py-0.2 rounded text-[9px] font-mono uppercase bg-amber-500/15 text-amber-600 dark:text-amber-400 font-bold border border-amber-500/30">
-                              {subLink.badge}
-                            </span>
-                          )}
-                        </Link>
-                      ))}
-                      {/* Deep-link route preserved for backward compatibility: /study-materials */}
-                    </div>
-                  )}
-                </div>
+                {groups.map(group => <div key={group.title} className="relative" onBlur={event => {
+                  if (!event.currentTarget.contains(event.relatedTarget)) setExploreMenuOpen(null);
+                }}>
+                  <button type="button" className="flex items-center gap-1 px-3 py-2 text-sm" aria-expanded={exploreMenuOpen === group.title}
+                    onClick={() => setExploreMenuOpen(exploreMenuOpen === group.title ? null : group.title)}>{group.title}<ChevronDown size={14} /></button>
+                  {exploreMenuOpen === group.title && <div className="absolute left-0 w-44 rounded-lg border border-[var(--border)] bg-[var(--card-bg)] p-1 shadow-lg">
+                    {group.links.map(([label,href]) => navLink(label,href))}
+                  </div>}
+                </div>)}
+                {navLink('Practice','/labs')}
+                {navLink('Discover','/discover')}
               </nav>
             </div>
 
@@ -260,41 +201,13 @@ export function Header() {
 
         {/* Mobile Navigation Drawer */}
         {mobileMenuOpen && (
-          <div className="lg:hidden border-b border-[var(--border)] bg-[var(--card-bg)] px-4 pt-3 pb-6 space-y-3">
-            <div className="space-y-1">
-              <div className="text-[10px] font-mono uppercase tracking-wider text-[var(--text-muted)] px-3 py-1">
-                Main Navigation
-              </div>
-              {primaryNavLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-subtle)] min-h-[44px]"
-                >
-                  <span>{link.label}</span>
-                </Link>
-              ))}
-            </div>
-
-            <div className="space-y-1 pt-2 border-t border-[var(--border)]">
-              <div className="text-[10px] font-mono uppercase tracking-wider text-[var(--text-muted)] px-3 py-1">
-                Resources & Reference
-              </div>
-              <div className="grid grid-cols-2 gap-1">
-                {secondaryNavLinks.map((link) => (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="px-3 py-2 rounded-lg text-xs font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-subtle)] min-h-[44px] flex items-center"
-                  >
-                    {link.label}
-                  </Link>
-                ))}
-              </div>
-            </div>
-
+          <div className="lg:hidden max-h-[calc(100dvh-4rem)] overflow-y-auto border-b border-[var(--border)] bg-[var(--card-bg)] px-4 pt-3 pb-6 space-y-3">
+            {groups.map(group => <div key={group.title}>
+              <h2 className="px-3 text-sm font-semibold">{group.title}</h2>
+              <div className="grid grid-cols-2">{group.links.map(([label,href]) => navLink(label,href))}</div>
+            </div>)}
+            {navLink('Practice','/labs')}
+            {navLink('Discover','/discover')}
             {isAdmin && (
               <Link
                 href="/admin"

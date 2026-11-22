@@ -14,16 +14,11 @@ export default function SkillsPage(){
   return <div className="min-h-screen bg-[var(--canvas)] py-8 sm:py-12">
     <div className="container-max max-w-7xl space-y-8">
       <header className="space-y-3">
-        <p className="font-mono text-xs font-semibold uppercase tracking-widest text-[var(--accent-cyan)]">
-          [ Skills Matrix · Career Development ]
-        </p>
         <h1 className="text-3xl font-extrabold tracking-tight text-[var(--text-primary)] sm:text-4xl">
           Cybersecurity Skills Map
         </h1>
         <p className="max-w-3xl text-sm leading-relaxed text-[var(--text-secondary)] sm:text-base">
-          Build your cybersecurity competency portfolio. Choose a career direction, assess your real practice,
-          identify gaps, and follow targeted learning resources — from fundamental networking to SOC investigations,
-          forensics, AppSec, and cloud security.
+          Choose a role to see which skills to practise next.
         </p>
       </header>
       <SkillsClientView skills={skills} resources={resources}/>

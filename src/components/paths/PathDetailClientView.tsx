@@ -96,11 +96,8 @@ export function PathDetailClientView({ path }: PathDetailClientViewProps) {
         {/* Coming Soon Notice */}
         {path.isComingSoon && (
           <div className="rounded-lg bg-amber-500/10 border border-amber-500/30 p-4 flex items-start gap-3 text-xs text-amber-800 dark:text-amber-300">
-            <span className="font-bold uppercase tracking-wider font-mono text-[11px] px-2 py-0.5 rounded bg-amber-500/20 shrink-0">
-              Coming Soon
-            </span>
             <p className="leading-relaxed">
-              This learning pathway roadmap is in active curriculum development. You can preview all milestones, companion labs, and syllabus items below.
+              You can preview the syllabus now. Path progress tracking is still in development.
             </p>
           </div>
         )}

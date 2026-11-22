@@ -1,6 +1,7 @@
 'use client';
 
 import React, { Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import Loading from './loading';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import {
@@ -490,7 +491,7 @@ function DiscoverContent() {
   );
 }
 export default function DiscoverPage(){
-  return <Suspense fallback={<div className="container-max py-16 text-sm text-[var(--text-secondary)]">Loading Discover…</div>}>
+  return <Suspense fallback={<Loading />}>
     <DiscoverContent/>
   </Suspense>;
 }

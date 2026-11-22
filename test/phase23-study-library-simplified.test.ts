@@ -40,6 +40,6 @@ describe('Simplified Bug Bounty Study Library Suite', () => {
   it('4. Navigation headers link to the Study Library', () => {
     const headerPath = path.resolve(__dirname, '../src/components/Header.tsx');
     const headerCode = fs.readFileSync(headerPath, 'utf8');
-    assert.ok(headerCode.includes('/study-materials'), 'Header must contain link to /study-materials');
+    assert.ok(headerCode.includes("['Study library','/library']"), 'Reference menu must link to the study library');
   });
 });

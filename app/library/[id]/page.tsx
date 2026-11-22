@@ -60,6 +60,11 @@ export default async function ResourceDetailPage({ params }: ResourceDetailPageP
         <span>Back to Course Library</span>
       </Link>
 
+      {(id === 'net-01' || id === 'net-02') && <aside className="border-l-2 border-teal-600 pl-4">
+        <h2 className="font-semibold">Choosing a CCNA course</h2>
+        <p><Link className="underline" href="/library/net-01">Jeremy’s IT Lab</Link> pairs lessons with Packet Tracer labs and Anki flashcards.
+          {' '}<Link className="underline" href="/library/net-02">NetworkChuck</Link> offers video explanations of networking fundamentals.</p>
+      </aside>}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Main Content Area */}
         <div className="lg:col-span-2 space-y-6">
@@ -160,7 +165,7 @@ export default async function ResourceDetailPage({ params }: ResourceDetailPageP
                 <span className="text-[#34D399] font-medium uppercase font-mono">{resource.verificationStatus}</span>
               </div>
               <div className="flex justify-between py-2">
-                <span className="text-[#475569] dark:text-[#9BA8B7]">Link Audited:</span>
+                <span className="text-[#475569] dark:text-[#9BA8B7]">Catalog link checked:</span>
                 <span className="font-mono text-[#0F172A] dark:text-[#E6EDF3]">{resource.lastChecked}</span>
               </div>
             </div>
