@@ -206,7 +206,8 @@ export const UniversalCourseLearningLayout: React.FC<UniversalCourseLearningLayo
   if (!activeLesson) {
     return (
       <div className="container-max py-16 text-center text-[#64748B] dark:text-[#9BA8B7] font-mono">
-        No lessons available in this course curriculum.
+        <p>This course has no published lessons yet.</p>
+        <Link href="/courses" className="mt-4 inline-block underline underline-offset-4">Browse courses</Link>
       </div>
     );
   }
@@ -316,7 +317,7 @@ export const UniversalCourseLearningLayout: React.FC<UniversalCourseLearningLayo
           <div className="pt-6 border-t border-[#e4e4ed] dark:border-[#243044] space-y-4">
             <div className="flex items-center justify-between">
               <h3 className="font-mono text-xs uppercase tracking-wider text-[#0F172A] dark:text-[#E6EDF3] font-bold">
-                Related Technical Resources & Deep Dives
+                Further reading
               </h3>
               <Link
                 href="/resources"
