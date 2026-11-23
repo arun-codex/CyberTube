@@ -3,11 +3,15 @@ import { CYBERSECURITY_ZERO_TO_ADVANCED_COURSE } from './cybersecurity-zero-to-a
 import { INCIDENT_RESPONSE_ZERO_TO_ADVANCED_COURSE } from './incident-response-zero-to-advanced-course';
 import { LINUX_ZERO_TO_ADVANCED_COURSE } from './linux-zero-to-advanced-course';
 import { NETWORK_PACKET_FORENSICS_COURSE } from './network-packet-forensics-course';
+import { NETWORKING_FOR_CYBERSECURITY_COURSE } from './networking-for-cybersecurity-course';
+import { PYTHON_FOR_CYBERSECURITY_COURSE } from './python-for-cybersecurity-course';
 import { SIEM_ZERO_TO_ADVANCED_COURSE } from './siem-zero-to-advanced-course';
 import { STORYTELLING_MASTERCLASS_COURSE } from './storytelling-masterclass-course';
 import { WINDOWS_SECURITY_ZERO_TO_ADVANCED_COURSE } from './windows-security-course';
 
 export const COURSES: Course[] = [
+  NETWORKING_FOR_CYBERSECURITY_COURSE,
+  PYTHON_FOR_CYBERSECURITY_COURSE,
   INCIDENT_RESPONSE_ZERO_TO_ADVANCED_COURSE,
   SIEM_ZERO_TO_ADVANCED_COURSE,
   CYBERSECURITY_ZERO_TO_ADVANCED_COURSE,
