@@ -66,10 +66,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0001-4000-8000-000000000001",
           "slug": "m01-l1-network-security-roles",
           "title": "Module 01 - Lesson 1: Network security roles",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 01 - Lesson 1: Network security roles. Practice the concepts in your isolated lab environment.",
+          "description": "Video lesson presented by WsCube Cyber Security: \"Complete Networking Tutorial 2026 | Beginner to Advanced (Cybersecurity Focus)\". Aligned to Module 01 - Lesson 1: Network security roles for practical lab and defensive analysis.",
           "youtubeVideoId": "ewtDKmovou4",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "WsCube Cyber Security",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -93,7 +93,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 01 - Lesson 1: Network security roles), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 01 - Lesson 1: Network security roles), follow along with WsCube Cyber Security (\"Complete Networking Tutorial 2026 | Beginner to Advanced (Cybersecurity Focus)\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "None beyond ordinary computer use"
             ],
@@ -158,10 +158,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0001-4000-8000-000000000002",
           "slug": "m01-l2-networks-and-endpoints",
           "title": "Module 01 - Lesson 2: Networks and endpoints",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 01 - Lesson 2: Networks and endpoints. Practice the concepts in your isolated lab environment.",
+          "description": "Video lesson presented by Jeremy's IT Lab: \"Free CCNA | Network Devices | Day 1 | CCNA 200-301 Complete Course\". Aligned to Module 01 - Lesson 2: Networks and endpoints for practical lab and defensive analysis.",
           "youtubeVideoId": "H8W9oMNSuwo",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Jeremy's IT Lab",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -185,7 +185,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 01 - Lesson 2: Networks and endpoints), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 01 - Lesson 2: Networks and endpoints), follow along with Jeremy's IT Lab (\"Free CCNA | Network Devices | Day 1 | CCNA 200-301 Complete Course\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "None beyond ordinary computer use"
             ],
@@ -250,10 +250,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0001-4000-8000-000000000003",
           "slug": "m01-l3-safe-lab-environment",
           "title": "Module 01 - Lesson 3: Safe lab environment",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 01 - Lesson 3: Safe lab environment. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "ewtDKmovou4",
+          "description": "Video lesson presented by Jeremy's IT Lab: \"Free CCNA | Packet Tracer Introduction | Day 1 Lab | CCNA 200-301 Complete Course\". Aligned to Module 01 - Lesson 3: Safe lab environment for practical lab and defensive analysis.",
+          "youtubeVideoId": "a1Im6GYaSno",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Jeremy's IT Lab",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -277,7 +277,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 01 - Lesson 3: Safe lab environment), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 01 - Lesson 3: Safe lab environment), follow along with Jeremy's IT Lab (\"Free CCNA | Packet Tracer Introduction | Day 1 Lab | CCNA 200-301 Complete Course\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "None beyond ordinary computer use"
             ],
@@ -342,10 +342,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0001-4000-8000-000000000004",
           "slug": "m01-l4-evidence-workflow",
           "title": "Module 01 - Lesson 4: Evidence workflow",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 01 - Lesson 4: Evidence workflow. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "H8W9oMNSuwo",
+          "description": "Video lesson presented by Palo Alto Networks Unit 42: \"Unit 42 Wireshark Workshop Part 1: Introduction & Prerequisites\". Aligned to Module 01 - Lesson 4: Evidence workflow for practical lab and defensive analysis.",
+          "youtubeVideoId": "wNEzfe9RI-I",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Palo Alto Networks Unit 42",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -369,7 +369,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 01 - Lesson 4: Evidence workflow), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 01 - Lesson 4: Evidence workflow), follow along with Palo Alto Networks Unit 42 (\"Unit 42 Wireshark Workshop Part 1: Introduction & Prerequisites\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "None beyond ordinary computer use"
             ],
@@ -513,10 +513,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0002-4000-8000-000000000001",
           "slug": "m02-l1-seven-osi-layers",
           "title": "Module 02 - Lesson 1: Seven OSI layers",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 02 - Lesson 1: Seven OSI layers. Practice the concepts in your isolated lab environment.",
+          "description": "Video lesson presented by Practical Networking: \"OSI Model: A Practical Perspective - Part 1 - Lesson 2a\". Aligned to Module 02 - Lesson 1: Seven OSI layers for practical lab and defensive analysis.",
           "youtubeVideoId": "LkolbURrtTs",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Practical Networking",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -540,7 +540,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 02 - Lesson 1: Seven OSI layers), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 02 - Lesson 1: Seven OSI layers), follow along with Practical Networking (\"OSI Model: A Practical Perspective - Part 1 - Lesson 2a\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 01 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -605,10 +605,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0002-4000-8000-000000000002",
           "slug": "m02-l2-tcp-ip-stack",
           "title": "Module 02 - Lesson 2: TCP/IP stack",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 02 - Lesson 2: TCP/IP stack. Practice the concepts in your isolated lab environment.",
+          "description": "Video lesson presented by Practical Networking: \"OSI Model: A Practical Perspective - Part 2 - Lesson 2\". Aligned to Module 02 - Lesson 2: TCP/IP stack for practical lab and defensive analysis.",
           "youtubeVideoId": "0aGqGKrRE0g",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Practical Networking",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -632,7 +632,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 02 - Lesson 2: TCP/IP stack), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 02 - Lesson 2: TCP/IP stack), follow along with Practical Networking (\"OSI Model: A Practical Perspective - Part 2 - Lesson 2\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 01 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -697,10 +697,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0002-4000-8000-000000000003",
           "slug": "m02-l3-encapsulation",
           "title": "Module 02 - Lesson 3: Encapsulation",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 02 - Lesson 3: Encapsulation. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "LkolbURrtTs",
+          "description": "Video lesson presented by Practical Networking: \"How Data moves through the Internet - Networking Fundamentals\". Aligned to Module 02 - Lesson 3: Encapsulation for practical lab and defensive analysis.",
+          "youtubeVideoId": "YJGGYKAV4pA",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Practical Networking",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -724,7 +724,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 02 - Lesson 3: Encapsulation), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 02 - Lesson 3: Encapsulation), follow along with Practical Networking (\"How Data moves through the Internet - Networking Fundamentals\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 01 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -789,10 +789,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0002-4000-8000-000000000004",
           "slug": "m02-l4-security-by-layer",
           "title": "Module 02 - Lesson 4: Security by layer",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 02 - Lesson 4: Security by layer. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "0aGqGKrRE0g",
+          "description": "Video lesson presented by Professor Messer: \"Understanding the OSI Model - CompTIA Network+ N10-009 - 1.1\". Aligned to Module 02 - Lesson 4: Security by layer for practical lab and defensive analysis.",
+          "youtubeVideoId": "AYgXr1dynKU",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Professor Messer",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -816,7 +816,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 02 - Lesson 4: Security by layer), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 02 - Lesson 4: Security by layer), follow along with Professor Messer (\"Understanding the OSI Model - CompTIA Network+ N10-009 - 1.1\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 01 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -960,10 +960,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0003-4000-8000-000000000001",
           "slug": "m03-l1-physical-interfaces",
           "title": "Module 03 - Lesson 1: Physical interfaces",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 03 - Lesson 1: Physical interfaces. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "u2n762WG0Vo",
+          "description": "Video lesson presented by Jeremy's IT Lab: \"Free CCNA | Interfaces and Cables | Day 2 | CCNA 200-301 Complete Course\". Aligned to Module 03 - Lesson 1: Physical interfaces for practical lab and defensive analysis.",
+          "youtubeVideoId": "ieTH5lVhNaY",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Jeremy's IT Lab",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -987,7 +987,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 03 - Lesson 1: Physical interfaces), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 03 - Lesson 1: Physical interfaces), follow along with Jeremy's IT Lab (\"Free CCNA | Interfaces and Cables | Day 2 | CCNA 200-301 Complete Course\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 02 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -1048,10 +1048,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0003-4000-8000-000000000002",
           "slug": "m03-l2-ethernet-headers",
           "title": "Module 03 - Lesson 2: Ethernet headers",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 03 - Lesson 2: Ethernet headers. Practice the concepts in your isolated lab environment.",
+          "description": "Video lesson presented by Practical Networking: \"Everything Switches do - Part 1 - Networking Fundamentals - Lesson 4\". Aligned to Module 03 - Lesson 2: Ethernet headers for practical lab and defensive analysis.",
           "youtubeVideoId": "AhOU2eOpmX0",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Practical Networking",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -1075,7 +1075,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 03 - Lesson 2: Ethernet headers), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 03 - Lesson 2: Ethernet headers), follow along with Practical Networking (\"Everything Switches do - Part 1 - Networking Fundamentals - Lesson 4\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 02 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -1136,10 +1136,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0003-4000-8000-000000000003",
           "slug": "m03-l3-switching-behavior",
           "title": "Module 03 - Lesson 3: Switching behavior",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 03 - Lesson 3: Switching behavior. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "G7GyWjJtjNs",
+          "description": "Video lesson presented by Jeremy's IT Lab: \"Free CCNA | Ethernet LAN Switching (Part 1) | Day 5 | CCNA 200-301 Complete Course\". Aligned to Module 03 - Lesson 3: Switching behavior for practical lab and defensive analysis.",
+          "youtubeVideoId": "u2n762WG0Vo",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Jeremy's IT Lab",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -1163,7 +1163,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 03 - Lesson 3: Switching behavior), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 03 - Lesson 3: Switching behavior), follow along with Jeremy's IT Lab (\"Free CCNA | Ethernet LAN Switching (Part 1) | Day 5 | CCNA 200-301 Complete Course\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 02 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -1224,10 +1224,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0003-4000-8000-000000000004",
           "slug": "m03-l4-layer-2-threats",
           "title": "Module 03 - Lesson 4: Layer-2 threats",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 03 - Lesson 4: Layer-2 threats. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "u2n762WG0Vo",
+          "description": "Video lesson presented by Professor Messer: \"MAC Flooding - CompTIA Network+ N10-009 - 4.2\". Aligned to Module 03 - Lesson 4: Layer-2 threats for practical lab and defensive analysis.",
+          "youtubeVideoId": "ttLNYwt-aq0",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Professor Messer",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -1251,7 +1251,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 03 - Lesson 4: Layer-2 threats), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 03 - Lesson 4: Layer-2 threats), follow along with Professor Messer (\"MAC Flooding - CompTIA Network+ N10-009 - 4.2\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 02 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -1391,10 +1391,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0004-4000-8000-000000000001",
           "slug": "m04-l1-binary-and-dotted-decimal",
           "title": "Module 04 - Lesson 1: Binary and dotted decimal",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 04 - Lesson 1: Binary and dotted decimal. Practice the concepts in your isolated lab environment.",
+          "description": "Video lesson presented by Jeremy's IT Lab: \"Free CCNA | IPv4 Addressing (Part 1) | Day 7 | CCNA 200-301 Complete Course\". Aligned to Module 04 - Lesson 1: Binary and dotted decimal for practical lab and defensive analysis.",
           "youtubeVideoId": "3ROdsfEUuhs",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Jeremy's IT Lab",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -1418,7 +1418,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 04 - Lesson 1: Binary and dotted decimal), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 04 - Lesson 1: Binary and dotted decimal), follow along with Jeremy's IT Lab (\"Free CCNA | IPv4 Addressing (Part 1) | Day 7 | CCNA 200-301 Complete Course\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 03 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -1483,10 +1483,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0004-4000-8000-000000000002",
           "slug": "m04-l2-ipv4-address-categories",
           "title": "Module 04 - Lesson 2: IPv4 address categories",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 04 - Lesson 2: IPv4 address categories. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "aQB22y4liXA",
+          "description": "Video lesson presented by Professor Messer: \"IPv4 Addressing - CompTIA Network+ N10-009 - 1.7\". Aligned to Module 04 - Lesson 2: IPv4 address categories for practical lab and defensive analysis.",
+          "youtubeVideoId": "JNNcyZ_VE2A",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Professor Messer",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -1510,7 +1510,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 04 - Lesson 2: IPv4 address categories), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 04 - Lesson 2: IPv4 address categories), follow along with Professor Messer (\"IPv4 Addressing - CompTIA Network+ N10-009 - 1.7\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 03 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -1575,10 +1575,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0004-4000-8000-000000000003",
           "slug": "m04-l3-ip-headers",
           "title": "Module 04 - Lesson 3: IP headers",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 04 - Lesson 3: IP headers. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "3ROdsfEUuhs",
+          "description": "Video lesson presented by Jeremy's IT Lab: \"Free CCNA | IPv4 Header | Day 10 | CCNA 200-301 Complete Course\". Aligned to Module 04 - Lesson 3: IP headers for practical lab and defensive analysis.",
+          "youtubeVideoId": "aQB22y4liXA",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Jeremy's IT Lab",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -1602,7 +1602,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 04 - Lesson 3: IP headers), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 04 - Lesson 3: IP headers), follow along with Jeremy's IT Lab (\"Free CCNA | IPv4 Header | Day 10 | CCNA 200-301 Complete Course\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 03 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -1667,10 +1667,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0004-4000-8000-000000000004",
           "slug": "m04-l4-host-addressing",
           "title": "Module 04 - Lesson 4: Host addressing",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 04 - Lesson 4: Host addressing. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "aQB22y4liXA",
+          "description": "Video lesson presented by Jeremy's IT Lab: \"Free CCNA | Configuring IP Addresses | Day 8 Lab | CCNA 200-301 Complete Course\". Aligned to Module 04 - Lesson 4: Host addressing for practical lab and defensive analysis.",
+          "youtubeVideoId": "e1jbvyMeS5I",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Jeremy's IT Lab",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -1694,7 +1694,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 04 - Lesson 4: Host addressing), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 04 - Lesson 4: Host addressing), follow along with Jeremy's IT Lab (\"Free CCNA | Configuring IP Addresses | Day 8 Lab | CCNA 200-301 Complete Course\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 03 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -1838,10 +1838,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0005-4000-8000-000000000001",
           "slug": "m05-l1-network-prefix",
           "title": "Module 05 - Lesson 1: Network prefix",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 05 - Lesson 1: Network prefix. Practice the concepts in your isolated lab environment.",
+          "description": "Video lesson presented by Jeremy's IT Lab: \"Free CCNA | Subnetting (Part 1) | Day 13 | CCNA 200-301 Complete Course\". Aligned to Module 05 - Lesson 1: Network prefix for practical lab and defensive analysis.",
           "youtubeVideoId": "bQ8sdpGQu8c",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Jeremy's IT Lab",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -1865,7 +1865,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 05 - Lesson 1: Network prefix), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 05 - Lesson 1: Network prefix), follow along with Jeremy's IT Lab (\"Free CCNA | Subnetting (Part 1) | Day 13 | CCNA 200-301 Complete Course\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 04 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -1926,10 +1926,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0005-4000-8000-000000000002",
           "slug": "m05-l2-subnet-math",
           "title": "Module 05 - Lesson 2: Subnet math",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 05 - Lesson 2: Subnet math. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "3ROdsfEUuhs",
+          "description": "Video lesson presented by Professor Messer: \"Calculating IPv4 Subnets and Hosts - CompTIA Network+ N10-009 - 1.7\". Aligned to Module 05 - Lesson 2: Subnet math for practical lab and defensive analysis.",
+          "youtubeVideoId": "cYQOMifDlKI",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Professor Messer",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -1953,7 +1953,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 05 - Lesson 2: Subnet math), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 05 - Lesson 2: Subnet math), follow along with Professor Messer (\"Calculating IPv4 Subnets and Hosts - CompTIA Network+ N10-009 - 1.7\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 04 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -2014,10 +2014,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0005-4000-8000-000000000003",
           "slug": "m05-l3-vlsm-design",
           "title": "Module 05 - Lesson 3: VLSM design",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 05 - Lesson 3: VLSM design. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "bQ8sdpGQu8c",
+          "description": "Video lesson presented by Professor Messer: \"Magic Number Subnetting - CompTIA Network+ N10-009 - 1.7\". Aligned to Module 05 - Lesson 3: VLSM design for practical lab and defensive analysis.",
+          "youtubeVideoId": "P1ROXMLjL04",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Professor Messer",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -2041,7 +2041,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 05 - Lesson 3: VLSM design), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 05 - Lesson 3: VLSM design), follow along with Professor Messer (\"Magic Number Subnetting - CompTIA Network+ N10-009 - 1.7\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 04 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -2102,10 +2102,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0005-4000-8000-000000000004",
           "slug": "m05-l4-security-use-cases",
           "title": "Module 05 - Lesson 4: Security use cases",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 05 - Lesson 4: Security use cases. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "3ROdsfEUuhs",
+          "description": "Video lesson presented by Professor Messer: \"IPv4 Subnet Masks - CompTIA Network+ N10-009 - 1.7\". Aligned to Module 05 - Lesson 4: Security use cases for practical lab and defensive analysis.",
+          "youtubeVideoId": "p5NJ5Jt6oJo",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Professor Messer",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -2129,7 +2129,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 05 - Lesson 4: Security use cases), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 05 - Lesson 4: Security use cases), follow along with Professor Messer (\"IPv4 Subnet Masks - CompTIA Network+ N10-009 - 1.7\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 04 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -2269,10 +2269,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0006-4000-8000-000000000001",
           "slug": "m06-l1-arp-resolution",
           "title": "Module 06 - Lesson 1: ARP resolution",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 06 - Lesson 1: ARP resolution. Practice the concepts in your isolated lab environment.",
+          "description": "Video lesson presented by Practical Networking: \"Everything Hosts do to speak on the Internet - Part 1 - Lesson 3\". Aligned to Module 06 - Lesson 1: ARP resolution for practical lab and defensive analysis.",
           "youtubeVideoId": "gYN2qN11-wE",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Practical Networking",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -2296,7 +2296,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 06 - Lesson 1: ARP resolution), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 06 - Lesson 1: ARP resolution), follow along with Practical Networking (\"Everything Hosts do to speak on the Internet - Part 1 - Lesson 3\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 05 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -2357,10 +2357,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0006-4000-8000-000000000002",
           "slug": "m06-l2-icmp-messages",
           "title": "Module 06 - Lesson 2: ICMP messages",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 06 - Lesson 2: ICMP messages. Practice the concepts in your isolated lab environment.",
+          "description": "Video lesson presented by Practical Networking: \"Everything Hosts do to speak on the Internet - Part 2 - Lesson 3\". Aligned to Module 06 - Lesson 2: ICMP messages for practical lab and defensive analysis.",
           "youtubeVideoId": "JI9Zm2tbUoE",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Practical Networking",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -2384,7 +2384,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 06 - Lesson 2: ICMP messages), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 06 - Lesson 2: ICMP messages), follow along with Practical Networking (\"Everything Hosts do to speak on the Internet - Part 2 - Lesson 3\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 05 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -2445,10 +2445,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0006-4000-8000-000000000003",
           "slug": "m06-l3-routing-path-discovery",
           "title": "Module 06 - Lesson 3: Routing path discovery",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 06 - Lesson 3: Routing path discovery. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "gYN2qN11-wE",
+          "description": "Video lesson presented by Network Direction: \"What ARP does | Network Fundamentals Part 15\". Aligned to Module 06 - Lesson 3: Routing path discovery for practical lab and defensive analysis.",
+          "youtubeVideoId": "98CAjGW0lzk",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Network Direction",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -2472,7 +2472,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 06 - Lesson 3: Routing path discovery), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 06 - Lesson 3: Routing path discovery), follow along with Network Direction (\"What ARP does | Network Fundamentals Part 15\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 05 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -2533,10 +2533,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0006-4000-8000-000000000004",
           "slug": "m06-l4-detection-interpretation",
           "title": "Module 06 - Lesson 4: Detection interpretation",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 06 - Lesson 4: Detection interpretation. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "JI9Zm2tbUoE",
+          "description": "Video lesson presented by Professor Messer: \"ARP and DNS Poisoning - CompTIA Network+ N10-009 - 4.2\". Aligned to Module 06 - Lesson 4: Detection interpretation for practical lab and defensive analysis.",
+          "youtubeVideoId": "2QijB5GtNE4",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Professor Messer",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -2560,7 +2560,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 06 - Lesson 4: Detection interpretation), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 06 - Lesson 4: Detection interpretation), follow along with Professor Messer (\"ARP and DNS Poisoning - CompTIA Network+ N10-009 - 4.2\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 05 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -2700,10 +2700,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0007-4000-8000-000000000001",
           "slug": "m07-l1-broadcast-domains",
           "title": "Module 07 - Lesson 1: Broadcast domains",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 07 - Lesson 1: Broadcast domains. Practice the concepts in your isolated lab environment.",
+          "description": "Video lesson presented by Jeremy's IT Lab: \"Free CCNA | VLANs (Part 1) | Day 16 | CCNA 200-301 Complete Course\". Aligned to Module 07 - Lesson 1: Broadcast domains for practical lab and defensive analysis.",
           "youtubeVideoId": "cjFzOnm6u1g",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Jeremy's IT Lab",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -2727,7 +2727,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 07 - Lesson 1: Broadcast domains), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 07 - Lesson 1: Broadcast domains), follow along with Jeremy's IT Lab (\"Free CCNA | VLANs (Part 1) | Day 16 | CCNA 200-301 Complete Course\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 06 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -2784,10 +2784,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0007-4000-8000-000000000002",
           "slug": "m07-l2-access-trunk-ports",
           "title": "Module 07 - Lesson 2: Access/trunk ports",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 07 - Lesson 2: Access/trunk ports. Practice the concepts in your isolated lab environment.",
+          "description": "Video lesson presented by Practical Networking: \"Everything Switches do - Part 2 - Networking Fundamentals - Lesson 4\". Aligned to Module 07 - Lesson 2: Access/trunk ports for practical lab and defensive analysis.",
           "youtubeVideoId": "G7GyWjJtjNs",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Practical Networking",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -2811,7 +2811,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 07 - Lesson 2: Access/trunk ports), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 07 - Lesson 2: Access/trunk ports), follow along with Practical Networking (\"Everything Switches do - Part 2 - Networking Fundamentals - Lesson 4\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 06 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -2868,10 +2868,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0007-4000-8000-000000000003",
           "slug": "m07-l3-inter-vlan-routing",
           "title": "Module 07 - Lesson 3: Inter-VLAN routing",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 07 - Lesson 3: Inter-VLAN routing. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "cjFzOnm6u1g",
+          "description": "Video lesson presented by Professor Messer: \"VLANs and Trunking - CompTIA Network+ N10-009 - 2.2\". Aligned to Module 07 - Lesson 3: Inter-VLAN routing for practical lab and defensive analysis.",
+          "youtubeVideoId": "ATbzbST_OIw",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Professor Messer",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -2895,7 +2895,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 07 - Lesson 3: Inter-VLAN routing), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 07 - Lesson 3: Inter-VLAN routing), follow along with Professor Messer (\"VLANs and Trunking - CompTIA Network+ N10-009 - 2.2\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 06 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -2952,10 +2952,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0007-4000-8000-000000000004",
           "slug": "m07-l4-security-controls",
           "title": "Module 07 - Lesson 4: Security controls",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 07 - Lesson 4: Security controls. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "G7GyWjJtjNs",
+          "description": "Video lesson presented by NetworkChuck: \"you NEED to learn Port Security .RIGHT NOW!! // FREE CCNA // EP 14\". Aligned to Module 07 - Lesson 4: Security controls for practical lab and defensive analysis.",
+          "youtubeVideoId": "0W4JZIWtjLQ",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "NetworkChuck",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -2979,7 +2979,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 07 - Lesson 4: Security controls), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 07 - Lesson 4: Security controls), follow along with NetworkChuck (\"you NEED to learn Port Security .RIGHT NOW!! // FREE CCNA // EP 14\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 06 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -3115,10 +3115,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0008-4000-8000-000000000001",
           "slug": "m08-l1-forwarding-logic",
           "title": "Module 08 - Lesson 1: Forwarding logic",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 08 - Lesson 1: Forwarding logic. Practice the concepts in your isolated lab environment.",
+          "description": "Video lesson presented by Practical Networking: \"Everything Routers do - Part 1 - Networking Fundamentals - Lesson 5\". Aligned to Module 08 - Lesson 1: Forwarding logic for practical lab and defensive analysis.",
           "youtubeVideoId": "AzXys5kxpAM",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Practical Networking",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -3142,7 +3142,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 08 - Lesson 1: Forwarding logic), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 08 - Lesson 1: Forwarding logic), follow along with Practical Networking (\"Everything Routers do - Part 1 - Networking Fundamentals - Lesson 5\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 07 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -3199,10 +3199,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0008-4000-8000-000000000002",
           "slug": "m08-l2-default-gateways",
           "title": "Module 08 - Lesson 2: Default gateways",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 08 - Lesson 2: Default gateways. Practice the concepts in your isolated lab environment.",
+          "description": "Video lesson presented by Practical Networking: \"Everything Routers do - Part 2 - How Routers forward Packets - Networking Fundamentals - Lesson 5\". Aligned to Module 08 - Lesson 2: Default gateways for practical lab and defensive analysis.",
           "youtubeVideoId": "Ep-x_6kggKA",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Practical Networking",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -3226,7 +3226,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 08 - Lesson 2: Default gateways), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 08 - Lesson 2: Default gateways), follow along with Practical Networking (\"Everything Routers do - Part 2 - How Routers forward Packets - Networking Fundamentals - Lesson 5\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 07 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -3283,10 +3283,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0008-4000-8000-000000000003",
           "slug": "m08-l3-static-routes",
           "title": "Module 08 - Lesson 3: Static routes",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 08 - Lesson 3: Static routes. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "aHwAm8GYbn8",
+          "description": "Video lesson presented by Network Direction: \"Static route configuration | Network Fundamentals Part 18\". Aligned to Module 08 - Lesson 3: Static routes for practical lab and defensive analysis.",
+          "youtubeVideoId": "cupc6Helc6Y",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Network Direction",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -3310,7 +3310,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 08 - Lesson 3: Static routes), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 08 - Lesson 3: Static routes), follow along with Network Direction (\"Static route configuration | Network Fundamentals Part 18\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 07 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -3367,10 +3367,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0008-4000-8000-000000000004",
           "slug": "m08-l4-security-telemetry",
           "title": "Module 08 - Lesson 4: Security telemetry",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 08 - Lesson 4: Security telemetry. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "AzXys5kxpAM",
+          "description": "Video lesson presented by Professor Messer: \"Static Routing - CompTIA Network+ N10-009 - 2.1\". Aligned to Module 08 - Lesson 4: Security telemetry for practical lab and defensive analysis.",
+          "youtubeVideoId": "23a6_qexTvs",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Professor Messer",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -3394,7 +3394,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 08 - Lesson 4: Security telemetry), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 08 - Lesson 4: Security telemetry), follow along with Professor Messer (\"Static Routing - CompTIA Network+ N10-009 - 2.1\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 07 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -3530,10 +3530,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0009-4000-8000-000000000001",
           "slug": "m09-l1-route-advertisement",
           "title": "Module 09 - Lesson 1: Route advertisement",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 09 - Lesson 1: Route advertisement. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "pvuaoJ9YzoI",
+          "description": "Video lesson presented by Practical Networking: \"Router Hierarchies and Route Summarization - Networking Fundamentals - Lesson 5 - Part 3\". Aligned to Module 09 - Lesson 1: Route advertisement for practical lab and defensive analysis.",
+          "youtubeVideoId": "zmxLg4jV0ts",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Practical Networking",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -3557,7 +3557,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 09 - Lesson 1: Route advertisement), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 09 - Lesson 1: Route advertisement), follow along with Practical Networking (\"Router Hierarchies and Route Summarization - Networking Fundamentals - Lesson 5 - Part 3\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 08 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -3618,10 +3618,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0009-4000-8000-000000000002",
           "slug": "m09-l2-ospf-mechanics",
           "title": "Module 09 - Lesson 2: OSPF mechanics",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 09 - Lesson 2: OSPF mechanics. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "zmxLg4jV0ts",
+          "description": "Video lesson presented by Jeremy's IT Lab: \"Free CCNA | OSPF Part 1 | Day 26 | CCNA 200-301 Complete Course\". Aligned to Module 09 - Lesson 2: OSPF mechanics for practical lab and defensive analysis.",
+          "youtubeVideoId": "pvuaoJ9YzoI",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Jeremy's IT Lab",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -3645,7 +3645,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 09 - Lesson 2: OSPF mechanics), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 09 - Lesson 2: OSPF mechanics), follow along with Jeremy's IT Lab (\"Free CCNA | OSPF Part 1 | Day 26 | CCNA 200-301 Complete Course\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 08 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -3706,10 +3706,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0009-4000-8000-000000000003",
           "slug": "m09-l3-routing-integrity",
           "title": "Module 09 - Lesson 3: Routing integrity",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 09 - Lesson 3: Routing integrity. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "pvuaoJ9YzoI",
+          "description": "Video lesson presented by Professor Messer: \"Dynamic Routing - CompTIA Network+ N10-009 - 2.1\". Aligned to Module 09 - Lesson 3: Routing integrity for practical lab and defensive analysis.",
+          "youtubeVideoId": "YRZxshxI1xs",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Professor Messer",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -3733,7 +3733,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 09 - Lesson 3: Routing integrity), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 09 - Lesson 3: Routing integrity), follow along with Professor Messer (\"Dynamic Routing - CompTIA Network+ N10-009 - 2.1\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 08 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -3794,10 +3794,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0009-4000-8000-000000000004",
           "slug": "m09-l4-soc-observables",
           "title": "Module 09 - Lesson 4: SOC observables",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 09 - Lesson 4: SOC observables. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "zmxLg4jV0ts",
+          "description": "Video lesson presented by Network Direction: \"Routing Protocols and Traffic Forwarding | Network Fundamentals Part 19\". Aligned to Module 09 - Lesson 4: SOC observables for practical lab and defensive analysis.",
+          "youtubeVideoId": "q7SMM57Dz4I",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Network Direction",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -3821,7 +3821,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 09 - Lesson 4: SOC observables), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 09 - Lesson 4: SOC observables), follow along with Network Direction (\"Routing Protocols and Traffic Forwarding | Network Fundamentals Part 19\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 08 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -3961,10 +3961,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000a-4000-8000-000000000001",
           "slug": "m10-l1-tcp-handshake",
           "title": "Module 10 - Lesson 1: TCP handshake",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 10 - Lesson 1: TCP handshake. Practice the concepts in your isolated lab environment.",
+          "description": "Video lesson presented by David Bombal: \"How TCP really works // Three-way handshake // TCP/IP Deep Dive\". Aligned to Module 10 - Lesson 1: TCP handshake for practical lab and defensive analysis.",
           "youtubeVideoId": "rmFX1V49K8U",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "David Bombal",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -3988,7 +3988,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 10 - Lesson 1: TCP handshake), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 10 - Lesson 1: TCP handshake), follow along with David Bombal (\"How TCP really works // Three-way handshake // TCP/IP Deep Dive\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 09 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -4049,10 +4049,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000a-4000-8000-000000000002",
           "slug": "m10-l2-tcp-flags",
           "title": "Module 10 - Lesson 2: TCP flags",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 10 - Lesson 2: TCP flags. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "LIEACBqlntY",
+          "description": "Video lesson presented by Packet Pulse - IT: \"TCP - Three-way Handshake in detail - Full Wireshark Breakdown!\". Aligned to Module 10 - Lesson 2: TCP flags for practical lab and defensive analysis.",
+          "youtubeVideoId": "3NiFBYIvLKg",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Packet Pulse - IT",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -4076,7 +4076,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 10 - Lesson 2: TCP flags), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 10 - Lesson 2: TCP flags), follow along with Packet Pulse - IT (\"TCP - Three-way Handshake in detail - Full Wireshark Breakdown!\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 09 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -4137,10 +4137,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000a-4000-8000-000000000003",
           "slug": "m10-l3-reliability",
           "title": "Module 10 - Lesson 3: Reliability",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 10 - Lesson 3: Reliability. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "rmFX1V49K8U",
+          "description": "Video lesson presented by Network Direction: \"Establishing Connections With TCP's Three Way Handshake | Network Fundamentals Part 8\". Aligned to Module 10 - Lesson 3: Reliability for practical lab and defensive analysis.",
+          "youtubeVideoId": "fQC4v07gs5k",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Network Direction",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -4164,7 +4164,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 10 - Lesson 3: Reliability), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 10 - Lesson 3: Reliability), follow along with Network Direction (\"Establishing Connections With TCP's Three Way Handshake | Network Fundamentals Part 8\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 09 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -4225,10 +4225,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000a-4000-8000-000000000004",
           "slug": "m10-l4-detection-implications",
           "title": "Module 10 - Lesson 4: Detection implications",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 10 - Lesson 4: Detection implications. Practice the concepts in your isolated lab environment.",
+          "description": "Video lesson presented by Jeremy's IT Lab: \"Free CCNA | TCP & UDP | Day 30 | CCNA 200-301 Complete Course\". Aligned to Module 10 - Lesson 4: Detection implications for practical lab and defensive analysis.",
           "youtubeVideoId": "LIEACBqlntY",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Jeremy's IT Lab",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -4252,7 +4252,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 10 - Lesson 4: Detection implications), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 10 - Lesson 4: Detection implications), follow along with Jeremy's IT Lab (\"Free CCNA | TCP & UDP | Day 30 | CCNA 200-301 Complete Course\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 09 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -4392,10 +4392,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000b-4000-8000-000000000001",
           "slug": "m11-l1-tcp-versus-udp",
           "title": "Module 11 - Lesson 1: TCP versus UDP",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 11 - Lesson 1: TCP versus UDP. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "LIEACBqlntY",
+          "description": "Video lesson presented by Chris Greer: \"How TCP RETRANSMISSIONS Work // Analyzing Packet Loss\". Aligned to Module 11 - Lesson 1: TCP versus UDP for practical lab and defensive analysis.",
+          "youtubeVideoId": "HTQLipAG27I",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Chris Greer",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -4419,7 +4419,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 11 - Lesson 1: TCP versus UDP), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 11 - Lesson 1: TCP versus UDP), follow along with Chris Greer (\"How TCP RETRANSMISSIONS Work // Analyzing Packet Loss\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 10 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -4484,10 +4484,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000b-4000-8000-000000000002",
           "slug": "m11-l2-port-ranges",
           "title": "Module 11 - Lesson 2: Port ranges",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 11 - Lesson 2: Port ranges. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "Xgwph7kERps",
+          "description": "Video lesson presented by Network Direction: \"How TCP Handles Errors And Uses Windows | Network Fundamentals Part 9\". Aligned to Module 11 - Lesson 2: Port ranges for practical lab and defensive analysis.",
+          "youtubeVideoId": "NaEHwrRHfqk",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Network Direction",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -4511,7 +4511,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 11 - Lesson 2: Port ranges), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 11 - Lesson 2: Port ranges), follow along with Network Direction (\"How TCP Handles Errors And Uses Windows | Network Fundamentals Part 9\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 10 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -4576,10 +4576,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000b-4000-8000-000000000003",
           "slug": "m11-l3-sockets-and-services",
           "title": "Module 11 - Lesson 3: Sockets and services",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 11 - Lesson 3: Sockets and services. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "LIEACBqlntY",
+          "description": "Video lesson presented by Jeremy's IT Lab: \"Free CCNA | Wireshark Demo (TCP/UDP) | Day 30 Lab | CCNA 200-301 Complete Course\". Aligned to Module 11 - Lesson 3: Sockets and services for practical lab and defensive analysis.",
+          "youtubeVideoId": "pJKFahkqMU8",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Jeremy's IT Lab",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -4603,7 +4603,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 11 - Lesson 3: Sockets and services), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 11 - Lesson 3: Sockets and services), follow along with Jeremy's IT Lab (\"Free CCNA | Wireshark Demo (TCP/UDP) | Day 30 Lab | CCNA 200-301 Complete Course\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 10 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -4668,10 +4668,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000b-4000-8000-000000000004",
           "slug": "m11-l4-suspicious-services",
           "title": "Module 11 - Lesson 4: Suspicious services",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 11 - Lesson 4: Suspicious services. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "Xgwph7kERps",
+          "description": "Video lesson presented by Netsec Explained: \"Advanced Wireshark Network Forensics Part 3/3\". Aligned to Module 11 - Lesson 4: Suspicious services for practical lab and defensive analysis.",
+          "youtubeVideoId": "HR_sLcW4xz0",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Netsec Explained",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -4695,7 +4695,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 11 - Lesson 4: Suspicious services), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 11 - Lesson 4: Suspicious services), follow along with Netsec Explained (\"Advanced Wireshark Network Forensics Part 3/3\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 10 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -4839,10 +4839,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000c-4000-8000-000000000001",
           "slug": "m12-l1-resolver-workflow",
           "title": "Module 12 - Lesson 1: Resolver workflow",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 12 - Lesson 1: Resolver workflow. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "4C6eeQes4cs",
+          "description": "Video lesson presented by Network Direction: \"How TCP and UDP Work | Network Fundamentals Part 7\". Aligned to Module 12 - Lesson 1: Resolver workflow for practical lab and defensive analysis.",
+          "youtubeVideoId": "FfvUxw8DHb0",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Network Direction",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -4866,7 +4866,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 12 - Lesson 1: Resolver workflow), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 12 - Lesson 1: Resolver workflow), follow along with Network Direction (\"How TCP and UDP Work | Network Fundamentals Part 7\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 11 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -4931,10 +4931,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000c-4000-8000-000000000002",
           "slug": "m12-l2-dns-records",
           "title": "Module 12 - Lesson 2: DNS records",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 12 - Lesson 2: DNS records. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "3FPaTvCJojQ",
+          "description": "Video lesson presented by Chris Greer: \"Your First DNS Lookup Captured and Explained\". Aligned to Module 12 - Lesson 2: DNS records for practical lab and defensive analysis.",
+          "youtubeVideoId": "fRRR0sU0BnY",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Chris Greer",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -4958,7 +4958,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 12 - Lesson 2: DNS records), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 12 - Lesson 2: DNS records), follow along with Chris Greer (\"Your First DNS Lookup Captured and Explained\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 11 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -5023,10 +5023,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000c-4000-8000-000000000003",
           "slug": "m12-l3-dns-traffic",
           "title": "Module 12 - Lesson 3: DNS traffic",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 12 - Lesson 3: DNS traffic. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "4C6eeQes4cs",
+          "description": "Video lesson presented by Professor Messer: \"Common Ports - CompTIA Network+ N10-009 - 1.4\". Aligned to Module 12 - Lesson 3: DNS traffic for practical lab and defensive analysis.",
+          "youtubeVideoId": "jX1pobYmZdE",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Professor Messer",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -5050,7 +5050,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 12 - Lesson 3: DNS traffic), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 12 - Lesson 3: DNS traffic), follow along with Professor Messer (\"Common Ports - CompTIA Network+ N10-009 - 1.4\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 11 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -5115,10 +5115,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000c-4000-8000-000000000004",
           "slug": "m12-l4-security-cases",
           "title": "Module 12 - Lesson 4: Security cases",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 12 - Lesson 4: Security cases. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "3FPaTvCJojQ",
+          "description": "Video lesson presented by David Bombal: \"Never use TFTP or FTP! (Cleartext Protocol Forensics)\". Aligned to Module 12 - Lesson 4: Security cases for practical lab and defensive analysis.",
+          "youtubeVideoId": "PoaOgBmWJQY",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "David Bombal",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -5142,7 +5142,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 12 - Lesson 4: Security cases), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 12 - Lesson 4: Security cases), follow along with David Bombal (\"Never use TFTP or FTP! (Cleartext Protocol Forensics)\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 11 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -5286,10 +5286,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000d-4000-8000-000000000001",
           "slug": "m13-l1-dhcp-dora",
           "title": "Module 13 - Lesson 1: DHCP DORA",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 13 - Lesson 1: DHCP DORA. Practice the concepts in your isolated lab environment.",
+          "description": "Video lesson presented by Jeremy's IT Lab: \"Free CCNA | DHCP | Day 39 | CCNA 200-301 Complete Course\". Aligned to Module 13 - Lesson 1: DHCP DORA for practical lab and defensive analysis.",
           "youtubeVideoId": "hzkleGAC2_Y",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Jeremy's IT Lab",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -5313,7 +5313,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 13 - Lesson 1: DHCP DORA), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 13 - Lesson 1: DHCP DORA), follow along with Jeremy's IT Lab (\"Free CCNA | DHCP | Day 39 | CCNA 200-301 Complete Course\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 12 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -5374,10 +5374,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000d-4000-8000-000000000002",
           "slug": "m13-l2-dhcp-leases",
           "title": "Module 13 - Lesson 2: DHCP leases",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 13 - Lesson 2: DHCP leases. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "cgMsoIQB9Wk",
+          "description": "Video lesson presented by Professor Messer: \"DHCP - CompTIA Network+ N10-009 - 3.4\". Aligned to Module 13 - Lesson 2: DHCP leases for practical lab and defensive analysis.",
+          "youtubeVideoId": "b7fiXM3vO18",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Professor Messer",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -5401,7 +5401,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 13 - Lesson 2: DHCP leases), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 13 - Lesson 2: DHCP leases), follow along with Professor Messer (\"DHCP - CompTIA Network+ N10-009 - 3.4\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 12 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -5462,10 +5462,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000d-4000-8000-000000000003",
           "slug": "m13-l3-rogue-configuration-indicators",
           "title": "Module 13 - Lesson 3: Rogue configuration indicators",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 13 - Lesson 3: Rogue configuration indicators. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "hzkleGAC2_Y",
+          "description": "Video lesson presented by Jeremy's IT Lab: \"Free CCNA | NTP | Day 37 | CCNA 200-301 Complete Course\". Aligned to Module 13 - Lesson 3: Rogue configuration indicators for practical lab and defensive analysis.",
+          "youtubeVideoId": "qGJaJx7OfUo",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Jeremy's IT Lab",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -5489,7 +5489,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 13 - Lesson 3: Rogue configuration indicators), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 13 - Lesson 3: Rogue configuration indicators), follow along with Jeremy's IT Lab (\"Free CCNA | NTP | Day 37 | CCNA 200-301 Complete Course\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 12 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -5550,10 +5550,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000d-4000-8000-000000000004",
           "slug": "m13-l4-ntp-and-timestamp-integrity",
           "title": "Module 13 - Lesson 4: NTP and timestamp integrity",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 13 - Lesson 4: NTP and timestamp integrity. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "cgMsoIQB9Wk",
+          "description": "Video lesson presented by Network Direction: \"Does Network Time Really Matter? | Network Fundamentals Part 22\". Aligned to Module 13 - Lesson 4: NTP and timestamp integrity for practical lab and defensive analysis.",
+          "youtubeVideoId": "tgJwQA8iFUk",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Network Direction",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -5577,7 +5577,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 13 - Lesson 4: NTP and timestamp integrity), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 13 - Lesson 4: NTP and timestamp integrity), follow along with Network Direction (\"Does Network Time Really Matter? | Network Fundamentals Part 22\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 12 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -5717,10 +5717,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000e-4000-8000-000000000001",
           "slug": "m14-l1-http-conversation",
           "title": "Module 14 - Lesson 1: HTTP conversation",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 14 - Lesson 1: HTTP conversation. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "E5bSumTAHZE",
+          "description": "Video lesson presented by David Bombal: \"Why are you still using HTTP?\". Aligned to Module 14 - Lesson 1: HTTP conversation for practical lab and defensive analysis.",
+          "youtubeVideoId": "LfZNhf2Yc8k",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "David Bombal",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -5744,7 +5744,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 14 - Lesson 1: HTTP conversation), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 14 - Lesson 1: HTTP conversation), follow along with David Bombal (\"Why are you still using HTTP?\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 13 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -5809,10 +5809,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000e-4000-8000-000000000002",
           "slug": "m14-l2-sessions-and-cookies",
           "title": "Module 14 - Lesson 2: Sessions and cookies",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 14 - Lesson 2: Sessions and cookies. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "ewtDKmovou4",
+          "description": "Video lesson presented by Practical Networking: \"Network Protocols - ARP, FTP, SMTP, HTTP, SSL, TLS, HTTPS, DNS, DHCP - Lesson 6\". Aligned to Module 14 - Lesson 2: Sessions and cookies for practical lab and defensive analysis.",
+          "youtubeVideoId": "E5bSumTAHZE",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Practical Networking",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -5836,7 +5836,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 14 - Lesson 2: Sessions and cookies), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 14 - Lesson 2: Sessions and cookies), follow along with Practical Networking (\"Network Protocols - ARP, FTP, SMTP, HTTP, SSL, TLS, HTTPS, DNS, DHCP - Lesson 6\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 13 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -5901,10 +5901,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000e-4000-8000-000000000003",
           "slug": "m14-l3-https-visibility",
           "title": "Module 14 - Lesson 3: HTTPS visibility",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 14 - Lesson 3: HTTPS visibility. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "E5bSumTAHZE",
+          "description": "Video lesson presented by Concepts & Tricks: \"Wireshark Tutorial: The Ultimate Beginner's Guide to Packet Analysis\". Aligned to Module 14 - Lesson 3: HTTPS visibility for practical lab and defensive analysis.",
+          "youtubeVideoId": "2SYknklVHqU",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Concepts & Tricks",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -5928,7 +5928,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 14 - Lesson 3: HTTPS visibility), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 14 - Lesson 3: HTTPS visibility), follow along with Concepts & Tricks (\"Wireshark Tutorial: The Ultimate Beginner's Guide to Packet Analysis\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 13 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -5993,10 +5993,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000e-4000-8000-000000000004",
           "slug": "m14-l4-proxy-interpretation",
           "title": "Module 14 - Lesson 4: Proxy interpretation",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 14 - Lesson 4: Proxy interpretation. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "ewtDKmovou4",
+          "description": "Video lesson presented by Professor Messer: \"Security Technologies - CompTIA Network+ N10-009 - 4.1\". Aligned to Module 14 - Lesson 4: Proxy interpretation for practical lab and defensive analysis.",
+          "youtubeVideoId": "qIQQKCv6P_s",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Professor Messer",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -6020,7 +6020,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 14 - Lesson 4: Proxy interpretation), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 14 - Lesson 4: Proxy interpretation), follow along with Professor Messer (\"Security Technologies - CompTIA Network+ N10-009 - 4.1\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 13 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -6164,10 +6164,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000f-4000-8000-000000000001",
           "slug": "m15-l1-tls-trust-model",
           "title": "Module 15 - Lesson 1: TLS trust model",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 15 - Lesson 1: TLS trust model. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "m3I-h9uSgj8",
+          "description": "Video lesson presented by Palo Alto Networks Unit 42: \"Unit 42 Wireshark Workshop Part 4: Non-Malicious Activity\". Aligned to Module 15 - Lesson 1: TLS trust model for practical lab and defensive analysis.",
+          "youtubeVideoId": "Bd67eKmOzJU",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Palo Alto Networks Unit 42",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -6191,7 +6191,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 15 - Lesson 1: TLS trust model), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 15 - Lesson 1: TLS trust model), follow along with Palo Alto Networks Unit 42 (\"Unit 42 Wireshark Workshop Part 4: Non-Malicious Activity\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 14 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -6256,10 +6256,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000f-4000-8000-000000000002",
           "slug": "m15-l2-tls-negotiation",
           "title": "Module 15 - Lesson 2: TLS negotiation",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 15 - Lesson 2: TLS negotiation. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "yodDbgoCnLM",
+          "description": "Video lesson presented by Professor Messer: \"Security Concepts - CompTIA Network+ N10-009 - 4.1\". Aligned to Module 15 - Lesson 2: TLS negotiation for practical lab and defensive analysis.",
+          "youtubeVideoId": "51W4Fhds7DQ",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Professor Messer",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -6283,7 +6283,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 15 - Lesson 2: TLS negotiation), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 15 - Lesson 2: TLS negotiation), follow along with Professor Messer (\"Security Concepts - CompTIA Network+ N10-009 - 4.1\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 14 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -6348,10 +6348,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000f-4000-8000-000000000003",
           "slug": "m15-l3-http-2-and-http-3",
           "title": "Module 15 - Lesson 3: HTTP/2 and HTTP/3",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 15 - Lesson 3: HTTP/2 and HTTP/3. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "m3I-h9uSgj8",
+          "description": "Video lesson presented by David Bombal: \"Never use Telnet\". Aligned to Module 15 - Lesson 3: HTTP/2 and HTTP/3 for practical lab and defensive analysis.",
+          "youtubeVideoId": "nGEKnYUEPcg",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "David Bombal",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -6375,7 +6375,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 15 - Lesson 3: HTTP/2 and HTTP/3), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 15 - Lesson 3: HTTP/2 and HTTP/3), follow along with David Bombal (\"Never use Telnet\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 14 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -6440,10 +6440,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000f-4000-8000-000000000004",
           "slug": "m15-l4-soc-troubleshooting",
           "title": "Module 15 - Lesson 4: SOC troubleshooting",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 15 - Lesson 4: SOC troubleshooting. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "yodDbgoCnLM",
+          "description": "Video lesson presented by Chris Greer: \"Let's FIX a BROKEN TLS Handshake // with Wireshark\". Aligned to Module 15 - Lesson 4: SOC troubleshooting for practical lab and defensive analysis.",
+          "youtubeVideoId": "m3I-h9uSgj8",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Chris Greer",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -6467,7 +6467,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 15 - Lesson 4: SOC troubleshooting), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 15 - Lesson 4: SOC troubleshooting), follow along with Chris Greer (\"Let's FIX a BROKEN TLS Handshake // with Wireshark\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 14 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -6611,10 +6611,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0010-4000-8000-000000000001",
           "slug": "m16-l1-private-addressing",
           "title": "Module 16 - Lesson 1: Private addressing",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 16 - Lesson 1: Private addressing. Practice the concepts in your isolated lab environment.",
+          "description": "Video lesson presented by Jeremy's IT Lab: \"Free CCNA | NAT (Part 1) | Day 44 | CCNA 200-301 Complete Course\". Aligned to Module 16 - Lesson 1: Private addressing for practical lab and defensive analysis.",
           "youtubeVideoId": "2TZCfTgopeg",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Jeremy's IT Lab",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -6638,7 +6638,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 16 - Lesson 1: Private addressing), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 16 - Lesson 1: Private addressing), follow along with Jeremy's IT Lab (\"Free CCNA | NAT (Part 1) | Day 44 | CCNA 200-301 Complete Course\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 15 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -6699,10 +6699,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0010-4000-8000-000000000002",
           "slug": "m16-l2-static-vs-dynamic-nat",
           "title": "Module 16 - Lesson 2: Static vs dynamic NAT",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 16 - Lesson 2: Static vs dynamic NAT. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "JI9Zm2tbUoE",
+          "description": "Video lesson presented by Jeremy's IT Lab: \"Free CCNA | Static NAT | Day 44 Lab | CCNA 200-301 Complete Course\". Aligned to Module 16 - Lesson 2: Static vs dynamic NAT for practical lab and defensive analysis.",
+          "youtubeVideoId": "vir6n_NVZFw",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Jeremy's IT Lab",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -6726,7 +6726,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 16 - Lesson 2: Static vs dynamic NAT), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 16 - Lesson 2: Static vs dynamic NAT), follow along with Jeremy's IT Lab (\"Free CCNA | Static NAT | Day 44 Lab | CCNA 200-301 Complete Course\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 15 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -6787,10 +6787,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0010-4000-8000-000000000003",
           "slug": "m16-l3-pat-and-port-mapping",
           "title": "Module 16 - Lesson 3: PAT and port mapping",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 16 - Lesson 3: PAT and port mapping. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "2TZCfTgopeg",
+          "description": "Video lesson presented by Jeremy's IT Lab: \"Free CCNA | NAT (part 2) | Day 45 | CCNA 200-301 Complete Course\". Aligned to Module 16 - Lesson 3: PAT and port mapping for practical lab and defensive analysis.",
+          "youtubeVideoId": "kILDNs4KjYE",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Jeremy's IT Lab",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -6814,7 +6814,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 16 - Lesson 3: PAT and port mapping), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 16 - Lesson 3: PAT and port mapping), follow along with Jeremy's IT Lab (\"Free CCNA | NAT (part 2) | Day 45 | CCNA 200-301 Complete Course\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 15 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -6875,10 +6875,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0010-4000-8000-000000000004",
           "slug": "m16-l4-soc-attribution",
           "title": "Module 16 - Lesson 4: SOC attribution",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 16 - Lesson 4: SOC attribution. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "JI9Zm2tbUoE",
+          "description": "Video lesson presented by Network Direction: \"How to Use NAT | Network Fundamentals (Part 21)\". Aligned to Module 16 - Lesson 4: SOC attribution for practical lab and defensive analysis.",
+          "youtubeVideoId": "n0UqAXu_GAI",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Network Direction",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -6902,7 +6902,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 16 - Lesson 4: SOC attribution), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 16 - Lesson 4: SOC attribution), follow along with Network Direction (\"How to Use NAT | Network Fundamentals (Part 21)\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 15 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -7042,10 +7042,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0011-4000-8000-000000000001",
           "slug": "m17-l1-filtering-logic",
           "title": "Module 17 - Lesson 1: Filtering logic",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 17 - Lesson 1: Filtering logic. Practice the concepts in your isolated lab environment.",
+          "description": "Video lesson presented by Jeremy's IT Lab: \"Free CCNA | Standard ACLs | Day 34 | CCNA 200-301 Complete Course\". Aligned to Module 17 - Lesson 1: Filtering logic for practical lab and defensive analysis.",
           "youtubeVideoId": "z023_eRUtSo",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Jeremy's IT Lab",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -7069,7 +7069,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 17 - Lesson 1: Filtering logic), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 17 - Lesson 1: Filtering logic), follow along with Jeremy's IT Lab (\"Free CCNA | Standard ACLs | Day 34 | CCNA 200-301 Complete Course\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 16 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -7130,10 +7130,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0011-4000-8000-000000000002",
           "slug": "m17-l2-rule-order",
           "title": "Module 17 - Lesson 2: Rule order",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 17 - Lesson 2: Rule order. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "Xgwph7kERps",
+          "description": "Video lesson presented by Jeremy's IT Lab: \"Free CCNA | Extended ACLs | Day 35 | CCNA 200-301 Complete Course\". Aligned to Module 17 - Lesson 2: Rule order for practical lab and defensive analysis.",
+          "youtubeVideoId": "dUttKY_CNXE",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Jeremy's IT Lab",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -7157,7 +7157,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 17 - Lesson 2: Rule order), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 17 - Lesson 2: Rule order), follow along with Jeremy's IT Lab (\"Free CCNA | Extended ACLs | Day 35 | CCNA 200-301 Complete Course\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 16 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -7218,10 +7218,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0011-4000-8000-000000000003",
           "slug": "m17-l3-network-zones",
           "title": "Module 17 - Lesson 3: Network zones",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 17 - Lesson 3: Network zones. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "z023_eRUtSo",
+          "description": "Video lesson presented by Network Direction: \"Understanding Access Control Lists | Network Fundamentals Part 14\". Aligned to Module 17 - Lesson 3: Network zones for practical lab and defensive analysis.",
+          "youtubeVideoId": "FxlqSfORZm4",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Network Direction",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -7245,7 +7245,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 17 - Lesson 3: Network zones), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 17 - Lesson 3: Network zones), follow along with Network Direction (\"Understanding Access Control Lists | Network Fundamentals Part 14\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 16 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -7306,10 +7306,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0011-4000-8000-000000000004",
           "slug": "m17-l4-firewall-investigations",
           "title": "Module 17 - Lesson 4: Firewall investigations",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 17 - Lesson 4: Firewall investigations. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "Xgwph7kERps",
+          "description": "Video lesson presented by Professor Messer: \"Segmentation Enforcement - CompTIA Network+ N10-009 - 4.1\". Aligned to Module 17 - Lesson 4: Firewall investigations for practical lab and defensive analysis.",
+          "youtubeVideoId": "DsOzQLX5cg4",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Professor Messer",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -7333,7 +7333,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 17 - Lesson 4: Firewall investigations), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 17 - Lesson 4: Firewall investigations), follow along with Professor Messer (\"Segmentation Enforcement - CompTIA Network+ N10-009 - 4.1\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 16 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -7473,10 +7473,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0012-4000-8000-000000000001",
           "slug": "m18-l1-wireless-architecture",
           "title": "Module 18 - Lesson 1: Wireless architecture",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 18 - Lesson 1: Wireless architecture. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "wHXKo9So5y8",
+          "description": "Video lesson presented by Professor Messer: \"Wireless Networking - CompTIA Network+ N10-009 - 1.5\". Aligned to Module 18 - Lesson 1: Wireless architecture for practical lab and defensive analysis.",
+          "youtubeVideoId": "NeTwL-040ds",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Professor Messer",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -7500,7 +7500,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 18 - Lesson 1: Wireless architecture), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 18 - Lesson 1: Wireless architecture), follow along with Professor Messer (\"Wireless Networking - CompTIA Network+ N10-009 - 1.5\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 17 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -7565,10 +7565,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0012-4000-8000-000000000002",
           "slug": "m18-l2-802-11-basics",
           "title": "Module 18 - Lesson 2: 802.11 basics",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 18 - Lesson 2: 802.11 basics. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "ewtDKmovou4",
+          "description": "Video lesson presented by Professor Messer: \"Wireless Encryption - CompTIA Network+ N10-009 - 2.3\". Aligned to Module 18 - Lesson 2: 802.11 basics for practical lab and defensive analysis.",
+          "youtubeVideoId": "YNcobcHXnnY",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Professor Messer",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -7592,7 +7592,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 18 - Lesson 2: 802.11 basics), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 18 - Lesson 2: 802.11 basics), follow along with Professor Messer (\"Wireless Encryption - CompTIA Network+ N10-009 - 2.3\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 17 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -7657,10 +7657,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0012-4000-8000-000000000003",
           "slug": "m18-l3-authentication",
           "title": "Module 18 - Lesson 3: Authentication",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 18 - Lesson 3: Authentication. Practice the concepts in your isolated lab environment.",
+          "description": "Video lesson presented by Jeremy's IT Lab: \"Free CCNA | Wireless Security | Day 57 | CCNA 200-301 Complete Course\". Aligned to Module 18 - Lesson 3: Authentication for practical lab and defensive analysis.",
           "youtubeVideoId": "wHXKo9So5y8",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Jeremy's IT Lab",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -7684,7 +7684,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 18 - Lesson 3: Authentication), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 18 - Lesson 3: Authentication), follow along with Jeremy's IT Lab (\"Free CCNA | Wireless Security | Day 57 | CCNA 200-301 Complete Course\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 17 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -7749,10 +7749,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0012-4000-8000-000000000004",
           "slug": "m18-l4-wireless-monitoring",
           "title": "Module 18 - Lesson 4: Wireless monitoring",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 18 - Lesson 4: Wireless monitoring. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "ewtDKmovou4",
+          "description": "Video lesson presented by Professor Messer: \"Wireless Technologies - CompTIA Network+ N10-009 - 2.3\". Aligned to Module 18 - Lesson 4: Wireless monitoring for practical lab and defensive analysis.",
+          "youtubeVideoId": "_VwpcLiBkAQ",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Professor Messer",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -7776,7 +7776,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 18 - Lesson 4: Wireless monitoring), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 18 - Lesson 4: Wireless monitoring), follow along with Professor Messer (\"Wireless Technologies - CompTIA Network+ N10-009 - 2.3\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 17 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -7920,10 +7920,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0013-4000-8000-000000000001",
           "slug": "m19-l1-ipv6-representation",
           "title": "Module 19 - Lesson 1: IPv6 representation",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 19 - Lesson 1: IPv6 representation. Practice the concepts in your isolated lab environment.",
+          "description": "Video lesson presented by Jeremy's IT Lab: \"Free CCNA | IPv6 Part 1 | Day 31 | CCNA 200-301 Complete Course\". Aligned to Module 19 - Lesson 1: IPv6 representation for practical lab and defensive analysis.",
           "youtubeVideoId": "ZNuXyOXae5U",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Jeremy's IT Lab",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -7947,7 +7947,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 19 - Lesson 1: IPv6 representation), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 19 - Lesson 1: IPv6 representation), follow along with Jeremy's IT Lab (\"Free CCNA | IPv6 Part 1 | Day 31 | CCNA 200-301 Complete Course\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 18 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -8008,10 +8008,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0013-4000-8000-000000000002",
           "slug": "m19-l2-ndp-and-icmpv6",
           "title": "Module 19 - Lesson 2: NDP and ICMPv6",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 19 - Lesson 2: NDP and ICMPv6. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "0aGqGKrRE0g",
+          "description": "Video lesson presented by Jeremy's IT Lab: \"Free CCNA | IPv6 Part 2 | Day 32 | CCNA 200-301 Complete Course\". Aligned to Module 19 - Lesson 2: NDP and ICMPv6 for practical lab and defensive analysis.",
+          "youtubeVideoId": "BrTMMOXFhDU",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Jeremy's IT Lab",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -8035,7 +8035,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 19 - Lesson 2: NDP and ICMPv6), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 19 - Lesson 2: NDP and ICMPv6), follow along with Jeremy's IT Lab (\"Free CCNA | IPv6 Part 2 | Day 32 | CCNA 200-301 Complete Course\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 18 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -8096,10 +8096,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0013-4000-8000-000000000003",
           "slug": "m19-l3-dual-stack-paths",
           "title": "Module 19 - Lesson 3: Dual-stack paths",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 19 - Lesson 3: Dual-stack paths. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "ZNuXyOXae5U",
+          "description": "Video lesson presented by Professor Messer: \"IPv6 and SLAAC - CompTIA Network+ N10-009 - 3.4\". Aligned to Module 19 - Lesson 3: Dual-stack paths for practical lab and defensive analysis.",
+          "youtubeVideoId": "A6WVj82by3Y",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Professor Messer",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -8123,7 +8123,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 19 - Lesson 3: Dual-stack paths), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 19 - Lesson 3: Dual-stack paths), follow along with Professor Messer (\"IPv6 and SLAAC - CompTIA Network+ N10-009 - 3.4\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 18 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -8184,10 +8184,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0013-4000-8000-000000000004",
           "slug": "m19-l4-defensive-checks",
           "title": "Module 19 - Lesson 4: Defensive checks",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 19 - Lesson 4: Defensive checks. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "0aGqGKrRE0g",
+          "description": "Video lesson presented by Jeremy's IT Lab: \"Free CCNA | IPv6 Part 3 | Day 33 | CCNA 200-301 Complete Course\". Aligned to Module 19 - Lesson 4: Defensive checks for practical lab and defensive analysis.",
+          "youtubeVideoId": "rwkHfsWQwy8",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Jeremy's IT Lab",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -8211,7 +8211,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 19 - Lesson 4: Defensive checks), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 19 - Lesson 4: Defensive checks), follow along with Jeremy's IT Lab (\"Free CCNA | IPv6 Part 3 | Day 33 | CCNA 200-301 Complete Course\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 18 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -8351,10 +8351,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0014-4000-8000-000000000001",
           "slug": "m20-l1-vpn-use-cases",
           "title": "Module 20 - Lesson 1: VPN use cases",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 20 - Lesson 1: VPN use cases. Practice the concepts in your isolated lab environment.",
+          "description": "Video lesson presented by The Confused Engineer \ud83d\ude1c: \"How VPN REALLY Works (Types, Architectures & Troubleshooting)\". Aligned to Module 20 - Lesson 1: VPN use cases for practical lab and defensive analysis.",
           "youtubeVideoId": "Rx8q7N-qZVc",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "The Confused Engineer \ud83d\ude1c",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -8378,7 +8378,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 20 - Lesson 1: VPN use cases), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 20 - Lesson 1: VPN use cases), follow along with The Confused Engineer \ud83d\ude1c (\"How VPN REALLY Works (Types, Architectures & Troubleshooting)\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 19 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -8443,10 +8443,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0014-4000-8000-000000000002",
           "slug": "m20-l2-tunnel-endpoints",
           "title": "Module 20 - Lesson 2: Tunnel endpoints",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 20 - Lesson 2: Tunnel endpoints. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "ewtDKmovou4",
+          "description": "Video lesson presented by Professor Messer: \"VPNs - CompTIA Network+ N10-009 - 3.5\". Aligned to Module 20 - Lesson 2: Tunnel endpoints for practical lab and defensive analysis.",
+          "youtubeVideoId": "tm7i0zEitPQ",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Professor Messer",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -8470,7 +8470,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 20 - Lesson 2: Tunnel endpoints), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 20 - Lesson 2: Tunnel endpoints), follow along with Professor Messer (\"VPNs - CompTIA Network+ N10-009 - 3.5\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 19 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -8535,10 +8535,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0014-4000-8000-000000000003",
           "slug": "m20-l3-protocol-concepts",
           "title": "Module 20 - Lesson 3: Protocol concepts",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 20 - Lesson 3: Protocol concepts. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "Rx8q7N-qZVc",
+          "description": "Video lesson presented by Professor Messer: \"Remote Access - CompTIA Network+ N10-009 - 3.5\". Aligned to Module 20 - Lesson 3: Protocol concepts for practical lab and defensive analysis.",
+          "youtubeVideoId": "QbEDRTjcom4",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Professor Messer",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -8562,7 +8562,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 20 - Lesson 3: Protocol concepts), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 20 - Lesson 3: Protocol concepts), follow along with Professor Messer (\"Remote Access - CompTIA Network+ N10-009 - 3.5\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 19 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -8627,10 +8627,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0014-4000-8000-000000000004",
           "slug": "m20-l4-soc-monitoring",
           "title": "Module 20 - Lesson 4: SOC monitoring",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 20 - Lesson 4: SOC monitoring. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "ewtDKmovou4",
+          "description": "Video lesson presented by Professor Messer: \"Zero Trust - CompTIA Network+ N10-009 - 1.8\". Aligned to Module 20 - Lesson 4: SOC monitoring for practical lab and defensive analysis.",
+          "youtubeVideoId": "jlMwWL4yalM",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Professor Messer",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -8654,7 +8654,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 20 - Lesson 4: SOC monitoring), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 20 - Lesson 4: SOC monitoring), follow along with Professor Messer (\"Zero Trust - CompTIA Network+ N10-009 - 1.8\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 19 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -8798,10 +8798,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0015-4000-8000-000000000001",
           "slug": "m21-l1-capture-safely",
           "title": "Module 21 - Lesson 1: Capture safely",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 21 - Lesson 1: Capture safely. Practice the concepts in your isolated lab environment.",
+          "description": "Video lesson presented by Chris Greer: \"Learn Wireshark! Tutorial for BEGINNERS\". Aligned to Module 21 - Lesson 1: Capture safely for practical lab and defensive analysis.",
           "youtubeVideoId": "OU-A2EmVrKQ",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Chris Greer",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -8825,7 +8825,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 21 - Lesson 1: Capture safely), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 21 - Lesson 1: Capture safely), follow along with Chris Greer (\"Learn Wireshark! Tutorial for BEGINNERS\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 20 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -8882,10 +8882,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0015-4000-8000-000000000002",
           "slug": "m21-l2-capture-vs-display-filters",
           "title": "Module 21 - Lesson 2: Capture vs display filters",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 21 - Lesson 2: Capture vs display filters. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "YJGGYKAV4pA",
+          "description": "Video lesson presented by HackerSploit: \"Wireshark Tutorial for Beginners - Filters\". Aligned to Module 21 - Lesson 2: Capture vs display filters for practical lab and defensive analysis.",
+          "youtubeVideoId": "xO69Bl1R07E",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "HackerSploit",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -8909,7 +8909,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 21 - Lesson 2: Capture vs display filters), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 21 - Lesson 2: Capture vs display filters), follow along with HackerSploit (\"Wireshark Tutorial for Beginners - Filters\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 20 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -8966,10 +8966,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0015-4000-8000-000000000003",
           "slug": "m21-l3-statistics",
           "title": "Module 21 - Lesson 3: Statistics",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 21 - Lesson 3: Statistics. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "OU-A2EmVrKQ",
+          "description": "Video lesson presented by Palo Alto Networks Unit 42: \"Unit 42 Wireshark Workshop Part 2: Setting Up Wireshark\". Aligned to Module 21 - Lesson 3: Statistics for practical lab and defensive analysis.",
+          "youtubeVideoId": "xYzBFZDm6Ds",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Palo Alto Networks Unit 42",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -8993,7 +8993,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 21 - Lesson 3: Statistics), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 21 - Lesson 3: Statistics), follow along with Palo Alto Networks Unit 42 (\"Unit 42 Wireshark Workshop Part 2: Setting Up Wireshark\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 20 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -9050,10 +9050,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0015-4000-8000-000000000004",
           "slug": "m21-l4-tshark-workflow",
           "title": "Module 21 - Lesson 4: TShark workflow",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 21 - Lesson 4: TShark workflow. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "YJGGYKAV4pA",
+          "description": "Video lesson presented by David Bombal: \"tshark and Termshark tutorial: Capture and view wireshark captures in a console\". Aligned to Module 21 - Lesson 4: TShark workflow for practical lab and defensive analysis.",
+          "youtubeVideoId": "HoYgPlmOZgo",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "David Bombal",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -9077,7 +9077,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 21 - Lesson 4: TShark workflow), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 21 - Lesson 4: TShark workflow), follow along with David Bombal (\"tshark and Termshark tutorial: Capture and view wireshark captures in a console\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 20 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -9213,10 +9213,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0016-4000-8000-000000000001",
           "slug": "m22-l1-handshake-timing",
           "title": "Module 22 - Lesson 1: Handshake timing",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 22 - Lesson 1: Handshake timing. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "HTQLipAG27I",
+          "description": "Video lesson presented by David Bombal: \"Wireshark Display Filters | Free Wireshark and Ethical Hacking Course: Video #4\". Aligned to Module 22 - Lesson 1: Handshake timing for practical lab and defensive analysis.",
+          "youtubeVideoId": "WdBBYosG-YI",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "David Bombal",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -9240,7 +9240,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 22 - Lesson 1: Handshake timing), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 22 - Lesson 1: Handshake timing), follow along with David Bombal (\"Wireshark Display Filters | Free Wireshark and Ethical Hacking Course: Video #4\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 21 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -9297,10 +9297,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0016-4000-8000-000000000002",
           "slug": "m22-l2-retransmissions",
           "title": "Module 22 - Lesson 2: Retransmissions",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 22 - Lesson 2: Retransmissions. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "rmFX1V49K8U",
+          "description": "Video lesson presented by HackerSploit: \"tcpdump - Traffic Capture & Analysis\". Aligned to Module 22 - Lesson 2: Retransmissions for practical lab and defensive analysis.",
+          "youtubeVideoId": "1lDfCRM6dWk",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "HackerSploit",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -9324,7 +9324,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 22 - Lesson 2: Retransmissions), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 22 - Lesson 2: Retransmissions), follow along with HackerSploit (\"tcpdump - Traffic Capture & Analysis\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 21 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -9381,10 +9381,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0016-4000-8000-000000000003",
           "slug": "m22-l3-window-dynamics",
           "title": "Module 22 - Lesson 3: Window dynamics",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 22 - Lesson 3: Window dynamics. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "HTQLipAG27I",
+          "description": "Video lesson presented by David Bombal: \"Too much Wireshark?! | Free Wireshark and Ethical Hacking Course: Video #5\". Aligned to Module 22 - Lesson 3: Window dynamics for practical lab and defensive analysis.",
+          "youtubeVideoId": "tM2aUpll1EQ",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "David Bombal",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -9408,7 +9408,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 22 - Lesson 3: Window dynamics), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 22 - Lesson 3: Window dynamics), follow along with David Bombal (\"Too much Wireshark?! | Free Wireshark and Ethical Hacking Course: Video #5\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 21 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -9465,10 +9465,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0016-4000-8000-000000000004",
           "slug": "m22-l4-incident-context",
           "title": "Module 22 - Lesson 4: Incident context",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 22 - Lesson 4: Incident context. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "rmFX1V49K8U",
+          "description": "Video lesson presented by David Bombal: \"Free Wireshark and Ethical Hacking Course: Video #3\". Aligned to Module 22 - Lesson 4: Incident context for practical lab and defensive analysis.",
+          "youtubeVideoId": "IdEFDkGtcQg",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "David Bombal",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -9492,7 +9492,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 22 - Lesson 4: Incident context), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 22 - Lesson 4: Incident context), follow along with David Bombal (\"Free Wireshark and Ethical Hacking Course: Video #3\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 21 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -9628,10 +9628,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0017-4000-8000-000000000001",
           "slug": "m23-l1-dns-traffic-baseline",
           "title": "Module 23 - Lesson 1: DNS traffic baseline",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 23 - Lesson 1: DNS traffic baseline. Practice the concepts in your isolated lab environment.",
+          "description": "Video lesson presented by Chris Greer: \"How DNS Works Under the Hood (Packet by Packet)\". Aligned to Module 23 - Lesson 1: DNS traffic baseline for practical lab and defensive analysis.",
           "youtubeVideoId": "3FPaTvCJojQ",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Chris Greer",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -9655,7 +9655,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 23 - Lesson 1: DNS traffic baseline), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 23 - Lesson 1: DNS traffic baseline), follow along with Chris Greer (\"How DNS Works Under the Hood (Packet by Packet)\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 22 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -9716,10 +9716,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0017-4000-8000-000000000002",
           "slug": "m23-l2-long-and-encoded-labels",
           "title": "Module 23 - Lesson 2: Long and encoded labels",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 23 - Lesson 2: Long and encoded labels. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "7D_FapNrRUM",
+          "description": "Video lesson presented by Palo Alto Networks Unit 42: \"Unit 42 Wireshark Workshop Part 3: Host Identification\". Aligned to Module 23 - Lesson 2: Long and encoded labels for practical lab and defensive analysis.",
+          "youtubeVideoId": "S-ny315TOyk",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Palo Alto Networks Unit 42",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -9743,7 +9743,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 23 - Lesson 2: Long and encoded labels), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 23 - Lesson 2: Long and encoded labels), follow along with Palo Alto Networks Unit 42 (\"Unit 42 Wireshark Workshop Part 3: Host Identification\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 22 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -9804,10 +9804,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0017-4000-8000-000000000003",
           "slug": "m23-l3-resolver-anomalies",
           "title": "Module 23 - Lesson 3: Resolver anomalies",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 23 - Lesson 3: Resolver anomalies. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "3FPaTvCJojQ",
+          "description": "Video lesson presented by Professor Messer: \"An Overview of DNS - CompTIA Network+ N10-009 - 3.4\". Aligned to Module 23 - Lesson 3: Resolver anomalies for practical lab and defensive analysis.",
+          "youtubeVideoId": "S4s3vgm4h84",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Professor Messer",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -9831,7 +9831,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 23 - Lesson 3: Resolver anomalies), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 23 - Lesson 3: Resolver anomalies), follow along with Professor Messer (\"An Overview of DNS - CompTIA Network+ N10-009 - 3.4\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 22 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -9892,10 +9892,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0017-4000-8000-000000000004",
           "slug": "m23-l4-triage-workflow",
           "title": "Module 23 - Lesson 4: Triage workflow",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 23 - Lesson 4: Triage workflow. Practice the concepts in your isolated lab environment.",
+          "description": "Video lesson presented by Jeremy's IT Lab: \"Free CCNA | DNS | Day 38 Lab | CCNA 200-301 Complete Course\". Aligned to Module 23 - Lesson 4: Triage workflow for practical lab and defensive analysis.",
           "youtubeVideoId": "7D_FapNrRUM",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Jeremy's IT Lab",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -9919,7 +9919,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 23 - Lesson 4: Triage workflow), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 23 - Lesson 4: Triage workflow), follow along with Jeremy's IT Lab (\"Free CCNA | DNS | Day 38 Lab | CCNA 200-301 Complete Course\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 22 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -10059,10 +10059,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0018-4000-8000-000000000001",
           "slug": "m24-l1-web-flow-reconstruction",
           "title": "Module 24 - Lesson 1: Web flow reconstruction",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 24 - Lesson 1: Web flow reconstruction. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "yodDbgoCnLM",
+          "description": "Video lesson presented by Pooji SOC Talks: \"Day 8: HTTP Traffic Analysis How SOC Analysts Investigate Suspicious Web Traffic\". Aligned to Module 24 - Lesson 1: Web flow reconstruction for practical lab and defensive analysis.",
+          "youtubeVideoId": "TURHd0ievhs",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Pooji SOC Talks",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -10086,7 +10086,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 24 - Lesson 1: Web flow reconstruction), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 24 - Lesson 1: Web flow reconstruction), follow along with Pooji SOC Talks (\"Day 8: HTTP Traffic Analysis How SOC Analysts Investigate Suspicious Web Traffic\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 23 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -10147,10 +10147,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0018-4000-8000-000000000002",
           "slug": "m24-l2-encrypted-metadata",
           "title": "Module 24 - Lesson 2: Encrypted metadata",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 24 - Lesson 2: Encrypted metadata. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "m3I-h9uSgj8",
+          "description": "Video lesson presented by Palo Alto Networks Unit 42: \"Unit 42 Wireshark Workshop Part 5: Introduction to Windows Malware Infections\". Aligned to Module 24 - Lesson 2: Encrypted metadata for practical lab and defensive analysis.",
+          "youtubeVideoId": "LeWKedaRFw4",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Palo Alto Networks Unit 42",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -10174,7 +10174,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 24 - Lesson 2: Encrypted metadata), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 24 - Lesson 2: Encrypted metadata), follow along with Palo Alto Networks Unit 42 (\"Unit 42 Wireshark Workshop Part 5: Introduction to Windows Malware Infections\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 23 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -10235,10 +10235,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0018-4000-8000-000000000003",
           "slug": "m24-l3-quic-basics",
           "title": "Module 24 - Lesson 3: QUIC basics",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 24 - Lesson 3: QUIC basics. Practice the concepts in your isolated lab environment.",
+          "description": "Video lesson presented by David Bombal: \"Decrypting TLS, HTTP/2 and QUIC with Wireshark\". Aligned to Module 24 - Lesson 3: QUIC basics for practical lab and defensive analysis.",
           "youtubeVideoId": "yodDbgoCnLM",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "David Bombal",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -10262,7 +10262,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 24 - Lesson 3: QUIC basics), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 24 - Lesson 3: QUIC basics), follow along with David Bombal (\"Decrypting TLS, HTTP/2 and QUIC with Wireshark\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 23 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -10323,10 +10323,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0018-4000-8000-000000000004",
           "slug": "m24-l4-incident-report",
           "title": "Module 24 - Lesson 4: Incident report",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 24 - Lesson 4: Incident report. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "m3I-h9uSgj8",
+          "description": "Video lesson presented by Netsec Explained: \"Advanced Wireshark Network Forensics Part 2/3\". Aligned to Module 24 - Lesson 4: Incident report for practical lab and defensive analysis.",
+          "youtubeVideoId": "ZJZlRGLN2_s",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Netsec Explained",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -10350,7 +10350,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 24 - Lesson 4: Incident report), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 24 - Lesson 4: Incident report), follow along with Netsec Explained (\"Advanced Wireshark Network Forensics Part 2/3\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 23 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -10490,10 +10490,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0019-4000-8000-000000000001",
           "slug": "m25-l1-telemetry-sources",
           "title": "Module 25 - Lesson 1: Telemetry sources",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 25 - Lesson 1: Telemetry sources. Practice the concepts in your isolated lab environment.",
+          "description": "Video lesson presented by TechSky - Ethical Hacking: \"How to Monitor Network Traffic (SOC Analyst Lab with TShark, Zeek & Suricata)\". Aligned to Module 25 - Lesson 1: Telemetry sources for practical lab and defensive analysis.",
           "youtubeVideoId": "JSP-yOBRbrg",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "TechSky - Ethical Hacking",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -10517,7 +10517,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 25 - Lesson 1: Telemetry sources), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 25 - Lesson 1: Telemetry sources), follow along with TechSky - Ethical Hacking (\"How to Monitor Network Traffic (SOC Analyst Lab with TShark, Zeek & Suricata)\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 24 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -10582,10 +10582,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0019-4000-8000-000000000002",
           "slug": "m25-l2-syslog-fields",
           "title": "Module 25 - Lesson 2: Syslog fields",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 25 - Lesson 2: Syslog fields. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "e1cwKwshC9I",
+          "description": "Video lesson presented by Jeremy's IT Lab: \"Free CCNA | Syslog | Day 41 | CCNA 200-301 Complete Course\". Aligned to Module 25 - Lesson 2: Syslog fields for practical lab and defensive analysis.",
+          "youtubeVideoId": "RaQPSKQ4J5A",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Jeremy's IT Lab",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -10609,7 +10609,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 25 - Lesson 2: Syslog fields), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 25 - Lesson 2: Syslog fields), follow along with Jeremy's IT Lab (\"Free CCNA | Syslog | Day 41 | CCNA 200-301 Complete Course\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 24 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -10674,10 +10674,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0019-4000-8000-000000000003",
           "slug": "m25-l3-flow-records",
           "title": "Module 25 - Lesson 3: Flow records",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 25 - Lesson 3: Flow records. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "JSP-yOBRbrg",
+          "description": "Video lesson presented by TrainerTests: \"NetFlow & IPFIX Explained: Troubleshooting Networks with Flow Data (Networking Basics)\". Aligned to Module 25 - Lesson 3: Flow records for practical lab and defensive analysis.",
+          "youtubeVideoId": "lL7xRH_BpHU",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "TrainerTests",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -10701,7 +10701,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 25 - Lesson 3: Flow records), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 25 - Lesson 3: Flow records), follow along with TrainerTests (\"NetFlow & IPFIX Explained: Troubleshooting Networks with Flow Data (Networking Basics)\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 24 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -10766,10 +10766,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0019-4000-8000-000000000004",
           "slug": "m25-l4-correlation-basics",
           "title": "Module 25 - Lesson 4: Correlation basics",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 25 - Lesson 4: Correlation basics. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "e1cwKwshC9I",
+          "description": "Video lesson presented by Network Direction: \"Sending Logs to a Syslog Server | Network Fundamentals Part 23\". Aligned to Module 25 - Lesson 4: Correlation basics for practical lab and defensive analysis.",
+          "youtubeVideoId": "kZOgV0lvja0",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Network Direction",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -10793,7 +10793,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 25 - Lesson 4: Correlation basics), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 25 - Lesson 4: Correlation basics), follow along with Network Direction (\"Sending Logs to a Syslog Server | Network Fundamentals Part 23\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 24 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -10937,10 +10937,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-001a-4000-8000-000000000001",
           "slug": "m26-l1-zeek-architecture",
           "title": "Module 26 - Lesson 1: Zeek architecture",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 26 - Lesson 1: Zeek architecture. Practice the concepts in your isolated lab environment.",
+          "description": "Video lesson presented by Hank Hackerson: \"SOC Lvl 1 / EP.16a / Zeek Tutorial Pt.1 / Security Analyst Training\". Aligned to Module 26 - Lesson 1: Zeek architecture for practical lab and defensive analysis.",
           "youtubeVideoId": "e1cwKwshC9I",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Hank Hackerson",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -10964,7 +10964,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 26 - Lesson 1: Zeek architecture), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 26 - Lesson 1: Zeek architecture), follow along with Hank Hackerson (\"SOC Lvl 1 / EP.16a / Zeek Tutorial Pt.1 / Security Analyst Training\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 25 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -11029,10 +11029,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-001a-4000-8000-000000000002",
           "slug": "m26-l2-conn-log-basics",
           "title": "Module 26 - Lesson 2: conn.log basics",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 26 - Lesson 2: conn.log basics. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "JSP-yOBRbrg",
+          "description": "Video lesson presented by John Hubbard: \"12 Days of Defense - Day 2: How to use Zeek for PCAP Analysis\". Aligned to Module 26 - Lesson 2: conn.log basics for practical lab and defensive analysis.",
+          "youtubeVideoId": "bznH1yMyjjo",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "John Hubbard",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -11056,7 +11056,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 26 - Lesson 2: conn.log basics), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 26 - Lesson 2: conn.log basics), follow along with John Hubbard (\"12 Days of Defense - Day 2: How to use Zeek for PCAP Analysis\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 25 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -11121,10 +11121,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-001a-4000-8000-000000000003",
           "slug": "m26-l3-protocol-logs",
           "title": "Module 26 - Lesson 3: Protocol logs",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 26 - Lesson 3: Protocol logs. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "e1cwKwshC9I",
+          "description": "Video lesson presented by Threat Hunter's Daily: \"Introduction to Zeek network security monitoring, conn.log and pivoting with Zeek UIDs\". Aligned to Module 26 - Lesson 3: Protocol logs for practical lab and defensive analysis.",
+          "youtubeVideoId": "-eLI0_OCEmk",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Threat Hunter's Daily",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -11148,7 +11148,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 26 - Lesson 3: Protocol logs), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 26 - Lesson 3: Protocol logs), follow along with Threat Hunter's Daily (\"Introduction to Zeek network security monitoring, conn.log and pivoting with Zeek UIDs\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 25 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -11213,10 +11213,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-001a-4000-8000-000000000004",
           "slug": "m26-l4-hunting-logic",
           "title": "Module 26 - Lesson 4: Hunting logic",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 26 - Lesson 4: Hunting logic. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "JSP-yOBRbrg",
+          "description": "Video lesson presented by Rajneesh Gupta: \"Splunk Basics: Zeek Connection Log Analysis\". Aligned to Module 26 - Lesson 4: Hunting logic for practical lab and defensive analysis.",
+          "youtubeVideoId": "Uvb2R8W0E-I",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Rajneesh Gupta",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -11240,7 +11240,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 26 - Lesson 4: Hunting logic), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 26 - Lesson 4: Hunting logic), follow along with Rajneesh Gupta (\"Splunk Basics: Zeek Connection Log Analysis\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 25 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -11384,10 +11384,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-001b-4000-8000-000000000001",
           "slug": "m27-l1-ids-vs-ips",
           "title": "Module 27 - Lesson 1: IDS vs IPS",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 27 - Lesson 1: IDS vs IPS. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "JSP-yOBRbrg",
+          "description": "Video lesson presented by HackerSploit: \"Introduction To Suricata IDS\". Aligned to Module 27 - Lesson 1: IDS vs IPS for practical lab and defensive analysis.",
+          "youtubeVideoId": "91i7InHVOso",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "HackerSploit",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -11411,7 +11411,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 27 - Lesson 1: IDS vs IPS), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 27 - Lesson 1: IDS vs IPS), follow along with HackerSploit (\"Introduction To Suricata IDS\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 26 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -11476,10 +11476,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-001b-4000-8000-000000000002",
           "slug": "m27-l2-rule-anatomy",
           "title": "Module 27 - Lesson 2: Rule anatomy",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 27 - Lesson 2: Rule anatomy. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "e1cwKwshC9I",
+          "description": "Video lesson presented by Insane Cyber: \"Writing Suricata Rules: Understanding The Basic Rule Format\". Aligned to Module 27 - Lesson 2: Rule anatomy for practical lab and defensive analysis.",
+          "youtubeVideoId": "d-t-8lJ2PII",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Insane Cyber",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -11503,7 +11503,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 27 - Lesson 2: Rule anatomy), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 27 - Lesson 2: Rule anatomy), follow along with Insane Cyber (\"Writing Suricata Rules: Understanding The Basic Rule Format\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 26 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -11568,10 +11568,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-001b-4000-8000-000000000003",
           "slug": "m27-l3-eve-json-events",
           "title": "Module 27 - Lesson 3: eve.json events",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 27 - Lesson 3: eve.json events. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "JSP-yOBRbrg",
+          "description": "Video lesson presented by Maurice Gardner: \"Examine alerts, logs, and rules with Suricata\". Aligned to Module 27 - Lesson 3: eve.json events for practical lab and defensive analysis.",
+          "youtubeVideoId": "zUqHTf-jjeA",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Maurice Gardner",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -11595,7 +11595,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 27 - Lesson 3: eve.json events), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 27 - Lesson 3: eve.json events), follow along with Maurice Gardner (\"Examine alerts, logs, and rules with Suricata\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 26 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -11660,10 +11660,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-001b-4000-8000-000000000004",
           "slug": "m27-l4-alert-validation",
           "title": "Module 27 - Lesson 4: Alert validation",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 27 - Lesson 4: Alert validation. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "e1cwKwshC9I",
+          "description": "Video lesson presented by The Cyber Initiative Zone: \"Google Cybersec Lab Project; Examine Alerts, logs, and rules with Suricata in Linux\". Aligned to Module 27 - Lesson 4: Alert validation for practical lab and defensive analysis.",
+          "youtubeVideoId": "0KM5-wop15U",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "The Cyber Initiative Zone",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -11687,7 +11687,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 27 - Lesson 4: Alert validation), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 27 - Lesson 4: Alert validation), follow along with The Cyber Initiative Zone (\"Google Cybersec Lab Project; Examine Alerts, logs, and rules with Suricata in Linux\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 26 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -11831,10 +11831,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-001c-4000-8000-000000000001",
           "slug": "m28-l1-discovery-basics",
           "title": "Module 28 - Lesson 1: Discovery basics",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 28 - Lesson 1: Discovery basics. Practice the concepts in your isolated lab environment.",
+          "description": "Video lesson presented by Chris Greer: \"Getting Started with Nmap - Full Course with @davidbombal!!\". Aligned to Module 28 - Lesson 1: Discovery basics for practical lab and defensive analysis.",
           "youtubeVideoId": "2rRSDGNo_Uo",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Chris Greer",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -11858,7 +11858,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 28 - Lesson 1: Discovery basics), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 28 - Lesson 1: Discovery basics), follow along with Chris Greer (\"Getting Started with Nmap - Full Course with @davidbombal!!\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 27 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -11919,10 +11919,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-001c-4000-8000-000000000002",
           "slug": "m28-l2-port-state-interpretation",
           "title": "Module 28 - Lesson 2: Port state interpretation",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 28 - Lesson 2: Port state interpretation. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "Xgwph7kERps",
+          "description": "Video lesson presented by ACW360: \"Part 7 Version Detection & OS Fingerprinting: -sV & -O\". Aligned to Module 28 - Lesson 2: Port state interpretation for practical lab and defensive analysis.",
+          "youtubeVideoId": "j3H7O-hBrI0",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "ACW360",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -11946,7 +11946,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 28 - Lesson 2: Port state interpretation), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 28 - Lesson 2: Port state interpretation), follow along with ACW360 (\"Part 7 Version Detection & OS Fingerprinting: -sV & -O\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 27 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -12007,10 +12007,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-001c-4000-8000-000000000003",
           "slug": "m28-l3-service-identification",
           "title": "Module 28 - Lesson 3: Service identification",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 28 - Lesson 3: Service identification. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "2rRSDGNo_Uo",
+          "description": "Video lesson presented by Chris Greer: \"How OS Fingerprinting Works // NMAP Tutorial\". Aligned to Module 28 - Lesson 3: Service identification for practical lab and defensive analysis.",
+          "youtubeVideoId": "dSgHEL-MO3I",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Chris Greer",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -12034,7 +12034,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 28 - Lesson 3: Service identification), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 28 - Lesson 3: Service identification), follow along with Chris Greer (\"How OS Fingerprinting Works // NMAP Tutorial\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 27 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -12095,10 +12095,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-001c-4000-8000-000000000004",
           "slug": "m28-l4-defensive-visibility",
           "title": "Module 28 - Lesson 4: Defensive visibility",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 28 - Lesson 4: Defensive visibility. Practice the concepts in your isolated lab environment.",
+          "description": "Video lesson presented by David Bombal: \"Networking for Hackers and Cybersecurity professionals (How long until you learn something new?)\". Aligned to Module 28 - Lesson 4: Defensive visibility for practical lab and defensive analysis.",
           "youtubeVideoId": "Xgwph7kERps",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "David Bombal",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -12122,7 +12122,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 28 - Lesson 4: Defensive visibility), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 28 - Lesson 4: Defensive visibility), follow along with David Bombal (\"Networking for Hackers and Cybersecurity professionals (How long until you learn something new?)\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 27 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -12262,10 +12262,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-001d-4000-8000-000000000001",
           "slug": "m29-l1-virtual-networks",
           "title": "Module 29 - Lesson 1: Virtual networks",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 29 - Lesson 1: Virtual networks. Practice the concepts in your isolated lab environment.",
+          "description": "Video lesson presented by Mario Antonio Huapalla Morales: \"AWS VPC Tutorial Completo | Crear una Red Virtual en AWS Desde Cero\". Aligned to Module 29 - Lesson 1: Virtual networks for practical lab and defensive analysis.",
           "youtubeVideoId": "SX-vJqeBzOQ",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Mario Antonio Huapalla Morales",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -12289,7 +12289,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 29 - Lesson 1: Virtual networks), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 29 - Lesson 1: Virtual networks), follow along with Mario Antonio Huapalla Morales (\"AWS VPC Tutorial Completo | Crear una Red Virtual en AWS Desde Cero\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 28 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -12354,10 +12354,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-001d-4000-8000-000000000002",
           "slug": "m29-l2-ingress-and-egress",
           "title": "Module 29 - Lesson 2: Ingress and egress",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 29 - Lesson 2: Ingress and egress. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "2TZCfTgopeg",
+          "description": "Video lesson presented by Netmynd AJAY: \"Mastering AWS VPC: Security Groups & NACL Explained\". Aligned to Module 29 - Lesson 2: Ingress and egress for practical lab and defensive analysis.",
+          "youtubeVideoId": "2Atouyh-DF4",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Netmynd AJAY",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -12381,7 +12381,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 29 - Lesson 2: Ingress and egress), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 29 - Lesson 2: Ingress and egress), follow along with Netmynd AJAY (\"Mastering AWS VPC: Security Groups & NACL Explained\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 28 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -12446,10 +12446,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-001d-4000-8000-000000000003",
           "slug": "m29-l3-security-groups-and-acls",
           "title": "Module 29 - Lesson 3: Security groups and ACLs",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 29 - Lesson 3: Security groups and ACLs. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "SX-vJqeBzOQ",
+          "description": "Video lesson presented by Tiny Technical Tutorials: \"AWS Security Groups Simply Explained: A Step-by-Step Tutorial for Beginners\". Aligned to Module 29 - Lesson 3: Security groups and ACLs for practical lab and defensive analysis.",
+          "youtubeVideoId": "uYDT2SsHImQ",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Tiny Technical Tutorials",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -12473,7 +12473,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 29 - Lesson 3: Security groups and ACLs), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 29 - Lesson 3: Security groups and ACLs), follow along with Tiny Technical Tutorials (\"AWS Security Groups Simply Explained: A Step-by-Step Tutorial for Beginners\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 28 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -12538,10 +12538,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-001d-4000-8000-000000000004",
           "slug": "m29-l4-cloud-network-evidence",
           "title": "Module 29 - Lesson 4: Cloud network evidence",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 29 - Lesson 4: Cloud network evidence. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "2TZCfTgopeg",
+          "description": "Video lesson presented by Cloud Security Masterclass: \"AWS Security Labs | AWS VPC Flow Logs\". Aligned to Module 29 - Lesson 4: Cloud network evidence for practical lab and defensive analysis.",
+          "youtubeVideoId": "noBOOD7uLJE",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Cloud Security Masterclass",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -12565,7 +12565,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 29 - Lesson 4: Cloud network evidence), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 29 - Lesson 4: Cloud network evidence), follow along with Cloud Security Masterclass (\"AWS Security Labs | AWS VPC Flow Logs\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 28 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -12709,10 +12709,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-001e-4000-8000-000000000001",
           "slug": "m30-l1-scoping-and-timeline",
           "title": "Module 30 - Lesson 1: Scoping and timeline",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 30 - Lesson 1: Scoping and timeline. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "JSP-yOBRbrg",
+          "description": "Video lesson presented by MyDFIR: \"Cybersecurity SOC Analyst Lab - Web Investigation (PCAP)\". Aligned to Module 30 - Lesson 1: Scoping and timeline for practical lab and defensive analysis.",
+          "youtubeVideoId": "X3RGOPEhDw4",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "MyDFIR",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -12736,7 +12736,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 30 - Lesson 1: Scoping and timeline), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 30 - Lesson 1: Scoping and timeline), follow along with MyDFIR (\"Cybersecurity SOC Analyst Lab - Web Investigation (PCAP)\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 29 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -12801,10 +12801,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-001e-4000-8000-000000000002",
           "slug": "m30-l2-multi-source-analysis",
           "title": "Module 30 - Lesson 2: Multi-source analysis",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 30 - Lesson 2: Multi-source analysis. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "3FPaTvCJojQ",
+          "description": "Video lesson presented by Dr. K Cybersecurity: \"How SOC Analysts Actually Investigate Network Traffic (Wireshark Walkthrough)\". Aligned to Module 30 - Lesson 2: Multi-source analysis for practical lab and defensive analysis.",
+          "youtubeVideoId": "xl56QIsMoTQ",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Dr. K Cybersecurity",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -12828,7 +12828,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 30 - Lesson 2: Multi-source analysis), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 30 - Lesson 2: Multi-source analysis), follow along with Dr. K Cybersecurity (\"How SOC Analysts Actually Investigate Network Traffic (Wireshark Walkthrough)\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 29 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -12893,10 +12893,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-001e-4000-8000-000000000003",
           "slug": "m30-l3-judgment-and-caveats",
           "title": "Module 30 - Lesson 3: Judgment and caveats",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 30 - Lesson 3: Judgment and caveats. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "rmFX1V49K8U",
+          "description": "Video lesson presented by Simply Cyber: \"SOC Analyst Skills - Wireshark Malicious Traffic Analysis\". Aligned to Module 30 - Lesson 3: Judgment and caveats for practical lab and defensive analysis.",
+          "youtubeVideoId": "M8yoYmiL7rA",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Simply Cyber",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -12920,7 +12920,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 30 - Lesson 3: Judgment and caveats), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 30 - Lesson 3: Judgment and caveats), follow along with Simply Cyber (\"SOC Analyst Skills - Wireshark Malicious Traffic Analysis\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 29 (recommended); prior prerequisite knowledge may be demonstrated"
             ],
@@ -12985,10 +12985,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-001e-4000-8000-000000000004",
           "slug": "m30-l4-communication-and-defense",
           "title": "Module 30 - Lesson 4: Communication and defense",
-          "description": "Video lesson presented by CyberTube Instructor. Covers Module 30 - Lesson 4: Communication and defense. Practice the concepts in your isolated lab environment.",
-          "youtubeVideoId": "JSP-yOBRbrg",
+          "description": "Video lesson presented by Pooji SOC Talks: \"Day 14/LAST: Analyze Suspicious Network Protocols | SOC Investigation & Incident Report\". Aligned to Module 30 - Lesson 4: Communication and defense for practical lab and defensive analysis.",
+          "youtubeVideoId": "29R_KDGzBxU",
           "videoAttribution": {
-            "creator": "CyberTube Instructor",
+            "creator": "Pooji SOC Talks",
             "platform": "youtube"
           },
           "durationMinutes": 30,
@@ -13012,7 +13012,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
             "Defensive Network Operations"
           ],
           "richContent": {
-            "introduction": "In this video-guided lesson (Module 30 - Lesson 4: Communication and defense), follow along with CyberTube Instructor to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
+            "introduction": "In this video-guided lesson (Module 30 - Lesson 4: Communication and defense), follow along with Pooji SOC Talks (\"Day 14/LAST: Analyze Suspicious Network Protocols | SOC Investigation & Incident Report\") to master practical network security principles. Run verification commands in your authorized lab environment and record required telemetry.",
             "prerequisites": [
               "Module 29 (recommended); prior prerequisite knowledge may be demonstrated"
             ],

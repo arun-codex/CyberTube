@@ -67,6 +67,8 @@ describe('Networking for Cybersecurity: Zero to Advanced Test Suite', () => {
     lessons.forEach((les) => {
       assert.ok(les.youtubeVideoId, `Lesson ${les.slug} must have youtubeVideoId`);
       assert.ok(les.description, `Lesson ${les.slug} must have description`);
+      assert.ok(les.videoAttribution, `Lesson ${les.slug} must have videoAttribution`);
+      assert.ok(les.videoAttribution.creator, `Lesson ${les.slug} missing creator`);
       if (les.richContent?.theorySections) {
         assert.ok(les.richContent.introduction, `Lesson ${les.slug} rich content missing intro`);
         assert.ok(les.richContent.theorySections.length > 0, `Lesson ${les.slug} rich content missing theory`);
@@ -124,5 +126,38 @@ describe('Networking for Cybersecurity: Zero to Advanced Test Suite', () => {
     const legacyCourse = getCourseBySlug('networking-for-hackers-2027');
     assert.ok(legacyCourse, 'getCourseBySlug must resolve networking-for-hackers-2027');
     assert.strictEqual(legacyCourse.modules.length, 1);
+  });
+
+  it('8. EXACTLY 120 UNIQUE YouTube video IDs across all 120 lessons (0 duplicates across course)', () => {
+    const lessons = getCourseLessons(NETWORKING_FOR_CYBERSECURITY_COURSE);
+    assert.strictEqual(lessons.length, 120, 'Course must contain 120 lessons');
+
+    const videoIds = lessons.map((l) => l.youtubeVideoId);
+    const uniqueVideoIds = new Set(videoIds);
+
+    // Verify format of all video IDs
+    videoIds.forEach((vid, i) => {
+      assert.ok(vid, `Lesson index ${i} missing video ID`);
+      assert.match(vid, /^[a-zA-Z0-9_-]{11}$/, `Invalid video ID at index ${i}: ${vid}`);
+    });
+
+    // Zero cross-course duplication
+    assert.strictEqual(
+      uniqueVideoIds.size,
+      120,
+      `Expected exactly 120 unique YouTube video IDs, but found ${uniqueVideoIds.size} (${120 - uniqueVideoIds.size} duplicates)`
+    );
+  });
+
+  it('9. ZERO intra-module duplicate videos (each module has 4 distinct videos)', () => {
+    NETWORKING_FOR_CYBERSECURITY_COURSE.modules.forEach((mod, modIdx) => {
+      const modVideos = mod.lessons.map((l) => l.youtubeVideoId);
+      const uniqueModVideos = new Set(modVideos);
+      assert.strictEqual(
+        uniqueModVideos.size,
+        4,
+        `Module ${modIdx + 1} (${mod.title}) has duplicate videos: ${modVideos.join(', ')}`
+      );
+    });
   });
 });

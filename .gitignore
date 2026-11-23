@@ -51,3 +51,5 @@ src/data/study-pdf-index.json
 scratch/
 src/data/study-pdf-index.json
 *study-pdf-index*.json
+.vercel
+.env*
