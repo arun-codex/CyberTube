@@ -3,7 +3,9 @@ import { getAuthenticatedUser } from '@/lib/supabase/server';
 import { createAdminClient } from '@/lib/supabase/admin';
 // The PDF is a private, cookie-authenticated same-origin resource.
 // Never advertise credentialed cross-origin access, including on errors.
-export function OPTIONS() {
+export function OPTIONS(req: NextRequest): NextResponse;
+export function OPTIONS(): NextResponse;
+export function OPTIONS(req?: NextRequest): NextResponse {
   return new NextResponse(null, { status: 405, headers: { Allow: 'GET' } });
 }
 

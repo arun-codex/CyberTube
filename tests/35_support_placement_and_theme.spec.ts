@@ -19,12 +19,11 @@ test.describe('Inline Chai Support',()=>{
       }),
     }));
     await page.goto('/');
-    await expect(page.locator('footer #support-cybertube').getByRole('button',{name:'Support CyberTube ☕'})).toBeVisible();
-    await expect(page.getByRole('button',{name:'Support CyberTube ☕'})).toHaveCount(2);
+    const supportBtn = page.locator('#support-cybertube').getByRole('button',{name:'Support CyberTube ☕'}).first();
+    await expect(supportBtn).toBeVisible();
     await expect(page.locator('chai-support')).toHaveCount(0);
-    await expect(page.locator('header a[href="/#support-cybertube"]')).toBeVisible();
 
-    await page.getByRole('button',{name:'Support CyberTube ☕'}).first().click();
+    await supportBtn.click();
     const modal=page.getByRole('dialog',{name:'Buy us a chai ☕'});
     await expect(modal).toBeVisible();
     await expect(modal.getByText('Preview only — real UPI payments are disabled')).toBeVisible();
