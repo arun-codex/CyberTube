@@ -11,9 +11,8 @@ interface CurriculumSidebarProps {
   completedLessonIds: string[];
   courseSlug: string;
   totalLessons: number;
-  onSelectLesson: (slug: string, tab?: 'content' | 'lab' | 'quiz' | 'capstone' | 'pcaps') => void;
+  onSelectLesson: (slug: string, tab?: 'content' | 'lab' | 'capstone' | 'pcaps') => void;
   onToggleComplete: (lessonId: string) => void;
-  quizScores?: Record<string, number>;
 }
 
 export const CurriculumSidebar: React.FC<CurriculumSidebarProps> = ({
@@ -24,7 +23,6 @@ export const CurriculumSidebar: React.FC<CurriculumSidebarProps> = ({
   totalLessons,
   onSelectLesson,
   onToggleComplete,
-  quizScores = {},
 }) => {
   // Initialize with open modules; automatically ensure active lesson's module is open
   const [openModuleIds, setOpenModuleIds] = useState<string[]>(() => {
@@ -51,9 +49,6 @@ export const CurriculumSidebar: React.FC<CurriculumSidebarProps> = ({
   const completedCount = completedLessonIds.length;
   const coursePercent =
     totalLessons > 0 ? Math.round((completedCount / totalLessons) * 100) : 0;
-
-  // Determine if course enforces sequential quiz unlocking (e.g. Storytelling Masterclass)
-  const isSequentialQuizCourse = courseSlug === 'free-storytelling-masterclass';
 
   return (
     <aside
@@ -82,28 +77,6 @@ export const CurriculumSidebar: React.FC<CurriculumSidebarProps> = ({
       {/* Modules List */}
       <div className="space-y-2.5">
         {modules.map((module, idx) => {
-          let isLocked = false;
-          let unlockRequirement = '';
-          let onGoToRequiredQuiz: (() => void) | undefined = undefined;
-
-          if (isSequentialQuizCourse && idx > 0) {
-            const prevModule = modules[idx - 1];
-            const prevScore = quizScores[prevModule.id] ?? 0;
-            const passingScore = prevModule.quiz?.passingScorePercent || 70;
-
-            if (prevScore < passingScore) {
-              isLocked = true;
-              unlockRequirement = `Pass Week ${idx} Quiz (≥ ${passingScore}%) to unlock Week ${idx + 1}. Current best: ${prevScore}%.`;
-              onGoToRequiredQuiz = () => {
-                const targetLesson =
-                  prevModule.lessons?.[prevModule.lessons.length - 1] || prevModule.lessons?.[0];
-                if (targetLesson) {
-                  onSelectLesson(targetLesson.slug, 'quiz');
-                }
-              };
-            }
-          }
-
           return (
             <CurriculumModule
               key={module.id}
@@ -116,10 +89,6 @@ export const CurriculumSidebar: React.FC<CurriculumSidebarProps> = ({
               courseSlug={courseSlug}
               onSelectLesson={onSelectLesson}
               onToggleComplete={onToggleComplete}
-              isLocked={isLocked}
-              unlockRequirement={unlockRequirement}
-              quizScore={quizScores[module.id]}
-              onGoToRequiredQuiz={onGoToRequiredQuiz}
             />
           );
         })}

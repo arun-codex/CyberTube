@@ -2,125 +2,123 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { NextRequest } from 'next/server';
 import { COURSES } from '../src/data/courses';
-import { POST } from '../app/api/courses/quiz/submit/route';
-import { setAuthenticatedUserForTesting } from '../src/lib/supabase/server';
+import { POST as submitQuiz, GET as getQuiz } from '../app/api/courses/quiz/submit/route';
+import { POST as submitStorytellingQuiz, GET as getStorytellingQuiz } from '../app/api/courses/storytelling/quiz/submit/route';
+import { getComprehensiveCourseCompletion } from '../src/lib/course-progress';
 
-const repo=(p:string)=>readFileSync(join(process.cwd(),p),'utf-8');
-const linux=COURSES.find(c=>c.slug==='linux-zero-to-advanced')!;
-const mern=COURSES.find(c=>c.slug==='mern-full-stack-course-with-ai')!;
-function submit(course:any,module:any,answerIndexes:number[],courseId=course.id){
- return POST(new NextRequest('http://localhost:3000/api/courses/quiz/submit',{
-  method:'POST',
-  headers:{'Content-Type':'application/json'},
-  body:JSON.stringify({
-    courseSlug:course.slug,courseId,moduleId:module.id,
-    selectedAnswers:Object.fromEntries(answerIndexes.map((value,index)=>[String(index),value])),
-  }),
- }));
-}
+const repo = (p: string) => readFileSync(join(process.cwd(), p), 'utf-8');
+const linux = COURSES.find((c) => c.slug === 'linux-zero-to-advanced')!;
+const mern = COURSES.find((c) => c.slug === 'mern-full-stack-course-with-ai')!;
+const storytelling = COURSES.find((c) => c.slug === 'free-storytelling-masterclass')!;
 
-test('MERN playlist retains three source-video IDs and adds guided exercises and quizzes',()=>{
- assert.equal(mern.sourcePlaylistId,'PLQl7ZDyS2qk8');
- assert.equal(mern.modules.length,3);
- assert.equal(mern.modules.flatMap(m=>m.lessons).length,6);
- assert.deepEqual(mern.modules.flatMap(m=>m.lessons).map(l=>l.youtubeVideoId).filter(Boolean),
-   ['fFVZ9xbyBlc','aqtA2zHURbg','PNQiabb5ZjY']);
- assert.ok(mern.modules[2].lessons.every(l=>!l.youtubeVideoId));
- for(const module of mern.modules){
-   assert.ok(module.quiz);
-   assert.equal(module.quiz?.questions.length,3);
-   assert.ok(module.quiz?.questions.every(q=>Number.isInteger(q.correctAnswerIndex)));
- }
+test('Course Preservation — MERN playlist contains all 34 source videos across 5 modules', () => {
+  assert.equal(mern.sourcePlaylistId, 'PLQl7ZDyS2qk8');
+  assert.equal(mern.modules.length, 5);
+  assert.equal(mern.modules.flatMap((m) => m.lessons).length, 34);
+  const videoIds = mern.modules.flatMap((m) => m.lessons).map((l) => l.youtubeVideoId);
+  assert.equal(videoIds.filter(Boolean).length, 34);
+  assert.equal(videoIds[0], 'fFVZ9xbyBlc');
+  assert.equal(videoIds[1], 'aqtA2zHURbg');
+  assert.equal(videoIds[2], 'PNQiabb5ZjY');
 });
 
-test('every ordinary course module with a quiz has a usable authoritative answer key',()=>{
-  let checked=0;
-  const missing:string[]=[];
-  for(const course of COURSES){
-    if(course.slug==='free-storytelling-masterclass')continue;
-    for(const courseModule of course.modules){
-      const quiz=courseModule.quiz||courseModule.lessons.find(l=>l.quiz)?.quiz;
-      if(!quiz)continue;
-      checked++;
-      if(!Array.isArray(quiz.questions)||quiz.questions.length===0){
-        missing.push(course.slug+'/'+courseModule.id+': empty quiz');
-        continue;
-      }
-      quiz.questions.forEach((q,index)=>{
-        if(!Array.isArray(q.options)||q.options.length<2||
-            !Number.isInteger(q.correctAnswerIndex)||
-            (q.correctAnswerIndex as number)<0||
-            (q.correctAnswerIndex as number)>=q.options.length){
-          missing.push(course.slug+'/'+courseModule.id+': question '+(index+1)+' missing correct answer');
-        }
-      });
+test('Course Preservation — all courses and modules remain intact', () => {
+  assert.ok(COURSES.length >= 8, 'Expected at least 8 courses in COURSES catalog');
+  for (const course of COURSES) {
+    assert.ok(course.id, `Course ${course.slug} missing id`);
+    assert.ok(course.slug, `Course ${course.id} missing slug`);
+    assert.ok(course.title, `Course ${course.slug} missing title`);
+    assert.ok(course.modules.length > 0, `Course ${course.slug} has no modules`);
+    const lessons = course.modules.flatMap((m) => m.lessons);
+    assert.ok(lessons.length > 0, `Course ${course.slug} has no lessons`);
+    for (const lesson of lessons) {
+      assert.ok(lesson.id, `Lesson missing id in ${course.slug}`);
+      assert.ok(lesson.title, `Lesson missing title in ${course.slug}`);
     }
   }
-  assert.ok(checked>20,'Expected multiple course quizzes to be checked');
-  assert.deepEqual(missing,[],missing.slice(0,15).join('\n'));
 });
 
-test('generic Linux quiz is graded by the correct endpoint, not Storytelling API',async()=>{
- setAuthenticatedUserForTesting(null);
- const module=linux.modules.find(m=>m.quiz&&m.quiz.questions.length>0)!;
- const answers=module.quiz!.questions.map(q=>q.correctAnswerIndex!);
- const res=await submit(linux,module,answers);
- const body=await res.json();
- assert.equal(res.status,200,JSON.stringify(body));
- assert.equal(body.success,true);
- assert.equal(body.score,100);
- assert.equal(body.passed,true);
- assert.equal(body.correctCount,answers.length);
- assert.equal(body.savedToCloud,false);
- assert.equal(body.gradedBy,'cybertube-server');
+test('Direct Lesson Access — Storytelling Masterclass modules are directly accessible without quiz gates', () => {
+  assert.ok(storytelling, 'Storytelling course must exist');
+  assert.equal(storytelling.modules.length, 20);
+  // Verify first, middle, and last modules exist and have valid lessons
+  const mod1 = storytelling.modules[0];
+  const mod10 = storytelling.modules[9];
+  const mod20 = storytelling.modules[19];
+  assert.ok(mod1.lessons.length > 0);
+  assert.ok(mod10.lessons.length > 0);
+  assert.ok(mod20.lessons.length > 0);
 });
 
-test('MERN module quiz handles good and wrong answers without a fake pass',async()=>{
- setAuthenticatedUserForTesting(null);
- const module=mern.modules[0];
- const correct=module.quiz!.questions.map(q=>q.correctAnswerIndex!);
- const good=await submit(mern,module,correct);
- assert.equal(good.status,200,JSON.stringify(await good.json()));
- const wrong=module.quiz!.questions.map(q=>(q.correctAnswerIndex!+1)%q.options.length);
- const res=await submit(mern,module,wrong);
- const body=await res.json();
- assert.equal(res.status,200);
- assert.equal(body.score,0);
- assert.equal(body.passed,false);
+test('Quiz API Retirement — general quiz submit route returns HTTP 410 Gone', async () => {
+  const postRes = await submitQuiz();
+  assert.equal(postRes.status, 410);
+  const postBody = await postRes.json();
+  assert.equal(postBody.retired, true);
+  assert.match(postBody.error, /retired/i);
+
+  const getRes = await getQuiz();
+  assert.equal(getRes.status, 410);
+  const getBody = await getRes.json();
+  assert.equal(getBody.retired, true);
 });
 
-test('malformed/partial answers and cross-course submissions are rejected',async()=>{
- const module=linux.modules.find(m=>m.quiz&&m.quiz.questions.length>0)!;
- const good=module.quiz!.questions.map(q=>q.correctAnswerIndex!);
- assert.equal((await submit(linux,module,[],linux.id)).status,400);
- assert.equal((await submit(linux,module,good,'another-course')).status,400);
- const wrongIndex=[...good];wrongIndex[0]=999;
- assert.equal((await submit(linux,module,wrongIndex)).status,400);
+test('Quiz API Retirement — storytelling quiz submit route returns HTTP 410 Gone', async () => {
+  const postRes = await submitStorytellingQuiz();
+  assert.equal(postRes.status, 410);
+  const postBody = await postRes.json();
+  assert.equal(postBody.retired, true);
+  assert.match(postBody.error, /retired/i);
+
+  const getRes = await getStorytellingQuiz();
+  assert.equal(getRes.status, 410);
+  const getBody = await getRes.json();
+  assert.equal(getBody.retired, true);
 });
 
-test('protected Storytelling grading cannot be routed through generic endpoint',async()=>{
- const course=COURSES.find(c=>c.slug==='free-storytelling-masterclass')!;
- const module=course.modules[0];
- const res=await submit(course,module,[]);
- assert.equal(res.status,400);
- const result=await res.json();
- assert.match(result.error,/Invalid course/);
+test('UI Cleanliness — no quiz tabs, gates, or buttons in learning workspace components', () => {
+  const panels = repo('src/components/courses/learning/LessonContentSections.tsx');
+  const layout = repo('src/components/courses/learning/UniversalCourseLearningLayout.tsx');
+  const sidebar = repo('src/components/courses/learning/CurriculumSidebar.tsx');
+  const moduleRow = repo('src/components/courses/learning/CurriculumModule.tsx');
+  const nav = repo('src/components/courses/learning/LessonNavigation.tsx');
+  const progressHeader = repo('src/components/courses/learning/CourseProgressHeader.tsx');
+
+  // No active quiz components or tabs
+  assert.doesNotMatch(panels, /<ModuleQuizView/);
+  assert.doesNotMatch(panels, /<span>Module Quiz/);
+  assert.doesNotMatch(panels, /data-testid="module-quiz-assessment-section"/);
+  assert.doesNotMatch(panels, /Start Assessment Quiz/);
+  assert.doesNotMatch(panels, /Retake Assessment Quiz/);
+
+  // No quiz buttons in navigation
+  assert.doesNotMatch(nav, /Take Module Quiz/);
+
+  // No quiz lock overlays in layout
+  assert.doesNotMatch(layout, /data-testid="locked-lesson-overlay"/);
+  assert.doesNotMatch(layout, /Go to Required Quiz/);
+  assert.doesNotMatch(layout, /isCurrentLessonLocked\s*=\s*true/);
+
+  // No quiz locking in sidebar or module
+  assert.doesNotMatch(sidebar, /isSequentialQuizCourse\s*=\s*true/);
+  assert.doesNotMatch(sidebar, /Pass Week .* Quiz/);
+  assert.doesNotMatch(moduleRow, /data-testid="module-quiz-sidebar-row-/);
+  assert.doesNotMatch(moduleRow, /Start Quiz →/);
+  assert.doesNotMatch(moduleRow, /Go to Required Quiz/);
+
+  // No quiz progress dimension in CourseProgressHeader
+  assert.doesNotMatch(progressHeader, /2\. Module Quizzes/);
 });
 
-test('all course assessment buttons route to the right endpoint and focus the quiz directly',()=>{
- const moduleUI=repo('src/components/courses/ModuleQuizView.tsx');
- const panels=repo('src/components/courses/learning/LessonContentSections.tsx');
- const layout=repo('src/components/courses/learning/UniversalCourseLearningLayout.tsx');
- const sidebar=repo('src/components/courses/learning/CurriculumModule.tsx');
- assert.match(moduleUI,/isStorytellingCourse\s*\?\s*'\/api\/courses\/storytelling\/quiz\/submit'/);
- assert.match(moduleUI,/'\/api\/courses\/quiz\/submit'/);
- assert.doesNotMatch(moduleUI,/calculateFallbackScore/);
- assert.match(panels,/id="course-quiz-focus"/);
- assert.match(panels,/scrollIntoView/);
- assert.match(panels,/courseSlug=\{courseSlug\}/);
- assert.match(layout,/activeTabOverride !== 'quiz'/);
- assert.match(sidebar,/aria-label=\{\`Start quiz:/);
- assert.match(sidebar,/<button[\s\S]*module-quiz-sidebar-row-/);
+test('Progress Calculation — completion percentage is independent of quizzes', () => {
+  for (const course of [linux, mern, storytelling]) {
+    const comp = getComprehensiveCourseCompletion(course);
+    assert.equal(comp.totalQuizzes, 0, 'Total quizzes must be 0');
+    assert.equal(comp.quizzesPassed, 0, 'Quizzes passed must be 0');
+    assert.equal(comp.quizCompletionPercent, 100, 'Quiz completion percent must report 100%');
+    assert.ok(comp.overallProgressPercent >= 0 && comp.overallProgressPercent <= 100);
+    assert.ok(!comp.remainingRequirements.some((r) => r.toLowerCase().includes('quiz')),
+      'Remaining requirements must not mention quizzes');
+  }
 });

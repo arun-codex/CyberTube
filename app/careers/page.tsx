@@ -16,15 +16,24 @@ export default function CareersPage() {
     <div className="min-h-screen bg-slate-50 dark:bg-[#0A0F17] py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto space-y-10">
         <div>
-          <div className="flex items-center gap-2 text-emerald-600 dark:text-emerald-400 font-mono text-xs uppercase tracking-widest mb-2">
-            <span>[ CAREER DISCOVERY ]</span>
-          </div>
           <h1 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight">
             Cybersecurity Career Pathways
           </h1>
           <p className="mt-2 text-base text-slate-600 dark:text-slate-400 max-w-3xl">
             Cybersecurity is not a monolithic field. Explore real-world day-to-day responsibilities, essential technical competencies, and step-by-step career progression ladders across core security disciplines.
           </p>
+          <div className="flex flex-wrap items-center gap-2 pt-4">
+            <span className="text-xs font-mono font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Quick jump:</span>
+            {careers.map((career) => (
+              <a
+                key={career.id}
+                href={`#${career.id}`}
+                className="text-xs font-medium px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#121A26] text-slate-700 dark:text-slate-300 hover:border-emerald-500 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors shadow-xs"
+              >
+                {career.title}
+              </a>
+            ))}
+          </div>
         </div>
 
         {/* Roles Grid */}
@@ -32,6 +41,7 @@ export default function CareersPage() {
           {careers.map((career) => (
             <div
               key={career.id}
+              id={career.id}
               className="bg-white dark:bg-[#121A26] rounded-xl border border-slate-200 dark:border-slate-800 p-6 sm:p-7 shadow-sm flex flex-col justify-between space-y-6"
             >
               <div className="space-y-4">

@@ -4,7 +4,7 @@ export const LINUX_ZERO_TO_ADVANCED_COURSE: Course = {
   "id": "course-linux-zero-to-advanced",
   "slug": "linux-zero-to-advanced",
   "title": "Linux Zero \u2192 Advanced: Complete Administration & Security",
-  "shortDescription": "A comprehensive 24-week zero-to-advanced Linux administration and systems security curriculum with 55 video lessons, hands-on labs, command practice, quizzes, and capstone.",
+  "shortDescription": "A comprehensive 24-week zero-to-advanced Linux administration and systems security curriculum with 55 video lessons, hands-on labs, command practice, and capstone.",
   "description": "An intensive, hands-on 24-week Linux systems administration and server security curriculum designed for junior administrators, SOC analysts, and security engineers. Master Linux kernel fundamentals, bash shell navigation, file permissions, ACLs, package managers, process lifecycle, systemd daemon management, disk partitioning, LVM snapshots, backups with rsync, cron scheduling, network routing and sockets, OpenSSH administration, UFW firewalls, advanced Bash/AWK/sed scripting, centralized logging with journald/syslog, system performance metrics, LUKS disk encryption, server hardening audits, and a comprehensive end-of-course server operations capstone project.",
   "domains": [
     "fundamentals",
@@ -8882,3 +8882,7 @@ export const LINUX_ZERO_TO_ADVANCED_COURSE: Course = {
     }
   ]
 };
+
+// Wire capstone assessment to course root for universal access in lesson player
+LINUX_ZERO_TO_ADVANCED_COURSE.capstone = LINUX_ZERO_TO_ADVANCED_COURSE.modules[23]?.capstoneAssessment;
+

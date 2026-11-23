@@ -1,3 +1,5 @@
+import { RetryLibrary } from "@/components/library/RetryLibrary";
+import Loading from './loading';
 import React, { Suspense } from 'react';
 import { Metadata } from 'next';
 import { getAllAuthoritativeResources, getAllAuthoritativePaths } from '@/lib/authoritativeCatalog';
@@ -8,7 +10,7 @@ export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   title: 'Library Hub | CyberTube',
-  description: 'Central cybersecurity knowledge hub: 34 authenticated Bug Bounty study materials, cheat sheets, video courses, and legal practice labs.',
+  description: 'Find study guides, cheat sheets, video courses and practice labs.',
 };
 
 export default async function LibraryPage() {
@@ -21,11 +23,12 @@ export default async function LibraryPage() {
   let progressList: any[] = [];
   let bookmarks: any[] = [];
 
+  let failed = false;
   if (supabase) {
     try {
       const [
-        { data: categoriesData },
-        { data: documentsData },
+        { data: categoriesData, error: categoryError },
+        { data: documentsData, error: documentError },
       ] = await Promise.all([
         supabase
           .from('study_categories')
@@ -41,6 +44,7 @@ export default async function LibraryPage() {
           .order('sort_order', { ascending: true }),
       ]);
 
+      failed = Boolean(categoryError || documentError);
       documents = (documentsData as any[]) || [];
       const usedCategories = new Set(documents.map((d) => d.category_id));
       categories = ((categoriesData as any[]) || []).filter((c) => usedCategories.has(c.id));
@@ -66,18 +70,16 @@ export default async function LibraryPage() {
         bookmarks = ((bookmarksData as any[]) || []).filter((b: any) => activeIds.has(b.document_id));
       }
     } catch (err) {
+      failed = true;
       console.warn('Could not fetch database study materials for library hub:', err);
     }
   }
 
   return (
     <Suspense
-      fallback={
-        <div className="container-max py-20 text-center font-mono text-xs text-muted-foreground">
-          Loading library hub...
-        </div>
-      }
+      fallback={<Loading />}
     >
+      {failed && <p role="alert" className="container-max py-4">Some study materials could not load. <RetryLibrary /></p>}
       <UnifiedLibraryHubClient
         documents={documents}
         categories={categories}

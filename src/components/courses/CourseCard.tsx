@@ -113,7 +113,7 @@ export const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
           <div className="flex items-center gap-1.5 text-xs font-mono text-[#64748B] dark:text-[#9BA8B7]">
             <User className="w-3 h-3 text-[#0E7490] dark:text-[#22D3EE]" />
             <span className="text-[#475569] dark:text-[#9BA8B7] truncate">{course.instructor.name}</span>
-            {course.instructor.organization && (
+            {course.instructor.organization && course.instructor.organization.trim().toLowerCase() !== course.instructor.name.trim().toLowerCase() && (
               <span className="text-[#64748B] dark:text-[#64748B] truncate">• {course.instructor.organization}</span>
             )}
           </div>

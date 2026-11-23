@@ -2,6 +2,7 @@
 'use client';
 
 import React, { Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import Loading from './loading';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import {
@@ -398,16 +399,10 @@ function DiscoverContent() {
       {/* ---------------------------------------------------- */}
       <header className="rounded-2xl border border-[var(--border)] bg-[var(--card-bg)] p-5 sm:p-7 space-y-5 shadow-xs">
         <div className="flex flex-wrap items-start justify-between gap-4">
-          <div className="space-y-1.5">
-            <div className="inline-flex items-center gap-2 text-xs font-mono font-medium uppercase tracking-wider text-[var(--accent-cyan)]">
-              <Compass className="h-4 w-4" />
-              <span>CyberTube Discovery V3</span>
-            </div>
-            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-[var(--text-primary)]">
-              Discover Cybersecurity Knowledge & Media Hub
-            </h1>
-            <p className="max-w-2xl text-xs sm:text-sm leading-relaxed text-[var(--text-secondary)]">
-              Playable tutorials, verified CVE advisories, technical news, industry research, tools, and career pathways — categorized and curated for cybersecurity practitioners.
+          <div className="space-y-2">
+            <h1 className="text-3xl sm:text-4xl font-bold text-[var(--text-primary)]">Discover</h1>
+            <p className="max-w-3xl text-sm leading-relaxed text-[var(--text-secondary)]">
+              Browse videos and articles by topic, or return to a video in your watch history.
             </p>
           </div>
 
@@ -894,17 +889,9 @@ function DiscoverContent() {
     </div>
   );
 }
-
 export default function DiscoverPage() {
   return (
-    <Suspense
-      fallback={
-        <div className="container-max py-16 text-center text-xs font-mono text-[var(--text-secondary)]">
-          <Loader2 className="mx-auto h-5 w-5 animate-spin text-[var(--accent-cyan)] mb-2" />
-          <span>Loading CyberTube Discover V3...</span>
-        </div>
-      }
-    >
+    <Suspense fallback={<Loading />}>
       <DiscoverContent />
     </Suspense>
   );

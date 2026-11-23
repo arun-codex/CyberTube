@@ -228,6 +228,17 @@ function decodeXml(value: string): string {
     .trim();
 }
 
+function cleanFeedExcerpt(raw: string): string {
+  if (!raw) return '';
+  let text = raw.replace(/https?:\/\/\S+/gi, '');
+  text = text.replace(/#\w+/g, '');
+  text = text.replace(/(?:join our|check out our|sponsor|patreon|discord|subscribe|use code|follow me on|connect on linkedin|twitter|instagram)[^\n.!?]*[.\n!?]/gi, '');
+  text = text.replace(/\s+/g, ' ').trim();
+  if (text.length < 15) return 'Curated learning resource with practical walkthroughs and technical analysis.';
+  if (text.length > 220) text = text.slice(0, 220).replace(/\s+\S*$/, '') + '...';
+  return text;
+}
+
 function xmlTag(block: string, tag: string): string {
   const match = block.match(new RegExp('<' + tag + '(?:\\s[^>]*)?>([\\s\\S]*?)<\\/' + tag + '>', 'i'));
   return match ? decodeXml(match[1]) : '';
@@ -271,7 +282,7 @@ async function youtubeChannel(source: typeof channels[number]): Promise<Discover
     const title = xmlTag(entry, 'title');
     if (!title) return [];
     const category = categorize(title, source.category);
-    const description = xmlTag(entry, 'media:description').slice(0, 320);
+    const description = cleanFeedExcerpt(xmlTag(entry, 'media:description'));
     const date = published(xmlTag(entry, 'published'));
     return [{
       id: 'youtube:' + id,

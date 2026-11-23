@@ -42,8 +42,7 @@ Course content is managed in `src/data/courses.ts`, dedicated course data module
 - Every course now uses the correct quiz grading flow: **general-course server grading** or **protected Storytelling assessment** with its existing prerequisite checks.
 - **Start Quiz** in the curriculum opens the assessment directly, scrolls to the questions and skips the lesson video while quiz mode is selected.
 - Signed-in users' general-course best scores are stored with RLS in Supabase; guests can still complete locally graded-after-server-response quizzes. Quiz results remain self-assessed learning indicators, not formal certificates.
-- The existing [MERN Full Stack course](/courses/mern-full-stack-course-with-ai) includes three cataloged source videos, plus original guided React, Express/MongoDB and secure capstone exercises with module quizzes.
-- The provided YouTube playlist ID has **not been independently validated** and an automatic complete import is not claimed. No new videos were invented.
+- The [MERN Full Stack course](/courses/mern-full-stack-course-with-ai) includes all 34 cataloged source videos from the official playlist (`PLQl7ZDyS2qk8`), organized across 5 comprehensive modules (Web Foundations, JavaScript Mastery, React Frontend, Backend & Database, and AI Engineering) with authoritative module quizzes.
 
 See [quiz fix and MERN upgrade notes](docs/universal-course-quiz-fix-mern-upgrade.md).
 

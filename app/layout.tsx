@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://cybertube-mu.vercel.app'),
   title: 'CyberTube — Cybersecurity Learning Platform',
   description:
-    'A premium, structured developer and researcher learning platform for cybersecurity. Structured video courses, hands-on packet analysis, hardware security, and protocol breakdowns.',
+    'Study cybersecurity with video courses, guided learning paths, reference materials and practice labs.',
   icons: {
     icon: [
       { url: '/icon.svg', type: 'image/svg+xml' },
@@ -52,8 +52,9 @@ export default function RootLayout({
         >
           <AuthProvider>
             <ProgressProvider>
+              <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded focus:bg-white focus:px-4 focus:py-3 focus:text-slate-900">Skip to content</a>
               <Header />
-              <main className="flex-1 w-full flex flex-col">{children}</main>
+              <main id="main-content" tabIndex={-1} className="flex-1 w-full flex flex-col">{children}</main>
               <Footer />
             </ProgressProvider>
           </AuthProvider>

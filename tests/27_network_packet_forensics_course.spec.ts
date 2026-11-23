@@ -312,22 +312,15 @@ test.describe('Phase 18 — Network Packet Forensics Masterclass Integration', (
     await expect(banner).toContainText('Legacy Course Progress Archived');
   });
 
-  test('16. Interactive knowledge check: allows selecting answers and reset', async ({ page }) => {
+  test('16. Interactive knowledge check: confirmed removed per website-wide quiz removal policy', async ({ page }) => {
     await page.goto(`/courses/${courseSlug}?lesson=osi-vs-tcpip-encapsulation`);
     await page.waitForLoadState('domcontentloaded');
 
-    const knowledgeCheck = page.locator('text=Lesson Knowledge Check').first();
-    await expect(knowledgeCheck).toBeVisible();
+    const knowledgeCheck = page.locator('text=Lesson Knowledge Check');
+    await expect(knowledgeCheck).toHaveCount(0);
 
-    const radioOption = page.locator('input[type="radio"]').first();
-    await expect(radioOption).toBeVisible();
-    await radioOption.click();
-
-    const submitBtn = page.locator('button:has-text("Submit Answer")').first();
-    await expect(submitBtn).toBeVisible();
-    await submitBtn.click();
-
-    await expect(page.locator('text=Correct Answer!').or(page.locator('text=Incorrect')).first()).toBeVisible();
+    const submitBtn = page.locator('button:has-text("Submit Answer")');
+    await expect(submitBtn).toHaveCount(0);
   });
 
   test('17. Assessed module lab: displays tasks and evidence worksheet', async ({ page }) => {

@@ -10,7 +10,7 @@ import { getCourseLessons, getRelatedResourcesForLesson } from '../../../src/lib
 interface CourseLearningExperienceProps {
   course: Course;
   initialLessonSlug?: string;
-  initialTab?: 'content' | 'lab' | 'quiz' | 'capstone' | 'pcaps';
+  initialTab?: 'content' | 'lab' | 'capstone' | 'pcaps';
 }
 
 /**

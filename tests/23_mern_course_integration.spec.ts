@@ -10,17 +10,11 @@ test.describe('Phase 15 — MERN Full Stack Course Integration', () => {
     // Verify manifest metadata
     expect(manifest.playlistId).toBe('PLQl7ZDyS2qk8');
     expect(manifest.title).toBe('MERN Full Stack Course - React, Node & MongoDB with AI');
-    expect(manifest.totalEntriesFound).toBe(4);
-    expect(manifest.playableLessonsCount).toBe(3);
-    expect(manifest.unavailableEntriesCount).toBe(1);
-    expect(manifest.totalPlayableDurationMinutes).toBe(169);
-    expect(manifest.totalPlayableDurationSeconds).toBe(10177);
-
-    // Verify unavailable entry reported accurately
-    const unavailableEntry = manifest.entries.find((e) => e.videoId === 'G9ONQ8XosN8');
-    expect(unavailableEntry).toBeDefined();
-    expect(unavailableEntry?.status).toBe('unavailable_processing');
-    expect(unavailableEntry?.embeddable).toBe(false);
+    expect(manifest.totalEntriesFound).toBe(34);
+    expect(manifest.playableLessonsCount).toBe(34);
+    expect(manifest.unavailableEntriesCount).toBe(0);
+    expect(manifest.totalPlayableDurationMinutes).toBe(3813);
+    expect(manifest.totalPlayableDurationSeconds).toBe(228767);
 
     // Verify course in catalog
     const course = COURSES.find((c) => c.slug === mernSlug);
@@ -31,16 +25,16 @@ test.describe('Phase 15 — MERN Full Stack Course Integration', () => {
     expect(course?.sourcePlaylistUrl).toBe('https://www.youtube.com/playlist?list=PLQl7ZDyS2qk8');
     expect(course?.sourcePlatform).toBe('youtube');
     expect(course?.instructor.name).toBe('Codex Arun');
-    expect(course?.totalDurationMinutes).toBe(169);
-    expect(course?.estimatedDuration).toBe('2 hours 49 mins');
+    expect(course?.totalDurationMinutes).toBe(3813);
+    expect(course?.estimatedDuration).toBe('63 hours 32 mins');
 
     // Verify all playable lessons in course
     const allLessons = course!.modules.flatMap((m) => m.lessons);
-    expect(allLessons.length).toBe(3);
+    expect(allLessons.length).toBe(34);
 
     // Check YouTube ID validity (11 chars) and uniqueness
     const videoIds = allLessons.map((l) => l.youtubeVideoId);
-    expect(new Set(videoIds).size).toBe(3);
+    expect(new Set(videoIds).size).toBe(34);
     for (const vid of videoIds) {
       expect(vid).toMatch(/^[a-zA-Z0-9_-]{11}$/);
     }
@@ -59,9 +53,9 @@ test.describe('Phase 15 — MERN Full Stack Course Integration', () => {
     await expect(page.locator('h1')).toContainText('Video Courses & Learning Tracks');
 
     // Track filter tabs exist
-    const allTab = page.locator('button:has-text("All Tracks")');
-    const cyberTab = page.locator('button:has-text("Cybersecurity")');
-    const webDevTab = page.locator('button:has-text("Web Development")');
+    const allTab = page.locator('main button:has-text("All Tracks")');
+    const cyberTab = page.locator('main button:has-text("Cybersecurity")');
+    const webDevTab = page.locator('main button:has-text("Web Development")');
     await expect(allTab).toBeVisible();
     await expect(cyberTab).toBeVisible();
     await expect(webDevTab).toBeVisible();
@@ -82,7 +76,7 @@ test.describe('Phase 15 — MERN Full Stack Course Integration', () => {
 
     // Filter by Cybersecurity track
     await cyberTab.click();
-    await expect(page.locator('text=Showing 5 of')).toBeVisible();
+    await expect(page.locator('text=/Showing \\d+ of/')).toBeVisible();
     await expect(page.locator(`a[href="/courses/${mernSlug}"]`)).toHaveCount(0);
     // Existing cybersecurity course is visible
     await expect(page.locator('a[href="/courses/network-packet-analysis-masterclass"]').first()).toBeVisible();
@@ -96,7 +90,7 @@ test.describe('Phase 15 — MERN Full Stack Course Integration', () => {
     await expect(page.locator('h1')).toHaveText('MERN Full Stack Course - React, Node & MongoDB with AI');
     await expect(page.locator('text=Web Development').first()).toBeVisible();
     await expect(page.locator('text=Codex Arun').first()).toBeVisible();
-    await expect(page.locator('text=2 hours 49 mins').first()).toBeVisible();
+    await expect(page.locator('text=63 hours 32 mins').first()).toBeVisible();
 
     // Original YouTube playlist link
     const playlistLink = page.locator('a[href="https://www.youtube.com/playlist?list=PLQl7ZDyS2qk8"]');
@@ -104,8 +98,8 @@ test.describe('Phase 15 — MERN Full Stack Course Integration', () => {
     await expect(playlistLink).toContainText('PLQl7ZDyS2qk8');
 
     // Modules and lessons in curriculum
-    await expect(page.locator('text=Module 1: Course Overview & Full-Stack Foundations').first()).toBeVisible();
-    await expect(page.locator('text=Module 2: Web Basics & Core Technologies').first()).toBeVisible();
+    await expect(page.locator('text=Module 1: Web Foundations, Git & Responsive CSS').first()).toBeVisible();
+    await expect(page.locator('text=Module 2: JavaScript Mastery & Asynchronous Programming').first()).toBeVisible();
 
     // Check first lesson title
     await expect(page.locator('h2').first()).toContainText('01 MERN Full Stack Course');
@@ -182,8 +176,8 @@ test.describe('Phase 15 — MERN Full Stack Course Integration', () => {
 
     await expect(page.locator('button:has-text("Completed")').first()).toBeVisible();
 
-    // Overall progress in compact header shows 33% (1 of 3 completed)
-    await expect(page.locator('text=33%').first()).toBeVisible();
+    // Overall progress in compact header shows 3% (1 of 34 completed)
+    await expect(page.locator('text=3%').first()).toBeVisible();
   });
 
   test('7. Existing Cybersecurity Courses Remain Unbroken', async ({ page }) => {

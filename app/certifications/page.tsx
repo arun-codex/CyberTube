@@ -17,15 +17,24 @@ export default function CertificationsPage() {
     <div className="min-h-screen bg-slate-50 dark:bg-[#0A0F17] py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto space-y-10">
         <div>
-          <div className="flex items-center gap-2 text-emerald-600 dark:text-emerald-400 font-mono text-xs uppercase tracking-widest mb-2">
-            <span>[ CREDENTIAL ROADMAP ]</span>
-          </div>
           <h1 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight">
             Industry Certifications Guide
           </h1>
           <p className="mt-2 text-base text-slate-600 dark:text-slate-400 max-w-3xl">
             Objective breakdowns of high-value industry credentials. Understand syllabus domains, exam formats, and version updates without vendor marketing spin or outdated syllabus material.
           </p>
+          <div className="flex flex-wrap items-center gap-2 pt-4">
+            <span className="text-xs font-mono font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Quick jump:</span>
+            {certs.map((cert) => (
+              <a
+                key={cert.id}
+                href={`#${cert.id}`}
+                className="text-xs font-mono font-medium px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#121A26] text-slate-700 dark:text-slate-300 hover:border-emerald-500 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors shadow-xs"
+              >
+                {cert.code} ({cert.title})
+              </a>
+            ))}
+          </div>
         </div>
 
         {/* Pricing & Neutrality Notice */}
@@ -57,7 +66,7 @@ export default function CertificationsPage() {
                         {cert.code}
                       </span>
                       <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">
-                        {cert.issuer} • {cert.level}
+                        {cert.issuer} • {cert.level} • <span className="text-emerald-600 dark:text-emerald-400 font-mono">Syllabus verified November 2026</span>
                       </span>
                     </div>
                     <h2 className="text-2xl font-bold text-slate-900 dark:text-white">

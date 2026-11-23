@@ -13,14 +13,11 @@ import {
   Eye,
   AlertTriangle,
   ShieldAlert,
-  HelpCircle,
   ExternalLink,
   ChevronRight,
   Terminal,
   FileCode,
   Layers,
-  ArrowRight,
-  RotateCcw,
 } from 'lucide-react';
 
 interface LessonContentRendererProps {
@@ -73,108 +70,13 @@ export const CopyableFilter: React.FC<{ filter: string; description?: string }> 
   );
 };
 
+/**
+ * Retired knowledge check component.
+ * Retained as a null stub for backwards compatibility without rendering interactive quiz UI.
+ */
 export const InteractiveKnowledgeCheck: React.FC<{
-  question: KnowledgeCheckQuestion;
-}> = ({ question }) => {
-  const [selectedIdx, setSelectedIdx] = useState<number | null>(null);
-  const [submitted, setSubmitted] = useState(false);
-
-  const isCorrect = selectedIdx === question.correctAnswerIndex;
-
-  const handleReset = () => {
-    setSelectedIdx(null);
-    setSubmitted(false);
-  };
-
-  return (
-    <div className="rounded-[8px] border border-[#e4e4ed] dark:border-[#243044] bg-[#fbfbfe] dark:bg-[#121A26] p-5 sm:p-6 space-y-4">
-      <div className="flex items-center justify-between">
-        <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-[4px] bg-[#0E7490]/10 dark:bg-[#22D3EE]/10 text-[#0E7490] dark:text-[#22D3EE] border border-[#0E7490]/20 dark:border-[#22D3EE]/20 text-xs font-mono">
-          <HelpCircle className="w-3.5 h-3.5" />
-          <span>Lesson Knowledge Check</span>
-        </div>
-        {question.difficulty && (
-          <span className="text-[11px] font-mono capitalize text-[#64748B] dark:text-[#9BA8B7]">
-            {question.difficulty}
-          </span>
-        )}
-      </div>
-
-      <h4 className="font-semibold text-sm sm:text-base text-[#0F172A] dark:text-[#E6EDF3]">
-        {question.question}
-      </h4>
-
-      <div className="space-y-2">
-        {question.options.map((opt, i) => {
-          let optionStyles = 'border-[#e4e4ed] dark:border-[#243044] bg-white dark:bg-[#1A2433] text-[#0F172A] dark:text-[#E6EDF3] hover:border-[#0E7490] dark:hover:border-[#22D3EE]';
-          if (submitted) {
-            if (i === question.correctAnswerIndex) {
-              optionStyles = 'border-[#10B981] bg-[#10B981]/10 text-[#065F46] dark:text-[#34D399] font-medium';
-            } else if (i === selectedIdx && !isCorrect) {
-              optionStyles = 'border-[#EF4444] bg-[#EF4444]/10 text-[#991B1B] dark:text-[#F87171]';
-            } else {
-              optionStyles = 'opacity-50 border-[#e4e4ed] dark:border-[#243044]';
-            }
-          } else if (selectedIdx === i) {
-            optionStyles = 'border-[#0E7490] dark:border-[#22D3EE] bg-[#0E7490]/10 dark:bg-[#22D3EE]/10 text-[#0E7490] dark:text-[#22D3EE] font-medium';
-          }
-
-          return (
-            <label
-              key={i}
-              className={`flex items-start gap-3 p-3 rounded-[6px] border text-xs sm:text-sm cursor-pointer transition-colors ${optionStyles}`}
-            >
-              <input
-                type="radio"
-                name={`kc-${question.question.substring(0, 15)}`}
-                checked={selectedIdx === i}
-                onChange={() => !submitted && setSelectedIdx(i)}
-                disabled={submitted}
-                className="mt-0.5 accent-[#0E7490] dark:accent-[#22D3EE]"
-              />
-              <span className="leading-snug">{opt}</span>
-            </label>
-          );
-        })}
-      </div>
-
-      {submitted ? (
-        <div className="space-y-3 pt-2">
-          <div
-            className={`p-3.5 rounded-[6px] border text-xs sm:text-sm leading-relaxed ${
-              isCorrect
-                ? 'bg-[#10B981]/10 border-[#10B981]/30 text-[#065F46] dark:text-[#34D399]'
-                : 'bg-[#EF4444]/10 border-[#EF4444]/30 text-[#991B1B] dark:text-[#F87171]'
-            }`}
-          >
-            <div className="font-bold mb-1">
-              {isCorrect ? '✓ Correct Answer!' : '✗ Incorrect'}
-            </div>
-            <p className="text-xs text-[#334155] dark:text-[#CBD5E1]">{question.explanation}</p>
-          </div>
-          <button
-            type="button"
-            onClick={handleReset}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[4px] bg-[#f4f4f9] dark:bg-[#1A2433] hover:bg-[#e4e4ed] dark:hover:bg-[#243044] border border-[#e4e4ed] dark:border-[#243044] text-xs font-mono text-[#0F172A] dark:text-[#E6EDF3] transition-colors"
-          >
-            <RotateCcw className="w-3.5 h-3.5" />
-            <span>Try Again</span>
-          </button>
-        </div>
-      ) : (
-        <button
-          type="button"
-          onClick={() => selectedIdx !== null && setSubmitted(true)}
-          disabled={selectedIdx === null}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-[6px] bg-[#0E7490] hover:bg-[#0891B2] disabled:opacity-50 text-white font-mono text-xs font-semibold transition-colors cursor-pointer"
-        >
-          <span>Submit Answer</span>
-          <ArrowRight className="w-3.5 h-3.5" />
-        </button>
-      )}
-    </div>
-  );
-};
+  question?: KnowledgeCheckQuestion;
+}> = () => null;
 
 export const LessonContentRenderer: React.FC<LessonContentRendererProps> = ({
   content,
@@ -434,10 +336,7 @@ export const LessonContentRenderer: React.FC<LessonContentRendererProps> = ({
         </div>
       )}
 
-      {/* Interactive Knowledge Check */}
-      {content.knowledgeCheck && (
-        <InteractiveKnowledgeCheck question={content.knowledgeCheck} />
-      )}
+      {/* Interactive Knowledge Check removed per website-wide quiz removal policy */}
 
       {/* Lesson Summary */}
       {content.summary && (

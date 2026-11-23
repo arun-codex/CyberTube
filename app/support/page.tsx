@@ -28,22 +28,8 @@ export default function SupportPage() {
       <section className="chai-support-hero border-b border-[var(--border)]">
         <div className="container-max relative z-10 mx-auto grid items-center gap-4 px-4 py-10 sm:px-6 sm:py-16 lg:grid-cols-[minmax(0,1fr)_360px]">
           <div className="min-w-0 space-y-6">
-            <div className="inline-flex items-center gap-2 rounded-full border border-amber-300/30 bg-amber-300/10 px-4 py-2 text-xs font-semibold tracking-wide text-amber-200">
-              <Coffee className="h-4 w-4" aria-hidden="true" />
-              A little chai. A lot more learning.
-            </div>
-            <h1 className="chai-support-hero__title max-w-[800px] text-white">
-              Help Keep Cybersecurity Education <em>Free.</em>
-            </h1>
-            <p className="max-w-2xl text-sm leading-7 text-[#dccfcb] sm:text-lg">
-              Free lessons, practical labs and cybersecurity roadmaps are powered by curiosity,
-              community, and the occasional cup of chai. Your support is always optional.
-            </p>
-            <div className="flex flex-wrap gap-2 text-xs text-[#e8caa7]">
-              <span className="rounded-full border border-amber-200/20 bg-white/5 px-3 py-2">☕ One-time contributions</span>
-              <span className="rounded-full border border-amber-200/20 bg-white/5 px-3 py-2">🛡️ No paywalls</span>
-              <span className="rounded-full border border-amber-200/20 bg-white/5 px-3 py-2">✨ Your choice, always</span>
-            </div>
+            <h1 className="chai-support-hero__title text-white">Support CyberTube</h1>
+            <p className="text-lg text-[#dccfcb]">If a lesson helped you, buy us a chai to support free cybersecurity education.</p>
           </div>
           <div className="relative mx-auto flex w-full max-w-[360px] justify-center">
             <ChaiExperienceScene size="hero" />
