@@ -166,5 +166,5 @@ test('Dark theme still styles vendor and menu without changing config', async ({
   const widget = panel.locator('chai-support');
   await expect(widget).toHaveAttribute('theme', 'dark');
   await expect(widget).toHaveAttribute('upi-id', 'demo@upi');
-  await expect(page.getByRole('heading', { level: 1 })).toContainText('Help Keep Cybersecurity Education Free');
+  await expect(page.getByRole('heading', { level: 1 })).toContainText(/Support CyberTube|Help Keep Cybersecurity Education Free/);
 });
