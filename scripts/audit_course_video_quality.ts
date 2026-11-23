@@ -83,13 +83,24 @@ function runAudit() {
     { mod: 29, les: 1, expectedId: '7_NNlnH7sAg', topic: 'Virtual Networks (AWS VPC)' },
   ];
 
-  flags.forEach(f => {
+  flags.forEach((f) => {
     const mod = NETWORKING_FOR_CYBERSECURITY_COURSE.modules[f.mod - 1];
     const les = mod.lessons[f.les - 1];
-    if (les.youtubeVideoId === f.expectedId) {
-      console.log(`  PASS: M${String(f.mod).padStart(2, '0')}-L${String(f.les).padStart(2, '0')} (${f.topic}) correctly assigned ${f.expectedId} [${les.videoAttribution.creator}]`);
+    const creator = les.videoAttribution?.creator?.trim();
+
+    const label = `M${String(f.mod).padStart(2, '0')}-L${String(f.les).padStart(2, '0')}`;
+
+    if (les.youtubeVideoId === f.expectedId && creator) {
+      console.log(
+        `  PASS: ${label} (${f.topic}) correctly assigned ` +
+        `${f.expectedId} [${creator}]`
+      );
     } else {
-      console.error(`  FAIL: M${String(f.mod).padStart(2, '0')}-L${String(f.les).padStart(2, '0')} expected ${f.expectedId}, got ${les.youtubeVideoId}`);
+      console.error(
+        `  FAIL: ${label} expected ${f.expectedId}, ` +
+        `got ${les.youtubeVideoId}; ` +
+        `creator: ${creator || 'MISSING'}`
+      );
       passed = false;
     }
   });

@@ -171,11 +171,13 @@ describe('Networking for Cybersecurity: Zero to Advanced Test Suite', () => {
     // M11-L01: TCP versus UDP -> LIEACBqlntY (Jeremy's IT Lab CCNA Day 30: "Free CCNA | TCP & UDP")
     const m11l01 = getLesson(11, 1);
     assert.strictEqual(m11l01.youtubeVideoId, 'LIEACBqlntY');
+    assert.ok(m11l01.videoAttribution);
     assert.match(m11l01.videoAttribution.creator, /Jeremy's IT Lab/i);
 
     // M11-L02: Port ranges -> jX1pobYmZdE (Professor Messer Common Ports)
     const m11l02 = getLesson(11, 2);
     assert.strictEqual(m11l02.youtubeVideoId, 'jX1pobYmZdE');
+    assert.ok(m11l02.videoAttribution);
     assert.match(m11l02.videoAttribution.creator, /Professor Messer/i);
 
     // M12-L01: Resolver workflow -> 4C6eeQes4cs (Jeremy's IT Lab CCNA Day 38: DNS)
