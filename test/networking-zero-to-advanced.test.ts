@@ -160,4 +160,42 @@ describe('Networking for Cybersecurity: Zero to Advanced Test Suite', () => {
       );
     });
   });
+
+  it('10. Semantic quality verification for priority review flags', () => {
+    const lessons = getCourseLessons(NETWORKING_FOR_CYBERSECURITY_COURSE);
+    const getLesson = (modNum: number, lesOrder: number) => {
+      const mod = NETWORKING_FOR_CYBERSECURITY_COURSE.modules[modNum - 1];
+      return mod.lessons[lesOrder - 1];
+    };
+
+    // M11-L01: TCP versus UDP -> LIEACBqlntY (Jeremy's IT Lab CCNA Day 30: "Free CCNA | TCP & UDP")
+    const m11l01 = getLesson(11, 1);
+    assert.strictEqual(m11l01.youtubeVideoId, 'LIEACBqlntY');
+    assert.match(m11l01.videoAttribution.creator, /Jeremy's IT Lab/i);
+
+    // M11-L02: Port ranges -> jX1pobYmZdE (Professor Messer Common Ports)
+    const m11l02 = getLesson(11, 2);
+    assert.strictEqual(m11l02.youtubeVideoId, 'jX1pobYmZdE');
+    assert.match(m11l02.videoAttribution.creator, /Professor Messer/i);
+
+    // M12-L01: Resolver workflow -> 4C6eeQes4cs (Jeremy's IT Lab CCNA Day 38: DNS)
+    const m12l01 = getLesson(12, 1);
+    assert.strictEqual(m12l01.youtubeVideoId, '4C6eeQes4cs');
+
+    // M12-L04: Security cases -> 2QijB5GtNE4 (Professor Messer ARP and DNS Poisoning)
+    const m12l04 = getLesson(12, 4);
+    assert.strictEqual(m12l04.youtubeVideoId, '2QijB5GtNE4');
+
+    // M13-L03: Rogue configuration -> 6AcRzyPuOL8 (Professor Messer Rogue Services)
+    const m13l03 = getLesson(13, 3);
+    assert.strictEqual(m13l03.youtubeVideoId, '6AcRzyPuOL8');
+
+    // M15-L03: HTTP/2 and HTTP/3 -> JkNr0OCwJIw (Byteprint Dev HTTP/1.1 vs HTTP/2 vs HTTP/3)
+    const m15l03 = getLesson(15, 3);
+    assert.strictEqual(m15l03.youtubeVideoId, 'JkNr0OCwJIw');
+
+    // M29-L01: Virtual networks -> 7_NNlnH7sAg (Tiny Technical Tutorials AWS VPC Basics)
+    const m29l01 = getLesson(29, 1);
+    assert.strictEqual(m29l01.youtubeVideoId, '7_NNlnH7sAg');
+  });
 });
