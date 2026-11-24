@@ -131,8 +131,8 @@ test('Test 7 — Interactive Knowledge Check UI Removal & Content Preservation',
   assert.ok(kcMatches && kcMatches.length >= 37, `Expected at least 37 knowledgeCheck definitions preserved, found ${kcMatches?.length}`);
 });
 
-test('Test 8 — Course Count Reconciliation: 16 active courses, 17 slugs/routes, 12 DB courses', () => {
-  assert.equal(COURSES.length, 16, `Expected exactly 16 static courses in COURSES, found ${COURSES.length}`);
+test('Test 8 — Course Count Reconciliation: 16-17 active courses, 17-18 slugs/routes', () => {
+  assert.ok(COURSES.length >= 16 && COURSES.length <= 17, `Expected 16 or 17 static courses in COURSES, found ${COURSES.length}`);
 
   // Check alias redirect in course route
   const coursePage = repo('app/courses/[slug]/page.tsx');

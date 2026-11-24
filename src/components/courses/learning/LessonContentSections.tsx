@@ -7,6 +7,11 @@ import {
   FlaskConical,
   FileCheck2,
   HardDrive,
+  Wrench,
+  Layers,
+  Cpu,
+  FileText,
+  CheckCircle2,
 } from 'lucide-react';
 import { NormalizedLesson } from '../../../types/learning-view-model';
 import { LessonObjectives } from './LessonObjectives';
@@ -17,6 +22,19 @@ import { PracticalLabView } from '../PracticalLabView';
 import { CapstoneAssessmentView } from '../CapstoneAssessmentView';
 import { PCAPResourceList } from '../PCAPResourceList';
 
+// IoT Interactive Components
+import { IotArchitectureDiagram } from '../iot/IotArchitectureDiagram';
+import { InteractiveCircuitDiagram } from '../iot/InteractiveCircuitDiagram';
+import { Device3DViewer } from '../iot/Device3DViewer';
+import { ProtocolSequenceDiagram } from '../iot/ProtocolSequenceDiagram';
+import { IoTForensicTimeline } from '../iot/IoTForensicTimeline';
+import { HardwareExplorer } from '../iot/HardwareExplorer';
+import { LessonKitPanel } from '../iot/LessonKitPanel';
+import { IoTProjectPanel } from '../iot/IoTProjectPanel';
+
+type TabType = 'content' | 'lab' | 'capstone' | 'pcaps' | 'hardware' | 'diagram' | 'evidence';
+type DiagramSubTab = 'architecture' | 'circuit' | '3d-viewer' | 'protocol' | 'forensics' | 'hardware-explorer';
+
 interface LessonContentSectionsProps {
   courseId: string;
   courseSlug: string;
@@ -26,9 +44,9 @@ interface LessonContentSectionsProps {
   nextLesson?: NormalizedLesson;
   isLessonCompleted: boolean;
   onToggleComplete: () => void;
-  onSelectLesson: (slug: string, tab?: 'content' | 'lab' | 'capstone' | 'pcaps') => void;
-  activeTabOverride?: 'content' | 'lab' | 'capstone' | 'pcaps';
-  onTabChange?: (tab: 'content' | 'lab' | 'capstone' | 'pcaps') => void;
+  onSelectLesson: (slug: string, tab?: any) => void;
+  activeTabOverride?: any;
+  onTabChange?: (tab: any) => void;
   completedLessonIds?: string[];
   currentModuleLessons?: NormalizedLesson[];
   capstone?: any;
@@ -54,39 +72,64 @@ export const LessonContentSections: React.FC<LessonContentSectionsProps> = ({
   pcapResources,
   prerequisites,
 }) => {
-  const [activeTab, setActiveTab] = useState<'content' | 'lab' | 'capstone' | 'pcaps'>('content');
+  const isIotCourse =
+    courseSlug === 'iot-cybersecurity-zero-to-advanced' ||
+    domains.includes('iot-embedded-security');
+
+  const [activeTab, setActiveTab] = useState<TabType>('content');
+  const [activeDiagramSubTab, setActiveDiagramSubTab] = useState<DiagramSubTab>('circuit');
 
   const hasRichContent = !!activeLesson.richContent;
   const hasModuleLab = !!activeLesson.practicalLab;
   const isCapstoneLesson =
     activeLesson.id === 'les-08-1-capstone-investigation' ||
-    activeLesson.slug === 'operation-blackout-beacon-capstone';
+    activeLesson.slug === 'operation-blackout-beacon-capstone' ||
+    activeLesson.slug?.startsWith('m30-l04');
   const hasCapstone = !!capstone && isCapstoneLesson;
   const hasPcaps = !!pcapResources && pcapResources.length > 0;
+
+  // Extract module number from slug e.g. "m02-l01-..." -> 2
+  const moduleNumber = parseInt(activeLesson.slug?.match(/^m(\d+)/)?.[1] || '1', 10);
 
   useEffect(() => {
     if (activeTabOverride) {
       setActiveTab(activeTabOverride);
     } else if (isCapstoneLesson) {
-      setActiveTab('capstone');
+      setActiveTab(isIotCourse ? 'evidence' : 'capstone');
     } else {
       setActiveTab('content');
     }
-  }, [activeLesson.id, isCapstoneLesson, activeTabOverride]);
+  }, [activeLesson.id, isCapstoneLesson, activeTabOverride, isIotCourse]);
 
-  const handleTabClick = (tab: 'content' | 'lab' | 'capstone' | 'pcaps') => {
+  // Adapt default diagram subtab based on module phase
+  useEffect(() => {
+    if (moduleNumber === 1 || moduleNumber === 7 || moduleNumber === 16) {
+      setActiveDiagramSubTab('architecture');
+    } else if (moduleNumber === 3 || moduleNumber === 14 || moduleNumber === 20) {
+      setActiveDiagramSubTab('3d-viewer');
+    } else if (moduleNumber === 8 || moduleNumber === 9 || moduleNumber === 13) {
+      setActiveDiagramSubTab('protocol');
+    } else if (moduleNumber >= 25 && moduleNumber <= 27) {
+      setActiveDiagramSubTab('forensics');
+    } else {
+      setActiveDiagramSubTab('circuit');
+    }
+  }, [moduleNumber]);
+
+  const handleTabClick = (tab: TabType) => {
     setActiveTab(tab);
     onTabChange?.(tab);
   };
 
   const showEthicalNotice =
+    isIotCourse ||
     courseSlug === 'wireshark-zero-to-advanced' ||
     courseSlug === 'wireshark-and-ethical-hacking' ||
     domains.includes('network-security') ||
     domains.includes('malware-reverse-engineering');
 
   const hasInteractiveTabs =
-    hasRichContent || hasModuleLab || hasCapstone || hasPcaps;
+    isIotCourse || hasRichContent || hasModuleLab || hasCapstone || hasPcaps;
 
   return (
     <div className="space-y-6">
@@ -116,14 +159,16 @@ export const LessonContentSections: React.FC<LessonContentSectionsProps> = ({
       {showEthicalNotice && (
         <div
           data-testid="ethical-use-notice"
-          className="flex items-start gap-2.5 p-3.5 rounded-[6px] bg-[#fffbeb] dark:bg-[#78350f]/20 border border-[#fde68a] dark:border-[#b45309]/30 text-[#92400e] dark:text-[#fbbf24] text-xs leading-relaxed"
+          className="flex items-start gap-2.5 p-3.5 rounded-[6px] bg-[#fffbeb] dark:bg-[#78350f]/20 border border-[#fde68a] dark:border-[#b45309]/30 text-[#92400e] dark:text-[#fbbf24] text-xs leading-relaxed font-mono"
         >
           <ShieldAlert className="w-4 h-4 shrink-0 mt-0.5 text-[#b45309] dark:text-[#f59e0b]" />
           <div>
             <span className="font-semibold text-[#78350f] dark:text-[#fde68a]">
-              Ethical Lab Environment Notice:{' '}
+              {isIotCourse ? 'Hardware Safety & Scope Boundary Rule:' : 'Ethical Lab Environment Notice:'}{' '}
             </span>
-            Practice only on systems, networks, and devices you own or have explicit permission to test. Use isolated lab environments for traffic capture, credential analysis, and security demonstrations.
+            {isIotCourse
+              ? 'ESP32 GPIO pads operate strictly on 3.3V logic. Never connect 5V signals or AC mains electricity to breadboards. All wireless and network tests must remain scoped to learner-owned devices or isolated training VLANs.'
+              : 'Practice only on systems, networks, and devices you own or have explicit permission to test. Use isolated lab environments for traffic capture, credential analysis, and security demonstrations.'}
           </div>
         </div>
       )}
@@ -136,73 +181,146 @@ export const LessonContentSections: React.FC<LessonContentSectionsProps> = ({
         </div>
       )}
 
-      {/* Interactive Tabs (Guide, Practical Lab, Capstone, PCAP Library) */}
+      {/* Interactive Tabs */}
       {hasInteractiveTabs && (
         <div className="space-y-4">
           {/* Tab Selector Bar */}
           <div className="flex items-center gap-2 border-b border-[#e4e4ed] dark:border-[#243044] pb-2 overflow-x-auto">
-            {hasRichContent && (
-              <button
-                type="button"
-                onClick={() => handleTabClick('content')}
-                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[6px] text-xs font-mono font-medium transition-colors cursor-pointer ${
-                  activeTab === 'content'
-                    ? 'bg-[#0E7490] text-white shadow-sm'
-                    : 'text-[#64748B] dark:text-[#9BA8B7] hover:bg-[#f4f4f9] dark:hover:bg-[#1A2638]'
-                }`}
-              >
-                <BookOpen className="w-3.5 h-3.5" />
-                <span>Lesson Guide</span>
-              </button>
-            )}
+            {isIotCourse ? (
+              /* IoT Specific 5 Tabs: Learn, Build / Lab, Hardware & Tools, Interactive Diagram, Evidence / Notes */
+              <>
+                <button
+                  type="button"
+                  onClick={() => handleTabClick('content')}
+                  className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[6px] text-xs font-mono font-medium transition-colors cursor-pointer shrink-0 ${
+                    activeTab === 'content'
+                      ? 'bg-[#0E7490] text-white shadow-sm'
+                      : 'text-[#64748B] dark:text-[#9BA8B7] hover:bg-[#f4f4f9] dark:hover:bg-[#1A2638]'
+                  }`}
+                >
+                  <BookOpen className="w-3.5 h-3.5" />
+                  <span>Learn</span>
+                </button>
 
-            {hasModuleLab && activeLesson.practicalLab && (
-              <button
-                type="button"
-                onClick={() => handleTabClick('lab')}
-                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[6px] text-xs font-mono font-medium transition-colors cursor-pointer ${
-                  activeTab === 'lab'
-                    ? 'bg-[#0E7490] text-white shadow-sm'
-                    : 'text-[#64748B] dark:text-[#9BA8B7] hover:bg-[#f4f4f9] dark:hover:bg-[#1A2638]'
-                }`}
-              >
-                <FlaskConical className="w-3.5 h-3.5" />
-                <span>Module Lab ({activeLesson.practicalLab.tasks?.length || 0} tasks)</span>
-              </button>
-            )}
+                <button
+                  type="button"
+                  onClick={() => handleTabClick('lab')}
+                  className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[6px] text-xs font-mono font-medium transition-colors cursor-pointer shrink-0 ${
+                    activeTab === 'lab'
+                      ? 'bg-[#0E7490] text-white shadow-sm'
+                      : 'text-[#64748B] dark:text-[#9BA8B7] hover:bg-[#f4f4f9] dark:hover:bg-[#1A2638]'
+                  }`}
+                >
+                  <FlaskConical className="w-3.5 h-3.5" />
+                  <span>Build / Lab</span>
+                </button>
 
-            {hasCapstone && capstone && (
-              <button
-                type="button"
-                onClick={() => handleTabClick('capstone')}
-                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[6px] text-xs font-mono font-medium transition-colors cursor-pointer ${
-                  activeTab === 'capstone'
-                    ? 'bg-[#0E7490] text-white shadow-sm'
-                    : 'text-[#64748B] dark:text-[#9BA8B7] hover:bg-[#f4f4f9] dark:hover:bg-[#1A2638]'
-                }`}
-              >
-                <FileCheck2 className="w-3.5 h-3.5" />
-                <span>SOC Capstone (100 Marks)</span>
-              </button>
-            )}
+                <button
+                  type="button"
+                  onClick={() => handleTabClick('hardware')}
+                  className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[6px] text-xs font-mono font-medium transition-colors cursor-pointer shrink-0 ${
+                    activeTab === 'hardware'
+                      ? 'bg-[#0E7490] text-white shadow-sm'
+                      : 'text-[#64748B] dark:text-[#9BA8B7] hover:bg-[#f4f4f9] dark:hover:bg-[#1A2638]'
+                  }`}
+                >
+                  <Wrench className="w-3.5 h-3.5" />
+                  <span>Hardware & Tools</span>
+                </button>
 
-            {hasPcaps && pcapResources && (
-              <button
-                type="button"
-                onClick={() => handleTabClick('pcaps')}
-                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[6px] text-xs font-mono font-medium transition-colors cursor-pointer ${
-                  activeTab === 'pcaps'
-                    ? 'bg-[#0E7490] text-white shadow-sm'
-                    : 'text-[#64748B] dark:text-[#9BA8B7] hover:bg-[#f4f4f9] dark:hover:bg-[#1A2638]'
-                }`}
-              >
-                <HardDrive className="w-3.5 h-3.5" />
-                <span>PCAP Library ({pcapResources.length})</span>
-              </button>
+                <button
+                  type="button"
+                  onClick={() => handleTabClick('diagram')}
+                  className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[6px] text-xs font-mono font-medium transition-colors cursor-pointer shrink-0 ${
+                    activeTab === 'diagram'
+                      ? 'bg-[#0E7490] text-white shadow-sm'
+                      : 'text-[#64748B] dark:text-[#9BA8B7] hover:bg-[#f4f4f9] dark:hover:bg-[#1A2638]'
+                  }`}
+                >
+                  <Cpu className="w-3.5 h-3.5" />
+                  <span>Interactive Diagram</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => handleTabClick('evidence')}
+                  className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[6px] text-xs font-mono font-medium transition-colors cursor-pointer shrink-0 ${
+                    activeTab === 'evidence' || activeTab === 'capstone'
+                      ? 'bg-[#0E7490] text-white shadow-sm'
+                      : 'text-[#64748B] dark:text-[#9BA8B7] hover:bg-[#f4f4f9] dark:hover:bg-[#1A2638]'
+                  }`}
+                >
+                  <FileCheck2 className="w-3.5 h-3.5" />
+                  <span>{isCapstoneLesson ? 'Capstone (100 pts)' : 'Evidence & Notes'}</span>
+                </button>
+              </>
+            ) : (
+              /* Standard Tabs for Other CyberTube Courses */
+              <>
+                {hasRichContent && (
+                  <button
+                    type="button"
+                    onClick={() => handleTabClick('content')}
+                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[6px] text-xs font-mono font-medium transition-colors cursor-pointer ${
+                      activeTab === 'content'
+                        ? 'bg-[#0E7490] text-white shadow-sm'
+                        : 'text-[#64748B] dark:text-[#9BA8B7] hover:bg-[#f4f4f9] dark:hover:bg-[#1A2638]'
+                    }`}
+                  >
+                    <BookOpen className="w-3.5 h-3.5" />
+                    <span>Lesson Guide</span>
+                  </button>
+                )}
+
+                {hasModuleLab && activeLesson.practicalLab && (
+                  <button
+                    type="button"
+                    onClick={() => handleTabClick('lab')}
+                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[6px] text-xs font-mono font-medium transition-colors cursor-pointer ${
+                      activeTab === 'lab'
+                        ? 'bg-[#0E7490] text-white shadow-sm'
+                        : 'text-[#64748B] dark:text-[#9BA8B7] hover:bg-[#f4f4f9] dark:hover:bg-[#1A2638]'
+                    }`}
+                  >
+                    <FlaskConical className="w-3.5 h-3.5" />
+                    <span>Module Lab ({activeLesson.practicalLab.tasks?.length || 0} tasks)</span>
+                  </button>
+                )}
+
+                {hasCapstone && capstone && (
+                  <button
+                    type="button"
+                    onClick={() => handleTabClick('capstone')}
+                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[6px] text-xs font-mono font-medium transition-colors cursor-pointer ${
+                      activeTab === 'capstone'
+                        ? 'bg-[#0E7490] text-white shadow-sm'
+                        : 'text-[#64748B] dark:text-[#9BA8B7] hover:bg-[#f4f4f9] dark:hover:bg-[#1A2638]'
+                    }`}
+                  >
+                    <FileCheck2 className="w-3.5 h-3.5" />
+                    <span>SOC Capstone (100 Marks)</span>
+                  </button>
+                )}
+
+                {hasPcaps && pcapResources && (
+                  <button
+                    type="button"
+                    onClick={() => handleTabClick('pcaps')}
+                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[6px] text-xs font-mono font-medium transition-colors cursor-pointer ${
+                      activeTab === 'pcaps'
+                        ? 'bg-[#0E7490] text-white shadow-sm'
+                        : 'text-[#64748B] dark:text-[#9BA8B7] hover:bg-[#f4f4f9] dark:hover:bg-[#1A2638]'
+                    }`}
+                  >
+                    <HardDrive className="w-3.5 h-3.5" />
+                    <span>PCAP Library ({pcapResources.length})</span>
+                  </button>
+                )}
+              </>
             )}
           </div>
 
-          {/* Tab Panels */}
+          {/* TAB 1: Learn / Content */}
           {activeTab === 'content' && activeLesson.richContent && (
             <LessonContentRenderer
               content={activeLesson.richContent}
@@ -210,14 +328,131 @@ export const LessonContentSections: React.FC<LessonContentSectionsProps> = ({
             />
           )}
 
-          {activeTab === 'lab' && activeLesson.practicalLab && (
-            <PracticalLabView lab={activeLesson.practicalLab} courseId={courseId} />
+          {/* TAB 2: Build / Practical Lab */}
+          {activeTab === 'lab' && (
+            <div className="space-y-6">
+              {isIotCourse && (
+                <IoTProjectPanel
+                  moduleNumber={moduleNumber}
+                  projectTitle={activeLesson.moduleTitle}
+                />
+              )}
+              {activeLesson.practicalLab && (
+                <PracticalLabView lab={activeLesson.practicalLab} courseId={courseId} />
+              )}
+            </div>
           )}
 
-          {activeTab === 'capstone' && capstone && (
-            <CapstoneAssessmentView capstone={capstone} courseId={courseId} />
+          {/* TAB 3: Hardware & Tools (IoT Exclusive) */}
+          {activeTab === 'hardware' && (
+            <div className="space-y-6">
+              <LessonKitPanel
+                lessonSlug={activeLesson.slug}
+                moduleOrder={moduleNumber}
+              />
+              <HardwareExplorer />
+            </div>
           )}
 
+          {/* TAB 4: Interactive Diagram (IoT Exclusive) */}
+          {activeTab === 'diagram' && (
+            <div className="space-y-4">
+              {/* Diagram Sub-navigation Pills */}
+              <div className="flex flex-wrap items-center gap-2 pb-2 border-b border-[#e4e4ed] dark:border-[#243044]">
+                <button
+                  type="button"
+                  onClick={() => setActiveDiagramSubTab('circuit')}
+                  className={`px-2.5 py-1 rounded-[4px] text-xs font-mono transition-colors cursor-pointer ${
+                    activeDiagramSubTab === 'circuit'
+                      ? 'bg-emerald-600 text-white font-semibold'
+                      : 'bg-[#121A26] text-[#9BA8B7] border border-[#243044] hover:bg-[#1A2638]'
+                  }`}
+                >
+                  Breadboard & Circuit CAD
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setActiveDiagramSubTab('3d-viewer')}
+                  className={`px-2.5 py-1 rounded-[4px] text-xs font-mono transition-colors cursor-pointer ${
+                    activeDiagramSubTab === '3d-viewer'
+                      ? 'bg-cyan-600 text-white font-semibold'
+                      : 'bg-[#121A26] text-[#9BA8B7] border border-[#243044] hover:bg-[#1A2638]'
+                  }`}
+                >
+                  Rotatable 3D Hardware CAD
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setActiveDiagramSubTab('architecture')}
+                  className={`px-2.5 py-1 rounded-[4px] text-xs font-mono transition-colors cursor-pointer ${
+                    activeDiagramSubTab === 'architecture'
+                      ? 'bg-blue-600 text-white font-semibold'
+                      : 'bg-[#121A26] text-[#9BA8B7] border border-[#243044] hover:bg-[#1A2638]'
+                  }`}
+                >
+                  System & Threat Boundaries
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setActiveDiagramSubTab('protocol')}
+                  className={`px-2.5 py-1 rounded-[4px] text-xs font-mono transition-colors cursor-pointer ${
+                    activeDiagramSubTab === 'protocol'
+                      ? 'bg-purple-600 text-white font-semibold'
+                      : 'bg-[#121A26] text-[#9BA8B7] border border-[#243044] hover:bg-[#1A2638]'
+                  }`}
+                >
+                  Protocol Sequence Flow
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setActiveDiagramSubTab('forensics')}
+                  className={`px-2.5 py-1 rounded-[4px] text-xs font-mono transition-colors cursor-pointer ${
+                    activeDiagramSubTab === 'forensics'
+                      ? 'bg-amber-600 text-white font-semibold'
+                      : 'bg-[#121A26] text-[#9BA8B7] border border-[#243044] hover:bg-[#1A2638]'
+                  }`}
+                >
+                  Forensic Incident Timeline
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setActiveDiagramSubTab('hardware-explorer')}
+                  className={`px-2.5 py-1 rounded-[4px] text-xs font-mono transition-colors cursor-pointer ${
+                    activeDiagramSubTab === 'hardware-explorer'
+                      ? 'bg-rose-600 text-white font-semibold'
+                      : 'bg-[#121A26] text-[#9BA8B7] border border-[#243044] hover:bg-[#1A2638]'
+                  }`}
+                >
+                  Component Symbol Grid
+                </button>
+              </div>
+
+              {/* Render Active Diagram */}
+              {activeDiagramSubTab === 'circuit' && <InteractiveCircuitDiagram />}
+              {activeDiagramSubTab === '3d-viewer' && <Device3DViewer />}
+              {activeDiagramSubTab === 'architecture' && <IotArchitectureDiagram />}
+              {activeDiagramSubTab === 'protocol' && <ProtocolSequenceDiagram />}
+              {activeDiagramSubTab === 'forensics' && <IoTForensicTimeline />}
+              {activeDiagramSubTab === 'hardware-explorer' && <HardwareExplorer />}
+            </div>
+          )}
+
+          {/* TAB 5: Evidence & Notes / Capstone */}
+          {(activeTab === 'evidence' || activeTab === 'capstone') && (
+            <div className="space-y-6">
+              {isCapstoneLesson && capstone ? (
+                <CapstoneAssessmentView capstone={capstone} courseId={courseId} />
+              ) : activeLesson.practicalLab ? (
+                <PracticalLabView lab={activeLesson.practicalLab} courseId={courseId} />
+              ) : (
+                <div className="p-6 rounded-[8px] border border-[#e4e4ed] dark:border-[#243044] bg-[#0c121c] text-xs font-mono text-[#9BA8B7]">
+                  No formal evidence submission required for this introductory session. Proceed to the next lesson or build the hardware circuit in the Build tab.
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* PCAPs Tab (Standard) */}
           {activeTab === 'pcaps' && pcapResources && (
             <PCAPResourceList resources={pcapResources} />
           )}

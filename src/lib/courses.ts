@@ -222,6 +222,7 @@ export async function getCourseBySlugWithDb(slug: string): Promise<Course | unde
             title: l.title,
             description: l.description,
             youtubeVideoId: l.youtube_video_id,
+            videoAttribution: staticLesson?.videoAttribution,
             durationMinutes: l.duration_minutes,
             order: Math.max(1, l.order_index || 1),
             moduleTitle: m.title,

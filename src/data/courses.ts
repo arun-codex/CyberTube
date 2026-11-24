@@ -2,6 +2,7 @@ import { Course } from '../types/course';
 import { CYBERSECURITY_ZERO_TO_ADVANCED_COURSE } from './cybersecurity-zero-to-advanced-course';
 import { ENGLISH_COMMUNICATION_FOR_CYBERSECURITY_COURSE } from './english-communication-for-cybersecurity-course';
 import { INCIDENT_RESPONSE_ZERO_TO_ADVANCED_COURSE } from './incident-response-zero-to-advanced-course';
+import { IOT_CYBERSECURITY_ZERO_TO_ADVANCED_COURSE } from './iot-cybersecurity-course';
 import { LINUX_ZERO_TO_ADVANCED_COURSE } from './linux-zero-to-advanced-course';
 import { MITRE_ATTACK_INCIDENT_RESPONSE_COURSE } from './mitre-attack-incident-response-course';
 import { NETWORK_PACKET_FORENSICS_COURSE } from './network-packet-forensics-course';
@@ -11,6 +12,7 @@ import { STORYTELLING_MASTERCLASS_COURSE } from './storytelling-masterclass-cour
 import { WINDOWS_SECURITY_ZERO_TO_ADVANCED_COURSE } from './windows-security-course';
 
 export const COURSES: Course[] = [
+  IOT_CYBERSECURITY_ZERO_TO_ADVANCED_COURSE,
   ENGLISH_COMMUNICATION_FOR_CYBERSECURITY_COURSE,
   PYTHON_FOR_CYBERSECURITY_COURSE,
   MITRE_ATTACK_INCIDENT_RESPONSE_COURSE,

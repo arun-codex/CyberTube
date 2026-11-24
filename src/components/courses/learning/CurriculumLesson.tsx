@@ -9,6 +9,7 @@ interface CurriculumLessonProps {
   lesson: NormalizedLesson;
   courseSlug: string;
   isActive: boolean;
+  isPlaying?: boolean;
   isCompleted: boolean;
   onSelectLesson: (slug: string) => void;
   onToggleComplete: (lessonId: string) => void;
@@ -18,6 +19,7 @@ export const CurriculumLesson: React.FC<CurriculumLessonProps> = ({
   lesson,
   courseSlug,
   isActive,
+  isPlaying = false,
   isCompleted,
   onSelectLesson,
   onToggleComplete,
@@ -70,7 +72,7 @@ export const CurriculumLesson: React.FC<CurriculumLessonProps> = ({
             e.preventDefault();
             onSelectLesson(lesson.slug);
           }}
-          className={`text-xs block line-clamp-2 transition-colors ${
+          className={`text-xs sm:text-[13px] block leading-snug line-clamp-3 sm:line-clamp-none break-words transition-colors ${
             isActive
               ? 'font-semibold text-[#0E7490] dark:text-[#22D3EE]'
               : isCompleted
@@ -81,15 +83,33 @@ export const CurriculumLesson: React.FC<CurriculumLessonProps> = ({
           {lesson.title}
         </Link>
 
-        <div className="flex items-center gap-2 mt-1 text-[11px] font-mono text-[#64748B] dark:text-[#9BA8B7]">
-          <span className="flex items-center gap-1">
+        <div className="flex flex-wrap items-center gap-2 mt-1 text-[11px] font-mono text-[#64748B] dark:text-[#9BA8B7]">
+          <span
+            className="flex items-center gap-1"
+            title={lesson.durationMinutes ? `Video duration: ${lesson.durationMinutes} mins` : 'Lesson duration'}
+          >
             <Clock className="w-3 h-3 text-[#64748B] dark:text-[#9BA8B7]" />
             {lesson.durationMinutes}m
           </span>
 
+          {(lesson as any).estimatedStudyMinutes && (
+            <span
+              className="text-[10px] text-[#64748B] dark:text-[#94A3B8]"
+              title="Estimated hands-on study & lab time"
+            >
+              • {(lesson as any).estimatedStudyMinutes}m lab
+            </span>
+          )}
+
           {isActive && (
-            <span className="px-1.5 py-0.2 rounded-[3px] text-[9px] uppercase font-bold bg-[#0E7490] dark:bg-[#22D3EE] text-white dark:text-[#0B1018]">
-              PLAYING
+            <span
+              className={`px-1.5 py-0.2 rounded-[3px] text-[9px] uppercase font-bold text-white dark:text-[#0B1018] ${
+                isPlaying
+                  ? 'bg-emerald-600 dark:bg-emerald-400 animate-pulse'
+                  : 'bg-[#0E7490] dark:bg-[#22D3EE]'
+              }`}
+            >
+              {isPlaying ? 'PLAYING' : 'CURRENT'}
             </span>
           )}
         </div>

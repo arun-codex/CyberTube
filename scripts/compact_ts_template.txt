@@ -1,0 +1,143 @@
+// GENERATED FILE. Source of truth: iot_cybersecurity_course/MODULE-MANIFEST.json + 30 modules/*.md
+// Regenerate with: python scripts/generate_iot_cybersecurity_course.py
+// 35 mins = allocated study time per lesson, NOT a confirmed YouTube runtime.
+import type { Course, CourseModule, Lesson, PracticalLab, CapstoneAssessment } from '../types/course';
+
+type VideoSource = {title: string; url: string; videoId: string; creator: string};
+type LessonSource = {title: string; activity: string; practice: string; check: string};
+type ModuleSource = {title: string; phase: string; hours: number; aim: string; prereq: string; task: string; output: string; steps: string[]; reading: {title:string;url:string}[]; videos: VideoSource[]; lessons: LessonSource[]};
+
+const moduleSources: ModuleSource[] = SOURCE_DATA_GOES_HERE;
+
+const safeCriteria = [
+  'Scoped offline or explicitly authorized IoT lab only',
+  'Three traceable observations; facts distinguished from hypotheses',
+  'Preventive, detective and response controls justified',
+  'No secrets, credentials, private keys or personally identifying data in submitted evidence',
+];
+
+function makeModule(m: ModuleSource, index: number): CourseModule {
+  const n = index + 1;
+  const moduleNumber = String(n).padStart(2, '0');
+  const moduleTitle = `Module ${moduleNumber}: ${m.title}`;
+  const difficulty = n <= 6 ? 'beginner' : n <= 17 ? 'intermediate' : 'advanced';
+  const moduleLab: PracticalLab = {
+    id: `iot-cybersecurity-m${moduleNumber}-lab`,
+    title: `${moduleTitle} — Practical Lab`,
+    objective: m.task,
+    toolsRequired: ['Authorized isolated training environment or supplied static evidence', 'Notes and screenshot tool', 'SHA-256 tool when applicable'],
+    // The platform currently requires pcapSource even for non-PCAP labs. The linked
+    // reference is a safe educational resource; no capture download is implied.
+    pcapSource: {
+      fileName: 'No PCAP required; use provided lab evidence where applicable',
+      fileUrl: 'https://owasp.org/owasp-istg/01_introduction/index.html',
+      repositoryUrl: 'https://github.com/OWASP/IoTGoat',
+    },
+    difficulty,
+    estimatedMinutes: Math.max(40, Math.round(m.hours * 20)),
+    instructions: [m.task, ...m.steps, `Deliverable: ${m.output}`],
+    tasks: m.steps.map((description, i) => ({ id: `iot-m${moduleNumber}-task-${i+1}`, description })),
+    evidenceWorksheet: [
+      { field: 'scope', prompt: 'Describe test ownership, scope and isolation conditions', expectedEvidenceType: 'Authorized scope statement' },
+      { field: 'observations', prompt: 'Provide E1, E2, E3 with confidence and limitations', expectedEvidenceType: 'Sanitized lab artifacts' },
+      { field: 'mitigations', prompt: 'Prioritize fixes and propose detection logic', expectedEvidenceType: 'Remediation and SOC handoff notes' },
+      { field: 'deliverable', prompt: m.output, expectedEvidenceType: 'Report or annotated artifact' },
+    ],
+    questions: [], // No quizzes anywhere in this course.
+    completionCriteria: safeCriteria,
+  };
+  const lessons: Lesson[] = m.lessons.map((entry, i) => {
+    const ll=String(i + 1).padStart(2, '0');
+    const video = m.videos[i % m.videos.length];
+    const summary = `${entry.activity} Practice: ${entry.practice} Completion: ${entry.check}`;
+    return {
+      id: `iot-cybersecurity-m${moduleNumber}-l${ll}`,
+      slug: `m${moduleNumber}-l${ll}-` + entry.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 75),
+      title: `Module ${moduleNumber} - Lesson ${i+1}: ${entry.title}`,
+      description: summary,
+      youtubeVideoId: video.videoId,
+      videoAttribution: { creator: video.creator, platform: 'youtube' },
+      // This is a learning-session allowance, not measured playback time.
+      durationMinutes: 35,
+      order: i + 1,
+      moduleTitle,
+      objectives: [entry.title, entry.activity, entry.practice, entry.check],
+      tags: ['iot', 'cybersecurity', `module-${moduleNumber}`, m.phase.toLowerCase()],
+      skillsTaught: [entry.title, m.title, 'IoT evidence handling and security reporting'],
+      richContent: {
+        introduction: `Study ${entry.title} in the context of ${m.title}. The linked ${video.creator} video (${video.title}) is a curated module-level source; direct coverage of every lesson segment and playback have not been independently verified.`,
+        prerequisites: [m.prereq, 'Explicitly authorized or offline lab with synthetic evidence'],
+        theorySections: [{ title: `IoT security principles: ${entry.title}`, content: `${m.aim}\n\n${entry.activity}`, keyPoints: [entry.title, entry.practice, entry.check] }],
+        stepByStepProcedures: [
+          {step: 1, title: 'Watch the curated IoT source', instruction: `Watch ${video.title} by ${video.creator}: ${video.url}. Note where this video is only supporting background.`, expectedOutcome: 'Concise original notes with attribution and coverage gaps' },
+          {step: 2, title: 'Explain the IoT security concern', instruction: entry.activity, expectedOutcome: 'Describe the threat, relevant asset boundary and defensive control' },
+          {step: 3, title: 'Complete scoped practice', instruction: entry.practice, expectedOutcome: 'Labeled sanitized evidence or a fictional design analysis' },
+          {step: 4, title: 'Validate and report', instruction: `${entry.check} Cross-reference your evidence with the module lab: ${m.task}`, expectedOutcome: 'Fact, limitation, mitigation, false-positive consideration and response idea' },
+        ],
+        expectedObservations: ['Scoped observations supported by labeled evidence', 'Hypotheses separated from verified facts', 'Preventive, detective and response measures identified'],
+        commonMistakes: ['Treating the shared video as a complete lesson-specific tutorial', 'Testing unowned IoT systems or transmitting against nearby radios', 'Confusing planned study minutes with video runtime', 'Revealing secrets in public reports'],
+        securityRelevance: `IoT cybersecurity and SOC/DFIR context: ${entry.title}. Module: ${m.title}.`,
+        practicalExercise: { title: m.task, objective: `Demonstrate ${entry.title} in a safe training context`, instructions: [entry.practice, `Lab output: ${m.output}`] },
+        summary: entry.check,
+        furtherReading: m.reading,
+      },
+    };
+  });
+  return {
+    id: `iot-cybersecurity-m${moduleNumber}`,
+    title: moduleTitle,
+    description: `${m.phase} phase • ${m.hours} hours of total guided effort • Prerequisite: ${m.prereq}. ${m.aim}`,
+    order: n,
+    lessons,
+    practicalLab: moduleLab,
+    ...(n === 30 ? { capstoneAssessment: iotCapstone } : {}),
+  };
+}
+
+const rubricEntries = [
+  ['Authorization and scope', 10],
+  ['IoT architecture and attack-surface model', 15],
+  ['Firmware and configuration evidence', 20],
+  ['Network telemetry and threat investigation', 15],
+  ['SOC detection and triage plan', 15],
+  ['Prioritized remediation and safe retest', 15],
+  ['Evidence quality, communication and limitations', 10],
+] as const;
+
+const iotCapstone: CapstoneAssessment = {
+  id: 'iot-capstone-soc-handoff',
+  title: 'IoT Defensive Assessment & SOC Handoff',
+  scenario: 'Assess only OWASP IoTGoat, synthetic IoT telemetry or an explicitly authorized isolated lab. Trace three findings from evidence through risk, mitigation and SOC detection.',
+  pcapSource: { fileName: 'Optional authorized IoTGoat or synthetic PCAP', fileUrl: 'https://github.com/OWASP/IoTGoat' },
+  totalMarks: 100,
+  passingScore: 75,
+  rubric: rubricEntries.map(([category,marks])=> ({ category, marks, criteria: ['Evidence is reproducible and properly scoped', 'Findings distinguish verified observations, assumptions and limitations'] })),
+  submissionSections: rubricEntries.map(([title,maxMarks],i)=> ({ id: `iot-capstone-${i+1}`, title, prompt: `Submit ${title.toLowerCase()} with safe evidence, results and remediation guidance.`, maxMarks })),
+};
+
+export const IOT_CYBERSECURITY_ZERO_TO_ADVANCED_COURSE: Course = {
+  id: 'course-iot-cybersecurity-zero-to-advanced',
+  slug: 'iot-cybersecurity-zero-to-advanced',
+  title: 'IoT Cybersecurity & Ethical Hacking: Zero to Advanced',
+  shortDescription: '30 modules • 120 video-supported lessons • 30 practical IoT security labs • portfolio capstone. No quizzes.',
+  description: 'Evidence-led, cybersecurity-only IoT curriculum from foundations through firmware, wireless, MQTT, hardware forensics, SOC monitoring and incident handoff. Original written labs supplement a curated list of 21 catalog references, with 19 distinct video IDs assigned; these videos are shared across lessons and do not constitute 120 uniquely verified video tutorials.',
+  domains: ['iot-embedded-security','soc-blue-team','dfir','network-security'],
+  tags: ['iot','embedded-security','firmware','mqtt','dfir','blue-team','ethical-testing','no-quizzes'],
+  difficulty: 'intermediate',
+  thumbnailUrl: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80',
+  estimatedDuration: '190 study hours including labs, reading and capstone • video runtimes unverified',
+  totalDurationMinutes: 4200, // planned 120 x 35 minute lesson blocks; not actual video duration
+  instructor: { name: 'CyberTube IoT Security Curriculum', title: 'Curated open videos and original defensive lab guides', organization: 'CyberTube' },
+  prerequisites: ['Basic computer literacy', 'An isolated or personally owned, expressly authorized IoT training environment', 'All exercises remain in legal scope'],
+  learningObjectives: [
+    'Explain IoT threat models, asset boundaries, safety and privacy risks',
+    'Interpret IoT network flows, MQTT telemetry and defensive controls',
+    'Examine training firmware, embedded Linux and debugging attack surfaces safely',
+    'Evaluate secure boot, device identity and firmware update integrity',
+    'Investigate IoT malware incidents, preserve evidence and develop SOC detections',
+    'Deliver a complete evidence-based IoT security assessment and SOC handoff',
+  ],
+  track: 'cybersecurity',
+  featured: false,
+  modules: moduleSources.map(makeModule),
+};

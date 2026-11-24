@@ -1,0 +1,42 @@
+# SHA-256 manifest
+
+| File | SHA-256 |
+|---|---|
+| `COURSE-DELIVERY-GUIDE.md` | `119d160c75673176efb424374a5b7d5940ae8484f808ee5072325b712b9ce09c` |
+| `COURSE-OUTCOMES-AND-MAPPING.md` | `9ce19b8b6a21f5b9faabcb82f4829771ac541428ec69e63d1c523e2bd668ae2b` |
+| `CYBERTUBE-INTEGRATION.md` | `b9444926e41b7557b53fc658e92afdcfde43322cabd3969c4aec07047194b7dd` |
+| `MODULE-MANIFEST.json` | `4593c15cb2341469d5dadd3417e870d3bc962fccaa0e787e9992ed54e68f5004` |
+| `README.md` | `4caabfd35787bbdbd55cef7e62aa9c48c9a0ceff922df51d530df96677fb03e0` |
+| `SAFETY-LAB-RULES.md` | `0f994ed5a29ee7a8642463404264907b41a68c4aa5a453072d0c0cfdd2bc1074` |
+| `SOURCES-AND-RIGHTS.md` | `c039241dea3d9899f3ef3c8aac891355e9cfd6468762bfdb123e15b7d861737a` |
+| `YOUTUBE-VIDEO-LIBRARY.md` | `72bc5249680eb0f84e4a0a3d17807a619b22d7a6b202b5abec304130f6abfe2d` |
+| `modules/01-iot-security-orientation-legal-lab-boundaries.md` | `f5c030a7b62bc10343772b0627683e5aa23497a3ddf3e6fddd1d50c73b49136a` |
+| `modules/02-iot-threat-landscape-real-attacker-models.md` | `7d3520c113cc5373a5029a19cca4dd8e8b544415cf13389b6e8e427c1a4a90ea` |
+| `modules/03-iot-security-architecture-trust-boundaries.md` | `0d2a3222eadc8fe5e6ce283cb99086c5ec6b2cea69c450b16f5b2436b0dbddd4` |
+| `modules/04-safe-lab-build-iotgoat-vms-evidence.md` | `7621cbfc8fbca0ba7ead513e6016a7169e2ddf7ea9acbc289996812bba2c579b` |
+| `modules/05-embedded-linux-security-essentials.md` | `5aed250f0d2fa86f4fff96ac07b0b4a616a1742eea15dfbe5235bc3dc5fb5607` |
+| `modules/06-iot-network-enumeration-defensive-asset-inventory.md` | `e04672c60f87de71786f9d2e16f245411ce7d7c544c985b374090a7c8a42edaf` |
+| `modules/07-iot-protocols-packet-analysis.md` | `92e6297e0a00e9712868d48a70b7bd47a0a93718a2d25f0d08b4ae86cd95b098` |
+| `modules/08-mqtt-security-authentication-acls-tls.md` | `a5d8963100ebadaf32e6912ba454ac5ffe6157bdb801c7bbca5c91338e01d61c` |
+| `modules/09-coap-http-iot-api-security.md` | `7d7d169fb473cbdf924c81a4f474e3d44ead2d0359ccfe594748735a69aafbbe` |
+| `modules/10-wireless-iot-threat-models-wi-fi-ble-zigbee.md` | `d6b4066671a3ae4f9b4434974d1a873cd96830aebbe92c7454279c17b2a4b228` |
+| `modules/11-ble-smart-home-device-security.md` | `baa92cc48d2e8af922a5ca4bd8d0fdea813e7ecc20563e6cedd7a85b1b563fe9` |
+| `modules/12-zigbee-lorawan-low-power-networks.md` | `ffdbd24eb1bd156bff2cbbaedabce74852972bbb07065011ff1e1e187ff8d796` |
+| `modules/13-physical-hardware-security-lab-safety.md` | `c757b1acbdb64072f280d5712ebe4fbe2bf41125fc1187ea5f3f0b0d77ee6c21` |
+| `modules/14-uart-spi-i2c-jtag-security-concepts.md` | `82b557e3fd20f2a9925e0d389332f0477027de3bad97d6b6daa2af92890ddbb4` |
+| `modules/15-firmware-image-formats-safe-acquisition.md` | `609ff051fc79e89b00d311f3521c94a611d260e0f714401117dc875711e042a1` |
+| `modules/16-firmware-extraction-with-binwalk-squashfs.md` | `4cd982291474a05db3dc833a9a93afde9af85afe87be360bb03797c6e9c0b279` |
+| `modules/17-secrets-credentials-insecure-defaults.md` | `84b9f03c3f09d490bb9be48f757955157f3a9062a9d3702586af7e1f4ec13a17` |
+| `modules/18-iot-binary-analysis-with-ghidra.md` | `01ffbeff7def32b88a7f1abf85d144c6ec2dbfb98607609d4dd9830f81a4d863` |
+| `modules/19-firmware-emulation-dynamic-observation.md` | `ea45801e1ff202ae62d82e12fca46ef94d24bc2f4d3cd5399531119cc58f89a8` |
+| `modules/20-iot-web-interfaces-embedded-api-assessment.md` | `1110f8331cf320e5734f02bce91d8843495b1be9e0d3e148701a2886681b4eb1` |
+| `modules/21-secure-boot-signing-ota-update-security.md` | `bad4187150d5e179d7c330208311ed7feeeedd4b032b44af3a890ba74ce0dad1` |
+| `modules/22-iot-cryptography-device-identity.md` | `b72cb7a2cb5ade1e124345760cd4c2557e948e162eee67442d5fb0fed98bc00a` |
+| `modules/23-cloud-mobile-apps-ecosystem-security.md` | `50233641866057a09fe2e32942037e7d8c5b7c59f9daa9bf6ba1653de19a8075` |
+| `modules/24-iot-botnets-ddos-malware-case-studies.md` | `01b582fe72976c871fbe6503ed47c59e208db8abcf536ed3c393813173fa955f` |
+| `modules/25-iot-forensics-chain-of-custody.md` | `ec6998e7e4568e61442352680d8364c5358c9da5d5ab14f60c66d616166e046e` |
+| `modules/26-iot-timeline-reconstruction-investigation.md` | `1d5e6d3053209f7d80e5c89c4e66aef00e9e38ac17461fa680a1fb8c4cedf972` |
+| `modules/27-soc-monitoring-threat-detection-for-iot.md` | `611f55e9f6aeaeb4002c63c5a47b255e51fb1c09c72d08cd3f04477ec63416c6` |
+| `modules/28-industrial-iot-ics-security-safety.md` | `0cb003b8bd4b0c75e87834e08c5620c4f7b666f72590330f9bd87c69bb9c5579` |
+| `modules/29-secure-iot-product-lifecycle-sbom-standards.md` | `624d054e36efdca89d302e9852c3888b2c037bad86937ef4750696f573237766` |
+| `modules/30-final-capstone-full-iot-assessment-soc-handoff.md` | `bb02eb901c39603a22ac025c8015a9abec87ccb72f32c0e36eda0a3c30bba02e` |

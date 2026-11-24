@@ -1,0 +1,427 @@
+{
+  "course": "iot-cybersecurity-zero-to-advanced",
+  "date": "2026-11-24",
+  "modules": [
+    {
+      "module": 1,
+      "title": "IoT Security Orientation & Legal Lab Boundaries",
+      "phase": "Foundation",
+      "hours": 4,
+      "lessons": 4,
+      "filename": "modules/01-iot-security-orientation-legal-lab-boundaries.md",
+      "videos": [
+        "intro",
+        "problems"
+      ],
+      "lab": "Draw an attack-surface map for a fictional smart camera; label allowed vs forbidden targets.",
+      "output": "One-page architecture + written lab authorization boundaries"
+    },
+    {
+      "module": 2,
+      "title": "IoT Threat Landscape & Real Attacker Models",
+      "phase": "Foundation",
+      "hours": 4,
+      "lessons": 4,
+      "filename": "modules/02-iot-threat-landscape-real-attacker-models.md",
+      "videos": [
+        "problems",
+        "challenges"
+      ],
+      "lab": "Build a threat register for a sample smart-home ecosystem and prioritize five risks.",
+      "output": "Risk register: asset, threat, consequence, likelihood, control, residual risk"
+    },
+    {
+      "module": 3,
+      "title": "IoT Security Architecture & Trust Boundaries",
+      "phase": "Foundation",
+      "hours": 4,
+      "lessons": 4,
+      "filename": "modules/03-iot-security-architecture-trust-boundaries.md",
+      "videos": [
+        "elements",
+        "practices"
+      ],
+      "lab": "Annotate a three-tier example diagram with trust boundaries and controls.",
+      "output": "Annotated data-flow diagram and top-five design decisions"
+    },
+    {
+      "module": 4,
+      "title": "Safe Lab Build: IoTGoat, VMs & Evidence",
+      "phase": "Foundation",
+      "hours": 4,
+      "lessons": 4,
+      "filename": "modules/04-safe-lab-build-iotgoat-vms-evidence.md",
+      "videos": [
+        "intro",
+        "hardware"
+      ],
+      "lab": "Install or inspect the downloadable IoTGoat lab in a network with no public exposure; record snapshots and versions.",
+      "output": "Lab inventory, network topology, snapshots and safety checklist"
+    },
+    {
+      "module": 5,
+      "title": "Embedded Linux Security Essentials",
+      "phase": "Foundation",
+      "hours": 4,
+      "lessons": 4,
+      "filename": "modules/05-embedded-linux-security-essentials.md",
+      "videos": [
+        "creds",
+        "mount"
+      ],
+      "lab": "On an owned training image inspect /etc, services and startup scripts; propose least-privilege changes.",
+      "output": "Configuration hardening worksheet + redacted evidence"
+    },
+    {
+      "module": 6,
+      "title": "IoT Network Enumeration \u2013 Defensive Asset Inventory",
+      "phase": "Foundation",
+      "hours": 4,
+      "lessons": 4,
+      "filename": "modules/06-iot-network-enumeration-defensive-asset-inventory.md",
+      "videos": [
+        "packets",
+        "problems"
+      ],
+      "lab": "Use a provided pcap/isolated lab to list device IPs and exposed services; do not scan external devices.",
+      "output": "Asset inventory with owner, expected service and evidence"
+    },
+    {
+      "module": 7,
+      "title": "IoT Protocols & Packet Analysis",
+      "phase": "Core",
+      "hours": 6,
+      "lessons": 4,
+      "filename": "modules/07-iot-protocols-packet-analysis.md",
+      "videos": [
+        "packets",
+        "mqtt"
+      ],
+      "lab": "Analyze a benign sample capture to classify protocol flows and make a normal-vs-suspicious table.",
+      "output": "Annotated packet evidence + baseline table"
+    },
+    {
+      "module": 8,
+      "title": "MQTT Security: Authentication, ACLs & TLS",
+      "phase": "Core",
+      "hours": 6,
+      "lessons": 4,
+      "filename": "modules/08-mqtt-security-authentication-acls-tls.md",
+      "videos": [
+        "mqtt",
+        "elements"
+      ],
+      "lab": "Run Mosquitto only on localhost/isolated VM and contrast a deliberately permissive config with an authenticated ACL-based config.",
+      "output": "Redacted config diff, broker logs, mitigation report"
+    },
+    {
+      "module": 9,
+      "title": "CoAP, HTTP & IoT API Security",
+      "phase": "Core",
+      "hours": 6,
+      "lessons": 4,
+      "filename": "modules/09-coap-http-iot-api-security.md",
+      "videos": [
+        "intro",
+        "problems"
+      ],
+      "lab": "Evaluate a mock device API specification for missing authorization, exposed configuration and data privacy controls.",
+      "output": "API risk matrix + safe test plan"
+    },
+    {
+      "module": 10,
+      "title": "Wireless IoT Threat Models: Wi-Fi, BLE & Zigbee",
+      "phase": "Core",
+      "hours": 6,
+      "lessons": 4,
+      "filename": "modules/10-wireless-iot-threat-models-wi-fi-ble-zigbee.md",
+      "videos": [
+        "hardware",
+        "lorawan"
+      ],
+      "lab": "Review mock wireless provisioning flows and identify trust gaps without transmitting or intercepting traffic.",
+      "output": "Wireless threat model and mitigation matrix"
+    },
+    {
+      "module": 11,
+      "title": "BLE & Smart-Home Device Security",
+      "phase": "Core",
+      "hours": 6,
+      "lessons": 4,
+      "filename": "modules/11-ble-smart-home-device-security.md",
+      "videos": [
+        "hardware",
+        "elements"
+      ],
+      "lab": "Use the BLE CTF repository in a dedicated lab or analyze a supplied case study; document risks, not nearby devices.",
+      "output": "BLE service-access policy + annotated findings"
+    },
+    {
+      "module": 12,
+      "title": "Zigbee, LoRaWAN & Low-Power Networks",
+      "phase": "Core",
+      "hours": 6,
+      "lessons": 4,
+      "filename": "modules/12-zigbee-lorawan-low-power-networks.md",
+      "videos": [
+        "lorawan",
+        "problems"
+      ],
+      "lab": "Evaluate a fictional Zigbee/LoRaWAN deployment for provisioning and key-rotation risks.",
+      "output": "Network-key management plan and design review"
+    },
+    {
+      "module": 13,
+      "title": "Physical Hardware Security & Lab Safety",
+      "phase": "Core",
+      "hours": 6,
+      "lessons": 4,
+      "filename": "modules/13-physical-hardware-security-lab-safety.md",
+      "videos": [
+        "hardware",
+        "interfaces"
+      ],
+      "lab": "Inspect annotated board images and classify potential exposure points without powering unknown hardware.",
+      "output": "Hardware inspection worksheet + safety assessment"
+    },
+    {
+      "module": 14,
+      "title": "UART, SPI, I2C & JTAG Security Concepts",
+      "phase": "Core",
+      "hours": 6,
+      "lessons": 4,
+      "filename": "modules/14-uart-spi-i2c-jtag-security-concepts.md",
+      "videos": [
+        "interfaces",
+        "uart"
+      ],
+      "lab": "Using an isolated development board or supplied trace, identify debug-interface risks; never bypass locked devices.",
+      "output": "Debug-access threat model + recommended hardening checklist"
+    },
+    {
+      "module": 15,
+      "title": "Firmware Image Formats & Safe Acquisition",
+      "phase": "Core",
+      "hours": 6,
+      "lessons": 4,
+      "filename": "modules/15-firmware-image-formats-safe-acquisition.md",
+      "videos": [
+        "camera",
+        "binwalk"
+      ],
+      "lab": "Download official or intentionally vulnerable firmware; hash it and inspect file type without executing it.",
+      "output": "Acquisition manifest, SHA-256 and evidence log"
+    },
+    {
+      "module": 16,
+      "title": "Firmware Extraction with Binwalk & SquashFS",
+      "phase": "Core",
+      "hours": 6,
+      "lessons": 4,
+      "filename": "modules/16-firmware-extraction-with-binwalk-squashfs.md",
+      "videos": [
+        "binwalk",
+        "camera"
+      ],
+      "lab": "Perform static extraction of IoTGoat firmware or another authorized specimen in a disposable VM.",
+      "output": "Extracted file tree summary and three verified observations"
+    },
+    {
+      "module": 17,
+      "title": "Secrets, Credentials & Insecure Defaults",
+      "phase": "Core",
+      "hours": 6,
+      "lessons": 4,
+      "filename": "modules/17-secrets-credentials-insecure-defaults.md",
+      "videos": [
+        "creds",
+        "ghidra"
+      ],
+      "lab": "Audit a controlled test filesystem for example credentials; do not test recovered secrets against any real service.",
+      "output": "Sanitized secret-exposure report and remediation priorities"
+    },
+    {
+      "module": 18,
+      "title": "IoT Binary Analysis with Ghidra",
+      "phase": "Advanced",
+      "hours": 7,
+      "lessons": 4,
+      "filename": "modules/18-iot-binary-analysis-with-ghidra.md",
+      "videos": [
+        "ghidra",
+        "creds"
+      ],
+      "lab": "Analyze a licensed training binary in Ghidra to locate a deliberately hardcoded sample key without targeting real devices.",
+      "output": "Screenshots, annotated function map and CWE mapping"
+    },
+    {
+      "module": 19,
+      "title": "Firmware Emulation & Dynamic Observation",
+      "phase": "Advanced",
+      "hours": 7,
+      "lessons": 4,
+      "filename": "modules/19-firmware-emulation-dynamic-observation.md",
+      "videos": [
+        "hardware",
+        "camera"
+      ],
+      "lab": "Plan or build an offline emulation lab using an intentionally vulnerable image; record startup limitations.",
+      "output": "Emulation topology, service inventory and gap analysis"
+    },
+    {
+      "module": 20,
+      "title": "IoT Web Interfaces & Embedded API Assessment",
+      "phase": "Advanced",
+      "hours": 7,
+      "lessons": 4,
+      "filename": "modules/20-iot-web-interfaces-embedded-api-assessment.md",
+      "videos": [
+        "camera",
+        "intro"
+      ],
+      "lab": "Review IoTGoat training web functionality in a host-only environment; document one vulnerability class and its secure fix.",
+      "output": "Vulnerability report with safe reproducer and mitigation"
+    },
+    {
+      "module": 21,
+      "title": "Secure Boot, Signing & OTA Update Security",
+      "phase": "Advanced",
+      "hours": 7,
+      "lessons": 4,
+      "filename": "modules/21-secure-boot-signing-ota-update-security.md",
+      "videos": [
+        "practices",
+        "ghidra"
+      ],
+      "lab": "Threat-model a fictional OTA pipeline and sketch signature verification, version enforcement and rollback handling.",
+      "output": "OTA trust-flow diagram + release checklist"
+    },
+    {
+      "module": 22,
+      "title": "IoT Cryptography & Device Identity",
+      "phase": "Advanced",
+      "hours": 7,
+      "lessons": 4,
+      "filename": "modules/22-iot-cryptography-device-identity.md",
+      "videos": [
+        "elements",
+        "ghidra"
+      ],
+      "lab": "Audit example configuration files for TLS validation, unique identifiers and secret lifecycle without exposing live credentials.",
+      "output": "Key-management policy and crypto-control checklist"
+    },
+    {
+      "module": 23,
+      "title": "Cloud, Mobile Apps & Ecosystem Security",
+      "phase": "Advanced",
+      "hours": 7,
+      "lessons": 4,
+      "filename": "modules/23-cloud-mobile-apps-ecosystem-security.md",
+      "videos": [
+        "intro",
+        "elements"
+      ],
+      "lab": "Review a mock cloud-device architecture with a companion app; mark authentication, privacy and logging improvements.",
+      "output": "Ecosystem architecture review + prioritized controls"
+    },
+    {
+      "module": 24,
+      "title": "IoT Botnets, DDoS & Malware Case Studies",
+      "phase": "Advanced",
+      "hours": 7,
+      "lessons": 4,
+      "filename": "modules/24-iot-botnets-ddos-malware-case-studies.md",
+      "videos": [
+        "mirai",
+        "problems"
+      ],
+      "lab": "From a supplied synthetic pcap, identify botnet-like outbound spikes and write containment steps.",
+      "output": "IoT malware case study, IOC summary and response plan"
+    },
+    {
+      "module": 25,
+      "title": "IoT Forensics & Chain of Custody",
+      "phase": "Advanced",
+      "hours": 7,
+      "lessons": 4,
+      "filename": "modules/25-iot-forensics-chain-of-custody.md",
+      "videos": [
+        "forensic_intro",
+        "mount"
+      ],
+      "lab": "Document a mock seizure/acquisition of owned test firmware and verify checksums before analysis.",
+      "output": "Evidence acquisition form + artifact hashes"
+    },
+    {
+      "module": 26,
+      "title": "IoT Timeline Reconstruction & Investigation",
+      "phase": "Advanced",
+      "hours": 7,
+      "lessons": 4,
+      "filename": "modules/26-iot-timeline-reconstruction-investigation.md",
+      "videos": [
+        "timeline",
+        "packets"
+      ],
+      "lab": "Reconstruct an incident timeline from three synthetic logs and a training pcap.",
+      "output": "UTC timeline with confidence notes and corroborating evidence"
+    },
+    {
+      "module": 27,
+      "title": "SOC Monitoring & Threat Detection for IoT",
+      "phase": "Advanced",
+      "hours": 7,
+      "lessons": 4,
+      "filename": "modules/27-soc-monitoring-threat-detection-for-iot.md",
+      "videos": [
+        "mqtt",
+        "packets"
+      ],
+      "lab": "Create a local rule for unusually frequent failed MQTT connections or atypical outbound destinations in test logs.",
+      "output": "Detection description, test cases, false-positive notes and alert examples"
+    },
+    {
+      "module": 28,
+      "title": "Industrial IoT / ICS Security & Safety",
+      "phase": "Advanced",
+      "hours": 7,
+      "lessons": 4,
+      "filename": "modules/28-industrial-iot-ics-security-safety.md",
+      "videos": [
+        "industrial_playlist",
+        "interfaces"
+      ],
+      "lab": "Map an illustrative industrial sensor deployment and propose read-only monitoring controls; no active testing on live plants.",
+      "output": "IIoT zones/conduits diagram and safety-oriented security memo"
+    },
+    {
+      "module": 29,
+      "title": "Secure IoT Product Lifecycle, SBOM & Standards",
+      "phase": "Advanced",
+      "hours": 7,
+      "lessons": 4,
+      "filename": "modules/29-secure-iot-product-lifecycle-sbom-standards.md",
+      "videos": [
+        "practices",
+        "challenges"
+      ],
+      "lab": "Build a manufacturer security checklist covering procurement, shipping, patching, reporting and retirement.",
+      "output": "Device security profile with traceable control evidence"
+    },
+    {
+      "module": 30,
+      "title": "Final Capstone: Full IoT Assessment & SOC Handoff",
+      "phase": "Capstone",
+      "hours": 16,
+      "lessons": 4,
+      "filename": "modules/30-final-capstone-full-iot-assessment-soc-handoff.md",
+      "videos": [
+        "hardware",
+        "timeline",
+        "mirai"
+      ],
+      "lab": "Assess only an offline IoTGoat image or your dedicated lab: trace three findings end-to-end from evidence to mitigation and SOC detection.",
+      "output": "Portfolio-ready package: architecture, evidence, finding reports, detection, executive summary"
+    }
+  ]
+}
