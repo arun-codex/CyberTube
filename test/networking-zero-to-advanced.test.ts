@@ -188,16 +188,24 @@ describe('Networking for Cybersecurity: Zero to Advanced Test Suite', () => {
     const m12l04 = getLesson(12, 4);
     assert.strictEqual(m12l04.youtubeVideoId, '2QijB5GtNE4');
 
-    // M13-L03: Rogue configuration -> 6AcRzyPuOL8 (Professor Messer Rogue Services)
+    // M13-L03: Rogue configuration -> qYYeg2kz1yE (Jeremy's IT Lab CCNA Day 50: DHCP Snooping)
     const m13l03 = getLesson(13, 3);
-    assert.strictEqual(m13l03.youtubeVideoId, '6AcRzyPuOL8');
+    assert.strictEqual(m13l03.youtubeVideoId, 'qYYeg2kz1yE');
 
-    // M15-L03: HTTP/2 and HTTP/3 -> JkNr0OCwJIw (Byteprint Dev HTTP/1.1 vs HTTP/2 vs HTTP/3)
+    // M15-L03: HTTP/2 and HTTP/3 -> fVKPrDrEwTI (Hussein Nasser How HTTP/2 Works)
     const m15l03 = getLesson(15, 3);
-    assert.strictEqual(m15l03.youtubeVideoId, 'JkNr0OCwJIw');
+    assert.strictEqual(m15l03.youtubeVideoId, 'fVKPrDrEwTI');
 
     // M29-L01: Virtual networks -> 7_NNlnH7sAg (Tiny Technical Tutorials AWS VPC Basics)
     const m29l01 = getLesson(29, 1);
     assert.strictEqual(m29l01.youtubeVideoId, '7_NNlnH7sAg');
+
+    // M29-L02: Ingress and egress -> ksJWwkG_p4M (KnoDAX AWS VPC Routing)
+    const m29l02 = getLesson(29, 2);
+    assert.strictEqual(m29l02.youtubeVideoId, 'ksJWwkG_p4M');
+
+    // M30-L04: Communication and defense -> GVkyFvQVlPY (Motasem Hamdan DFIR Incident Report)
+    const m30l04 = getLesson(30, 4);
+    assert.strictEqual(m30l04.youtubeVideoId, 'GVkyFvQVlPY');
   });
 });

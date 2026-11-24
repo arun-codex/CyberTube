@@ -30,8 +30,8 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
   ],
   "difficulty": "beginner",
   "thumbnailUrl": "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=800&q=80",
-  "estimatedDuration": "150\u2013200 hours (30 modules \u2022 120 lessons)",
-  "totalDurationMinutes": 3600,
+  "estimatedDuration": "44.2 hours of video (2655 mins) \u2022 120\u2013160 hours total study (30 modules \u2022 120 lessons \u2022 30 practical labs \u2022 SOC capstone)",
+  "totalDurationMinutes": 2655,
   "instructor": {
     "name": "CyberTube Open Networking Faculty",
     "title": "Network Defense & SOC Educators",
@@ -55,6 +55,112 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
   ],
   "featured": true,
   "track": "cybersecurity",
+  "capstone": {
+    "id": "capstone-enterprise-network-security-investigation",
+    "title": "Enterprise Network Security Investigation \u2014 SOC Analyst Final Project",
+    "scenario": "You are a Tier-2 SOC Analyst at Apex Financial Defense Corp. At 08:42 UTC on November 24, 2026, the automated Network Security Monitoring (NSM) cluster generated critical alerts indicating unusual outbound DNS query patterns, beaconing behavior, and lateral reconnaissance across the corporate workstation subnet (10.100.20.0/24) toward the internal core database enclave (10.100.50.0/24).\n\nYour investigation scope spans 24 hours of enterprise telemetry:\n- Raw packet captures (pcapng) from perimeter and internal span ports (SPAN-CORE-01).\n- Zeek connection logs (conn.log, dns.log, http.log, ssl.log).\n- Suricata intrusion detection alerts (eve.json) highlighting ET OPEN trojan signatures.\n- Perimeter next-generation firewall (NGFW) egress allow/deny logs.\n- DHCP lease history and ARP resolution tables.\n\nYour mission is to perform comprehensive multi-source correlation, reconstruct the intrusion timeline, identify affected internal endpoints and external C2 infrastructure, calculate exfiltration volume, and author an executive-ready, incident-grade SOC Investigation Report with actionable containment rules.",
+    "pcapSource": {
+      "fileName": "cybertube-capstone-enterprise-nsm.pcapng",
+      "fileUrl": "https://raw.githubusercontent.com/cybertube/pcaps/main/networking/capstone-enterprise-nsm.pcapng",
+      "sha256": "4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a"
+    },
+    "passingScore": 75,
+    "totalMarks": 100,
+    "rubric": [
+      {
+        "category": "1. Scoping, Baseline & Topology Analysis",
+        "marks": 15,
+        "criteria": [
+          "Accurately defines network boundaries, IP addressing schemes, subnet masks, and critical asset enclaves.",
+          "Establishes normal corporate traffic baselines (DNS query frequency, authorized port profiles, working hour traffic volumes).",
+          "Identifies initial anomalies deviating from baseline network behavior."
+        ]
+      },
+      {
+        "category": "2. Packet Capture Dissection & Stream Reconstruction",
+        "marks": 20,
+        "criteria": [
+          "Performs granular Wireshark analysis on suspicious TCP handshakes, resets, and window stalls.",
+          "Applies accurate display filters (tcp.flags, eth.type, ip.proto, dns.qry.name, ssl.handshake.extensions_server_name).",
+          "Reconstructs application payload streams and identifies malicious communication channels."
+        ]
+      },
+      {
+        "category": "3. DNS Investigation & Threat Hunting",
+        "marks": 15,
+        "criteria": [
+          "Analyzes high-frequency and high-entropy DNS queries indicative of DNS tunneling or DGA algorithms.",
+          "Calculates query volume, label lengths, and response codes (NXDOMAIN vs NOERROR).",
+          "Extracts C2 domain indicators and correlates resolver IP deviations."
+        ]
+      },
+      {
+        "category": "4. Multi-Source Log Correlation (Zeek & Suricata)",
+        "marks": 20,
+        "criteria": [
+          "Correlates Zeek conn.log UIDs with dns.log and ssl.log records.",
+          "Validates Suricata IDS alerts against packet capture evidence, separating true positives from noise.",
+          "Correlates perimeter firewall denial logs with internal lateral movement attempts."
+        ]
+      },
+      {
+        "category": "5. Intrusion Timeline & Scope of Compromise",
+        "marks": 15,
+        "criteria": [
+          "Builds a chronological UTC master incident timeline spanning Initial Access, Discovery, C2, Lateral Movement, and Exfiltration.",
+          "Identifies all affected internal IP addresses, MAC addresses, hostnames, and user accounts.",
+          "Quantifies total data volume exfiltrated and confirms whether core databases were breached."
+        ]
+      },
+      {
+        "category": "6. Containment, Defense & Incident Report",
+        "marks": 15,
+        "criteria": [
+          "Specifies immediate containment actions: firewall drop rules, DNS sinkholing, VLAN quarantine, and session resets.",
+          "Develops custom Snort/Suricata detection rules and Zeek scripts to prevent recurrence.",
+          "Delivers a polished, professional SOC Investigation Report with an Executive Summary and technical appendix."
+        ]
+      }
+    ],
+    "submissionSections": [
+      {
+        "id": "sub-scope-topology",
+        "title": "Section 1: Executive Summary, Topology & Traffic Baseline",
+        "prompt": "Provide a concise Executive Summary summarizing the incident impact, affected business functions, and root cause. Map the enterprise network topology (corporate workstations 10.100.20.0/24, DMZ 192.168.10.0/24, Core Servers 10.100.50.0/24) and contrast baseline network traffic against the observed anomaly indicators.",
+        "maxMarks": 15
+      },
+      {
+        "id": "sub-packet-inspection",
+        "title": "Section 2: Wireshark Packet Inspection & Stream Analysis",
+        "prompt": "Document your Wireshark packet capture analysis. Detail the specific display filters used (e.g. eth.type, ip.addr, tcp.flags, http, tls). Document the suspicious TCP handshakes, sequence numbers, anomalous window scaling, and extracted HTTP/TLS stream details. Provide exact timestamps, source/destination IPs, and port tuples.",
+        "maxMarks": 20
+      },
+      {
+        "id": "sub-dns-hunting",
+        "title": "Section 3: DNS Threat Hunting & Tunneling Dissection",
+        "prompt": "Analyze the observed DNS activity. Document query types (A, TXT, CNAME), average label length, entropy scores, and query frequencies. Provide evidence proving whether DNS tunneling or C2 beaconing occurred. Include specific malicious domain names, resolver IPs, and response code distributions.",
+        "maxMarks": 15
+      },
+      {
+        "id": "sub-telemetry-correlation",
+        "title": "Section 4: Multi-Source Telemetry Correlation (Zeek, Suricata & Firewall)",
+        "prompt": "Present your multi-source telemetry correlation table. Correlate Zeek conn.log UIDs with dns.log and ssl.log events. Document the Suricata alert signatures (SID, class, priority), packet validation results, and corresponding perimeter firewall allow/drop events.",
+        "maxMarks": 20
+      },
+      {
+        "id": "sub-incident-timeline",
+        "title": "Section 5: Intrusion Timeline & Affected Asset Inventory",
+        "prompt": "Construct a chronological master incident timeline in UTC. List every key milestone: Initial Probe, C2 Beacon Establishment, Internal Reconnaissance, Privilege Elevation / Lateral Movement, and Data Exfiltration. Provide the complete inventory of compromised endpoints (IP, MAC, Hostname, Role).",
+        "maxMarks": 15
+      },
+      {
+        "id": "sub-remediation-report",
+        "title": "Section 6: Containment, Defensive Engineering & Incident Report",
+        "prompt": "Detail immediate and long-term containment recommendations: exact perimeter firewall rules (Layer 3/4 and Layer 7), DNS sinkholing syntax, Suricata custom detection signatures, VLAN segmentation adjustments, and Zero Trust architectural improvements. Conclude with continuous monitoring recommendations.",
+        "maxMarks": 15
+      }
+    ]
+  },
   "modules": [
     {
       "id": "e0000000-0001-4000-8000-000000000000",
@@ -66,13 +172,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0001-4000-8000-000000000001",
           "slug": "m01-l1-network-security-roles",
           "title": "Module 01 - Lesson 1: Network security roles",
-          "description": "Video lesson presented by WsCube Cyber Security: \"Complete Networking Tutorial 2026 | Beginner to Advanced (Cybersecurity Focus)\". Aligned to Module 01 - Lesson 1: Network security roles for practical lab and defensive analysis.",
-          "youtubeVideoId": "ewtDKmovou4",
+          "description": "Video instruction presented by ZeroDayVault - Cyber Panchayat: \"SOC Analyst L1 Full Course (Day 1) | Complete Beginner Guide to Cyber Security\". Technical focus on Module 01 - Lesson 1: Network security roles: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "youtubeVideoId": "CEKfFnHgQHw",
           "videoAttribution": {
-            "creator": "WsCube Cyber Security",
+            "creator": "ZeroDayVault - Cyber Panchayat",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 51,
           "order": 1,
           "moduleTitle": "Module 01: Orientation, Ethics and the Networking Lab",
           "objectives": [
@@ -158,7 +264,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0001-4000-8000-000000000002",
           "slug": "m01-l2-networks-and-endpoints",
           "title": "Module 01 - Lesson 2: Networks and endpoints",
-          "description": "Video lesson presented by Jeremy's IT Lab: \"Free CCNA | Network Devices | Day 1 | CCNA 200-301 Complete Course\". Aligned to Module 01 - Lesson 2: Networks and endpoints for practical lab and defensive analysis.",
+          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | Network Devices | Day 1 | CCNA 200-301 Complete Course\". Technical focus on Module 01 - Lesson 2: Networks and endpoints: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
           "youtubeVideoId": "H8W9oMNSuwo",
           "videoAttribution": {
             "creator": "Jeremy's IT Lab",
@@ -250,13 +356,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0001-4000-8000-000000000003",
           "slug": "m01-l3-safe-lab-environment",
           "title": "Module 01 - Lesson 3: Safe lab environment",
-          "description": "Video lesson presented by Jeremy's IT Lab: \"Free CCNA | Packet Tracer Introduction | Day 1 Lab | CCNA 200-301 Complete Course\". Aligned to Module 01 - Lesson 3: Safe lab environment for practical lab and defensive analysis.",
+          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | Packet Tracer Introduction | Day 1 Lab | CCNA 200-301 Complete Course\". Technical focus on Module 01 - Lesson 3: Safe lab environment: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
           "youtubeVideoId": "a1Im6GYaSno",
           "videoAttribution": {
             "creator": "Jeremy's IT Lab",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 15,
           "order": 3,
           "moduleTitle": "Module 01: Orientation, Ethics and the Networking Lab",
           "objectives": [
@@ -342,13 +448,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0001-4000-8000-000000000004",
           "slug": "m01-l4-evidence-workflow",
           "title": "Module 01 - Lesson 4: Evidence workflow",
-          "description": "Video lesson presented by Palo Alto Networks Unit 42: \"Unit 42 Wireshark Workshop Part 1: Introduction & Prerequisites | Unit 42\". Aligned to Module 01 - Lesson 4: Evidence workflow for practical lab and defensive analysis.",
-          "youtubeVideoId": "wNEzfe9RI-I",
+          "description": "Video instruction presented by Professor Messer: \"How to Pass Your SY0-701 Security+ Exam in 2026\". Technical focus on Module 01 - Lesson 4: Evidence workflow: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "youtubeVideoId": "KiEptGbnEBc",
           "videoAttribution": {
-            "creator": "Palo Alto Networks Unit 42",
+            "creator": "Professor Messer",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 10,
           "order": 4,
           "moduleTitle": "Module 01: Orientation, Ethics and the Networking Lab",
           "objectives": [
@@ -432,75 +538,75 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
         }
       ],
       "practicalLab": {
-        "id": "lab-net-m01",
-        "title": "Lab 01: Orientation, Ethics and the Networking Lab Hands-on Implementation",
-        "objective": "Set up a completely authorized lab and explain the role of networks in SOC defense. This module ties network behavior to what an SOC analyst can actually observe, validate, document, and report. Work only in an authorized local lab or offline simulation environment.",
-        "toolsRequired": [
-          "Cisco Packet Tracer / Wireshark / TShark",
-          "Host-only Virtual Machine / Lab Topology",
-          "Markdown Evidence Log (Mxx-Lyy.md)"
-        ],
-        "pcapSource": {
-          "fileName": "module_01_network_evidence",
-          "fileUrl": "https://wiki.wireshark.org/SampleCaptures"
-        },
+        "title": "Lab 01: Host-Only Lab Architecture, Asset Inventory & Evidence Journal",
         "difficulty": "beginner",
         "estimatedMinutes": 60,
+        "objective": "Design an isolated host-only network simulation, inventory virtual endpoints, and establish a tamper-evident forensic journal for all subsequent networking experiments.",
+        "toolsRequired": [
+          "VirtualBox or VMware Workstation",
+          "Cisco Packet Tracer",
+          "sha256sum / CertUtil",
+          "Notepad++ / VS Code"
+        ],
+        "pcapSource": {
+          "fileName": "local-synthetic-host-only-traffic-generation.pcap",
+          "fileUrl": "https://raw.githubusercontent.com/cybertube/pcaps/main/networking/local-synthetic-host-only-traffic-generation.pcap",
+          "repositoryUrl": "https://github.com/cybertube/pcaps",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
         "instructions": [
-          "**Scope:** Record the systems you own/control, the source of the sample data, date/time, and explicit lab network boundaries.",
-          "**Baseline:** Note the normal configuration or expected protocol exchange before making a controlled change or reviewing an anomaly.",
-          "**Observe:** Follow the module scenario with Packet Tracer, Wireshark, TShark, a host-only VM, or a publicly supplied offline training PCAP as appropriate. Never initiate traffic outside the authorized scope.",
-          "**Correlate:** Capture the relevant address, port, timestamp, protocol, log field, or topology evidence; compare it with a second observation when possible.",
-          "**Conclude:** Record the most likely explanation, evidence for/against it, possible benign alternatives, confidence, and an appropriate defensive next step.",
-          "**Clean up:** Stop local test services, restore configurations and redact credentials, private addresses where required, tokens and personal data."
+          "Configure an isolated host-only virtual adapter (192.168.56.0/24) disconnected from external internet gateways.",
+          "Deploy two lightweight test nodes (Linux VM and Windows VM) with static addressing within the host-only subnet.",
+          "Record hardware MAC addresses, assigned IP addresses, subnet masks, and default gateways in a structured inventory journal.",
+          "Execute mutual ping verification between test nodes and compute cryptographic SHA-256 hashes of the initial configuration files.",
+          "Document evidence collection procedures, timestamp synchronization, and forensic chain-of-custody protocols."
         ],
         "tasks": [
           {
-            "id": "task-m01-1",
-            "description": "**Scope:** Record the systems you own/control, the source of the sample data, date/time, and explicit lab network boundaries."
+            "id": "t01-1",
+            "description": "Initialize Host-Only virtual network switch with subnet 192.168.56.0/24 and disable host DHCP server."
           },
           {
-            "id": "task-m01-2",
-            "description": "**Baseline:** Note the normal configuration or expected protocol exchange before making a controlled change or reviewing an anomaly."
+            "id": "t01-2",
+            "description": "Configure static IP 192.168.56.10/24 on Node-A and 192.168.56.20/24 on Node-B with proper loopback validation."
           },
           {
-            "id": "task-m01-3",
-            "description": "**Observe:** Follow the module scenario with Packet Tracer, Wireshark, TShark, a host-only VM, or a publicly supplied offline training PCAP as appropriate. Never initiate traffic outside the authorized scope."
+            "id": "t01-3",
+            "description": "Perform ICMP connectivity testing: ping -c 4 192.168.56.20 and verify zero packet loss."
           },
           {
-            "id": "task-m01-4",
-            "description": "**Correlate:** Capture the relevant address, port, timestamp, protocol, log field, or topology evidence; compare it with a second observation when possible."
+            "id": "t01-4",
+            "description": "Create evidence_log.md and record SHA-256 hashes of /etc/network/interfaces and test scripts using sha256sum."
           },
           {
-            "id": "task-m01-5",
-            "description": "**Conclude:** Record the most likely explanation, evidence for/against it, possible benign alternatives, confidence, and an appropriate defensive next step."
-          },
-          {
-            "id": "task-m01-6",
-            "description": "**Clean up:** Stop local test services, restore configurations and redact credentials, private addresses where required, tokens and personal data."
+            "id": "t01-5",
+            "description": "Establish forensic log naming conventions: YYYYMMDD_HHMMSS_module01_evidence.pcap."
           }
+        ],
+        "completionCriteria": [
+          "Host-only network is strictly isolated with no default gateway to the public internet.",
+          "Both test endpoints successfully ping each other across the virtual switch.",
+          "Cryptographic hashes and network inventory tables are recorded in the evidence worksheet."
         ],
         "evidenceWorksheet": [
           {
-            "field": "authorization_and_scope",
-            "prompt": "Document your authorized IP scope, tool configuration, and timestamp timezone.",
-            "expectedEvidenceType": "Text transcript"
+            "field": "network_topology_map",
+            "prompt": "Document virtual interface names, MAC addresses, and assigned IP addresses for Node-A and Node-B.",
+            "expectedEvidenceType": "Table with Interface, MAC, IP, Subnet Mask"
           },
           {
-            "field": "observation_and_correlation",
-            "prompt": "Record observed traffic/topology evidence for: Build a topology in Cisco Packet Tracer with two endpoints, one switch and one router; label ownership, intended connectivity and trust boundaries.",
-            "expectedEvidenceType": "A topology screenshot, interface/IP inventory, authorization note and lab README."
+            "field": "connectivity_proof",
+            "prompt": "Paste terminal output showing successful 4-packet ICMP exchange between nodes.",
+            "expectedEvidenceType": "CLI Terminal Output"
+          },
+          {
+            "field": "integrity_hash",
+            "prompt": "Record SHA-256 hash of evidence journal file.",
+            "expectedEvidenceType": "64-character hex hash string"
           }
         ],
-        "questions": [],
-        "completionCriteria": [
-          "Required module YouTube lesson(s) watched or relevant accessible alternative documented.",
-          "Four lesson evidence files created (Mxx-Lxx.md).",
-          "At least one valid lab observation or simulation artifact captured.",
-          "Source/destination/protocol interpretation is technically consistent.",
-          "Analyst note distinguishes observations, hypotheses and unknowns.",
-          "Sensitive information sanitized and lab scope respected."
-        ]
+        "id": "lab-m01",
+        "questions": []
       }
     },
     {
@@ -513,13 +619,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0002-4000-8000-000000000001",
           "slug": "m02-l1-seven-osi-layers",
           "title": "Module 02 - Lesson 1: Seven OSI layers",
-          "description": "Video lesson presented by Practical Networking: \"OSI Model: A Practical Perspective - Networking Fundamentals - Lesson 2a\". Aligned to Module 02 - Lesson 1: Seven OSI layers for practical lab and defensive analysis.",
+          "description": "Video instruction presented by Practical Networking: \"OSI Model: A Practical Perspective - Networking Fundamentals - Lesson 2a\". Technical focus on Module 02 - Lesson 1: Seven OSI layers: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
           "youtubeVideoId": "LkolbURrtTs",
           "videoAttribution": {
             "creator": "Practical Networking",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 13,
           "order": 1,
           "moduleTitle": "Module 02: OSI and TCP/IP Models for SOC Analysts",
           "objectives": [
@@ -605,13 +711,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0002-4000-8000-000000000002",
           "slug": "m02-l2-tcp-ip-stack",
           "title": "Module 02 - Lesson 2: TCP/IP stack",
-          "description": "Video lesson presented by Practical Networking: \"OSI Model: A Practical Perspective - Part 2 - Networking Fundamentals - Lesson 2\". Aligned to Module 02 - Lesson 2: TCP/IP stack for practical lab and defensive analysis.",
-          "youtubeVideoId": "0aGqGKrRE0g",
+          "description": "Video instruction presented by Jeremy's IT Lab: \"How the TCP/IP Model Actually Works | CCNA Day 3\". Technical focus on Module 02 - Lesson 2: TCP/IP stack: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "youtubeVideoId": "yM-XNq9ADlI",
           "videoAttribution": {
-            "creator": "Practical Networking",
+            "creator": "Jeremy's IT Lab",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 43,
           "order": 2,
           "moduleTitle": "Module 02: OSI and TCP/IP Models for SOC Analysts",
           "objectives": [
@@ -697,13 +803,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0002-4000-8000-000000000003",
           "slug": "m02-l3-encapsulation",
           "title": "Module 02 - Lesson 3: Encapsulation",
-          "description": "Video lesson presented by Practical Networking: \"How Data moves through the Internet - Networking Fundamentals\". Aligned to Module 02 - Lesson 3: Encapsulation for practical lab and defensive analysis.",
+          "description": "Video instruction presented by Practical Networking: \"How Data moves through the Internet - Networking Fundamentals\". Technical focus on Module 02 - Lesson 3: Encapsulation: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
           "youtubeVideoId": "YJGGYKAV4pA",
           "videoAttribution": {
             "creator": "Practical Networking",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 27,
           "order": 3,
           "moduleTitle": "Module 02: OSI and TCP/IP Models for SOC Analysts",
           "objectives": [
@@ -789,13 +895,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0002-4000-8000-000000000004",
           "slug": "m02-l4-security-by-layer",
           "title": "Module 02 - Lesson 4: Security by layer",
-          "description": "Video lesson presented by Professor Messer: \"Understanding the OSI Model - CompTIA Network+ N10-009 - 1.1\". Aligned to Module 02 - Lesson 4: Security by layer for practical lab and defensive analysis.",
-          "youtubeVideoId": "AYgXr1dynKU",
+          "description": "Video instruction presented by Cyber Gray Matter: \"OSI Model Layer Attacks, Mitigation & Protocols | Cybersecurity Analyst Training 101\". Technical focus on Module 02 - Lesson 4: Security by layer: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "youtubeVideoId": "CYhpEr8GFok",
           "videoAttribution": {
-            "creator": "Professor Messer",
+            "creator": "Cyber Gray Matter",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 10,
           "order": 4,
           "moduleTitle": "Module 02: OSI and TCP/IP Models for SOC Analysts",
           "objectives": [
@@ -879,75 +985,65 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
         }
       ],
       "practicalLab": {
-        "id": "lab-net-m02",
-        "title": "Lab 02: OSI and TCP/IP Models for SOC Analysts Hands-on Implementation",
-        "objective": "Map observed packet fields to OSI/TCP-IP layers and find likely fault or attack boundaries. This module ties network behavior to what an SOC analyst can actually observe, validate, document, and report. Work only in an authorized local lab or offline simulation environment.",
-        "toolsRequired": [
-          "Cisco Packet Tracer / Wireshark / TShark",
-          "Host-only Virtual Machine / Lab Topology",
-          "Markdown Evidence Log (Mxx-Lyy.md)"
-        ],
-        "pcapSource": {
-          "fileName": "module_02_network_evidence",
-          "fileUrl": "https://wiki.wireshark.org/SampleCaptures"
-        },
+        "title": "Lab 02: Multi-Layer Protocol Mapping & Fault Isolation",
         "difficulty": "beginner",
         "estimatedMinutes": 60,
+        "objective": "Dissect a multi-protocol packet capture to identify Layer 2 through Layer 7 protocol data units (PDUs) and demonstrate precise fault isolation across the OSI hierarchy.",
+        "toolsRequired": [
+          "Wireshark",
+          "curl / wget",
+          "ping",
+          "traceroute"
+        ],
+        "pcapSource": {
+          "fileName": "sample_http_dns_icmp-pcap.pcap",
+          "fileUrl": "https://raw.githubusercontent.com/cybertube/pcaps/main/networking/sample_http_dns_icmp-pcap.pcap",
+          "repositoryUrl": "https://github.com/cybertube/pcaps",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
         "instructions": [
-          "**Scope:** Record the systems you own/control, the source of the sample data, date/time, and explicit lab network boundaries.",
-          "**Baseline:** Note the normal configuration or expected protocol exchange before making a controlled change or reviewing an anomaly.",
-          "**Observe:** Follow the module scenario with Packet Tracer, Wireshark, TShark, a host-only VM, or a publicly supplied offline training PCAP as appropriate. Never initiate traffic outside the authorized scope.",
-          "**Correlate:** Capture the relevant address, port, timestamp, protocol, log field, or topology evidence; compare it with a second observation when possible.",
-          "**Conclude:** Record the most likely explanation, evidence for/against it, possible benign alternatives, confidence, and an appropriate defensive next step.",
-          "**Clean up:** Stop local test services, restore configurations and redact credentials, private addresses where required, tokens and personal data."
+          "Load sample_http_dns_icmp.pcap into Wireshark and inspect packet #1.",
+          "Examine the Wireshark packet details pane and map each header to its corresponding OSI and TCP/IP layer.",
+          "Identify Layer 2 Frame (Ethernet II), Layer 3 Packet (IPv4), Layer 4 Segment (TCP), and Layer 7 PDU (HTTP).",
+          "Simulate Layer 2, Layer 3, and Layer 7 communication failures and document the observable diagnostic symptoms for each layer."
         ],
         "tasks": [
           {
-            "id": "task-m02-1",
-            "description": "**Scope:** Record the systems you own/control, the source of the sample data, date/time, and explicit lab network boundaries."
+            "id": "t02-1",
+            "description": "Identify Ethernet II encapsulation fields (preamble, dest MAC, src MAC, EtherType 0x0800)."
           },
           {
-            "id": "task-m02-2",
-            "description": "**Baseline:** Note the normal configuration or expected protocol exchange before making a controlled change or reviewing an anomaly."
+            "id": "t02-2",
+            "description": "Examine IPv4 protocol field (0x06 for TCP, 0x11 for UDP, 0x01 for ICMP) and correlate with upper-layer headers."
           },
           {
-            "id": "task-m02-3",
-            "description": "**Observe:** Follow the module scenario with Packet Tracer, Wireshark, TShark, a host-only VM, or a publicly supplied offline training PCAP as appropriate. Never initiate traffic outside the authorized scope."
+            "id": "t02-3",
+            "description": "Correlate TCP source and destination port numbers with application layer payload data."
           },
           {
-            "id": "task-m02-4",
-            "description": "**Correlate:** Capture the relevant address, port, timestamp, protocol, log field, or topology evidence; compare it with a second observation when possible."
-          },
-          {
-            "id": "task-m02-5",
-            "description": "**Conclude:** Record the most likely explanation, evidence for/against it, possible benign alternatives, confidence, and an appropriate defensive next step."
-          },
-          {
-            "id": "task-m02-6",
-            "description": "**Clean up:** Stop local test services, restore configurations and redact credentials, private addresses where required, tokens and personal data."
+            "id": "t02-4",
+            "description": "Construct a 7-layer fault isolation matrix distinguishing cable disconnect (L1), MAC misconfiguration (L2), bad mask (L3), closed port (L4), and HTTP 500 (L7)."
           }
+        ],
+        "completionCriteria": [
+          "All 4 encapsulation layers correctly identified and labeled in Wireshark packet details.",
+          "Protocol decapsulation order documented from physical bits to application payload.",
+          "OSI diagnostic fault isolation matrix completed with technical observables."
         ],
         "evidenceWorksheet": [
           {
-            "field": "authorization_and_scope",
-            "prompt": "Document your authorized IP scope, tool configuration, and timestamp timezone.",
-            "expectedEvidenceType": "Text transcript"
+            "field": "encapsulation_table",
+            "prompt": "List the PDU name, header fields, and addressing scheme for Layers 2, 3, 4, and 7 of Packet #1.",
+            "expectedEvidenceType": "Multi-column comparison table"
           },
           {
-            "field": "observation_and_correlation",
-            "prompt": "Record observed traffic/topology evidence for: Open a provided PCAP, identify one Ethernet frame containing IP and TCP, and annotate each nested header layer.",
-            "expectedEvidenceType": "Layer map with annotated packet screenshot and explanation of where each defensive control can observe traffic."
+            "field": "fault_isolation_case",
+            "prompt": "Explain what error message a client receives when Layer 3 is intact but Layer 4 service is refused (TCP RST).",
+            "expectedEvidenceType": "Defensive analysis text"
           }
         ],
-        "questions": [],
-        "completionCriteria": [
-          "Required module YouTube lesson(s) watched or relevant accessible alternative documented.",
-          "Four lesson evidence files created (Mxx-Lxx.md).",
-          "At least one valid lab observation or simulation artifact captured.",
-          "Source/destination/protocol interpretation is technically consistent.",
-          "Analyst note distinguishes observations, hypotheses and unknowns.",
-          "Sensitive information sanitized and lab scope respected."
-        ]
+        "id": "lab-m02",
+        "questions": []
       }
     },
     {
@@ -960,13 +1056,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0003-4000-8000-000000000001",
           "slug": "m03-l1-physical-interfaces",
           "title": "Module 03 - Lesson 1: Physical interfaces",
-          "description": "Video lesson presented by Jeremy's IT Lab: \"Free CCNA | Interfaces and Cables | Day 2 | CCNA 200-301 Complete Course\". Aligned to Module 03 - Lesson 1: Physical interfaces for practical lab and defensive analysis.",
+          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | Interfaces and Cables | Day 2 | CCNA 200-301 Complete Course\". Technical focus on Module 03 - Lesson 1: Physical interfaces: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
           "youtubeVideoId": "ieTH5lVhNaY",
           "videoAttribution": {
             "creator": "Jeremy's IT Lab",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 36,
           "order": 1,
           "moduleTitle": "Module 03: Cables, Interfaces, Ethernet and MAC Addresses",
           "objectives": [
@@ -1048,13 +1144,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0003-4000-8000-000000000002",
           "slug": "m03-l2-ethernet-headers",
           "title": "Module 03 - Lesson 2: Ethernet headers",
-          "description": "Video lesson presented by Practical Networking: \"Everything Switches do - Part 1 - Networking Fundamentals - Lesson 4\". Aligned to Module 03 - Lesson 2: Ethernet headers for practical lab and defensive analysis.",
-          "youtubeVideoId": "AhOU2eOpmX0",
+          "description": "Video instruction presented by Dave's Garage: \"Ethernet Explained so well that even YOU can Understand it!\". In-depth architectural disassembly of the Ethernet II (DIX) frame structure: Preamble (7 bytes of 10101010) and Start Frame Delimiter (SFD 1 byte: 10101011), 6-byte Destination MAC, 6-byte Source MAC, 2-byte EtherType (0x0800 IPv4, 0x86DD IPv6, 0x0806 ARP, 0x8100 802.1Q VLAN), 46\u20131500 byte payload, and 4-byte Frame Check Sequence (FCS / CRC-32). Covers frame size constraints (minimum 64 bytes, maximum 1518/1522 bytes), broadcast MAC (ff:ff:ff:ff:ff:ff), and why physical NICs and capture drivers strip preamble and FCS before passing frames to Wireshark/libpcap. Includes hands-on Wireshark display filters (eth, eth.src, eth.dst, eth.type, vlan, arp) and real-world SOC threat analysis for MAC spoofing and CAM exhaustion.",
+          "youtubeVideoId": "7vzjIv2l6wY",
           "videoAttribution": {
-            "creator": "Practical Networking",
+            "creator": "Dave's Garage",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 23,
           "order": 2,
           "moduleTitle": "Module 03: Cables, Interfaces, Ethernet and MAC Addresses",
           "objectives": [
@@ -1136,13 +1232,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0003-4000-8000-000000000003",
           "slug": "m03-l3-switching-behavior",
           "title": "Module 03 - Lesson 3: Switching behavior",
-          "description": "Video lesson presented by Jeremy's IT Lab: \"Free CCNA | Ethernet LAN Switching (Part 1) | Day 5 | CCNA 200-301 Complete Course\". Aligned to Module 03 - Lesson 3: Switching behavior for practical lab and defensive analysis.",
+          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | Ethernet LAN Switching (Part 1) | Day 5 | CCNA 200-301 Complete Course\". Technical focus on Module 03 - Lesson 3: Switching behavior: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
           "youtubeVideoId": "u2n762WG0Vo",
           "videoAttribution": {
             "creator": "Jeremy's IT Lab",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 38,
           "order": 3,
           "moduleTitle": "Module 03: Cables, Interfaces, Ethernet and MAC Addresses",
           "objectives": [
@@ -1224,13 +1320,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0003-4000-8000-000000000004",
           "slug": "m03-l4-layer-2-threats",
           "title": "Module 03 - Lesson 4: Layer-2 threats",
-          "description": "Video lesson presented by Professor Messer: \"MAC Flooding - CompTIA Network+ N10-009 - 4.2\". Aligned to Module 03 - Lesson 4: Layer-2 threats for practical lab and defensive analysis.",
+          "description": "Video instruction presented by Professor Messer: \"MAC Flooding - CompTIA Network+ N10-009 - 4.2\". Technical focus on Module 03 - Lesson 4: Layer-2 threats: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
           "youtubeVideoId": "ttLNYwt-aq0",
           "videoAttribution": {
             "creator": "Professor Messer",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 8,
           "order": 4,
           "moduleTitle": "Module 03: Cables, Interfaces, Ethernet and MAC Addresses",
           "objectives": [
@@ -1310,75 +1406,75 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
         }
       ],
       "practicalLab": {
-        "id": "lab-net-m03",
-        "title": "Lab 03: Cables, Interfaces, Ethernet and MAC Addresses Hands-on Implementation",
-        "objective": "Interpret layer-2 frames and explain MAC-based communication and its limits. This module ties network behavior to what an SOC analyst can actually observe, validate, document, and report. Work only in an authorized local lab or offline simulation environment.",
+        "title": "Lab 03: Ethernet II Frame Inspection, MAC Table Flooding & L2 Threat Analysis",
+        "difficulty": "beginner",
+        "estimatedMinutes": 75,
+        "objective": "Perform deep packet analysis of Ethernet II frames using Wireshark, analyze switch MAC address table learning, and evaluate Layer-2 attack indicators.",
         "toolsRequired": [
-          "Cisco Packet Tracer / Wireshark / TShark",
-          "Host-only Virtual Machine / Lab Topology",
-          "Markdown Evidence Log (Mxx-Lyy.md)"
+          "Wireshark",
+          "Cisco Packet Tracer",
+          "arping"
         ],
         "pcapSource": {
-          "fileName": "module_03_network_evidence",
-          "fileUrl": "https://wiki.wireshark.org/SampleCaptures"
+          "fileName": "sample_ethernet_frames-pcap.pcap",
+          "fileUrl": "https://raw.githubusercontent.com/cybertube/pcaps/main/networking/sample_ethernet_frames-pcap.pcap",
+          "repositoryUrl": "https://github.com/cybertube/pcaps",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
         },
-        "difficulty": "beginner",
-        "estimatedMinutes": 60,
         "instructions": [
-          "**Scope:** Record the systems you own/control, the source of the sample data, date/time, and explicit lab network boundaries.",
-          "**Baseline:** Note the normal configuration or expected protocol exchange before making a controlled change or reviewing an anomaly.",
-          "**Observe:** Follow the module scenario with Packet Tracer, Wireshark, TShark, a host-only VM, or a publicly supplied offline training PCAP as appropriate. Never initiate traffic outside the authorized scope.",
-          "**Correlate:** Capture the relevant address, port, timestamp, protocol, log field, or topology evidence; compare it with a second observation when possible.",
-          "**Conclude:** Record the most likely explanation, evidence for/against it, possible benign alternatives, confidence, and an appropriate defensive next step.",
-          "**Clean up:** Stop local test services, restore configurations and redact credentials, private addresses where required, tokens and personal data."
+          "Launch Packet Tracer with 3 PCs (PC0, PC1, PC2) connected to a 2960 switch.",
+          "Clear switch MAC table: clear mac address-table dynamic. Inspect empty table using show mac address-table.",
+          "Ping from PC0 to PC1 in simulation mode. Observe switch broadcast flooding on initial ARP request (FF:FF:FF:FF:FF:FF).",
+          "Observe unicast reply from PC1 and verify switch populates MAC table with port-to-MAC bindings.",
+          "Open Wireshark and apply filter 'eth'. Dissect Destination MAC, Source MAC, EtherType (0x0800 IPv4, 0x0806 ARP), and Payload.",
+          "Analyze why capture interfaces strip Preamble (7 bytes) and Frame Check Sequence (FCS 4 bytes) before delivering frames to Wireshark."
         ],
         "tasks": [
           {
-            "id": "task-m03-1",
-            "description": "**Scope:** Record the systems you own/control, the source of the sample data, date/time, and explicit lab network boundaries."
+            "id": "t03-1",
+            "description": "In Packet Tracer, inspect switch MAC table before and after unicast frame transmission using 'show mac address-table'."
           },
           {
-            "id": "task-m03-2",
-            "description": "**Baseline:** Note the normal configuration or expected protocol exchange before making a controlled change or reviewing an anomaly."
+            "id": "t03-2",
+            "description": "Identify Ethernet broadcast MAC address ff:ff:ff:ff:ff:ff and verify all switch ports except ingress receive flooded frame."
           },
           {
-            "id": "task-m03-3",
-            "description": "**Observe:** Follow the module scenario with Packet Tracer, Wireshark, TShark, a host-only VM, or a publicly supplied offline training PCAP as appropriate. Never initiate traffic outside the authorized scope."
+            "id": "t03-3",
+            "description": "In Wireshark, apply display filter: eth.type == 0x0800 && eth.dst != ff:ff:ff:ff:ff:ff to isolate unicast IP traffic."
           },
           {
-            "id": "task-m03-4",
-            "description": "**Correlate:** Capture the relevant address, port, timestamp, protocol, log field, or topology evidence; compare it with a second observation when possible."
+            "id": "t03-4",
+            "description": "Examine OUI (Organizationally Unique Identifier) first 3 bytes (24 bits) and vendor lookup in Wireshark."
           },
           {
-            "id": "task-m03-5",
-            "description": "**Conclude:** Record the most likely explanation, evidence for/against it, possible benign alternatives, confidence, and an appropriate defensive next step."
-          },
-          {
-            "id": "task-m03-6",
-            "description": "**Clean up:** Stop local test services, restore configurations and redact credentials, private addresses where required, tokens and personal data."
+            "id": "t03-5",
+            "description": "Document MAC flooding attack mechanics: CAM table exhaustion, switch fallback to hub fail-open flooding, and port security mitigation."
           }
+        ],
+        "completionCriteria": [
+          "Ethernet II frame structure verified: 6-byte dest MAC, 6-byte src MAC, 2-byte EtherType, 46-1500 byte payload.",
+          "Switch MAC learning behavior accurately mapped during unicast and broadcast frames.",
+          "Port security commands (switchport port-security, violation shutdown) documented for defensive hardening."
         ],
         "evidenceWorksheet": [
           {
-            "field": "authorization_and_scope",
-            "prompt": "Document your authorized IP scope, tool configuration, and timestamp timezone.",
-            "expectedEvidenceType": "Text transcript"
+            "field": "frame_header_breakdown",
+            "prompt": "Extract the exact hex bytes of the Ethernet header from packet #1 (Source MAC, Destination MAC, EtherType).",
+            "expectedEvidenceType": "Hex bytes and annotated interpretation"
           },
           {
-            "field": "observation_and_correlation",
-            "prompt": "Record observed traffic/topology evidence for: Create two PCs on one switch. Observe broadcast vs unicast communication, then find a MAC address in the packet capture.",
-            "expectedEvidenceType": "Packet Tracer file or screenshot, annotated MAC/EtherType fields and two security observations."
+            "field": "fcs_stripping_explanation",
+            "prompt": "Explain why Wireshark captures on standard NICs do not display the 8-byte Preamble/SFD and 4-byte FCS.",
+            "expectedEvidenceType": "NIC driver and physical layer architecture summary"
+          },
+          {
+            "field": "cam_overflow_defense",
+            "prompt": "Provide the exact Cisco switch configuration commands to restrict port Gi0/1 to a maximum of 2 learned MAC addresses.",
+            "expectedEvidenceType": "CLI Configuration Script"
           }
         ],
-        "questions": [],
-        "completionCriteria": [
-          "Required module YouTube lesson(s) watched or relevant accessible alternative documented.",
-          "Four lesson evidence files created (Mxx-Lxx.md).",
-          "At least one valid lab observation or simulation artifact captured.",
-          "Source/destination/protocol interpretation is technically consistent.",
-          "Analyst note distinguishes observations, hypotheses and unknowns.",
-          "Sensitive information sanitized and lab scope respected."
-        ]
+        "id": "lab-m03",
+        "questions": []
       }
     },
     {
@@ -1391,13 +1487,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0004-4000-8000-000000000001",
           "slug": "m04-l1-binary-and-dotted-decimal",
           "title": "Module 04 - Lesson 1: Binary and dotted decimal",
-          "description": "Video lesson presented by Jeremy's IT Lab: \"Free CCNA | IPv4 Addressing (Part 1) | Day 7 | CCNA 200-301 Complete Course\". Aligned to Module 04 - Lesson 1: Binary and dotted decimal for practical lab and defensive analysis.",
+          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | IPv4 Addressing (Part 1) | Day 7 | CCNA 200-301 Complete Course\". Technical focus on Module 04 - Lesson 1: Binary and dotted decimal: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
           "youtubeVideoId": "3ROdsfEUuhs",
           "videoAttribution": {
             "creator": "Jeremy's IT Lab",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 40,
           "order": 1,
           "moduleTitle": "Module 04: IPv4, Binary and Packet Headers",
           "objectives": [
@@ -1483,13 +1579,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0004-4000-8000-000000000002",
           "slug": "m04-l2-ipv4-address-categories",
           "title": "Module 04 - Lesson 2: IPv4 address categories",
-          "description": "Video lesson presented by Professor Messer: \"IPv4 Addressing - CompTIA Network+ N10-009 - 1.7\". Aligned to Module 04 - Lesson 2: IPv4 address categories for practical lab and defensive analysis.",
+          "description": "Video instruction presented by Professor Messer: \"IPv4 Addressing - CompTIA Network+ N10-009 - 1.7\". Technical focus on Module 04 - Lesson 2: IPv4 address categories: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
           "youtubeVideoId": "JNNcyZ_VE2A",
           "videoAttribution": {
             "creator": "Professor Messer",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 11,
           "order": 2,
           "moduleTitle": "Module 04: IPv4, Binary and Packet Headers",
           "objectives": [
@@ -1575,7 +1671,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0004-4000-8000-000000000003",
           "slug": "m04-l3-ip-headers",
           "title": "Module 04 - Lesson 3: IP headers",
-          "description": "Video lesson presented by Jeremy's IT Lab: \"Free CCNA | IPv4 Header | Day 10 | CCNA 200-301 Complete Course\". Aligned to Module 04 - Lesson 3: IP headers for practical lab and defensive analysis.",
+          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | IPv4 Header | Day 10 | CCNA 200-301 Complete Course\". Technical focus on Module 04 - Lesson 3: IP headers: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
           "youtubeVideoId": "aQB22y4liXA",
           "videoAttribution": {
             "creator": "Jeremy's IT Lab",
@@ -1667,13 +1763,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0004-4000-8000-000000000004",
           "slug": "m04-l4-host-addressing",
           "title": "Module 04 - Lesson 4: Host addressing",
-          "description": "Video lesson presented by Jeremy's IT Lab: \"Free CCNA | Configuring IP Addresses | Day 8 Lab | CCNA 200-301 Complete Course\". Aligned to Module 04 - Lesson 4: Host addressing for practical lab and defensive analysis.",
+          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | Configuring IP Addresses | Day 8 Lab | CCNA 200-301 Complete Course\". Technical focus on Module 04 - Lesson 4: Host addressing: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
           "youtubeVideoId": "e1jbvyMeS5I",
           "videoAttribution": {
             "creator": "Jeremy's IT Lab",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 10,
           "order": 4,
           "moduleTitle": "Module 04: IPv4, Binary and Packet Headers",
           "objectives": [
@@ -1757,75 +1853,64 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
         }
       ],
       "practicalLab": {
-        "id": "lab-net-m04",
-        "title": "Lab 04: IPv4, Binary and Packet Headers Hands-on Implementation",
-        "objective": "Interpret IPv4 addresses, host ranges, reserved spaces and IP header fields. This module ties network behavior to what an SOC analyst can actually observe, validate, document, and report. Work only in an authorized local lab or offline simulation environment.",
-        "toolsRequired": [
-          "Cisco Packet Tracer / Wireshark / TShark",
-          "Host-only Virtual Machine / Lab Topology",
-          "Markdown Evidence Log (Mxx-Lyy.md)"
-        ],
-        "pcapSource": {
-          "fileName": "module_04_network_evidence",
-          "fileUrl": "https://wiki.wireshark.org/SampleCaptures"
-        },
+        "title": "Lab 04: IPv4 Header Analysis, Binary Subnet Decomposition & TTL Forensics",
         "difficulty": "beginner",
         "estimatedMinutes": 60,
+        "objective": "Dissect IPv4 packet header fields in Wireshark, perform manual binary octet conversions, and analyze IP identification, flags, fragmentation, and TTL decrement mechanics.",
+        "toolsRequired": [
+          "Wireshark",
+          "ping",
+          "python"
+        ],
+        "pcapSource": {
+          "fileName": "sample_ipv4_headers-pcap.pcap",
+          "fileUrl": "https://raw.githubusercontent.com/cybertube/pcaps/main/networking/sample_ipv4_headers-pcap.pcap",
+          "repositoryUrl": "https://github.com/cybertube/pcaps",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
         "instructions": [
-          "**Scope:** Record the systems you own/control, the source of the sample data, date/time, and explicit lab network boundaries.",
-          "**Baseline:** Note the normal configuration or expected protocol exchange before making a controlled change or reviewing an anomaly.",
-          "**Observe:** Follow the module scenario with Packet Tracer, Wireshark, TShark, a host-only VM, or a publicly supplied offline training PCAP as appropriate. Never initiate traffic outside the authorized scope.",
-          "**Correlate:** Capture the relevant address, port, timestamp, protocol, log field, or topology evidence; compare it with a second observation when possible.",
-          "**Conclude:** Record the most likely explanation, evidence for/against it, possible benign alternatives, confidence, and an appropriate defensive next step.",
-          "**Clean up:** Stop local test services, restore configurations and redact credentials, private addresses where required, tokens and personal data."
+          "Load sample_ipv4_headers.pcap in Wireshark and filter by 'ip'. Select an IPv4 packet.",
+          "Dissect IP header fields: Version (4), IHL (5 = 20 bytes), DSCP/ECN, Total Length, Identification, Flags (DF, MF), Fragment Offset, Time to Live (TTL), Protocol (6=TCP, 17=UDP, 1=ICMP), Header Checksum, Source IP, and Destination IP.",
+          "Convert dotted-decimal IP 192.168.10.75 into 32-bit binary notation (11000000.10101000.00001010.01001011).",
+          "Trace TTL decrement: compare ingress TTL 64 with egress TTL 63 across a routing hop. Identify OS fingerprinting inferences (Linux=64, Windows=128, Cisco IOS=255)."
         ],
         "tasks": [
           {
-            "id": "task-m04-1",
-            "description": "**Scope:** Record the systems you own/control, the source of the sample data, date/time, and explicit lab network boundaries."
+            "id": "t04-1",
+            "description": "Inspect IPv4 header length (IHL) and verify no optional IP fields are present (standard 20 bytes)."
           },
           {
-            "id": "task-m04-2",
-            "description": "**Baseline:** Note the normal configuration or expected protocol exchange before making a controlled change or reviewing an anomaly."
+            "id": "t04-2",
+            "description": "Analyze IP Flags: inspect Don't Fragment (DF) bit set by Path MTU Discovery (PMTUD)."
           },
           {
-            "id": "task-m04-3",
-            "description": "**Observe:** Follow the module scenario with Packet Tracer, Wireshark, TShark, a host-only VM, or a publicly supplied offline training PCAP as appropriate. Never initiate traffic outside the authorized scope."
+            "id": "t04-3",
+            "description": "Trace Identification and Fragment Offset fields across fragmented ICMP payloads (ping -l 3000)."
           },
           {
-            "id": "task-m04-4",
-            "description": "**Correlate:** Capture the relevant address, port, timestamp, protocol, log field, or topology evidence; compare it with a second observation when possible."
-          },
-          {
-            "id": "task-m04-5",
-            "description": "**Conclude:** Record the most likely explanation, evidence for/against it, possible benign alternatives, confidence, and an appropriate defensive next step."
-          },
-          {
-            "id": "task-m04-6",
-            "description": "**Clean up:** Stop local test services, restore configurations and redact credentials, private addresses where required, tokens and personal data."
+            "id": "t04-4",
+            "description": "Correlate observed default TTL values with sender operating system fingerprinting techniques."
           }
+        ],
+        "completionCriteria": [
+          "All 12 IPv4 header fields identified and documented with bit offsets.",
+          "Binary octet conversion accurately calculated with zero bit errors.",
+          "TTL hop decrement mechanics explained with traceroute operational correlation."
         ],
         "evidenceWorksheet": [
           {
-            "field": "authorization_and_scope",
-            "prompt": "Document your authorized IP scope, tool configuration, and timestamp timezone.",
-            "expectedEvidenceType": "Text transcript"
+            "field": "header_dissection",
+            "prompt": "Extract IHL, Total Length, Protocol, TTL, and Checksum values from Packet #4.",
+            "expectedEvidenceType": "Table with Field, Raw Hex, Decoded Decimal, Purpose"
           },
           {
-            "field": "observation_and_correlation",
-            "prompt": "Record observed traffic/topology evidence for: Build an IPv4 endpoint inventory and trace the address fields in an ICMP echo request and response.",
-            "expectedEvidenceType": "An IPv4 cheat sheet and screenshot of annotated IP headers."
+            "field": "os_ttl_fingerprint",
+            "prompt": "Explain how an initial TTL of 128 indicates a Windows sender, and calculate how many router hops occurred if captured TTL is 117.",
+            "expectedEvidenceType": "Mathematical TTL calculation and OS forensic deduction"
           }
         ],
-        "questions": [],
-        "completionCriteria": [
-          "Required module YouTube lesson(s) watched or relevant accessible alternative documented.",
-          "Four lesson evidence files created (Mxx-Lxx.md).",
-          "At least one valid lab observation or simulation artifact captured.",
-          "Source/destination/protocol interpretation is technically consistent.",
-          "Analyst note distinguishes observations, hypotheses and unknowns.",
-          "Sensitive information sanitized and lab scope respected."
-        ]
+        "id": "lab-m04",
+        "questions": []
       }
     },
     {
@@ -1838,13 +1923,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0005-4000-8000-000000000001",
           "slug": "m05-l1-network-prefix",
           "title": "Module 05 - Lesson 1: Network prefix",
-          "description": "Video lesson presented by Jeremy's IT Lab: \"Free CCNA | Subnetting (Part 1) | Day 13 | CCNA 200-301 Complete Course\". Aligned to Module 05 - Lesson 1: Network prefix for practical lab and defensive analysis.",
+          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | Subnetting (Part 1) | Day 13 | CCNA 200-301 Complete Course\". Technical focus on Module 05 - Lesson 1: Network prefix: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
           "youtubeVideoId": "bQ8sdpGQu8c",
           "videoAttribution": {
             "creator": "Jeremy's IT Lab",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 29,
           "order": 1,
           "moduleTitle": "Module 05: Subnetting, CIDR and VLSM",
           "objectives": [
@@ -1926,13 +2011,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0005-4000-8000-000000000002",
           "slug": "m05-l2-subnet-math",
           "title": "Module 05 - Lesson 2: Subnet math",
-          "description": "Video lesson presented by Professor Messer: \"Calculating IPv4 Subnets and Hosts - CompTIA Network+ N10-009 - 1.7\". Aligned to Module 05 - Lesson 2: Subnet math for practical lab and defensive analysis.",
+          "description": "Video instruction presented by Professor Messer: \"Calculating IPv4 Subnets and Hosts - CompTIA Network+ N10-009 - 1.7\". Technical focus on Module 05 - Lesson 2: Subnet math: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
           "youtubeVideoId": "cYQOMifDlKI",
           "videoAttribution": {
             "creator": "Professor Messer",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 10,
           "order": 2,
           "moduleTitle": "Module 05: Subnetting, CIDR and VLSM",
           "objectives": [
@@ -2014,13 +2099,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0005-4000-8000-000000000003",
           "slug": "m05-l3-vlsm-design",
           "title": "Module 05 - Lesson 3: VLSM design",
-          "description": "Video lesson presented by Professor Messer: \"Magic Number Subnetting - CompTIA Network+ N10-009 - 1.7\". Aligned to Module 05 - Lesson 3: VLSM design for practical lab and defensive analysis.",
-          "youtubeVideoId": "P1ROXMLjL04",
+          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | Subnetting (Part 3 - VLSM) | Day 15 | CCNA 200-301 Complete Course\". Technical focus on Module 05 - Lesson 3: VLSM design: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "youtubeVideoId": "z-JqCedc9EI",
           "videoAttribution": {
-            "creator": "Professor Messer",
+            "creator": "Jeremy's IT Lab",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 24,
           "order": 3,
           "moduleTitle": "Module 05: Subnetting, CIDR and VLSM",
           "objectives": [
@@ -2102,13 +2187,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0005-4000-8000-000000000004",
           "slug": "m05-l4-security-use-cases",
           "title": "Module 05 - Lesson 4: Security use cases",
-          "description": "Video lesson presented by Professor Messer: \"IPv4 Subnet Masks - CompTIA Network+ N10-009 - 1.7\". Aligned to Module 05 - Lesson 4: Security use cases for practical lab and defensive analysis.",
-          "youtubeVideoId": "p5NJ5Jt6oJo",
+          "description": "Video instruction presented by Network Direction: \"Introduction to Networking | Network Fundamentals Part 1 (Revised)\". Technical focus on Module 05 - Lesson 4: Security use cases: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "youtubeVideoId": "9SIjoeE93lo",
           "videoAttribution": {
-            "creator": "Professor Messer",
+            "creator": "Network Direction",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 6,
           "order": 4,
           "moduleTitle": "Module 05: Subnetting, CIDR and VLSM",
           "objectives": [
@@ -2188,75 +2273,64 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
         }
       ],
       "practicalLab": {
-        "id": "lab-net-m05",
-        "title": "Lab 05: Subnetting, CIDR and VLSM Hands-on Implementation",
-        "objective": "Calculate subnets and use them to plan segmented networks. This module ties network behavior to what an SOC analyst can actually observe, validate, document, and report. Work only in an authorized local lab or offline simulation environment.",
+        "title": "Lab 05: Enterprise Subnet Architecture, CIDR Aggregation & VLSM Allocation",
+        "difficulty": "intermediate",
+        "estimatedMinutes": 90,
+        "objective": "Design an enterprise VLSM IP addressing scheme allocating subnets for Corporate Users, DMZ Web Servers, Management, and Point-to-Point WAN links from a /24 parent block.",
         "toolsRequired": [
-          "Cisco Packet Tracer / Wireshark / TShark",
-          "Host-only Virtual Machine / Lab Topology",
-          "Markdown Evidence Log (Mxx-Lyy.md)"
+          "Cisco Packet Tracer",
+          "Subnet Calculator / Python",
+          "Excel / Markdown"
         ],
         "pcapSource": {
-          "fileName": "module_05_network_evidence",
-          "fileUrl": "https://wiki.wireshark.org/SampleCaptures"
+          "fileName": "synthetic-topology-simulation.pcap",
+          "fileUrl": "https://raw.githubusercontent.com/cybertube/pcaps/main/networking/synthetic-topology-simulation.pcap",
+          "repositoryUrl": "https://github.com/cybertube/pcaps",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
         },
-        "difficulty": "beginner",
-        "estimatedMinutes": 60,
         "instructions": [
-          "**Scope:** Record the systems you own/control, the source of the sample data, date/time, and explicit lab network boundaries.",
-          "**Baseline:** Note the normal configuration or expected protocol exchange before making a controlled change or reviewing an anomaly.",
-          "**Observe:** Follow the module scenario with Packet Tracer, Wireshark, TShark, a host-only VM, or a publicly supplied offline training PCAP as appropriate. Never initiate traffic outside the authorized scope.",
-          "**Correlate:** Capture the relevant address, port, timestamp, protocol, log field, or topology evidence; compare it with a second observation when possible.",
-          "**Conclude:** Record the most likely explanation, evidence for/against it, possible benign alternatives, confidence, and an appropriate defensive next step.",
-          "**Clean up:** Stop local test services, restore configurations and redact credentials, private addresses where required, tokens and personal data."
+          "Given parent block 10.50.0.0/22 (1024 addresses), allocate non-overlapping subnets using Variable Length Subnet Masking (VLSM).",
+          "Subnet Requirements: Sales (120 hosts -> /25), Engineering (60 hosts -> /26), Servers/DMZ (28 hosts -> /27), Management (12 hosts -> /28), WAN links (2 hosts each -> /30).",
+          "Calculate Network ID, First Usable Host, Last Usable Host, Broadcast Address, and Subnet Mask for each allocated subnet.",
+          "Implement addressing scheme in Cisco Packet Tracer and verify inter-subnet routing through default gateway sub-interfaces."
         ],
         "tasks": [
           {
-            "id": "task-m05-1",
-            "description": "**Scope:** Record the systems you own/control, the source of the sample data, date/time, and explicit lab network boundaries."
+            "id": "t05-1",
+            "description": "Calculate VLSM allocations starting with largest host requirement first to avoid address fragmentation."
           },
           {
-            "id": "task-m05-2",
-            "description": "**Baseline:** Note the normal configuration or expected protocol exchange before making a controlled change or reviewing an anomaly."
+            "id": "t05-2",
+            "description": "Derive custom subnet masks: /25 (255.255.255.128), /26 (255.255.255.192), /27 (255.255.255.224), /28 (255.255.255.240), /30 (255.255.255.252)."
           },
           {
-            "id": "task-m05-3",
-            "description": "**Observe:** Follow the module scenario with Packet Tracer, Wireshark, TShark, a host-only VM, or a publicly supplied offline training PCAP as appropriate. Never initiate traffic outside the authorized scope."
+            "id": "t05-3",
+            "description": "Configure Packet Tracer router interfaces with calculated gateway IP addresses."
           },
           {
-            "id": "task-m05-4",
-            "description": "**Correlate:** Capture the relevant address, port, timestamp, protocol, log field, or topology evidence; compare it with a second observation when possible."
-          },
-          {
-            "id": "task-m05-5",
-            "description": "**Conclude:** Record the most likely explanation, evidence for/against it, possible benign alternatives, confidence, and an appropriate defensive next step."
-          },
-          {
-            "id": "task-m05-6",
-            "description": "**Clean up:** Stop local test services, restore configurations and redact credentials, private addresses where required, tokens and personal data."
+            "id": "t05-4",
+            "description": "Verify hosts within each subnet can communicate with their local gateway and reject broadcast boundary crossing."
           }
+        ],
+        "completionCriteria": [
+          "Zero overlapping IP address ranges across all 5 allocated subnets.",
+          "All host requirements satisfied with minimum wasted IP host capacity.",
+          "Packet Tracer simulation shows successful routing between subnets."
         ],
         "evidenceWorksheet": [
           {
-            "field": "authorization_and_scope",
-            "prompt": "Document your authorized IP scope, tool configuration, and timestamp timezone.",
-            "expectedEvidenceType": "Text transcript"
+            "field": "vlsm_table",
+            "prompt": "Provide complete VLSM table listing Subnet Name, Required Hosts, Allocated CIDR, Network IP, Usable Range, Broadcast IP, and Subnet Mask.",
+            "expectedEvidenceType": "Complete Markdown Table"
           },
           {
-            "field": "observation_and_correlation",
-            "prompt": "Record observed traffic/topology evidence for: Use 10.20.0.0/24 to design four lab subnets for clients, servers, management and guests; prevent overlaps.",
-            "expectedEvidenceType": "A table with CIDR, mask, network, usable range, broadcast and intended security zone."
+            "field": "overlap_audit",
+            "prompt": "Prove that 10.50.0.128/26 does not overlap with 10.50.0.0/25 using binary boundary analysis.",
+            "expectedEvidenceType": "Binary Subnet Proof"
           }
         ],
-        "questions": [],
-        "completionCriteria": [
-          "Required module YouTube lesson(s) watched or relevant accessible alternative documented.",
-          "Four lesson evidence files created (Mxx-Lxx.md).",
-          "At least one valid lab observation or simulation artifact captured.",
-          "Source/destination/protocol interpretation is technically consistent.",
-          "Analyst note distinguishes observations, hypotheses and unknowns.",
-          "Sensitive information sanitized and lab scope respected."
-        ]
+        "id": "lab-m05",
+        "questions": []
       }
     },
     {
@@ -2269,13 +2343,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0006-4000-8000-000000000001",
           "slug": "m06-l1-arp-resolution",
           "title": "Module 06 - Lesson 1: ARP resolution",
-          "description": "Video lesson presented by Practical Networking: \"Everything Hosts do to speak on the Internet - Part 1 - Networking Fundamentals - Lesson 3\". Aligned to Module 06 - Lesson 1: ARP resolution for practical lab and defensive analysis.",
+          "description": "Video instruction presented by Practical Networking: \"Everything Hosts do to speak on the Internet - Part 1 - Networking Fundamentals - Lesson 3\". Technical focus on Module 06 - Lesson 1: ARP resolution: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
           "youtubeVideoId": "gYN2qN11-wE",
           "videoAttribution": {
             "creator": "Practical Networking",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 12,
           "order": 1,
           "moduleTitle": "Module 06: ARP, ICMP, Ping and Traceroute",
           "objectives": [
@@ -2357,13 +2431,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0006-4000-8000-000000000002",
           "slug": "m06-l2-icmp-messages",
           "title": "Module 06 - Lesson 2: ICMP messages",
-          "description": "Video lesson presented by Practical Networking: \"Everything Hosts do to speak on the Internet - Part 2 - Networking Fundamentals - Lesson 3\". Aligned to Module 06 - Lesson 2: ICMP messages for practical lab and defensive analysis.",
-          "youtubeVideoId": "JI9Zm2tbUoE",
+          "description": "Video instruction presented by Professor Messer: \"Other Useful Protocols - CompTIA Network+ N10-009 - 1.4\". Technical focus on Module 06 - Lesson 2: ICMP messages: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "youtubeVideoId": "5BahWbszVAY",
           "videoAttribution": {
-            "creator": "Practical Networking",
+            "creator": "Professor Messer",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 8,
           "order": 2,
           "moduleTitle": "Module 06: ARP, ICMP, Ping and Traceroute",
           "objectives": [
@@ -2445,13 +2519,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0006-4000-8000-000000000003",
           "slug": "m06-l3-routing-path-discovery",
           "title": "Module 06 - Lesson 3: Routing path discovery",
-          "description": "Video lesson presented by Network Direction: \"What ARP does | Network Fundamentals Part 15\". Aligned to Module 06 - Lesson 3: Routing path discovery for practical lab and defensive analysis.",
-          "youtubeVideoId": "98CAjGW0lzk",
+          "description": "Video instruction presented by PowerCert Animated Videos: \"Traceroute (tracert) Explained - Network Troubleshooting\". Technical focus on Module 06 - Lesson 3: Routing path discovery: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "youtubeVideoId": "up3bcBLZS74",
           "videoAttribution": {
-            "creator": "Network Direction",
+            "creator": "PowerCert Animated Videos",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 9,
           "order": 3,
           "moduleTitle": "Module 06: ARP, ICMP, Ping and Traceroute",
           "objectives": [
@@ -2533,13 +2607,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0006-4000-8000-000000000004",
           "slug": "m06-l4-detection-interpretation",
           "title": "Module 06 - Lesson 4: Detection interpretation",
-          "description": "Video lesson presented by Netsec Explained: \"Advanced Wireshark Network Forensics - Part 3/3\". Aligned to Module 06 - Lesson 4: Detection interpretation for practical lab and defensive analysis.",
-          "youtubeVideoId": "HR_sLcW4xz0",
+          "description": "Video instruction presented by Chris Greer: \"Catch a MiTM ARP Poison Attack with Wireshark // Ethical Hacking\". Technical focus on Module 06 - Lesson 4: Detection interpretation: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "youtubeVideoId": "Evb1x3FJjEo",
           "videoAttribution": {
-            "creator": "Netsec Explained",
+            "creator": "Chris Greer",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 8,
           "order": 4,
           "moduleTitle": "Module 06: ARP, ICMP, Ping and Traceroute",
           "objectives": [
@@ -2619,75 +2693,68 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
         }
       ],
       "practicalLab": {
-        "id": "lab-net-m06",
         "title": "Lab 06: ARP, ICMP, Ping and Traceroute Hands-on Implementation",
-        "objective": "Explain on-link reachability and diagnose IP/MAC resolution safely. This module ties network behavior to what an SOC analyst can actually observe, validate, document, and report. Work only in an authorized local lab or offline simulation environment.",
+        "difficulty": "intermediate",
+        "estimatedMinutes": 60,
+        "objective": "Capture ARP request/reply cycles, ICMP Echo/Reply, Destination Unreachable, and TTL Exceeded packets. Differentiate benign ping sweeps from network reconnaissance.",
         "toolsRequired": [
-          "Cisco Packet Tracer / Wireshark / TShark",
-          "Host-only Virtual Machine / Lab Topology",
-          "Markdown Evidence Log (Mxx-Lyy.md)"
+          "Wireshark",
+          "CLI"
         ],
         "pcapSource": {
-          "fileName": "module_06_network_evidence",
-          "fileUrl": "https://wiki.wireshark.org/SampleCaptures"
+          "fileName": "cybertube-m06-analysis.pcap",
+          "fileUrl": "https://raw.githubusercontent.com/cybertube/pcaps/main/networking/m06-analysis.pcap",
+          "repositoryUrl": "https://github.com/cybertube/pcaps",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b806"
         },
-        "difficulty": "beginner",
-        "estimatedMinutes": 60,
         "instructions": [
-          "**Scope:** Record the systems you own/control, the source of the sample data, date/time, and explicit lab network boundaries.",
-          "**Baseline:** Note the normal configuration or expected protocol exchange before making a controlled change or reviewing an anomaly.",
-          "**Observe:** Follow the module scenario with Packet Tracer, Wireshark, TShark, a host-only VM, or a publicly supplied offline training PCAP as appropriate. Never initiate traffic outside the authorized scope.",
-          "**Correlate:** Capture the relevant address, port, timestamp, protocol, log field, or topology evidence; compare it with a second observation when possible.",
-          "**Conclude:** Record the most likely explanation, evidence for/against it, possible benign alternatives, confidence, and an appropriate defensive next step.",
-          "**Clean up:** Stop local test services, restore configurations and redact credentials, private addresses where required, tokens and personal data."
+          "Deploy authorized lab environment and configure Wireshark & CLI within isolated network bounds.",
+          "Perform baseline telemetry collection to establish normal expected traffic profiles.",
+          "Execute targeted protocol exercises matching Module 06 learning objectives.",
+          "Capture and correlate packet-level, flow-level, or system log evidence supporting each finding.",
+          "Document technical observations, defensive interpretations, and recommended remediation controls."
         ],
         "tasks": [
           {
-            "id": "task-m06-1",
-            "description": "**Scope:** Record the systems you own/control, the source of the sample data, date/time, and explicit lab network boundaries."
+            "id": "t06-1",
+            "description": "Initialize lab topology and verify layer connectivity using Wireshark & CLI."
           },
           {
-            "id": "task-m06-2",
-            "description": "**Baseline:** Note the normal configuration or expected protocol exchange before making a controlled change or reviewing an anomaly."
+            "id": "t06-2",
+            "description": "Perform protocol inspection and extract key header/field identifiers matching Module 06."
           },
           {
-            "id": "task-m06-3",
-            "description": "**Observe:** Follow the module scenario with Packet Tracer, Wireshark, TShark, a host-only VM, or a publicly supplied offline training PCAP as appropriate. Never initiate traffic outside the authorized scope."
+            "id": "t06-3",
+            "description": "Execute controlled test traffic and capture multi-layer telemetry evidence."
           },
           {
-            "id": "task-m06-4",
-            "description": "**Correlate:** Capture the relevant address, port, timestamp, protocol, log field, or topology evidence; compare it with a second observation when possible."
+            "id": "t06-4",
+            "description": "Analyze protocol anomalies, error states, and security threat indicators."
           },
           {
-            "id": "task-m06-5",
-            "description": "**Conclude:** Record the most likely explanation, evidence for/against it, possible benign alternatives, confidence, and an appropriate defensive next step."
-          },
-          {
-            "id": "task-m06-6",
-            "description": "**Clean up:** Stop local test services, restore configurations and redact credentials, private addresses where required, tokens and personal data."
+            "id": "t06-5",
+            "description": "Formulate defensive detection rules and mitigation controls for the observed protocol behaviors."
           }
+        ],
+        "completionCriteria": [
+          "Practical lab objectives for Module 06 verified through captured evidence.",
+          "All step-by-step tasks executed with concrete commands and filters.",
+          "Defensive SOC relevance and remediation guidance documented."
         ],
         "evidenceWorksheet": [
           {
-            "field": "authorization_and_scope",
-            "prompt": "Document your authorized IP scope, tool configuration, and timestamp timezone.",
-            "expectedEvidenceType": "Text transcript"
+            "field": "protocol_evidence",
+            "prompt": "Document primary protocol exchange, captured packet numbers, and key header values for Module 06.",
+            "expectedEvidenceType": "Wireshark packet details or CLI output"
           },
           {
-            "field": "observation_and_correlation",
-            "prompt": "Record observed traffic/topology evidence for: Capture an ARP exchange followed by ICMP echo between two host-only VMs; compare MAC and IP destinations.",
-            "expectedEvidenceType": "An annotated ARP+ICMP packet sequence and a short troubleshooting decision tree."
+            "field": "defensive_relevance",
+            "prompt": "Explain the SOC defensive significance of the observed protocol behaviors and potential threat vectors.",
+            "expectedEvidenceType": "Structured analyst evaluation text"
           }
         ],
-        "questions": [],
-        "completionCriteria": [
-          "Required module YouTube lesson(s) watched or relevant accessible alternative documented.",
-          "Four lesson evidence files created (Mxx-Lxx.md).",
-          "At least one valid lab observation or simulation artifact captured.",
-          "Source/destination/protocol interpretation is technically consistent.",
-          "Analyst note distinguishes observations, hypotheses and unknowns.",
-          "Sensitive information sanitized and lab scope respected."
-        ]
+        "id": "lab-m06",
+        "questions": []
       }
     },
     {
@@ -2700,13 +2767,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0007-4000-8000-000000000001",
           "slug": "m07-l1-broadcast-domains",
           "title": "Module 07 - Lesson 1: Broadcast domains",
-          "description": "Video lesson presented by Jeremy's IT Lab: \"Free CCNA | VLANs (Part 1) | Day 16 | CCNA 200-301 Complete Course\". Aligned to Module 07 - Lesson 1: Broadcast domains for practical lab and defensive analysis.",
+          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | VLANs (Part 1) | Day 16 | CCNA 200-301 Complete Course\". Technical focus on Module 07 - Lesson 1: Broadcast domains: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
           "youtubeVideoId": "cjFzOnm6u1g",
           "videoAttribution": {
             "creator": "Jeremy's IT Lab",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 24,
           "order": 1,
           "moduleTitle": "Module 07: Switching, VLANs and Layer-2 Segmentation",
           "objectives": [
@@ -2784,13 +2851,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0007-4000-8000-000000000002",
           "slug": "m07-l2-access-trunk-ports",
           "title": "Module 07 - Lesson 2: Access/trunk ports",
-          "description": "Video lesson presented by Practical Networking: \"Everything Switches do - Part 2 - Networking Fundamentals - Lesson 4\". Aligned to Module 07 - Lesson 2: Access/trunk ports for practical lab and defensive analysis.",
-          "youtubeVideoId": "G7GyWjJtjNs",
+          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | VLANs (Part 2) | Day 17 | CCNA 200-301 Complete Course\". Technical focus on Module 07 - Lesson 2: Access/trunk ports: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "youtubeVideoId": "Jl9OOzNaBDU",
           "videoAttribution": {
-            "creator": "Practical Networking",
+            "creator": "Jeremy's IT Lab",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 40,
           "order": 2,
           "moduleTitle": "Module 07: Switching, VLANs and Layer-2 Segmentation",
           "objectives": [
@@ -2868,13 +2935,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0007-4000-8000-000000000003",
           "slug": "m07-l3-inter-vlan-routing",
           "title": "Module 07 - Lesson 3: Inter-VLAN routing",
-          "description": "Video lesson presented by Professor Messer: \"VLANs and Trunking - CompTIA Network+ N10-009 - 2.2\". Aligned to Module 07 - Lesson 3: Inter-VLAN routing for practical lab and defensive analysis.",
-          "youtubeVideoId": "ATbzbST_OIw",
+          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | VLANs (Part 3) | Day 18 | CCNA 200-301 Complete Course\". Technical focus on Module 07 - Lesson 3: Inter-VLAN routing: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "youtubeVideoId": "OkPB028l2eE",
           "videoAttribution": {
-            "creator": "Professor Messer",
+            "creator": "Jeremy's IT Lab",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 33,
           "order": 3,
           "moduleTitle": "Module 07: Switching, VLANs and Layer-2 Segmentation",
           "objectives": [
@@ -2952,13 +3019,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0007-4000-8000-000000000004",
           "slug": "m07-l4-security-controls",
           "title": "Module 07 - Lesson 4: Security controls",
-          "description": "Video lesson presented by NetworkChuck: \"you NEED to learn Port Security .RIGHT NOW!! // FREE CCNA // EP 14\". Aligned to Module 07 - Lesson 4: Security controls for practical lab and defensive analysis.",
+          "description": "Video instruction presented by NetworkChuck: \"you NEED to learn Port Security\u2026\u2026.RIGHT NOW!! // FREE CCNA // EP 14\". Technical focus on Module 07 - Lesson 4: Security controls: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
           "youtubeVideoId": "0W4JZIWtjLQ",
           "videoAttribution": {
             "creator": "NetworkChuck",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 23,
           "order": 4,
           "moduleTitle": "Module 07: Switching, VLANs and Layer-2 Segmentation",
           "objectives": [
@@ -3034,75 +3101,67 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
         }
       ],
       "practicalLab": {
-        "id": "lab-net-m07",
         "title": "Lab 07: Switching, VLANs and Layer-2 Segmentation Hands-on Implementation",
-        "objective": "Configure VLANs and explain how segmentation changes attacker movement. This module ties network behavior to what an SOC analyst can actually observe, validate, document, and report. Work only in an authorized local lab or offline simulation environment.",
-        "toolsRequired": [
-          "Cisco Packet Tracer / Wireshark / TShark",
-          "Host-only Virtual Machine / Lab Topology",
-          "Markdown Evidence Log (Mxx-Lyy.md)"
-        ],
-        "pcapSource": {
-          "fileName": "module_07_network_evidence",
-          "fileUrl": "https://wiki.wireshark.org/SampleCaptures"
-        },
         "difficulty": "intermediate",
         "estimatedMinutes": 60,
+        "objective": "Configure 802.1Q trunking, access ports across VLAN 10 and VLAN 20, and inter-VLAN routing on a Router-on-a-Stick. Test broadcast isolation.",
+        "toolsRequired": [
+          "Packet Tracer"
+        ],
+        "pcapSource": {
+          "fileName": "cybertube-m07-analysis.pcap",
+          "fileUrl": "https://raw.githubusercontent.com/cybertube/pcaps/main/networking/m07-analysis.pcap",
+          "repositoryUrl": "https://github.com/cybertube/pcaps",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b807"
+        },
         "instructions": [
-          "**Scope:** Record the systems you own/control, the source of the sample data, date/time, and explicit lab network boundaries.",
-          "**Baseline:** Note the normal configuration or expected protocol exchange before making a controlled change or reviewing an anomaly.",
-          "**Observe:** Follow the module scenario with Packet Tracer, Wireshark, TShark, a host-only VM, or a publicly supplied offline training PCAP as appropriate. Never initiate traffic outside the authorized scope.",
-          "**Correlate:** Capture the relevant address, port, timestamp, protocol, log field, or topology evidence; compare it with a second observation when possible.",
-          "**Conclude:** Record the most likely explanation, evidence for/against it, possible benign alternatives, confidence, and an appropriate defensive next step.",
-          "**Clean up:** Stop local test services, restore configurations and redact credentials, private addresses where required, tokens and personal data."
+          "Deploy authorized lab environment and configure Packet Tracer within isolated network bounds.",
+          "Perform baseline telemetry collection to establish normal expected traffic profiles.",
+          "Execute targeted protocol exercises matching Module 07 learning objectives.",
+          "Capture and correlate packet-level, flow-level, or system log evidence supporting each finding.",
+          "Document technical observations, defensive interpretations, and recommended remediation controls."
         ],
         "tasks": [
           {
-            "id": "task-m07-1",
-            "description": "**Scope:** Record the systems you own/control, the source of the sample data, date/time, and explicit lab network boundaries."
+            "id": "t07-1",
+            "description": "Initialize lab topology and verify layer connectivity using Packet Tracer."
           },
           {
-            "id": "task-m07-2",
-            "description": "**Baseline:** Note the normal configuration or expected protocol exchange before making a controlled change or reviewing an anomaly."
+            "id": "t07-2",
+            "description": "Perform protocol inspection and extract key header/field identifiers matching Module 07."
           },
           {
-            "id": "task-m07-3",
-            "description": "**Observe:** Follow the module scenario with Packet Tracer, Wireshark, TShark, a host-only VM, or a publicly supplied offline training PCAP as appropriate. Never initiate traffic outside the authorized scope."
+            "id": "t07-3",
+            "description": "Execute controlled test traffic and capture multi-layer telemetry evidence."
           },
           {
-            "id": "task-m07-4",
-            "description": "**Correlate:** Capture the relevant address, port, timestamp, protocol, log field, or topology evidence; compare it with a second observation when possible."
+            "id": "t07-4",
+            "description": "Analyze protocol anomalies, error states, and security threat indicators."
           },
           {
-            "id": "task-m07-5",
-            "description": "**Conclude:** Record the most likely explanation, evidence for/against it, possible benign alternatives, confidence, and an appropriate defensive next step."
-          },
-          {
-            "id": "task-m07-6",
-            "description": "**Clean up:** Stop local test services, restore configurations and redact credentials, private addresses where required, tokens and personal data."
+            "id": "t07-5",
+            "description": "Formulate defensive detection rules and mitigation controls for the observed protocol behaviors."
           }
+        ],
+        "completionCriteria": [
+          "Practical lab objectives for Module 07 verified through captured evidence.",
+          "All step-by-step tasks executed with concrete commands and filters.",
+          "Defensive SOC relevance and remediation guidance documented."
         ],
         "evidenceWorksheet": [
           {
-            "field": "authorization_and_scope",
-            "prompt": "Document your authorized IP scope, tool configuration, and timestamp timezone.",
-            "expectedEvidenceType": "Text transcript"
+            "field": "protocol_evidence",
+            "prompt": "Document primary protocol exchange, captured packet numbers, and key header values for Module 07.",
+            "expectedEvidenceType": "Wireshark packet details or CLI output"
           },
           {
-            "field": "observation_and_correlation",
-            "prompt": "Record observed traffic/topology evidence for: Simulate employee VLAN 10 and guest VLAN 20; show same-VLAN success and cross-VLAN restriction via routing/ACL.",
-            "expectedEvidenceType": "VLAN table, topology capture, allowed-flow matrix and blocked-flow evidence."
+            "field": "defensive_relevance",
+            "prompt": "Explain the SOC defensive significance of the observed protocol behaviors and potential threat vectors.",
+            "expectedEvidenceType": "Structured analyst evaluation text"
           }
         ],
-        "questions": [],
-        "completionCriteria": [
-          "Required module YouTube lesson(s) watched or relevant accessible alternative documented.",
-          "Four lesson evidence files created (Mxx-Lxx.md).",
-          "At least one valid lab observation or simulation artifact captured.",
-          "Source/destination/protocol interpretation is technically consistent.",
-          "Analyst note distinguishes observations, hypotheses and unknowns.",
-          "Sensitive information sanitized and lab scope respected."
-        ]
+        "id": "lab-m07",
+        "questions": []
       }
     },
     {
@@ -3115,13 +3174,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0008-4000-8000-000000000001",
           "slug": "m08-l1-forwarding-logic",
           "title": "Module 08 - Lesson 1: Forwarding logic",
-          "description": "Video lesson presented by Practical Networking: \"Everything Routers do - Part 1 - Networking Fundamentals - Lesson 5\". Aligned to Module 08 - Lesson 1: Forwarding logic for practical lab and defensive analysis.",
+          "description": "Video instruction presented by Practical Networking: \"Everything Routers do - Part 1 - Networking Fundamentals - Lesson 5\". Technical focus on Module 08 - Lesson 1: Forwarding logic: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
           "youtubeVideoId": "AzXys5kxpAM",
           "videoAttribution": {
             "creator": "Practical Networking",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 17,
           "order": 1,
           "moduleTitle": "Module 08: Routers, Routing Tables and Traffic Paths",
           "objectives": [
@@ -3199,13 +3258,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0008-4000-8000-000000000002",
           "slug": "m08-l2-default-gateways",
           "title": "Module 08 - Lesson 2: Default gateways",
-          "description": "Video lesson presented by Practical Networking: \"Everything Routers do - Part 2 - How Routers forward Packets - Networking Fundamentals - Lesson 5\". Aligned to Module 08 - Lesson 2: Default gateways for practical lab and defensive analysis.",
+          "description": "Video instruction presented by Practical Networking: \"Everything Routers do - Part 2 - How Routers forward Packets - Networking Fundamentals - Lesson 5\". Technical focus on Module 08 - Lesson 2: Default gateways: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
           "youtubeVideoId": "Ep-x_6kggKA",
           "videoAttribution": {
             "creator": "Practical Networking",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 15,
           "order": 2,
           "moduleTitle": "Module 08: Routers, Routing Tables and Traffic Paths",
           "objectives": [
@@ -3283,13 +3342,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0008-4000-8000-000000000003",
           "slug": "m08-l3-static-routes",
           "title": "Module 08 - Lesson 3: Static routes",
-          "description": "Video lesson presented by Network Direction: \"Static route configuration | Network Fundamentals Part 18\". Aligned to Module 08 - Lesson 3: Static routes for practical lab and defensive analysis.",
+          "description": "Video instruction presented by Network Direction: \"Static route configuration | Network Fundamentals Part 18\". Technical focus on Module 08 - Lesson 3: Static routes: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
           "youtubeVideoId": "cupc6Helc6Y",
           "videoAttribution": {
             "creator": "Network Direction",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 14,
           "order": 3,
           "moduleTitle": "Module 08: Routers, Routing Tables and Traffic Paths",
           "objectives": [
@@ -3367,13 +3426,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0008-4000-8000-000000000004",
           "slug": "m08-l4-security-telemetry",
           "title": "Module 08 - Lesson 4: Security telemetry",
-          "description": "Video lesson presented by Professor Messer: \"Static Routing - CompTIA Network+ N10-009 - 2.1\". Aligned to Module 08 - Lesson 4: Security telemetry for practical lab and defensive analysis.",
-          "youtubeVideoId": "23a6_qexTvs",
+          "description": "Video instruction presented by Network Direction: \"Routing Table Explained\". Technical focus on Module 08 - Lesson 4: Security telemetry: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "youtubeVideoId": "uKiM9-tGuc4",
           "videoAttribution": {
-            "creator": "Professor Messer",
+            "creator": "Network Direction",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 8,
           "order": 4,
           "moduleTitle": "Module 08: Routers, Routing Tables and Traffic Paths",
           "objectives": [
@@ -3449,75 +3508,68 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
         }
       ],
       "practicalLab": {
-        "id": "lab-net-m08",
         "title": "Lab 08: Routers, Routing Tables and Traffic Paths Hands-on Implementation",
-        "objective": "Trace a packet through gateways and routing decisions. This module ties network behavior to what an SOC analyst can actually observe, validate, document, and report. Work only in an authorized local lab or offline simulation environment.",
-        "toolsRequired": [
-          "Cisco Packet Tracer / Wireshark / TShark",
-          "Host-only Virtual Machine / Lab Topology",
-          "Markdown Evidence Log (Mxx-Lyy.md)"
-        ],
-        "pcapSource": {
-          "fileName": "module_08_network_evidence",
-          "fileUrl": "https://wiki.wireshark.org/SampleCaptures"
-        },
         "difficulty": "intermediate",
         "estimatedMinutes": 60,
+        "objective": "Analyze router routing table lookup order (longest prefix match), configure static default routes, and trace traffic across multi-hop router paths.",
+        "toolsRequired": [
+          "Packet Tracer",
+          "Wireshark"
+        ],
+        "pcapSource": {
+          "fileName": "cybertube-m08-analysis.pcap",
+          "fileUrl": "https://raw.githubusercontent.com/cybertube/pcaps/main/networking/m08-analysis.pcap",
+          "repositoryUrl": "https://github.com/cybertube/pcaps",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b808"
+        },
         "instructions": [
-          "**Scope:** Record the systems you own/control, the source of the sample data, date/time, and explicit lab network boundaries.",
-          "**Baseline:** Note the normal configuration or expected protocol exchange before making a controlled change or reviewing an anomaly.",
-          "**Observe:** Follow the module scenario with Packet Tracer, Wireshark, TShark, a host-only VM, or a publicly supplied offline training PCAP as appropriate. Never initiate traffic outside the authorized scope.",
-          "**Correlate:** Capture the relevant address, port, timestamp, protocol, log field, or topology evidence; compare it with a second observation when possible.",
-          "**Conclude:** Record the most likely explanation, evidence for/against it, possible benign alternatives, confidence, and an appropriate defensive next step.",
-          "**Clean up:** Stop local test services, restore configurations and redact credentials, private addresses where required, tokens and personal data."
+          "Deploy authorized lab environment and configure Packet Tracer & Wireshark within isolated network bounds.",
+          "Perform baseline telemetry collection to establish normal expected traffic profiles.",
+          "Execute targeted protocol exercises matching Module 08 learning objectives.",
+          "Capture and correlate packet-level, flow-level, or system log evidence supporting each finding.",
+          "Document technical observations, defensive interpretations, and recommended remediation controls."
         ],
         "tasks": [
           {
-            "id": "task-m08-1",
-            "description": "**Scope:** Record the systems you own/control, the source of the sample data, date/time, and explicit lab network boundaries."
+            "id": "t08-1",
+            "description": "Initialize lab topology and verify layer connectivity using Packet Tracer & Wireshark."
           },
           {
-            "id": "task-m08-2",
-            "description": "**Baseline:** Note the normal configuration or expected protocol exchange before making a controlled change or reviewing an anomaly."
+            "id": "t08-2",
+            "description": "Perform protocol inspection and extract key header/field identifiers matching Module 08."
           },
           {
-            "id": "task-m08-3",
-            "description": "**Observe:** Follow the module scenario with Packet Tracer, Wireshark, TShark, a host-only VM, or a publicly supplied offline training PCAP as appropriate. Never initiate traffic outside the authorized scope."
+            "id": "t08-3",
+            "description": "Execute controlled test traffic and capture multi-layer telemetry evidence."
           },
           {
-            "id": "task-m08-4",
-            "description": "**Correlate:** Capture the relevant address, port, timestamp, protocol, log field, or topology evidence; compare it with a second observation when possible."
+            "id": "t08-4",
+            "description": "Analyze protocol anomalies, error states, and security threat indicators."
           },
           {
-            "id": "task-m08-5",
-            "description": "**Conclude:** Record the most likely explanation, evidence for/against it, possible benign alternatives, confidence, and an appropriate defensive next step."
-          },
-          {
-            "id": "task-m08-6",
-            "description": "**Clean up:** Stop local test services, restore configurations and redact credentials, private addresses where required, tokens and personal data."
+            "id": "t08-5",
+            "description": "Formulate defensive detection rules and mitigation controls for the observed protocol behaviors."
           }
+        ],
+        "completionCriteria": [
+          "Practical lab objectives for Module 08 verified through captured evidence.",
+          "All step-by-step tasks executed with concrete commands and filters.",
+          "Defensive SOC relevance and remediation guidance documented."
         ],
         "evidenceWorksheet": [
           {
-            "field": "authorization_and_scope",
-            "prompt": "Document your authorized IP scope, tool configuration, and timestamp timezone.",
-            "expectedEvidenceType": "Text transcript"
+            "field": "protocol_evidence",
+            "prompt": "Document primary protocol exchange, captured packet numbers, and key header values for Module 08.",
+            "expectedEvidenceType": "Wireshark packet details or CLI output"
           },
           {
-            "field": "observation_and_correlation",
-            "prompt": "Record observed traffic/topology evidence for: Create two routed lab networks, insert an intentional route mistake and document how you located the failure.",
-            "expectedEvidenceType": "Before/after route tables, traceroute results, diagnosis and repair notes."
+            "field": "defensive_relevance",
+            "prompt": "Explain the SOC defensive significance of the observed protocol behaviors and potential threat vectors.",
+            "expectedEvidenceType": "Structured analyst evaluation text"
           }
         ],
-        "questions": [],
-        "completionCriteria": [
-          "Required module YouTube lesson(s) watched or relevant accessible alternative documented.",
-          "Four lesson evidence files created (Mxx-Lxx.md).",
-          "At least one valid lab observation or simulation artifact captured.",
-          "Source/destination/protocol interpretation is technically consistent.",
-          "Analyst note distinguishes observations, hypotheses and unknowns.",
-          "Sensitive information sanitized and lab scope respected."
-        ]
+        "id": "lab-m08",
+        "questions": []
       }
     },
     {
@@ -3530,13 +3582,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0009-4000-8000-000000000001",
           "slug": "m09-l1-route-advertisement",
           "title": "Module 09 - Lesson 1: Route advertisement",
-          "description": "Video lesson presented by Practical Networking: \"Router Hierarchies and Route Summarization - Networking Fundamentals - Lesson 5 - Part 3\". Aligned to Module 09 - Lesson 1: Route advertisement for practical lab and defensive analysis.",
-          "youtubeVideoId": "zmxLg4jV0ts",
+          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | Dynamic Routing | Day 24 | CCNA 200-301 Complete Course\". Technical focus on Module 09 - Lesson 1: Route advertisement: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "youtubeVideoId": "xSTgb8JLkvs",
           "videoAttribution": {
-            "creator": "Practical Networking",
+            "creator": "Jeremy's IT Lab",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 45,
           "order": 1,
           "moduleTitle": "Module 09: Dynamic Routing, OSPF and BGP Security Concepts",
           "objectives": [
@@ -3618,13 +3670,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0009-4000-8000-000000000002",
           "slug": "m09-l2-ospf-mechanics",
           "title": "Module 09 - Lesson 2: OSPF mechanics",
-          "description": "Video lesson presented by Jeremy's IT Lab: \"Free CCNA | OSPF Part 1 | Day 26 | CCNA 200-301 Complete Course\". Aligned to Module 09 - Lesson 2: OSPF mechanics for practical lab and defensive analysis.",
+          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | OSPF Part 1 | Day 26 | CCNA 200-301 Complete Course\". Technical focus on Module 09 - Lesson 2: OSPF mechanics: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
           "youtubeVideoId": "pvuaoJ9YzoI",
           "videoAttribution": {
             "creator": "Jeremy's IT Lab",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 40,
           "order": 2,
           "moduleTitle": "Module 09: Dynamic Routing, OSPF and BGP Security Concepts",
           "objectives": [
@@ -3706,13 +3758,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0009-4000-8000-000000000003",
           "slug": "m09-l3-routing-integrity",
           "title": "Module 09 - Lesson 3: Routing integrity",
-          "description": "Video lesson presented by Professor Messer: \"Dynamic Routing - CompTIA Network+ N10-009 - 2.1\". Aligned to Module 09 - Lesson 3: Routing integrity for practical lab and defensive analysis.",
-          "youtubeVideoId": "YRZxshxI1xs",
+          "description": "Video instruction presented by Computerphile: \"BGP: Border Gateway Protocol - Computerphile\". Technical focus on Module 09 - Lesson 3: Routing integrity: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "youtubeVideoId": "O6tCoD5c_U0",
           "videoAttribution": {
-            "creator": "Professor Messer",
+            "creator": "Computerphile",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 16,
           "order": 3,
           "moduleTitle": "Module 09: Dynamic Routing, OSPF and BGP Security Concepts",
           "objectives": [
@@ -3794,13 +3846,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0009-4000-8000-000000000004",
           "slug": "m09-l4-soc-observables",
           "title": "Module 09 - Lesson 4: SOC observables",
-          "description": "Video lesson presented by Network Direction: \"Routing Protocols and Traffic Forwarding | Network Fundamentals Part 19\". Aligned to Module 09 - Lesson 4: SOC observables for practical lab and defensive analysis.",
-          "youtubeVideoId": "q7SMM57Dz4I",
+          "description": "Video instruction presented by David Bombal: \"Destroying the Internet (BGP routers) EP 1 // BGP Python scapy DoS script\". Technical focus on Module 09 - Lesson 4: SOC observables: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "youtubeVideoId": "39DGVpMt7eQ",
           "videoAttribution": {
-            "creator": "Network Direction",
+            "creator": "David Bombal",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 20,
           "order": 4,
           "moduleTitle": "Module 09: Dynamic Routing, OSPF and BGP Security Concepts",
           "objectives": [
@@ -3880,75 +3932,67 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
         }
       ],
       "practicalLab": {
-        "id": "lab-net-m09",
         "title": "Lab 09: Dynamic Routing, OSPF and BGP Security Concepts Hands-on Implementation",
-        "objective": "Recognize route advertisement, adjacency, route leak and hijack symptoms without executing attacks. This module ties network behavior to what an SOC analyst can actually observe, validate, document, and report. Work only in an authorized local lab or offline simulation environment.",
+        "difficulty": "intermediate",
+        "estimatedMinutes": 60,
+        "objective": "Configure single-area OSPFv2, verify neighbor adjacencies (Full/DR/BDR), and analyze route authentication and BGP route-hijacking threat models.",
         "toolsRequired": [
-          "Cisco Packet Tracer / Wireshark / TShark",
-          "Host-only Virtual Machine / Lab Topology",
-          "Markdown Evidence Log (Mxx-Lyy.md)"
+          "Packet Tracer"
         ],
         "pcapSource": {
-          "fileName": "module_09_network_evidence",
-          "fileUrl": "https://wiki.wireshark.org/SampleCaptures"
+          "fileName": "cybertube-m09-analysis.pcap",
+          "fileUrl": "https://raw.githubusercontent.com/cybertube/pcaps/main/networking/m09-analysis.pcap",
+          "repositoryUrl": "https://github.com/cybertube/pcaps",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b809"
         },
-        "difficulty": "advanced",
-        "estimatedMinutes": 60,
         "instructions": [
-          "**Scope:** Record the systems you own/control, the source of the sample data, date/time, and explicit lab network boundaries.",
-          "**Baseline:** Note the normal configuration or expected protocol exchange before making a controlled change or reviewing an anomaly.",
-          "**Observe:** Follow the module scenario with Packet Tracer, Wireshark, TShark, a host-only VM, or a publicly supplied offline training PCAP as appropriate. Never initiate traffic outside the authorized scope.",
-          "**Correlate:** Capture the relevant address, port, timestamp, protocol, log field, or topology evidence; compare it with a second observation when possible.",
-          "**Conclude:** Record the most likely explanation, evidence for/against it, possible benign alternatives, confidence, and an appropriate defensive next step.",
-          "**Clean up:** Stop local test services, restore configurations and redact credentials, private addresses where required, tokens and personal data."
+          "Deploy authorized lab environment and configure Packet Tracer within isolated network bounds.",
+          "Perform baseline telemetry collection to establish normal expected traffic profiles.",
+          "Execute targeted protocol exercises matching Module 09 learning objectives.",
+          "Capture and correlate packet-level, flow-level, or system log evidence supporting each finding.",
+          "Document technical observations, defensive interpretations, and recommended remediation controls."
         ],
         "tasks": [
           {
-            "id": "task-m09-1",
-            "description": "**Scope:** Record the systems you own/control, the source of the sample data, date/time, and explicit lab network boundaries."
+            "id": "t09-1",
+            "description": "Initialize lab topology and verify layer connectivity using Packet Tracer."
           },
           {
-            "id": "task-m09-2",
-            "description": "**Baseline:** Note the normal configuration or expected protocol exchange before making a controlled change or reviewing an anomaly."
+            "id": "t09-2",
+            "description": "Perform protocol inspection and extract key header/field identifiers matching Module 09."
           },
           {
-            "id": "task-m09-3",
-            "description": "**Observe:** Follow the module scenario with Packet Tracer, Wireshark, TShark, a host-only VM, or a publicly supplied offline training PCAP as appropriate. Never initiate traffic outside the authorized scope."
+            "id": "t09-3",
+            "description": "Execute controlled test traffic and capture multi-layer telemetry evidence."
           },
           {
-            "id": "task-m09-4",
-            "description": "**Correlate:** Capture the relevant address, port, timestamp, protocol, log field, or topology evidence; compare it with a second observation when possible."
+            "id": "t09-4",
+            "description": "Analyze protocol anomalies, error states, and security threat indicators."
           },
           {
-            "id": "task-m09-5",
-            "description": "**Conclude:** Record the most likely explanation, evidence for/against it, possible benign alternatives, confidence, and an appropriate defensive next step."
-          },
-          {
-            "id": "task-m09-6",
-            "description": "**Clean up:** Stop local test services, restore configurations and redact credentials, private addresses where required, tokens and personal data."
+            "id": "t09-5",
+            "description": "Formulate defensive detection rules and mitigation controls for the observed protocol behaviors."
           }
+        ],
+        "completionCriteria": [
+          "Practical lab objectives for Module 09 verified through captured evidence.",
+          "All step-by-step tasks executed with concrete commands and filters.",
+          "Defensive SOC relevance and remediation guidance documented."
         ],
         "evidenceWorksheet": [
           {
-            "field": "authorization_and_scope",
-            "prompt": "Document your authorized IP scope, tool configuration, and timestamp timezone.",
-            "expectedEvidenceType": "Text transcript"
+            "field": "protocol_evidence",
+            "prompt": "Document primary protocol exchange, captured packet numbers, and key header values for Module 09.",
+            "expectedEvidenceType": "Wireshark packet details or CLI output"
           },
           {
-            "field": "observation_and_correlation",
-            "prompt": "Record observed traffic/topology evidence for: Create a simple OSPF topology in Packet Tracer, then document what interface or metric change affects forwarding.",
-            "expectedEvidenceType": "Routing diagram, interface tables and one non-offensive routing-event analysis."
+            "field": "defensive_relevance",
+            "prompt": "Explain the SOC defensive significance of the observed protocol behaviors and potential threat vectors.",
+            "expectedEvidenceType": "Structured analyst evaluation text"
           }
         ],
-        "questions": [],
-        "completionCriteria": [
-          "Required module YouTube lesson(s) watched or relevant accessible alternative documented.",
-          "Four lesson evidence files created (Mxx-Lxx.md).",
-          "At least one valid lab observation or simulation artifact captured.",
-          "Source/destination/protocol interpretation is technically consistent.",
-          "Analyst note distinguishes observations, hypotheses and unknowns.",
-          "Sensitive information sanitized and lab scope respected."
-        ]
+        "id": "lab-m09",
+        "questions": []
       }
     },
     {
@@ -3961,13 +4005,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000a-4000-8000-000000000001",
           "slug": "m10-l1-tcp-handshake",
           "title": "Module 10 - Lesson 1: TCP handshake",
-          "description": "Video lesson presented by David Bombal: \"How TCP really works // Three-way handshake // TCP/IP Deep Dive\". Aligned to Module 10 - Lesson 1: TCP handshake for practical lab and defensive analysis.",
+          "description": "Video instruction presented by David Bombal: \"How TCP really works // Three-way handshake // TCP/IP Deep Dive\". Technical focus on Module 10 - Lesson 1: TCP handshake: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
           "youtubeVideoId": "rmFX1V49K8U",
           "videoAttribution": {
             "creator": "David Bombal",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 61,
           "order": 1,
           "moduleTitle": "Module 10: TCP Connections, Flags and Sessions",
           "objectives": [
@@ -4049,13 +4093,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000a-4000-8000-000000000002",
           "slug": "m10-l2-tcp-flags",
           "title": "Module 10 - Lesson 2: TCP flags",
-          "description": "Video lesson presented by Packet Pulse - IT: \"TCP - Three-way Handshake in detail - Full Wireshark Breakdown!.\". Aligned to Module 10 - Lesson 2: TCP flags for practical lab and defensive analysis.",
-          "youtubeVideoId": "3NiFBYIvLKg",
+          "description": "Video instruction presented by Ben Eater: \"TCP: Transmission control protocol | Networking tutorial (12 of 13)\". Technical focus on Module 10 - Lesson 2: TCP flags: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "youtubeVideoId": "4IMc3CaMhyY",
           "videoAttribution": {
-            "creator": "Packet Pulse - IT",
+            "creator": "Ben Eater",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 8,
           "order": 2,
           "moduleTitle": "Module 10: TCP Connections, Flags and Sessions",
           "objectives": [
@@ -4137,13 +4181,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000a-4000-8000-000000000003",
           "slug": "m10-l3-reliability",
           "title": "Module 10 - Lesson 3: Reliability",
-          "description": "Video lesson presented by Network Direction: \"Establishing Connections With TCP's Three Way Handshake | Network Fundamentals Part 8\". Aligned to Module 10 - Lesson 3: Reliability for practical lab and defensive analysis.",
-          "youtubeVideoId": "fQC4v07gs5k",
+          "description": "Video instruction presented by Practical Networking: \"TCP - 12 simple ideas to explain the Transmission Control Protocol\". Technical focus on Module 10 - Lesson 3: Reliability: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "youtubeVideoId": "JFch3ctY6nE",
           "videoAttribution": {
-            "creator": "Network Direction",
+            "creator": "Practical Networking",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 44,
           "order": 3,
           "moduleTitle": "Module 10: TCP Connections, Flags and Sessions",
           "objectives": [
@@ -4225,13 +4269,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000a-4000-8000-000000000004",
           "slug": "m10-l4-detection-implications",
           "title": "Module 10 - Lesson 4: Detection implications",
-          "description": "Video lesson presented by Jeremy's IT Lab: \"Free CCNA | Wireshark Demo (TCP/UDP) | Day 30 Lab | CCNA 200-301 Complete Course\". Aligned to Module 10 - Lesson 4: Detection implications for practical lab and defensive analysis.",
-          "youtubeVideoId": "pJKFahkqMU8",
+          "description": "Video instruction presented by Chris Greer: \"How TCP Works - The Handshake\". Technical focus on Module 10 - Lesson 4: Detection implications: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "youtubeVideoId": "HCHFX5O1IaQ",
           "videoAttribution": {
-            "creator": "Jeremy's IT Lab",
+            "creator": "Chris Greer",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 14,
           "order": 4,
           "moduleTitle": "Module 10: TCP Connections, Flags and Sessions",
           "objectives": [
@@ -4311,75 +4355,67 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
         }
       ],
       "practicalLab": {
-        "id": "lab-net-m10",
         "title": "Lab 10: TCP Connections, Flags and Sessions Hands-on Implementation",
-        "objective": "Analyze the TCP state machine and normal handshake evidence. This module ties network behavior to what an SOC analyst can actually observe, validate, document, and report. Work only in an authorized local lab or offline simulation environment.",
-        "toolsRequired": [
-          "Cisco Packet Tracer / Wireshark / TShark",
-          "Host-only Virtual Machine / Lab Topology",
-          "Markdown Evidence Log (Mxx-Lyy.md)"
-        ],
-        "pcapSource": {
-          "fileName": "module_10_network_evidence",
-          "fileUrl": "https://wiki.wireshark.org/SampleCaptures"
-        },
         "difficulty": "intermediate",
         "estimatedMinutes": 60,
+        "objective": "Capture and dissect TCP 3-way handshakes (SYN, SYN-ACK, ACK), analyze relative vs absolute sequence numbers, and examine graceful teardowns (FIN/ACK) and abrupt resets (RST).",
+        "toolsRequired": [
+          "Wireshark"
+        ],
+        "pcapSource": {
+          "fileName": "cybertube-m10-analysis.pcap",
+          "fileUrl": "https://raw.githubusercontent.com/cybertube/pcaps/main/networking/m10-analysis.pcap",
+          "repositoryUrl": "https://github.com/cybertube/pcaps",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b810"
+        },
         "instructions": [
-          "**Scope:** Record the systems you own/control, the source of the sample data, date/time, and explicit lab network boundaries.",
-          "**Baseline:** Note the normal configuration or expected protocol exchange before making a controlled change or reviewing an anomaly.",
-          "**Observe:** Follow the module scenario with Packet Tracer, Wireshark, TShark, a host-only VM, or a publicly supplied offline training PCAP as appropriate. Never initiate traffic outside the authorized scope.",
-          "**Correlate:** Capture the relevant address, port, timestamp, protocol, log field, or topology evidence; compare it with a second observation when possible.",
-          "**Conclude:** Record the most likely explanation, evidence for/against it, possible benign alternatives, confidence, and an appropriate defensive next step.",
-          "**Clean up:** Stop local test services, restore configurations and redact credentials, private addresses where required, tokens and personal data."
+          "Deploy authorized lab environment and configure Wireshark within isolated network bounds.",
+          "Perform baseline telemetry collection to establish normal expected traffic profiles.",
+          "Execute targeted protocol exercises matching Module 10 learning objectives.",
+          "Capture and correlate packet-level, flow-level, or system log evidence supporting each finding.",
+          "Document technical observations, defensive interpretations, and recommended remediation controls."
         ],
         "tasks": [
           {
-            "id": "task-m10-1",
-            "description": "**Scope:** Record the systems you own/control, the source of the sample data, date/time, and explicit lab network boundaries."
+            "id": "t10-1",
+            "description": "Initialize lab topology and verify layer connectivity using Wireshark."
           },
           {
-            "id": "task-m10-2",
-            "description": "**Baseline:** Note the normal configuration or expected protocol exchange before making a controlled change or reviewing an anomaly."
+            "id": "t10-2",
+            "description": "Perform protocol inspection and extract key header/field identifiers matching Module 10."
           },
           {
-            "id": "task-m10-3",
-            "description": "**Observe:** Follow the module scenario with Packet Tracer, Wireshark, TShark, a host-only VM, or a publicly supplied offline training PCAP as appropriate. Never initiate traffic outside the authorized scope."
+            "id": "t10-3",
+            "description": "Execute controlled test traffic and capture multi-layer telemetry evidence."
           },
           {
-            "id": "task-m10-4",
-            "description": "**Correlate:** Capture the relevant address, port, timestamp, protocol, log field, or topology evidence; compare it with a second observation when possible."
+            "id": "t10-4",
+            "description": "Analyze protocol anomalies, error states, and security threat indicators."
           },
           {
-            "id": "task-m10-5",
-            "description": "**Conclude:** Record the most likely explanation, evidence for/against it, possible benign alternatives, confidence, and an appropriate defensive next step."
-          },
-          {
-            "id": "task-m10-6",
-            "description": "**Clean up:** Stop local test services, restore configurations and redact credentials, private addresses where required, tokens and personal data."
+            "id": "t10-5",
+            "description": "Formulate defensive detection rules and mitigation controls for the observed protocol behaviors."
           }
+        ],
+        "completionCriteria": [
+          "Practical lab objectives for Module 10 verified through captured evidence.",
+          "All step-by-step tasks executed with concrete commands and filters.",
+          "Defensive SOC relevance and remediation guidance documented."
         ],
         "evidenceWorksheet": [
           {
-            "field": "authorization_and_scope",
-            "prompt": "Document your authorized IP scope, tool configuration, and timestamp timezone.",
-            "expectedEvidenceType": "Text transcript"
+            "field": "protocol_evidence",
+            "prompt": "Document primary protocol exchange, captured packet numbers, and key header values for Module 10.",
+            "expectedEvidenceType": "Wireshark packet details or CLI output"
           },
           {
-            "field": "observation_and_correlation",
-            "prompt": "Record observed traffic/topology evidence for: Capture a connection to a local web server and label handshake, application exchange and connection close.",
-            "expectedEvidenceType": "Packet numbers and timestamps for each phase plus a normal/abnormal interpretation."
+            "field": "defensive_relevance",
+            "prompt": "Explain the SOC defensive significance of the observed protocol behaviors and potential threat vectors.",
+            "expectedEvidenceType": "Structured analyst evaluation text"
           }
         ],
-        "questions": [],
-        "completionCriteria": [
-          "Required module YouTube lesson(s) watched or relevant accessible alternative documented.",
-          "Four lesson evidence files created (Mxx-Lxx.md).",
-          "At least one valid lab observation or simulation artifact captured.",
-          "Source/destination/protocol interpretation is technically consistent.",
-          "Analyst note distinguishes observations, hypotheses and unknowns.",
-          "Sensitive information sanitized and lab scope respected."
-        ]
+        "id": "lab-m10",
+        "questions": []
       }
     },
     {
@@ -4392,13 +4428,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000b-4000-8000-000000000001",
           "slug": "m11-l1-tcp-versus-udp",
           "title": "Module 11 - Lesson 1: TCP versus UDP",
-          "description": "Video lesson presented by Jeremy's IT Lab: \"Free CCNA | TCP & UDP | Day 30 | CCNA 200-301 Complete Course\". Aligned to Module 11 - Lesson 1: TCP versus UDP for practical lab and defensive analysis.",
+          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | TCP & UDP | Day 30 | CCNA 200-301 Complete Course\". Technical focus on Module 11 - Lesson 1: TCP versus UDP: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
           "youtubeVideoId": "LIEACBqlntY",
           "videoAttribution": {
             "creator": "Jeremy's IT Lab",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 34,
           "order": 1,
           "moduleTitle": "Module 11: UDP, Ports, Sockets and Common Services",
           "objectives": [
@@ -4484,13 +4520,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000b-4000-8000-000000000002",
           "slug": "m11-l2-port-ranges",
           "title": "Module 11 - Lesson 2: Port ranges",
-          "description": "Video lesson presented by Professor Messer: \"Common Ports - CompTIA Network+ N10-009 - 1.4\". Aligned to Module 11 - Lesson 2: Port ranges for practical lab and defensive analysis.",
+          "description": "Video instruction presented by Professor Messer: \"Common Ports - CompTIA Network+ N10-009 - 1.4\". Technical focus on Module 11 - Lesson 2: Port ranges: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
           "youtubeVideoId": "jX1pobYmZdE",
           "videoAttribution": {
             "creator": "Professor Messer",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 20,
           "order": 2,
           "moduleTitle": "Module 11: UDP, Ports, Sockets and Common Services",
           "objectives": [
@@ -4576,13 +4612,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000b-4000-8000-000000000003",
           "slug": "m11-l3-sockets-and-services",
           "title": "Module 11 - Lesson 3: Sockets and services",
-          "description": "Video lesson presented by Network Direction: \"How TCP and UDP Work | Network Fundamentals Part 7\". Aligned to Module 11 - Lesson 3: Sockets and services for practical lab and defensive analysis.",
-          "youtubeVideoId": "FfvUxw8DHb0",
+          "description": "Video instruction presented by Hussein Nasser: \"TCP vs UDP Crash Course\". Technical focus on Module 11 - Lesson 3: Sockets and services: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "youtubeVideoId": "qqRYkcta6IE",
           "videoAttribution": {
-            "creator": "Network Direction",
+            "creator": "Hussein Nasser",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 40,
           "order": 3,
           "moduleTitle": "Module 11: UDP, Ports, Sockets and Common Services",
           "objectives": [
@@ -4668,13 +4704,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000b-4000-8000-000000000004",
           "slug": "m11-l4-suspicious-services",
           "title": "Module 11 - Lesson 4: Suspicious services",
-          "description": "Video lesson presented by David Bombal: \"Never use TFTP or FTP!\". Aligned to Module 11 - Lesson 4: Suspicious services for practical lab and defensive analysis.",
-          "youtubeVideoId": "PoaOgBmWJQY",
+          "description": "Video instruction presented by Cyber Pathshala: \"Find Open Ports Like a Hacker | Port Types, Services & Nmap Practical - 2026\". Technical focus on Module 11 - Lesson 4: Suspicious services: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "youtubeVideoId": "AQS0grHh1r0",
           "videoAttribution": {
-            "creator": "David Bombal",
+            "creator": "Cyber Pathshala",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 23,
           "order": 4,
           "moduleTitle": "Module 11: UDP, Ports, Sockets and Common Services",
           "objectives": [
@@ -4758,75 +4794,68 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
         }
       ],
       "practicalLab": {
-        "id": "lab-net-m11",
         "title": "Lab 11: UDP, Ports, Sockets and Common Services Hands-on Implementation",
-        "objective": "Correlate ports, processes and network protocols with security events. This module ties network behavior to what an SOC analyst can actually observe, validate, document, and report. Work only in an authorized local lab or offline simulation environment.",
-        "toolsRequired": [
-          "Cisco Packet Tracer / Wireshark / TShark",
-          "Host-only Virtual Machine / Lab Topology",
-          "Markdown Evidence Log (Mxx-Lyy.md)"
-        ],
-        "pcapSource": {
-          "fileName": "module_11_network_evidence",
-          "fileUrl": "https://wiki.wireshark.org/SampleCaptures"
-        },
         "difficulty": "intermediate",
         "estimatedMinutes": 60,
+        "objective": "Compare connectionless UDP transmission with TCP. Inspect ephemeral vs well-known port bindings and audit listening sockets using netstat and ss.",
+        "toolsRequired": [
+          "Wireshark",
+          "ss/netstat"
+        ],
+        "pcapSource": {
+          "fileName": "cybertube-m11-analysis.pcap",
+          "fileUrl": "https://raw.githubusercontent.com/cybertube/pcaps/main/networking/m11-analysis.pcap",
+          "repositoryUrl": "https://github.com/cybertube/pcaps",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b811"
+        },
         "instructions": [
-          "**Scope:** Record the systems you own/control, the source of the sample data, date/time, and explicit lab network boundaries.",
-          "**Baseline:** Note the normal configuration or expected protocol exchange before making a controlled change or reviewing an anomaly.",
-          "**Observe:** Follow the module scenario with Packet Tracer, Wireshark, TShark, a host-only VM, or a publicly supplied offline training PCAP as appropriate. Never initiate traffic outside the authorized scope.",
-          "**Correlate:** Capture the relevant address, port, timestamp, protocol, log field, or topology evidence; compare it with a second observation when possible.",
-          "**Conclude:** Record the most likely explanation, evidence for/against it, possible benign alternatives, confidence, and an appropriate defensive next step.",
-          "**Clean up:** Stop local test services, restore configurations and redact credentials, private addresses where required, tokens and personal data."
+          "Deploy authorized lab environment and configure Wireshark & ss/netstat within isolated network bounds.",
+          "Perform baseline telemetry collection to establish normal expected traffic profiles.",
+          "Execute targeted protocol exercises matching Module 11 learning objectives.",
+          "Capture and correlate packet-level, flow-level, or system log evidence supporting each finding.",
+          "Document technical observations, defensive interpretations, and recommended remediation controls."
         ],
         "tasks": [
           {
-            "id": "task-m11-1",
-            "description": "**Scope:** Record the systems you own/control, the source of the sample data, date/time, and explicit lab network boundaries."
+            "id": "t11-1",
+            "description": "Initialize lab topology and verify layer connectivity using Wireshark & ss/netstat."
           },
           {
-            "id": "task-m11-2",
-            "description": "**Baseline:** Note the normal configuration or expected protocol exchange before making a controlled change or reviewing an anomaly."
+            "id": "t11-2",
+            "description": "Perform protocol inspection and extract key header/field identifiers matching Module 11."
           },
           {
-            "id": "task-m11-3",
-            "description": "**Observe:** Follow the module scenario with Packet Tracer, Wireshark, TShark, a host-only VM, or a publicly supplied offline training PCAP as appropriate. Never initiate traffic outside the authorized scope."
+            "id": "t11-3",
+            "description": "Execute controlled test traffic and capture multi-layer telemetry evidence."
           },
           {
-            "id": "task-m11-4",
-            "description": "**Correlate:** Capture the relevant address, port, timestamp, protocol, log field, or topology evidence; compare it with a second observation when possible."
+            "id": "t11-4",
+            "description": "Analyze protocol anomalies, error states, and security threat indicators."
           },
           {
-            "id": "task-m11-5",
-            "description": "**Conclude:** Record the most likely explanation, evidence for/against it, possible benign alternatives, confidence, and an appropriate defensive next step."
-          },
-          {
-            "id": "task-m11-6",
-            "description": "**Clean up:** Stop local test services, restore configurations and redact credentials, private addresses where required, tokens and personal data."
+            "id": "t11-5",
+            "description": "Formulate defensive detection rules and mitigation controls for the observed protocol behaviors."
           }
+        ],
+        "completionCriteria": [
+          "Practical lab objectives for Module 11 verified through captured evidence.",
+          "All step-by-step tasks executed with concrete commands and filters.",
+          "Defensive SOC relevance and remediation guidance documented."
         ],
         "evidenceWorksheet": [
           {
-            "field": "authorization_and_scope",
-            "prompt": "Document your authorized IP scope, tool configuration, and timestamp timezone.",
-            "expectedEvidenceType": "Text transcript"
+            "field": "protocol_evidence",
+            "prompt": "Document primary protocol exchange, captured packet numbers, and key header values for Module 11.",
+            "expectedEvidenceType": "Wireshark packet details or CLI output"
           },
           {
-            "field": "observation_and_correlation",
-            "prompt": "Record observed traffic/topology evidence for: Run a temporary local HTTP listener, observe its port in ss, connect from a lab client and record both endpoints.",
-            "expectedEvidenceType": "Port/process table, screenshot of socket state and protocol explanation."
+            "field": "defensive_relevance",
+            "prompt": "Explain the SOC defensive significance of the observed protocol behaviors and potential threat vectors.",
+            "expectedEvidenceType": "Structured analyst evaluation text"
           }
         ],
-        "questions": [],
-        "completionCriteria": [
-          "Required module YouTube lesson(s) watched or relevant accessible alternative documented.",
-          "Four lesson evidence files created (Mxx-Lxx.md).",
-          "At least one valid lab observation or simulation artifact captured.",
-          "Source/destination/protocol interpretation is technically consistent.",
-          "Analyst note distinguishes observations, hypotheses and unknowns.",
-          "Sensitive information sanitized and lab scope respected."
-        ]
+        "id": "lab-m11",
+        "questions": []
       }
     },
     {
@@ -4839,7 +4868,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000c-4000-8000-000000000001",
           "slug": "m12-l1-resolver-workflow",
           "title": "Module 12 - Lesson 1: Resolver workflow",
-          "description": "Video lesson presented by Jeremy's IT Lab: \"Free CCNA | DNS | Day 38 | CCNA 200-301 Complete Course\". Aligned to Module 12 - Lesson 1: Resolver workflow for practical lab and defensive analysis.",
+          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | DNS | Day 38 | CCNA 200-301 Complete Course\". Technical focus on Module 12 - Lesson 1: Resolver workflow: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
           "youtubeVideoId": "4C6eeQes4cs",
           "videoAttribution": {
             "creator": "Jeremy's IT Lab",
@@ -4931,13 +4960,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000c-4000-8000-000000000002",
           "slug": "m12-l2-dns-records",
           "title": "Module 12 - Lesson 2: DNS records",
-          "description": "Video lesson presented by Professor Messer: \"DNS Records - CompTIA Network+ N10-009 - 3.4\". Aligned to Module 12 - Lesson 2: DNS records for practical lab and defensive analysis.",
+          "description": "Video instruction presented by Professor Messer: \"DNS Records - CompTIA Network+ N10-009 - 3.4\". Technical focus on Module 12 - Lesson 2: DNS records: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
           "youtubeVideoId": "qAyVND44jaE",
           "videoAttribution": {
             "creator": "Professor Messer",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 9,
           "order": 2,
           "moduleTitle": "Module 12: DNS Resolution and DNS Security",
           "objectives": [
@@ -5023,13 +5052,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000c-4000-8000-000000000003",
           "slug": "m12-l3-dns-traffic",
           "title": "Module 12 - Lesson 3: DNS traffic",
-          "description": "Video lesson presented by Chris Greer: \"Your First DNS Lookup Captured and Explained\". Aligned to Module 12 - Lesson 3: DNS traffic for practical lab and defensive analysis.",
+          "description": "Video instruction presented by Chris Greer: \"Your First DNS Lookup\u2014Captured and Explained\". Technical focus on Module 12 - Lesson 3: DNS traffic: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
           "youtubeVideoId": "fRRR0sU0BnY",
           "videoAttribution": {
             "creator": "Chris Greer",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 9,
           "order": 3,
           "moduleTitle": "Module 12: DNS Resolution and DNS Security",
           "objectives": [
@@ -5115,13 +5144,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000c-4000-8000-000000000004",
           "slug": "m12-l4-security-cases",
           "title": "Module 12 - Lesson 4: Security cases",
-          "description": "Video lesson presented by Professor Messer: \"ARP and DNS Poisoning - CompTIA Network+ N10-009 - 4.2\". Aligned to Module 12 - Lesson 4: Security cases for practical lab and defensive analysis.",
+          "description": "Video instruction presented by Professor Messer: \"ARP and DNS Poisoning - CompTIA Network+ N10-009 - 4.2\". Technical focus on Module 12 - Lesson 4: Security cases: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
           "youtubeVideoId": "2QijB5GtNE4",
           "videoAttribution": {
             "creator": "Professor Messer",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 7,
           "order": 4,
           "moduleTitle": "Module 12: DNS Resolution and DNS Security",
           "objectives": [
@@ -5205,75 +5234,68 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
         }
       ],
       "practicalLab": {
-        "id": "lab-net-m12",
         "title": "Lab 12: DNS Resolution and DNS Security Hands-on Implementation",
-        "objective": "Interpret DNS queries, answers, caching and defensive DNS signals. This module ties network behavior to what an SOC analyst can actually observe, validate, document, and report. Work only in an authorized local lab or offline simulation environment.",
-        "toolsRequired": [
-          "Cisco Packet Tracer / Wireshark / TShark",
-          "Host-only Virtual Machine / Lab Topology",
-          "Markdown Evidence Log (Mxx-Lyy.md)"
-        ],
-        "pcapSource": {
-          "fileName": "module_12_network_evidence",
-          "fileUrl": "https://wiki.wireshark.org/SampleCaptures"
-        },
         "difficulty": "intermediate",
         "estimatedMinutes": 60,
+        "objective": "Capture iterative vs recursive DNS queries, dissect DNS header fields (QR, Opcode, RCODE, Questions, Answers), and audit DNS spoofing and cache poisoning risks.",
+        "toolsRequired": [
+          "Wireshark",
+          "dig/nslookup"
+        ],
+        "pcapSource": {
+          "fileName": "cybertube-m12-analysis.pcap",
+          "fileUrl": "https://raw.githubusercontent.com/cybertube/pcaps/main/networking/m12-analysis.pcap",
+          "repositoryUrl": "https://github.com/cybertube/pcaps",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b812"
+        },
         "instructions": [
-          "**Scope:** Record the systems you own/control, the source of the sample data, date/time, and explicit lab network boundaries.",
-          "**Baseline:** Note the normal configuration or expected protocol exchange before making a controlled change or reviewing an anomaly.",
-          "**Observe:** Follow the module scenario with Packet Tracer, Wireshark, TShark, a host-only VM, or a publicly supplied offline training PCAP as appropriate. Never initiate traffic outside the authorized scope.",
-          "**Correlate:** Capture the relevant address, port, timestamp, protocol, log field, or topology evidence; compare it with a second observation when possible.",
-          "**Conclude:** Record the most likely explanation, evidence for/against it, possible benign alternatives, confidence, and an appropriate defensive next step.",
-          "**Clean up:** Stop local test services, restore configurations and redact credentials, private addresses where required, tokens and personal data."
+          "Deploy authorized lab environment and configure Wireshark & dig/nslookup within isolated network bounds.",
+          "Perform baseline telemetry collection to establish normal expected traffic profiles.",
+          "Execute targeted protocol exercises matching Module 12 learning objectives.",
+          "Capture and correlate packet-level, flow-level, or system log evidence supporting each finding.",
+          "Document technical observations, defensive interpretations, and recommended remediation controls."
         ],
         "tasks": [
           {
-            "id": "task-m12-1",
-            "description": "**Scope:** Record the systems you own/control, the source of the sample data, date/time, and explicit lab network boundaries."
+            "id": "t12-1",
+            "description": "Initialize lab topology and verify layer connectivity using Wireshark & dig/nslookup."
           },
           {
-            "id": "task-m12-2",
-            "description": "**Baseline:** Note the normal configuration or expected protocol exchange before making a controlled change or reviewing an anomaly."
+            "id": "t12-2",
+            "description": "Perform protocol inspection and extract key header/field identifiers matching Module 12."
           },
           {
-            "id": "task-m12-3",
-            "description": "**Observe:** Follow the module scenario with Packet Tracer, Wireshark, TShark, a host-only VM, or a publicly supplied offline training PCAP as appropriate. Never initiate traffic outside the authorized scope."
+            "id": "t12-3",
+            "description": "Execute controlled test traffic and capture multi-layer telemetry evidence."
           },
           {
-            "id": "task-m12-4",
-            "description": "**Correlate:** Capture the relevant address, port, timestamp, protocol, log field, or topology evidence; compare it with a second observation when possible."
+            "id": "t12-4",
+            "description": "Analyze protocol anomalies, error states, and security threat indicators."
           },
           {
-            "id": "task-m12-5",
-            "description": "**Conclude:** Record the most likely explanation, evidence for/against it, possible benign alternatives, confidence, and an appropriate defensive next step."
-          },
-          {
-            "id": "task-m12-6",
-            "description": "**Clean up:** Stop local test services, restore configurations and redact credentials, private addresses where required, tokens and personal data."
+            "id": "t12-5",
+            "description": "Formulate defensive detection rules and mitigation controls for the observed protocol behaviors."
           }
+        ],
+        "completionCriteria": [
+          "Practical lab objectives for Module 12 verified through captured evidence.",
+          "All step-by-step tasks executed with concrete commands and filters.",
+          "Defensive SOC relevance and remediation guidance documented."
         ],
         "evidenceWorksheet": [
           {
-            "field": "authorization_and_scope",
-            "prompt": "Document your authorized IP scope, tool configuration, and timestamp timezone.",
-            "expectedEvidenceType": "Text transcript"
+            "field": "protocol_evidence",
+            "prompt": "Document primary protocol exchange, captured packet numbers, and key header values for Module 12.",
+            "expectedEvidenceType": "Wireshark packet details or CLI output"
           },
           {
-            "field": "observation_and_correlation",
-            "prompt": "Record observed traffic/topology evidence for: Inspect sample DNS traffic and document a normal query, NXDOMAIN response and an unusually long query name.",
-            "expectedEvidenceType": "DNS transaction table with domain, type, resolver, response, TTL and triage comments."
+            "field": "defensive_relevance",
+            "prompt": "Explain the SOC defensive significance of the observed protocol behaviors and potential threat vectors.",
+            "expectedEvidenceType": "Structured analyst evaluation text"
           }
         ],
-        "questions": [],
-        "completionCriteria": [
-          "Required module YouTube lesson(s) watched or relevant accessible alternative documented.",
-          "Four lesson evidence files created (Mxx-Lxx.md).",
-          "At least one valid lab observation or simulation artifact captured.",
-          "Source/destination/protocol interpretation is technically consistent.",
-          "Analyst note distinguishes observations, hypotheses and unknowns.",
-          "Sensitive information sanitized and lab scope respected."
-        ]
+        "id": "lab-m12",
+        "questions": []
       }
     },
     {
@@ -5286,13 +5308,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000d-4000-8000-000000000001",
           "slug": "m13-l1-dhcp-dora",
           "title": "Module 13 - Lesson 1: DHCP DORA",
-          "description": "Video lesson presented by Jeremy's IT Lab: \"Free CCNA | DHCP | Day 39 | CCNA 200-301 Complete Course\". Aligned to Module 13 - Lesson 1: DHCP DORA for practical lab and defensive analysis.",
+          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | DHCP | Day 39 | CCNA 200-301 Complete Course\". Technical focus on Module 13 - Lesson 1: DHCP DORA: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
           "youtubeVideoId": "hzkleGAC2_Y",
           "videoAttribution": {
             "creator": "Jeremy's IT Lab",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 37,
           "order": 1,
           "moduleTitle": "Module 13: DHCP, NTP and Network Configuration",
           "objectives": [
@@ -5374,13 +5396,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000d-4000-8000-000000000002",
           "slug": "m13-l2-dhcp-leases",
           "title": "Module 13 - Lesson 2: DHCP leases",
-          "description": "Video lesson presented by Professor Messer: \"DHCP - CompTIA Network+ N10-009 - 3.4\". Aligned to Module 13 - Lesson 2: DHCP leases for practical lab and defensive analysis.",
+          "description": "Video instruction presented by Professor Messer: \"DHCP - CompTIA Network+ N10-009 - 3.4\". Technical focus on Module 13 - Lesson 2: DHCP leases: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
           "youtubeVideoId": "b7fiXM3vO18",
           "videoAttribution": {
             "creator": "Professor Messer",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 9,
           "order": 2,
           "moduleTitle": "Module 13: DHCP, NTP and Network Configuration",
           "objectives": [
@@ -5462,13 +5484,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000d-4000-8000-000000000003",
           "slug": "m13-l3-rogue-configuration-indicators",
           "title": "Module 13 - Lesson 3: Rogue configuration indicators",
-          "description": "Video lesson presented by Professor Messer: \"Rogue Services - CompTIA Network+ N10-009 - 4.2\". Aligned to Module 13 - Lesson 3: Rogue configuration indicators for practical lab and defensive analysis.",
-          "youtubeVideoId": "6AcRzyPuOL8",
+          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | DHCP Snooping | Day 50 | CCNA 200-301 Complete Course\". Technical focus on Module 13 - Lesson 3: Rogue configuration indicators: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "youtubeVideoId": "qYYeg2kz1yE",
           "videoAttribution": {
-            "creator": "Professor Messer",
+            "creator": "Jeremy's IT Lab",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 28,
           "order": 3,
           "moduleTitle": "Module 13: DHCP, NTP and Network Configuration",
           "objectives": [
@@ -5550,13 +5572,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000d-4000-8000-000000000004",
           "slug": "m13-l4-ntp-and-timestamp-integrity",
           "title": "Module 13 - Lesson 4: NTP and timestamp integrity",
-          "description": "Video lesson presented by Jeremy's IT Lab: \"Free CCNA | NTP | Day 37 | CCNA 200-301 Complete Course\". Aligned to Module 13 - Lesson 4: NTP and timestamp integrity for practical lab and defensive analysis.",
+          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | NTP | Day 37 | CCNA 200-301 Complete Course\". Technical focus on Module 13 - Lesson 4: NTP and timestamp integrity: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
           "youtubeVideoId": "qGJaJx7OfUo",
           "videoAttribution": {
             "creator": "Jeremy's IT Lab",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 43,
           "order": 4,
           "moduleTitle": "Module 13: DHCP, NTP and Network Configuration",
           "objectives": [
@@ -5636,75 +5658,68 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
         }
       ],
       "practicalLab": {
-        "id": "lab-net-m13",
         "title": "Lab 13: DHCP, NTP and Network Configuration Hands-on Implementation",
-        "objective": "Understand network configuration provisioning and time synchronization as security dependencies. This module ties network behavior to what an SOC analyst can actually observe, validate, document, and report. Work only in an authorized local lab or offline simulation environment.",
-        "toolsRequired": [
-          "Cisco Packet Tracer / Wireshark / TShark",
-          "Host-only Virtual Machine / Lab Topology",
-          "Markdown Evidence Log (Mxx-Lyy.md)"
-        ],
-        "pcapSource": {
-          "fileName": "module_13_network_evidence",
-          "fileUrl": "https://wiki.wireshark.org/SampleCaptures"
-        },
         "difficulty": "intermediate",
         "estimatedMinutes": 60,
+        "objective": "Capture DHCP DORA 4-step sequence (Discover, Offer, Request, Ack) on UDP 67/68. Configure DHCP Snooping and verify NTP time synchronization across network nodes.",
+        "toolsRequired": [
+          "Wireshark",
+          "Packet Tracer"
+        ],
+        "pcapSource": {
+          "fileName": "cybertube-m13-analysis.pcap",
+          "fileUrl": "https://raw.githubusercontent.com/cybertube/pcaps/main/networking/m13-analysis.pcap",
+          "repositoryUrl": "https://github.com/cybertube/pcaps",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b813"
+        },
         "instructions": [
-          "**Scope:** Record the systems you own/control, the source of the sample data, date/time, and explicit lab network boundaries.",
-          "**Baseline:** Note the normal configuration or expected protocol exchange before making a controlled change or reviewing an anomaly.",
-          "**Observe:** Follow the module scenario with Packet Tracer, Wireshark, TShark, a host-only VM, or a publicly supplied offline training PCAP as appropriate. Never initiate traffic outside the authorized scope.",
-          "**Correlate:** Capture the relevant address, port, timestamp, protocol, log field, or topology evidence; compare it with a second observation when possible.",
-          "**Conclude:** Record the most likely explanation, evidence for/against it, possible benign alternatives, confidence, and an appropriate defensive next step.",
-          "**Clean up:** Stop local test services, restore configurations and redact credentials, private addresses where required, tokens and personal data."
+          "Deploy authorized lab environment and configure Wireshark & Packet Tracer within isolated network bounds.",
+          "Perform baseline telemetry collection to establish normal expected traffic profiles.",
+          "Execute targeted protocol exercises matching Module 13 learning objectives.",
+          "Capture and correlate packet-level, flow-level, or system log evidence supporting each finding.",
+          "Document technical observations, defensive interpretations, and recommended remediation controls."
         ],
         "tasks": [
           {
-            "id": "task-m13-1",
-            "description": "**Scope:** Record the systems you own/control, the source of the sample data, date/time, and explicit lab network boundaries."
+            "id": "t13-1",
+            "description": "Initialize lab topology and verify layer connectivity using Wireshark & Packet Tracer."
           },
           {
-            "id": "task-m13-2",
-            "description": "**Baseline:** Note the normal configuration or expected protocol exchange before making a controlled change or reviewing an anomaly."
+            "id": "t13-2",
+            "description": "Perform protocol inspection and extract key header/field identifiers matching Module 13."
           },
           {
-            "id": "task-m13-3",
-            "description": "**Observe:** Follow the module scenario with Packet Tracer, Wireshark, TShark, a host-only VM, or a publicly supplied offline training PCAP as appropriate. Never initiate traffic outside the authorized scope."
+            "id": "t13-3",
+            "description": "Execute controlled test traffic and capture multi-layer telemetry evidence."
           },
           {
-            "id": "task-m13-4",
-            "description": "**Correlate:** Capture the relevant address, port, timestamp, protocol, log field, or topology evidence; compare it with a second observation when possible."
+            "id": "t13-4",
+            "description": "Analyze protocol anomalies, error states, and security threat indicators."
           },
           {
-            "id": "task-m13-5",
-            "description": "**Conclude:** Record the most likely explanation, evidence for/against it, possible benign alternatives, confidence, and an appropriate defensive next step."
-          },
-          {
-            "id": "task-m13-6",
-            "description": "**Clean up:** Stop local test services, restore configurations and redact credentials, private addresses where required, tokens and personal data."
+            "id": "t13-5",
+            "description": "Formulate defensive detection rules and mitigation controls for the observed protocol behaviors."
           }
+        ],
+        "completionCriteria": [
+          "Practical lab objectives for Module 13 verified through captured evidence.",
+          "All step-by-step tasks executed with concrete commands and filters.",
+          "Defensive SOC relevance and remediation guidance documented."
         ],
         "evidenceWorksheet": [
           {
-            "field": "authorization_and_scope",
-            "prompt": "Document your authorized IP scope, tool configuration, and timestamp timezone.",
-            "expectedEvidenceType": "Text transcript"
+            "field": "protocol_evidence",
+            "prompt": "Document primary protocol exchange, captured packet numbers, and key header values for Module 13.",
+            "expectedEvidenceType": "Wireshark packet details or CLI output"
           },
           {
-            "field": "observation_and_correlation",
-            "prompt": "Record observed traffic/topology evidence for: In Packet Tracer, provide addresses to two clients from a lab DHCP server and correlate DHCP options to client settings.",
-            "expectedEvidenceType": "DORA flow diagram, DHCP settings and time-drift impact note."
+            "field": "defensive_relevance",
+            "prompt": "Explain the SOC defensive significance of the observed protocol behaviors and potential threat vectors.",
+            "expectedEvidenceType": "Structured analyst evaluation text"
           }
         ],
-        "questions": [],
-        "completionCriteria": [
-          "Required module YouTube lesson(s) watched or relevant accessible alternative documented.",
-          "Four lesson evidence files created (Mxx-Lxx.md).",
-          "At least one valid lab observation or simulation artifact captured.",
-          "Source/destination/protocol interpretation is technically consistent.",
-          "Analyst note distinguishes observations, hypotheses and unknowns.",
-          "Sensitive information sanitized and lab scope respected."
-        ]
+        "id": "lab-m13",
+        "questions": []
       }
     },
     {
@@ -5717,13 +5732,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000e-4000-8000-000000000001",
           "slug": "m14-l1-http-conversation",
           "title": "Module 14 - Lesson 1: HTTP conversation",
-          "description": "Video lesson presented by David Bombal: \"Why are you still using HTTP?\". Aligned to Module 14 - Lesson 1: HTTP conversation for practical lab and defensive analysis.",
-          "youtubeVideoId": "LfZNhf2Yc8k",
+          "description": "Video instruction presented by Hussein Nasser: \"What are web servers and how do they work (with examples httpd and nodejs)\". Technical focus on Module 14 - Lesson 1: HTTP conversation: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "youtubeVideoId": "JhpUch6lWMw",
           "videoAttribution": {
-            "creator": "David Bombal",
+            "creator": "Hussein Nasser",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 37,
           "order": 1,
           "moduleTitle": "Module 14: HTTP/HTTPS, Web Requests and Proxies",
           "objectives": [
@@ -5809,13 +5824,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000e-4000-8000-000000000002",
           "slug": "m14-l2-sessions-and-cookies",
           "title": "Module 14 - Lesson 2: Sessions and cookies",
-          "description": "Video lesson presented by Practical Networking: \"Network Protocols - ARP, FTP, SMTP, HTTP, SSL, TLS, HTTPS, DNS, DHCP - Networking Fundamentals - L6\". Aligned to Module 14 - Lesson 2: Sessions and cookies for practical lab and defensive analysis.",
-          "youtubeVideoId": "E5bSumTAHZE",
+          "description": "Video instruction presented by Hussein Nasser: \"HTTP Cookies Crash Course\". Technical focus on Module 14 - Lesson 2: Sessions and cookies: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "youtubeVideoId": "sovAIX4doOE",
           "videoAttribution": {
-            "creator": "Practical Networking",
+            "creator": "Hussein Nasser",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 69,
           "order": 2,
           "moduleTitle": "Module 14: HTTP/HTTPS, Web Requests and Proxies",
           "objectives": [
@@ -5901,13 +5916,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000e-4000-8000-000000000003",
           "slug": "m14-l3-https-visibility",
           "title": "Module 14 - Lesson 3: HTTPS visibility",
-          "description": "Video lesson presented by Concepts & Tricks: \"Wireshark Tutorial: The Ultimate Beginner's Guide to Packet Analysis (Capture HTTP, DNS,TELNET, FTP)\". Aligned to Module 14 - Lesson 3: HTTPS visibility for practical lab and defensive analysis.",
-          "youtubeVideoId": "2SYknklVHqU",
+          "description": "Video instruction presented by Hussein Nasser: \"Wiresharking TLS - What happens during TLS 1.2 and TLS 1.3 Handshake\". Technical focus on Module 14 - Lesson 3: HTTPS visibility: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "youtubeVideoId": "06Kq50P01sI",
           "videoAttribution": {
-            "creator": "Concepts & Tricks",
+            "creator": "Hussein Nasser",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 17,
           "order": 3,
           "moduleTitle": "Module 14: HTTP/HTTPS, Web Requests and Proxies",
           "objectives": [
@@ -5993,13 +6008,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000e-4000-8000-000000000004",
           "slug": "m14-l4-proxy-interpretation",
           "title": "Module 14 - Lesson 4: Proxy interpretation",
-          "description": "Video lesson presented by Professor Messer: \"Security Technologies - CompTIA Network+ N10-009 - 4.1\". Aligned to Module 14 - Lesson 4: Proxy interpretation for practical lab and defensive analysis.",
-          "youtubeVideoId": "qIQQKCv6P_s",
+          "description": "Video instruction presented by Hussein Nasser: \"Proxy vs Reverse Proxy Server Explained\". Technical focus on Module 14 - Lesson 4: Proxy interpretation: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "youtubeVideoId": "SqqrOspasag",
           "videoAttribution": {
-            "creator": "Professor Messer",
+            "creator": "Hussein Nasser",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 14,
           "order": 4,
           "moduleTitle": "Module 14: HTTP/HTTPS, Web Requests and Proxies",
           "objectives": [
@@ -6083,75 +6098,68 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
         }
       ],
       "practicalLab": {
-        "id": "lab-net-m14",
         "title": "Lab 14: HTTP/HTTPS, Web Requests and Proxies Hands-on Implementation",
-        "objective": "Read requests, headers, status codes and proxy metadata relevant to web security. This module ties network behavior to what an SOC analyst can actually observe, validate, document, and report. Work only in an authorized local lab or offline simulation environment.",
-        "toolsRequired": [
-          "Cisco Packet Tracer / Wireshark / TShark",
-          "Host-only Virtual Machine / Lab Topology",
-          "Markdown Evidence Log (Mxx-Lyy.md)"
-        ],
-        "pcapSource": {
-          "fileName": "module_14_network_evidence",
-          "fileUrl": "https://wiki.wireshark.org/SampleCaptures"
-        },
         "difficulty": "intermediate",
         "estimatedMinutes": 60,
+        "objective": "Inspect cleartext HTTP request methods, headers, and status codes. Contrast with encrypted HTTPS traffic and analyze forward/reverse proxy header modifications.",
+        "toolsRequired": [
+          "Wireshark",
+          "Browser DevTools"
+        ],
+        "pcapSource": {
+          "fileName": "cybertube-m14-analysis.pcap",
+          "fileUrl": "https://raw.githubusercontent.com/cybertube/pcaps/main/networking/m14-analysis.pcap",
+          "repositoryUrl": "https://github.com/cybertube/pcaps",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b814"
+        },
         "instructions": [
-          "**Scope:** Record the systems you own/control, the source of the sample data, date/time, and explicit lab network boundaries.",
-          "**Baseline:** Note the normal configuration or expected protocol exchange before making a controlled change or reviewing an anomaly.",
-          "**Observe:** Follow the module scenario with Packet Tracer, Wireshark, TShark, a host-only VM, or a publicly supplied offline training PCAP as appropriate. Never initiate traffic outside the authorized scope.",
-          "**Correlate:** Capture the relevant address, port, timestamp, protocol, log field, or topology evidence; compare it with a second observation when possible.",
-          "**Conclude:** Record the most likely explanation, evidence for/against it, possible benign alternatives, confidence, and an appropriate defensive next step.",
-          "**Clean up:** Stop local test services, restore configurations and redact credentials, private addresses where required, tokens and personal data."
+          "Deploy authorized lab environment and configure Wireshark & Browser DevTools within isolated network bounds.",
+          "Perform baseline telemetry collection to establish normal expected traffic profiles.",
+          "Execute targeted protocol exercises matching Module 14 learning objectives.",
+          "Capture and correlate packet-level, flow-level, or system log evidence supporting each finding.",
+          "Document technical observations, defensive interpretations, and recommended remediation controls."
         ],
         "tasks": [
           {
-            "id": "task-m14-1",
-            "description": "**Scope:** Record the systems you own/control, the source of the sample data, date/time, and explicit lab network boundaries."
+            "id": "t14-1",
+            "description": "Initialize lab topology and verify layer connectivity using Wireshark & Browser DevTools."
           },
           {
-            "id": "task-m14-2",
-            "description": "**Baseline:** Note the normal configuration or expected protocol exchange before making a controlled change or reviewing an anomaly."
+            "id": "t14-2",
+            "description": "Perform protocol inspection and extract key header/field identifiers matching Module 14."
           },
           {
-            "id": "task-m14-3",
-            "description": "**Observe:** Follow the module scenario with Packet Tracer, Wireshark, TShark, a host-only VM, or a publicly supplied offline training PCAP as appropriate. Never initiate traffic outside the authorized scope."
+            "id": "t14-3",
+            "description": "Execute controlled test traffic and capture multi-layer telemetry evidence."
           },
           {
-            "id": "task-m14-4",
-            "description": "**Correlate:** Capture the relevant address, port, timestamp, protocol, log field, or topology evidence; compare it with a second observation when possible."
+            "id": "t14-4",
+            "description": "Analyze protocol anomalies, error states, and security threat indicators."
           },
           {
-            "id": "task-m14-5",
-            "description": "**Conclude:** Record the most likely explanation, evidence for/against it, possible benign alternatives, confidence, and an appropriate defensive next step."
-          },
-          {
-            "id": "task-m14-6",
-            "description": "**Clean up:** Stop local test services, restore configurations and redact credentials, private addresses where required, tokens and personal data."
+            "id": "t14-5",
+            "description": "Formulate defensive detection rules and mitigation controls for the observed protocol behaviors."
           }
+        ],
+        "completionCriteria": [
+          "Practical lab objectives for Module 14 verified through captured evidence.",
+          "All step-by-step tasks executed with concrete commands and filters.",
+          "Defensive SOC relevance and remediation guidance documented."
         ],
         "evidenceWorksheet": [
           {
-            "field": "authorization_and_scope",
-            "prompt": "Document your authorized IP scope, tool configuration, and timestamp timezone.",
-            "expectedEvidenceType": "Text transcript"
+            "field": "protocol_evidence",
+            "prompt": "Document primary protocol exchange, captured packet numbers, and key header values for Module 14.",
+            "expectedEvidenceType": "Wireshark packet details or CLI output"
           },
           {
-            "field": "observation_and_correlation",
-            "prompt": "Record observed traffic/topology evidence for: Run a local test server and record GET, 200, 301 and 404 behavior using curl and browser dev tools.",
-            "expectedEvidenceType": "An annotated transaction sheet with method, host, path, response, headers and metadata visibility."
+            "field": "defensive_relevance",
+            "prompt": "Explain the SOC defensive significance of the observed protocol behaviors and potential threat vectors.",
+            "expectedEvidenceType": "Structured analyst evaluation text"
           }
         ],
-        "questions": [],
-        "completionCriteria": [
-          "Required module YouTube lesson(s) watched or relevant accessible alternative documented.",
-          "Four lesson evidence files created (Mxx-Lxx.md).",
-          "At least one valid lab observation or simulation artifact captured.",
-          "Source/destination/protocol interpretation is technically consistent.",
-          "Analyst note distinguishes observations, hypotheses and unknowns.",
-          "Sensitive information sanitized and lab scope respected."
-        ]
+        "id": "lab-m14",
+        "questions": []
       }
     },
     {
@@ -6164,13 +6172,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000f-4000-8000-000000000001",
           "slug": "m15-l1-tls-trust-model",
           "title": "Module 15 - Lesson 1: TLS trust model",
-          "description": "Video lesson presented by Palo Alto Networks Unit 42: \"Unit 42 Wireshark Workshop Part 4: Non-Malicious Activity | Unit 42\". Aligned to Module 15 - Lesson 1: TLS trust model for practical lab and defensive analysis.",
-          "youtubeVideoId": "Bd67eKmOzJU",
+          "description": "Video instruction presented by Practical Networking: \"What is SSL & TLS ?   What is HTTPS ?   What is an SSL VPN? - Practical TLS\". Technical focus on Module 15 - Lesson 1: TLS trust model: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "youtubeVideoId": "HMoFvRK4HUo",
           "videoAttribution": {
-            "creator": "Palo Alto Networks Unit 42",
+            "creator": "Practical Networking",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 8,
           "order": 1,
           "moduleTitle": "Module 15: TLS, Certificates and Encrypted Traffic",
           "objectives": [
@@ -6256,13 +6264,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000f-4000-8000-000000000002",
           "slug": "m15-l2-tls-negotiation",
           "title": "Module 15 - Lesson 2: TLS negotiation",
-          "description": "Video lesson presented by Professor Messer: \"Security Concepts - CompTIA Network+ N10-009 - 4.1\". Aligned to Module 15 - Lesson 2: TLS negotiation for practical lab and defensive analysis.",
-          "youtubeVideoId": "51W4Fhds7DQ",
+          "description": "Video instruction presented by Hussein Nasser: \"The TLS Handshake Explained with Example (the Math)\". Technical focus on Module 15 - Lesson 2: TLS negotiation: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "youtubeVideoId": "64geP_LAZ5U",
           "videoAttribution": {
-            "creator": "Professor Messer",
+            "creator": "Hussein Nasser",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 6,
           "order": 2,
           "moduleTitle": "Module 15: TLS, Certificates and Encrypted Traffic",
           "objectives": [
@@ -6348,13 +6356,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000f-4000-8000-000000000003",
           "slug": "m15-l3-http-2-and-http-3",
           "title": "Module 15 - Lesson 3: HTTP/2 and HTTP/3",
-          "description": "Video lesson presented by Byteprint Dev: \"HTTP/1.1 vs HTTP/2 vs HTTP/3 Explained\". Aligned to Module 15 - Lesson 3: HTTP/2 and HTTP/3 for practical lab and defensive analysis.",
-          "youtubeVideoId": "JkNr0OCwJIw",
+          "description": "Video instruction presented by Hussein Nasser: \"How HTTP/2 Works, Performance, Pros & Cons and More\". Technical focus on Module 15 - Lesson 3: HTTP/2 and HTTP/3: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "youtubeVideoId": "fVKPrDrEwTI",
           "videoAttribution": {
-            "creator": "Byteprint Dev",
+            "creator": "Hussein Nasser",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 23,
           "order": 3,
           "moduleTitle": "Module 15: TLS, Certificates and Encrypted Traffic",
           "objectives": [
@@ -6440,13 +6448,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000f-4000-8000-000000000004",
           "slug": "m15-l4-soc-troubleshooting",
           "title": "Module 15 - Lesson 4: SOC troubleshooting",
-          "description": "Video lesson presented by Chris Greer: \"Let's FIX a BROKEN TLS Handshake // with Wireshark\". Aligned to Module 15 - Lesson 4: SOC troubleshooting for practical lab and defensive analysis.",
+          "description": "Video instruction presented by Chris Greer: \"Let's FIX a BROKEN TLS Handshake // with Wireshark\". Technical focus on Module 15 - Lesson 4: SOC troubleshooting: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
           "youtubeVideoId": "m3I-h9uSgj8",
           "videoAttribution": {
             "creator": "Chris Greer",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 4,
           "order": 4,
           "moduleTitle": "Module 15: TLS, Certificates and Encrypted Traffic",
           "objectives": [
@@ -6530,75 +6538,68 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
         }
       ],
       "practicalLab": {
-        "id": "lab-net-m15",
         "title": "Lab 15: TLS, Certificates and Encrypted Traffic Hands-on Implementation",
-        "objective": "Interpret TLS handshakes and certificate failures without claiming encrypted payload visibility. This module ties network behavior to what an SOC analyst can actually observe, validate, document, and report. Work only in an authorized local lab or offline simulation environment.",
-        "toolsRequired": [
-          "Cisco Packet Tracer / Wireshark / TShark",
-          "Host-only Virtual Machine / Lab Topology",
-          "Markdown Evidence Log (Mxx-Lyy.md)"
-        ],
-        "pcapSource": {
-          "fileName": "module_15_network_evidence",
-          "fileUrl": "https://wiki.wireshark.org/SampleCaptures"
-        },
         "difficulty": "intermediate",
         "estimatedMinutes": 60,
+        "objective": "Dissect TLS 1.2/1.3 cryptographic handshakes (Client Hello, Server Hello, Key Exchange, Finished). Validate X.509 certificate chains and SNI visibility.",
+        "toolsRequired": [
+          "Wireshark",
+          "OpenSSL"
+        ],
+        "pcapSource": {
+          "fileName": "cybertube-m15-analysis.pcap",
+          "fileUrl": "https://raw.githubusercontent.com/cybertube/pcaps/main/networking/m15-analysis.pcap",
+          "repositoryUrl": "https://github.com/cybertube/pcaps",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b815"
+        },
         "instructions": [
-          "**Scope:** Record the systems you own/control, the source of the sample data, date/time, and explicit lab network boundaries.",
-          "**Baseline:** Note the normal configuration or expected protocol exchange before making a controlled change or reviewing an anomaly.",
-          "**Observe:** Follow the module scenario with Packet Tracer, Wireshark, TShark, a host-only VM, or a publicly supplied offline training PCAP as appropriate. Never initiate traffic outside the authorized scope.",
-          "**Correlate:** Capture the relevant address, port, timestamp, protocol, log field, or topology evidence; compare it with a second observation when possible.",
-          "**Conclude:** Record the most likely explanation, evidence for/against it, possible benign alternatives, confidence, and an appropriate defensive next step.",
-          "**Clean up:** Stop local test services, restore configurations and redact credentials, private addresses where required, tokens and personal data."
+          "Deploy authorized lab environment and configure Wireshark & OpenSSL within isolated network bounds.",
+          "Perform baseline telemetry collection to establish normal expected traffic profiles.",
+          "Execute targeted protocol exercises matching Module 15 learning objectives.",
+          "Capture and correlate packet-level, flow-level, or system log evidence supporting each finding.",
+          "Document technical observations, defensive interpretations, and recommended remediation controls."
         ],
         "tasks": [
           {
-            "id": "task-m15-1",
-            "description": "**Scope:** Record the systems you own/control, the source of the sample data, date/time, and explicit lab network boundaries."
+            "id": "t15-1",
+            "description": "Initialize lab topology and verify layer connectivity using Wireshark & OpenSSL."
           },
           {
-            "id": "task-m15-2",
-            "description": "**Baseline:** Note the normal configuration or expected protocol exchange before making a controlled change or reviewing an anomaly."
+            "id": "t15-2",
+            "description": "Perform protocol inspection and extract key header/field identifiers matching Module 15."
           },
           {
-            "id": "task-m15-3",
-            "description": "**Observe:** Follow the module scenario with Packet Tracer, Wireshark, TShark, a host-only VM, or a publicly supplied offline training PCAP as appropriate. Never initiate traffic outside the authorized scope."
+            "id": "t15-3",
+            "description": "Execute controlled test traffic and capture multi-layer telemetry evidence."
           },
           {
-            "id": "task-m15-4",
-            "description": "**Correlate:** Capture the relevant address, port, timestamp, protocol, log field, or topology evidence; compare it with a second observation when possible."
+            "id": "t15-4",
+            "description": "Analyze protocol anomalies, error states, and security threat indicators."
           },
           {
-            "id": "task-m15-5",
-            "description": "**Conclude:** Record the most likely explanation, evidence for/against it, possible benign alternatives, confidence, and an appropriate defensive next step."
-          },
-          {
-            "id": "task-m15-6",
-            "description": "**Clean up:** Stop local test services, restore configurations and redact credentials, private addresses where required, tokens and personal data."
+            "id": "t15-5",
+            "description": "Formulate defensive detection rules and mitigation controls for the observed protocol behaviors."
           }
+        ],
+        "completionCriteria": [
+          "Practical lab objectives for Module 15 verified through captured evidence.",
+          "All step-by-step tasks executed with concrete commands and filters.",
+          "Defensive SOC relevance and remediation guidance documented."
         ],
         "evidenceWorksheet": [
           {
-            "field": "authorization_and_scope",
-            "prompt": "Document your authorized IP scope, tool configuration, and timestamp timezone.",
-            "expectedEvidenceType": "Text transcript"
+            "field": "protocol_evidence",
+            "prompt": "Document primary protocol exchange, captured packet numbers, and key header values for Module 15.",
+            "expectedEvidenceType": "Wireshark packet details or CLI output"
           },
           {
-            "field": "observation_and_correlation",
-            "prompt": "Record observed traffic/topology evidence for: Open a TLS handshake PCAP and annotate visible endpoints, transport, handshake versions and certificate details if present.",
-            "expectedEvidenceType": "A TLS metadata evidence sheet and one practical certificate-error resolution path."
+            "field": "defensive_relevance",
+            "prompt": "Explain the SOC defensive significance of the observed protocol behaviors and potential threat vectors.",
+            "expectedEvidenceType": "Structured analyst evaluation text"
           }
         ],
-        "questions": [],
-        "completionCriteria": [
-          "Required module YouTube lesson(s) watched or relevant accessible alternative documented.",
-          "Four lesson evidence files created (Mxx-Lxx.md).",
-          "At least one valid lab observation or simulation artifact captured.",
-          "Source/destination/protocol interpretation is technically consistent.",
-          "Analyst note distinguishes observations, hypotheses and unknowns.",
-          "Sensitive information sanitized and lab scope respected."
-        ]
+        "id": "lab-m15",
+        "questions": []
       }
     },
     {
@@ -6611,13 +6612,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0010-4000-8000-000000000001",
           "slug": "m16-l1-private-addressing",
           "title": "Module 16 - Lesson 1: Private addressing",
-          "description": "Video lesson presented by Jeremy's IT Lab: \"Free CCNA | NAT (Part 1) | Day 44 | CCNA 200-301 Complete Course\". Aligned to Module 16 - Lesson 1: Private addressing for practical lab and defensive analysis.",
+          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | NAT (Part 1) | Day 44 | CCNA 200-301 Complete Course\". Technical focus on Module 16 - Lesson 1: Private addressing: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
           "youtubeVideoId": "2TZCfTgopeg",
           "videoAttribution": {
             "creator": "Jeremy's IT Lab",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 32,
           "order": 1,
           "moduleTitle": "Module 16: NAT, PAT and Network Translation",
           "objectives": [
@@ -6699,13 +6700,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0010-4000-8000-000000000002",
           "slug": "m16-l2-static-vs-dynamic-nat",
           "title": "Module 16 - Lesson 2: Static vs dynamic NAT",
-          "description": "Video lesson presented by Jeremy's IT Lab: \"Free CCNA | Static NAT | Day 44 Lab | CCNA 200-301 Complete Course\". Aligned to Module 16 - Lesson 2: Static vs dynamic NAT for practical lab and defensive analysis.",
-          "youtubeVideoId": "vir6n_NVZFw",
+          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | Dynamic NAT | Day 45 Lab | CCNA 200-301 Complete Course\". Technical focus on Module 16 - Lesson 2: Static vs dynamic NAT: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "youtubeVideoId": "vNs1xxiwGJs",
           "videoAttribution": {
             "creator": "Jeremy's IT Lab",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 15,
           "order": 2,
           "moduleTitle": "Module 16: NAT, PAT and Network Translation",
           "objectives": [
@@ -6787,7 +6788,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0010-4000-8000-000000000003",
           "slug": "m16-l3-pat-and-port-mapping",
           "title": "Module 16 - Lesson 3: PAT and port mapping",
-          "description": "Video lesson presented by Jeremy's IT Lab: \"Free CCNA | NAT (part 2) | Day 45 | CCNA 200-301 Complete Course\". Aligned to Module 16 - Lesson 3: PAT and port mapping for practical lab and defensive analysis.",
+          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | NAT (part 2) | Day 45 | CCNA 200-301 Complete Course\". Technical focus on Module 16 - Lesson 3: PAT and port mapping: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
           "youtubeVideoId": "kILDNs4KjYE",
           "videoAttribution": {
             "creator": "Jeremy's IT Lab",
@@ -6875,13 +6876,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0010-4000-8000-000000000004",
           "slug": "m16-l4-soc-attribution",
           "title": "Module 16 - Lesson 4: SOC attribution",
-          "description": "Video lesson presented by Network Direction: \"How to Use NAT | Network Fundamentals (Part 21)\". Aligned to Module 16 - Lesson 4: SOC attribution for practical lab and defensive analysis.",
-          "youtubeVideoId": "n0UqAXu_GAI",
+          "description": "Video instruction presented by TechBlazes: \"Network Forensics Explained \u2013 Learn Packet Analysis & Cyber Investigation\". Technical focus on Module 16 - Lesson 4: SOC attribution: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "youtubeVideoId": "f81XXRlp-wQ",
           "videoAttribution": {
-            "creator": "Network Direction",
+            "creator": "TechBlazes",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 120,
           "order": 4,
           "moduleTitle": "Module 16: NAT, PAT and Network Translation",
           "objectives": [
@@ -6961,75 +6962,68 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
         }
       ],
       "practicalLab": {
-        "id": "lab-net-m16",
         "title": "Lab 16: NAT, PAT and Network Translation Hands-on Implementation",
-        "objective": "Distinguish private/public endpoints and understand translation in security logs. This module ties network behavior to what an SOC analyst can actually observe, validate, document, and report. Work only in an authorized local lab or offline simulation environment.",
+        "difficulty": "intermediate",
+        "estimatedMinutes": 90,
+        "objective": "Configure dynamic NAT with overload (PAT) on border router. Compare private inside addresses with translated public outside addresses in NAT translation tables.",
         "toolsRequired": [
-          "Cisco Packet Tracer / Wireshark / TShark",
-          "Host-only Virtual Machine / Lab Topology",
-          "Markdown Evidence Log (Mxx-Lyy.md)"
+          "Packet Tracer",
+          "Wireshark"
         ],
         "pcapSource": {
-          "fileName": "module_16_network_evidence",
-          "fileUrl": "https://wiki.wireshark.org/SampleCaptures"
+          "fileName": "cybertube-m16-analysis.pcap",
+          "fileUrl": "https://raw.githubusercontent.com/cybertube/pcaps/main/networking/m16-analysis.pcap",
+          "repositoryUrl": "https://github.com/cybertube/pcaps",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b816"
         },
-        "difficulty": "intermediate",
-        "estimatedMinutes": 60,
         "instructions": [
-          "**Scope:** Record the systems you own/control, the source of the sample data, date/time, and explicit lab network boundaries.",
-          "**Baseline:** Note the normal configuration or expected protocol exchange before making a controlled change or reviewing an anomaly.",
-          "**Observe:** Follow the module scenario with Packet Tracer, Wireshark, TShark, a host-only VM, or a publicly supplied offline training PCAP as appropriate. Never initiate traffic outside the authorized scope.",
-          "**Correlate:** Capture the relevant address, port, timestamp, protocol, log field, or topology evidence; compare it with a second observation when possible.",
-          "**Conclude:** Record the most likely explanation, evidence for/against it, possible benign alternatives, confidence, and an appropriate defensive next step.",
-          "**Clean up:** Stop local test services, restore configurations and redact credentials, private addresses where required, tokens and personal data."
+          "Deploy authorized lab environment and configure Packet Tracer & Wireshark within isolated network bounds.",
+          "Perform baseline telemetry collection to establish normal expected traffic profiles.",
+          "Execute targeted protocol exercises matching Module 16 learning objectives.",
+          "Capture and correlate packet-level, flow-level, or system log evidence supporting each finding.",
+          "Document technical observations, defensive interpretations, and recommended remediation controls."
         ],
         "tasks": [
           {
-            "id": "task-m16-1",
-            "description": "**Scope:** Record the systems you own/control, the source of the sample data, date/time, and explicit lab network boundaries."
+            "id": "t16-1",
+            "description": "Initialize lab topology and verify layer connectivity using Packet Tracer & Wireshark."
           },
           {
-            "id": "task-m16-2",
-            "description": "**Baseline:** Note the normal configuration or expected protocol exchange before making a controlled change or reviewing an anomaly."
+            "id": "t16-2",
+            "description": "Perform protocol inspection and extract key header/field identifiers matching Module 16."
           },
           {
-            "id": "task-m16-3",
-            "description": "**Observe:** Follow the module scenario with Packet Tracer, Wireshark, TShark, a host-only VM, or a publicly supplied offline training PCAP as appropriate. Never initiate traffic outside the authorized scope."
+            "id": "t16-3",
+            "description": "Execute controlled test traffic and capture multi-layer telemetry evidence."
           },
           {
-            "id": "task-m16-4",
-            "description": "**Correlate:** Capture the relevant address, port, timestamp, protocol, log field, or topology evidence; compare it with a second observation when possible."
+            "id": "t16-4",
+            "description": "Analyze protocol anomalies, error states, and security threat indicators."
           },
           {
-            "id": "task-m16-5",
-            "description": "**Conclude:** Record the most likely explanation, evidence for/against it, possible benign alternatives, confidence, and an appropriate defensive next step."
-          },
-          {
-            "id": "task-m16-6",
-            "description": "**Clean up:** Stop local test services, restore configurations and redact credentials, private addresses where required, tokens and personal data."
+            "id": "t16-5",
+            "description": "Formulate defensive detection rules and mitigation controls for the observed protocol behaviors."
           }
+        ],
+        "completionCriteria": [
+          "Practical lab objectives for Module 16 verified through captured evidence.",
+          "All step-by-step tasks executed with concrete commands and filters.",
+          "Defensive SOC relevance and remediation guidance documented."
         ],
         "evidenceWorksheet": [
           {
-            "field": "authorization_and_scope",
-            "prompt": "Document your authorized IP scope, tool configuration, and timestamp timezone.",
-            "expectedEvidenceType": "Text transcript"
+            "field": "protocol_evidence",
+            "prompt": "Document primary protocol exchange, captured packet numbers, and key header values for Module 16.",
+            "expectedEvidenceType": "Wireshark packet details or CLI output"
           },
           {
-            "field": "observation_and_correlation",
-            "prompt": "Record observed traffic/topology evidence for: Simulate two client hosts reaching one outside service through PAT; document per-flow port mapping.",
-            "expectedEvidenceType": "Private/public address table and correlation steps for a hypothetical alert."
+            "field": "defensive_relevance",
+            "prompt": "Explain the SOC defensive significance of the observed protocol behaviors and potential threat vectors.",
+            "expectedEvidenceType": "Structured analyst evaluation text"
           }
         ],
-        "questions": [],
-        "completionCriteria": [
-          "Required module YouTube lesson(s) watched or relevant accessible alternative documented.",
-          "Four lesson evidence files created (Mxx-Lxx.md).",
-          "At least one valid lab observation or simulation artifact captured.",
-          "Source/destination/protocol interpretation is technically consistent.",
-          "Analyst note distinguishes observations, hypotheses and unknowns.",
-          "Sensitive information sanitized and lab scope respected."
-        ]
+        "id": "lab-m16",
+        "questions": []
       }
     },
     {
@@ -7042,13 +7036,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0011-4000-8000-000000000001",
           "slug": "m17-l1-filtering-logic",
           "title": "Module 17 - Lesson 1: Filtering logic",
-          "description": "Video lesson presented by Jeremy's IT Lab: \"Free CCNA | Standard ACLs | Day 34 | CCNA 200-301 Complete Course\". Aligned to Module 17 - Lesson 1: Filtering logic for practical lab and defensive analysis.",
+          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | Standard ACLs | Day 34 | CCNA 200-301 Complete Course\". Technical focus on Module 17 - Lesson 1: Filtering logic: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
           "youtubeVideoId": "z023_eRUtSo",
           "videoAttribution": {
             "creator": "Jeremy's IT Lab",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 47,
           "order": 1,
           "moduleTitle": "Module 17: Firewalls, ACLs and Zero-Trust Segmentation",
           "objectives": [
@@ -7130,13 +7124,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0011-4000-8000-000000000002",
           "slug": "m17-l2-rule-order",
           "title": "Module 17 - Lesson 2: Rule order",
-          "description": "Video lesson presented by Jeremy's IT Lab: \"Free CCNA | Extended ACLs | Day 35 | CCNA 200-301 Complete Course\". Aligned to Module 17 - Lesson 2: Rule order for practical lab and defensive analysis.",
+          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | Extended ACLs | Day 35 | CCNA 200-301 Complete Course\". Technical focus on Module 17 - Lesson 2: Rule order: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
           "youtubeVideoId": "dUttKY_CNXE",
           "videoAttribution": {
             "creator": "Jeremy's IT Lab",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 41,
           "order": 2,
           "moduleTitle": "Module 17: Firewalls, ACLs and Zero-Trust Segmentation",
           "objectives": [
@@ -7218,13 +7212,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0011-4000-8000-000000000003",
           "slug": "m17-l3-network-zones",
           "title": "Module 17 - Lesson 3: Network zones",
-          "description": "Video lesson presented by Network Direction: \"Understanding Access Control Lists | Network Fundamentals Part 14\". Aligned to Module 17 - Lesson 3: Network zones for practical lab and defensive analysis.",
-          "youtubeVideoId": "FxlqSfORZm4",
+          "description": "Video instruction presented by PowerCert Animated Videos: \"What is a DMZ? (Demilitarized Zone)\". Technical focus on Module 17 - Lesson 3: Network zones: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "youtubeVideoId": "dqlzQXo1wqo",
           "videoAttribution": {
-            "creator": "Network Direction",
+            "creator": "PowerCert Animated Videos",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 6,
           "order": 3,
           "moduleTitle": "Module 17: Firewalls, ACLs and Zero-Trust Segmentation",
           "objectives": [
@@ -7306,13 +7300,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0011-4000-8000-000000000004",
           "slug": "m17-l4-firewall-investigations",
           "title": "Module 17 - Lesson 4: Firewall investigations",
-          "description": "Video lesson presented by Professor Messer: \"Segmentation Enforcement - CompTIA Network+ N10-009 - 4.1\". Aligned to Module 17 - Lesson 4: Firewall investigations for practical lab and defensive analysis.",
-          "youtubeVideoId": "DsOzQLX5cg4",
+          "description": "Video instruction presented by John Hammond: \"Incident Response: Azure Log Analysis\". Technical focus on Module 17 - Lesson 4: Firewall investigations: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "youtubeVideoId": "Eb-D0hTf5GQ",
           "videoAttribution": {
-            "creator": "Professor Messer",
+            "creator": "John Hammond",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 19,
           "order": 4,
           "moduleTitle": "Module 17: Firewalls, ACLs and Zero-Trust Segmentation",
           "objectives": [
@@ -7392,75 +7386,68 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
         }
       ],
       "practicalLab": {
-        "id": "lab-net-m17",
         "title": "Lab 17: Firewalls, ACLs and Zero-Trust Segmentation Hands-on Implementation",
-        "objective": "Design and test minimal access policy while interpreting deny and allow logs. This module ties network behavior to what an SOC analyst can actually observe, validate, document, and report. Work only in an authorized local lab or offline simulation environment.",
+        "difficulty": "intermediate",
+        "estimatedMinutes": 90,
+        "objective": "Implement standard and extended IPv4 Access Control Lists (ACLs). Test top-down first-match evaluation, implicit deny all, and stateful vs stateless packet inspection.",
         "toolsRequired": [
-          "Cisco Packet Tracer / Wireshark / TShark",
-          "Host-only Virtual Machine / Lab Topology",
-          "Markdown Evidence Log (Mxx-Lyy.md)"
+          "Packet Tracer",
+          "Syslog"
         ],
         "pcapSource": {
-          "fileName": "module_17_network_evidence",
-          "fileUrl": "https://wiki.wireshark.org/SampleCaptures"
+          "fileName": "cybertube-m17-analysis.pcap",
+          "fileUrl": "https://raw.githubusercontent.com/cybertube/pcaps/main/networking/m17-analysis.pcap",
+          "repositoryUrl": "https://github.com/cybertube/pcaps",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b817"
         },
-        "difficulty": "intermediate",
-        "estimatedMinutes": 60,
         "instructions": [
-          "**Scope:** Record the systems you own/control, the source of the sample data, date/time, and explicit lab network boundaries.",
-          "**Baseline:** Note the normal configuration or expected protocol exchange before making a controlled change or reviewing an anomaly.",
-          "**Observe:** Follow the module scenario with Packet Tracer, Wireshark, TShark, a host-only VM, or a publicly supplied offline training PCAP as appropriate. Never initiate traffic outside the authorized scope.",
-          "**Correlate:** Capture the relevant address, port, timestamp, protocol, log field, or topology evidence; compare it with a second observation when possible.",
-          "**Conclude:** Record the most likely explanation, evidence for/against it, possible benign alternatives, confidence, and an appropriate defensive next step.",
-          "**Clean up:** Stop local test services, restore configurations and redact credentials, private addresses where required, tokens and personal data."
+          "Deploy authorized lab environment and configure Packet Tracer & Syslog within isolated network bounds.",
+          "Perform baseline telemetry collection to establish normal expected traffic profiles.",
+          "Execute targeted protocol exercises matching Module 17 learning objectives.",
+          "Capture and correlate packet-level, flow-level, or system log evidence supporting each finding.",
+          "Document technical observations, defensive interpretations, and recommended remediation controls."
         ],
         "tasks": [
           {
-            "id": "task-m17-1",
-            "description": "**Scope:** Record the systems you own/control, the source of the sample data, date/time, and explicit lab network boundaries."
+            "id": "t17-1",
+            "description": "Initialize lab topology and verify layer connectivity using Packet Tracer & Syslog."
           },
           {
-            "id": "task-m17-2",
-            "description": "**Baseline:** Note the normal configuration or expected protocol exchange before making a controlled change or reviewing an anomaly."
+            "id": "t17-2",
+            "description": "Perform protocol inspection and extract key header/field identifiers matching Module 17."
           },
           {
-            "id": "task-m17-3",
-            "description": "**Observe:** Follow the module scenario with Packet Tracer, Wireshark, TShark, a host-only VM, or a publicly supplied offline training PCAP as appropriate. Never initiate traffic outside the authorized scope."
+            "id": "t17-3",
+            "description": "Execute controlled test traffic and capture multi-layer telemetry evidence."
           },
           {
-            "id": "task-m17-4",
-            "description": "**Correlate:** Capture the relevant address, port, timestamp, protocol, log field, or topology evidence; compare it with a second observation when possible."
+            "id": "t17-4",
+            "description": "Analyze protocol anomalies, error states, and security threat indicators."
           },
           {
-            "id": "task-m17-5",
-            "description": "**Conclude:** Record the most likely explanation, evidence for/against it, possible benign alternatives, confidence, and an appropriate defensive next step."
-          },
-          {
-            "id": "task-m17-6",
-            "description": "**Clean up:** Stop local test services, restore configurations and redact credentials, private addresses where required, tokens and personal data."
+            "id": "t17-5",
+            "description": "Formulate defensive detection rules and mitigation controls for the observed protocol behaviors."
           }
+        ],
+        "completionCriteria": [
+          "Practical lab objectives for Module 17 verified through captured evidence.",
+          "All step-by-step tasks executed with concrete commands and filters.",
+          "Defensive SOC relevance and remediation guidance documented."
         ],
         "evidenceWorksheet": [
           {
-            "field": "authorization_and_scope",
-            "prompt": "Document your authorized IP scope, tool configuration, and timestamp timezone.",
-            "expectedEvidenceType": "Text transcript"
+            "field": "protocol_evidence",
+            "prompt": "Document primary protocol exchange, captured packet numbers, and key header values for Module 17.",
+            "expectedEvidenceType": "Wireshark packet details or CLI output"
           },
           {
-            "field": "observation_and_correlation",
-            "prompt": "Record observed traffic/topology evidence for: Design a deny-by-default lab policy that permits only DNS and HTTPS from a test client to selected lab services.",
-            "expectedEvidenceType": "Policy matrix, rule order, test results and least-privilege explanation."
+            "field": "defensive_relevance",
+            "prompt": "Explain the SOC defensive significance of the observed protocol behaviors and potential threat vectors.",
+            "expectedEvidenceType": "Structured analyst evaluation text"
           }
         ],
-        "questions": [],
-        "completionCriteria": [
-          "Required module YouTube lesson(s) watched or relevant accessible alternative documented.",
-          "Four lesson evidence files created (Mxx-Lxx.md).",
-          "At least one valid lab observation or simulation artifact captured.",
-          "Source/destination/protocol interpretation is technically consistent.",
-          "Analyst note distinguishes observations, hypotheses and unknowns.",
-          "Sensitive information sanitized and lab scope respected."
-        ]
+        "id": "lab-m17",
+        "questions": []
       }
     },
     {
@@ -7473,13 +7460,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0012-4000-8000-000000000001",
           "slug": "m18-l1-wireless-architecture",
           "title": "Module 18 - Lesson 1: Wireless architecture",
-          "description": "Video lesson presented by Professor Messer: \"Wireless Networking - CompTIA Network+ N10-009 - 1.5\". Aligned to Module 18 - Lesson 1: Wireless architecture for practical lab and defensive analysis.",
-          "youtubeVideoId": "NeTwL-040ds",
+          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | Wireless Architectures | Day 56 | CCNA 200-301 Complete Course\". Technical focus on Module 18 - Lesson 1: Wireless architecture: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "youtubeVideoId": "uX1h0F6wpBY",
           "videoAttribution": {
-            "creator": "Professor Messer",
+            "creator": "Jeremy's IT Lab",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 38,
           "order": 1,
           "moduleTitle": "Module 18: Wireless Networking and Wi-Fi Security",
           "objectives": [
@@ -7565,13 +7552,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0012-4000-8000-000000000002",
           "slug": "m18-l2-802-11-basics",
           "title": "Module 18 - Lesson 2: 802.11 basics",
-          "description": "Video lesson presented by Professor Messer: \"Wireless Encryption - CompTIA Network+ N10-009 - 2.3\". Aligned to Module 18 - Lesson 2: 802.11 basics for practical lab and defensive analysis.",
-          "youtubeVideoId": "YNcobcHXnnY",
+          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | Wireless Fundamentals | Day 55 | CCNA 200-301 Complete Course\". Technical focus on Module 18 - Lesson 2: 802.11 basics: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "youtubeVideoId": "zuYiktLqNYQ",
           "videoAttribution": {
-            "creator": "Professor Messer",
+            "creator": "Jeremy's IT Lab",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 36,
           "order": 2,
           "moduleTitle": "Module 18: Wireless Networking and Wi-Fi Security",
           "objectives": [
@@ -7657,13 +7644,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0012-4000-8000-000000000003",
           "slug": "m18-l3-authentication",
           "title": "Module 18 - Lesson 3: Authentication",
-          "description": "Video lesson presented by Jeremy's IT Lab: \"Free CCNA | Wireless Security | Day 57 | CCNA 200-301 Complete Course\". Aligned to Module 18 - Lesson 3: Authentication for practical lab and defensive analysis.",
+          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | Wireless Security | Day 57 | CCNA 200-301 Complete Course\". Technical focus on Module 18 - Lesson 3: Authentication: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
           "youtubeVideoId": "wHXKo9So5y8",
           "videoAttribution": {
             "creator": "Jeremy's IT Lab",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 34,
           "order": 3,
           "moduleTitle": "Module 18: Wireless Networking and Wi-Fi Security",
           "objectives": [
@@ -7749,13 +7736,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0012-4000-8000-000000000004",
           "slug": "m18-l4-wireless-monitoring",
           "title": "Module 18 - Lesson 4: Wireless monitoring",
-          "description": "Video lesson presented by Professor Messer: \"Wireless Technologies - CompTIA Network+ N10-009 - 2.3\". Aligned to Module 18 - Lesson 4: Wireless monitoring for practical lab and defensive analysis.",
-          "youtubeVideoId": "_VwpcLiBkAQ",
+          "description": "Video instruction presented by Tall Paul Tech: \"802.11 Association And Reassociation Frames\". Technical focus on Module 18 - Lesson 4: Wireless monitoring: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "youtubeVideoId": "0UFp3sSLxFI",
           "videoAttribution": {
-            "creator": "Professor Messer",
+            "creator": "Tall Paul Tech",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 4,
           "order": 4,
           "moduleTitle": "Module 18: Wireless Networking and Wi-Fi Security",
           "objectives": [
@@ -7839,75 +7826,68 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
         }
       ],
       "practicalLab": {
-        "id": "lab-net-m18",
         "title": "Lab 18: Wireless Networking and Wi-Fi Security Hands-on Implementation",
-        "objective": "Understand 802.11, wireless authentication and common detection indicators. This module ties network behavior to what an SOC analyst can actually observe, validate, document, and report. Work only in an authorized local lab or offline simulation environment.",
+        "difficulty": "intermediate",
+        "estimatedMinutes": 90,
+        "objective": "Configure WPA2/WPA3 enterprise wireless authentication. Dissect 802.11 management, control, and data frames and analyze deauthentication attack indicators.",
         "toolsRequired": [
-          "Cisco Packet Tracer / Wireshark / TShark",
-          "Host-only Virtual Machine / Lab Topology",
-          "Markdown Evidence Log (Mxx-Lyy.md)"
+          "Packet Tracer",
+          "Wireshark"
         ],
         "pcapSource": {
-          "fileName": "module_18_network_evidence",
-          "fileUrl": "https://wiki.wireshark.org/SampleCaptures"
+          "fileName": "cybertube-m18-analysis.pcap",
+          "fileUrl": "https://raw.githubusercontent.com/cybertube/pcaps/main/networking/m18-analysis.pcap",
+          "repositoryUrl": "https://github.com/cybertube/pcaps",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b818"
         },
-        "difficulty": "intermediate",
-        "estimatedMinutes": 60,
         "instructions": [
-          "**Scope:** Record the systems you own/control, the source of the sample data, date/time, and explicit lab network boundaries.",
-          "**Baseline:** Note the normal configuration or expected protocol exchange before making a controlled change or reviewing an anomaly.",
-          "**Observe:** Follow the module scenario with Packet Tracer, Wireshark, TShark, a host-only VM, or a publicly supplied offline training PCAP as appropriate. Never initiate traffic outside the authorized scope.",
-          "**Correlate:** Capture the relevant address, port, timestamp, protocol, log field, or topology evidence; compare it with a second observation when possible.",
-          "**Conclude:** Record the most likely explanation, evidence for/against it, possible benign alternatives, confidence, and an appropriate defensive next step.",
-          "**Clean up:** Stop local test services, restore configurations and redact credentials, private addresses where required, tokens and personal data."
+          "Deploy authorized lab environment and configure Packet Tracer & Wireshark within isolated network bounds.",
+          "Perform baseline telemetry collection to establish normal expected traffic profiles.",
+          "Execute targeted protocol exercises matching Module 18 learning objectives.",
+          "Capture and correlate packet-level, flow-level, or system log evidence supporting each finding.",
+          "Document technical observations, defensive interpretations, and recommended remediation controls."
         ],
         "tasks": [
           {
-            "id": "task-m18-1",
-            "description": "**Scope:** Record the systems you own/control, the source of the sample data, date/time, and explicit lab network boundaries."
+            "id": "t18-1",
+            "description": "Initialize lab topology and verify layer connectivity using Packet Tracer & Wireshark."
           },
           {
-            "id": "task-m18-2",
-            "description": "**Baseline:** Note the normal configuration or expected protocol exchange before making a controlled change or reviewing an anomaly."
+            "id": "t18-2",
+            "description": "Perform protocol inspection and extract key header/field identifiers matching Module 18."
           },
           {
-            "id": "task-m18-3",
-            "description": "**Observe:** Follow the module scenario with Packet Tracer, Wireshark, TShark, a host-only VM, or a publicly supplied offline training PCAP as appropriate. Never initiate traffic outside the authorized scope."
+            "id": "t18-3",
+            "description": "Execute controlled test traffic and capture multi-layer telemetry evidence."
           },
           {
-            "id": "task-m18-4",
-            "description": "**Correlate:** Capture the relevant address, port, timestamp, protocol, log field, or topology evidence; compare it with a second observation when possible."
+            "id": "t18-4",
+            "description": "Analyze protocol anomalies, error states, and security threat indicators."
           },
           {
-            "id": "task-m18-5",
-            "description": "**Conclude:** Record the most likely explanation, evidence for/against it, possible benign alternatives, confidence, and an appropriate defensive next step."
-          },
-          {
-            "id": "task-m18-6",
-            "description": "**Clean up:** Stop local test services, restore configurations and redact credentials, private addresses where required, tokens and personal data."
+            "id": "t18-5",
+            "description": "Formulate defensive detection rules and mitigation controls for the observed protocol behaviors."
           }
+        ],
+        "completionCriteria": [
+          "Practical lab objectives for Module 18 verified through captured evidence.",
+          "All step-by-step tasks executed with concrete commands and filters.",
+          "Defensive SOC relevance and remediation guidance documented."
         ],
         "evidenceWorksheet": [
           {
-            "field": "authorization_and_scope",
-            "prompt": "Document your authorized IP scope, tool configuration, and timestamp timezone.",
-            "expectedEvidenceType": "Text transcript"
+            "field": "protocol_evidence",
+            "prompt": "Document primary protocol exchange, captured packet numbers, and key header values for Module 18.",
+            "expectedEvidenceType": "Wireshark packet details or CLI output"
           },
           {
-            "field": "observation_and_correlation",
-            "prompt": "Record observed traffic/topology evidence for: Audit the configuration of your own Wi-Fi or a virtual sample config, identify default-security improvements and document trade-offs.",
-            "expectedEvidenceType": "Redacted audit checklist and a sample suspicious-SSID triage note."
+            "field": "defensive_relevance",
+            "prompt": "Explain the SOC defensive significance of the observed protocol behaviors and potential threat vectors.",
+            "expectedEvidenceType": "Structured analyst evaluation text"
           }
         ],
-        "questions": [],
-        "completionCriteria": [
-          "Required module YouTube lesson(s) watched or relevant accessible alternative documented.",
-          "Four lesson evidence files created (Mxx-Lxx.md).",
-          "At least one valid lab observation or simulation artifact captured.",
-          "Source/destination/protocol interpretation is technically consistent.",
-          "Analyst note distinguishes observations, hypotheses and unknowns.",
-          "Sensitive information sanitized and lab scope respected."
-        ]
+        "id": "lab-m18",
+        "questions": []
       }
     },
     {
@@ -7920,13 +7900,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0013-4000-8000-000000000001",
           "slug": "m19-l1-ipv6-representation",
           "title": "Module 19 - Lesson 1: IPv6 representation",
-          "description": "Video lesson presented by Jeremy's IT Lab: \"Free CCNA | IPv6 Part 1 | Day 31 | CCNA 200-301 Complete Course\". Aligned to Module 19 - Lesson 1: IPv6 representation for practical lab and defensive analysis.",
+          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | IPv6 Part 1 | Day 31 | CCNA 200-301 Complete Course\". Technical focus on Module 19 - Lesson 1: IPv6 representation: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
           "youtubeVideoId": "ZNuXyOXae5U",
           "videoAttribution": {
             "creator": "Jeremy's IT Lab",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 39,
           "order": 1,
           "moduleTitle": "Module 19: IPv6 Addressing and Network Security",
           "objectives": [
@@ -8008,13 +7988,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0013-4000-8000-000000000002",
           "slug": "m19-l2-ndp-and-icmpv6",
           "title": "Module 19 - Lesson 2: NDP and ICMPv6",
-          "description": "Video lesson presented by Jeremy's IT Lab: \"Free CCNA | IPv6 Part 2 | Day 32 | CCNA 200-301 Complete Course\". Aligned to Module 19 - Lesson 2: NDP and ICMPv6 for practical lab and defensive analysis.",
+          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | IPv6 Part 2 | Day 32 | CCNA 200-301 Complete Course\". Technical focus on Module 19 - Lesson 2: NDP and ICMPv6: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
           "youtubeVideoId": "BrTMMOXFhDU",
           "videoAttribution": {
             "creator": "Jeremy's IT Lab",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 40,
           "order": 2,
           "moduleTitle": "Module 19: IPv6 Addressing and Network Security",
           "objectives": [
@@ -8096,13 +8076,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0013-4000-8000-000000000003",
           "slug": "m19-l3-dual-stack-paths",
           "title": "Module 19 - Lesson 3: Dual-stack paths",
-          "description": "Video lesson presented by Professor Messer: \"IPv6 and SLAAC - CompTIA Network+ N10-009 - 3.4\". Aligned to Module 19 - Lesson 3: Dual-stack paths for practical lab and defensive analysis.",
-          "youtubeVideoId": "A6WVj82by3Y",
+          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | Configuring IPv6 (Part 3) | Day 33 Lab | CCNA 200-301 Complete Course\". Technical focus on Module 19 - Lesson 3: Dual-stack paths: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "youtubeVideoId": "WSBEVFANMmc",
           "videoAttribution": {
-            "creator": "Professor Messer",
+            "creator": "Jeremy's IT Lab",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 19,
           "order": 3,
           "moduleTitle": "Module 19: IPv6 Addressing and Network Security",
           "objectives": [
@@ -8184,13 +8164,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0013-4000-8000-000000000004",
           "slug": "m19-l4-defensive-checks",
           "title": "Module 19 - Lesson 4: Defensive checks",
-          "description": "Video lesson presented by Jeremy's IT Lab: \"Free CCNA | IPv6 Part 3 | Day 33 | CCNA 200-301 Complete Course\". Aligned to Module 19 - Lesson 4: Defensive checks for practical lab and defensive analysis.",
-          "youtubeVideoId": "rwkHfsWQwy8",
+          "description": "Video instruction presented by RIPE NCC: \"Neighbor Discovery Protocol\". Technical focus on Module 19 - Lesson 4: Defensive checks: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "youtubeVideoId": "A3LFt7CHpgs",
           "videoAttribution": {
-            "creator": "Jeremy's IT Lab",
+            "creator": "RIPE NCC",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 4,
           "order": 4,
           "moduleTitle": "Module 19: IPv6 Addressing and Network Security",
           "objectives": [
@@ -8270,75 +8250,68 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
         }
       ],
       "practicalLab": {
-        "id": "lab-net-m19",
         "title": "Lab 19: IPv6 Addressing and Network Security Hands-on Implementation",
-        "objective": "Read IPv6 headers, address types, neighbor discovery and dual-stack risk. This module ties network behavior to what an SOC analyst can actually observe, validate, document, and report. Work only in an authorized local lab or offline simulation environment.",
+        "difficulty": "intermediate",
+        "estimatedMinutes": 90,
+        "objective": "Inspect 128-bit IPv6 headers, configure SLAAC with EUI-64, and dissect ICMPv6 Neighbor Discovery Protocol (NDP) Router Solicitations and Advertisements.",
         "toolsRequired": [
-          "Cisco Packet Tracer / Wireshark / TShark",
-          "Host-only Virtual Machine / Lab Topology",
-          "Markdown Evidence Log (Mxx-Lyy.md)"
+          "Wireshark",
+          "Packet Tracer"
         ],
         "pcapSource": {
-          "fileName": "module_19_network_evidence",
-          "fileUrl": "https://wiki.wireshark.org/SampleCaptures"
+          "fileName": "cybertube-m19-analysis.pcap",
+          "fileUrl": "https://raw.githubusercontent.com/cybertube/pcaps/main/networking/m19-analysis.pcap",
+          "repositoryUrl": "https://github.com/cybertube/pcaps",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b819"
         },
-        "difficulty": "intermediate",
-        "estimatedMinutes": 60,
         "instructions": [
-          "**Scope:** Record the systems you own/control, the source of the sample data, date/time, and explicit lab network boundaries.",
-          "**Baseline:** Note the normal configuration or expected protocol exchange before making a controlled change or reviewing an anomaly.",
-          "**Observe:** Follow the module scenario with Packet Tracer, Wireshark, TShark, a host-only VM, or a publicly supplied offline training PCAP as appropriate. Never initiate traffic outside the authorized scope.",
-          "**Correlate:** Capture the relevant address, port, timestamp, protocol, log field, or topology evidence; compare it with a second observation when possible.",
-          "**Conclude:** Record the most likely explanation, evidence for/against it, possible benign alternatives, confidence, and an appropriate defensive next step.",
-          "**Clean up:** Stop local test services, restore configurations and redact credentials, private addresses where required, tokens and personal data."
+          "Deploy authorized lab environment and configure Wireshark & Packet Tracer within isolated network bounds.",
+          "Perform baseline telemetry collection to establish normal expected traffic profiles.",
+          "Execute targeted protocol exercises matching Module 19 learning objectives.",
+          "Capture and correlate packet-level, flow-level, or system log evidence supporting each finding.",
+          "Document technical observations, defensive interpretations, and recommended remediation controls."
         ],
         "tasks": [
           {
-            "id": "task-m19-1",
-            "description": "**Scope:** Record the systems you own/control, the source of the sample data, date/time, and explicit lab network boundaries."
+            "id": "t19-1",
+            "description": "Initialize lab topology and verify layer connectivity using Wireshark & Packet Tracer."
           },
           {
-            "id": "task-m19-2",
-            "description": "**Baseline:** Note the normal configuration or expected protocol exchange before making a controlled change or reviewing an anomaly."
+            "id": "t19-2",
+            "description": "Perform protocol inspection and extract key header/field identifiers matching Module 19."
           },
           {
-            "id": "task-m19-3",
-            "description": "**Observe:** Follow the module scenario with Packet Tracer, Wireshark, TShark, a host-only VM, or a publicly supplied offline training PCAP as appropriate. Never initiate traffic outside the authorized scope."
+            "id": "t19-3",
+            "description": "Execute controlled test traffic and capture multi-layer telemetry evidence."
           },
           {
-            "id": "task-m19-4",
-            "description": "**Correlate:** Capture the relevant address, port, timestamp, protocol, log field, or topology evidence; compare it with a second observation when possible."
+            "id": "t19-4",
+            "description": "Analyze protocol anomalies, error states, and security threat indicators."
           },
           {
-            "id": "task-m19-5",
-            "description": "**Conclude:** Record the most likely explanation, evidence for/against it, possible benign alternatives, confidence, and an appropriate defensive next step."
-          },
-          {
-            "id": "task-m19-6",
-            "description": "**Clean up:** Stop local test services, restore configurations and redact credentials, private addresses where required, tokens and personal data."
+            "id": "t19-5",
+            "description": "Formulate defensive detection rules and mitigation controls for the observed protocol behaviors."
           }
+        ],
+        "completionCriteria": [
+          "Practical lab objectives for Module 19 verified through captured evidence.",
+          "All step-by-step tasks executed with concrete commands and filters.",
+          "Defensive SOC relevance and remediation guidance documented."
         ],
         "evidenceWorksheet": [
           {
-            "field": "authorization_and_scope",
-            "prompt": "Document your authorized IP scope, tool configuration, and timestamp timezone.",
-            "expectedEvidenceType": "Text transcript"
+            "field": "protocol_evidence",
+            "prompt": "Document primary protocol exchange, captured packet numbers, and key header values for Module 19.",
+            "expectedEvidenceType": "Wireshark packet details or CLI output"
           },
           {
-            "field": "observation_and_correlation",
-            "prompt": "Record observed traffic/topology evidence for: Configure an IPv6 subnet in Packet Tracer and document a neighbor discovery and echo flow.",
-            "expectedEvidenceType": "IPv6 address plan, packet screenshot and IPv6 monitoring checklist."
+            "field": "defensive_relevance",
+            "prompt": "Explain the SOC defensive significance of the observed protocol behaviors and potential threat vectors.",
+            "expectedEvidenceType": "Structured analyst evaluation text"
           }
         ],
-        "questions": [],
-        "completionCriteria": [
-          "Required module YouTube lesson(s) watched or relevant accessible alternative documented.",
-          "Four lesson evidence files created (Mxx-Lxx.md).",
-          "At least one valid lab observation or simulation artifact captured.",
-          "Source/destination/protocol interpretation is technically consistent.",
-          "Analyst note distinguishes observations, hypotheses and unknowns.",
-          "Sensitive information sanitized and lab scope respected."
-        ]
+        "id": "lab-m19",
+        "questions": []
       }
     },
     {
@@ -8351,13 +8324,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0014-4000-8000-000000000001",
           "slug": "m20-l1-vpn-use-cases",
           "title": "Module 20 - Lesson 1: VPN use cases",
-          "description": "Video lesson presented by The Confused Engineer: \"How VPN REALLY Works (Types, Architectures & Troubleshooting)\". Aligned to Module 20 - Lesson 1: VPN use cases for practical lab and defensive analysis.",
+          "description": "Video instruction presented by The Confused Engineer \ud83d\ude1c: \"How VPN REALLY Works (Types, Architectures & Troubleshooting)\". Technical focus on Module 20 - Lesson 1: VPN use cases: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
           "youtubeVideoId": "Rx8q7N-qZVc",
           "videoAttribution": {
-            "creator": "The Confused Engineer",
+            "creator": "The Confused Engineer \ud83d\ude1c",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 20,
           "order": 1,
           "moduleTitle": "Module 20: VPNs, Tunnels and Secure Remote Access",
           "objectives": [
@@ -8443,13 +8416,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0014-4000-8000-000000000002",
           "slug": "m20-l2-tunnel-endpoints",
           "title": "Module 20 - Lesson 2: Tunnel endpoints",
-          "description": "Video lesson presented by Professor Messer: \"VPNs - CompTIA Network+ N10-009 - 3.5\". Aligned to Module 20 - Lesson 2: Tunnel endpoints for practical lab and defensive analysis.",
+          "description": "Video instruction presented by Professor Messer: \"VPNs - CompTIA Network+ N10-009 - 3.5\". Technical focus on Module 20 - Lesson 2: Tunnel endpoints: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
           "youtubeVideoId": "tm7i0zEitPQ",
           "videoAttribution": {
             "creator": "Professor Messer",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 7,
           "order": 2,
           "moduleTitle": "Module 20: VPNs, Tunnels and Secure Remote Access",
           "objectives": [
@@ -8535,13 +8508,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0014-4000-8000-000000000003",
           "slug": "m20-l3-protocol-concepts",
           "title": "Module 20 - Lesson 3: Protocol concepts",
-          "description": "Video lesson presented by Professor Messer: \"Remote Access - CompTIA Network+ N10-009 - 3.5\". Aligned to Module 20 - Lesson 3: Protocol concepts for practical lab and defensive analysis.",
-          "youtubeVideoId": "QbEDRTjcom4",
+          "description": "Video instruction presented by PowerCert Animated Videos: \"IPsec Explained\". Technical focus on Module 20 - Lesson 3: Protocol concepts: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "youtubeVideoId": "xTH1ZA_qUvA",
           "videoAttribution": {
-            "creator": "Professor Messer",
+            "creator": "PowerCert Animated Videos",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 6,
           "order": 3,
           "moduleTitle": "Module 20: VPNs, Tunnels and Secure Remote Access",
           "objectives": [
@@ -8627,13 +8600,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0014-4000-8000-000000000004",
           "slug": "m20-l4-soc-monitoring",
           "title": "Module 20 - Lesson 4: SOC monitoring",
-          "description": "Video lesson presented by Professor Messer: \"Zero Trust - CompTIA Network+ N10-009 - 1.8\". Aligned to Module 20 - Lesson 4: SOC monitoring for practical lab and defensive analysis.",
-          "youtubeVideoId": "jlMwWL4yalM",
+          "description": "Video instruction presented by Tech with Jono: \"how to CORRECTLY read logs as a Cybersecurity SOC Analyst\". Technical focus on Module 20 - Lesson 4: SOC monitoring: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "youtubeVideoId": "TlB-vGW-xLQ",
           "videoAttribution": {
-            "creator": "Professor Messer",
+            "creator": "Tech with Jono",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 8,
           "order": 4,
           "moduleTitle": "Module 20: VPNs, Tunnels and Secure Remote Access",
           "objectives": [
@@ -8717,75 +8690,68 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
         }
       ],
       "practicalLab": {
-        "id": "lab-net-m20",
         "title": "Lab 20: VPNs, Tunnels and Secure Remote Access Hands-on Implementation",
-        "objective": "Differentiate tunneling and encryption and interpret remote-access security telemetry. This module ties network behavior to what an SOC analyst can actually observe, validate, document, and report. Work only in an authorized local lab or offline simulation environment.",
+        "difficulty": "intermediate",
+        "estimatedMinutes": 90,
+        "objective": "Configure site-to-site IPsec VPN tunnel with IKE Phase 1 (ISAKMP SA) and Phase 2 (IPsec SA). Dissect ESP (Encapsulating Security Payload) packet encapsulation.",
         "toolsRequired": [
-          "Cisco Packet Tracer / Wireshark / TShark",
-          "Host-only Virtual Machine / Lab Topology",
-          "Markdown Evidence Log (Mxx-Lyy.md)"
+          "Packet Tracer",
+          "Wireshark"
         ],
         "pcapSource": {
-          "fileName": "module_20_network_evidence",
-          "fileUrl": "https://wiki.wireshark.org/SampleCaptures"
+          "fileName": "cybertube-m20-analysis.pcap",
+          "fileUrl": "https://raw.githubusercontent.com/cybertube/pcaps/main/networking/m20-analysis.pcap",
+          "repositoryUrl": "https://github.com/cybertube/pcaps",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b820"
         },
-        "difficulty": "intermediate",
-        "estimatedMinutes": 60,
         "instructions": [
-          "**Scope:** Record the systems you own/control, the source of the sample data, date/time, and explicit lab network boundaries.",
-          "**Baseline:** Note the normal configuration or expected protocol exchange before making a controlled change or reviewing an anomaly.",
-          "**Observe:** Follow the module scenario with Packet Tracer, Wireshark, TShark, a host-only VM, or a publicly supplied offline training PCAP as appropriate. Never initiate traffic outside the authorized scope.",
-          "**Correlate:** Capture the relevant address, port, timestamp, protocol, log field, or topology evidence; compare it with a second observation when possible.",
-          "**Conclude:** Record the most likely explanation, evidence for/against it, possible benign alternatives, confidence, and an appropriate defensive next step.",
-          "**Clean up:** Stop local test services, restore configurations and redact credentials, private addresses where required, tokens and personal data."
+          "Deploy authorized lab environment and configure Packet Tracer & Wireshark within isolated network bounds.",
+          "Perform baseline telemetry collection to establish normal expected traffic profiles.",
+          "Execute targeted protocol exercises matching Module 20 learning objectives.",
+          "Capture and correlate packet-level, flow-level, or system log evidence supporting each finding.",
+          "Document technical observations, defensive interpretations, and recommended remediation controls."
         ],
         "tasks": [
           {
-            "id": "task-m20-1",
-            "description": "**Scope:** Record the systems you own/control, the source of the sample data, date/time, and explicit lab network boundaries."
+            "id": "t20-1",
+            "description": "Initialize lab topology and verify layer connectivity using Packet Tracer & Wireshark."
           },
           {
-            "id": "task-m20-2",
-            "description": "**Baseline:** Note the normal configuration or expected protocol exchange before making a controlled change or reviewing an anomaly."
+            "id": "t20-2",
+            "description": "Perform protocol inspection and extract key header/field identifiers matching Module 20."
           },
           {
-            "id": "task-m20-3",
-            "description": "**Observe:** Follow the module scenario with Packet Tracer, Wireshark, TShark, a host-only VM, or a publicly supplied offline training PCAP as appropriate. Never initiate traffic outside the authorized scope."
+            "id": "t20-3",
+            "description": "Execute controlled test traffic and capture multi-layer telemetry evidence."
           },
           {
-            "id": "task-m20-4",
-            "description": "**Correlate:** Capture the relevant address, port, timestamp, protocol, log field, or topology evidence; compare it with a second observation when possible."
+            "id": "t20-4",
+            "description": "Analyze protocol anomalies, error states, and security threat indicators."
           },
           {
-            "id": "task-m20-5",
-            "description": "**Conclude:** Record the most likely explanation, evidence for/against it, possible benign alternatives, confidence, and an appropriate defensive next step."
-          },
-          {
-            "id": "task-m20-6",
-            "description": "**Clean up:** Stop local test services, restore configurations and redact credentials, private addresses where required, tokens and personal data."
+            "id": "t20-5",
+            "description": "Formulate defensive detection rules and mitigation controls for the observed protocol behaviors."
           }
+        ],
+        "completionCriteria": [
+          "Practical lab objectives for Module 20 verified through captured evidence.",
+          "All step-by-step tasks executed with concrete commands and filters.",
+          "Defensive SOC relevance and remediation guidance documented."
         ],
         "evidenceWorksheet": [
           {
-            "field": "authorization_and_scope",
-            "prompt": "Document your authorized IP scope, tool configuration, and timestamp timezone.",
-            "expectedEvidenceType": "Text transcript"
+            "field": "protocol_evidence",
+            "prompt": "Document primary protocol exchange, captured packet numbers, and key header values for Module 20.",
+            "expectedEvidenceType": "Wireshark packet details or CLI output"
           },
           {
-            "field": "observation_and_correlation",
-            "prompt": "Record observed traffic/topology evidence for: Map traffic visibility before and after a VPN gateway using a diagram or simulated event list; no outside connection required.",
-            "expectedEvidenceType": "A VPN topology, logging field inventory and alert-triage worksheet."
+            "field": "defensive_relevance",
+            "prompt": "Explain the SOC defensive significance of the observed protocol behaviors and potential threat vectors.",
+            "expectedEvidenceType": "Structured analyst evaluation text"
           }
         ],
-        "questions": [],
-        "completionCriteria": [
-          "Required module YouTube lesson(s) watched or relevant accessible alternative documented.",
-          "Four lesson evidence files created (Mxx-Lxx.md).",
-          "At least one valid lab observation or simulation artifact captured.",
-          "Source/destination/protocol interpretation is technically consistent.",
-          "Analyst note distinguishes observations, hypotheses and unknowns.",
-          "Sensitive information sanitized and lab scope respected."
-        ]
+        "id": "lab-m20",
+        "questions": []
       }
     },
     {
@@ -8798,13 +8764,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0015-4000-8000-000000000001",
           "slug": "m21-l1-capture-safely",
           "title": "Module 21 - Lesson 1: Capture safely",
-          "description": "Video lesson presented by Chris Greer: \"Learn Wireshark! Tutorial for BEGINNERS\". Aligned to Module 21 - Lesson 1: Capture safely for practical lab and defensive analysis.",
+          "description": "Video instruction presented by Chris Greer: \"Learn Wireshark! Tutorial for BEGINNERS\". Technical focus on Module 21 - Lesson 1: Capture safely: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
           "youtubeVideoId": "OU-A2EmVrKQ",
           "videoAttribution": {
             "creator": "Chris Greer",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 16,
           "order": 1,
           "moduleTitle": "Module 21: Wireshark and TShark Essentials",
           "objectives": [
@@ -8882,13 +8848,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0015-4000-8000-000000000002",
           "slug": "m21-l2-capture-vs-display-filters",
           "title": "Module 21 - Lesson 2: Capture vs display filters",
-          "description": "Video lesson presented by HackerSploit: \"Wireshark Tutorial for Beginners - Filters\". Aligned to Module 21 - Lesson 2: Capture vs display filters for practical lab and defensive analysis.",
+          "description": "Video instruction presented by HackerSploit: \"Wireshark Tutorial for Beginners - Filters\". Technical focus on Module 21 - Lesson 2: Capture vs display filters: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
           "youtubeVideoId": "xO69Bl1R07E",
           "videoAttribution": {
             "creator": "HackerSploit",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 4,
           "order": 2,
           "moduleTitle": "Module 21: Wireshark and TShark Essentials",
           "objectives": [
@@ -8966,13 +8932,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0015-4000-8000-000000000003",
           "slug": "m21-l3-statistics",
           "title": "Module 21 - Lesson 3: Statistics",
-          "description": "Video lesson presented by Palo Alto Networks Unit 42: \"Unit 42 Wireshark Workshop Part 2: Setting Up Wireshark | Unit 42\". Aligned to Module 21 - Lesson 3: Statistics for practical lab and defensive analysis.",
-          "youtubeVideoId": "xYzBFZDm6Ds",
+          "description": "Video instruction presented by Chris Greer: \"Reading PCAPs with Wireshark Statistics // Lesson 8 // Wireshark Tutorial\". Technical focus on Module 21 - Lesson 3: Statistics: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "youtubeVideoId": "ZNS115MPsO0",
           "videoAttribution": {
-            "creator": "Palo Alto Networks Unit 42",
+            "creator": "Chris Greer",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 9,
           "order": 3,
           "moduleTitle": "Module 21: Wireshark and TShark Essentials",
           "objectives": [
@@ -9050,13 +9016,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0015-4000-8000-000000000004",
           "slug": "m21-l4-tshark-workflow",
           "title": "Module 21 - Lesson 4: TShark workflow",
-          "description": "Video lesson presented by David Bombal: \"tshark and Termshark tutorial: Capture and view wireshark captures in a console\". Aligned to Module 21 - Lesson 4: TShark workflow for practical lab and defensive analysis.",
+          "description": "Video instruction presented by David Bombal: \"tshark and Termshark tutorial: Capture and view wireshark captures in a console\". Technical focus on Module 21 - Lesson 4: TShark workflow: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
           "youtubeVideoId": "HoYgPlmOZgo",
           "videoAttribution": {
             "creator": "David Bombal",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 13,
           "order": 4,
           "moduleTitle": "Module 21: Wireshark and TShark Essentials",
           "objectives": [
@@ -9132,75 +9098,68 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
         }
       ],
       "practicalLab": {
-        "id": "lab-net-m21",
         "title": "Lab 21: Wireshark and TShark Essentials Hands-on Implementation",
-        "objective": "Capture and filter permitted traffic and interpret protocol layers. This module ties network behavior to what an SOC analyst can actually observe, validate, document, and report. Work only in an authorized local lab or offline simulation environment.",
+        "difficulty": "advanced",
+        "estimatedMinutes": 90,
+        "objective": "Apply advanced Wireshark display filters, generate Protocol Hierarchy statistics, IO Graphs, and extract payload artifacts using command-line TShark queries.",
         "toolsRequired": [
-          "Cisco Packet Tracer / Wireshark / TShark",
-          "Host-only Virtual Machine / Lab Topology",
-          "Markdown Evidence Log (Mxx-Lyy.md)"
+          "Wireshark",
+          "TShark CLI"
         ],
         "pcapSource": {
-          "fileName": "module_21_network_evidence",
-          "fileUrl": "https://wiki.wireshark.org/SampleCaptures"
+          "fileName": "cybertube-m21-analysis.pcap",
+          "fileUrl": "https://raw.githubusercontent.com/cybertube/pcaps/main/networking/m21-analysis.pcap",
+          "repositoryUrl": "https://github.com/cybertube/pcaps",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b821"
         },
-        "difficulty": "intermediate",
-        "estimatedMinutes": 60,
         "instructions": [
-          "**Scope:** Record the systems you own/control, the source of the sample data, date/time, and explicit lab network boundaries.",
-          "**Baseline:** Note the normal configuration or expected protocol exchange before making a controlled change or reviewing an anomaly.",
-          "**Observe:** Follow the module scenario with Packet Tracer, Wireshark, TShark, a host-only VM, or a publicly supplied offline training PCAP as appropriate. Never initiate traffic outside the authorized scope.",
-          "**Correlate:** Capture the relevant address, port, timestamp, protocol, log field, or topology evidence; compare it with a second observation when possible.",
-          "**Conclude:** Record the most likely explanation, evidence for/against it, possible benign alternatives, confidence, and an appropriate defensive next step.",
-          "**Clean up:** Stop local test services, restore configurations and redact credentials, private addresses where required, tokens and personal data."
+          "Deploy authorized lab environment and configure Wireshark & TShark CLI within isolated network bounds.",
+          "Perform baseline telemetry collection to establish normal expected traffic profiles.",
+          "Execute targeted protocol exercises matching Module 21 learning objectives.",
+          "Capture and correlate packet-level, flow-level, or system log evidence supporting each finding.",
+          "Document technical observations, defensive interpretations, and recommended remediation controls."
         ],
         "tasks": [
           {
-            "id": "task-m21-1",
-            "description": "**Scope:** Record the systems you own/control, the source of the sample data, date/time, and explicit lab network boundaries."
+            "id": "t21-1",
+            "description": "Initialize lab topology and verify layer connectivity using Wireshark & TShark CLI."
           },
           {
-            "id": "task-m21-2",
-            "description": "**Baseline:** Note the normal configuration or expected protocol exchange before making a controlled change or reviewing an anomaly."
+            "id": "t21-2",
+            "description": "Perform protocol inspection and extract key header/field identifiers matching Module 21."
           },
           {
-            "id": "task-m21-3",
-            "description": "**Observe:** Follow the module scenario with Packet Tracer, Wireshark, TShark, a host-only VM, or a publicly supplied offline training PCAP as appropriate. Never initiate traffic outside the authorized scope."
+            "id": "t21-3",
+            "description": "Execute controlled test traffic and capture multi-layer telemetry evidence."
           },
           {
-            "id": "task-m21-4",
-            "description": "**Correlate:** Capture the relevant address, port, timestamp, protocol, log field, or topology evidence; compare it with a second observation when possible."
+            "id": "t21-4",
+            "description": "Analyze protocol anomalies, error states, and security threat indicators."
           },
           {
-            "id": "task-m21-5",
-            "description": "**Conclude:** Record the most likely explanation, evidence for/against it, possible benign alternatives, confidence, and an appropriate defensive next step."
-          },
-          {
-            "id": "task-m21-6",
-            "description": "**Clean up:** Stop local test services, restore configurations and redact credentials, private addresses where required, tokens and personal data."
+            "id": "t21-5",
+            "description": "Formulate defensive detection rules and mitigation controls for the observed protocol behaviors."
           }
+        ],
+        "completionCriteria": [
+          "Practical lab objectives for Module 21 verified through captured evidence.",
+          "All step-by-step tasks executed with concrete commands and filters.",
+          "Defensive SOC relevance and remediation guidance documented."
         ],
         "evidenceWorksheet": [
           {
-            "field": "authorization_and_scope",
-            "prompt": "Document your authorized IP scope, tool configuration, and timestamp timezone.",
-            "expectedEvidenceType": "Text transcript"
+            "field": "protocol_evidence",
+            "prompt": "Document primary protocol exchange, captured packet numbers, and key header values for Module 21.",
+            "expectedEvidenceType": "Wireshark packet details or CLI output"
           },
           {
-            "field": "observation_and_correlation",
-            "prompt": "Record observed traffic/topology evidence for: Analyze an official Wireshark sample capture. Identify the top three protocols and build a reproducible display filter.",
-            "expectedEvidenceType": "PCAP identifier, filters, screenshots, conversation table and interpretation."
+            "field": "defensive_relevance",
+            "prompt": "Explain the SOC defensive significance of the observed protocol behaviors and potential threat vectors.",
+            "expectedEvidenceType": "Structured analyst evaluation text"
           }
         ],
-        "questions": [],
-        "completionCriteria": [
-          "Required module YouTube lesson(s) watched or relevant accessible alternative documented.",
-          "Four lesson evidence files created (Mxx-Lxx.md).",
-          "At least one valid lab observation or simulation artifact captured.",
-          "Source/destination/protocol interpretation is technically consistent.",
-          "Analyst note distinguishes observations, hypotheses and unknowns.",
-          "Sensitive information sanitized and lab scope respected."
-        ]
+        "id": "lab-m21",
+        "questions": []
       }
     },
     {
@@ -9213,13 +9172,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0016-4000-8000-000000000001",
           "slug": "m22-l1-handshake-timing",
           "title": "Module 22 - Lesson 1: Handshake timing",
-          "description": "Video lesson presented by David Bombal: \"Wireshark Display Filters | Free Wireshark and Ethical Hacking Course: Video #4\". Aligned to Module 22 - Lesson 1: Handshake timing for practical lab and defensive analysis.",
-          "youtubeVideoId": "WdBBYosG-YI",
+          "description": "Video instruction presented by Chris Greer: \"Wireshark Tutorial - Lesson 7 // Using the Time Column\". Technical focus on Module 22 - Lesson 1: Handshake timing: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "youtubeVideoId": "SllJu5MdkAg",
           "videoAttribution": {
-            "creator": "David Bombal",
+            "creator": "Chris Greer",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 10,
           "order": 1,
           "moduleTitle": "Module 22: Deep TCP Packet Analysis and Troubleshooting",
           "objectives": [
@@ -9297,13 +9256,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0016-4000-8000-000000000002",
           "slug": "m22-l2-retransmissions",
           "title": "Module 22 - Lesson 2: Retransmissions",
-          "description": "Video lesson presented by Chris Greer: \"How TCP RETRANSMISSIONS Work // Analyzing Packet Loss\". Aligned to Module 22 - Lesson 2: Retransmissions for practical lab and defensive analysis.",
+          "description": "Video instruction presented by Chris Greer: \"How TCP RETRANSMISSIONS Work // Analyzing Packet Loss\". Technical focus on Module 22 - Lesson 2: Retransmissions: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
           "youtubeVideoId": "HTQLipAG27I",
           "videoAttribution": {
             "creator": "Chris Greer",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 9,
           "order": 2,
           "moduleTitle": "Module 22: Deep TCP Packet Analysis and Troubleshooting",
           "objectives": [
@@ -9381,13 +9340,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0016-4000-8000-000000000003",
           "slug": "m22-l3-window-dynamics",
           "title": "Module 22 - Lesson 3: Window dynamics",
-          "description": "Video lesson presented by Network Direction: \"How TCP Handles Errors And Uses Windows | Network Fundamentals Part 9\". Aligned to Module 22 - Lesson 3: Window dynamics for practical lab and defensive analysis.",
+          "description": "Video instruction presented by Network Direction: \"How TCP Handles Errors And Uses Windows | Network Fundamentals Part 9\". Technical focus on Module 22 - Lesson 3: Window dynamics: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
           "youtubeVideoId": "NaEHwrRHfqk",
           "videoAttribution": {
             "creator": "Network Direction",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 9,
           "order": 3,
           "moduleTitle": "Module 22: Deep TCP Packet Analysis and Troubleshooting",
           "objectives": [
@@ -9465,13 +9424,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0016-4000-8000-000000000004",
           "slug": "m22-l4-incident-context",
           "title": "Module 22 - Lesson 4: Incident context",
-          "description": "Video lesson presented by HackerSploit: \"tcpdump - Traffic Capture & Analysis\". Aligned to Module 22 - Lesson 4: Incident context for practical lab and defensive analysis.",
-          "youtubeVideoId": "1lDfCRM6dWk",
+          "description": "Video instruction presented by Chris Greer: \"Troubleshooting with Wireshark - Analyzing TCP Resets\". Technical focus on Module 22 - Lesson 4: Incident context: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "youtubeVideoId": "t5OJephyw8I",
           "videoAttribution": {
-            "creator": "HackerSploit",
+            "creator": "Chris Greer",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 7,
           "order": 4,
           "moduleTitle": "Module 22: Deep TCP Packet Analysis and Troubleshooting",
           "objectives": [
@@ -9547,75 +9506,67 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
         }
       ],
       "practicalLab": {
-        "id": "lab-net-m22",
         "title": "Lab 22: Deep TCP Packet Analysis and Troubleshooting Hands-on Implementation",
-        "objective": "Understand timing, retransmission, loss and flow-control clues. This module ties network behavior to what an SOC analyst can actually observe, validate, document, and report. Work only in an authorized local lab or offline simulation environment.",
+        "difficulty": "advanced",
+        "estimatedMinutes": 90,
+        "objective": "Diagnose TCP performance bottlenecks: calculate Round Trip Time (RTT), trace duplicate ACKs, fast retransmissions, zero-window probes, and analyze window scaling.",
         "toolsRequired": [
-          "Cisco Packet Tracer / Wireshark / TShark",
-          "Host-only Virtual Machine / Lab Topology",
-          "Markdown Evidence Log (Mxx-Lyy.md)"
+          "Wireshark"
         ],
         "pcapSource": {
-          "fileName": "module_22_network_evidence",
-          "fileUrl": "https://wiki.wireshark.org/SampleCaptures"
+          "fileName": "cybertube-m22-analysis.pcap",
+          "fileUrl": "https://raw.githubusercontent.com/cybertube/pcaps/main/networking/m22-analysis.pcap",
+          "repositoryUrl": "https://github.com/cybertube/pcaps",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b822"
         },
-        "difficulty": "advanced",
-        "estimatedMinutes": 60,
         "instructions": [
-          "**Scope:** Record the systems you own/control, the source of the sample data, date/time, and explicit lab network boundaries.",
-          "**Baseline:** Note the normal configuration or expected protocol exchange before making a controlled change or reviewing an anomaly.",
-          "**Observe:** Follow the module scenario with Packet Tracer, Wireshark, TShark, a host-only VM, or a publicly supplied offline training PCAP as appropriate. Never initiate traffic outside the authorized scope.",
-          "**Correlate:** Capture the relevant address, port, timestamp, protocol, log field, or topology evidence; compare it with a second observation when possible.",
-          "**Conclude:** Record the most likely explanation, evidence for/against it, possible benign alternatives, confidence, and an appropriate defensive next step.",
-          "**Clean up:** Stop local test services, restore configurations and redact credentials, private addresses where required, tokens and personal data."
+          "Deploy authorized lab environment and configure Wireshark within isolated network bounds.",
+          "Perform baseline telemetry collection to establish normal expected traffic profiles.",
+          "Execute targeted protocol exercises matching Module 22 learning objectives.",
+          "Capture and correlate packet-level, flow-level, or system log evidence supporting each finding.",
+          "Document technical observations, defensive interpretations, and recommended remediation controls."
         ],
         "tasks": [
           {
-            "id": "task-m22-1",
-            "description": "**Scope:** Record the systems you own/control, the source of the sample data, date/time, and explicit lab network boundaries."
+            "id": "t22-1",
+            "description": "Initialize lab topology and verify layer connectivity using Wireshark."
           },
           {
-            "id": "task-m22-2",
-            "description": "**Baseline:** Note the normal configuration or expected protocol exchange before making a controlled change or reviewing an anomaly."
+            "id": "t22-2",
+            "description": "Perform protocol inspection and extract key header/field identifiers matching Module 22."
           },
           {
-            "id": "task-m22-3",
-            "description": "**Observe:** Follow the module scenario with Packet Tracer, Wireshark, TShark, a host-only VM, or a publicly supplied offline training PCAP as appropriate. Never initiate traffic outside the authorized scope."
+            "id": "t22-3",
+            "description": "Execute controlled test traffic and capture multi-layer telemetry evidence."
           },
           {
-            "id": "task-m22-4",
-            "description": "**Correlate:** Capture the relevant address, port, timestamp, protocol, log field, or topology evidence; compare it with a second observation when possible."
+            "id": "t22-4",
+            "description": "Analyze protocol anomalies, error states, and security threat indicators."
           },
           {
-            "id": "task-m22-5",
-            "description": "**Conclude:** Record the most likely explanation, evidence for/against it, possible benign alternatives, confidence, and an appropriate defensive next step."
-          },
-          {
-            "id": "task-m22-6",
-            "description": "**Clean up:** Stop local test services, restore configurations and redact credentials, private addresses where required, tokens and personal data."
+            "id": "t22-5",
+            "description": "Formulate defensive detection rules and mitigation controls for the observed protocol behaviors."
           }
+        ],
+        "completionCriteria": [
+          "Practical lab objectives for Module 22 verified through captured evidence.",
+          "All step-by-step tasks executed with concrete commands and filters.",
+          "Defensive SOC relevance and remediation guidance documented."
         ],
         "evidenceWorksheet": [
           {
-            "field": "authorization_and_scope",
-            "prompt": "Document your authorized IP scope, tool configuration, and timestamp timezone.",
-            "expectedEvidenceType": "Text transcript"
+            "field": "protocol_evidence",
+            "prompt": "Document primary protocol exchange, captured packet numbers, and key header values for Module 22.",
+            "expectedEvidenceType": "Wireshark packet details or CLI output"
           },
           {
-            "field": "observation_and_correlation",
-            "prompt": "Record observed traffic/topology evidence for: Review a TCP troubleshooting PCAP and explain whether latency or retransmissions likely caused user-visible delay.",
-            "expectedEvidenceType": "Packet timeline, quantitative timing observations and limits of the conclusion."
+            "field": "defensive_relevance",
+            "prompt": "Explain the SOC defensive significance of the observed protocol behaviors and potential threat vectors.",
+            "expectedEvidenceType": "Structured analyst evaluation text"
           }
         ],
-        "questions": [],
-        "completionCriteria": [
-          "Required module YouTube lesson(s) watched or relevant accessible alternative documented.",
-          "Four lesson evidence files created (Mxx-Lxx.md).",
-          "At least one valid lab observation or simulation artifact captured.",
-          "Source/destination/protocol interpretation is technically consistent.",
-          "Analyst note distinguishes observations, hypotheses and unknowns.",
-          "Sensitive information sanitized and lab scope respected."
-        ]
+        "id": "lab-m22",
+        "questions": []
       }
     },
     {
@@ -9628,13 +9579,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0017-4000-8000-000000000001",
           "slug": "m23-l1-dns-traffic-baseline",
           "title": "Module 23 - Lesson 1: DNS traffic baseline",
-          "description": "Video lesson presented by Chris Greer: \"How DNS Works Under the Hood (Packet by Packet)\". Aligned to Module 23 - Lesson 1: DNS traffic baseline for practical lab and defensive analysis.",
+          "description": "Video instruction presented by Chris Greer: \"How DNS Works Under the Hood (Packet by Packet)\". Technical focus on Module 23 - Lesson 1: DNS traffic baseline: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
           "youtubeVideoId": "3FPaTvCJojQ",
           "videoAttribution": {
             "creator": "Chris Greer",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 18,
           "order": 1,
           "moduleTitle": "Module 23: DNS Traffic Investigation and Threat Hunting",
           "objectives": [
@@ -9716,13 +9667,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0017-4000-8000-000000000002",
           "slug": "m23-l2-long-and-encoded-labels",
           "title": "Module 23 - Lesson 2: Long and encoded labels",
-          "description": "Video lesson presented by Palo Alto Networks Unit 42: \"Unit 42 Wireshark Workshop Part 3: Host Identification | Unit 42\". Aligned to Module 23 - Lesson 2: Long and encoded labels for practical lab and defensive analysis.",
-          "youtubeVideoId": "S-ny315TOyk",
+          "description": "Video instruction presented by Tom Olzak: \"DNS Tunneling Identification and Defense\". Technical focus on Module 23 - Lesson 2: Long and encoded labels: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "youtubeVideoId": "CaFo83TlpPM",
           "videoAttribution": {
-            "creator": "Palo Alto Networks Unit 42",
+            "creator": "Tom Olzak",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 12,
           "order": 2,
           "moduleTitle": "Module 23: DNS Traffic Investigation and Threat Hunting",
           "objectives": [
@@ -9804,13 +9755,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0017-4000-8000-000000000003",
           "slug": "m23-l3-resolver-anomalies",
           "title": "Module 23 - Lesson 3: Resolver anomalies",
-          "description": "Video lesson presented by Professor Messer: \"An Overview of DNS - CompTIA Network+ N10-009 - 3.4\". Aligned to Module 23 - Lesson 3: Resolver anomalies for practical lab and defensive analysis.",
-          "youtubeVideoId": "S4s3vgm4h84",
+          "description": "Video instruction presented by David Bombal: \"DNS Explained using Wireshark: You probably don't know how DNS really works.\". Technical focus on Module 23 - Lesson 3: Resolver anomalies: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "youtubeVideoId": "9b4EjMsB5bg",
           "videoAttribution": {
-            "creator": "Professor Messer",
+            "creator": "David Bombal",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 37,
           "order": 3,
           "moduleTitle": "Module 23: DNS Traffic Investigation and Threat Hunting",
           "objectives": [
@@ -9892,13 +9843,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0017-4000-8000-000000000004",
           "slug": "m23-l4-triage-workflow",
           "title": "Module 23 - Lesson 4: Triage workflow",
-          "description": "Video lesson presented by Jeremy's IT Lab: \"Free CCNA | DNS | Day 38 Lab | CCNA 200-301 Complete Course\". Aligned to Module 23 - Lesson 4: Triage workflow for practical lab and defensive analysis.",
-          "youtubeVideoId": "7D_FapNrRUM",
+          "description": "Video instruction presented by Mohd Maaz: \"Detect DNS Beaconing with Splunk  Threat Hunting Tutorial\". Technical focus on Module 23 - Lesson 4: Triage workflow: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "youtubeVideoId": "xqukCIPQ1wE",
           "videoAttribution": {
-            "creator": "Jeremy's IT Lab",
+            "creator": "Mohd Maaz",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 7,
           "order": 4,
           "moduleTitle": "Module 23: DNS Traffic Investigation and Threat Hunting",
           "objectives": [
@@ -9978,75 +9929,68 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
         }
       ],
       "practicalLab": {
-        "id": "lab-net-m23",
         "title": "Lab 23: DNS Traffic Investigation and Threat Hunting Hands-on Implementation",
-        "objective": "Analyze DNS network evidence and distinguish suspicious patterns from false positives. This module ties network behavior to what an SOC analyst can actually observe, validate, document, and report. Work only in an authorized local lab or offline simulation environment.",
+        "difficulty": "advanced",
+        "estimatedMinutes": 90,
+        "objective": "Investigate high-volume DNS queries for data exfiltration and C2 beaconing. Calculate domain label entropy, identify DNS tunneling signatures, and build detection filters.",
         "toolsRequired": [
-          "Cisco Packet Tracer / Wireshark / TShark",
-          "Host-only Virtual Machine / Lab Topology",
-          "Markdown Evidence Log (Mxx-Lyy.md)"
+          "Wireshark",
+          "Python"
         ],
         "pcapSource": {
-          "fileName": "module_23_network_evidence",
-          "fileUrl": "https://wiki.wireshark.org/SampleCaptures"
+          "fileName": "cybertube-m23-analysis.pcap",
+          "fileUrl": "https://raw.githubusercontent.com/cybertube/pcaps/main/networking/m23-analysis.pcap",
+          "repositoryUrl": "https://github.com/cybertube/pcaps",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b823"
         },
-        "difficulty": "advanced",
-        "estimatedMinutes": 60,
         "instructions": [
-          "**Scope:** Record the systems you own/control, the source of the sample data, date/time, and explicit lab network boundaries.",
-          "**Baseline:** Note the normal configuration or expected protocol exchange before making a controlled change or reviewing an anomaly.",
-          "**Observe:** Follow the module scenario with Packet Tracer, Wireshark, TShark, a host-only VM, or a publicly supplied offline training PCAP as appropriate. Never initiate traffic outside the authorized scope.",
-          "**Correlate:** Capture the relevant address, port, timestamp, protocol, log field, or topology evidence; compare it with a second observation when possible.",
-          "**Conclude:** Record the most likely explanation, evidence for/against it, possible benign alternatives, confidence, and an appropriate defensive next step.",
-          "**Clean up:** Stop local test services, restore configurations and redact credentials, private addresses where required, tokens and personal data."
+          "Deploy authorized lab environment and configure Wireshark & Python within isolated network bounds.",
+          "Perform baseline telemetry collection to establish normal expected traffic profiles.",
+          "Execute targeted protocol exercises matching Module 23 learning objectives.",
+          "Capture and correlate packet-level, flow-level, or system log evidence supporting each finding.",
+          "Document technical observations, defensive interpretations, and recommended remediation controls."
         ],
         "tasks": [
           {
-            "id": "task-m23-1",
-            "description": "**Scope:** Record the systems you own/control, the source of the sample data, date/time, and explicit lab network boundaries."
+            "id": "t23-1",
+            "description": "Initialize lab topology and verify layer connectivity using Wireshark & Python."
           },
           {
-            "id": "task-m23-2",
-            "description": "**Baseline:** Note the normal configuration or expected protocol exchange before making a controlled change or reviewing an anomaly."
+            "id": "t23-2",
+            "description": "Perform protocol inspection and extract key header/field identifiers matching Module 23."
           },
           {
-            "id": "task-m23-3",
-            "description": "**Observe:** Follow the module scenario with Packet Tracer, Wireshark, TShark, a host-only VM, or a publicly supplied offline training PCAP as appropriate. Never initiate traffic outside the authorized scope."
+            "id": "t23-3",
+            "description": "Execute controlled test traffic and capture multi-layer telemetry evidence."
           },
           {
-            "id": "task-m23-4",
-            "description": "**Correlate:** Capture the relevant address, port, timestamp, protocol, log field, or topology evidence; compare it with a second observation when possible."
+            "id": "t23-4",
+            "description": "Analyze protocol anomalies, error states, and security threat indicators."
           },
           {
-            "id": "task-m23-5",
-            "description": "**Conclude:** Record the most likely explanation, evidence for/against it, possible benign alternatives, confidence, and an appropriate defensive next step."
-          },
-          {
-            "id": "task-m23-6",
-            "description": "**Clean up:** Stop local test services, restore configurations and redact credentials, private addresses where required, tokens and personal data."
+            "id": "t23-5",
+            "description": "Formulate defensive detection rules and mitigation controls for the observed protocol behaviors."
           }
+        ],
+        "completionCriteria": [
+          "Practical lab objectives for Module 23 verified through captured evidence.",
+          "All step-by-step tasks executed with concrete commands and filters.",
+          "Defensive SOC relevance and remediation guidance documented."
         ],
         "evidenceWorksheet": [
           {
-            "field": "authorization_and_scope",
-            "prompt": "Document your authorized IP scope, tool configuration, and timestamp timezone.",
-            "expectedEvidenceType": "Text transcript"
+            "field": "protocol_evidence",
+            "prompt": "Document primary protocol exchange, captured packet numbers, and key header values for Module 23.",
+            "expectedEvidenceType": "Wireshark packet details or CLI output"
           },
           {
-            "field": "observation_and_correlation",
-            "prompt": "Record observed traffic/topology evidence for: Analyze an anonymized DNS PCAP and group queries by domain, response code, length and resolver.",
-            "expectedEvidenceType": "Query histogram/table, three hypotheses and recommended validation actions."
+            "field": "defensive_relevance",
+            "prompt": "Explain the SOC defensive significance of the observed protocol behaviors and potential threat vectors.",
+            "expectedEvidenceType": "Structured analyst evaluation text"
           }
         ],
-        "questions": [],
-        "completionCriteria": [
-          "Required module YouTube lesson(s) watched or relevant accessible alternative documented.",
-          "Four lesson evidence files created (Mxx-Lxx.md).",
-          "At least one valid lab observation or simulation artifact captured.",
-          "Source/destination/protocol interpretation is technically consistent.",
-          "Analyst note distinguishes observations, hypotheses and unknowns.",
-          "Sensitive information sanitized and lab scope respected."
-        ]
+        "id": "lab-m23",
+        "questions": []
       }
     },
     {
@@ -10059,13 +10003,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0018-4000-8000-000000000001",
           "slug": "m24-l1-web-flow-reconstruction",
           "title": "Module 24 - Lesson 1: Web flow reconstruction",
-          "description": "Video lesson presented by Pooji SOC Talks: \"Day 8: HTTP Traffic Analysis How SOC Analysts Investigate Suspicious Web Traffic\". Aligned to Module 24 - Lesson 1: Web flow reconstruction for practical lab and defensive analysis.",
-          "youtubeVideoId": "TURHd0ievhs",
+          "description": "Video instruction presented by Chris Greer: \"Extracting Files from PCAPs with Wireshark // Lesson 9 // Wireshark Tutorial\". Technical focus on Module 24 - Lesson 1: Web flow reconstruction: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "youtubeVideoId": "Fn__yRYW6Wo",
           "videoAttribution": {
-            "creator": "Pooji SOC Talks",
+            "creator": "Chris Greer",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 5,
           "order": 1,
           "moduleTitle": "Module 24: Web/TLS/QUIC Traffic Investigation",
           "objectives": [
@@ -10147,13 +10091,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0018-4000-8000-000000000002",
           "slug": "m24-l2-encrypted-metadata",
           "title": "Module 24 - Lesson 2: Encrypted metadata",
-          "description": "Video lesson presented by Palo Alto Networks Unit 42: \"Unit 42 Wireshark Workshop Part 5: Introduction to Windows Malware Infections | Unit 42\". Aligned to Module 24 - Lesson 2: Encrypted metadata for practical lab and defensive analysis.",
-          "youtubeVideoId": "LeWKedaRFw4",
+          "description": "Video instruction presented by Security BSides London: \"Visualising TLS Fingerprints With TMAP To Hunt Malicious Domains - Amanda Thomson\". Technical focus on Module 24 - Lesson 2: Encrypted metadata: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "youtubeVideoId": "v0tgVm-QE9E",
           "videoAttribution": {
-            "creator": "Palo Alto Networks Unit 42",
+            "creator": "Security BSides London",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 15,
           "order": 2,
           "moduleTitle": "Module 24: Web/TLS/QUIC Traffic Investigation",
           "objectives": [
@@ -10235,13 +10179,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0018-4000-8000-000000000003",
           "slug": "m24-l3-quic-basics",
           "title": "Module 24 - Lesson 3: QUIC basics",
-          "description": "Video lesson presented by David Bombal: \"Decrypting TLS, HTTP/2 and QUIC with Wireshark\". Aligned to Module 24 - Lesson 3: QUIC basics for practical lab and defensive analysis.",
+          "description": "Video instruction presented by David Bombal: \"Decrypting TLS, HTTP/2 and QUIC with Wireshark\". Technical focus on Module 24 - Lesson 3: QUIC basics: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
           "youtubeVideoId": "yodDbgoCnLM",
           "videoAttribution": {
             "creator": "David Bombal",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 28,
           "order": 3,
           "moduleTitle": "Module 24: Web/TLS/QUIC Traffic Investigation",
           "objectives": [
@@ -10323,13 +10267,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0018-4000-8000-000000000004",
           "slug": "m24-l4-incident-report",
           "title": "Module 24 - Lesson 4: Incident report",
-          "description": "Video lesson presented by Netsec Explained: \"Advanced Wireshark Network Forensics - Part 2/3\". Aligned to Module 24 - Lesson 4: Incident report for practical lab and defensive analysis.",
-          "youtubeVideoId": "ZJZlRGLN2_s",
+          "description": "Video instruction presented by Watchman: \"Incident Report Writing (LEARN CYBER SECURITY TODAY!)\". Technical focus on Module 24 - Lesson 4: Incident report: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "youtubeVideoId": "097y4P80WnI",
           "videoAttribution": {
-            "creator": "Netsec Explained",
+            "creator": "Watchman",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 12,
           "order": 4,
           "moduleTitle": "Module 24: Web/TLS/QUIC Traffic Investigation",
           "objectives": [
@@ -10409,75 +10353,67 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
         }
       ],
       "practicalLab": {
-        "id": "lab-net-m24",
         "title": "Lab 24: Web/TLS/QUIC Traffic Investigation Hands-on Implementation",
-        "objective": "Investigate web connectivity and suspicious destination behavior using observable metadata. This module ties network behavior to what an SOC analyst can actually observe, validate, document, and report. Work only in an authorized local lab or offline simulation environment.",
+        "difficulty": "advanced",
+        "estimatedMinutes": 90,
+        "objective": "Perform HTTP/2 stream inspection, analyze TLS SNI hostnames, calculate JA3/JA4 cryptographic client fingerprints, and inspect UDP-based QUIC protocol handshakes.",
         "toolsRequired": [
-          "Cisco Packet Tracer / Wireshark / TShark",
-          "Host-only Virtual Machine / Lab Topology",
-          "Markdown Evidence Log (Mxx-Lyy.md)"
+          "Wireshark"
         ],
         "pcapSource": {
-          "fileName": "module_24_network_evidence",
-          "fileUrl": "https://wiki.wireshark.org/SampleCaptures"
+          "fileName": "cybertube-m24-analysis.pcap",
+          "fileUrl": "https://raw.githubusercontent.com/cybertube/pcaps/main/networking/m24-analysis.pcap",
+          "repositoryUrl": "https://github.com/cybertube/pcaps",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b824"
         },
-        "difficulty": "advanced",
-        "estimatedMinutes": 60,
         "instructions": [
-          "**Scope:** Record the systems you own/control, the source of the sample data, date/time, and explicit lab network boundaries.",
-          "**Baseline:** Note the normal configuration or expected protocol exchange before making a controlled change or reviewing an anomaly.",
-          "**Observe:** Follow the module scenario with Packet Tracer, Wireshark, TShark, a host-only VM, or a publicly supplied offline training PCAP as appropriate. Never initiate traffic outside the authorized scope.",
-          "**Correlate:** Capture the relevant address, port, timestamp, protocol, log field, or topology evidence; compare it with a second observation when possible.",
-          "**Conclude:** Record the most likely explanation, evidence for/against it, possible benign alternatives, confidence, and an appropriate defensive next step.",
-          "**Clean up:** Stop local test services, restore configurations and redact credentials, private addresses where required, tokens and personal data."
+          "Deploy authorized lab environment and configure Wireshark within isolated network bounds.",
+          "Perform baseline telemetry collection to establish normal expected traffic profiles.",
+          "Execute targeted protocol exercises matching Module 24 learning objectives.",
+          "Capture and correlate packet-level, flow-level, or system log evidence supporting each finding.",
+          "Document technical observations, defensive interpretations, and recommended remediation controls."
         ],
         "tasks": [
           {
-            "id": "task-m24-1",
-            "description": "**Scope:** Record the systems you own/control, the source of the sample data, date/time, and explicit lab network boundaries."
+            "id": "t24-1",
+            "description": "Initialize lab topology and verify layer connectivity using Wireshark."
           },
           {
-            "id": "task-m24-2",
-            "description": "**Baseline:** Note the normal configuration or expected protocol exchange before making a controlled change or reviewing an anomaly."
+            "id": "t24-2",
+            "description": "Perform protocol inspection and extract key header/field identifiers matching Module 24."
           },
           {
-            "id": "task-m24-3",
-            "description": "**Observe:** Follow the module scenario with Packet Tracer, Wireshark, TShark, a host-only VM, or a publicly supplied offline training PCAP as appropriate. Never initiate traffic outside the authorized scope."
+            "id": "t24-3",
+            "description": "Execute controlled test traffic and capture multi-layer telemetry evidence."
           },
           {
-            "id": "task-m24-4",
-            "description": "**Correlate:** Capture the relevant address, port, timestamp, protocol, log field, or topology evidence; compare it with a second observation when possible."
+            "id": "t24-4",
+            "description": "Analyze protocol anomalies, error states, and security threat indicators."
           },
           {
-            "id": "task-m24-5",
-            "description": "**Conclude:** Record the most likely explanation, evidence for/against it, possible benign alternatives, confidence, and an appropriate defensive next step."
-          },
-          {
-            "id": "task-m24-6",
-            "description": "**Clean up:** Stop local test services, restore configurations and redact credentials, private addresses where required, tokens and personal data."
+            "id": "t24-5",
+            "description": "Formulate defensive detection rules and mitigation controls for the observed protocol behaviors."
           }
+        ],
+        "completionCriteria": [
+          "Practical lab objectives for Module 24 verified through captured evidence.",
+          "All step-by-step tasks executed with concrete commands and filters.",
+          "Defensive SOC relevance and remediation guidance documented."
         ],
         "evidenceWorksheet": [
           {
-            "field": "authorization_and_scope",
-            "prompt": "Document your authorized IP scope, tool configuration, and timestamp timezone.",
-            "expectedEvidenceType": "Text transcript"
+            "field": "protocol_evidence",
+            "prompt": "Document primary protocol exchange, captured packet numbers, and key header values for Module 24.",
+            "expectedEvidenceType": "Wireshark packet details or CLI output"
           },
           {
-            "field": "observation_and_correlation",
-            "prompt": "Record observed traffic/topology evidence for: Compare an HTTP capture with a TLS/QUIC capture and document privacy-preserving visibility limits.",
-            "expectedEvidenceType": "Metadata visibility matrix and analyst-ready case note."
+            "field": "defensive_relevance",
+            "prompt": "Explain the SOC defensive significance of the observed protocol behaviors and potential threat vectors.",
+            "expectedEvidenceType": "Structured analyst evaluation text"
           }
         ],
-        "questions": [],
-        "completionCriteria": [
-          "Required module YouTube lesson(s) watched or relevant accessible alternative documented.",
-          "Four lesson evidence files created (Mxx-Lxx.md).",
-          "At least one valid lab observation or simulation artifact captured.",
-          "Source/destination/protocol interpretation is technically consistent.",
-          "Analyst note distinguishes observations, hypotheses and unknowns.",
-          "Sensitive information sanitized and lab scope respected."
-        ]
+        "id": "lab-m24",
+        "questions": []
       }
     },
     {
@@ -10490,13 +10426,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0019-4000-8000-000000000001",
           "slug": "m25-l1-telemetry-sources",
           "title": "Module 25 - Lesson 1: Telemetry sources",
-          "description": "Video lesson presented by TechSky - Ethical Hacking: \"How to Monitor Network Traffic (SOC Analyst Lab with TShark, Zeek & Suricata)\". Aligned to Module 25 - Lesson 1: Telemetry sources for practical lab and defensive analysis.",
+          "description": "Video instruction presented by TechSky - Ethical Hacking: \"How to Monitor Network Traffic (SOC Analyst Lab with TShark, Zeek & Suricata)\". Technical focus on Module 25 - Lesson 1: Telemetry sources: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
           "youtubeVideoId": "JSP-yOBRbrg",
           "videoAttribution": {
             "creator": "TechSky - Ethical Hacking",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 34,
           "order": 1,
           "moduleTitle": "Module 25: Syslog, NetFlow/IPFIX and Network Telemetry",
           "objectives": [
@@ -10582,13 +10518,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0019-4000-8000-000000000002",
           "slug": "m25-l2-syslog-fields",
           "title": "Module 25 - Lesson 2: Syslog fields",
-          "description": "Video lesson presented by Jeremy's IT Lab: \"Free CCNA | Syslog | Day 41 | CCNA 200-301 Complete Course\". Aligned to Module 25 - Lesson 2: Syslog fields for practical lab and defensive analysis.",
+          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | Syslog | Day 41 | CCNA 200-301 Complete Course\". Technical focus on Module 25 - Lesson 2: Syslog fields: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
           "youtubeVideoId": "RaQPSKQ4J5A",
           "videoAttribution": {
             "creator": "Jeremy's IT Lab",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 28,
           "order": 2,
           "moduleTitle": "Module 25: Syslog, NetFlow/IPFIX and Network Telemetry",
           "objectives": [
@@ -10674,13 +10610,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0019-4000-8000-000000000003",
           "slug": "m25-l3-flow-records",
           "title": "Module 25 - Lesson 3: Flow records",
-          "description": "Video lesson presented by TrainerTests: \"NetFlow & IPFIX Explained: Troubleshooting Networks with Flow Data (Networking Basics)\". Aligned to Module 25 - Lesson 3: Flow records for practical lab and defensive analysis.",
+          "description": "Video instruction presented by TrainerTests: \"NetFlow & IPFIX Explained: Troubleshooting Networks with Flow Data (Networking Basics)\". Technical focus on Module 25 - Lesson 3: Flow records: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
           "youtubeVideoId": "lL7xRH_BpHU",
           "videoAttribution": {
             "creator": "TrainerTests",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 6,
           "order": 3,
           "moduleTitle": "Module 25: Syslog, NetFlow/IPFIX and Network Telemetry",
           "objectives": [
@@ -10766,13 +10702,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0019-4000-8000-000000000004",
           "slug": "m25-l4-correlation-basics",
           "title": "Module 25 - Lesson 4: Correlation basics",
-          "description": "Video lesson presented by Network Direction: \"Sending Logs to a Syslog Server | Network Fundamentals Part 23\". Aligned to Module 25 - Lesson 4: Correlation basics for practical lab and defensive analysis.",
-          "youtubeVideoId": "kZOgV0lvja0",
+          "description": "Video instruction presented by CyberWarFare Labs : \"Log Correlation & Attack Mapping: A SOC Analyst\u2019s Playbook | Free Live Cybersecurity Workshop 2026\". Technical focus on Module 25 - Lesson 4: Correlation basics: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "youtubeVideoId": "h2KfYmACu2s",
           "videoAttribution": {
-            "creator": "Network Direction",
+            "creator": "CyberWarFare Labs ",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 74,
           "order": 4,
           "moduleTitle": "Module 25: Syslog, NetFlow/IPFIX and Network Telemetry",
           "objectives": [
@@ -10856,75 +10792,68 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
         }
       ],
       "practicalLab": {
-        "id": "lab-net-m25",
         "title": "Lab 25: Syslog, NetFlow/IPFIX and Network Telemetry Hands-on Implementation",
-        "objective": "Correlate network metadata logs and distinguish full packets from flow summaries. This module ties network behavior to what an SOC analyst can actually observe, validate, document, and report. Work only in an authorized local lab or offline simulation environment.",
+        "difficulty": "advanced",
+        "estimatedMinutes": 90,
+        "objective": "Configure router NetFlow v9 export. Parse flow tuples (Src IP, Dst IP, Src Port, Dst Port, Proto, Bytes, Packets) and correlate flow records with centralized syslog events.",
         "toolsRequired": [
-          "Cisco Packet Tracer / Wireshark / TShark",
-          "Host-only Virtual Machine / Lab Topology",
-          "Markdown Evidence Log (Mxx-Lyy.md)"
+          "Syslog",
+          "Flow Analyzer"
         ],
         "pcapSource": {
-          "fileName": "module_25_network_evidence",
-          "fileUrl": "https://wiki.wireshark.org/SampleCaptures"
+          "fileName": "cybertube-m25-analysis.pcap",
+          "fileUrl": "https://raw.githubusercontent.com/cybertube/pcaps/main/networking/m25-analysis.pcap",
+          "repositoryUrl": "https://github.com/cybertube/pcaps",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b825"
         },
-        "difficulty": "advanced",
-        "estimatedMinutes": 60,
         "instructions": [
-          "**Scope:** Record the systems you own/control, the source of the sample data, date/time, and explicit lab network boundaries.",
-          "**Baseline:** Note the normal configuration or expected protocol exchange before making a controlled change or reviewing an anomaly.",
-          "**Observe:** Follow the module scenario with Packet Tracer, Wireshark, TShark, a host-only VM, or a publicly supplied offline training PCAP as appropriate. Never initiate traffic outside the authorized scope.",
-          "**Correlate:** Capture the relevant address, port, timestamp, protocol, log field, or topology evidence; compare it with a second observation when possible.",
-          "**Conclude:** Record the most likely explanation, evidence for/against it, possible benign alternatives, confidence, and an appropriate defensive next step.",
-          "**Clean up:** Stop local test services, restore configurations and redact credentials, private addresses where required, tokens and personal data."
+          "Deploy authorized lab environment and configure Syslog & Flow Analyzer within isolated network bounds.",
+          "Perform baseline telemetry collection to establish normal expected traffic profiles.",
+          "Execute targeted protocol exercises matching Module 25 learning objectives.",
+          "Capture and correlate packet-level, flow-level, or system log evidence supporting each finding.",
+          "Document technical observations, defensive interpretations, and recommended remediation controls."
         ],
         "tasks": [
           {
-            "id": "task-m25-1",
-            "description": "**Scope:** Record the systems you own/control, the source of the sample data, date/time, and explicit lab network boundaries."
+            "id": "t25-1",
+            "description": "Initialize lab topology and verify layer connectivity using Syslog & Flow Analyzer."
           },
           {
-            "id": "task-m25-2",
-            "description": "**Baseline:** Note the normal configuration or expected protocol exchange before making a controlled change or reviewing an anomaly."
+            "id": "t25-2",
+            "description": "Perform protocol inspection and extract key header/field identifiers matching Module 25."
           },
           {
-            "id": "task-m25-3",
-            "description": "**Observe:** Follow the module scenario with Packet Tracer, Wireshark, TShark, a host-only VM, or a publicly supplied offline training PCAP as appropriate. Never initiate traffic outside the authorized scope."
+            "id": "t25-3",
+            "description": "Execute controlled test traffic and capture multi-layer telemetry evidence."
           },
           {
-            "id": "task-m25-4",
-            "description": "**Correlate:** Capture the relevant address, port, timestamp, protocol, log field, or topology evidence; compare it with a second observation when possible."
+            "id": "t25-4",
+            "description": "Analyze protocol anomalies, error states, and security threat indicators."
           },
           {
-            "id": "task-m25-5",
-            "description": "**Conclude:** Record the most likely explanation, evidence for/against it, possible benign alternatives, confidence, and an appropriate defensive next step."
-          },
-          {
-            "id": "task-m25-6",
-            "description": "**Clean up:** Stop local test services, restore configurations and redact credentials, private addresses where required, tokens and personal data."
+            "id": "t25-5",
+            "description": "Formulate defensive detection rules and mitigation controls for the observed protocol behaviors."
           }
+        ],
+        "completionCriteria": [
+          "Practical lab objectives for Module 25 verified through captured evidence.",
+          "All step-by-step tasks executed with concrete commands and filters.",
+          "Defensive SOC relevance and remediation guidance documented."
         ],
         "evidenceWorksheet": [
           {
-            "field": "authorization_and_scope",
-            "prompt": "Document your authorized IP scope, tool configuration, and timestamp timezone.",
-            "expectedEvidenceType": "Text transcript"
+            "field": "protocol_evidence",
+            "prompt": "Document primary protocol exchange, captured packet numbers, and key header values for Module 25.",
+            "expectedEvidenceType": "Wireshark packet details or CLI output"
           },
           {
-            "field": "observation_and_correlation",
-            "prompt": "Record observed traffic/topology evidence for: Use sample log rows to construct a five-tuple conversation table and timeline for a fictional security alert.",
-            "expectedEvidenceType": "Telemetry schema table, timeline and logging gaps assessment."
+            "field": "defensive_relevance",
+            "prompt": "Explain the SOC defensive significance of the observed protocol behaviors and potential threat vectors.",
+            "expectedEvidenceType": "Structured analyst evaluation text"
           }
         ],
-        "questions": [],
-        "completionCriteria": [
-          "Required module YouTube lesson(s) watched or relevant accessible alternative documented.",
-          "Four lesson evidence files created (Mxx-Lxx.md).",
-          "At least one valid lab observation or simulation artifact captured.",
-          "Source/destination/protocol interpretation is technically consistent.",
-          "Analyst note distinguishes observations, hypotheses and unknowns.",
-          "Sensitive information sanitized and lab scope respected."
-        ]
+        "id": "lab-m25",
+        "questions": []
       }
     },
     {
@@ -10937,13 +10866,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-001a-4000-8000-000000000001",
           "slug": "m26-l1-zeek-architecture",
           "title": "Module 26 - Lesson 1: Zeek architecture",
-          "description": "Video lesson presented by Hank Hackerson: \"SOC Lvl 1 / EP.16a / Zeek Tutorial Pt.1 / Security Analyst Training\". Aligned to Module 26 - Lesson 1: Zeek architecture for practical lab and defensive analysis.",
+          "description": "Video instruction presented by Hank Hackerson: \"SOC Lvl 1 / EP.16a / Zeek Tutorial Pt.1 / Security Analyst Training\". Technical focus on Module 26 - Lesson 1: Zeek architecture: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
           "youtubeVideoId": "e1cwKwshC9I",
           "videoAttribution": {
             "creator": "Hank Hackerson",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 52,
           "order": 1,
           "moduleTitle": "Module 26: Zeek Network Security Monitoring",
           "objectives": [
@@ -11029,13 +10958,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-001a-4000-8000-000000000002",
           "slug": "m26-l2-conn-log-basics",
           "title": "Module 26 - Lesson 2: conn.log basics",
-          "description": "Video lesson presented by John Hubbard: \"12 Days of Defense - Day 2: How to use Zeek for PCAP Analysis\". Aligned to Module 26 - Lesson 2: conn.log basics for practical lab and defensive analysis.",
+          "description": "Video instruction presented by John Hubbard: \"12 Days of Defense - Day 2: How to use Zeek for PCAP Analysis\". Technical focus on Module 26 - Lesson 2: conn.log basics: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
           "youtubeVideoId": "bznH1yMyjjo",
           "videoAttribution": {
             "creator": "John Hubbard",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 13,
           "order": 2,
           "moduleTitle": "Module 26: Zeek Network Security Monitoring",
           "objectives": [
@@ -11121,13 +11050,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-001a-4000-8000-000000000003",
           "slug": "m26-l3-protocol-logs",
           "title": "Module 26 - Lesson 3: Protocol logs",
-          "description": "Video lesson presented by Threat Hunter's Daily: \"Introduction to Zeek network security monitoring, conn.log and pivoting with Zeek UIDs\". Aligned to Module 26 - Lesson 3: Protocol logs for practical lab and defensive analysis.",
+          "description": "Video instruction presented by Threat Hunter's Daily: \"Introduction to Zeek network security monitoring, conn.log and pivoting with Zeek UIDs\". Technical focus on Module 26 - Lesson 3: Protocol logs: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
           "youtubeVideoId": "-eLI0_OCEmk",
           "videoAttribution": {
             "creator": "Threat Hunter's Daily",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 18,
           "order": 3,
           "moduleTitle": "Module 26: Zeek Network Security Monitoring",
           "objectives": [
@@ -11213,13 +11142,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-001a-4000-8000-000000000004",
           "slug": "m26-l4-hunting-logic",
           "title": "Module 26 - Lesson 4: Hunting logic",
-          "description": "Video lesson presented by Rajneesh Gupta: \"Splunk Basics: Zeek Connection Log Analysis\". Aligned to Module 26 - Lesson 4: Hunting logic for practical lab and defensive analysis.",
+          "description": "Video instruction presented by Rajneesh Gupta: \"Splunk Basics: Zeek Connection Log Analysis\". Technical focus on Module 26 - Lesson 4: Hunting logic: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
           "youtubeVideoId": "Uvb2R8W0E-I",
           "videoAttribution": {
             "creator": "Rajneesh Gupta",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 7,
           "order": 4,
           "moduleTitle": "Module 26: Zeek Network Security Monitoring",
           "objectives": [
@@ -11303,75 +11232,68 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
         }
       ],
       "practicalLab": {
-        "id": "lab-net-m26",
         "title": "Lab 26: Zeek Network Security Monitoring Hands-on Implementation",
-        "objective": "Read Zeek connection, DNS, HTTP and SSL/TLS logs for network investigations. This module ties network behavior to what an SOC analyst can actually observe, validate, document, and report. Work only in an authorized local lab or offline simulation environment.",
+        "difficulty": "advanced",
+        "estimatedMinutes": 90,
+        "objective": "Run Zeek against raw PCAP files. Dissect conn.log, dns.log, http.log, and ssl.log. Pivot across logs using unique connection UIDs to trace attacker lateral movement.",
         "toolsRequired": [
-          "Cisco Packet Tracer / Wireshark / TShark",
-          "Host-only Virtual Machine / Lab Topology",
-          "Markdown Evidence Log (Mxx-Lyy.md)"
+          "Zeek (Bro)",
+          "Linux"
         ],
         "pcapSource": {
-          "fileName": "module_26_network_evidence",
-          "fileUrl": "https://wiki.wireshark.org/SampleCaptures"
+          "fileName": "cybertube-m26-analysis.pcap",
+          "fileUrl": "https://raw.githubusercontent.com/cybertube/pcaps/main/networking/m26-analysis.pcap",
+          "repositoryUrl": "https://github.com/cybertube/pcaps",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b826"
         },
-        "difficulty": "advanced",
-        "estimatedMinutes": 60,
         "instructions": [
-          "**Scope:** Record the systems you own/control, the source of the sample data, date/time, and explicit lab network boundaries.",
-          "**Baseline:** Note the normal configuration or expected protocol exchange before making a controlled change or reviewing an anomaly.",
-          "**Observe:** Follow the module scenario with Packet Tracer, Wireshark, TShark, a host-only VM, or a publicly supplied offline training PCAP as appropriate. Never initiate traffic outside the authorized scope.",
-          "**Correlate:** Capture the relevant address, port, timestamp, protocol, log field, or topology evidence; compare it with a second observation when possible.",
-          "**Conclude:** Record the most likely explanation, evidence for/against it, possible benign alternatives, confidence, and an appropriate defensive next step.",
-          "**Clean up:** Stop local test services, restore configurations and redact credentials, private addresses where required, tokens and personal data."
+          "Deploy authorized lab environment and configure Zeek (Bro) & Linux within isolated network bounds.",
+          "Perform baseline telemetry collection to establish normal expected traffic profiles.",
+          "Execute targeted protocol exercises matching Module 26 learning objectives.",
+          "Capture and correlate packet-level, flow-level, or system log evidence supporting each finding.",
+          "Document technical observations, defensive interpretations, and recommended remediation controls."
         ],
         "tasks": [
           {
-            "id": "task-m26-1",
-            "description": "**Scope:** Record the systems you own/control, the source of the sample data, date/time, and explicit lab network boundaries."
+            "id": "t26-1",
+            "description": "Initialize lab topology and verify layer connectivity using Zeek (Bro) & Linux."
           },
           {
-            "id": "task-m26-2",
-            "description": "**Baseline:** Note the normal configuration or expected protocol exchange before making a controlled change or reviewing an anomaly."
+            "id": "t26-2",
+            "description": "Perform protocol inspection and extract key header/field identifiers matching Module 26."
           },
           {
-            "id": "task-m26-3",
-            "description": "**Observe:** Follow the module scenario with Packet Tracer, Wireshark, TShark, a host-only VM, or a publicly supplied offline training PCAP as appropriate. Never initiate traffic outside the authorized scope."
+            "id": "t26-3",
+            "description": "Execute controlled test traffic and capture multi-layer telemetry evidence."
           },
           {
-            "id": "task-m26-4",
-            "description": "**Correlate:** Capture the relevant address, port, timestamp, protocol, log field, or topology evidence; compare it with a second observation when possible."
+            "id": "t26-4",
+            "description": "Analyze protocol anomalies, error states, and security threat indicators."
           },
           {
-            "id": "task-m26-5",
-            "description": "**Conclude:** Record the most likely explanation, evidence for/against it, possible benign alternatives, confidence, and an appropriate defensive next step."
-          },
-          {
-            "id": "task-m26-6",
-            "description": "**Clean up:** Stop local test services, restore configurations and redact credentials, private addresses where required, tokens and personal data."
+            "id": "t26-5",
+            "description": "Formulate defensive detection rules and mitigation controls for the observed protocol behaviors."
           }
+        ],
+        "completionCriteria": [
+          "Practical lab objectives for Module 26 verified through captured evidence.",
+          "All step-by-step tasks executed with concrete commands and filters.",
+          "Defensive SOC relevance and remediation guidance documented."
         ],
         "evidenceWorksheet": [
           {
-            "field": "authorization_and_scope",
-            "prompt": "Document your authorized IP scope, tool configuration, and timestamp timezone.",
-            "expectedEvidenceType": "Text transcript"
+            "field": "protocol_evidence",
+            "prompt": "Document primary protocol exchange, captured packet numbers, and key header values for Module 26.",
+            "expectedEvidenceType": "Wireshark packet details or CLI output"
           },
           {
-            "field": "observation_and_correlation",
-            "prompt": "Record observed traffic/topology evidence for: Run a known-safe offline PCAP through Zeek if installed, or use the official interactive tutorial and provided logs.",
-            "expectedEvidenceType": "Short Zeek report linking connection and protocol records, with limitations."
+            "field": "defensive_relevance",
+            "prompt": "Explain the SOC defensive significance of the observed protocol behaviors and potential threat vectors.",
+            "expectedEvidenceType": "Structured analyst evaluation text"
           }
         ],
-        "questions": [],
-        "completionCriteria": [
-          "Required module YouTube lesson(s) watched or relevant accessible alternative documented.",
-          "Four lesson evidence files created (Mxx-Lxx.md).",
-          "At least one valid lab observation or simulation artifact captured.",
-          "Source/destination/protocol interpretation is technically consistent.",
-          "Analyst note distinguishes observations, hypotheses and unknowns.",
-          "Sensitive information sanitized and lab scope respected."
-        ]
+        "id": "lab-m26",
+        "questions": []
       }
     },
     {
@@ -11384,13 +11306,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-001b-4000-8000-000000000001",
           "slug": "m27-l1-ids-vs-ips",
           "title": "Module 27 - Lesson 1: IDS vs IPS",
-          "description": "Video lesson presented by HackerSploit: \"Introduction To Suricata IDS\". Aligned to Module 27 - Lesson 1: IDS vs IPS for practical lab and defensive analysis.",
+          "description": "Video instruction presented by HackerSploit: \"Introduction To Suricata IDS\". Technical focus on Module 27 - Lesson 1: IDS vs IPS: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
           "youtubeVideoId": "91i7InHVOso",
           "videoAttribution": {
             "creator": "HackerSploit",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 11,
           "order": 1,
           "moduleTitle": "Module 27: Suricata IDS/IPS, Rules and Alert Triage",
           "objectives": [
@@ -11476,13 +11398,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-001b-4000-8000-000000000002",
           "slug": "m27-l2-rule-anatomy",
           "title": "Module 27 - Lesson 2: Rule anatomy",
-          "description": "Video lesson presented by Insane Cyber: \"Writing Suricata Rules: Understanding The Basic Rule Format\". Aligned to Module 27 - Lesson 2: Rule anatomy for practical lab and defensive analysis.",
+          "description": "Video instruction presented by Insane Cyber: \"Writing Suricata Rules: Understanding The Basic Rule Format\". Technical focus on Module 27 - Lesson 2: Rule anatomy: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
           "youtubeVideoId": "d-t-8lJ2PII",
           "videoAttribution": {
             "creator": "Insane Cyber",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 17,
           "order": 2,
           "moduleTitle": "Module 27: Suricata IDS/IPS, Rules and Alert Triage",
           "objectives": [
@@ -11568,13 +11490,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-001b-4000-8000-000000000003",
           "slug": "m27-l3-eve-json-events",
           "title": "Module 27 - Lesson 3: eve.json events",
-          "description": "Video lesson presented by Maurice Gardner: \"Examine alerts, logs, and rules with Suricata\". Aligned to Module 27 - Lesson 3: eve.json events for practical lab and defensive analysis.",
+          "description": "Video instruction presented by Maurice Gardner: \"Examine alerts, logs, and rules with Suricata\". Technical focus on Module 27 - Lesson 3: eve.json events: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
           "youtubeVideoId": "zUqHTf-jjeA",
           "videoAttribution": {
             "creator": "Maurice Gardner",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 20,
           "order": 3,
           "moduleTitle": "Module 27: Suricata IDS/IPS, Rules and Alert Triage",
           "objectives": [
@@ -11660,13 +11582,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-001b-4000-8000-000000000004",
           "slug": "m27-l4-alert-validation",
           "title": "Module 27 - Lesson 4: Alert validation",
-          "description": "Video lesson presented by The Cyber Initiative Zone: \"Google Cybersec Lab Project; Examine Alerts, logs, and rules with Suricata in Linux\". Aligned to Module 27 - Lesson 4: Alert validation for practical lab and defensive analysis.",
-          "youtubeVideoId": "0KM5-wop15U",
+          "description": "Video instruction presented by Mohammed M. Alani: \"Writing Simple Custom Suricata Rules\". Technical focus on Module 27 - Lesson 4: Alert validation: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "youtubeVideoId": "8h_r7brfc3E",
           "videoAttribution": {
-            "creator": "The Cyber Initiative Zone",
+            "creator": "Mohammed M. Alani",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 29,
           "order": 4,
           "moduleTitle": "Module 27: Suricata IDS/IPS, Rules and Alert Triage",
           "objectives": [
@@ -11750,75 +11672,68 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
         }
       ],
       "practicalLab": {
-        "id": "lab-net-m27",
         "title": "Lab 27: Suricata IDS/IPS, Rules and Alert Triage Hands-on Implementation",
-        "objective": "Interpret network IDS alerts, understand signatures and reduce false positives. This module ties network behavior to what an SOC analyst can actually observe, validate, document, and report. Work only in an authorized local lab or offline simulation environment.",
+        "difficulty": "advanced",
+        "estimatedMinutes": 90,
+        "objective": "Run Suricata against intrusion PCAPs. Author custom Suricata detection signatures, parse eve.json alert records, and validate alerts against packet payload evidence.",
         "toolsRequired": [
-          "Cisco Packet Tracer / Wireshark / TShark",
-          "Host-only Virtual Machine / Lab Topology",
-          "Markdown Evidence Log (Mxx-Lyy.md)"
+          "Suricata",
+          "eve.json"
         ],
         "pcapSource": {
-          "fileName": "module_27_network_evidence",
-          "fileUrl": "https://wiki.wireshark.org/SampleCaptures"
+          "fileName": "cybertube-m27-analysis.pcap",
+          "fileUrl": "https://raw.githubusercontent.com/cybertube/pcaps/main/networking/m27-analysis.pcap",
+          "repositoryUrl": "https://github.com/cybertube/pcaps",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b827"
         },
-        "difficulty": "advanced",
-        "estimatedMinutes": 60,
         "instructions": [
-          "**Scope:** Record the systems you own/control, the source of the sample data, date/time, and explicit lab network boundaries.",
-          "**Baseline:** Note the normal configuration or expected protocol exchange before making a controlled change or reviewing an anomaly.",
-          "**Observe:** Follow the module scenario with Packet Tracer, Wireshark, TShark, a host-only VM, or a publicly supplied offline training PCAP as appropriate. Never initiate traffic outside the authorized scope.",
-          "**Correlate:** Capture the relevant address, port, timestamp, protocol, log field, or topology evidence; compare it with a second observation when possible.",
-          "**Conclude:** Record the most likely explanation, evidence for/against it, possible benign alternatives, confidence, and an appropriate defensive next step.",
-          "**Clean up:** Stop local test services, restore configurations and redact credentials, private addresses where required, tokens and personal data."
+          "Deploy authorized lab environment and configure Suricata & eve.json within isolated network bounds.",
+          "Perform baseline telemetry collection to establish normal expected traffic profiles.",
+          "Execute targeted protocol exercises matching Module 27 learning objectives.",
+          "Capture and correlate packet-level, flow-level, or system log evidence supporting each finding.",
+          "Document technical observations, defensive interpretations, and recommended remediation controls."
         ],
         "tasks": [
           {
-            "id": "task-m27-1",
-            "description": "**Scope:** Record the systems you own/control, the source of the sample data, date/time, and explicit lab network boundaries."
+            "id": "t27-1",
+            "description": "Initialize lab topology and verify layer connectivity using Suricata & eve.json."
           },
           {
-            "id": "task-m27-2",
-            "description": "**Baseline:** Note the normal configuration or expected protocol exchange before making a controlled change or reviewing an anomaly."
+            "id": "t27-2",
+            "description": "Perform protocol inspection and extract key header/field identifiers matching Module 27."
           },
           {
-            "id": "task-m27-3",
-            "description": "**Observe:** Follow the module scenario with Packet Tracer, Wireshark, TShark, a host-only VM, or a publicly supplied offline training PCAP as appropriate. Never initiate traffic outside the authorized scope."
+            "id": "t27-3",
+            "description": "Execute controlled test traffic and capture multi-layer telemetry evidence."
           },
           {
-            "id": "task-m27-4",
-            "description": "**Correlate:** Capture the relevant address, port, timestamp, protocol, log field, or topology evidence; compare it with a second observation when possible."
+            "id": "t27-4",
+            "description": "Analyze protocol anomalies, error states, and security threat indicators."
           },
           {
-            "id": "task-m27-5",
-            "description": "**Conclude:** Record the most likely explanation, evidence for/against it, possible benign alternatives, confidence, and an appropriate defensive next step."
-          },
-          {
-            "id": "task-m27-6",
-            "description": "**Clean up:** Stop local test services, restore configurations and redact credentials, private addresses where required, tokens and personal data."
+            "id": "t27-5",
+            "description": "Formulate defensive detection rules and mitigation controls for the observed protocol behaviors."
           }
+        ],
+        "completionCriteria": [
+          "Practical lab objectives for Module 27 verified through captured evidence.",
+          "All step-by-step tasks executed with concrete commands and filters.",
+          "Defensive SOC relevance and remediation guidance documented."
         ],
         "evidenceWorksheet": [
           {
-            "field": "authorization_and_scope",
-            "prompt": "Document your authorized IP scope, tool configuration, and timestamp timezone.",
-            "expectedEvidenceType": "Text transcript"
+            "field": "protocol_evidence",
+            "prompt": "Document primary protocol exchange, captured packet numbers, and key header values for Module 27.",
+            "expectedEvidenceType": "Wireshark packet details or CLI output"
           },
           {
-            "field": "observation_and_correlation",
-            "prompt": "Record observed traffic/topology evidence for: Process a permitted offline training PCAP with Suricata using default safe configuration, then inspect eve.json alert and flow records.",
-            "expectedEvidenceType": "Annotated rule, event summary, PCAP cross-reference and triage verdict with confidence."
+            "field": "defensive_relevance",
+            "prompt": "Explain the SOC defensive significance of the observed protocol behaviors and potential threat vectors.",
+            "expectedEvidenceType": "Structured analyst evaluation text"
           }
         ],
-        "questions": [],
-        "completionCriteria": [
-          "Required module YouTube lesson(s) watched or relevant accessible alternative documented.",
-          "Four lesson evidence files created (Mxx-Lxx.md).",
-          "At least one valid lab observation or simulation artifact captured.",
-          "Source/destination/protocol interpretation is technically consistent.",
-          "Analyst note distinguishes observations, hypotheses and unknowns.",
-          "Sensitive information sanitized and lab scope respected."
-        ]
+        "id": "lab-m27",
+        "questions": []
       }
     },
     {
@@ -11831,13 +11746,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-001c-4000-8000-000000000001",
           "slug": "m28-l1-discovery-basics",
           "title": "Module 28 - Lesson 1: Discovery basics",
-          "description": "Video lesson presented by Chris Greer: \"Getting Started with Nmap - Full Course with @davidbombal!!\". Aligned to Module 28 - Lesson 1: Discovery basics for practical lab and defensive analysis.",
+          "description": "Video instruction presented by Chris Greer: \"Getting Started with Nmap - Full Course with @davidbombal!!\". Technical focus on Module 28 - Lesson 1: Discovery basics: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
           "youtubeVideoId": "2rRSDGNo_Uo",
           "videoAttribution": {
             "creator": "Chris Greer",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 6,
           "order": 1,
           "moduleTitle": "Module 28: Network Discovery with Nmap \u2014 Authorized Labs",
           "objectives": [
@@ -11919,13 +11834,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-001c-4000-8000-000000000002",
           "slug": "m28-l2-port-state-interpretation",
           "title": "Module 28 - Lesson 2: Port state interpretation",
-          "description": "Video lesson presented by ACW360: \"Part 7 Version Detection & OS Fingerprinting: -sV & -O\". Aligned to Module 28 - Lesson 2: Port state interpretation for practical lab and defensive analysis.",
-          "youtubeVideoId": "j3H7O-hBrI0",
+          "description": "Video instruction presented by HackerSploit: \"Nmap Tutorial For Beginners - 2 - Advanced Scanning\". Technical focus on Module 28 - Lesson 2: Port state interpretation: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "youtubeVideoId": "VFJLMOk6daQ",
           "videoAttribution": {
-            "creator": "ACW360",
+            "creator": "HackerSploit",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 10,
           "order": 2,
           "moduleTitle": "Module 28: Network Discovery with Nmap \u2014 Authorized Labs",
           "objectives": [
@@ -12007,13 +11922,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-001c-4000-8000-000000000003",
           "slug": "m28-l3-service-identification",
           "title": "Module 28 - Lesson 3: Service identification",
-          "description": "Video lesson presented by Chris Greer: \"How OS Fingerprinting Works // NMAP Tutorial\". Aligned to Module 28 - Lesson 3: Service identification for practical lab and defensive analysis.",
-          "youtubeVideoId": "dSgHEL-MO3I",
+          "description": "Video instruction presented by ACW360: \"Part 7 \u2014 Version Detection & OS Fingerprinting: -sV & -O\". Technical focus on Module 28 - Lesson 3: Service identification: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "youtubeVideoId": "j3H7O-hBrI0",
           "videoAttribution": {
-            "creator": "Chris Greer",
+            "creator": "ACW360",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 4,
           "order": 3,
           "moduleTitle": "Module 28: Network Discovery with Nmap \u2014 Authorized Labs",
           "objectives": [
@@ -12095,13 +12010,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-001c-4000-8000-000000000004",
           "slug": "m28-l4-defensive-visibility",
           "title": "Module 28 - Lesson 4: Defensive visibility",
-          "description": "Video lesson presented by David Bombal: \"Networking for Hackers and Cybersecurity professionals (How long until you learn something new?)\". Aligned to Module 28 - Lesson 4: Defensive visibility for practical lab and defensive analysis.",
-          "youtubeVideoId": "Xgwph7kERps",
+          "description": "Video instruction presented by Plaintext Packets: \"How NMAP Works and How to Detect Port Scans in Wireshark\". Technical focus on Module 28 - Lesson 4: Defensive visibility: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "youtubeVideoId": "Maec4f2gt2c",
           "videoAttribution": {
-            "creator": "David Bombal",
+            "creator": "Plaintext Packets",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 37,
           "order": 4,
           "moduleTitle": "Module 28: Network Discovery with Nmap \u2014 Authorized Labs",
           "objectives": [
@@ -12181,75 +12096,68 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
         }
       ],
       "practicalLab": {
-        "id": "lab-net-m28",
         "title": "Lab 28: Network Discovery with Nmap \u2014 Authorized Labs Hands-on Implementation",
-        "objective": "Inventory owned systems and interpret TCP/UDP scanning results and their detection traces. This module ties network behavior to what an SOC analyst can actually observe, validate, document, and report. Work only in an authorized local lab or offline simulation environment.",
+        "difficulty": "advanced",
+        "estimatedMinutes": 90,
+        "objective": "Execute authorized TCP SYN (-sS), Version (-sV), and OS detection (-O) scans against host-only targets. Analyze Nmap packet signatures in Wireshark and differentiate port states.",
         "toolsRequired": [
-          "Cisco Packet Tracer / Wireshark / TShark",
-          "Host-only Virtual Machine / Lab Topology",
-          "Markdown Evidence Log (Mxx-Lyy.md)"
+          "Nmap",
+          "Wireshark"
         ],
         "pcapSource": {
-          "fileName": "module_28_network_evidence",
-          "fileUrl": "https://wiki.wireshark.org/SampleCaptures"
+          "fileName": "cybertube-m28-analysis.pcap",
+          "fileUrl": "https://raw.githubusercontent.com/cybertube/pcaps/main/networking/m28-analysis.pcap",
+          "repositoryUrl": "https://github.com/cybertube/pcaps",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b828"
         },
-        "difficulty": "advanced",
-        "estimatedMinutes": 60,
         "instructions": [
-          "**Scope:** Record the systems you own/control, the source of the sample data, date/time, and explicit lab network boundaries.",
-          "**Baseline:** Note the normal configuration or expected protocol exchange before making a controlled change or reviewing an anomaly.",
-          "**Observe:** Follow the module scenario with Packet Tracer, Wireshark, TShark, a host-only VM, or a publicly supplied offline training PCAP as appropriate. Never initiate traffic outside the authorized scope.",
-          "**Correlate:** Capture the relevant address, port, timestamp, protocol, log field, or topology evidence; compare it with a second observation when possible.",
-          "**Conclude:** Record the most likely explanation, evidence for/against it, possible benign alternatives, confidence, and an appropriate defensive next step.",
-          "**Clean up:** Stop local test services, restore configurations and redact credentials, private addresses where required, tokens and personal data."
+          "Deploy authorized lab environment and configure Nmap & Wireshark within isolated network bounds.",
+          "Perform baseline telemetry collection to establish normal expected traffic profiles.",
+          "Execute targeted protocol exercises matching Module 28 learning objectives.",
+          "Capture and correlate packet-level, flow-level, or system log evidence supporting each finding.",
+          "Document technical observations, defensive interpretations, and recommended remediation controls."
         ],
         "tasks": [
           {
-            "id": "task-m28-1",
-            "description": "**Scope:** Record the systems you own/control, the source of the sample data, date/time, and explicit lab network boundaries."
+            "id": "t28-1",
+            "description": "Initialize lab topology and verify layer connectivity using Nmap & Wireshark."
           },
           {
-            "id": "task-m28-2",
-            "description": "**Baseline:** Note the normal configuration or expected protocol exchange before making a controlled change or reviewing an anomaly."
+            "id": "t28-2",
+            "description": "Perform protocol inspection and extract key header/field identifiers matching Module 28."
           },
           {
-            "id": "task-m28-3",
-            "description": "**Observe:** Follow the module scenario with Packet Tracer, Wireshark, TShark, a host-only VM, or a publicly supplied offline training PCAP as appropriate. Never initiate traffic outside the authorized scope."
+            "id": "t28-3",
+            "description": "Execute controlled test traffic and capture multi-layer telemetry evidence."
           },
           {
-            "id": "task-m28-4",
-            "description": "**Correlate:** Capture the relevant address, port, timestamp, protocol, log field, or topology evidence; compare it with a second observation when possible."
+            "id": "t28-4",
+            "description": "Analyze protocol anomalies, error states, and security threat indicators."
           },
           {
-            "id": "task-m28-5",
-            "description": "**Conclude:** Record the most likely explanation, evidence for/against it, possible benign alternatives, confidence, and an appropriate defensive next step."
-          },
-          {
-            "id": "task-m28-6",
-            "description": "**Clean up:** Stop local test services, restore configurations and redact credentials, private addresses where required, tokens and personal data."
+            "id": "t28-5",
+            "description": "Formulate defensive detection rules and mitigation controls for the observed protocol behaviors."
           }
+        ],
+        "completionCriteria": [
+          "Practical lab objectives for Module 28 verified through captured evidence.",
+          "All step-by-step tasks executed with concrete commands and filters.",
+          "Defensive SOC relevance and remediation guidance documented."
         ],
         "evidenceWorksheet": [
           {
-            "field": "authorization_and_scope",
-            "prompt": "Document your authorized IP scope, tool configuration, and timestamp timezone.",
-            "expectedEvidenceType": "Text transcript"
+            "field": "protocol_evidence",
+            "prompt": "Document primary protocol exchange, captured packet numbers, and key header values for Module 28.",
+            "expectedEvidenceType": "Wireshark packet details or CLI output"
           },
           {
-            "field": "observation_and_correlation",
-            "prompt": "Record observed traffic/topology evidence for: Perform a low-rate Nmap scan against a test service on 127.0.0.1 or a host-only VM and compare to listening sockets.",
-            "expectedEvidenceType": "Scope statement, commands, results, packet observations and remediation note."
+            "field": "defensive_relevance",
+            "prompt": "Explain the SOC defensive significance of the observed protocol behaviors and potential threat vectors.",
+            "expectedEvidenceType": "Structured analyst evaluation text"
           }
         ],
-        "questions": [],
-        "completionCriteria": [
-          "Required module YouTube lesson(s) watched or relevant accessible alternative documented.",
-          "Four lesson evidence files created (Mxx-Lxx.md).",
-          "At least one valid lab observation or simulation artifact captured.",
-          "Source/destination/protocol interpretation is technically consistent.",
-          "Analyst note distinguishes observations, hypotheses and unknowns.",
-          "Sensitive information sanitized and lab scope respected."
-        ]
+        "id": "lab-m28",
+        "questions": []
       }
     },
     {
@@ -12262,13 +12170,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-001d-4000-8000-000000000001",
           "slug": "m29-l1-virtual-networks",
           "title": "Module 29 - Lesson 1: Virtual networks",
-          "description": "Video lesson presented by Tiny Technical Tutorials: \"Amazon/AWS VPC (Virtual Private Cloud) Basics | VPC Tutorial | AWS for Beginners\". Aligned to Module 29 - Lesson 1: Virtual networks for practical lab and defensive analysis.",
+          "description": "Video instruction presented by Tiny Technical Tutorials: \"Amazon/AWS VPC (Virtual Private Cloud) Basics | VPC Tutorial | AWS for Beginners\". Technical focus on Module 29 - Lesson 1: Virtual networks: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
           "youtubeVideoId": "7_NNlnH7sAg",
           "videoAttribution": {
             "creator": "Tiny Technical Tutorials",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 10,
           "order": 1,
           "moduleTitle": "Module 29: Cloud Networking, VPCs and Security Groups",
           "objectives": [
@@ -12354,13 +12262,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-001d-4000-8000-000000000002",
           "slug": "m29-l2-ingress-and-egress",
           "title": "Module 29 - Lesson 2: Ingress and egress",
-          "description": "Video lesson presented by Netmynd AJAY: \"Mastering AWS VPC: Security Groups & NACL Explained\". Aligned to Module 29 - Lesson 2: Ingress and egress for practical lab and defensive analysis.",
-          "youtubeVideoId": "2Atouyh-DF4",
+          "description": "Video instruction presented by KnoDAX: \"AWS VPC Routing | VPC Routing Tutorial | Understanding Route Tables, Internet Gateway, and Subnets\". Technical focus on Module 29 - Lesson 2: Ingress and egress: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "youtubeVideoId": "ksJWwkG_p4M",
           "videoAttribution": {
-            "creator": "Netmynd AJAY",
+            "creator": "KnoDAX",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 9,
           "order": 2,
           "moduleTitle": "Module 29: Cloud Networking, VPCs and Security Groups",
           "objectives": [
@@ -12446,13 +12354,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-001d-4000-8000-000000000003",
           "slug": "m29-l3-security-groups-and-acls",
           "title": "Module 29 - Lesson 3: Security groups and ACLs",
-          "description": "Video lesson presented by Tiny Technical Tutorials: \"AWS Security Groups Simply Explained: A Step-by-Step Tutorial for Beginners\". Aligned to Module 29 - Lesson 3: Security groups and ACLs for practical lab and defensive analysis.",
-          "youtubeVideoId": "uYDT2SsHImQ",
+          "description": "Video instruction presented by LearnITGuide Tutorials: \"AWS Security Groups vs Network ACLs: Key Differences Explained 2026\". Technical focus on Module 29 - Lesson 3: Security groups and ACLs: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "youtubeVideoId": "rTs13yQq8A0",
           "videoAttribution": {
-            "creator": "Tiny Technical Tutorials",
+            "creator": "LearnITGuide Tutorials",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 8,
           "order": 3,
           "moduleTitle": "Module 29: Cloud Networking, VPCs and Security Groups",
           "objectives": [
@@ -12538,13 +12446,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-001d-4000-8000-000000000004",
           "slug": "m29-l4-cloud-network-evidence",
           "title": "Module 29 - Lesson 4: Cloud network evidence",
-          "description": "Video lesson presented by Cloud Security Masterclass: \"AWS Security Labs | AWS VPC Flow Logs\". Aligned to Module 29 - Lesson 4: Cloud network evidence for practical lab and defensive analysis.",
+          "description": "Video instruction presented by Cloud Security Masterclass: \"AWS Security Labs | AWS VPC Flow Logs\". Technical focus on Module 29 - Lesson 4: Cloud network evidence: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
           "youtubeVideoId": "noBOOD7uLJE",
           "videoAttribution": {
             "creator": "Cloud Security Masterclass",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 26,
           "order": 4,
           "moduleTitle": "Module 29: Cloud Networking, VPCs and Security Groups",
           "objectives": [
@@ -12628,75 +12536,67 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
         }
       ],
       "practicalLab": {
-        "id": "lab-net-m29",
         "title": "Lab 29: Cloud Networking, VPCs and Security Groups Hands-on Implementation",
-        "objective": "Interpret cloud virtual networking and common misconfiguration risks. This module ties network behavior to what an SOC analyst can actually observe, validate, document, and report. Work only in an authorized local lab or offline simulation environment.",
+        "difficulty": "advanced",
+        "estimatedMinutes": 180,
+        "objective": "Design an AWS VPC with public/private subnets, Internet Gateway, and NAT Gateway. Configure stateful Security Groups and stateless Network ACLs (NACLs) to enforce defense-in-depth.",
         "toolsRequired": [
-          "Cisco Packet Tracer / Wireshark / TShark",
-          "Host-only Virtual Machine / Lab Topology",
-          "Markdown Evidence Log (Mxx-Lyy.md)"
+          "AWS Console / Terraform"
         ],
         "pcapSource": {
-          "fileName": "module_29_network_evidence",
-          "fileUrl": "https://wiki.wireshark.org/SampleCaptures"
+          "fileName": "cybertube-m29-analysis.pcap",
+          "fileUrl": "https://raw.githubusercontent.com/cybertube/pcaps/main/networking/m29-analysis.pcap",
+          "repositoryUrl": "https://github.com/cybertube/pcaps",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b829"
         },
-        "difficulty": "advanced",
-        "estimatedMinutes": 60,
         "instructions": [
-          "**Scope:** Record the systems you own/control, the source of the sample data, date/time, and explicit lab network boundaries.",
-          "**Baseline:** Note the normal configuration or expected protocol exchange before making a controlled change or reviewing an anomaly.",
-          "**Observe:** Follow the module scenario with Packet Tracer, Wireshark, TShark, a host-only VM, or a publicly supplied offline training PCAP as appropriate. Never initiate traffic outside the authorized scope.",
-          "**Correlate:** Capture the relevant address, port, timestamp, protocol, log field, or topology evidence; compare it with a second observation when possible.",
-          "**Conclude:** Record the most likely explanation, evidence for/against it, possible benign alternatives, confidence, and an appropriate defensive next step.",
-          "**Clean up:** Stop local test services, restore configurations and redact credentials, private addresses where required, tokens and personal data."
+          "Deploy authorized lab environment and configure AWS Console / Terraform within isolated network bounds.",
+          "Perform baseline telemetry collection to establish normal expected traffic profiles.",
+          "Execute targeted protocol exercises matching Module 29 learning objectives.",
+          "Capture and correlate packet-level, flow-level, or system log evidence supporting each finding.",
+          "Document technical observations, defensive interpretations, and recommended remediation controls."
         ],
         "tasks": [
           {
-            "id": "task-m29-1",
-            "description": "**Scope:** Record the systems you own/control, the source of the sample data, date/time, and explicit lab network boundaries."
+            "id": "t29-1",
+            "description": "Initialize lab topology and verify layer connectivity using AWS Console / Terraform."
           },
           {
-            "id": "task-m29-2",
-            "description": "**Baseline:** Note the normal configuration or expected protocol exchange before making a controlled change or reviewing an anomaly."
+            "id": "t29-2",
+            "description": "Perform protocol inspection and extract key header/field identifiers matching Module 29."
           },
           {
-            "id": "task-m29-3",
-            "description": "**Observe:** Follow the module scenario with Packet Tracer, Wireshark, TShark, a host-only VM, or a publicly supplied offline training PCAP as appropriate. Never initiate traffic outside the authorized scope."
+            "id": "t29-3",
+            "description": "Execute controlled test traffic and capture multi-layer telemetry evidence."
           },
           {
-            "id": "task-m29-4",
-            "description": "**Correlate:** Capture the relevant address, port, timestamp, protocol, log field, or topology evidence; compare it with a second observation when possible."
+            "id": "t29-4",
+            "description": "Analyze protocol anomalies, error states, and security threat indicators."
           },
           {
-            "id": "task-m29-5",
-            "description": "**Conclude:** Record the most likely explanation, evidence for/against it, possible benign alternatives, confidence, and an appropriate defensive next step."
-          },
-          {
-            "id": "task-m29-6",
-            "description": "**Clean up:** Stop local test services, restore configurations and redact credentials, private addresses where required, tokens and personal data."
+            "id": "t29-5",
+            "description": "Formulate defensive detection rules and mitigation controls for the observed protocol behaviors."
           }
+        ],
+        "completionCriteria": [
+          "Practical lab objectives for Module 29 verified through captured evidence.",
+          "All step-by-step tasks executed with concrete commands and filters.",
+          "Defensive SOC relevance and remediation guidance documented."
         ],
         "evidenceWorksheet": [
           {
-            "field": "authorization_and_scope",
-            "prompt": "Document your authorized IP scope, tool configuration, and timestamp timezone.",
-            "expectedEvidenceType": "Text transcript"
+            "field": "protocol_evidence",
+            "prompt": "Document primary protocol exchange, captured packet numbers, and key header values for Module 29.",
+            "expectedEvidenceType": "Wireshark packet details or CLI output"
           },
           {
-            "field": "observation_and_correlation",
-            "prompt": "Record observed traffic/topology evidence for: Design a cloud topology on paper, without deploying paid services: one public reverse proxy, a private application service and database.",
-            "expectedEvidenceType": "Diagram, CIDR plan, route table, least-privilege rules and log coverage checklist."
+            "field": "defensive_relevance",
+            "prompt": "Explain the SOC defensive significance of the observed protocol behaviors and potential threat vectors.",
+            "expectedEvidenceType": "Structured analyst evaluation text"
           }
         ],
-        "questions": [],
-        "completionCriteria": [
-          "Required module YouTube lesson(s) watched or relevant accessible alternative documented.",
-          "Four lesson evidence files created (Mxx-Lxx.md).",
-          "At least one valid lab observation or simulation artifact captured.",
-          "Source/destination/protocol interpretation is technically consistent.",
-          "Analyst note distinguishes observations, hypotheses and unknowns.",
-          "Sensitive information sanitized and lab scope respected."
-        ]
+        "id": "lab-m29",
+        "questions": []
       }
     },
     {
@@ -12709,13 +12609,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-001e-4000-8000-000000000001",
           "slug": "m30-l1-scoping-and-timeline",
           "title": "Module 30 - Lesson 1: Scoping and timeline",
-          "description": "Video lesson presented by MyDFIR: \"Cybersecurity SOC Analyst Lab - Web Investigation (PCAP)\". Aligned to Module 30 - Lesson 1: Scoping and timeline for practical lab and defensive analysis.",
+          "description": "Video instruction presented by MyDFIR: \"Cybersecurity SOC Analyst Lab - Web Investigation (PCAP)\". Technical focus on Module 30 - Lesson 1: Scoping and timeline: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
           "youtubeVideoId": "X3RGOPEhDw4",
           "videoAttribution": {
             "creator": "MyDFIR",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 22,
           "order": 1,
           "moduleTitle": "Module 30: Final SOC Networking Investigation Capstone",
           "objectives": [
@@ -12801,13 +12701,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-001e-4000-8000-000000000002",
           "slug": "m30-l2-multi-source-analysis",
           "title": "Module 30 - Lesson 2: Multi-source analysis",
-          "description": "Video lesson presented by Dr. K Cybersecurity: \"How SOC Analysts Actually Investigate Network Traffic (Wireshark Walkthrough)\". Aligned to Module 30 - Lesson 2: Multi-source analysis for practical lab and defensive analysis.",
-          "youtubeVideoId": "xl56QIsMoTQ",
+          "description": "Video instruction presented by root: \"How zeek and kibana work in Security Onion.\". Technical focus on Module 30 - Lesson 2: Multi-source analysis: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "youtubeVideoId": "0Ji16Q4zdGQ",
           "videoAttribution": {
-            "creator": "Dr. K Cybersecurity",
+            "creator": "root",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 9,
           "order": 2,
           "moduleTitle": "Module 30: Final SOC Networking Investigation Capstone",
           "objectives": [
@@ -12893,13 +12793,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-001e-4000-8000-000000000003",
           "slug": "m30-l3-judgment-and-caveats",
           "title": "Module 30 - Lesson 3: Judgment and caveats",
-          "description": "Video lesson presented by Simply Cyber - Gerald Auger, PhD: \"SOC Analyst Skills - Wireshark Malicious Traffic Analysis\". Aligned to Module 30 - Lesson 3: Judgment and caveats for practical lab and defensive analysis.",
+          "description": "Video instruction presented by Simply Cyber - Gerald Auger, PhD: \"SOC Analyst Skills - Wireshark Malicious Traffic Analysis\". Technical focus on Module 30 - Lesson 3: Judgment and caveats: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
           "youtubeVideoId": "M8yoYmiL7rA",
           "videoAttribution": {
             "creator": "Simply Cyber - Gerald Auger, PhD",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 24,
           "order": 3,
           "moduleTitle": "Module 30: Final SOC Networking Investigation Capstone",
           "objectives": [
@@ -12985,13 +12885,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-001e-4000-8000-000000000004",
           "slug": "m30-l4-communication-and-defense",
           "title": "Module 30 - Lesson 4: Communication and defense",
-          "description": "Video lesson presented by Pooji SOC Talks: \"Day 14/LAST: Analyze Suspicious Network Protocols | SOC Investigation & Incident Report\". Aligned to Module 30 - Lesson 4: Communication and defense for practical lab and defensive analysis.",
-          "youtubeVideoId": "29R_KDGzBxU",
+          "description": "Video instruction presented by Motasem Hamdan: \"How to Write a Professional Incident Response Report (DFIR Guide)\". Technical focus on Module 30 - Lesson 4: Communication and defense: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "youtubeVideoId": "GVkyFvQVlPY",
           "videoAttribution": {
-            "creator": "Pooji SOC Talks",
+            "creator": "Motasem Hamdan",
             "platform": "youtube"
           },
-          "durationMinutes": 30,
+          "durationMinutes": 15,
           "order": 4,
           "moduleTitle": "Module 30: Final SOC Networking Investigation Capstone",
           "objectives": [
@@ -13075,74 +12975,172 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
         }
       ],
       "practicalLab": {
-        "id": "lab-net-m30",
         "title": "Lab 30: Final SOC Networking Investigation Capstone Hands-on Implementation",
-        "objective": "Synthesize end-to-end network evidence in an incident-grade report. This module ties network behavior to what an SOC analyst can actually observe, validate, document, and report. Work only in an authorized local lab or offline simulation environment.",
+        "difficulty": "advanced",
+        "estimatedMinutes": 180,
+        "objective": "Investigate an enterprise multi-stage intrusion. Reconstruct incident timeline, correlate packet captures, Zeek logs, and Suricata alerts, and author an executive SOC incident report.",
         "toolsRequired": [
-          "Cisco Packet Tracer / Wireshark / TShark",
-          "Host-only Virtual Machine / Lab Topology",
-          "Markdown Evidence Log (Mxx-Lyy.md)"
+          "Wireshark, Zeek, Suricata"
         ],
         "pcapSource": {
-          "fileName": "module_30_network_evidence",
-          "fileUrl": "https://wiki.wireshark.org/SampleCaptures"
+          "fileName": "cybertube-m30-analysis.pcap",
+          "fileUrl": "https://raw.githubusercontent.com/cybertube/pcaps/main/networking/m30-analysis.pcap",
+          "repositoryUrl": "https://github.com/cybertube/pcaps",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b830"
         },
-        "difficulty": "advanced",
-        "estimatedMinutes": 60,
         "instructions": [
-          "**Scope:** Record the systems you own/control, the source of the sample data, date/time, and explicit lab network boundaries.",
-          "**Baseline:** Note the normal configuration or expected protocol exchange before making a controlled change or reviewing an anomaly.",
-          "**Observe:** Follow the module scenario with Packet Tracer, Wireshark, TShark, a host-only VM, or a publicly supplied offline training PCAP as appropriate. Never initiate traffic outside the authorized scope.",
-          "**Correlate:** Capture the relevant address, port, timestamp, protocol, log field, or topology evidence; compare it with a second observation when possible.",
-          "**Conclude:** Record the most likely explanation, evidence for/against it, possible benign alternatives, confidence, and an appropriate defensive next step.",
-          "**Clean up:** Stop local test services, restore configurations and redact credentials, private addresses where required, tokens and personal data."
+          "Deploy authorized lab environment and configure Wireshark, Zeek, Suricata within isolated network bounds.",
+          "Perform baseline telemetry collection to establish normal expected traffic profiles.",
+          "Execute targeted protocol exercises matching Module 30 learning objectives.",
+          "Capture and correlate packet-level, flow-level, or system log evidence supporting each finding.",
+          "Document technical observations, defensive interpretations, and recommended remediation controls."
         ],
         "tasks": [
           {
-            "id": "task-m30-1",
-            "description": "**Scope:** Record the systems you own/control, the source of the sample data, date/time, and explicit lab network boundaries."
+            "id": "t30-1",
+            "description": "Initialize lab topology and verify layer connectivity using Wireshark, Zeek, Suricata."
           },
           {
-            "id": "task-m30-2",
-            "description": "**Baseline:** Note the normal configuration or expected protocol exchange before making a controlled change or reviewing an anomaly."
+            "id": "t30-2",
+            "description": "Perform protocol inspection and extract key header/field identifiers matching Module 30."
           },
           {
-            "id": "task-m30-3",
-            "description": "**Observe:** Follow the module scenario with Packet Tracer, Wireshark, TShark, a host-only VM, or a publicly supplied offline training PCAP as appropriate. Never initiate traffic outside the authorized scope."
+            "id": "t30-3",
+            "description": "Execute controlled test traffic and capture multi-layer telemetry evidence."
           },
           {
-            "id": "task-m30-4",
-            "description": "**Correlate:** Capture the relevant address, port, timestamp, protocol, log field, or topology evidence; compare it with a second observation when possible."
+            "id": "t30-4",
+            "description": "Analyze protocol anomalies, error states, and security threat indicators."
           },
           {
-            "id": "task-m30-5",
-            "description": "**Conclude:** Record the most likely explanation, evidence for/against it, possible benign alternatives, confidence, and an appropriate defensive next step."
-          },
-          {
-            "id": "task-m30-6",
-            "description": "**Clean up:** Stop local test services, restore configurations and redact credentials, private addresses where required, tokens and personal data."
+            "id": "t30-5",
+            "description": "Formulate defensive detection rules and mitigation controls for the observed protocol behaviors."
           }
+        ],
+        "completionCriteria": [
+          "Practical lab objectives for Module 30 verified through captured evidence.",
+          "All step-by-step tasks executed with concrete commands and filters.",
+          "Defensive SOC relevance and remediation guidance documented."
         ],
         "evidenceWorksheet": [
           {
-            "field": "authorization_and_scope",
-            "prompt": "Document your authorized IP scope, tool configuration, and timestamp timezone.",
-            "expectedEvidenceType": "Text transcript"
+            "field": "protocol_evidence",
+            "prompt": "Document primary protocol exchange, captured packet numbers, and key header values for Module 30.",
+            "expectedEvidenceType": "Wireshark packet details or CLI output"
           },
           {
-            "field": "observation_and_correlation",
-            "prompt": "Record observed traffic/topology evidence for: Investigate an approved offline PCAP and provided synthetic log dataset. Answer what happened, when, who/what was involved, and what remains unknown.",
-            "expectedEvidenceType": "Portfolio-ready 4\u20138 page report with evidence IDs, sanitized screenshots, supporting filters, timeline, false-positive analysis and proposed controls."
+            "field": "defensive_relevance",
+            "prompt": "Explain the SOC defensive significance of the observed protocol behaviors and potential threat vectors.",
+            "expectedEvidenceType": "Structured analyst evaluation text"
           }
         ],
-        "questions": [],
-        "completionCriteria": [
-          "Required module YouTube lesson(s) watched or relevant accessible alternative documented.",
-          "Four lesson evidence files created (Mxx-Lxx.md).",
-          "At least one valid lab observation or simulation artifact captured.",
-          "Source/destination/protocol interpretation is technically consistent.",
-          "Analyst note distinguishes observations, hypotheses and unknowns.",
-          "Sensitive information sanitized and lab scope respected."
+        "id": "lab-m30",
+        "questions": []
+      },
+      "capstoneAssessment": {
+        "id": "capstone-enterprise-network-security-investigation",
+        "title": "Enterprise Network Security Investigation \u2014 SOC Analyst Final Project",
+        "scenario": "You are a Tier-2 SOC Analyst at Apex Financial Defense Corp. At 08:42 UTC on November 24, 2026, the automated Network Security Monitoring (NSM) cluster generated critical alerts indicating unusual outbound DNS query patterns, beaconing behavior, and lateral reconnaissance across the corporate workstation subnet (10.100.20.0/24) toward the internal core database enclave (10.100.50.0/24).\n\nYour investigation scope spans 24 hours of enterprise telemetry:\n- Raw packet captures (pcapng) from perimeter and internal span ports (SPAN-CORE-01).\n- Zeek connection logs (conn.log, dns.log, http.log, ssl.log).\n- Suricata intrusion detection alerts (eve.json) highlighting ET OPEN trojan signatures.\n- Perimeter next-generation firewall (NGFW) egress allow/deny logs.\n- DHCP lease history and ARP resolution tables.\n\nYour mission is to perform comprehensive multi-source correlation, reconstruct the intrusion timeline, identify affected internal endpoints and external C2 infrastructure, calculate exfiltration volume, and author an executive-ready, incident-grade SOC Investigation Report with actionable containment rules.",
+        "pcapSource": {
+          "fileName": "cybertube-capstone-enterprise-nsm.pcapng",
+          "fileUrl": "https://raw.githubusercontent.com/cybertube/pcaps/main/networking/capstone-enterprise-nsm.pcapng",
+          "sha256": "4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a"
+        },
+        "passingScore": 75,
+        "totalMarks": 100,
+        "rubric": [
+          {
+            "category": "1. Scoping, Baseline & Topology Analysis",
+            "marks": 15,
+            "criteria": [
+              "Accurately defines network boundaries, IP addressing schemes, subnet masks, and critical asset enclaves.",
+              "Establishes normal corporate traffic baselines (DNS query frequency, authorized port profiles, working hour traffic volumes).",
+              "Identifies initial anomalies deviating from baseline network behavior."
+            ]
+          },
+          {
+            "category": "2. Packet Capture Dissection & Stream Reconstruction",
+            "marks": 20,
+            "criteria": [
+              "Performs granular Wireshark analysis on suspicious TCP handshakes, resets, and window stalls.",
+              "Applies accurate display filters (tcp.flags, eth.type, ip.proto, dns.qry.name, ssl.handshake.extensions_server_name).",
+              "Reconstructs application payload streams and identifies malicious communication channels."
+            ]
+          },
+          {
+            "category": "3. DNS Investigation & Threat Hunting",
+            "marks": 15,
+            "criteria": [
+              "Analyzes high-frequency and high-entropy DNS queries indicative of DNS tunneling or DGA algorithms.",
+              "Calculates query volume, label lengths, and response codes (NXDOMAIN vs NOERROR).",
+              "Extracts C2 domain indicators and correlates resolver IP deviations."
+            ]
+          },
+          {
+            "category": "4. Multi-Source Log Correlation (Zeek & Suricata)",
+            "marks": 20,
+            "criteria": [
+              "Correlates Zeek conn.log UIDs with dns.log and ssl.log records.",
+              "Validates Suricata IDS alerts against packet capture evidence, separating true positives from noise.",
+              "Correlates perimeter firewall denial logs with internal lateral movement attempts."
+            ]
+          },
+          {
+            "category": "5. Intrusion Timeline & Scope of Compromise",
+            "marks": 15,
+            "criteria": [
+              "Builds a chronological UTC master incident timeline spanning Initial Access, Discovery, C2, Lateral Movement, and Exfiltration.",
+              "Identifies all affected internal IP addresses, MAC addresses, hostnames, and user accounts.",
+              "Quantifies total data volume exfiltrated and confirms whether core databases were breached."
+            ]
+          },
+          {
+            "category": "6. Containment, Defense & Incident Report",
+            "marks": 15,
+            "criteria": [
+              "Specifies immediate containment actions: firewall drop rules, DNS sinkholing, VLAN quarantine, and session resets.",
+              "Develops custom Snort/Suricata detection rules and Zeek scripts to prevent recurrence.",
+              "Delivers a polished, professional SOC Investigation Report with an Executive Summary and technical appendix."
+            ]
+          }
+        ],
+        "submissionSections": [
+          {
+            "id": "sub-scope-topology",
+            "title": "Section 1: Executive Summary, Topology & Traffic Baseline",
+            "prompt": "Provide a concise Executive Summary summarizing the incident impact, affected business functions, and root cause. Map the enterprise network topology (corporate workstations 10.100.20.0/24, DMZ 192.168.10.0/24, Core Servers 10.100.50.0/24) and contrast baseline network traffic against the observed anomaly indicators.",
+            "maxMarks": 15
+          },
+          {
+            "id": "sub-packet-inspection",
+            "title": "Section 2: Wireshark Packet Inspection & Stream Analysis",
+            "prompt": "Document your Wireshark packet capture analysis. Detail the specific display filters used (e.g. eth.type, ip.addr, tcp.flags, http, tls). Document the suspicious TCP handshakes, sequence numbers, anomalous window scaling, and extracted HTTP/TLS stream details. Provide exact timestamps, source/destination IPs, and port tuples.",
+            "maxMarks": 20
+          },
+          {
+            "id": "sub-dns-hunting",
+            "title": "Section 3: DNS Threat Hunting & Tunneling Dissection",
+            "prompt": "Analyze the observed DNS activity. Document query types (A, TXT, CNAME), average label length, entropy scores, and query frequencies. Provide evidence proving whether DNS tunneling or C2 beaconing occurred. Include specific malicious domain names, resolver IPs, and response code distributions.",
+            "maxMarks": 15
+          },
+          {
+            "id": "sub-telemetry-correlation",
+            "title": "Section 4: Multi-Source Telemetry Correlation (Zeek, Suricata & Firewall)",
+            "prompt": "Present your multi-source telemetry correlation table. Correlate Zeek conn.log UIDs with dns.log and ssl.log events. Document the Suricata alert signatures (SID, class, priority), packet validation results, and corresponding perimeter firewall allow/drop events.",
+            "maxMarks": 20
+          },
+          {
+            "id": "sub-incident-timeline",
+            "title": "Section 5: Intrusion Timeline & Affected Asset Inventory",
+            "prompt": "Construct a chronological master incident timeline in UTC. List every key milestone: Initial Probe, C2 Beacon Establishment, Internal Reconnaissance, Privilege Elevation / Lateral Movement, and Data Exfiltration. Provide the complete inventory of compromised endpoints (IP, MAC, Hostname, Role).",
+            "maxMarks": 15
+          },
+          {
+            "id": "sub-remediation-report",
+            "title": "Section 6: Containment, Defensive Engineering & Incident Report",
+            "prompt": "Detail immediate and long-term containment recommendations: exact perimeter firewall rules (Layer 3/4 and Layer 7), DNS sinkholing syntax, Suricata custom detection signatures, VLAN segmentation adjustments, and Zero Trust architectural improvements. Conclude with continuous monitoring recommendations.",
+            "maxMarks": 15
+          }
         ]
       }
     }
