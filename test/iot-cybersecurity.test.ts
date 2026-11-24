@@ -82,7 +82,7 @@ describe('IoT Cybersecurity Zero to Advanced Course – Comprehensive Release Ve
   it('includes complete hardware catalog, diagram registry, and 30 practical projects', () => {
     assert.ok(HARDWARE_CATALOG.length >= 15, 'Hardware catalog populated with 15+ components');
     assert.ok(HARDWARE_CATALOG.every((p) => p.partId && p.name && p.voltageMin >= 0));
-    assert.equal(IOT_DIAGRAMS.length, 6, 'Contains 6 core code-rendered interactive diagrams');
+    assert.ok(IOT_DIAGRAMS.length >= 20, 'Contains at least 20 code-rendered interactive diagrams');
     assert.equal(IOT_PROJECTS.length, 30, 'Contains 30 practical projects');
     const portfolioProjects = IOT_PROJECTS.filter((p) => p.isPortfolioProject);
     assert.equal(portfolioProjects.length, 6, 'Contains 6 major portfolio milestone projects');

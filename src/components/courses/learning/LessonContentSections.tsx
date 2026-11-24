@@ -17,6 +17,7 @@ import { NormalizedLesson } from '../../../types/learning-view-model';
 import { LessonObjectives } from './LessonObjectives';
 import { LessonSkillsSection } from './LessonSkillsSection';
 import { LessonNavigation } from './LessonNavigation';
+import dynamic from 'next/dynamic';
 import { LessonContentRenderer } from '../LessonContentRenderer';
 import { PracticalLabView } from '../PracticalLabView';
 import { CapstoneAssessmentView } from '../CapstoneAssessmentView';
@@ -25,15 +26,59 @@ import { PCAPResourceList } from '../PCAPResourceList';
 // IoT Interactive Components
 import { IotArchitectureDiagram } from '../iot/IotArchitectureDiagram';
 import { InteractiveCircuitDiagram } from '../iot/InteractiveCircuitDiagram';
-import { Device3DViewer } from '../iot/Device3DViewer';
 import { ProtocolSequenceDiagram } from '../iot/ProtocolSequenceDiagram';
 import { IoTForensicTimeline } from '../iot/IoTForensicTimeline';
 import { HardwareExplorer } from '../iot/HardwareExplorer';
 import { LessonKitPanel } from '../iot/LessonKitPanel';
 import { IoTProjectPanel } from '../iot/IoTProjectPanel';
 
+// Dynamically imported heavy IoT components with ssr: false for optimal bundle performance
+const Device3DViewer = dynamic(
+  () => import('../iot/Device3DViewer').then((mod) => mod.Device3DViewer),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="h-[400px] flex items-center justify-center bg-[#0a0f18] rounded-[6px] border border-[#1E293B] text-cyan-400 font-mono text-xs">
+        Loading 3D Hardware CAD Engine (Three.js WebGL)...
+      </div>
+    ),
+  }
+);
+
+const DiagramViewer2D = dynamic(
+  () => import('../iot/DiagramViewer2D').then((mod) => mod.DiagramViewer2D),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="h-[400px] flex items-center justify-center bg-[#0a0f18] rounded-[6px] border border-[#1E293B] text-emerald-400 font-mono text-xs">
+        Loading 2D Vector CAD Schematics (20 Configurations)...
+      </div>
+    ),
+  }
+);
+
+const InteractiveCircuitSimulator = dynamic(
+  () => import('../iot/InteractiveCircuitSimulator').then((mod) => mod.InteractiveCircuitSimulator),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="h-[300px] flex items-center justify-center bg-[#0a0f18] rounded-[6px] border border-[#1E293B] text-emerald-400 font-mono text-xs">
+        Loading Interactive Circuit Simulator...
+      </div>
+    ),
+  }
+);
+
 type TabType = 'content' | 'lab' | 'capstone' | 'pcaps' | 'hardware' | 'diagram' | 'evidence';
-type DiagramSubTab = 'architecture' | 'circuit' | '3d-viewer' | 'protocol' | 'forensics' | 'hardware-explorer';
+type DiagramSubTab =
+  | 'schematics-2d'
+  | 'circuit-sim'
+  | '3d-viewer'
+  | 'circuit'
+  | 'architecture'
+  | 'protocol'
+  | 'forensics'
+  | 'hardware-explorer';
 
 interface LessonContentSectionsProps {
   courseId: string;
@@ -107,12 +152,14 @@ export const LessonContentSections: React.FC<LessonContentSectionsProps> = ({
       setActiveDiagramSubTab('architecture');
     } else if (moduleNumber === 3 || moduleNumber === 14 || moduleNumber === 20) {
       setActiveDiagramSubTab('3d-viewer');
+    } else if (moduleNumber === 2 || moduleNumber === 4 || moduleNumber === 6) {
+      setActiveDiagramSubTab('circuit-sim');
     } else if (moduleNumber === 8 || moduleNumber === 9 || moduleNumber === 13) {
       setActiveDiagramSubTab('protocol');
     } else if (moduleNumber >= 25 && moduleNumber <= 27) {
       setActiveDiagramSubTab('forensics');
     } else {
-      setActiveDiagramSubTab('circuit');
+      setActiveDiagramSubTab('schematics-2d');
     }
   }, [moduleNumber]);
 
@@ -361,14 +408,25 @@ export const LessonContentSections: React.FC<LessonContentSectionsProps> = ({
               <div className="flex flex-wrap items-center gap-2 pb-2 border-b border-[#e4e4ed] dark:border-[#243044]">
                 <button
                   type="button"
-                  onClick={() => setActiveDiagramSubTab('circuit')}
+                  onClick={() => setActiveDiagramSubTab('schematics-2d')}
                   className={`px-2.5 py-1 rounded-[4px] text-xs font-mono transition-colors cursor-pointer ${
-                    activeDiagramSubTab === 'circuit'
+                    activeDiagramSubTab === 'schematics-2d'
                       ? 'bg-emerald-600 text-white font-semibold'
                       : 'bg-[#121A26] text-[#9BA8B7] border border-[#243044] hover:bg-[#1A2638]'
                   }`}
                 >
-                  Breadboard & Circuit CAD
+                  2D Vector CAD (20 Diagrams)
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setActiveDiagramSubTab('circuit-sim')}
+                  className={`px-2.5 py-1 rounded-[4px] text-xs font-mono transition-colors cursor-pointer ${
+                    activeDiagramSubTab === 'circuit-sim'
+                      ? 'bg-emerald-700 text-white font-semibold'
+                      : 'bg-[#121A26] text-[#9BA8B7] border border-[#243044] hover:bg-[#1A2638]'
+                  }`}
+                >
+                  Circuit Simulator &amp; Ohm&apos;s Law
                 </button>
                 <button
                   type="button"
@@ -379,14 +437,25 @@ export const LessonContentSections: React.FC<LessonContentSectionsProps> = ({
                       : 'bg-[#121A26] text-[#9BA8B7] border border-[#243044] hover:bg-[#1A2638]'
                   }`}
                 >
-                  Rotatable 3D Hardware CAD
+                  Rotatable 3D Hardware CAD (6 Models)
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setActiveDiagramSubTab('circuit')}
+                  className={`px-2.5 py-1 rounded-[4px] text-xs font-mono transition-colors cursor-pointer ${
+                    activeDiagramSubTab === 'circuit'
+                      ? 'bg-blue-600 text-white font-semibold'
+                      : 'bg-[#121A26] text-[#9BA8B7] border border-[#243044] hover:bg-[#1A2638]'
+                  }`}
+                >
+                  Breadboard Wiring Guide
                 </button>
                 <button
                   type="button"
                   onClick={() => setActiveDiagramSubTab('architecture')}
                   className={`px-2.5 py-1 rounded-[4px] text-xs font-mono transition-colors cursor-pointer ${
                     activeDiagramSubTab === 'architecture'
-                      ? 'bg-blue-600 text-white font-semibold'
+                      ? 'bg-indigo-600 text-white font-semibold'
                       : 'bg-[#121A26] text-[#9BA8B7] border border-[#243044] hover:bg-[#1A2638]'
                   }`}
                 >
@@ -428,8 +497,12 @@ export const LessonContentSections: React.FC<LessonContentSectionsProps> = ({
               </div>
 
               {/* Render Active Diagram */}
-              {activeDiagramSubTab === 'circuit' && <InteractiveCircuitDiagram />}
+              {activeDiagramSubTab === 'schematics-2d' && <DiagramViewer2D />}
+              {activeDiagramSubTab === 'circuit-sim' && (
+                <InteractiveCircuitSimulator moduleNumber={moduleNumber} />
+              )}
               {activeDiagramSubTab === '3d-viewer' && <Device3DViewer />}
+              {activeDiagramSubTab === 'circuit' && <InteractiveCircuitDiagram />}
               {activeDiagramSubTab === 'architecture' && <IotArchitectureDiagram />}
               {activeDiagramSubTab === 'protocol' && <ProtocolSequenceDiagram />}
               {activeDiagramSubTab === 'forensics' && <IoTForensicTimeline />}
