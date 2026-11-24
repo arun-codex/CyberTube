@@ -129,7 +129,10 @@ export const LessonContentSections: React.FC<LessonContentSectionsProps> = ({
   const isCapstoneLesson =
     activeLesson.id === 'les-08-1-capstone-investigation' ||
     activeLesson.slug === 'operation-blackout-beacon-capstone' ||
-    activeLesson.slug?.startsWith('m30-l04');
+    activeLesson.slug?.startsWith('m30-l04') ||
+    activeLesson.slug?.startsWith('m30-l4') ||
+    activeLesson.id === 'e0000000-001e-4000-8000-000000000004' ||
+    activeLesson.slug === 'm30-l4-communication-and-defense';
   const hasCapstone = !!capstone && isCapstoneLesson;
   const hasPcaps = !!pcapResources && pcapResources.length > 0;
 

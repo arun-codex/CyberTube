@@ -66,6 +66,7 @@ export const LessonVideoSection: React.FC<LessonVideoSectionProps> = ({
   return (
     <div className="space-y-4">
       <YouTubePlayer
+        key={`${activeLesson.id}-${activeVideo.videoId}`}
         videoId={activeVideo.videoId}
         title={activeVideo.title}
         channelName={activeVideo.creator}

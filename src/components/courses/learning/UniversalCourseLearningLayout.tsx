@@ -62,6 +62,27 @@ export const UniversalCourseLearningLayout: React.FC<UniversalCourseLearningLayo
     }
   }, [initialTab]);
 
+  // Handle browser back and forward navigation
+  useEffect(() => {
+    const handlePopState = () => {
+      if (typeof window !== 'undefined') {
+        const params = new URLSearchParams(window.location.search);
+        const lessonParam = params.get('lesson');
+        const tabParam = params.get('tab') as 'content' | 'lab' | 'capstone' | 'pcaps' | null;
+        if (lessonParam) {
+          setActiveLessonSlug(lessonParam);
+        }
+        if (tabParam) {
+          setActiveTabOverride(tabParam);
+        } else {
+          setActiveTabOverride('content');
+        }
+      }
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
   // Load progress and subscribe to updates
   useEffect(() => {
     const state = cloudCourseProgressService.getProgress(course.courseId);
@@ -134,12 +155,18 @@ export const UniversalCourseLearningLayout: React.FC<UniversalCourseLearningLayo
     (slug: string, tab?: 'content' | 'lab' | 'capstone' | 'pcaps') => {
       setActiveLessonSlug(slug);
       setActiveTabOverride(tab || 'content');
+      const targetLesson = allLessons.find((l) => l.slug === slug || l.id === slug);
+      if (targetLesson && targetLesson.videos && targetLesson.videos.length > 0) {
+        setSelectedVideoId(targetLesson.videos[0].videoId);
+      } else {
+        setSelectedVideoId('');
+      }
       if (typeof window !== 'undefined') {
         const tabQuery = tab && tab !== 'content' ? `&tab=${tab}` : '';
         window.history.pushState(null, '', `/courses/${course.slug}?lesson=${slug}${tabQuery}`);
       }
     },
-    [course.slug]
+    [course.slug, allLessons]
   );
 
   const handleToggleLessonComplete = useCallback(

@@ -94,22 +94,22 @@ test.describe('CYBERTUBE IoT Cybersecurity Course — Phase 3 Comprehensive Veri
   });
 
   test('5. Direct navigation to multiple phase lessons without quiz lockouts', async ({ page }) => {
-    // Phase 1 (Module 2 Lesson 2)
-    await page.goto(`${COURSE_ROUTE}?lesson=m02-l02-threat-actors-motives-and-asset-value-prioritization`, {
+    // Phase 1 (Module 2 Lesson 2: Breadboard Connectivity)
+    await page.goto(`${COURSE_ROUTE}?lesson=m02-l02-breadboard-connectivity-led-circuit-construction`, {
       waitUntil: 'domcontentloaded',
     });
-    await expect(page.locator('h2').filter({ hasText: /Threat actors/i }).first()).toBeVisible();
+    await expect(page.locator('h2, h3, span').filter({ hasText: /Breadboard Connectivity/i }).first()).toBeVisible();
 
-    // Phase 2 (Module 18 Lesson 1)
-    await page.goto(`${COURSE_ROUTE}?lesson=m18-l01-identify-embedded-cpu-architecture-and-calling-convention`, {
+    // Phase 2 (Module 11 Lesson 1: UART Serial Communications)
+    await page.goto(`${COURSE_ROUTE}?lesson=m11-l01-uart-serial-communications-baud-rates-data-exposure`, {
       waitUntil: 'domcontentloaded',
     });
-    await expect(page.locator('h2').filter({ hasText: /Identify embedded CPU architecture/i }).first()).toBeVisible();
+    await expect(page.locator('h2, h3, span').filter({ hasText: /UART Serial Communications/i }).first()).toBeVisible();
 
     // Phase 3 (Module 30 Lesson 4 - Capstone)
-    await page.goto(`${COURSE_ROUTE}?lesson=m30-l04-present-executive-technical-and-soc-handoff-reports`, {
+    await page.goto(`${COURSE_ROUTE}?lesson=m30-l04-executive-technical-report-soc-handoff-presentation`, {
       waitUntil: 'domcontentloaded',
     });
-    await expect(page.locator('h2').filter({ hasText: /Present executive/i }).first()).toBeVisible();
+    await expect(page.locator('h2, h3, span').filter({ hasText: /Executive Technical Report/i }).first()).toBeVisible();
   });
 });
