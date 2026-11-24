@@ -6,6 +6,7 @@ import { IOT_CYBERSECURITY_ZERO_TO_ADVANCED_COURSE } from './iot-cybersecurity-c
 import { LINUX_ZERO_TO_ADVANCED_COURSE } from './linux-zero-to-advanced-course';
 import { MITRE_ATTACK_INCIDENT_RESPONSE_COURSE } from './mitre-attack-incident-response-course';
 import { NETWORK_PACKET_FORENSICS_COURSE } from './network-packet-forensics-course';
+import { NETWORKING_FOR_CYBERSECURITY_COURSE } from './networking-for-cybersecurity-course';
 import { PYTHON_FOR_CYBERSECURITY_COURSE } from './python-for-cybersecurity-course';
 import { SIEM_ZERO_TO_ADVANCED_COURSE } from './siem-zero-to-advanced-course';
 import { STORYTELLING_MASTERCLASS_COURSE } from './storytelling-masterclass-course';
@@ -13,6 +14,7 @@ import { WINDOWS_SECURITY_ZERO_TO_ADVANCED_COURSE } from './windows-security-cou
 
 export const COURSES: Course[] = [
   IOT_CYBERSECURITY_ZERO_TO_ADVANCED_COURSE,
+  NETWORKING_FOR_CYBERSECURITY_COURSE,
   ENGLISH_COMMUNICATION_FOR_CYBERSECURITY_COURSE,
   PYTHON_FOR_CYBERSECURITY_COURSE,
   MITRE_ATTACK_INCIDENT_RESPONSE_COURSE,

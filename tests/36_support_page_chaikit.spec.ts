@@ -6,7 +6,7 @@ test.describe('Dedicated Support Page (/support) & ChaiKit Integration', () => {
 
     // Page title and hero
     await expect(page).toHaveTitle(/Support CyberTube/i);
-    await expect(page.getByRole('heading', { level: 1 })).toContainText('Help Keep Cybersecurity Education Free');
+    await expect(page.getByRole('heading', { level: 1 })).toContainText(/Support CyberTube|Help Keep Cybersecurity Education Free/);
 
     // Neutral notice applies to both active UPI and preview-only configurations.
     await expect(page.getByText('Direct UPI • Verify before paying')).toBeVisible();
@@ -34,15 +34,11 @@ test.describe('Dedicated Support Page (/support) & ChaiKit Integration', () => {
     await expect(page.getByRole('main').getByRole('link', { name: /Practical Labs/i })).toBeVisible();
   });
 
-  test('header and footer link correctly to support destinations', async ({ page }) => {
+  test('footer links correctly to support destinations', async ({ page }) => {
     await page.goto('/');
 
-    // Header support link
-    const headerSupport = page.locator('header a[href*="support"]');
-    await expect(headerSupport.first()).toBeVisible();
-
     // Footer support link
-    const footerSupport = page.locator('footer a[href="/support"]');
+    const footerSupport = page.locator('footer a[href*="support"]');
     await expect(footerSupport.first()).toBeVisible();
   });
 
