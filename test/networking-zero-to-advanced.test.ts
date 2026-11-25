@@ -192,9 +192,9 @@ describe('Networking for Cybersecurity: Zero to Advanced Test Suite', () => {
     const m13l03 = getLesson(13, 3);
     assert.strictEqual(m13l03.youtubeVideoId, 'qYYeg2kz1yE');
 
-    // M15-L03: HTTP/2 and HTTP/3 -> fVKPrDrEwTI (Hussein Nasser How HTTP/2 Works)
+    // M15-L03: HTTP/2 and HTTP/3 -> GriONb4EfPY (Hussein Nasser HTTP/2 Critical Limitation that led to HTTP/3 & QUIC)
     const m15l03 = getLesson(15, 3);
-    assert.strictEqual(m15l03.youtubeVideoId, 'fVKPrDrEwTI');
+    assert.strictEqual(m15l03.youtubeVideoId, 'GriONb4EfPY');
 
     // M29-L01: Virtual networks -> 7_NNlnH7sAg (Tiny Technical Tutorials AWS VPC Basics)
     const m29l01 = getLesson(29, 1);

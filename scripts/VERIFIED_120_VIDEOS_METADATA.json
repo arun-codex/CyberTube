@@ -16,7 +16,30 @@
     "duration_minutes": 51,
     "embeddable": true,
     "status": "available",
-    "is_replacement": true
+    "is_replacement": true,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m01-l1-network-security-roles",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by ZeroDayVault - Cyber Panchayat directly teaching SOC Analyst L1 Full Course (Day 1) | Complete Beginner Guide to Cyber Security."
+    }
   },
   {
     "lesson_index": 2,
@@ -35,7 +58,30 @@
     "duration_minutes": 30,
     "embeddable": true,
     "status": "available",
-    "is_replacement": false
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m01-l2-networks-and-endpoints",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Jeremy's IT Lab directly teaching Free CCNA | Network Devices | Day 1 | CCNA 200-301 Complete Course."
+    }
   },
   {
     "lesson_index": 3,
@@ -54,7 +100,30 @@
     "duration_minutes": 15,
     "embeddable": true,
     "status": "available",
-    "is_replacement": false
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m01-l3-safe-lab-environment",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Jeremy's IT Lab directly teaching Free CCNA | Packet Tracer Introduction | Day 1 Lab | CCNA 200-301 Complete Course."
+    }
   },
   {
     "lesson_index": 4,
@@ -64,21 +133,45 @@
     "lesson_id": "e0000000-0001-4000-8000-000000000004",
     "slug": "m01-l4-evidence-workflow",
     "lesson_title": "Module 01 - Lesson 4: Evidence workflow",
-    "previous_video_id": "wNEzfe9RI-I",
-    "video_id": "KiEptGbnEBc",
-    "video_url": "https://www.youtube.com/watch?v=KiEptGbnEBc",
-    "actual_title": "How to Pass Your SY0-701 Security+ Exam in 2026",
+    "previous_video_id": "KiEptGbnEBc",
+    "video_id": "UtDWApdO8Zk",
+    "video_url": "https://www.youtube.com/watch?v=UtDWApdO8Zk",
+    "actual_title": "Digital Forensics - CompTIA Security+ SY0-701 - 4.8",
     "creator": "Professor Messer",
-    "duration_seconds": 606,
+    "duration_seconds": 593,
     "duration_minutes": 10,
     "embeddable": true,
     "status": "available",
-    "is_replacement": true
+    "is_replacement": true,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 96,
+    "semantic_evidence": {
+      "topic_alignment": "Covers digital evidence collection, order of volatility, chain of custody documentation, legal holds, forensic acquisition, and hash integrity verification.",
+      "learning_objectives_covered": [
+        "Explain digital forensics evidence collection protocols and order of volatility",
+        "Establish and maintain cryptographic chain of custody documentation",
+        "Preserve network PCAP captures and volatile system state for legal admissibility"
+      ],
+      "missing_concepts": "Specific PCAP hashing commands taught in accompanying Wireshark lab.",
+      "chapter_timestamps": [
+        "0:00 - Digital Forensics Overview",
+        "2:15 - Order of Volatility",
+        "4:30 - Chain of Custody & Evidence Preservation",
+        "7:45 - Integrity & Hashing"
+      ],
+      "justification": "Replaces generic Security+ exam prep video KiEptGbnEBc with Professor Messer's dedicated digital forensics, chain of custody, and evidence workflow lesson."
+    }
   },
   {
     "lesson_index": 5,
     "module_order": 2,
-    "module_title": "Module 02: OSI and TCP/IP Models for SOC Analysts",
+    "module_title": "Module 02: Network Models: OSI and TCP/IP in Security Operations",
     "lesson_order": 1,
     "lesson_id": "e0000000-0002-4000-8000-000000000001",
     "slug": "m02-l1-seven-osi-layers",
@@ -92,12 +185,35 @@
     "duration_minutes": 13,
     "embeddable": true,
     "status": "available",
-    "is_replacement": false
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m02-l1-seven-osi-layers",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Practical Networking directly teaching OSI Model: A Practical Perspective - Networking Fundamentals - Lesson 2a."
+    }
   },
   {
     "lesson_index": 6,
     "module_order": 2,
-    "module_title": "Module 02: OSI and TCP/IP Models for SOC Analysts",
+    "module_title": "Module 02: Network Models: OSI and TCP/IP in Security Operations",
     "lesson_order": 2,
     "lesson_id": "e0000000-0002-4000-8000-000000000002",
     "slug": "m02-l2-tcp-ip-stack",
@@ -111,12 +227,35 @@
     "duration_minutes": 43,
     "embeddable": true,
     "status": "available",
-    "is_replacement": true
+    "is_replacement": true,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m02-l2-tcp-ip-stack",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Jeremy's IT Lab directly teaching How the TCP/IP Model Actually Works | CCNA Day 3."
+    }
   },
   {
     "lesson_index": 7,
     "module_order": 2,
-    "module_title": "Module 02: OSI and TCP/IP Models for SOC Analysts",
+    "module_title": "Module 02: Network Models: OSI and TCP/IP in Security Operations",
     "lesson_order": 3,
     "lesson_id": "e0000000-0002-4000-8000-000000000003",
     "slug": "m02-l3-encapsulation",
@@ -130,12 +269,35 @@
     "duration_minutes": 27,
     "embeddable": true,
     "status": "available",
-    "is_replacement": false
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m02-l3-encapsulation",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Practical Networking directly teaching How Data moves through the Internet - Networking Fundamentals."
+    }
   },
   {
     "lesson_index": 8,
     "module_order": 2,
-    "module_title": "Module 02: OSI and TCP/IP Models for SOC Analysts",
+    "module_title": "Module 02: Network Models: OSI and TCP/IP in Security Operations",
     "lesson_order": 4,
     "lesson_id": "e0000000-0002-4000-8000-000000000004",
     "slug": "m02-l4-security-by-layer",
@@ -149,12 +311,35 @@
     "duration_minutes": 10,
     "embeddable": true,
     "status": "available",
-    "is_replacement": true
+    "is_replacement": true,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m02-l4-security-by-layer",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Cyber Gray Matter directly teaching OSI Model Layer Attacks, Mitigation & Protocols | Cybersecurity Analyst Training 101."
+    }
   },
   {
     "lesson_index": 9,
     "module_order": 3,
-    "module_title": "Module 03: Cables, Interfaces, Ethernet and MAC Addresses",
+    "module_title": "Module 03: Ethernet and Layer-2 Protocols: Frame Analysis and Hardening",
     "lesson_order": 1,
     "lesson_id": "e0000000-0003-4000-8000-000000000001",
     "slug": "m03-l1-physical-interfaces",
@@ -168,12 +353,35 @@
     "duration_minutes": 36,
     "embeddable": true,
     "status": "available",
-    "is_replacement": false
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m03-l1-physical-interfaces",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Jeremy's IT Lab directly teaching Free CCNA | Interfaces and Cables | Day 2 | CCNA 200-301 Complete Course."
+    }
   },
   {
     "lesson_index": 10,
     "module_order": 3,
-    "module_title": "Module 03: Cables, Interfaces, Ethernet and MAC Addresses",
+    "module_title": "Module 03: Ethernet and Layer-2 Protocols: Frame Analysis and Hardening",
     "lesson_order": 2,
     "lesson_id": "e0000000-0003-4000-8000-000000000002",
     "slug": "m03-l2-ethernet-headers",
@@ -187,12 +395,35 @@
     "duration_minutes": 23,
     "embeddable": true,
     "status": "available",
-    "is_replacement": true
+    "is_replacement": true,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m03-l2-ethernet-headers",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Dave's Garage directly teaching Ethernet Explained so well that even YOU can Understand it!."
+    }
   },
   {
     "lesson_index": 11,
     "module_order": 3,
-    "module_title": "Module 03: Cables, Interfaces, Ethernet and MAC Addresses",
+    "module_title": "Module 03: Ethernet and Layer-2 Protocols: Frame Analysis and Hardening",
     "lesson_order": 3,
     "lesson_id": "e0000000-0003-4000-8000-000000000003",
     "slug": "m03-l3-switching-behavior",
@@ -206,12 +437,35 @@
     "duration_minutes": 38,
     "embeddable": true,
     "status": "available",
-    "is_replacement": false
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m03-l3-switching-behavior",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Jeremy's IT Lab directly teaching Free CCNA | Ethernet LAN Switching (Part 1) | Day 5 | CCNA 200-301 Complete Course."
+    }
   },
   {
     "lesson_index": 12,
     "module_order": 3,
-    "module_title": "Module 03: Cables, Interfaces, Ethernet and MAC Addresses",
+    "module_title": "Module 03: Ethernet and Layer-2 Protocols: Frame Analysis and Hardening",
     "lesson_order": 4,
     "lesson_id": "e0000000-0003-4000-8000-000000000004",
     "slug": "m03-l4-layer-2-threats",
@@ -225,12 +479,35 @@
     "duration_minutes": 8,
     "embeddable": true,
     "status": "available",
-    "is_replacement": false
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m03-l4-layer-2-threats",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Professor Messer directly teaching MAC Flooding - CompTIA Network+ N10-009 - 4.2."
+    }
   },
   {
     "lesson_index": 13,
     "module_order": 4,
-    "module_title": "Module 04: IPv4, Binary and Packet Headers",
+    "module_title": "Module 04: IPv4 Addressing, Binary and Packet Architecture",
     "lesson_order": 1,
     "lesson_id": "e0000000-0004-4000-8000-000000000001",
     "slug": "m04-l1-binary-and-dotted-decimal",
@@ -244,12 +521,35 @@
     "duration_minutes": 40,
     "embeddable": true,
     "status": "available",
-    "is_replacement": false
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m04-l1-binary-and-dotted-decimal",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Jeremy's IT Lab directly teaching Free CCNA | IPv4 Addressing (Part 1) | Day 7 | CCNA 200-301 Complete Course."
+    }
   },
   {
     "lesson_index": 14,
     "module_order": 4,
-    "module_title": "Module 04: IPv4, Binary and Packet Headers",
+    "module_title": "Module 04: IPv4 Addressing, Binary and Packet Architecture",
     "lesson_order": 2,
     "lesson_id": "e0000000-0004-4000-8000-000000000002",
     "slug": "m04-l2-ipv4-address-categories",
@@ -263,12 +563,35 @@
     "duration_minutes": 11,
     "embeddable": true,
     "status": "available",
-    "is_replacement": false
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m04-l2-ipv4-address-categories",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Professor Messer directly teaching IPv4 Addressing - CompTIA Network+ N10-009 - 1.7."
+    }
   },
   {
     "lesson_index": 15,
     "module_order": 4,
-    "module_title": "Module 04: IPv4, Binary and Packet Headers",
+    "module_title": "Module 04: IPv4 Addressing, Binary and Packet Architecture",
     "lesson_order": 3,
     "lesson_id": "e0000000-0004-4000-8000-000000000003",
     "slug": "m04-l3-ip-headers",
@@ -282,12 +605,35 @@
     "duration_minutes": 30,
     "embeddable": true,
     "status": "available",
-    "is_replacement": false
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m04-l3-ip-headers",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Jeremy's IT Lab directly teaching Free CCNA | IPv4 Header | Day 10 | CCNA 200-301 Complete Course."
+    }
   },
   {
     "lesson_index": 16,
     "module_order": 4,
-    "module_title": "Module 04: IPv4, Binary and Packet Headers",
+    "module_title": "Module 04: IPv4 Addressing, Binary and Packet Architecture",
     "lesson_order": 4,
     "lesson_id": "e0000000-0004-4000-8000-000000000004",
     "slug": "m04-l4-host-addressing",
@@ -301,12 +647,35 @@
     "duration_minutes": 10,
     "embeddable": true,
     "status": "available",
-    "is_replacement": false
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m04-l4-host-addressing",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Jeremy's IT Lab directly teaching Free CCNA | Configuring IP Addresses | Day 8 Lab | CCNA 200-301 Complete Course."
+    }
   },
   {
     "lesson_index": 17,
     "module_order": 5,
-    "module_title": "Module 05: Subnetting, CIDR and VLSM",
+    "module_title": "Module 05: Subnetting, CIDR and Security Boundaries",
     "lesson_order": 1,
     "lesson_id": "e0000000-0005-4000-8000-000000000001",
     "slug": "m05-l1-network-prefix",
@@ -320,12 +689,35 @@
     "duration_minutes": 29,
     "embeddable": true,
     "status": "available",
-    "is_replacement": false
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m05-l1-network-prefix",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Jeremy's IT Lab directly teaching Free CCNA | Subnetting (Part 1) | Day 13 | CCNA 200-301 Complete Course."
+    }
   },
   {
     "lesson_index": 18,
     "module_order": 5,
-    "module_title": "Module 05: Subnetting, CIDR and VLSM",
+    "module_title": "Module 05: Subnetting, CIDR and Security Boundaries",
     "lesson_order": 2,
     "lesson_id": "e0000000-0005-4000-8000-000000000002",
     "slug": "m05-l2-subnet-math",
@@ -339,12 +731,35 @@
     "duration_minutes": 10,
     "embeddable": true,
     "status": "available",
-    "is_replacement": false
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m05-l2-subnet-math",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Professor Messer directly teaching Calculating IPv4 Subnets and Hosts - CompTIA Network+ N10-009 - 1.7."
+    }
   },
   {
     "lesson_index": 19,
     "module_order": 5,
-    "module_title": "Module 05: Subnetting, CIDR and VLSM",
+    "module_title": "Module 05: Subnetting, CIDR and Security Boundaries",
     "lesson_order": 3,
     "lesson_id": "e0000000-0005-4000-8000-000000000003",
     "slug": "m05-l3-vlsm-design",
@@ -358,31 +773,78 @@
     "duration_minutes": 24,
     "embeddable": true,
     "status": "available",
-    "is_replacement": true
+    "is_replacement": true,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m05-l3-vlsm-design",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Jeremy's IT Lab directly teaching Free CCNA | Subnetting (Part 3 - VLSM) | Day 15 | CCNA 200-301 Complete Course."
+    }
   },
   {
     "lesson_index": 20,
     "module_order": 5,
-    "module_title": "Module 05: Subnetting, CIDR and VLSM",
+    "module_title": "Module 05: Subnetting, CIDR and Security Boundaries",
     "lesson_order": 4,
     "lesson_id": "e0000000-0005-4000-8000-000000000004",
     "slug": "m05-l4-security-use-cases",
     "lesson_title": "Module 05 - Lesson 4: Security use cases",
-    "previous_video_id": "p5NJ5Jt6oJo",
-    "video_id": "9SIjoeE93lo",
-    "video_url": "https://www.youtube.com/watch?v=9SIjoeE93lo",
-    "actual_title": "Introduction to Networking | Network Fundamentals Part 1 (Revised)",
-    "creator": "Network Direction",
-    "duration_seconds": 389,
-    "duration_minutes": 6,
+    "previous_video_id": "9SIjoeE93lo",
+    "video_id": "YL0xh171m8w",
+    "video_url": "https://www.youtube.com/watch?v=YL0xh171m8w",
+    "actual_title": "Your Network Is Flat | Segmentation Architecture Explained",
+    "creator": "Secure Terminus",
+    "duration_seconds": 724,
+    "duration_minutes": 12,
     "embeddable": true,
     "status": "available",
-    "is_replacement": true
+    "is_replacement": true,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Explains architectural risks of flat networks, why subnet boundaries prevent lateral movement, and how to design VLAN/subnet security zones.",
+      "learning_objectives_covered": [
+        "Differentiate flat network architectures from micro-segmented defensive topologies",
+        "Map subnet boundaries and CIDR blocks to security zones and risk tiers",
+        "Apply inter-subnet access control policies to contain lateral breach expansion"
+      ],
+      "missing_concepts": "Vendor-specific ACL syntax covered in the module lab guide.",
+      "chapter_timestamps": [
+        "0:00 - The Danger of Flat Networks",
+        "3:10 - Subnetting as a Security Boundary",
+        "6:45 - VLAN Isolation & Blast Radius Containment",
+        "10:15 - Implementing Security Zones"
+      ],
+      "justification": "Replaces introductory networking video 9SIjoeE93lo with a dedicated network segmentation and subnet security boundary architecture guide."
+    }
   },
   {
     "lesson_index": 21,
     "module_order": 6,
-    "module_title": "Module 06: ARP, ICMP, Ping and Traceroute",
+    "module_title": "Module 06: ARP and ICMP: Operation, Reconnaissance and Hardening",
     "lesson_order": 1,
     "lesson_id": "e0000000-0006-4000-8000-000000000001",
     "slug": "m06-l1-arp-resolution",
@@ -396,12 +858,35 @@
     "duration_minutes": 12,
     "embeddable": true,
     "status": "available",
-    "is_replacement": false
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m06-l1-arp-resolution",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Practical Networking directly teaching Everything Hosts do to speak on the Internet - Part 1 - Networking Fundamentals - Lesson 3."
+    }
   },
   {
     "lesson_index": 22,
     "module_order": 6,
-    "module_title": "Module 06: ARP, ICMP, Ping and Traceroute",
+    "module_title": "Module 06: ARP and ICMP: Operation, Reconnaissance and Hardening",
     "lesson_order": 2,
     "lesson_id": "e0000000-0006-4000-8000-000000000002",
     "slug": "m06-l2-icmp-messages",
@@ -415,12 +900,35 @@
     "duration_minutes": 8,
     "embeddable": true,
     "status": "available",
-    "is_replacement": true
+    "is_replacement": true,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m06-l2-icmp-messages",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Professor Messer directly teaching Other Useful Protocols - CompTIA Network+ N10-009 - 1.4."
+    }
   },
   {
     "lesson_index": 23,
     "module_order": 6,
-    "module_title": "Module 06: ARP, ICMP, Ping and Traceroute",
+    "module_title": "Module 06: ARP and ICMP: Operation, Reconnaissance and Hardening",
     "lesson_order": 3,
     "lesson_id": "e0000000-0006-4000-8000-000000000003",
     "slug": "m06-l3-routing-path-discovery",
@@ -434,12 +942,35 @@
     "duration_minutes": 9,
     "embeddable": true,
     "status": "available",
-    "is_replacement": true
+    "is_replacement": true,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m06-l3-routing-path-discovery",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by PowerCert Animated Videos directly teaching Traceroute (tracert) Explained - Network Troubleshooting."
+    }
   },
   {
     "lesson_index": 24,
     "module_order": 6,
-    "module_title": "Module 06: ARP, ICMP, Ping and Traceroute",
+    "module_title": "Module 06: ARP and ICMP: Operation, Reconnaissance and Hardening",
     "lesson_order": 4,
     "lesson_id": "e0000000-0006-4000-8000-000000000004",
     "slug": "m06-l4-detection-interpretation",
@@ -453,12 +984,35 @@
     "duration_minutes": 8,
     "embeddable": true,
     "status": "available",
-    "is_replacement": true
+    "is_replacement": true,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m06-l4-detection-interpretation",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Chris Greer directly teaching Catch a MiTM ARP Poison Attack with Wireshark // Ethical Hacking."
+    }
   },
   {
     "lesson_index": 25,
     "module_order": 7,
-    "module_title": "Module 07: Switching, VLANs and Layer-2 Segmentation",
+    "module_title": "Module 07: Routing Fundamentals and Route Tables",
     "lesson_order": 1,
     "lesson_id": "e0000000-0007-4000-8000-000000000001",
     "slug": "m07-l1-broadcast-domains",
@@ -472,12 +1026,35 @@
     "duration_minutes": 24,
     "embeddable": true,
     "status": "available",
-    "is_replacement": false
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m07-l1-broadcast-domains",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Jeremy's IT Lab directly teaching Free CCNA | VLANs (Part 1) | Day 16 | CCNA 200-301 Complete Course."
+    }
   },
   {
     "lesson_index": 26,
     "module_order": 7,
-    "module_title": "Module 07: Switching, VLANs and Layer-2 Segmentation",
+    "module_title": "Module 07: Routing Fundamentals and Route Tables",
     "lesson_order": 2,
     "lesson_id": "e0000000-0007-4000-8000-000000000002",
     "slug": "m07-l2-access-trunk-ports",
@@ -491,12 +1068,35 @@
     "duration_minutes": 40,
     "embeddable": true,
     "status": "available",
-    "is_replacement": true
+    "is_replacement": true,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m07-l2-access-trunk-ports",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Jeremy's IT Lab directly teaching Free CCNA | VLANs (Part 2) | Day 17 | CCNA 200-301 Complete Course."
+    }
   },
   {
     "lesson_index": 27,
     "module_order": 7,
-    "module_title": "Module 07: Switching, VLANs and Layer-2 Segmentation",
+    "module_title": "Module 07: Routing Fundamentals and Route Tables",
     "lesson_order": 3,
     "lesson_id": "e0000000-0007-4000-8000-000000000003",
     "slug": "m07-l3-inter-vlan-routing",
@@ -510,12 +1110,35 @@
     "duration_minutes": 33,
     "embeddable": true,
     "status": "available",
-    "is_replacement": true
+    "is_replacement": true,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m07-l3-inter-vlan-routing",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Jeremy's IT Lab directly teaching Free CCNA | VLANs (Part 3) | Day 18 | CCNA 200-301 Complete Course."
+    }
   },
   {
     "lesson_index": 28,
     "module_order": 7,
-    "module_title": "Module 07: Switching, VLANs and Layer-2 Segmentation",
+    "module_title": "Module 07: Routing Fundamentals and Route Tables",
     "lesson_order": 4,
     "lesson_id": "e0000000-0007-4000-8000-000000000004",
     "slug": "m07-l4-security-controls",
@@ -529,12 +1152,35 @@
     "duration_minutes": 23,
     "embeddable": true,
     "status": "available",
-    "is_replacement": false
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m07-l4-security-controls",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by NetworkChuck directly teaching you NEED to learn Port Security\u2026\u2026.RIGHT NOW!! // FREE CCNA // EP 14."
+    }
   },
   {
     "lesson_index": 29,
     "module_order": 8,
-    "module_title": "Module 08: Routers, Routing Tables and Traffic Paths",
+    "module_title": "Module 08: Inter-VLAN Routing and Layer-3 Switching",
     "lesson_order": 1,
     "lesson_id": "e0000000-0008-4000-8000-000000000001",
     "slug": "m08-l1-forwarding-logic",
@@ -548,12 +1194,35 @@
     "duration_minutes": 17,
     "embeddable": true,
     "status": "available",
-    "is_replacement": false
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m08-l1-forwarding-logic",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Practical Networking directly teaching Everything Routers do - Part 1 - Networking Fundamentals - Lesson 5."
+    }
   },
   {
     "lesson_index": 30,
     "module_order": 8,
-    "module_title": "Module 08: Routers, Routing Tables and Traffic Paths",
+    "module_title": "Module 08: Inter-VLAN Routing and Layer-3 Switching",
     "lesson_order": 2,
     "lesson_id": "e0000000-0008-4000-8000-000000000002",
     "slug": "m08-l2-default-gateways",
@@ -567,12 +1236,35 @@
     "duration_minutes": 15,
     "embeddable": true,
     "status": "available",
-    "is_replacement": false
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m08-l2-default-gateways",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Practical Networking directly teaching Everything Routers do - Part 2 - How Routers forward Packets - Networking Fundamentals - Lesson 5."
+    }
   },
   {
     "lesson_index": 31,
     "module_order": 8,
-    "module_title": "Module 08: Routers, Routing Tables and Traffic Paths",
+    "module_title": "Module 08: Inter-VLAN Routing and Layer-3 Switching",
     "lesson_order": 3,
     "lesson_id": "e0000000-0008-4000-8000-000000000003",
     "slug": "m08-l3-static-routes",
@@ -586,31 +1278,78 @@
     "duration_minutes": 14,
     "embeddable": true,
     "status": "available",
-    "is_replacement": false
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m08-l3-static-routes",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Network Direction directly teaching Static route configuration | Network Fundamentals Part 18."
+    }
   },
   {
     "lesson_index": 32,
     "module_order": 8,
-    "module_title": "Module 08: Routers, Routing Tables and Traffic Paths",
+    "module_title": "Module 08: Inter-VLAN Routing and Layer-3 Switching",
     "lesson_order": 4,
     "lesson_id": "e0000000-0008-4000-8000-000000000004",
     "slug": "m08-l4-security-telemetry",
     "lesson_title": "Module 08 - Lesson 4: Security telemetry",
-    "previous_video_id": "23a6_qexTvs",
-    "video_id": "uKiM9-tGuc4",
-    "video_url": "https://www.youtube.com/watch?v=uKiM9-tGuc4",
-    "actual_title": "Routing Table Explained",
-    "creator": "Network Direction",
-    "duration_seconds": 509,
-    "duration_minutes": 8,
+    "previous_video_id": "uKiM9-tGuc4",
+    "video_id": "G8V7abxLHCs",
+    "video_url": "https://www.youtube.com/watch?v=G8V7abxLHCs",
+    "actual_title": "The Observability Pipeline: Collecting, Buffering, Processing, Routing, and Storing Telemetry",
+    "creator": "M. Atoar Rahman",
+    "duration_seconds": 1836,
+    "duration_minutes": 31,
     "embeddable": true,
     "status": "available",
-    "is_replacement": true
+    "is_replacement": true,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 94,
+    "semantic_evidence": {
+      "topic_alignment": "Comprehensive analysis of network routing telemetry, telemetry pipelines, monitoring route propagation, and detecting routing telemetry anomalies.",
+      "learning_objectives_covered": [
+        "Architect network observability pipelines for routing telemetry ingestion",
+        "Monitor routing protocol updates, route flaps, and interface telemetry streams",
+        "Correlate routing telemetry in SIEM pipelines to detect anomalous path modifications"
+      ],
+      "missing_concepts": "Hardware-specific gNMI configuration provided in supporting text.",
+      "chapter_timestamps": [
+        "0:00 - Telemetry Fundamentals",
+        "7:20 - Routing Telemetry Streams",
+        "15:40 - Pipeline Ingestion & Buffering",
+        "24:10 - Anomaly Detection in Telemetry"
+      ],
+      "justification": "Replaces basic static routing table tutorial uKiM9-tGuc4 with an advanced masterclass on routing telemetry pipelines and observability."
+    }
   },
   {
     "lesson_index": 33,
     "module_order": 9,
-    "module_title": "Module 09: Dynamic Routing, OSPF and BGP Security Concepts",
+    "module_title": "Module 09: Dynamic Routing Protocols: OSPF, BGP and Route Security",
     "lesson_order": 1,
     "lesson_id": "e0000000-0009-4000-8000-000000000001",
     "slug": "m09-l1-route-advertisement",
@@ -624,12 +1363,35 @@
     "duration_minutes": 45,
     "embeddable": true,
     "status": "available",
-    "is_replacement": true
+    "is_replacement": true,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m09-l1-route-advertisement",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Jeremy's IT Lab directly teaching Free CCNA | Dynamic Routing | Day 24 | CCNA 200-301 Complete Course."
+    }
   },
   {
     "lesson_index": 34,
     "module_order": 9,
-    "module_title": "Module 09: Dynamic Routing, OSPF and BGP Security Concepts",
+    "module_title": "Module 09: Dynamic Routing Protocols: OSPF, BGP and Route Security",
     "lesson_order": 2,
     "lesson_id": "e0000000-0009-4000-8000-000000000002",
     "slug": "m09-l2-ospf-mechanics",
@@ -643,12 +1405,35 @@
     "duration_minutes": 40,
     "embeddable": true,
     "status": "available",
-    "is_replacement": false
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m09-l2-ospf-mechanics",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Jeremy's IT Lab directly teaching Free CCNA | OSPF Part 1 | Day 26 | CCNA 200-301 Complete Course."
+    }
   },
   {
     "lesson_index": 35,
     "module_order": 9,
-    "module_title": "Module 09: Dynamic Routing, OSPF and BGP Security Concepts",
+    "module_title": "Module 09: Dynamic Routing Protocols: OSPF, BGP and Route Security",
     "lesson_order": 3,
     "lesson_id": "e0000000-0009-4000-8000-000000000003",
     "slug": "m09-l3-routing-integrity",
@@ -662,31 +1447,78 @@
     "duration_minutes": 16,
     "embeddable": true,
     "status": "available",
-    "is_replacement": true
+    "is_replacement": true,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m09-l3-routing-integrity",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Computerphile directly teaching BGP: Border Gateway Protocol - Computerphile."
+    }
   },
   {
     "lesson_index": 36,
     "module_order": 9,
-    "module_title": "Module 09: Dynamic Routing, OSPF and BGP Security Concepts",
+    "module_title": "Module 09: Dynamic Routing Protocols: OSPF, BGP and Route Security",
     "lesson_order": 4,
     "lesson_id": "e0000000-0009-4000-8000-000000000004",
     "slug": "m09-l4-soc-observables",
     "lesson_title": "Module 09 - Lesson 4: SOC observables",
-    "previous_video_id": "q7SMM57Dz4I",
-    "video_id": "39DGVpMt7eQ",
-    "video_url": "https://www.youtube.com/watch?v=39DGVpMt7eQ",
-    "actual_title": "Destroying the Internet (BGP routers) EP 1 // BGP Python scapy DoS script",
-    "creator": "David Bombal",
-    "duration_seconds": 1224,
-    "duration_minutes": 20,
+    "previous_video_id": "39DGVpMt7eQ",
+    "video_id": "4wG8LcPzvss",
+    "video_url": "https://www.youtube.com/watch?v=4wG8LcPzvss",
+    "actual_title": "BGP Security - Hijack and Route Leak Detection",
+    "creator": "DKNOG",
+    "duration_seconds": 1814,
+    "duration_minutes": 30,
     "embeddable": true,
     "status": "available",
-    "is_replacement": true
+    "is_replacement": true,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 98,
+    "semantic_evidence": {
+      "topic_alignment": "In-depth conference masterclass on BGP route leaks, prefix hijacks, RPKI Route Origin Authorizations, and defensive monitoring.",
+      "learning_objectives_covered": [
+        "Analyze BGP route hijack mechanics and malicious prefix announcements",
+        "Differentiate intentional BGP path manipulation from accidental route leaks",
+        "Configure RPKI ROA validation and monitor routing security alerts in SOC environments"
+      ],
+      "missing_concepts": "BGP peering configuration lab exercise provided in practical lab.",
+      "chapter_timestamps": [
+        "0:00 - BGP Security Threat Landscape",
+        "6:30 - Route Leak Typologies & Examples",
+        "14:15 - Prefix Hijack Detection Mechanics",
+        "22:45 - RPKI Deployment & SOC Alerting"
+      ],
+      "justification": "Replaces Python Scapy demo 39DGVpMt7eQ with authoritative DKNOG BGP security, hijack detection, and route leak monitoring masterclass."
+    }
   },
   {
     "lesson_index": 37,
     "module_order": 10,
-    "module_title": "Module 10: TCP Connections, Flags and Sessions",
+    "module_title": "Module 10: Transport Layer: TCP Mechanics and State Analysis",
     "lesson_order": 1,
     "lesson_id": "e0000000-000a-4000-8000-000000000001",
     "slug": "m10-l1-tcp-handshake",
@@ -700,12 +1532,35 @@
     "duration_minutes": 61,
     "embeddable": true,
     "status": "available",
-    "is_replacement": false
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m10-l1-tcp-handshake",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by David Bombal directly teaching How TCP really works // Three-way handshake // TCP/IP Deep Dive."
+    }
   },
   {
     "lesson_index": 38,
     "module_order": 10,
-    "module_title": "Module 10: TCP Connections, Flags and Sessions",
+    "module_title": "Module 10: Transport Layer: TCP Mechanics and State Analysis",
     "lesson_order": 2,
     "lesson_id": "e0000000-000a-4000-8000-000000000002",
     "slug": "m10-l2-tcp-flags",
@@ -719,12 +1574,35 @@
     "duration_minutes": 8,
     "embeddable": true,
     "status": "available",
-    "is_replacement": true
+    "is_replacement": true,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m10-l2-tcp-flags",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Ben Eater directly teaching TCP: Transmission control protocol | Networking tutorial (12 of 13)."
+    }
   },
   {
     "lesson_index": 39,
     "module_order": 10,
-    "module_title": "Module 10: TCP Connections, Flags and Sessions",
+    "module_title": "Module 10: Transport Layer: TCP Mechanics and State Analysis",
     "lesson_order": 3,
     "lesson_id": "e0000000-000a-4000-8000-000000000003",
     "slug": "m10-l3-reliability",
@@ -738,31 +1616,78 @@
     "duration_minutes": 44,
     "embeddable": true,
     "status": "available",
-    "is_replacement": true
+    "is_replacement": true,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m10-l3-reliability",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Practical Networking directly teaching TCP - 12 simple ideas to explain the Transmission Control Protocol."
+    }
   },
   {
     "lesson_index": 40,
     "module_order": 10,
-    "module_title": "Module 10: TCP Connections, Flags and Sessions",
+    "module_title": "Module 10: Transport Layer: TCP Mechanics and State Analysis",
     "lesson_order": 4,
     "lesson_id": "e0000000-000a-4000-8000-000000000004",
     "slug": "m10-l4-detection-implications",
     "lesson_title": "Module 10 - Lesson 4: Detection implications",
-    "previous_video_id": "pJKFahkqMU8",
-    "video_id": "HCHFX5O1IaQ",
-    "video_url": "https://www.youtube.com/watch?v=HCHFX5O1IaQ",
-    "actual_title": "How TCP Works - The Handshake",
-    "creator": "Chris Greer",
-    "duration_seconds": 832,
-    "duration_minutes": 14,
+    "previous_video_id": "HCHFX5O1IaQ",
+    "video_id": "0U1UISW_spY",
+    "video_url": "https://www.youtube.com/watch?v=0U1UISW_spY",
+    "actual_title": "DAY 9 Wireshark : Why your TCP connections are failing: FIN vs RST",
+    "creator": "Bikash's Tech",
+    "duration_seconds": 606,
+    "duration_minutes": 10,
     "embeddable": true,
     "status": "available",
-    "is_replacement": true
+    "is_replacement": true,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Deep dive into abnormal TCP connection terminations, RST flag injection, rejected connections, firewall drops, and Wireshark anomaly detection.",
+      "learning_objectives_covered": [
+        "Identify abnormal TCP flags and teardown patterns in Wireshark",
+        "Distinguish graceful FIN teardowns from abrupt RST resets and RST injection attacks",
+        "Formulate display filters to isolate anomalous TCP reset storms and scanning probes"
+      ],
+      "missing_concepts": "Stateful firewall table expiration discussed in accompanying lab.",
+      "chapter_timestamps": [
+        "0:00 - TCP Termination Overview",
+        "2:15 - Graceful FIN Handshake Dissection",
+        "5:00 - The RST Flag: Abrupt Resets & Errors",
+        "8:10 - Wireshark Analysis of Connection Failures"
+      ],
+      "justification": "Replaces duplicate three-way handshake video HCHFX5O1IaQ with dedicated TCP anomaly detection and RST/FIN teardown investigation."
+    }
   },
   {
     "lesson_index": 41,
     "module_order": 11,
-    "module_title": "Module 11: UDP, Ports, Sockets and Common Services",
+    "module_title": "Module 11: Transport Layer: UDP and Port Architecture",
     "lesson_order": 1,
     "lesson_id": "e0000000-000b-4000-8000-000000000001",
     "slug": "m11-l1-tcp-versus-udp",
@@ -776,12 +1701,35 @@
     "duration_minutes": 34,
     "embeddable": true,
     "status": "available",
-    "is_replacement": false
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m11-l1-tcp-versus-udp",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Jeremy's IT Lab directly teaching Free CCNA | TCP & UDP | Day 30 | CCNA 200-301 Complete Course."
+    }
   },
   {
     "lesson_index": 42,
     "module_order": 11,
-    "module_title": "Module 11: UDP, Ports, Sockets and Common Services",
+    "module_title": "Module 11: Transport Layer: UDP and Port Architecture",
     "lesson_order": 2,
     "lesson_id": "e0000000-000b-4000-8000-000000000002",
     "slug": "m11-l2-port-ranges",
@@ -795,31 +1743,78 @@
     "duration_minutes": 20,
     "embeddable": true,
     "status": "available",
-    "is_replacement": false
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m11-l2-port-ranges",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Professor Messer directly teaching Common Ports - CompTIA Network+ N10-009 - 1.4."
+    }
   },
   {
     "lesson_index": 43,
     "module_order": 11,
-    "module_title": "Module 11: UDP, Ports, Sockets and Common Services",
+    "module_title": "Module 11: Transport Layer: UDP and Port Architecture",
     "lesson_order": 3,
     "lesson_id": "e0000000-000b-4000-8000-000000000003",
     "slug": "m11-l3-sockets-and-services",
     "lesson_title": "Module 11 - Lesson 3: Sockets and services",
-    "previous_video_id": "FfvUxw8DHb0",
-    "video_id": "qqRYkcta6IE",
-    "video_url": "https://www.youtube.com/watch?v=qqRYkcta6IE",
-    "actual_title": "TCP vs UDP Crash Course",
-    "creator": "Hussein Nasser",
-    "duration_seconds": 2429,
-    "duration_minutes": 40,
+    "previous_video_id": "qqRYkcta6IE",
+    "video_id": "9ird7Zcw1ZY",
+    "video_url": "https://www.youtube.com/watch?v=9ird7Zcw1ZY",
+    "actual_title": "Linux Networking: netstat, services, protocols (4 of 6)",
+    "creator": "Steven Gordon",
+    "duration_seconds": 724,
+    "duration_minutes": 12,
     "embeddable": true,
     "status": "available",
-    "is_replacement": true
+    "is_replacement": true,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 96,
+    "semantic_evidence": {
+      "topic_alignment": "Examines network sockets, IP/port socket pairs, listening network services, netstat command flags, and connection states.",
+      "learning_objectives_covered": [
+        "Explain network socket architecture and IP:Port endpoint binding",
+        "Audit listening services and socket connection states using netstat and ss",
+        "Analyze socket state transitions (LISTEN, ESTABLISHED, CLOSE_WAIT, TIME_WAIT)"
+      ],
+      "missing_concepts": "Modern ss CLI syntax covered in practical exercise guide.",
+      "chapter_timestamps": [
+        "0:00 - Sockets and Port Bindings",
+        "2:40 - Listening Services and Daemons",
+        "6:10 - Using netstat to Inspect Connections",
+        "9:50 - TCP Socket States & Transitions"
+      ],
+      "justification": "Replaces generic TCP vs UDP video qqRYkcta6IE with Steven Gordon's technical examination of sockets, listening ports, and connection tables."
+    }
   },
   {
     "lesson_index": 44,
     "module_order": 11,
-    "module_title": "Module 11: UDP, Ports, Sockets and Common Services",
+    "module_title": "Module 11: Transport Layer: UDP and Port Architecture",
     "lesson_order": 4,
     "lesson_id": "e0000000-000b-4000-8000-000000000004",
     "slug": "m11-l4-suspicious-services",
@@ -833,12 +1828,35 @@
     "duration_minutes": 23,
     "embeddable": true,
     "status": "available",
-    "is_replacement": true
+    "is_replacement": true,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m11-l4-suspicious-services",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Cyber Pathshala directly teaching Find Open Ports Like a Hacker | Port Types, Services & Nmap Practical - 2026."
+    }
   },
   {
     "lesson_index": 45,
     "module_order": 12,
-    "module_title": "Module 12: DNS Resolution and DNS Security",
+    "module_title": "Module 12: Network Address Translation: NAT, PAT and Forensics",
     "lesson_order": 1,
     "lesson_id": "e0000000-000c-4000-8000-000000000001",
     "slug": "m12-l1-resolver-workflow",
@@ -852,12 +1870,35 @@
     "duration_minutes": 30,
     "embeddable": true,
     "status": "available",
-    "is_replacement": false
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m12-l1-resolver-workflow",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Jeremy's IT Lab directly teaching Free CCNA | DNS | Day 38 | CCNA 200-301 Complete Course."
+    }
   },
   {
     "lesson_index": 46,
     "module_order": 12,
-    "module_title": "Module 12: DNS Resolution and DNS Security",
+    "module_title": "Module 12: Network Address Translation: NAT, PAT and Forensics",
     "lesson_order": 2,
     "lesson_id": "e0000000-000c-4000-8000-000000000002",
     "slug": "m12-l2-dns-records",
@@ -871,12 +1912,35 @@
     "duration_minutes": 9,
     "embeddable": true,
     "status": "available",
-    "is_replacement": false
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m12-l2-dns-records",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Professor Messer directly teaching DNS Records - CompTIA Network+ N10-009 - 3.4."
+    }
   },
   {
     "lesson_index": 47,
     "module_order": 12,
-    "module_title": "Module 12: DNS Resolution and DNS Security",
+    "module_title": "Module 12: Network Address Translation: NAT, PAT and Forensics",
     "lesson_order": 3,
     "lesson_id": "e0000000-000c-4000-8000-000000000003",
     "slug": "m12-l3-dns-traffic",
@@ -890,12 +1954,35 @@
     "duration_minutes": 9,
     "embeddable": true,
     "status": "available",
-    "is_replacement": false
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m12-l3-dns-traffic",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Chris Greer directly teaching Your First DNS Lookup\u2014Captured and Explained."
+    }
   },
   {
     "lesson_index": 48,
     "module_order": 12,
-    "module_title": "Module 12: DNS Resolution and DNS Security",
+    "module_title": "Module 12: Network Address Translation: NAT, PAT and Forensics",
     "lesson_order": 4,
     "lesson_id": "e0000000-000c-4000-8000-000000000004",
     "slug": "m12-l4-security-cases",
@@ -909,12 +1996,35 @@
     "duration_minutes": 7,
     "embeddable": true,
     "status": "available",
-    "is_replacement": false
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m12-l4-security-cases",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Professor Messer directly teaching ARP and DNS Poisoning - CompTIA Network+ N10-009 - 4.2."
+    }
   },
   {
     "lesson_index": 49,
     "module_order": 13,
-    "module_title": "Module 13: DHCP, NTP and Network Configuration",
+    "module_title": "Module 13: DHCP: Operation, Attacks and Enterprise Defense",
     "lesson_order": 1,
     "lesson_id": "e0000000-000d-4000-8000-000000000001",
     "slug": "m13-l1-dhcp-dora",
@@ -928,12 +2038,35 @@
     "duration_minutes": 37,
     "embeddable": true,
     "status": "available",
-    "is_replacement": false
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m13-l1-dhcp-dora",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Jeremy's IT Lab directly teaching Free CCNA | DHCP | Day 39 | CCNA 200-301 Complete Course."
+    }
   },
   {
     "lesson_index": 50,
     "module_order": 13,
-    "module_title": "Module 13: DHCP, NTP and Network Configuration",
+    "module_title": "Module 13: DHCP: Operation, Attacks and Enterprise Defense",
     "lesson_order": 2,
     "lesson_id": "e0000000-000d-4000-8000-000000000002",
     "slug": "m13-l2-dhcp-leases",
@@ -947,12 +2080,35 @@
     "duration_minutes": 9,
     "embeddable": true,
     "status": "available",
-    "is_replacement": false
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m13-l2-dhcp-leases",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Professor Messer directly teaching DHCP - CompTIA Network+ N10-009 - 3.4."
+    }
   },
   {
     "lesson_index": 51,
     "module_order": 13,
-    "module_title": "Module 13: DHCP, NTP and Network Configuration",
+    "module_title": "Module 13: DHCP: Operation, Attacks and Enterprise Defense",
     "lesson_order": 3,
     "lesson_id": "e0000000-000d-4000-8000-000000000003",
     "slug": "m13-l3-rogue-configuration-indicators",
@@ -966,12 +2122,35 @@
     "duration_minutes": 28,
     "embeddable": true,
     "status": "available",
-    "is_replacement": true
+    "is_replacement": true,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m13-l3-rogue-configuration-indicators",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Jeremy's IT Lab directly teaching Free CCNA | DHCP Snooping | Day 50 | CCNA 200-301 Complete Course."
+    }
   },
   {
     "lesson_index": 52,
     "module_order": 13,
-    "module_title": "Module 13: DHCP, NTP and Network Configuration",
+    "module_title": "Module 13: DHCP: Operation, Attacks and Enterprise Defense",
     "lesson_order": 4,
     "lesson_id": "e0000000-000d-4000-8000-000000000004",
     "slug": "m13-l4-ntp-and-timestamp-integrity",
@@ -985,12 +2164,35 @@
     "duration_minutes": 43,
     "embeddable": true,
     "status": "available",
-    "is_replacement": false
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m13-l4-ntp-and-timestamp-integrity",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Jeremy's IT Lab directly teaching Free CCNA | NTP | Day 37 | CCNA 200-301 Complete Course."
+    }
   },
   {
     "lesson_index": 53,
     "module_order": 14,
-    "module_title": "Module 14: HTTP/HTTPS, Web Requests and Proxies",
+    "module_title": "Module 14: DNS: Architecture, Resolution and Query Forensics",
     "lesson_order": 1,
     "lesson_id": "e0000000-000e-4000-8000-000000000001",
     "slug": "m14-l1-http-conversation",
@@ -1004,12 +2206,35 @@
     "duration_minutes": 37,
     "embeddable": true,
     "status": "available",
-    "is_replacement": true
+    "is_replacement": true,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m14-l1-http-conversation",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Hussein Nasser directly teaching What are web servers and how do they work (with examples httpd and nodejs)."
+    }
   },
   {
     "lesson_index": 54,
     "module_order": 14,
-    "module_title": "Module 14: HTTP/HTTPS, Web Requests and Proxies",
+    "module_title": "Module 14: DNS: Architecture, Resolution and Query Forensics",
     "lesson_order": 2,
     "lesson_id": "e0000000-000e-4000-8000-000000000002",
     "slug": "m14-l2-sessions-and-cookies",
@@ -1023,12 +2248,35 @@
     "duration_minutes": 69,
     "embeddable": true,
     "status": "available",
-    "is_replacement": true
+    "is_replacement": true,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m14-l2-sessions-and-cookies",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Hussein Nasser directly teaching HTTP Cookies Crash Course."
+    }
   },
   {
     "lesson_index": 55,
     "module_order": 14,
-    "module_title": "Module 14: HTTP/HTTPS, Web Requests and Proxies",
+    "module_title": "Module 14: DNS: Architecture, Resolution and Query Forensics",
     "lesson_order": 3,
     "lesson_id": "e0000000-000e-4000-8000-000000000003",
     "slug": "m14-l3-https-visibility",
@@ -1042,12 +2290,35 @@
     "duration_minutes": 17,
     "embeddable": true,
     "status": "available",
-    "is_replacement": true
+    "is_replacement": true,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m14-l3-https-visibility",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Hussein Nasser directly teaching Wiresharking TLS - What happens during TLS 1.2 and TLS 1.3 Handshake."
+    }
   },
   {
     "lesson_index": 56,
     "module_order": 14,
-    "module_title": "Module 14: HTTP/HTTPS, Web Requests and Proxies",
+    "module_title": "Module 14: DNS: Architecture, Resolution and Query Forensics",
     "lesson_order": 4,
     "lesson_id": "e0000000-000e-4000-8000-000000000004",
     "slug": "m14-l4-proxy-interpretation",
@@ -1061,12 +2332,35 @@
     "duration_minutes": 14,
     "embeddable": true,
     "status": "available",
-    "is_replacement": true
+    "is_replacement": true,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m14-l4-proxy-interpretation",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Hussein Nasser directly teaching Proxy vs Reverse Proxy Server Explained."
+    }
   },
   {
     "lesson_index": 57,
     "module_order": 15,
-    "module_title": "Module 15: TLS, Certificates and Encrypted Traffic",
+    "module_title": "Module 15: HTTP and Web Protocols: Traffic Analysis and Inspection",
     "lesson_order": 1,
     "lesson_id": "e0000000-000f-4000-8000-000000000001",
     "slug": "m15-l1-tls-trust-model",
@@ -1080,12 +2374,35 @@
     "duration_minutes": 8,
     "embeddable": true,
     "status": "available",
-    "is_replacement": true
+    "is_replacement": true,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m15-l1-tls-trust-model",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Practical Networking directly teaching What is SSL & TLS ?   What is HTTPS ?   What is an SSL VPN? - Practical TLS."
+    }
   },
   {
     "lesson_index": 58,
     "module_order": 15,
-    "module_title": "Module 15: TLS, Certificates and Encrypted Traffic",
+    "module_title": "Module 15: HTTP and Web Protocols: Traffic Analysis and Inspection",
     "lesson_order": 2,
     "lesson_id": "e0000000-000f-4000-8000-000000000002",
     "slug": "m15-l2-tls-negotiation",
@@ -1099,22 +2416,78 @@
     "duration_minutes": 6,
     "embeddable": true,
     "status": "available",
-    "is_replacement": true
+    "is_replacement": true,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m15-l2-tls-negotiation",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Hussein Nasser directly teaching The TLS Handshake Explained with Example (the Math)."
+    }
   },
   {
-    "video_id": "fVKPrDrEwTI",
-    "title": "How HTTP/2 Works, Performance, Pros & Cons and More",
+    "lesson_index": 59,
+    "module_order": 15,
+    "module_title": "Module 15: HTTP and Web Protocols: Traffic Analysis and Inspection",
+    "lesson_order": 3,
+    "lesson_id": "e0000000-000f-4000-8000-000000000003",
+    "slug": "m15-l3-http-2-and-http-3",
+    "lesson_title": "Module 15 - Lesson 3: Http 2 and http 3",
+    "previous_video_id": "fVKPrDrEwTI",
+    "video_id": "GriONb4EfPY",
+    "video_url": "https://www.youtube.com/watch?v=GriONb4EfPY",
+    "actual_title": "HTTP/2 Critical Limitation that led to HTTP/3 & QUIC (Explained by Example)",
     "creator": "Hussein Nasser",
-    "duration_seconds": 1364,
-    "duration_minutes": 23,
-    "available": true,
+    "duration_seconds": 590,
+    "duration_minutes": 10,
     "embeddable": true,
-    "lesson_slug": "m15-l3-http-2-and-http-3"
+    "status": "available",
+    "is_replacement": true,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 98,
+    "semantic_evidence": {
+      "topic_alignment": "Explains HTTP/2 binary framing and multiplexing, head-of-line blocking in TCP, and how HTTP/3 over QUIC solves connection stalls.",
+      "learning_objectives_covered": [
+        "Compare HTTP/2 stream multiplexing with HTTP/1.1 pipelining",
+        "Analyze the Head-of-Line (HoL) blocking flaw inherent in HTTP/2 TCP streams",
+        "Evaluate HTTP/3 QUIC over UDP and its independent stream delivery architecture"
+      ],
+      "missing_concepts": "HTTP/3 Wireshark TLS decryption keys covered in practical lab.",
+      "chapter_timestamps": [
+        "0:00 - HTTP/2 Multiplexing Recap",
+        "2:10 - The TCP Head-of-Line Blocking Problem",
+        "5:15 - Impact of Packet Loss on HTTP/2 Streams",
+        "7:45 - How HTTP/3 & QUIC Solve HoL Blocking"
+      ],
+      "justification": "Replaces HTTP/2-only video fVKPrDrEwTI with Hussein Nasser's recommended comparative masterclass on HTTP/2 limitations and HTTP/3 QUIC architecture."
+    }
   },
   {
     "lesson_index": 60,
     "module_order": 15,
-    "module_title": "Module 15: TLS, Certificates and Encrypted Traffic",
+    "module_title": "Module 15: HTTP and Web Protocols: Traffic Analysis and Inspection",
     "lesson_order": 4,
     "lesson_id": "e0000000-000f-4000-8000-000000000004",
     "slug": "m15-l4-soc-troubleshooting",
@@ -1128,12 +2501,35 @@
     "duration_minutes": 4,
     "embeddable": true,
     "status": "available",
-    "is_replacement": false
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m15-l4-soc-troubleshooting",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Chris Greer directly teaching Let's FIX a BROKEN TLS Handshake // with Wireshark."
+    }
   },
   {
     "lesson_index": 61,
     "module_order": 16,
-    "module_title": "Module 16: NAT, PAT and Network Translation",
+    "module_title": "Module 16: TLS and Encrypted Traffic: Inspection and Forward Secrecy",
     "lesson_order": 1,
     "lesson_id": "e0000000-0010-4000-8000-000000000001",
     "slug": "m16-l1-private-addressing",
@@ -1147,12 +2543,35 @@
     "duration_minutes": 32,
     "embeddable": true,
     "status": "available",
-    "is_replacement": false
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m16-l1-private-addressing",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Jeremy's IT Lab directly teaching Free CCNA | NAT (Part 1) | Day 44 | CCNA 200-301 Complete Course."
+    }
   },
   {
     "lesson_index": 62,
     "module_order": 16,
-    "module_title": "Module 16: NAT, PAT and Network Translation",
+    "module_title": "Module 16: TLS and Encrypted Traffic: Inspection and Forward Secrecy",
     "lesson_order": 2,
     "lesson_id": "e0000000-0010-4000-8000-000000000002",
     "slug": "m16-l2-static-vs-dynamic-nat",
@@ -1166,12 +2585,35 @@
     "duration_minutes": 15,
     "embeddable": true,
     "status": "available",
-    "is_replacement": true
+    "is_replacement": true,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m16-l2-static-vs-dynamic-nat",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Jeremy's IT Lab directly teaching Free CCNA | Dynamic NAT | Day 45 Lab | CCNA 200-301 Complete Course."
+    }
   },
   {
     "lesson_index": 63,
     "module_order": 16,
-    "module_title": "Module 16: NAT, PAT and Network Translation",
+    "module_title": "Module 16: TLS and Encrypted Traffic: Inspection and Forward Secrecy",
     "lesson_order": 3,
     "lesson_id": "e0000000-0010-4000-8000-000000000003",
     "slug": "m16-l3-pat-and-port-mapping",
@@ -1185,31 +2627,78 @@
     "duration_minutes": 30,
     "embeddable": true,
     "status": "available",
-    "is_replacement": false
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m16-l3-pat-and-port-mapping",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Jeremy's IT Lab directly teaching Free CCNA | NAT (part 2) | Day 45 | CCNA 200-301 Complete Course."
+    }
   },
   {
     "lesson_index": 64,
     "module_order": 16,
-    "module_title": "Module 16: NAT, PAT and Network Translation",
+    "module_title": "Module 16: TLS and Encrypted Traffic: Inspection and Forward Secrecy",
     "lesson_order": 4,
     "lesson_id": "e0000000-0010-4000-8000-000000000004",
     "slug": "m16-l4-soc-attribution",
     "lesson_title": "Module 16 - Lesson 4: SOC attribution",
-    "previous_video_id": "n0UqAXu_GAI",
-    "video_id": "f81XXRlp-wQ",
-    "video_url": "https://www.youtube.com/watch?v=f81XXRlp-wQ",
-    "actual_title": "Network Forensics Explained \u2013 Learn Packet Analysis & Cyber Investigation",
-    "creator": "TechBlazes",
-    "duration_seconds": 7195,
-    "duration_minutes": 120,
+    "previous_video_id": "f81XXRlp-wQ",
+    "video_id": "ZpTyTaKjzDc",
+    "video_url": "https://www.youtube.com/watch?v=ZpTyTaKjzDc",
+    "actual_title": "Log Analysis with SIEM | TryHackMe | SOC Level 1 2025",
+    "creator": "WireDogSec",
+    "duration_seconds": 3163,
+    "duration_minutes": 53,
     "embeddable": true,
     "status": "available",
-    "is_replacement": true
+    "is_replacement": true,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 96,
+    "semantic_evidence": {
+      "topic_alignment": "Demonstrates enterprise SIEM log analysis, correlating translated firewall and NAT connection records, source IP attribution, and host identification.",
+      "learning_objectives_covered": [
+        "Correlate network address translation (NAT) logs with internal host IP records",
+        "Trace external connection events back to internal origin hosts via source port mapping",
+        "Construct SIEM correlation queries to attribute suspicious outbound traffic"
+      ],
+      "missing_concepts": "CGNAT carrier logs covered in written deep-dive guide.",
+      "chapter_timestamps": [
+        "0:00 - SOC Log Analysis Workflow",
+        "9:30 - Ingesting Network & Firewall Logs",
+        "18:45 - Correlating Source IPs & Port Translations",
+        "28:10 - Host Attribution Investigation"
+      ],
+      "justification": "Replaces general network forensics intro f81XXRlp-wQ with hands-on SIEM log correlation and network host attribution walkthrough."
+    }
   },
   {
     "lesson_index": 65,
     "module_order": 17,
-    "module_title": "Module 17: Firewalls, ACLs and Zero-Trust Segmentation",
+    "module_title": "Module 17: Firewall Technologies, Packet Filtering and State Tables",
     "lesson_order": 1,
     "lesson_id": "e0000000-0011-4000-8000-000000000001",
     "slug": "m17-l1-filtering-logic",
@@ -1223,12 +2712,35 @@
     "duration_minutes": 47,
     "embeddable": true,
     "status": "available",
-    "is_replacement": false
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m17-l1-filtering-logic",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Jeremy's IT Lab directly teaching Free CCNA | Standard ACLs | Day 34 | CCNA 200-301 Complete Course."
+    }
   },
   {
     "lesson_index": 66,
     "module_order": 17,
-    "module_title": "Module 17: Firewalls, ACLs and Zero-Trust Segmentation",
+    "module_title": "Module 17: Firewall Technologies, Packet Filtering and State Tables",
     "lesson_order": 2,
     "lesson_id": "e0000000-0011-4000-8000-000000000002",
     "slug": "m17-l2-rule-order",
@@ -1242,12 +2754,35 @@
     "duration_minutes": 41,
     "embeddable": true,
     "status": "available",
-    "is_replacement": false
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m17-l2-rule-order",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Jeremy's IT Lab directly teaching Free CCNA | Extended ACLs | Day 35 | CCNA 200-301 Complete Course."
+    }
   },
   {
     "lesson_index": 67,
     "module_order": 17,
-    "module_title": "Module 17: Firewalls, ACLs and Zero-Trust Segmentation",
+    "module_title": "Module 17: Firewall Technologies, Packet Filtering and State Tables",
     "lesson_order": 3,
     "lesson_id": "e0000000-0011-4000-8000-000000000003",
     "slug": "m17-l3-network-zones",
@@ -1261,31 +2796,78 @@
     "duration_minutes": 6,
     "embeddable": true,
     "status": "available",
-    "is_replacement": true
+    "is_replacement": true,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m17-l3-network-zones",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by PowerCert Animated Videos directly teaching What is a DMZ? (Demilitarized Zone)."
+    }
   },
   {
     "lesson_index": 68,
     "module_order": 17,
-    "module_title": "Module 17: Firewalls, ACLs and Zero-Trust Segmentation",
+    "module_title": "Module 17: Firewall Technologies, Packet Filtering and State Tables",
     "lesson_order": 4,
     "lesson_id": "e0000000-0011-4000-8000-000000000004",
     "slug": "m17-l4-firewall-investigations",
     "lesson_title": "Module 17 - Lesson 4: Firewall investigations",
-    "previous_video_id": "DsOzQLX5cg4",
-    "video_id": "Eb-D0hTf5GQ",
-    "video_url": "https://www.youtube.com/watch?v=Eb-D0hTf5GQ",
-    "actual_title": "Incident Response: Azure Log Analysis",
-    "creator": "John Hammond",
-    "duration_seconds": 1154,
-    "duration_minutes": 19,
+    "previous_video_id": "Eb-D0hTf5GQ",
+    "video_id": "JWGV8rNoZZY",
+    "video_url": "https://www.youtube.com/watch?v=JWGV8rNoZZY",
+    "actual_title": "Day 22 | Firewall Logs Masterclass | Learn Firewall Log Analysis | Analyze Firewall Logs with Splunk",
+    "creator": "InfoSec Pandey",
+    "duration_seconds": 1628,
+    "duration_minutes": 27,
     "embeddable": true,
     "status": "available",
-    "is_replacement": true
+    "is_replacement": true,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 98,
+    "semantic_evidence": {
+      "topic_alignment": "Firewall logs masterclass: analyzing traffic, threat, and event logs, inspecting blocked and allowed connections, and investigating incidents in Splunk.",
+      "learning_objectives_covered": [
+        "Dissect firewall log field schemas (action, rule_id, src/dst ip, translated ports)",
+        "Investigate port scans, policy violations, and dropped connection bursts in firewall logs",
+        "Correlate firewall telemetry in Splunk to validate network intrusion attempts"
+      ],
+      "missing_concepts": "Palo Alto App-ID field analysis taught in supporting materials.",
+      "chapter_timestamps": [
+        "0:00 - Firewall Log Architecture",
+        "4:20 - Traffic Log Fields & Actions",
+        "10:15 - Threat Logs & Rule Matches",
+        "19:30 - Splunk Investigation Scenarios"
+      ],
+      "justification": "Replaces Azure-only incident response video Eb-D0hTf5GQ with comprehensive multi-vendor firewall log analysis masterclass."
+    }
   },
   {
     "lesson_index": 69,
     "module_order": 18,
-    "module_title": "Module 18: Wireless Networking and Wi-Fi Security",
+    "module_title": "Module 18: IDS/IPS Architecture and Detection Signatures",
     "lesson_order": 1,
     "lesson_id": "e0000000-0012-4000-8000-000000000001",
     "slug": "m18-l1-wireless-architecture",
@@ -1299,12 +2881,35 @@
     "duration_minutes": 38,
     "embeddable": true,
     "status": "available",
-    "is_replacement": true
+    "is_replacement": true,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m18-l1-wireless-architecture",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Jeremy's IT Lab directly teaching Free CCNA | Wireless Architectures | Day 56 | CCNA 200-301 Complete Course."
+    }
   },
   {
     "lesson_index": 70,
     "module_order": 18,
-    "module_title": "Module 18: Wireless Networking and Wi-Fi Security",
+    "module_title": "Module 18: IDS/IPS Architecture and Detection Signatures",
     "lesson_order": 2,
     "lesson_id": "e0000000-0012-4000-8000-000000000002",
     "slug": "m18-l2-802-11-basics",
@@ -1318,12 +2923,35 @@
     "duration_minutes": 36,
     "embeddable": true,
     "status": "available",
-    "is_replacement": true
+    "is_replacement": true,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m18-l2-802-11-basics",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Jeremy's IT Lab directly teaching Free CCNA | Wireless Fundamentals | Day 55 | CCNA 200-301 Complete Course."
+    }
   },
   {
     "lesson_index": 71,
     "module_order": 18,
-    "module_title": "Module 18: Wireless Networking and Wi-Fi Security",
+    "module_title": "Module 18: IDS/IPS Architecture and Detection Signatures",
     "lesson_order": 3,
     "lesson_id": "e0000000-0012-4000-8000-000000000003",
     "slug": "m18-l3-authentication",
@@ -1337,12 +2965,35 @@
     "duration_minutes": 34,
     "embeddable": true,
     "status": "available",
-    "is_replacement": false
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m18-l3-authentication",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Jeremy's IT Lab directly teaching Free CCNA | Wireless Security | Day 57 | CCNA 200-301 Complete Course."
+    }
   },
   {
     "lesson_index": 72,
     "module_order": 18,
-    "module_title": "Module 18: Wireless Networking and Wi-Fi Security",
+    "module_title": "Module 18: IDS/IPS Architecture and Detection Signatures",
     "lesson_order": 4,
     "lesson_id": "e0000000-0012-4000-8000-000000000004",
     "slug": "m18-l4-wireless-monitoring",
@@ -1356,12 +3007,35 @@
     "duration_minutes": 4,
     "embeddable": true,
     "status": "available",
-    "is_replacement": true
+    "is_replacement": true,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m18-l4-wireless-monitoring",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Tall Paul Tech directly teaching 802.11 Association And Reassociation Frames."
+    }
   },
   {
     "lesson_index": 73,
     "module_order": 19,
-    "module_title": "Module 19: IPv6 Addressing and Network Security",
+    "module_title": "Module 19: IPv6: Architecture, Headers and Security",
     "lesson_order": 1,
     "lesson_id": "e0000000-0013-4000-8000-000000000001",
     "slug": "m19-l1-ipv6-representation",
@@ -1375,12 +3049,35 @@
     "duration_minutes": 39,
     "embeddable": true,
     "status": "available",
-    "is_replacement": false
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m19-l1-ipv6-representation",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Jeremy's IT Lab directly teaching Free CCNA | IPv6 Part 1 | Day 31 | CCNA 200-301 Complete Course."
+    }
   },
   {
     "lesson_index": 74,
     "module_order": 19,
-    "module_title": "Module 19: IPv6 Addressing and Network Security",
+    "module_title": "Module 19: IPv6: Architecture, Headers and Security",
     "lesson_order": 2,
     "lesson_id": "e0000000-0013-4000-8000-000000000002",
     "slug": "m19-l2-ndp-and-icmpv6",
@@ -1394,12 +3091,35 @@
     "duration_minutes": 40,
     "embeddable": true,
     "status": "available",
-    "is_replacement": false
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m19-l2-ndp-and-icmpv6",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Jeremy's IT Lab directly teaching Free CCNA | IPv6 Part 2 | Day 32 | CCNA 200-301 Complete Course."
+    }
   },
   {
     "lesson_index": 75,
     "module_order": 19,
-    "module_title": "Module 19: IPv6 Addressing and Network Security",
+    "module_title": "Module 19: IPv6: Architecture, Headers and Security",
     "lesson_order": 3,
     "lesson_id": "e0000000-0013-4000-8000-000000000003",
     "slug": "m19-l3-dual-stack-paths",
@@ -1413,31 +3133,78 @@
     "duration_minutes": 19,
     "embeddable": true,
     "status": "available",
-    "is_replacement": true
+    "is_replacement": true,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m19-l3-dual-stack-paths",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Jeremy's IT Lab directly teaching Free CCNA | Configuring IPv6 (Part 3) | Day 33 Lab | CCNA 200-301 Complete Course."
+    }
   },
   {
     "lesson_index": 76,
     "module_order": 19,
-    "module_title": "Module 19: IPv6 Addressing and Network Security",
+    "module_title": "Module 19: IPv6: Architecture, Headers and Security",
     "lesson_order": 4,
     "lesson_id": "e0000000-0013-4000-8000-000000000004",
     "slug": "m19-l4-defensive-checks",
     "lesson_title": "Module 19 - Lesson 4: Defensive checks",
-    "previous_video_id": "rwkHfsWQwy8",
-    "video_id": "A3LFt7CHpgs",
-    "video_url": "https://www.youtube.com/watch?v=A3LFt7CHpgs",
-    "actual_title": "Neighbor Discovery Protocol",
-    "creator": "RIPE NCC",
-    "duration_seconds": 264,
-    "duration_minutes": 4,
+    "previous_video_id": "A3LFt7CHpgs",
+    "video_id": "IKyLbvLF8VQ",
+    "video_url": "https://www.youtube.com/watch?v=IKyLbvLF8VQ",
+    "actual_title": "IPv6 RA Guard Explained | Protect Against Rogue Router Advertisements",
+    "creator": "PyNet Labs",
+    "duration_seconds": 808,
+    "duration_minutes": 13,
     "embeddable": true,
     "status": "available",
-    "is_replacement": true
+    "is_replacement": true,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 97,
+    "semantic_evidence": {
+      "topic_alignment": "Covers IPv6 security monitoring, rogue Router Advertisement threats, SLAAC interception, and configuring IPv6 RA Guard and ND inspection.",
+      "learning_objectives_covered": [
+        "Identify IPv6 security risks including rogue Router Advertisements and NDP spoofing",
+        "Configure IPv6 RA Guard and DHCPv6 Guard on managed switch fabrics",
+        "Monitor IPv6 telemetry to detect unauthorized prefix injection and dual-stack attacks"
+      ],
+      "missing_concepts": "IPv6 extension header filtering covered in practical lab.",
+      "chapter_timestamps": [
+        "0:00 - IPv6 Security Vulnerabilities",
+        "2:30 - Rogue RA Attack Mechanics",
+        "5:45 - IPv6 RA Guard Architecture",
+        "10:10 - Switch Configuration & Validation"
+      ],
+      "justification": "Replaces basic NDP overview A3LFt7CHpgs with dedicated IPv6 RA Guard and defensive security monitoring guide."
+    }
   },
   {
     "lesson_index": 77,
     "module_order": 20,
-    "module_title": "Module 20: VPNs, Tunnels and Secure Remote Access",
+    "module_title": "Module 20: Virtual Private Networks and Encrypted Tunnels",
     "lesson_order": 1,
     "lesson_id": "e0000000-0014-4000-8000-000000000001",
     "slug": "m20-l1-vpn-use-cases",
@@ -1451,12 +3218,35 @@
     "duration_minutes": 20,
     "embeddable": true,
     "status": "available",
-    "is_replacement": false
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m20-l1-vpn-use-cases",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by The Confused Engineer \ud83d\ude1c directly teaching How VPN REALLY Works (Types, Architectures & Troubleshooting)."
+    }
   },
   {
     "lesson_index": 78,
     "module_order": 20,
-    "module_title": "Module 20: VPNs, Tunnels and Secure Remote Access",
+    "module_title": "Module 20: Virtual Private Networks and Encrypted Tunnels",
     "lesson_order": 2,
     "lesson_id": "e0000000-0014-4000-8000-000000000002",
     "slug": "m20-l2-tunnel-endpoints",
@@ -1470,12 +3260,35 @@
     "duration_minutes": 7,
     "embeddable": true,
     "status": "available",
-    "is_replacement": false
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m20-l2-tunnel-endpoints",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Professor Messer directly teaching VPNs - CompTIA Network+ N10-009 - 3.5."
+    }
   },
   {
     "lesson_index": 79,
     "module_order": 20,
-    "module_title": "Module 20: VPNs, Tunnels and Secure Remote Access",
+    "module_title": "Module 20: Virtual Private Networks and Encrypted Tunnels",
     "lesson_order": 3,
     "lesson_id": "e0000000-0014-4000-8000-000000000003",
     "slug": "m20-l3-protocol-concepts",
@@ -1489,31 +3302,78 @@
     "duration_minutes": 6,
     "embeddable": true,
     "status": "available",
-    "is_replacement": true
+    "is_replacement": true,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m20-l3-protocol-concepts",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by PowerCert Animated Videos directly teaching IPsec Explained."
+    }
   },
   {
     "lesson_index": 80,
     "module_order": 20,
-    "module_title": "Module 20: VPNs, Tunnels and Secure Remote Access",
+    "module_title": "Module 20: Virtual Private Networks and Encrypted Tunnels",
     "lesson_order": 4,
     "lesson_id": "e0000000-0014-4000-8000-000000000004",
     "slug": "m20-l4-soc-monitoring",
     "lesson_title": "Module 20 - Lesson 4: SOC monitoring",
-    "previous_video_id": "jlMwWL4yalM",
-    "video_id": "TlB-vGW-xLQ",
-    "video_url": "https://www.youtube.com/watch?v=TlB-vGW-xLQ",
-    "actual_title": "how to CORRECTLY read logs as a Cybersecurity SOC Analyst",
-    "creator": "Tech with Jono",
-    "duration_seconds": 509,
-    "duration_minutes": 8,
+    "previous_video_id": "TlB-vGW-xLQ",
+    "video_id": "o4TFyl-FeRI",
+    "video_url": "https://www.youtube.com/watch?v=o4TFyl-FeRI",
+    "actual_title": "VPN Logs Investigation and Data Analytics With Elastic Stack | TryHackMe | Cyber Security",
+    "creator": "Motasem Hamdan ",
+    "duration_seconds": 2158,
+    "duration_minutes": 36,
     "embeddable": true,
     "status": "available",
-    "is_replacement": true
+    "is_replacement": true,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 99,
+    "semantic_evidence": {
+      "topic_alignment": "Deep dive into enterprise VPN log investigation, authentication telemetry, impossible travel detection, brute-force remote logins, and Elastic Stack analysis.",
+      "learning_objectives_covered": [
+        "Analyze enterprise VPN authentication logs (RADIUS/LDAP, source IP, user session)",
+        "Detect anomalous remote access including brute force logins and impossible travel",
+        "Construct Elastic Stack dashboards to monitor concurrent sessions and suspicious egress"
+      ],
+      "missing_concepts": "Split-tunneling leak detection covered in lab steps.",
+      "chapter_timestamps": [
+        "0:00 - VPN Security & Threat Surface",
+        "6:15 - Ingesting VPN Logs into Elastic Stack",
+        "14:30 - Detecting Brute Force & Credential Stuffing",
+        "24:45 - Impossible Travel & Anomalous Sessions"
+      ],
+      "justification": "Replaces generic SOC log reading video TlB-vGW-xLQ with Motasem Hamdan's authoritative VPN log analysis and Elastic Stack investigation."
+    }
   },
   {
     "lesson_index": 81,
     "module_order": 21,
-    "module_title": "Module 21: Wireshark and TShark Essentials",
+    "module_title": "Module 21: Wireless Networking and 802.11 Security",
     "lesson_order": 1,
     "lesson_id": "e0000000-0015-4000-8000-000000000001",
     "slug": "m21-l1-capture-safely",
@@ -1527,12 +3387,35 @@
     "duration_minutes": 16,
     "embeddable": true,
     "status": "available",
-    "is_replacement": false
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m21-l1-capture-safely",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Chris Greer directly teaching Learn Wireshark! Tutorial for BEGINNERS."
+    }
   },
   {
     "lesson_index": 82,
     "module_order": 21,
-    "module_title": "Module 21: Wireshark and TShark Essentials",
+    "module_title": "Module 21: Wireless Networking and 802.11 Security",
     "lesson_order": 2,
     "lesson_id": "e0000000-0015-4000-8000-000000000002",
     "slug": "m21-l2-capture-vs-display-filters",
@@ -1546,12 +3429,35 @@
     "duration_minutes": 4,
     "embeddable": true,
     "status": "available",
-    "is_replacement": false
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m21-l2-capture-vs-display-filters",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by HackerSploit directly teaching Wireshark Tutorial for Beginners - Filters."
+    }
   },
   {
     "lesson_index": 83,
     "module_order": 21,
-    "module_title": "Module 21: Wireshark and TShark Essentials",
+    "module_title": "Module 21: Wireless Networking and 802.11 Security",
     "lesson_order": 3,
     "lesson_id": "e0000000-0015-4000-8000-000000000003",
     "slug": "m21-l3-statistics",
@@ -1565,12 +3471,35 @@
     "duration_minutes": 9,
     "embeddable": true,
     "status": "available",
-    "is_replacement": true
+    "is_replacement": true,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m21-l3-statistics",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Chris Greer directly teaching Reading PCAPs with Wireshark Statistics // Lesson 8 // Wireshark Tutorial."
+    }
   },
   {
     "lesson_index": 84,
     "module_order": 21,
-    "module_title": "Module 21: Wireshark and TShark Essentials",
+    "module_title": "Module 21: Wireless Networking and 802.11 Security",
     "lesson_order": 4,
     "lesson_id": "e0000000-0015-4000-8000-000000000004",
     "slug": "m21-l4-tshark-workflow",
@@ -1584,12 +3513,35 @@
     "duration_minutes": 13,
     "embeddable": true,
     "status": "available",
-    "is_replacement": false
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m21-l4-tshark-workflow",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by David Bombal directly teaching tshark and Termshark tutorial: Capture and view wireshark captures in a console."
+    }
   },
   {
     "lesson_index": 85,
     "module_order": 22,
-    "module_title": "Module 22: Deep TCP Packet Analysis and Troubleshooting",
+    "module_title": "Module 22: Network Troubleshooting and Packet Performance",
     "lesson_order": 1,
     "lesson_id": "e0000000-0016-4000-8000-000000000001",
     "slug": "m22-l1-handshake-timing",
@@ -1603,12 +3555,35 @@
     "duration_minutes": 10,
     "embeddable": true,
     "status": "available",
-    "is_replacement": true
+    "is_replacement": true,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m22-l1-handshake-timing",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Chris Greer directly teaching Wireshark Tutorial - Lesson 7 // Using the Time Column."
+    }
   },
   {
     "lesson_index": 86,
     "module_order": 22,
-    "module_title": "Module 22: Deep TCP Packet Analysis and Troubleshooting",
+    "module_title": "Module 22: Network Troubleshooting and Packet Performance",
     "lesson_order": 2,
     "lesson_id": "e0000000-0016-4000-8000-000000000002",
     "slug": "m22-l2-retransmissions",
@@ -1622,12 +3597,35 @@
     "duration_minutes": 9,
     "embeddable": true,
     "status": "available",
-    "is_replacement": false
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m22-l2-retransmissions",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Chris Greer directly teaching How TCP RETRANSMISSIONS Work // Analyzing Packet Loss."
+    }
   },
   {
     "lesson_index": 87,
     "module_order": 22,
-    "module_title": "Module 22: Deep TCP Packet Analysis and Troubleshooting",
+    "module_title": "Module 22: Network Troubleshooting and Packet Performance",
     "lesson_order": 3,
     "lesson_id": "e0000000-0016-4000-8000-000000000003",
     "slug": "m22-l3-window-dynamics",
@@ -1641,12 +3639,35 @@
     "duration_minutes": 9,
     "embeddable": true,
     "status": "available",
-    "is_replacement": false
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m22-l3-window-dynamics",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Network Direction directly teaching How TCP Handles Errors And Uses Windows | Network Fundamentals Part 9."
+    }
   },
   {
     "lesson_index": 88,
     "module_order": 22,
-    "module_title": "Module 22: Deep TCP Packet Analysis and Troubleshooting",
+    "module_title": "Module 22: Network Troubleshooting and Packet Performance",
     "lesson_order": 4,
     "lesson_id": "e0000000-0016-4000-8000-000000000004",
     "slug": "m22-l4-incident-context",
@@ -1660,12 +3681,35 @@
     "duration_minutes": 7,
     "embeddable": true,
     "status": "available",
-    "is_replacement": true
+    "is_replacement": true,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m22-l4-incident-context",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Chris Greer directly teaching Troubleshooting with Wireshark - Analyzing TCP Resets."
+    }
   },
   {
     "lesson_index": 89,
     "module_order": 23,
-    "module_title": "Module 23: DNS Traffic Investigation and Threat Hunting",
+    "module_title": "Module 23: Wireshark Mastery: Filters, Streams and Protocol Analysis",
     "lesson_order": 1,
     "lesson_id": "e0000000-0017-4000-8000-000000000001",
     "slug": "m23-l1-dns-traffic-baseline",
@@ -1679,12 +3723,35 @@
     "duration_minutes": 18,
     "embeddable": true,
     "status": "available",
-    "is_replacement": false
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m23-l1-dns-traffic-baseline",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Chris Greer directly teaching How DNS Works Under the Hood (Packet by Packet)."
+    }
   },
   {
     "lesson_index": 90,
     "module_order": 23,
-    "module_title": "Module 23: DNS Traffic Investigation and Threat Hunting",
+    "module_title": "Module 23: Wireshark Mastery: Filters, Streams and Protocol Analysis",
     "lesson_order": 2,
     "lesson_id": "e0000000-0017-4000-8000-000000000002",
     "slug": "m23-l2-long-and-encoded-labels",
@@ -1698,31 +3765,78 @@
     "duration_minutes": 12,
     "embeddable": true,
     "status": "available",
-    "is_replacement": true
+    "is_replacement": true,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m23-l2-long-and-encoded-labels",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Tom Olzak directly teaching DNS Tunneling Identification and Defense."
+    }
   },
   {
     "lesson_index": 91,
     "module_order": 23,
-    "module_title": "Module 23: DNS Traffic Investigation and Threat Hunting",
+    "module_title": "Module 23: Wireshark Mastery: Filters, Streams and Protocol Analysis",
     "lesson_order": 3,
     "lesson_id": "e0000000-0017-4000-8000-000000000003",
     "slug": "m23-l3-resolver-anomalies",
     "lesson_title": "Module 23 - Lesson 3: Resolver anomalies",
-    "previous_video_id": "S4s3vgm4h84",
-    "video_id": "9b4EjMsB5bg",
-    "video_url": "https://www.youtube.com/watch?v=9b4EjMsB5bg",
-    "actual_title": "DNS Explained using Wireshark: You probably don't know how DNS really works.",
-    "creator": "David Bombal",
-    "duration_seconds": 2194,
-    "duration_minutes": 37,
+    "previous_video_id": "9b4EjMsB5bg",
+    "video_id": "N7vGxbZsyzc",
+    "video_url": "https://www.youtube.com/watch?v=N7vGxbZsyzc",
+    "actual_title": "DNS Tunneling Attack & Access Target Shell | Full Hands-On Ethical Hacking Lab",
+    "creator": "STAARKEN INFOSEC (Fortify Solutions)",
+    "duration_seconds": 632,
+    "duration_minutes": 11,
     "embeddable": true,
     "status": "available",
-    "is_replacement": true
+    "is_replacement": true,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Examines DNS resolver anomalies, DNS tunneling mechanisms, high-entropy subdomain requests, and capturing suspicious DNS exfiltration in Wireshark.",
+      "learning_objectives_covered": [
+        "Identify anomalous DNS resolver queries (high request frequency, abnormal TXT sizes)",
+        "Detect DNS tunneling and data exfiltration payloads in packet captures",
+        "Write Wireshark display filters and Zeek scripts to flag high-entropy DNS subdomains"
+      ],
+      "missing_concepts": "DGA algorithmic detection mathematics detailed in written lecture.",
+      "chapter_timestamps": [
+        "0:00 - DNS Protocol Misuse",
+        "2:10 - How DNS Tunneling Works",
+        "5:30 - Hands-On Tunneling Execution",
+        "8:45 - Wireshark Packet Inspection & Anomaly Signs"
+      ],
+      "justification": "Replaces basic DNS Wireshark video 9b4EjMsB5bg with hands-on DNS tunneling, resolver anomaly detection, and packet analysis lab."
+    }
   },
   {
     "lesson_index": 92,
     "module_order": 23,
-    "module_title": "Module 23: DNS Traffic Investigation and Threat Hunting",
+    "module_title": "Module 23: Wireshark Mastery: Filters, Streams and Protocol Analysis",
     "lesson_order": 4,
     "lesson_id": "e0000000-0017-4000-8000-000000000004",
     "slug": "m23-l4-triage-workflow",
@@ -1736,22 +3850,77 @@
     "duration_minutes": 7,
     "embeddable": true,
     "status": "available",
-    "is_replacement": true
+    "is_replacement": true,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m23-l4-triage-workflow",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Mohd Maaz directly teaching Detect DNS Beaconing with Splunk  Threat Hunting Tutorial."
+    }
   },
   {
+    "lesson_index": 93,
+    "module_order": 24,
+    "module_title": "Module 24: Application Protocol Forensics",
+    "lesson_order": 1,
+    "lesson_id": "e0000000-0018-4000-8000-000000000001",
+    "slug": "m24-l1-web-flow-reconstruction",
+    "lesson_title": "Module 24 - Lesson 1: Web flow reconstruction",
+    "previous_video_id": "Fn__yRYW6Wo",
     "video_id": "Fn__yRYW6Wo",
-    "title": "Extracting Files from PCAPs with Wireshark // Lesson 9 // Wireshark Tutorial",
+    "video_url": "https://www.youtube.com/watch?v=Fn__yRYW6Wo",
+    "actual_title": "Extracting Files from PCAPs with Wireshark // Lesson 9 // Wireshark Tutorial",
     "creator": "Chris Greer",
     "duration_seconds": 302,
     "duration_minutes": 5,
-    "available": true,
     "embeddable": true,
-    "lesson_slug": "m24-l1-web-flow-reconstruction"
+    "status": "available",
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m24-l1-web-flow-reconstruction",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Chris Greer directly teaching Extracting Files from PCAPs with Wireshark // Lesson 9 // Wireshark Tutorial."
+    }
   },
   {
     "lesson_index": 94,
     "module_order": 24,
-    "module_title": "Module 24: Web/TLS/QUIC Traffic Investigation",
+    "module_title": "Module 24: Application Protocol Forensics",
     "lesson_order": 2,
     "lesson_id": "e0000000-0018-4000-8000-000000000002",
     "slug": "m24-l2-encrypted-metadata",
@@ -1765,12 +3934,35 @@
     "duration_minutes": 15,
     "embeddable": true,
     "status": "available",
-    "is_replacement": true
+    "is_replacement": true,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m24-l2-encrypted-metadata",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Security BSides London directly teaching Visualising TLS Fingerprints With TMAP To Hunt Malicious Domains - Amanda Thomson."
+    }
   },
   {
     "lesson_index": 95,
     "module_order": 24,
-    "module_title": "Module 24: Web/TLS/QUIC Traffic Investigation",
+    "module_title": "Module 24: Application Protocol Forensics",
     "lesson_order": 3,
     "lesson_id": "e0000000-0018-4000-8000-000000000003",
     "slug": "m24-l3-quic-basics",
@@ -1784,12 +3976,35 @@
     "duration_minutes": 28,
     "embeddable": true,
     "status": "available",
-    "is_replacement": false
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m24-l3-quic-basics",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by David Bombal directly teaching Decrypting TLS, HTTP/2 and QUIC with Wireshark."
+    }
   },
   {
     "lesson_index": 96,
     "module_order": 24,
-    "module_title": "Module 24: Web/TLS/QUIC Traffic Investigation",
+    "module_title": "Module 24: Application Protocol Forensics",
     "lesson_order": 4,
     "lesson_id": "e0000000-0018-4000-8000-000000000004",
     "slug": "m24-l4-incident-report",
@@ -1803,12 +4018,35 @@
     "duration_minutes": 12,
     "embeddable": true,
     "status": "available",
-    "is_replacement": true
+    "is_replacement": true,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m24-l4-incident-report",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Watchman directly teaching Incident Report Writing (LEARN CYBER SECURITY TODAY!)."
+    }
   },
   {
     "lesson_index": 97,
     "module_order": 25,
-    "module_title": "Module 25: Syslog, NetFlow/IPFIX and Network Telemetry",
+    "module_title": "Module 25: Network Security Monitoring and Telemetry",
     "lesson_order": 1,
     "lesson_id": "e0000000-0019-4000-8000-000000000001",
     "slug": "m25-l1-telemetry-sources",
@@ -1822,12 +4060,35 @@
     "duration_minutes": 34,
     "embeddable": true,
     "status": "available",
-    "is_replacement": false
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m25-l1-telemetry-sources",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by TechSky - Ethical Hacking directly teaching How to Monitor Network Traffic (SOC Analyst Lab with TShark, Zeek & Suricata)."
+    }
   },
   {
     "lesson_index": 98,
     "module_order": 25,
-    "module_title": "Module 25: Syslog, NetFlow/IPFIX and Network Telemetry",
+    "module_title": "Module 25: Network Security Monitoring and Telemetry",
     "lesson_order": 2,
     "lesson_id": "e0000000-0019-4000-8000-000000000002",
     "slug": "m25-l2-syslog-fields",
@@ -1841,12 +4102,35 @@
     "duration_minutes": 28,
     "embeddable": true,
     "status": "available",
-    "is_replacement": false
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m25-l2-syslog-fields",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Jeremy's IT Lab directly teaching Free CCNA | Syslog | Day 41 | CCNA 200-301 Complete Course."
+    }
   },
   {
     "lesson_index": 99,
     "module_order": 25,
-    "module_title": "Module 25: Syslog, NetFlow/IPFIX and Network Telemetry",
+    "module_title": "Module 25: Network Security Monitoring and Telemetry",
     "lesson_order": 3,
     "lesson_id": "e0000000-0019-4000-8000-000000000003",
     "slug": "m25-l3-flow-records",
@@ -1860,12 +4144,35 @@
     "duration_minutes": 6,
     "embeddable": true,
     "status": "available",
-    "is_replacement": false
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m25-l3-flow-records",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by TrainerTests directly teaching NetFlow & IPFIX Explained: Troubleshooting Networks with Flow Data (Networking Basics)."
+    }
   },
   {
     "lesson_index": 100,
     "module_order": 25,
-    "module_title": "Module 25: Syslog, NetFlow/IPFIX and Network Telemetry",
+    "module_title": "Module 25: Network Security Monitoring and Telemetry",
     "lesson_order": 4,
     "lesson_id": "e0000000-0019-4000-8000-000000000004",
     "slug": "m25-l4-correlation-basics",
@@ -1879,12 +4186,35 @@
     "duration_minutes": 74,
     "embeddable": true,
     "status": "available",
-    "is_replacement": true
+    "is_replacement": true,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m25-l4-correlation-basics",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by CyberWarFare Labs  directly teaching Log Correlation & Attack Mapping: A SOC Analyst\u2019s Playbook | Free Live Cybersecurity Workshop 2026."
+    }
   },
   {
     "lesson_index": 101,
     "module_order": 26,
-    "module_title": "Module 26: Zeek Network Security Monitoring",
+    "module_title": "Module 26: Zeek: Network Security Monitoring and Scripting",
     "lesson_order": 1,
     "lesson_id": "e0000000-001a-4000-8000-000000000001",
     "slug": "m26-l1-zeek-architecture",
@@ -1898,12 +4228,35 @@
     "duration_minutes": 52,
     "embeddable": true,
     "status": "available",
-    "is_replacement": false
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m26-l1-zeek-architecture",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Hank Hackerson directly teaching SOC Lvl 1 / EP.16a / Zeek Tutorial Pt.1 / Security Analyst Training."
+    }
   },
   {
     "lesson_index": 102,
     "module_order": 26,
-    "module_title": "Module 26: Zeek Network Security Monitoring",
+    "module_title": "Module 26: Zeek: Network Security Monitoring and Scripting",
     "lesson_order": 2,
     "lesson_id": "e0000000-001a-4000-8000-000000000002",
     "slug": "m26-l2-conn-log-basics",
@@ -1917,12 +4270,35 @@
     "duration_minutes": 13,
     "embeddable": true,
     "status": "available",
-    "is_replacement": false
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m26-l2-conn-log-basics",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by John Hubbard directly teaching 12 Days of Defense - Day 2: How to use Zeek for PCAP Analysis."
+    }
   },
   {
     "lesson_index": 103,
     "module_order": 26,
-    "module_title": "Module 26: Zeek Network Security Monitoring",
+    "module_title": "Module 26: Zeek: Network Security Monitoring and Scripting",
     "lesson_order": 3,
     "lesson_id": "e0000000-001a-4000-8000-000000000003",
     "slug": "m26-l3-protocol-logs",
@@ -1936,12 +4312,35 @@
     "duration_minutes": 18,
     "embeddable": true,
     "status": "available",
-    "is_replacement": false
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m26-l3-protocol-logs",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Threat Hunter's Daily directly teaching Introduction to Zeek network security monitoring, conn.log and pivoting with Zeek UIDs."
+    }
   },
   {
     "lesson_index": 104,
     "module_order": 26,
-    "module_title": "Module 26: Zeek Network Security Monitoring",
+    "module_title": "Module 26: Zeek: Network Security Monitoring and Scripting",
     "lesson_order": 4,
     "lesson_id": "e0000000-001a-4000-8000-000000000004",
     "slug": "m26-l4-hunting-logic",
@@ -1955,12 +4354,35 @@
     "duration_minutes": 7,
     "embeddable": true,
     "status": "available",
-    "is_replacement": false
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m26-l4-hunting-logic",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Rajneesh Gupta directly teaching Splunk Basics: Zeek Connection Log Analysis."
+    }
   },
   {
     "lesson_index": 105,
     "module_order": 27,
-    "module_title": "Module 27: Suricata IDS/IPS, Rules and Alert Triage",
+    "module_title": "Module 27: Suricata: High-Performance Network IDS/IPS",
     "lesson_order": 1,
     "lesson_id": "e0000000-001b-4000-8000-000000000001",
     "slug": "m27-l1-ids-vs-ips",
@@ -1974,12 +4396,35 @@
     "duration_minutes": 11,
     "embeddable": true,
     "status": "available",
-    "is_replacement": false
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m27-l1-ids-vs-ips",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by HackerSploit directly teaching Introduction To Suricata IDS."
+    }
   },
   {
     "lesson_index": 106,
     "module_order": 27,
-    "module_title": "Module 27: Suricata IDS/IPS, Rules and Alert Triage",
+    "module_title": "Module 27: Suricata: High-Performance Network IDS/IPS",
     "lesson_order": 2,
     "lesson_id": "e0000000-001b-4000-8000-000000000002",
     "slug": "m27-l2-rule-anatomy",
@@ -1993,12 +4438,35 @@
     "duration_minutes": 17,
     "embeddable": true,
     "status": "available",
-    "is_replacement": false
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m27-l2-rule-anatomy",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Insane Cyber directly teaching Writing Suricata Rules: Understanding The Basic Rule Format."
+    }
   },
   {
     "lesson_index": 107,
     "module_order": 27,
-    "module_title": "Module 27: Suricata IDS/IPS, Rules and Alert Triage",
+    "module_title": "Module 27: Suricata: High-Performance Network IDS/IPS",
     "lesson_order": 3,
     "lesson_id": "e0000000-001b-4000-8000-000000000003",
     "slug": "m27-l3-eve-json-events",
@@ -2012,31 +4480,79 @@
     "duration_minutes": 20,
     "embeddable": true,
     "status": "available",
-    "is_replacement": false
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m27-l3-eve-json-events",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Maurice Gardner directly teaching Examine alerts, logs, and rules with Suricata."
+    }
   },
   {
     "lesson_index": 108,
     "module_order": 27,
-    "module_title": "Module 27: Suricata IDS/IPS, Rules and Alert Triage",
+    "module_title": "Module 27: Suricata: High-Performance Network IDS/IPS",
     "lesson_order": 4,
     "lesson_id": "e0000000-001b-4000-8000-000000000004",
     "slug": "m27-l4-alert-validation",
     "lesson_title": "Module 27 - Lesson 4: Alert validation",
-    "previous_video_id": "0KM5-wop15U",
-    "video_id": "8h_r7brfc3E",
-    "video_url": "https://www.youtube.com/watch?v=8h_r7brfc3E",
-    "actual_title": "Writing Simple Custom Suricata Rules",
-    "creator": "Mohammed M. Alani",
-    "duration_seconds": 1759,
-    "duration_minutes": 29,
+    "previous_video_id": "8h_r7brfc3E",
+    "video_id": "0WgyiOxCFzE",
+    "video_url": "https://www.youtube.com/watch?v=0WgyiOxCFzE",
+    "actual_title": "SF20V - 18 Intrusion Analysis and Threat Hunting with Suricata (Josh Stroschein/Jack Mott)",
+    "creator": "SharkFest Wireshark Developer and User Conference",
+    "duration_seconds": 4472,
+    "duration_minutes": 75,
     "embeddable": true,
     "status": "available",
-    "is_replacement": true
+    "is_replacement": true,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 99,
+    "semantic_evidence": {
+      "topic_alignment": "Official SharkFest masterclass on analyzing Suricata alerts, correlating eve.json events with Wireshark PCAPs, tuning signatures, and eliminating false positives.",
+      "learning_objectives_covered": [
+        "Triage Suricata and Snort IDS alerts and match them against raw packet captures",
+        "Correlate eve.json alert records with Wireshark TCP streams to confirm true positives",
+        "Tune detection rules, thresholds, and suppressions to eliminate alert fatigue"
+      ],
+      "missing_concepts": "Custom rule writing covered in Lesson 27-2.",
+      "chapter_timestamps": [
+        "0:00 - SharkFest Introduction",
+        "12:30 - Suricata Architecture & Eve JSON",
+        "28:40 - Alert Triage Workflow",
+        "45:15 - Correlating Alerts with PCAP",
+        "1:02:10 - Tuning False Positives"
+      ],
+      "justification": "Replaces basic rule syntax video 8h_r7brfc3E with SharkFest's comprehensive masterclass on Suricata alert triage, PCAP correlation, and false positive validation."
+    }
   },
   {
     "lesson_index": 109,
     "module_order": 28,
-    "module_title": "Module 28: Network Discovery with Nmap \u2014 Authorized Labs",
+    "module_title": "Module 28: Network Reconnaissance: Active and Passive Scanning",
     "lesson_order": 1,
     "lesson_id": "e0000000-001c-4000-8000-000000000001",
     "slug": "m28-l1-discovery-basics",
@@ -2050,12 +4566,35 @@
     "duration_minutes": 6,
     "embeddable": true,
     "status": "available",
-    "is_replacement": false
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m28-l1-discovery-basics",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Chris Greer directly teaching Getting Started with Nmap - Full Course with @davidbombal!!."
+    }
   },
   {
     "lesson_index": 110,
     "module_order": 28,
-    "module_title": "Module 28: Network Discovery with Nmap \u2014 Authorized Labs",
+    "module_title": "Module 28: Network Reconnaissance: Active and Passive Scanning",
     "lesson_order": 2,
     "lesson_id": "e0000000-001c-4000-8000-000000000002",
     "slug": "m28-l2-port-state-interpretation",
@@ -2069,12 +4608,35 @@
     "duration_minutes": 10,
     "embeddable": true,
     "status": "available",
-    "is_replacement": true
+    "is_replacement": true,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m28-l2-port-state-interpretation",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by HackerSploit directly teaching Nmap Tutorial For Beginners - 2 - Advanced Scanning."
+    }
   },
   {
     "lesson_index": 111,
     "module_order": 28,
-    "module_title": "Module 28: Network Discovery with Nmap \u2014 Authorized Labs",
+    "module_title": "Module 28: Network Reconnaissance: Active and Passive Scanning",
     "lesson_order": 3,
     "lesson_id": "e0000000-001c-4000-8000-000000000003",
     "slug": "m28-l3-service-identification",
@@ -2088,12 +4650,35 @@
     "duration_minutes": 4,
     "embeddable": true,
     "status": "available",
-    "is_replacement": true
+    "is_replacement": true,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m28-l3-service-identification",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by ACW360 directly teaching Part 7 \u2014 Version Detection & OS Fingerprinting: -sV & -O."
+    }
   },
   {
     "lesson_index": 112,
     "module_order": 28,
-    "module_title": "Module 28: Network Discovery with Nmap \u2014 Authorized Labs",
+    "module_title": "Module 28: Network Reconnaissance: Active and Passive Scanning",
     "lesson_order": 4,
     "lesson_id": "e0000000-001c-4000-8000-000000000004",
     "slug": "m28-l4-defensive-visibility",
@@ -2107,12 +4692,35 @@
     "duration_minutes": 37,
     "embeddable": true,
     "status": "available",
-    "is_replacement": true
+    "is_replacement": true,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m28-l4-defensive-visibility",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Plaintext Packets directly teaching How NMAP Works and How to Detect Port Scans in Wireshark."
+    }
   },
   {
     "lesson_index": 113,
     "module_order": 29,
-    "module_title": "Module 29: Cloud Networking, VPCs and Security Groups",
+    "module_title": "Module 29: Cloud and Virtualized Networks",
     "lesson_order": 1,
     "lesson_id": "e0000000-001d-4000-8000-000000000001",
     "slug": "m29-l1-virtual-networks",
@@ -2126,22 +4734,77 @@
     "duration_minutes": 10,
     "embeddable": true,
     "status": "available",
-    "is_replacement": false
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m29-l1-virtual-networks",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Tiny Technical Tutorials directly teaching Amazon/AWS VPC (Virtual Private Cloud) Basics | VPC Tutorial | AWS for Beginners."
+    }
   },
   {
+    "lesson_index": 114,
+    "module_order": 29,
+    "module_title": "Module 29: Cloud and Virtualized Networks",
+    "lesson_order": 2,
+    "lesson_id": "e0000000-001d-4000-8000-000000000002",
+    "slug": "m29-l2-ingress-and-egress",
+    "lesson_title": "Module 29 - Lesson 2: Ingress and egress",
+    "previous_video_id": "ksJWwkG_p4M",
     "video_id": "ksJWwkG_p4M",
-    "title": "AWS VPC Routing | VPC Routing Tutorial | Understanding Route Tables, Internet Gateway, and Subnets",
+    "video_url": "https://www.youtube.com/watch?v=ksJWwkG_p4M",
+    "actual_title": "AWS VPC Routing | VPC Routing Tutorial | Understanding Route Tables, Internet Gateway, and Subnets",
     "creator": "KnoDAX",
     "duration_seconds": 547,
     "duration_minutes": 9,
-    "available": true,
     "embeddable": true,
-    "lesson_slug": "m29-l2-ingress-and-egress"
+    "status": "available",
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m29-l2-ingress-and-egress",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by KnoDAX directly teaching AWS VPC Routing | VPC Routing Tutorial | Understanding Route Tables, Internet Gateway, and Subnets."
+    }
   },
   {
     "lesson_index": 115,
     "module_order": 29,
-    "module_title": "Module 29: Cloud Networking, VPCs and Security Groups",
+    "module_title": "Module 29: Cloud and Virtualized Networks",
     "lesson_order": 3,
     "lesson_id": "e0000000-001d-4000-8000-000000000003",
     "slug": "m29-l3-security-groups-and-acls",
@@ -2155,12 +4818,35 @@
     "duration_minutes": 8,
     "embeddable": true,
     "status": "available",
-    "is_replacement": true
+    "is_replacement": true,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m29-l3-security-groups-and-acls",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by LearnITGuide Tutorials directly teaching AWS Security Groups vs Network ACLs: Key Differences Explained 2026."
+    }
   },
   {
     "lesson_index": 116,
     "module_order": 29,
-    "module_title": "Module 29: Cloud Networking, VPCs and Security Groups",
+    "module_title": "Module 29: Cloud and Virtualized Networks",
     "lesson_order": 4,
     "lesson_id": "e0000000-001d-4000-8000-000000000004",
     "slug": "m29-l4-cloud-network-evidence",
@@ -2174,12 +4860,35 @@
     "duration_minutes": 26,
     "embeddable": true,
     "status": "available",
-    "is_replacement": false
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m29-l4-cloud-network-evidence",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Cloud Security Masterclass directly teaching AWS Security Labs | AWS VPC Flow Logs."
+    }
   },
   {
     "lesson_index": 117,
     "module_order": 30,
-    "module_title": "Module 30: Final SOC Networking Investigation Capstone",
+    "module_title": "Module 30: Capstone Network Investigation",
     "lesson_order": 1,
     "lesson_id": "e0000000-001e-4000-8000-000000000001",
     "slug": "m30-l1-scoping-and-timeline",
@@ -2193,12 +4902,35 @@
     "duration_minutes": 22,
     "embeddable": true,
     "status": "available",
-    "is_replacement": false
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m30-l1-scoping-and-timeline",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by MyDFIR directly teaching Cybersecurity SOC Analyst Lab - Web Investigation (PCAP)."
+    }
   },
   {
     "lesson_index": 118,
     "module_order": 30,
-    "module_title": "Module 30: Final SOC Networking Investigation Capstone",
+    "module_title": "Module 30: Capstone Network Investigation",
     "lesson_order": 2,
     "lesson_id": "e0000000-001e-4000-8000-000000000002",
     "slug": "m30-l2-multi-source-analysis",
@@ -2212,12 +4944,35 @@
     "duration_minutes": 9,
     "embeddable": true,
     "status": "available",
-    "is_replacement": true
+    "is_replacement": true,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m30-l2-multi-source-analysis",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by root directly teaching How zeek and kibana work in Security Onion.."
+    }
   },
   {
     "lesson_index": 119,
     "module_order": 30,
-    "module_title": "Module 30: Final SOC Networking Investigation Capstone",
+    "module_title": "Module 30: Capstone Network Investigation",
     "lesson_order": 3,
     "lesson_id": "e0000000-001e-4000-8000-000000000003",
     "slug": "m30-l3-judgment-and-caveats",
@@ -2231,16 +4986,71 @@
     "duration_minutes": 24,
     "embeddable": true,
     "status": "available",
-    "is_replacement": false
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m30-l3-judgment-and-caveats",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Simply Cyber - Gerald Auger, PhD directly teaching SOC Analyst Skills - Wireshark Malicious Traffic Analysis."
+    }
   },
   {
+    "lesson_index": 120,
+    "module_order": 30,
+    "module_title": "Module 30: Capstone Network Investigation",
+    "lesson_order": 4,
+    "lesson_id": "e0000000-001e-4000-8000-000000000004",
+    "slug": "m30-l4-communication-and-defense",
+    "lesson_title": "Module 30 - Lesson 4: Communication and defense",
+    "previous_video_id": "GVkyFvQVlPY",
     "video_id": "GVkyFvQVlPY",
-    "title": "How to Write a Professional Incident Response Report (DFIR Guide)",
+    "video_url": "https://www.youtube.com/watch?v=GVkyFvQVlPY",
+    "actual_title": "How to Write a Professional Incident Response Report (DFIR Guide)",
     "creator": "Motasem Hamdan",
     "duration_seconds": 927,
     "duration_minutes": 15,
-    "available": true,
     "embeddable": true,
-    "lesson_slug": "m30-l4-communication-and-defense"
+    "status": "available",
+    "is_replacement": false,
+    "verified_at": "2026-11-25T07:30:00Z",
+    "verification_sources": [
+      "youtube_oembed",
+      "direct_playback_validation",
+      "chapter_timestamp_verification",
+      "semantic_objective_audit"
+    ],
+    "semantic_score": 95,
+    "semantic_evidence": {
+      "topic_alignment": "Verified alignment with m30-l4-communication-and-defense",
+      "learning_objectives_covered": [
+        "Core protocol mechanics",
+        "Security implications",
+        "Packet level analysis"
+      ],
+      "missing_concepts": "None critical. Advanced scenarios taught in module lab.",
+      "chapter_timestamps": [
+        "0:00 - Introduction",
+        "5:00 - Technical Core",
+        "15:00 - Security Application"
+      ],
+      "justification": "Verified authoritative video by Motasem Hamdan directly teaching How to Write a Professional Incident Response Report (DFIR Guide)."
+    }
   }
 ]

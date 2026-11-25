@@ -30,8 +30,8 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
   ],
   "difficulty": "beginner",
   "thumbnailUrl": "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=800&q=80",
-  "estimatedDuration": "44.2 hours of video (2655 mins) \u2022 120\u2013160 hours total study (30 modules \u2022 120 lessons \u2022 30 practical labs \u2022 SOC capstone)",
-  "totalDurationMinutes": 2655,
+  "estimatedDuration": "44.2 hours of video (2652 mins) \u2022 120\u2013160 hours total study (30 modules \u2022 120 lessons \u2022 30 practical labs \u2022 SOC capstone)",
+  "totalDurationMinutes": 2652,
   "instructor": {
     "name": "CyberTube Open Networking Faculty",
     "title": "Network Defense & SOC Educators",
@@ -172,7 +172,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0001-4000-8000-000000000001",
           "slug": "m01-l1-network-security-roles",
           "title": "Module 01 - Lesson 1: Network security roles",
-          "description": "Video instruction presented by ZeroDayVault - Cyber Panchayat: \"SOC Analyst L1 Full Course (Day 1) | Complete Beginner Guide to Cyber Security\". Technical focus on Module 01 - Lesson 1: Network security roles: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by ZeroDayVault - Cyber Panchayat: \"SOC Analyst L1 Full Course (Day 1) | Complete Beginner Guide to Cyber Security\". Technical focus on SOC Tier-1/2/3 operational responsibilities, incident triage lifecycles, and distinguishing administrative network management from defensive threat monitoring.",
           "youtubeVideoId": "CEKfFnHgQHw",
           "videoAttribution": {
             "creator": "ZeroDayVault - Cyber Panchayat",
@@ -264,7 +264,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0001-4000-8000-000000000002",
           "slug": "m01-l2-networks-and-endpoints",
           "title": "Module 01 - Lesson 2: Networks and endpoints",
-          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | Network Devices | Day 1 | CCNA 200-301 Complete Course\". Technical focus on Module 01 - Lesson 2: Networks and endpoints: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | Network Devices | Day 1 | CCNA 200-301 Complete Course\". Technical focus on endpoint architecture, network topology hardware, host networking interfaces, and baseline telemetry generated during normal workstation communications.",
           "youtubeVideoId": "H8W9oMNSuwo",
           "videoAttribution": {
             "creator": "Jeremy's IT Lab",
@@ -356,7 +356,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0001-4000-8000-000000000003",
           "slug": "m01-l3-safe-lab-environment",
           "title": "Module 01 - Lesson 3: Safe lab environment",
-          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | Packet Tracer Introduction | Day 1 Lab | CCNA 200-301 Complete Course\". Technical focus on Module 01 - Lesson 3: Safe lab environment: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | Packet Tracer Introduction | Day 1 Lab | CCNA 200-301 Complete Course\". Technical focus on configuring isolated virtual network testbeds, host-only adapter sandboxing, and executing safe defensive traffic generation without external network exposure.",
           "youtubeVideoId": "a1Im6GYaSno",
           "videoAttribution": {
             "creator": "Jeremy's IT Lab",
@@ -448,8 +448,8 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0001-4000-8000-000000000004",
           "slug": "m01-l4-evidence-workflow",
           "title": "Module 01 - Lesson 4: Evidence workflow",
-          "description": "Video instruction presented by Professor Messer: \"How to Pass Your SY0-701 Security+ Exam in 2026\". Technical focus on Module 01 - Lesson 4: Evidence workflow: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
-          "youtubeVideoId": "KiEptGbnEBc",
+          "description": "Video instruction presented by Professor Messer: \"Digital Forensics - CompTIA Security+ SY0-701 - 4.8\". Technical focus on digital evidence acquisition, order of volatility from CPU registers to cold storage, cryptographic hash integrity verification (SHA-256), and establishing legally defensible chain of custody documentation for incident response.",
+          "youtubeVideoId": "UtDWApdO8Zk",
           "videoAttribution": {
             "creator": "Professor Messer",
             "platform": "youtube"
@@ -549,10 +549,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "Notepad++ / VS Code"
         ],
         "pcapSource": {
-          "fileName": "local-synthetic-host-only-traffic-generation.pcap",
-          "fileUrl": "https://raw.githubusercontent.com/cybertube/pcaps/main/networking/local-synthetic-host-only-traffic-generation.pcap",
-          "repositoryUrl": "https://github.com/cybertube/pcaps",
-          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          "fileName": "m01-lab-analysis.pcap",
+          "fileUrl": "/pcaps/networking/m01-lab-analysis.pcap",
+          "repositoryUrl": "https://github.com/arun-codex/CyberTube",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b801"
         },
         "instructions": [
           "Configure an isolated host-only virtual adapter (192.168.56.0/24) disconnected from external internet gateways.",
@@ -619,7 +619,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0002-4000-8000-000000000001",
           "slug": "m02-l1-seven-osi-layers",
           "title": "Module 02 - Lesson 1: Seven OSI layers",
-          "description": "Video instruction presented by Practical Networking: \"OSI Model: A Practical Perspective - Networking Fundamentals - Lesson 2a\". Technical focus on Module 02 - Lesson 1: Seven OSI layers: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Practical Networking: \"OSI Model: A Practical Perspective - Networking Fundamentals - Lesson 2a\". Technical focus on practical decomposition of the OSI 7-layer reference model, protocol data units (PDUs) at each boundary, and mapping attack surfaces to layer-specific vulnerabilities.",
           "youtubeVideoId": "LkolbURrtTs",
           "videoAttribution": {
             "creator": "Practical Networking",
@@ -711,7 +711,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0002-4000-8000-000000000002",
           "slug": "m02-l2-tcp-ip-stack",
           "title": "Module 02 - Lesson 2: TCP/IP stack",
-          "description": "Video instruction presented by Jeremy's IT Lab: \"How the TCP/IP Model Actually Works | CCNA Day 3\". Technical focus on Module 02 - Lesson 2: TCP/IP stack: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Jeremy's IT Lab: \"How the TCP/IP Model Actually Works | CCNA Day 3\". Technical focus on the four-layer DoD TCP/IP architecture, protocol suite interactions, RFC standards, and comparing theoretical OSI constructs with real-world operating system network stacks.",
           "youtubeVideoId": "yM-XNq9ADlI",
           "videoAttribution": {
             "creator": "Jeremy's IT Lab",
@@ -803,7 +803,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0002-4000-8000-000000000003",
           "slug": "m02-l3-encapsulation",
           "title": "Module 02 - Lesson 3: Encapsulation",
-          "description": "Video instruction presented by Practical Networking: \"How Data moves through the Internet - Networking Fundamentals\". Technical focus on Module 02 - Lesson 3: Encapsulation: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Practical Networking: \"How Data moves through the Internet - Networking Fundamentals\". Technical focus on protocol encapsulation and decapsulation dynamics, tracking data payloads as headers and trailers are appended across physical, data link, internet, and transport boundaries.",
           "youtubeVideoId": "YJGGYKAV4pA",
           "videoAttribution": {
             "creator": "Practical Networking",
@@ -895,7 +895,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0002-4000-8000-000000000004",
           "slug": "m02-l4-security-by-layer",
           "title": "Module 02 - Lesson 4: Security by layer",
-          "description": "Video instruction presented by Cyber Gray Matter: \"OSI Model Layer Attacks, Mitigation & Protocols | Cybersecurity Analyst Training 101\". Technical focus on Module 02 - Lesson 4: Security by layer: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Cyber Gray Matter: \"OSI Model Layer Attacks, Mitigation & Protocols | Cybersecurity Analyst Training 101\". Technical focus on defense-in-depth architectural layering, evaluating security controls at Layer 2 (802.1X, port security), Layer 3 (ACLs, IPsec), Layer 4 (stateful firewalls), and Layer 7 (WAFs, DPI).",
           "youtubeVideoId": "CYhpEr8GFok",
           "videoAttribution": {
             "creator": "Cyber Gray Matter",
@@ -996,10 +996,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "traceroute"
         ],
         "pcapSource": {
-          "fileName": "sample_http_dns_icmp-pcap.pcap",
-          "fileUrl": "https://raw.githubusercontent.com/cybertube/pcaps/main/networking/sample_http_dns_icmp-pcap.pcap",
-          "repositoryUrl": "https://github.com/cybertube/pcaps",
-          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          "fileName": "m02-lab-analysis.pcap",
+          "fileUrl": "/pcaps/networking/m02-lab-analysis.pcap",
+          "repositoryUrl": "https://github.com/arun-codex/CyberTube",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b802"
         },
         "instructions": [
           "Load sample_http_dns_icmp.pcap into Wireshark and inspect packet #1.",
@@ -1056,7 +1056,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0003-4000-8000-000000000001",
           "slug": "m03-l1-physical-interfaces",
           "title": "Module 03 - Lesson 1: Physical interfaces",
-          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | Interfaces and Cables | Day 2 | CCNA 200-301 Complete Course\". Technical focus on Module 03 - Lesson 1: Physical interfaces: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | Interfaces and Cables | Day 2 | CCNA 200-301 Complete Course\". Technical focus on Ethernet physical media standards, copper twisted-pair cabling, optical fiber transceivers, link negotiation, and physical layer signal integrity.",
           "youtubeVideoId": "ieTH5lVhNaY",
           "videoAttribution": {
             "creator": "Jeremy's IT Lab",
@@ -1144,7 +1144,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0003-4000-8000-000000000002",
           "slug": "m03-l2-ethernet-headers",
           "title": "Module 03 - Lesson 2: Ethernet headers",
-          "description": "Video instruction presented by Dave's Garage: \"Ethernet Explained so well that even YOU can Understand it!\". In-depth architectural disassembly of the Ethernet II (DIX) frame structure: Preamble (7 bytes of 10101010) and Start Frame Delimiter (SFD 1 byte: 10101011), 6-byte Destination MAC, 6-byte Source MAC, 2-byte EtherType (0x0800 IPv4, 0x86DD IPv6, 0x0806 ARP, 0x8100 802.1Q VLAN), 46\u20131500 byte payload, and 4-byte Frame Check Sequence (FCS / CRC-32). Covers frame size constraints (minimum 64 bytes, maximum 1518/1522 bytes), broadcast MAC (ff:ff:ff:ff:ff:ff), and why physical NICs and capture drivers strip preamble and FCS before passing frames to Wireshark/libpcap. Includes hands-on Wireshark display filters (eth, eth.src, eth.dst, eth.type, vlan, arp) and real-world SOC threat analysis for MAC spoofing and CAM exhaustion.",
+          "description": "Video instruction presented by Dave's Garage: \"Ethernet Explained so well that even YOU can Understand it!\". Technical focus on Ethernet II frame architecture, preamble synchronization, Start Frame Delimiter, 48-bit MAC addressing, EtherType protocol multiplexing, payload padding constraints, and Frame Check Sequence (CRC-32) error detection in Wireshark.",
           "youtubeVideoId": "7vzjIv2l6wY",
           "videoAttribution": {
             "creator": "Dave's Garage",
@@ -1232,7 +1232,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0003-4000-8000-000000000003",
           "slug": "m03-l3-switching-behavior",
           "title": "Module 03 - Lesson 3: Switching behavior",
-          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | Ethernet LAN Switching (Part 1) | Day 5 | CCNA 200-301 Complete Course\". Technical focus on Module 03 - Lesson 3: Switching behavior: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | Ethernet LAN Switching (Part 1) | Day 5 | CCNA 200-301 Complete Course\". Technical focus on Layer 2 switch forwarding logic, Content Addressable Memory (CAM) table population, MAC learning algorithms, and unknown unicast frame flooding behavior.",
           "youtubeVideoId": "u2n762WG0Vo",
           "videoAttribution": {
             "creator": "Jeremy's IT Lab",
@@ -1320,7 +1320,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0003-4000-8000-000000000004",
           "slug": "m03-l4-layer-2-threats",
           "title": "Module 03 - Lesson 4: Layer-2 threats",
-          "description": "Video instruction presented by Professor Messer: \"MAC Flooding - CompTIA Network+ N10-009 - 4.2\". Technical focus on Module 03 - Lesson 4: Layer-2 threats: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Professor Messer: \"MAC Flooding - CompTIA Network+ N10-009 - 4.2\". Technical focus on Layer 2 attack vectors including MAC address table flooding, CAM overflow exhaustion, ARP cache spoofing, and switchport security mitigation controls.",
           "youtubeVideoId": "ttLNYwt-aq0",
           "videoAttribution": {
             "creator": "Professor Messer",
@@ -1416,10 +1416,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "arping"
         ],
         "pcapSource": {
-          "fileName": "sample_ethernet_frames-pcap.pcap",
-          "fileUrl": "https://raw.githubusercontent.com/cybertube/pcaps/main/networking/sample_ethernet_frames-pcap.pcap",
-          "repositoryUrl": "https://github.com/cybertube/pcaps",
-          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          "fileName": "m03-lab-analysis.pcap",
+          "fileUrl": "/pcaps/networking/m03-lab-analysis.pcap",
+          "repositoryUrl": "https://github.com/arun-codex/CyberTube",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b803"
         },
         "instructions": [
           "Launch Packet Tracer with 3 PCs (PC0, PC1, PC2) connected to a 2960 switch.",
@@ -1487,7 +1487,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0004-4000-8000-000000000001",
           "slug": "m04-l1-binary-and-dotted-decimal",
           "title": "Module 04 - Lesson 1: Binary and dotted decimal",
-          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | IPv4 Addressing (Part 1) | Day 7 | CCNA 200-301 Complete Course\". Technical focus on Module 04 - Lesson 1: Binary and dotted decimal: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | IPv4 Addressing (Part 1) | Day 7 | CCNA 200-301 Complete Course\". Technical focus on binary math fundamentals for network security, 8-bit octet conversions, bitwise AND operations, and representing 32-bit IPv4 addresses in dotted-decimal format.",
           "youtubeVideoId": "3ROdsfEUuhs",
           "videoAttribution": {
             "creator": "Jeremy's IT Lab",
@@ -1579,7 +1579,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0004-4000-8000-000000000002",
           "slug": "m04-l2-ipv4-address-categories",
           "title": "Module 04 - Lesson 2: IPv4 address categories",
-          "description": "Video instruction presented by Professor Messer: \"IPv4 Addressing - CompTIA Network+ N10-009 - 1.7\". Technical focus on Module 04 - Lesson 2: IPv4 address categories: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Professor Messer: \"IPv4 Addressing - CompTIA Network+ N10-009 - 1.7\". Technical focus on IPv4 address classification, RFC 1918 private address spaces, APIPA autoconfiguration, loopback ranges, and multicast/broadcast operational boundaries.",
           "youtubeVideoId": "JNNcyZ_VE2A",
           "videoAttribution": {
             "creator": "Professor Messer",
@@ -1671,7 +1671,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0004-4000-8000-000000000003",
           "slug": "m04-l3-ip-headers",
           "title": "Module 04 - Lesson 3: IP headers",
-          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | IPv4 Header | Day 10 | CCNA 200-301 Complete Course\". Technical focus on Module 04 - Lesson 3: IP headers: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | IPv4 Header | Day 10 | CCNA 200-301 Complete Course\". Technical focus on IPv4 packet header dissection, analyzing TTL expiration, TOS/DiffServ QoS fields, identification, fragmentation flags (DF/MF), and header checksum recalculation.",
           "youtubeVideoId": "aQB22y4liXA",
           "videoAttribution": {
             "creator": "Jeremy's IT Lab",
@@ -1763,7 +1763,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0004-4000-8000-000000000004",
           "slug": "m04-l4-host-addressing",
           "title": "Module 04 - Lesson 4: Host addressing",
-          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | Configuring IP Addresses | Day 8 Lab | CCNA 200-301 Complete Course\". Technical focus on Module 04 - Lesson 4: Host addressing: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | Configuring IP Addresses | Day 8 Lab | CCNA 200-301 Complete Course\". Technical focus on network interface IP configuration, static versus dynamic address binding, default gateway routing parameters, and local host route table inspection.",
           "youtubeVideoId": "e1jbvyMeS5I",
           "videoAttribution": {
             "creator": "Jeremy's IT Lab",
@@ -1863,10 +1863,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "python"
         ],
         "pcapSource": {
-          "fileName": "sample_ipv4_headers-pcap.pcap",
-          "fileUrl": "https://raw.githubusercontent.com/cybertube/pcaps/main/networking/sample_ipv4_headers-pcap.pcap",
-          "repositoryUrl": "https://github.com/cybertube/pcaps",
-          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          "fileName": "m04-lab-analysis.pcap",
+          "fileUrl": "/pcaps/networking/m04-lab-analysis.pcap",
+          "repositoryUrl": "https://github.com/arun-codex/CyberTube",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b804"
         },
         "instructions": [
           "Load sample_ipv4_headers.pcap in Wireshark and filter by 'ip'. Select an IPv4 packet.",
@@ -1923,7 +1923,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0005-4000-8000-000000000001",
           "slug": "m05-l1-network-prefix",
           "title": "Module 05 - Lesson 1: Network prefix",
-          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | Subnetting (Part 1) | Day 13 | CCNA 200-301 Complete Course\". Technical focus on Module 05 - Lesson 1: Network prefix: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | Subnetting (Part 1) | Day 13 | CCNA 200-301 Complete Course\". Technical focus on Classless Inter-Domain Routing (CIDR) notation, subnet masks, prefix lengths, and calculating network and broadcast address boundaries from slash notation.",
           "youtubeVideoId": "bQ8sdpGQu8c",
           "videoAttribution": {
             "creator": "Jeremy's IT Lab",
@@ -2011,7 +2011,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0005-4000-8000-000000000002",
           "slug": "m05-l2-subnet-math",
           "title": "Module 05 - Lesson 2: Subnet math",
-          "description": "Video instruction presented by Professor Messer: \"Calculating IPv4 Subnets and Hosts - CompTIA Network+ N10-009 - 1.7\". Technical focus on Module 05 - Lesson 2: Subnet math: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Professor Messer: \"Calculating IPv4 Subnets and Hosts - CompTIA Network+ N10-009 - 1.7\". Technical focus on rapid subnet calculation algorithms, determining usable host address capacity, octet-boundary borrow bits, and validating IP range allocations.",
           "youtubeVideoId": "cYQOMifDlKI",
           "videoAttribution": {
             "creator": "Professor Messer",
@@ -2099,7 +2099,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0005-4000-8000-000000000003",
           "slug": "m05-l3-vlsm-design",
           "title": "Module 05 - Lesson 3: VLSM design",
-          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | Subnetting (Part 3 - VLSM) | Day 15 | CCNA 200-301 Complete Course\". Technical focus on Module 05 - Lesson 3: VLSM design: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | Subnetting (Part 3 - VLSM) | Day 15 | CCNA 200-301 Complete Course\". Technical focus on Variable-Length Subnet Masking (VLSM) hierarchical design, optimizing address allocation across branch offices, and avoiding overlapping address space collisions.",
           "youtubeVideoId": "z-JqCedc9EI",
           "videoAttribution": {
             "creator": "Jeremy's IT Lab",
@@ -2187,13 +2187,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0005-4000-8000-000000000004",
           "slug": "m05-l4-security-use-cases",
           "title": "Module 05 - Lesson 4: Security use cases",
-          "description": "Video instruction presented by Network Direction: \"Introduction to Networking | Network Fundamentals Part 1 (Revised)\". Technical focus on Module 05 - Lesson 4: Security use cases: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
-          "youtubeVideoId": "9SIjoeE93lo",
+          "description": "Video instruction presented by Secure Terminus: \"Your Network Is Flat | Segmentation Architecture Explained\". Technical focus on network segmentation strategies, designing VLAN and subnet security boundaries, eliminating flat network attack surfaces, mitigating lateral attacker movement, and establishing zero-trust access control boundaries between enterprise zones.",
+          "youtubeVideoId": "YL0xh171m8w",
           "videoAttribution": {
-            "creator": "Network Direction",
+            "creator": "Secure Terminus",
             "platform": "youtube"
           },
-          "durationMinutes": 6,
+          "durationMinutes": 12,
           "order": 4,
           "moduleTitle": "Module 05: Subnetting, CIDR and VLSM",
           "objectives": [
@@ -2283,10 +2283,10 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "Excel / Markdown"
         ],
         "pcapSource": {
-          "fileName": "synthetic-topology-simulation.pcap",
-          "fileUrl": "https://raw.githubusercontent.com/cybertube/pcaps/main/networking/synthetic-topology-simulation.pcap",
-          "repositoryUrl": "https://github.com/cybertube/pcaps",
-          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          "fileName": "m05-lab-analysis.pcap",
+          "fileUrl": "/pcaps/networking/m05-lab-analysis.pcap",
+          "repositoryUrl": "https://github.com/arun-codex/CyberTube",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b805"
         },
         "instructions": [
           "Given parent block 10.50.0.0/22 (1024 addresses), allocate non-overlapping subnets using Variable Length Subnet Masking (VLSM).",
@@ -2343,7 +2343,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0006-4000-8000-000000000001",
           "slug": "m06-l1-arp-resolution",
           "title": "Module 06 - Lesson 1: ARP resolution",
-          "description": "Video instruction presented by Practical Networking: \"Everything Hosts do to speak on the Internet - Part 1 - Networking Fundamentals - Lesson 3\". Technical focus on Module 06 - Lesson 1: ARP resolution: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Practical Networking: \"Everything Hosts do to speak on the Internet - Part 1 - Networking Fundamentals - Lesson 3\". Technical focus on Address Resolution Protocol (ARP) mechanics, broadcast request frames, unicast replies, and local subnet IP-to-MAC hardware binding dynamics.",
           "youtubeVideoId": "gYN2qN11-wE",
           "videoAttribution": {
             "creator": "Practical Networking",
@@ -2431,7 +2431,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0006-4000-8000-000000000002",
           "slug": "m06-l2-icmp-messages",
           "title": "Module 06 - Lesson 2: ICMP messages",
-          "description": "Video instruction presented by Professor Messer: \"Other Useful Protocols - CompTIA Network+ N10-009 - 1.4\". Technical focus on Module 06 - Lesson 2: ICMP messages: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Professor Messer: \"Other Useful Protocols - CompTIA Network+ N10-009 - 1.4\". Technical focus on Internet Control Message Protocol (ICMP) packet structures, Echo Request/Reply (Type 8/0), Destination Unreachable (Type 3) codes, and TTL Exceeded error telemetry.",
           "youtubeVideoId": "5BahWbszVAY",
           "videoAttribution": {
             "creator": "Professor Messer",
@@ -2519,7 +2519,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0006-4000-8000-000000000003",
           "slug": "m06-l3-routing-path-discovery",
           "title": "Module 06 - Lesson 3: Routing path discovery",
-          "description": "Video instruction presented by PowerCert Animated Videos: \"Traceroute (tracert) Explained - Network Troubleshooting\". Technical focus on Module 06 - Lesson 3: Routing path discovery: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by PowerCert Animated Videos: \"Traceroute (tracert) Explained - Network Troubleshooting\". Technical focus on path discovery utilities, analyzing traceroute packet mechanics, incremental TTL expiration, ICMP Time Exceeded hop reporting, and round-trip delay analysis.",
           "youtubeVideoId": "up3bcBLZS74",
           "videoAttribution": {
             "creator": "PowerCert Animated Videos",
@@ -2607,7 +2607,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0006-4000-8000-000000000004",
           "slug": "m06-l4-detection-interpretation",
           "title": "Module 06 - Lesson 4: Detection interpretation",
-          "description": "Video instruction presented by Chris Greer: \"Catch a MiTM ARP Poison Attack with Wireshark // Ethical Hacking\". Technical focus on Module 06 - Lesson 4: Detection interpretation: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Chris Greer: \"Catch a MiTM ARP Poison Attack with Wireshark // Ethical Hacking\". Technical focus on identifying network reconnaissance in packet captures, distinguishing benign ICMP monitoring from active ping sweeps, and detecting stealth host discovery probes.",
           "youtubeVideoId": "Evb1x3FJjEo",
           "videoAttribution": {
             "creator": "Chris Greer",
@@ -2702,9 +2702,9 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "CLI"
         ],
         "pcapSource": {
-          "fileName": "cybertube-m06-analysis.pcap",
-          "fileUrl": "https://raw.githubusercontent.com/cybertube/pcaps/main/networking/m06-analysis.pcap",
-          "repositoryUrl": "https://github.com/cybertube/pcaps",
+          "fileName": "m06-lab-analysis.pcap",
+          "fileUrl": "/pcaps/networking/m06-lab-analysis.pcap",
+          "repositoryUrl": "https://github.com/arun-codex/CyberTube",
           "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b806"
         },
         "instructions": [
@@ -2767,7 +2767,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0007-4000-8000-000000000001",
           "slug": "m07-l1-broadcast-domains",
           "title": "Module 07 - Lesson 1: Broadcast domains",
-          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | VLANs (Part 1) | Day 16 | CCNA 200-301 Complete Course\". Technical focus on Module 07 - Lesson 1: Broadcast domains: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | VLANs (Part 1) | Day 16 | CCNA 200-301 Complete Course\". Technical focus on m07-l1-broadcast-domains: in-depth protocol analysis, packet dissection, defensive security implications, and hands-on investigation for SOC analysts and network engineers.",
           "youtubeVideoId": "cjFzOnm6u1g",
           "videoAttribution": {
             "creator": "Jeremy's IT Lab",
@@ -2851,7 +2851,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0007-4000-8000-000000000002",
           "slug": "m07-l2-access-trunk-ports",
           "title": "Module 07 - Lesson 2: Access/trunk ports",
-          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | VLANs (Part 2) | Day 17 | CCNA 200-301 Complete Course\". Technical focus on Module 07 - Lesson 2: Access/trunk ports: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | VLANs (Part 2) | Day 17 | CCNA 200-301 Complete Course\". Technical focus on m07-l2-access-trunk-ports: in-depth protocol analysis, packet dissection, defensive security implications, and hands-on investigation for SOC analysts and network engineers.",
           "youtubeVideoId": "Jl9OOzNaBDU",
           "videoAttribution": {
             "creator": "Jeremy's IT Lab",
@@ -2935,7 +2935,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0007-4000-8000-000000000003",
           "slug": "m07-l3-inter-vlan-routing",
           "title": "Module 07 - Lesson 3: Inter-VLAN routing",
-          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | VLANs (Part 3) | Day 18 | CCNA 200-301 Complete Course\". Technical focus on Module 07 - Lesson 3: Inter-VLAN routing: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | VLANs (Part 3) | Day 18 | CCNA 200-301 Complete Course\". Technical focus on m07-l3-inter-vlan-routing: in-depth protocol analysis, packet dissection, defensive security implications, and hands-on investigation for SOC analysts and network engineers.",
           "youtubeVideoId": "OkPB028l2eE",
           "videoAttribution": {
             "creator": "Jeremy's IT Lab",
@@ -3019,7 +3019,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0007-4000-8000-000000000004",
           "slug": "m07-l4-security-controls",
           "title": "Module 07 - Lesson 4: Security controls",
-          "description": "Video instruction presented by NetworkChuck: \"you NEED to learn Port Security\u2026\u2026.RIGHT NOW!! // FREE CCNA // EP 14\". Technical focus on Module 07 - Lesson 4: Security controls: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by NetworkChuck: \"you NEED to learn Port Security\u2026\u2026.RIGHT NOW!! // FREE CCNA // EP 14\". Technical focus on m07-l4-security-controls: in-depth protocol analysis, packet dissection, defensive security implications, and hands-on investigation for SOC analysts and network engineers.",
           "youtubeVideoId": "0W4JZIWtjLQ",
           "videoAttribution": {
             "creator": "NetworkChuck",
@@ -3109,9 +3109,9 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "Packet Tracer"
         ],
         "pcapSource": {
-          "fileName": "cybertube-m07-analysis.pcap",
-          "fileUrl": "https://raw.githubusercontent.com/cybertube/pcaps/main/networking/m07-analysis.pcap",
-          "repositoryUrl": "https://github.com/cybertube/pcaps",
+          "fileName": "m07-lab-analysis.pcap",
+          "fileUrl": "/pcaps/networking/m07-lab-analysis.pcap",
+          "repositoryUrl": "https://github.com/arun-codex/CyberTube",
           "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b807"
         },
         "instructions": [
@@ -3174,7 +3174,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0008-4000-8000-000000000001",
           "slug": "m08-l1-forwarding-logic",
           "title": "Module 08 - Lesson 1: Forwarding logic",
-          "description": "Video instruction presented by Practical Networking: \"Everything Routers do - Part 1 - Networking Fundamentals - Lesson 5\". Technical focus on Module 08 - Lesson 1: Forwarding logic: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Practical Networking: \"Everything Routers do - Part 1 - Networking Fundamentals - Lesson 5\". Technical focus on m08-l1-forwarding-logic: in-depth protocol analysis, packet dissection, defensive security implications, and hands-on investigation for SOC analysts and network engineers.",
           "youtubeVideoId": "AzXys5kxpAM",
           "videoAttribution": {
             "creator": "Practical Networking",
@@ -3258,7 +3258,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0008-4000-8000-000000000002",
           "slug": "m08-l2-default-gateways",
           "title": "Module 08 - Lesson 2: Default gateways",
-          "description": "Video instruction presented by Practical Networking: \"Everything Routers do - Part 2 - How Routers forward Packets - Networking Fundamentals - Lesson 5\". Technical focus on Module 08 - Lesson 2: Default gateways: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Practical Networking: \"Everything Routers do - Part 2 - How Routers forward Packets - Networking Fundamentals - Lesson 5\". Technical focus on m08-l2-default-gateways: in-depth protocol analysis, packet dissection, defensive security implications, and hands-on investigation for SOC analysts and network engineers.",
           "youtubeVideoId": "Ep-x_6kggKA",
           "videoAttribution": {
             "creator": "Practical Networking",
@@ -3342,7 +3342,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0008-4000-8000-000000000003",
           "slug": "m08-l3-static-routes",
           "title": "Module 08 - Lesson 3: Static routes",
-          "description": "Video instruction presented by Network Direction: \"Static route configuration | Network Fundamentals Part 18\". Technical focus on Module 08 - Lesson 3: Static routes: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Network Direction: \"Static route configuration | Network Fundamentals Part 18\". Technical focus on m08-l3-static-routes: in-depth protocol analysis, packet dissection, defensive security implications, and hands-on investigation for SOC analysts and network engineers.",
           "youtubeVideoId": "cupc6Helc6Y",
           "videoAttribution": {
             "creator": "Network Direction",
@@ -3426,13 +3426,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0008-4000-8000-000000000004",
           "slug": "m08-l4-security-telemetry",
           "title": "Module 08 - Lesson 4: Security telemetry",
-          "description": "Video instruction presented by Network Direction: \"Routing Table Explained\". Technical focus on Module 08 - Lesson 4: Security telemetry: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
-          "youtubeVideoId": "uKiM9-tGuc4",
+          "description": "Video instruction presented by M. Atoar Rahman: \"The Observability Pipeline: Collecting, Buffering, Processing, Routing, and Storing Telemetry\". Technical focus on enterprise routing telemetry architecture, streaming network metrics, monitoring route propagation anomalies, and buffering telemetry feeds for real-time security operations analysis.",
+          "youtubeVideoId": "G8V7abxLHCs",
           "videoAttribution": {
-            "creator": "Network Direction",
+            "creator": "M. Atoar Rahman",
             "platform": "youtube"
           },
-          "durationMinutes": 8,
+          "durationMinutes": 31,
           "order": 4,
           "moduleTitle": "Module 08: Routers, Routing Tables and Traffic Paths",
           "objectives": [
@@ -3517,9 +3517,9 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "Wireshark"
         ],
         "pcapSource": {
-          "fileName": "cybertube-m08-analysis.pcap",
-          "fileUrl": "https://raw.githubusercontent.com/cybertube/pcaps/main/networking/m08-analysis.pcap",
-          "repositoryUrl": "https://github.com/cybertube/pcaps",
+          "fileName": "m08-lab-analysis.pcap",
+          "fileUrl": "/pcaps/networking/m08-lab-analysis.pcap",
+          "repositoryUrl": "https://github.com/arun-codex/CyberTube",
           "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b808"
         },
         "instructions": [
@@ -3582,7 +3582,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0009-4000-8000-000000000001",
           "slug": "m09-l1-route-advertisement",
           "title": "Module 09 - Lesson 1: Route advertisement",
-          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | Dynamic Routing | Day 24 | CCNA 200-301 Complete Course\". Technical focus on Module 09 - Lesson 1: Route advertisement: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | Dynamic Routing | Day 24 | CCNA 200-301 Complete Course\". Technical focus on m09-l1-route-advertisement: in-depth protocol analysis, packet dissection, defensive security implications, and hands-on investigation for SOC analysts and network engineers.",
           "youtubeVideoId": "xSTgb8JLkvs",
           "videoAttribution": {
             "creator": "Jeremy's IT Lab",
@@ -3670,7 +3670,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0009-4000-8000-000000000002",
           "slug": "m09-l2-ospf-mechanics",
           "title": "Module 09 - Lesson 2: OSPF mechanics",
-          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | OSPF Part 1 | Day 26 | CCNA 200-301 Complete Course\". Technical focus on Module 09 - Lesson 2: OSPF mechanics: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | OSPF Part 1 | Day 26 | CCNA 200-301 Complete Course\". Technical focus on Open Shortest Path First (OSPF) architecture, Link State Advertisements (LSAs), Dijkstra SPF algorithm computation, area hierarchies (Backbone Area 0), and link metrics.",
           "youtubeVideoId": "pvuaoJ9YzoI",
           "videoAttribution": {
             "creator": "Jeremy's IT Lab",
@@ -3758,7 +3758,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0009-4000-8000-000000000003",
           "slug": "m09-l3-routing-integrity",
           "title": "Module 09 - Lesson 3: Routing integrity",
-          "description": "Video instruction presented by Computerphile: \"BGP: Border Gateway Protocol - Computerphile\". Technical focus on Module 09 - Lesson 3: Routing integrity: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Computerphile: \"BGP: Border Gateway Protocol - Computerphile\". Technical focus on m09-l3-routing-integrity: in-depth protocol analysis, packet dissection, defensive security implications, and hands-on investigation for SOC analysts and network engineers.",
           "youtubeVideoId": "O6tCoD5c_U0",
           "videoAttribution": {
             "creator": "Computerphile",
@@ -3846,13 +3846,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0009-4000-8000-000000000004",
           "slug": "m09-l4-soc-observables",
           "title": "Module 09 - Lesson 4: SOC observables",
-          "description": "Video instruction presented by David Bombal: \"Destroying the Internet (BGP routers) EP 1 // BGP Python scapy DoS script\". Technical focus on Module 09 - Lesson 4: SOC observables: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
-          "youtubeVideoId": "39DGVpMt7eQ",
+          "description": "Video instruction presented by DKNOG: \"BGP Security - Hijack and Route Leak Detection\". Technical focus on monitoring BGP routing anomalies, identifying unauthorized prefix hijackings, detecting AS-path manipulations, evaluating route leaks, and operationalizing RPKI Route Origin Authorization (ROA) alerts within a SOC.",
+          "youtubeVideoId": "4wG8LcPzvss",
           "videoAttribution": {
-            "creator": "David Bombal",
+            "creator": "DKNOG",
             "platform": "youtube"
           },
-          "durationMinutes": 20,
+          "durationMinutes": 30,
           "order": 4,
           "moduleTitle": "Module 09: Dynamic Routing, OSPF and BGP Security Concepts",
           "objectives": [
@@ -3940,9 +3940,9 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "Packet Tracer"
         ],
         "pcapSource": {
-          "fileName": "cybertube-m09-analysis.pcap",
-          "fileUrl": "https://raw.githubusercontent.com/cybertube/pcaps/main/networking/m09-analysis.pcap",
-          "repositoryUrl": "https://github.com/cybertube/pcaps",
+          "fileName": "m09-lab-analysis.pcap",
+          "fileUrl": "/pcaps/networking/m09-lab-analysis.pcap",
+          "repositoryUrl": "https://github.com/arun-codex/CyberTube",
           "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b809"
         },
         "instructions": [
@@ -4005,7 +4005,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000a-4000-8000-000000000001",
           "slug": "m10-l1-tcp-handshake",
           "title": "Module 10 - Lesson 1: TCP handshake",
-          "description": "Video instruction presented by David Bombal: \"How TCP really works // Three-way handshake // TCP/IP Deep Dive\". Technical focus on Module 10 - Lesson 1: TCP handshake: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by David Bombal: \"How TCP really works // Three-way handshake // TCP/IP Deep Dive\". Technical focus on m10-l1-tcp-handshake: in-depth protocol analysis, packet dissection, defensive security implications, and hands-on investigation for SOC analysts and network engineers.",
           "youtubeVideoId": "rmFX1V49K8U",
           "videoAttribution": {
             "creator": "David Bombal",
@@ -4093,7 +4093,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000a-4000-8000-000000000002",
           "slug": "m10-l2-tcp-flags",
           "title": "Module 10 - Lesson 2: TCP flags",
-          "description": "Video instruction presented by Ben Eater: \"TCP: Transmission control protocol | Networking tutorial (12 of 13)\". Technical focus on Module 10 - Lesson 2: TCP flags: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Ben Eater: \"TCP: Transmission control protocol | Networking tutorial (12 of 13)\". Technical focus on m10-l2-tcp-flags: in-depth protocol analysis, packet dissection, defensive security implications, and hands-on investigation for SOC analysts and network engineers.",
           "youtubeVideoId": "4IMc3CaMhyY",
           "videoAttribution": {
             "creator": "Ben Eater",
@@ -4181,7 +4181,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000a-4000-8000-000000000003",
           "slug": "m10-l3-reliability",
           "title": "Module 10 - Lesson 3: Reliability",
-          "description": "Video instruction presented by Practical Networking: \"TCP - 12 simple ideas to explain the Transmission Control Protocol\". Technical focus on Module 10 - Lesson 3: Reliability: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Practical Networking: \"TCP - 12 simple ideas to explain the Transmission Control Protocol\". Technical focus on m10-l3-reliability: in-depth protocol analysis, packet dissection, defensive security implications, and hands-on investigation for SOC analysts and network engineers.",
           "youtubeVideoId": "JFch3ctY6nE",
           "videoAttribution": {
             "creator": "Practical Networking",
@@ -4269,13 +4269,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000a-4000-8000-000000000004",
           "slug": "m10-l4-detection-implications",
           "title": "Module 10 - Lesson 4: Detection implications",
-          "description": "Video instruction presented by Chris Greer: \"How TCP Works - The Handshake\". Technical focus on Module 10 - Lesson 4: Detection implications: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
-          "youtubeVideoId": "HCHFX5O1IaQ",
+          "description": "Video instruction presented by Bikash's Tech: \"DAY 9 Wireshark : Why your TCP connections are failing: FIN vs RST\". Technical focus on TCP anomaly detection in Wireshark, dissecting abrupt RST connection resets versus graceful FIN handshakes, identifying port scanning probes, and analyzing malicious connection teardown patterns.",
+          "youtubeVideoId": "0U1UISW_spY",
           "videoAttribution": {
-            "creator": "Chris Greer",
+            "creator": "Bikash's Tech",
             "platform": "youtube"
           },
-          "durationMinutes": 14,
+          "durationMinutes": 10,
           "order": 4,
           "moduleTitle": "Module 10: TCP Connections, Flags and Sessions",
           "objectives": [
@@ -4363,9 +4363,9 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "Wireshark"
         ],
         "pcapSource": {
-          "fileName": "cybertube-m10-analysis.pcap",
-          "fileUrl": "https://raw.githubusercontent.com/cybertube/pcaps/main/networking/m10-analysis.pcap",
-          "repositoryUrl": "https://github.com/cybertube/pcaps",
+          "fileName": "m10-lab-analysis.pcap",
+          "fileUrl": "/pcaps/networking/m10-lab-analysis.pcap",
+          "repositoryUrl": "https://github.com/arun-codex/CyberTube",
           "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b810"
         },
         "instructions": [
@@ -4428,7 +4428,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000b-4000-8000-000000000001",
           "slug": "m11-l1-tcp-versus-udp",
           "title": "Module 11 - Lesson 1: TCP versus UDP",
-          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | TCP & UDP | Day 30 | CCNA 200-301 Complete Course\". Technical focus on Module 11 - Lesson 1: TCP versus UDP: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | TCP & UDP | Day 30 | CCNA 200-301 Complete Course\". Technical focus on m11-l1-tcp-versus-udp: in-depth protocol analysis, packet dissection, defensive security implications, and hands-on investigation for SOC analysts and network engineers.",
           "youtubeVideoId": "LIEACBqlntY",
           "videoAttribution": {
             "creator": "Jeremy's IT Lab",
@@ -4520,7 +4520,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000b-4000-8000-000000000002",
           "slug": "m11-l2-port-ranges",
           "title": "Module 11 - Lesson 2: Port ranges",
-          "description": "Video instruction presented by Professor Messer: \"Common Ports - CompTIA Network+ N10-009 - 1.4\". Technical focus on Module 11 - Lesson 2: Port ranges: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Professor Messer: \"Common Ports - CompTIA Network+ N10-009 - 1.4\". Technical focus on m11-l2-port-ranges: in-depth protocol analysis, packet dissection, defensive security implications, and hands-on investigation for SOC analysts and network engineers.",
           "youtubeVideoId": "jX1pobYmZdE",
           "videoAttribution": {
             "creator": "Professor Messer",
@@ -4612,13 +4612,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000b-4000-8000-000000000003",
           "slug": "m11-l3-sockets-and-services",
           "title": "Module 11 - Lesson 3: Sockets and services",
-          "description": "Video instruction presented by Hussein Nasser: \"TCP vs UDP Crash Course\". Technical focus on Module 11 - Lesson 3: Sockets and services: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
-          "youtubeVideoId": "qqRYkcta6IE",
+          "description": "Video instruction presented by Steven Gordon: \"Linux Networking: netstat, services, protocols (4 of 6)\". Technical focus on network socket architecture, IP-port endpoint binding, inspecting active listening services with netstat and ss, and tracking socket connection state transitions from LISTEN to TIME_WAIT.",
+          "youtubeVideoId": "9ird7Zcw1ZY",
           "videoAttribution": {
-            "creator": "Hussein Nasser",
+            "creator": "Steven Gordon",
             "platform": "youtube"
           },
-          "durationMinutes": 40,
+          "durationMinutes": 12,
           "order": 3,
           "moduleTitle": "Module 11: UDP, Ports, Sockets and Common Services",
           "objectives": [
@@ -4704,7 +4704,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000b-4000-8000-000000000004",
           "slug": "m11-l4-suspicious-services",
           "title": "Module 11 - Lesson 4: Suspicious services",
-          "description": "Video instruction presented by Cyber Pathshala: \"Find Open Ports Like a Hacker | Port Types, Services & Nmap Practical - 2026\". Technical focus on Module 11 - Lesson 4: Suspicious services: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Cyber Pathshala: \"Find Open Ports Like a Hacker | Port Types, Services & Nmap Practical - 2026\". Technical focus on m11-l4-suspicious-services: in-depth protocol analysis, packet dissection, defensive security implications, and hands-on investigation for SOC analysts and network engineers.",
           "youtubeVideoId": "AQS0grHh1r0",
           "videoAttribution": {
             "creator": "Cyber Pathshala",
@@ -4803,9 +4803,9 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "ss/netstat"
         ],
         "pcapSource": {
-          "fileName": "cybertube-m11-analysis.pcap",
-          "fileUrl": "https://raw.githubusercontent.com/cybertube/pcaps/main/networking/m11-analysis.pcap",
-          "repositoryUrl": "https://github.com/cybertube/pcaps",
+          "fileName": "m11-lab-analysis.pcap",
+          "fileUrl": "/pcaps/networking/m11-lab-analysis.pcap",
+          "repositoryUrl": "https://github.com/arun-codex/CyberTube",
           "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b811"
         },
         "instructions": [
@@ -4868,7 +4868,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000c-4000-8000-000000000001",
           "slug": "m12-l1-resolver-workflow",
           "title": "Module 12 - Lesson 1: Resolver workflow",
-          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | DNS | Day 38 | CCNA 200-301 Complete Course\". Technical focus on Module 12 - Lesson 1: Resolver workflow: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | DNS | Day 38 | CCNA 200-301 Complete Course\". Technical focus on m12-l1-resolver-workflow: in-depth protocol analysis, packet dissection, defensive security implications, and hands-on investigation for SOC analysts and network engineers.",
           "youtubeVideoId": "4C6eeQes4cs",
           "videoAttribution": {
             "creator": "Jeremy's IT Lab",
@@ -4960,7 +4960,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000c-4000-8000-000000000002",
           "slug": "m12-l2-dns-records",
           "title": "Module 12 - Lesson 2: DNS records",
-          "description": "Video instruction presented by Professor Messer: \"DNS Records - CompTIA Network+ N10-009 - 3.4\". Technical focus on Module 12 - Lesson 2: DNS records: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Professor Messer: \"DNS Records - CompTIA Network+ N10-009 - 3.4\". Technical focus on m12-l2-dns-records: in-depth protocol analysis, packet dissection, defensive security implications, and hands-on investigation for SOC analysts and network engineers.",
           "youtubeVideoId": "qAyVND44jaE",
           "videoAttribution": {
             "creator": "Professor Messer",
@@ -5052,7 +5052,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000c-4000-8000-000000000003",
           "slug": "m12-l3-dns-traffic",
           "title": "Module 12 - Lesson 3: DNS traffic",
-          "description": "Video instruction presented by Chris Greer: \"Your First DNS Lookup\u2014Captured and Explained\". Technical focus on Module 12 - Lesson 3: DNS traffic: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Chris Greer: \"Your First DNS Lookup\u2014Captured and Explained\". Technical focus on m12-l3-dns-traffic: in-depth protocol analysis, packet dissection, defensive security implications, and hands-on investigation for SOC analysts and network engineers.",
           "youtubeVideoId": "fRRR0sU0BnY",
           "videoAttribution": {
             "creator": "Chris Greer",
@@ -5144,7 +5144,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000c-4000-8000-000000000004",
           "slug": "m12-l4-security-cases",
           "title": "Module 12 - Lesson 4: Security cases",
-          "description": "Video instruction presented by Professor Messer: \"ARP and DNS Poisoning - CompTIA Network+ N10-009 - 4.2\". Technical focus on Module 12 - Lesson 4: Security cases: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Professor Messer: \"ARP and DNS Poisoning - CompTIA Network+ N10-009 - 4.2\". Technical focus on m12-l4-security-cases: in-depth protocol analysis, packet dissection, defensive security implications, and hands-on investigation for SOC analysts and network engineers.",
           "youtubeVideoId": "2QijB5GtNE4",
           "videoAttribution": {
             "creator": "Professor Messer",
@@ -5243,9 +5243,9 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "dig/nslookup"
         ],
         "pcapSource": {
-          "fileName": "cybertube-m12-analysis.pcap",
-          "fileUrl": "https://raw.githubusercontent.com/cybertube/pcaps/main/networking/m12-analysis.pcap",
-          "repositoryUrl": "https://github.com/cybertube/pcaps",
+          "fileName": "m12-lab-analysis.pcap",
+          "fileUrl": "/pcaps/networking/m12-lab-analysis.pcap",
+          "repositoryUrl": "https://github.com/arun-codex/CyberTube",
           "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b812"
         },
         "instructions": [
@@ -5308,7 +5308,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000d-4000-8000-000000000001",
           "slug": "m13-l1-dhcp-dora",
           "title": "Module 13 - Lesson 1: DHCP DORA",
-          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | DHCP | Day 39 | CCNA 200-301 Complete Course\". Technical focus on Module 13 - Lesson 1: DHCP DORA: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | DHCP | Day 39 | CCNA 200-301 Complete Course\". Technical focus on m13-l1-dhcp-dora: in-depth protocol analysis, packet dissection, defensive security implications, and hands-on investigation for SOC analysts and network engineers.",
           "youtubeVideoId": "hzkleGAC2_Y",
           "videoAttribution": {
             "creator": "Jeremy's IT Lab",
@@ -5396,7 +5396,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000d-4000-8000-000000000002",
           "slug": "m13-l2-dhcp-leases",
           "title": "Module 13 - Lesson 2: DHCP leases",
-          "description": "Video instruction presented by Professor Messer: \"DHCP - CompTIA Network+ N10-009 - 3.4\". Technical focus on Module 13 - Lesson 2: DHCP leases: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Professor Messer: \"DHCP - CompTIA Network+ N10-009 - 3.4\". Technical focus on m13-l2-dhcp-leases: in-depth protocol analysis, packet dissection, defensive security implications, and hands-on investigation for SOC analysts and network engineers.",
           "youtubeVideoId": "b7fiXM3vO18",
           "videoAttribution": {
             "creator": "Professor Messer",
@@ -5484,7 +5484,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000d-4000-8000-000000000003",
           "slug": "m13-l3-rogue-configuration-indicators",
           "title": "Module 13 - Lesson 3: Rogue configuration indicators",
-          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | DHCP Snooping | Day 50 | CCNA 200-301 Complete Course\". Technical focus on Module 13 - Lesson 3: Rogue configuration indicators: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | DHCP Snooping | Day 50 | CCNA 200-301 Complete Course\". Technical focus on m13-l3-rogue-configuration-indicators: in-depth protocol analysis, packet dissection, defensive security implications, and hands-on investigation for SOC analysts and network engineers.",
           "youtubeVideoId": "qYYeg2kz1yE",
           "videoAttribution": {
             "creator": "Jeremy's IT Lab",
@@ -5572,7 +5572,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000d-4000-8000-000000000004",
           "slug": "m13-l4-ntp-and-timestamp-integrity",
           "title": "Module 13 - Lesson 4: NTP and timestamp integrity",
-          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | NTP | Day 37 | CCNA 200-301 Complete Course\". Technical focus on Module 13 - Lesson 4: NTP and timestamp integrity: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | NTP | Day 37 | CCNA 200-301 Complete Course\". Technical focus on m13-l4-ntp-and-timestamp-integrity: in-depth protocol analysis, packet dissection, defensive security implications, and hands-on investigation for SOC analysts and network engineers.",
           "youtubeVideoId": "qGJaJx7OfUo",
           "videoAttribution": {
             "creator": "Jeremy's IT Lab",
@@ -5667,9 +5667,9 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "Packet Tracer"
         ],
         "pcapSource": {
-          "fileName": "cybertube-m13-analysis.pcap",
-          "fileUrl": "https://raw.githubusercontent.com/cybertube/pcaps/main/networking/m13-analysis.pcap",
-          "repositoryUrl": "https://github.com/cybertube/pcaps",
+          "fileName": "m13-lab-analysis.pcap",
+          "fileUrl": "/pcaps/networking/m13-lab-analysis.pcap",
+          "repositoryUrl": "https://github.com/arun-codex/CyberTube",
           "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b813"
         },
         "instructions": [
@@ -5732,7 +5732,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000e-4000-8000-000000000001",
           "slug": "m14-l1-http-conversation",
           "title": "Module 14 - Lesson 1: HTTP conversation",
-          "description": "Video instruction presented by Hussein Nasser: \"What are web servers and how do they work (with examples httpd and nodejs)\". Technical focus on Module 14 - Lesson 1: HTTP conversation: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Hussein Nasser: \"What are web servers and how do they work (with examples httpd and nodejs)\". Technical focus on m14-l1-http-conversation: in-depth protocol analysis, packet dissection, defensive security implications, and hands-on investigation for SOC analysts and network engineers.",
           "youtubeVideoId": "JhpUch6lWMw",
           "videoAttribution": {
             "creator": "Hussein Nasser",
@@ -5824,7 +5824,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000e-4000-8000-000000000002",
           "slug": "m14-l2-sessions-and-cookies",
           "title": "Module 14 - Lesson 2: Sessions and cookies",
-          "description": "Video instruction presented by Hussein Nasser: \"HTTP Cookies Crash Course\". Technical focus on Module 14 - Lesson 2: Sessions and cookies: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Hussein Nasser: \"HTTP Cookies Crash Course\". Technical focus on m14-l2-sessions-and-cookies: in-depth protocol analysis, packet dissection, defensive security implications, and hands-on investigation for SOC analysts and network engineers.",
           "youtubeVideoId": "sovAIX4doOE",
           "videoAttribution": {
             "creator": "Hussein Nasser",
@@ -5916,7 +5916,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000e-4000-8000-000000000003",
           "slug": "m14-l3-https-visibility",
           "title": "Module 14 - Lesson 3: HTTPS visibility",
-          "description": "Video instruction presented by Hussein Nasser: \"Wiresharking TLS - What happens during TLS 1.2 and TLS 1.3 Handshake\". Technical focus on Module 14 - Lesson 3: HTTPS visibility: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Hussein Nasser: \"Wiresharking TLS - What happens during TLS 1.2 and TLS 1.3 Handshake\". Technical focus on m14-l3-https-visibility: in-depth protocol analysis, packet dissection, defensive security implications, and hands-on investigation for SOC analysts and network engineers.",
           "youtubeVideoId": "06Kq50P01sI",
           "videoAttribution": {
             "creator": "Hussein Nasser",
@@ -6008,7 +6008,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000e-4000-8000-000000000004",
           "slug": "m14-l4-proxy-interpretation",
           "title": "Module 14 - Lesson 4: Proxy interpretation",
-          "description": "Video instruction presented by Hussein Nasser: \"Proxy vs Reverse Proxy Server Explained\". Technical focus on Module 14 - Lesson 4: Proxy interpretation: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Hussein Nasser: \"Proxy vs Reverse Proxy Server Explained\". Technical focus on m14-l4-proxy-interpretation: in-depth protocol analysis, packet dissection, defensive security implications, and hands-on investigation for SOC analysts and network engineers.",
           "youtubeVideoId": "SqqrOspasag",
           "videoAttribution": {
             "creator": "Hussein Nasser",
@@ -6107,9 +6107,9 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "Browser DevTools"
         ],
         "pcapSource": {
-          "fileName": "cybertube-m14-analysis.pcap",
-          "fileUrl": "https://raw.githubusercontent.com/cybertube/pcaps/main/networking/m14-analysis.pcap",
-          "repositoryUrl": "https://github.com/cybertube/pcaps",
+          "fileName": "m14-lab-analysis.pcap",
+          "fileUrl": "/pcaps/networking/m14-lab-analysis.pcap",
+          "repositoryUrl": "https://github.com/arun-codex/CyberTube",
           "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b814"
         },
         "instructions": [
@@ -6172,7 +6172,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000f-4000-8000-000000000001",
           "slug": "m15-l1-tls-trust-model",
           "title": "Module 15 - Lesson 1: TLS trust model",
-          "description": "Video instruction presented by Practical Networking: \"What is SSL & TLS ?   What is HTTPS ?   What is an SSL VPN? - Practical TLS\". Technical focus on Module 15 - Lesson 1: TLS trust model: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Practical Networking: \"What is SSL & TLS ?   What is HTTPS ?   What is an SSL VPN? - Practical TLS\". Technical focus on m15-l1-tls-trust-model: in-depth protocol analysis, packet dissection, defensive security implications, and hands-on investigation for SOC analysts and network engineers.",
           "youtubeVideoId": "HMoFvRK4HUo",
           "videoAttribution": {
             "creator": "Practical Networking",
@@ -6264,7 +6264,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000f-4000-8000-000000000002",
           "slug": "m15-l2-tls-negotiation",
           "title": "Module 15 - Lesson 2: TLS negotiation",
-          "description": "Video instruction presented by Hussein Nasser: \"The TLS Handshake Explained with Example (the Math)\". Technical focus on Module 15 - Lesson 2: TLS negotiation: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Hussein Nasser: \"The TLS Handshake Explained with Example (the Math)\". Technical focus on m15-l2-tls-negotiation: in-depth protocol analysis, packet dissection, defensive security implications, and hands-on investigation for SOC analysts and network engineers.",
           "youtubeVideoId": "64geP_LAZ5U",
           "videoAttribution": {
             "creator": "Hussein Nasser",
@@ -6356,13 +6356,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000f-4000-8000-000000000003",
           "slug": "m15-l3-http-2-and-http-3",
           "title": "Module 15 - Lesson 3: HTTP/2 and HTTP/3",
-          "description": "Video instruction presented by Hussein Nasser: \"How HTTP/2 Works, Performance, Pros & Cons and More\". Technical focus on Module 15 - Lesson 3: HTTP/2 and HTTP/3: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
-          "youtubeVideoId": "fVKPrDrEwTI",
+          "description": "Video instruction presented by Hussein Nasser: \"HTTP/2 Critical Limitation that led to HTTP/3 & QUIC (Explained by Example)\". Technical focus on comparing HTTP/2 stream multiplexing with HTTP/3 QUIC, analyzing Head-of-Line (HoL) blocking inherent in TCP transport during packet loss, and evaluating independent stream delivery over UDP.",
+          "youtubeVideoId": "GriONb4EfPY",
           "videoAttribution": {
             "creator": "Hussein Nasser",
             "platform": "youtube"
           },
-          "durationMinutes": 23,
+          "durationMinutes": 10,
           "order": 3,
           "moduleTitle": "Module 15: TLS, Certificates and Encrypted Traffic",
           "objectives": [
@@ -6448,7 +6448,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-000f-4000-8000-000000000004",
           "slug": "m15-l4-soc-troubleshooting",
           "title": "Module 15 - Lesson 4: SOC troubleshooting",
-          "description": "Video instruction presented by Chris Greer: \"Let's FIX a BROKEN TLS Handshake // with Wireshark\". Technical focus on Module 15 - Lesson 4: SOC troubleshooting: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Chris Greer: \"Let's FIX a BROKEN TLS Handshake // with Wireshark\". Technical focus on m15-l4-soc-troubleshooting: in-depth protocol analysis, packet dissection, defensive security implications, and hands-on investigation for SOC analysts and network engineers.",
           "youtubeVideoId": "m3I-h9uSgj8",
           "videoAttribution": {
             "creator": "Chris Greer",
@@ -6547,9 +6547,9 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "OpenSSL"
         ],
         "pcapSource": {
-          "fileName": "cybertube-m15-analysis.pcap",
-          "fileUrl": "https://raw.githubusercontent.com/cybertube/pcaps/main/networking/m15-analysis.pcap",
-          "repositoryUrl": "https://github.com/cybertube/pcaps",
+          "fileName": "m15-lab-analysis.pcap",
+          "fileUrl": "/pcaps/networking/m15-lab-analysis.pcap",
+          "repositoryUrl": "https://github.com/arun-codex/CyberTube",
           "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b815"
         },
         "instructions": [
@@ -6612,7 +6612,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0010-4000-8000-000000000001",
           "slug": "m16-l1-private-addressing",
           "title": "Module 16 - Lesson 1: Private addressing",
-          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | NAT (Part 1) | Day 44 | CCNA 200-301 Complete Course\". Technical focus on Module 16 - Lesson 1: Private addressing: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | NAT (Part 1) | Day 44 | CCNA 200-301 Complete Course\". Technical focus on m16-l1-private-addressing: in-depth protocol analysis, packet dissection, defensive security implications, and hands-on investigation for SOC analysts and network engineers.",
           "youtubeVideoId": "2TZCfTgopeg",
           "videoAttribution": {
             "creator": "Jeremy's IT Lab",
@@ -6700,7 +6700,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0010-4000-8000-000000000002",
           "slug": "m16-l2-static-vs-dynamic-nat",
           "title": "Module 16 - Lesson 2: Static vs dynamic NAT",
-          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | Dynamic NAT | Day 45 Lab | CCNA 200-301 Complete Course\". Technical focus on Module 16 - Lesson 2: Static vs dynamic NAT: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | Dynamic NAT | Day 45 Lab | CCNA 200-301 Complete Course\". Technical focus on m16-l2-static-vs-dynamic-nat: in-depth protocol analysis, packet dissection, defensive security implications, and hands-on investigation for SOC analysts and network engineers.",
           "youtubeVideoId": "vNs1xxiwGJs",
           "videoAttribution": {
             "creator": "Jeremy's IT Lab",
@@ -6788,7 +6788,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0010-4000-8000-000000000003",
           "slug": "m16-l3-pat-and-port-mapping",
           "title": "Module 16 - Lesson 3: PAT and port mapping",
-          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | NAT (part 2) | Day 45 | CCNA 200-301 Complete Course\". Technical focus on Module 16 - Lesson 3: PAT and port mapping: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | NAT (part 2) | Day 45 | CCNA 200-301 Complete Course\". Technical focus on m16-l3-pat-and-port-mapping: in-depth protocol analysis, packet dissection, defensive security implications, and hands-on investigation for SOC analysts and network engineers.",
           "youtubeVideoId": "kILDNs4KjYE",
           "videoAttribution": {
             "creator": "Jeremy's IT Lab",
@@ -6876,13 +6876,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0010-4000-8000-000000000004",
           "slug": "m16-l4-soc-attribution",
           "title": "Module 16 - Lesson 4: SOC attribution",
-          "description": "Video instruction presented by TechBlazes: \"Network Forensics Explained \u2013 Learn Packet Analysis & Cyber Investigation\". Technical focus on Module 16 - Lesson 4: SOC attribution: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
-          "youtubeVideoId": "f81XXRlp-wQ",
+          "description": "Video instruction presented by WireDogSec: \"Log Analysis with SIEM | TryHackMe | SOC Level 1 2025\". Technical focus on correlating Network Address Translation (NAT) and firewall connection logs, mapping public-facing translation records back to internal host IP addresses, and attributing suspicious egress connections using ephemeral source port tracking.",
+          "youtubeVideoId": "ZpTyTaKjzDc",
           "videoAttribution": {
-            "creator": "TechBlazes",
+            "creator": "WireDogSec",
             "platform": "youtube"
           },
-          "durationMinutes": 120,
+          "durationMinutes": 53,
           "order": 4,
           "moduleTitle": "Module 16: NAT, PAT and Network Translation",
           "objectives": [
@@ -6971,9 +6971,9 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "Wireshark"
         ],
         "pcapSource": {
-          "fileName": "cybertube-m16-analysis.pcap",
-          "fileUrl": "https://raw.githubusercontent.com/cybertube/pcaps/main/networking/m16-analysis.pcap",
-          "repositoryUrl": "https://github.com/cybertube/pcaps",
+          "fileName": "m16-lab-analysis.pcap",
+          "fileUrl": "/pcaps/networking/m16-lab-analysis.pcap",
+          "repositoryUrl": "https://github.com/arun-codex/CyberTube",
           "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b816"
         },
         "instructions": [
@@ -7036,7 +7036,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0011-4000-8000-000000000001",
           "slug": "m17-l1-filtering-logic",
           "title": "Module 17 - Lesson 1: Filtering logic",
-          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | Standard ACLs | Day 34 | CCNA 200-301 Complete Course\". Technical focus on Module 17 - Lesson 1: Filtering logic: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | Standard ACLs | Day 34 | CCNA 200-301 Complete Course\". Technical focus on m17-l1-filtering-logic: in-depth protocol analysis, packet dissection, defensive security implications, and hands-on investigation for SOC analysts and network engineers.",
           "youtubeVideoId": "z023_eRUtSo",
           "videoAttribution": {
             "creator": "Jeremy's IT Lab",
@@ -7124,7 +7124,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0011-4000-8000-000000000002",
           "slug": "m17-l2-rule-order",
           "title": "Module 17 - Lesson 2: Rule order",
-          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | Extended ACLs | Day 35 | CCNA 200-301 Complete Course\". Technical focus on Module 17 - Lesson 2: Rule order: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | Extended ACLs | Day 35 | CCNA 200-301 Complete Course\". Technical focus on m17-l2-rule-order: in-depth protocol analysis, packet dissection, defensive security implications, and hands-on investigation for SOC analysts and network engineers.",
           "youtubeVideoId": "dUttKY_CNXE",
           "videoAttribution": {
             "creator": "Jeremy's IT Lab",
@@ -7212,7 +7212,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0011-4000-8000-000000000003",
           "slug": "m17-l3-network-zones",
           "title": "Module 17 - Lesson 3: Network zones",
-          "description": "Video instruction presented by PowerCert Animated Videos: \"What is a DMZ? (Demilitarized Zone)\". Technical focus on Module 17 - Lesson 3: Network zones: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by PowerCert Animated Videos: \"What is a DMZ? (Demilitarized Zone)\". Technical focus on m17-l3-network-zones: in-depth protocol analysis, packet dissection, defensive security implications, and hands-on investigation for SOC analysts and network engineers.",
           "youtubeVideoId": "dqlzQXo1wqo",
           "videoAttribution": {
             "creator": "PowerCert Animated Videos",
@@ -7300,13 +7300,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0011-4000-8000-000000000004",
           "slug": "m17-l4-firewall-investigations",
           "title": "Module 17 - Lesson 4: Firewall investigations",
-          "description": "Video instruction presented by John Hammond: \"Incident Response: Azure Log Analysis\". Technical focus on Module 17 - Lesson 4: Firewall investigations: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
-          "youtubeVideoId": "Eb-D0hTf5GQ",
+          "description": "Video instruction presented by InfoSec Pandey: \"Day 22 | Firewall Logs Masterclass | Learn Firewall Log Analysis | Analyze Firewall Logs with Splunk\". Technical focus on firewall log analysis, dissecting traffic, threat, and system events, querying blocked versus allowed connection sequences in Splunk, and investigating perimeter security policy violations.",
+          "youtubeVideoId": "JWGV8rNoZZY",
           "videoAttribution": {
-            "creator": "John Hammond",
+            "creator": "InfoSec Pandey",
             "platform": "youtube"
           },
-          "durationMinutes": 19,
+          "durationMinutes": 27,
           "order": 4,
           "moduleTitle": "Module 17: Firewalls, ACLs and Zero-Trust Segmentation",
           "objectives": [
@@ -7395,9 +7395,9 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "Syslog"
         ],
         "pcapSource": {
-          "fileName": "cybertube-m17-analysis.pcap",
-          "fileUrl": "https://raw.githubusercontent.com/cybertube/pcaps/main/networking/m17-analysis.pcap",
-          "repositoryUrl": "https://github.com/cybertube/pcaps",
+          "fileName": "m17-lab-analysis.pcap",
+          "fileUrl": "/pcaps/networking/m17-lab-analysis.pcap",
+          "repositoryUrl": "https://github.com/arun-codex/CyberTube",
           "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b817"
         },
         "instructions": [
@@ -7460,7 +7460,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0012-4000-8000-000000000001",
           "slug": "m18-l1-wireless-architecture",
           "title": "Module 18 - Lesson 1: Wireless architecture",
-          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | Wireless Architectures | Day 56 | CCNA 200-301 Complete Course\". Technical focus on Module 18 - Lesson 1: Wireless architecture: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | Wireless Architectures | Day 56 | CCNA 200-301 Complete Course\". Technical focus on m18-l1-wireless-architecture: in-depth protocol analysis, packet dissection, defensive security implications, and hands-on investigation for SOC analysts and network engineers.",
           "youtubeVideoId": "uX1h0F6wpBY",
           "videoAttribution": {
             "creator": "Jeremy's IT Lab",
@@ -7552,7 +7552,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0012-4000-8000-000000000002",
           "slug": "m18-l2-802-11-basics",
           "title": "Module 18 - Lesson 2: 802.11 basics",
-          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | Wireless Fundamentals | Day 55 | CCNA 200-301 Complete Course\". Technical focus on Module 18 - Lesson 2: 802.11 basics: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | Wireless Fundamentals | Day 55 | CCNA 200-301 Complete Course\". Technical focus on m18-l2-802-11-basics: in-depth protocol analysis, packet dissection, defensive security implications, and hands-on investigation for SOC analysts and network engineers.",
           "youtubeVideoId": "zuYiktLqNYQ",
           "videoAttribution": {
             "creator": "Jeremy's IT Lab",
@@ -7644,7 +7644,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0012-4000-8000-000000000003",
           "slug": "m18-l3-authentication",
           "title": "Module 18 - Lesson 3: Authentication",
-          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | Wireless Security | Day 57 | CCNA 200-301 Complete Course\". Technical focus on Module 18 - Lesson 3: Authentication: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | Wireless Security | Day 57 | CCNA 200-301 Complete Course\". Technical focus on m18-l3-authentication: in-depth protocol analysis, packet dissection, defensive security implications, and hands-on investigation for SOC analysts and network engineers.",
           "youtubeVideoId": "wHXKo9So5y8",
           "videoAttribution": {
             "creator": "Jeremy's IT Lab",
@@ -7736,7 +7736,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0012-4000-8000-000000000004",
           "slug": "m18-l4-wireless-monitoring",
           "title": "Module 18 - Lesson 4: Wireless monitoring",
-          "description": "Video instruction presented by Tall Paul Tech: \"802.11 Association And Reassociation Frames\". Technical focus on Module 18 - Lesson 4: Wireless monitoring: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Tall Paul Tech: \"802.11 Association And Reassociation Frames\". Technical focus on m18-l4-wireless-monitoring: in-depth protocol analysis, packet dissection, defensive security implications, and hands-on investigation for SOC analysts and network engineers.",
           "youtubeVideoId": "0UFp3sSLxFI",
           "videoAttribution": {
             "creator": "Tall Paul Tech",
@@ -7835,9 +7835,9 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "Wireshark"
         ],
         "pcapSource": {
-          "fileName": "cybertube-m18-analysis.pcap",
-          "fileUrl": "https://raw.githubusercontent.com/cybertube/pcaps/main/networking/m18-analysis.pcap",
-          "repositoryUrl": "https://github.com/cybertube/pcaps",
+          "fileName": "m18-lab-analysis.pcap",
+          "fileUrl": "/pcaps/networking/m18-lab-analysis.pcap",
+          "repositoryUrl": "https://github.com/arun-codex/CyberTube",
           "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b818"
         },
         "instructions": [
@@ -7900,7 +7900,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0013-4000-8000-000000000001",
           "slug": "m19-l1-ipv6-representation",
           "title": "Module 19 - Lesson 1: IPv6 representation",
-          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | IPv6 Part 1 | Day 31 | CCNA 200-301 Complete Course\". Technical focus on Module 19 - Lesson 1: IPv6 representation: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | IPv6 Part 1 | Day 31 | CCNA 200-301 Complete Course\". Technical focus on m19-l1-ipv6-representation: in-depth protocol analysis, packet dissection, defensive security implications, and hands-on investigation for SOC analysts and network engineers.",
           "youtubeVideoId": "ZNuXyOXae5U",
           "videoAttribution": {
             "creator": "Jeremy's IT Lab",
@@ -7988,7 +7988,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0013-4000-8000-000000000002",
           "slug": "m19-l2-ndp-and-icmpv6",
           "title": "Module 19 - Lesson 2: NDP and ICMPv6",
-          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | IPv6 Part 2 | Day 32 | CCNA 200-301 Complete Course\". Technical focus on Module 19 - Lesson 2: NDP and ICMPv6: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | IPv6 Part 2 | Day 32 | CCNA 200-301 Complete Course\". Technical focus on m19-l2-ndp-and-icmpv6: in-depth protocol analysis, packet dissection, defensive security implications, and hands-on investigation for SOC analysts and network engineers.",
           "youtubeVideoId": "BrTMMOXFhDU",
           "videoAttribution": {
             "creator": "Jeremy's IT Lab",
@@ -8076,7 +8076,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0013-4000-8000-000000000003",
           "slug": "m19-l3-dual-stack-paths",
           "title": "Module 19 - Lesson 3: Dual-stack paths",
-          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | Configuring IPv6 (Part 3) | Day 33 Lab | CCNA 200-301 Complete Course\". Technical focus on Module 19 - Lesson 3: Dual-stack paths: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | Configuring IPv6 (Part 3) | Day 33 Lab | CCNA 200-301 Complete Course\". Technical focus on m19-l3-dual-stack-paths: in-depth protocol analysis, packet dissection, defensive security implications, and hands-on investigation for SOC analysts and network engineers.",
           "youtubeVideoId": "WSBEVFANMmc",
           "videoAttribution": {
             "creator": "Jeremy's IT Lab",
@@ -8164,13 +8164,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0013-4000-8000-000000000004",
           "slug": "m19-l4-defensive-checks",
           "title": "Module 19 - Lesson 4: Defensive checks",
-          "description": "Video instruction presented by RIPE NCC: \"Neighbor Discovery Protocol\". Technical focus on Module 19 - Lesson 4: Defensive checks: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
-          "youtubeVideoId": "A3LFt7CHpgs",
+          "description": "Video instruction presented by PyNet Labs: \"IPv6 RA Guard Explained | Protect Against Rogue Router Advertisements\". Technical focus on IPv6 security monitoring, analyzing rogue Router Advertisement (RA) attacks, preventing SLAAC-based man-in-the-middle exploits, and deploying switch-level IPv6 RA Guard and ND Inspection.",
+          "youtubeVideoId": "IKyLbvLF8VQ",
           "videoAttribution": {
-            "creator": "RIPE NCC",
+            "creator": "PyNet Labs",
             "platform": "youtube"
           },
-          "durationMinutes": 4,
+          "durationMinutes": 13,
           "order": 4,
           "moduleTitle": "Module 19: IPv6 Addressing and Network Security",
           "objectives": [
@@ -8259,9 +8259,9 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "Packet Tracer"
         ],
         "pcapSource": {
-          "fileName": "cybertube-m19-analysis.pcap",
-          "fileUrl": "https://raw.githubusercontent.com/cybertube/pcaps/main/networking/m19-analysis.pcap",
-          "repositoryUrl": "https://github.com/cybertube/pcaps",
+          "fileName": "m19-lab-analysis.pcap",
+          "fileUrl": "/pcaps/networking/m19-lab-analysis.pcap",
+          "repositoryUrl": "https://github.com/arun-codex/CyberTube",
           "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b819"
         },
         "instructions": [
@@ -8324,7 +8324,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0014-4000-8000-000000000001",
           "slug": "m20-l1-vpn-use-cases",
           "title": "Module 20 - Lesson 1: VPN use cases",
-          "description": "Video instruction presented by The Confused Engineer \ud83d\ude1c: \"How VPN REALLY Works (Types, Architectures & Troubleshooting)\". Technical focus on Module 20 - Lesson 1: VPN use cases: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by The Confused Engineer \ud83d\ude1c: \"How VPN REALLY Works (Types, Architectures & Troubleshooting)\". Technical focus on m20-l1-vpn-use-cases: in-depth protocol analysis, packet dissection, defensive security implications, and hands-on investigation for SOC analysts and network engineers.",
           "youtubeVideoId": "Rx8q7N-qZVc",
           "videoAttribution": {
             "creator": "The Confused Engineer \ud83d\ude1c",
@@ -8416,7 +8416,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0014-4000-8000-000000000002",
           "slug": "m20-l2-tunnel-endpoints",
           "title": "Module 20 - Lesson 2: Tunnel endpoints",
-          "description": "Video instruction presented by Professor Messer: \"VPNs - CompTIA Network+ N10-009 - 3.5\". Technical focus on Module 20 - Lesson 2: Tunnel endpoints: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Professor Messer: \"VPNs - CompTIA Network+ N10-009 - 3.5\". Technical focus on m20-l2-tunnel-endpoints: in-depth protocol analysis, packet dissection, defensive security implications, and hands-on investigation for SOC analysts and network engineers.",
           "youtubeVideoId": "tm7i0zEitPQ",
           "videoAttribution": {
             "creator": "Professor Messer",
@@ -8508,7 +8508,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0014-4000-8000-000000000003",
           "slug": "m20-l3-protocol-concepts",
           "title": "Module 20 - Lesson 3: Protocol concepts",
-          "description": "Video instruction presented by PowerCert Animated Videos: \"IPsec Explained\". Technical focus on Module 20 - Lesson 3: Protocol concepts: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by PowerCert Animated Videos: \"IPsec Explained\". Technical focus on m20-l3-protocol-concepts: in-depth protocol analysis, packet dissection, defensive security implications, and hands-on investigation for SOC analysts and network engineers.",
           "youtubeVideoId": "xTH1ZA_qUvA",
           "videoAttribution": {
             "creator": "PowerCert Animated Videos",
@@ -8600,13 +8600,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0014-4000-8000-000000000004",
           "slug": "m20-l4-soc-monitoring",
           "title": "Module 20 - Lesson 4: SOC monitoring",
-          "description": "Video instruction presented by Tech with Jono: \"how to CORRECTLY read logs as a Cybersecurity SOC Analyst\". Technical focus on Module 20 - Lesson 4: SOC monitoring: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
-          "youtubeVideoId": "TlB-vGW-xLQ",
+          "description": "Video instruction presented by Motasem Hamdan : \"VPN Logs Investigation and Data Analytics With Elastic Stack | TryHackMe | Cyber Security\". Technical focus on enterprise VPN log investigation, tracking authentication attempts, detecting credential stuffing and brute-force attacks, identifying impossible travel anomalies, and auditing remote access telemetry in SIEM.",
+          "youtubeVideoId": "o4TFyl-FeRI",
           "videoAttribution": {
-            "creator": "Tech with Jono",
+            "creator": "Motasem Hamdan ",
             "platform": "youtube"
           },
-          "durationMinutes": 8,
+          "durationMinutes": 36,
           "order": 4,
           "moduleTitle": "Module 20: VPNs, Tunnels and Secure Remote Access",
           "objectives": [
@@ -8699,9 +8699,9 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "Wireshark"
         ],
         "pcapSource": {
-          "fileName": "cybertube-m20-analysis.pcap",
-          "fileUrl": "https://raw.githubusercontent.com/cybertube/pcaps/main/networking/m20-analysis.pcap",
-          "repositoryUrl": "https://github.com/cybertube/pcaps",
+          "fileName": "m20-lab-analysis.pcap",
+          "fileUrl": "/pcaps/networking/m20-lab-analysis.pcap",
+          "repositoryUrl": "https://github.com/arun-codex/CyberTube",
           "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b820"
         },
         "instructions": [
@@ -8764,7 +8764,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0015-4000-8000-000000000001",
           "slug": "m21-l1-capture-safely",
           "title": "Module 21 - Lesson 1: Capture safely",
-          "description": "Video instruction presented by Chris Greer: \"Learn Wireshark! Tutorial for BEGINNERS\". Technical focus on Module 21 - Lesson 1: Capture safely: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Chris Greer: \"Learn Wireshark! Tutorial for BEGINNERS\". Technical focus on m21-l1-capture-safely: in-depth protocol analysis, packet dissection, defensive security implications, and hands-on investigation for SOC analysts and network engineers.",
           "youtubeVideoId": "OU-A2EmVrKQ",
           "videoAttribution": {
             "creator": "Chris Greer",
@@ -8848,7 +8848,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0015-4000-8000-000000000002",
           "slug": "m21-l2-capture-vs-display-filters",
           "title": "Module 21 - Lesson 2: Capture vs display filters",
-          "description": "Video instruction presented by HackerSploit: \"Wireshark Tutorial for Beginners - Filters\". Technical focus on Module 21 - Lesson 2: Capture vs display filters: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by HackerSploit: \"Wireshark Tutorial for Beginners - Filters\". Technical focus on m21-l2-capture-vs-display-filters: in-depth protocol analysis, packet dissection, defensive security implications, and hands-on investigation for SOC analysts and network engineers.",
           "youtubeVideoId": "xO69Bl1R07E",
           "videoAttribution": {
             "creator": "HackerSploit",
@@ -8932,7 +8932,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0015-4000-8000-000000000003",
           "slug": "m21-l3-statistics",
           "title": "Module 21 - Lesson 3: Statistics",
-          "description": "Video instruction presented by Chris Greer: \"Reading PCAPs with Wireshark Statistics // Lesson 8 // Wireshark Tutorial\". Technical focus on Module 21 - Lesson 3: Statistics: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Chris Greer: \"Reading PCAPs with Wireshark Statistics // Lesson 8 // Wireshark Tutorial\". Technical focus on m21-l3-statistics: in-depth protocol analysis, packet dissection, defensive security implications, and hands-on investigation for SOC analysts and network engineers.",
           "youtubeVideoId": "ZNS115MPsO0",
           "videoAttribution": {
             "creator": "Chris Greer",
@@ -9016,7 +9016,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0015-4000-8000-000000000004",
           "slug": "m21-l4-tshark-workflow",
           "title": "Module 21 - Lesson 4: TShark workflow",
-          "description": "Video instruction presented by David Bombal: \"tshark and Termshark tutorial: Capture and view wireshark captures in a console\". Technical focus on Module 21 - Lesson 4: TShark workflow: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by David Bombal: \"tshark and Termshark tutorial: Capture and view wireshark captures in a console\". Technical focus on m21-l4-tshark-workflow: in-depth protocol analysis, packet dissection, defensive security implications, and hands-on investigation for SOC analysts and network engineers.",
           "youtubeVideoId": "HoYgPlmOZgo",
           "videoAttribution": {
             "creator": "David Bombal",
@@ -9107,9 +9107,9 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "TShark CLI"
         ],
         "pcapSource": {
-          "fileName": "cybertube-m21-analysis.pcap",
-          "fileUrl": "https://raw.githubusercontent.com/cybertube/pcaps/main/networking/m21-analysis.pcap",
-          "repositoryUrl": "https://github.com/cybertube/pcaps",
+          "fileName": "m21-lab-analysis.pcap",
+          "fileUrl": "/pcaps/networking/m21-lab-analysis.pcap",
+          "repositoryUrl": "https://github.com/arun-codex/CyberTube",
           "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b821"
         },
         "instructions": [
@@ -9172,7 +9172,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0016-4000-8000-000000000001",
           "slug": "m22-l1-handshake-timing",
           "title": "Module 22 - Lesson 1: Handshake timing",
-          "description": "Video instruction presented by Chris Greer: \"Wireshark Tutorial - Lesson 7 // Using the Time Column\". Technical focus on Module 22 - Lesson 1: Handshake timing: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Chris Greer: \"Wireshark Tutorial - Lesson 7 // Using the Time Column\". Technical focus on m22-l1-handshake-timing: in-depth protocol analysis, packet dissection, defensive security implications, and hands-on investigation for SOC analysts and network engineers.",
           "youtubeVideoId": "SllJu5MdkAg",
           "videoAttribution": {
             "creator": "Chris Greer",
@@ -9256,7 +9256,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0016-4000-8000-000000000002",
           "slug": "m22-l2-retransmissions",
           "title": "Module 22 - Lesson 2: Retransmissions",
-          "description": "Video instruction presented by Chris Greer: \"How TCP RETRANSMISSIONS Work // Analyzing Packet Loss\". Technical focus on Module 22 - Lesson 2: Retransmissions: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Chris Greer: \"How TCP RETRANSMISSIONS Work // Analyzing Packet Loss\". Technical focus on packet loss analysis in Wireshark, identifying TCP Fast Retransmissions versus RTO timeout retransmissions, duplicate ACKs, and measuring network packet delay.",
           "youtubeVideoId": "HTQLipAG27I",
           "videoAttribution": {
             "creator": "Chris Greer",
@@ -9340,7 +9340,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0016-4000-8000-000000000003",
           "slug": "m22-l3-window-dynamics",
           "title": "Module 22 - Lesson 3: Window dynamics",
-          "description": "Video instruction presented by Network Direction: \"How TCP Handles Errors And Uses Windows | Network Fundamentals Part 9\". Technical focus on Module 22 - Lesson 3: Window dynamics: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Network Direction: \"How TCP Handles Errors And Uses Windows | Network Fundamentals Part 9\". Technical focus on m22-l3-window-dynamics: in-depth protocol analysis, packet dissection, defensive security implications, and hands-on investigation for SOC analysts and network engineers.",
           "youtubeVideoId": "NaEHwrRHfqk",
           "videoAttribution": {
             "creator": "Network Direction",
@@ -9424,7 +9424,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0016-4000-8000-000000000004",
           "slug": "m22-l4-incident-context",
           "title": "Module 22 - Lesson 4: Incident context",
-          "description": "Video instruction presented by Chris Greer: \"Troubleshooting with Wireshark - Analyzing TCP Resets\". Technical focus on Module 22 - Lesson 4: Incident context: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Chris Greer: \"Troubleshooting with Wireshark - Analyzing TCP Resets\". Technical focus on network incident analysis, troubleshooting network resets, determining whether TCP resets are caused by server crashes, firewall blocks, or active RST injection.",
           "youtubeVideoId": "t5OJephyw8I",
           "videoAttribution": {
             "creator": "Chris Greer",
@@ -9514,9 +9514,9 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "Wireshark"
         ],
         "pcapSource": {
-          "fileName": "cybertube-m22-analysis.pcap",
-          "fileUrl": "https://raw.githubusercontent.com/cybertube/pcaps/main/networking/m22-analysis.pcap",
-          "repositoryUrl": "https://github.com/cybertube/pcaps",
+          "fileName": "m22-lab-analysis.pcap",
+          "fileUrl": "/pcaps/networking/m22-lab-analysis.pcap",
+          "repositoryUrl": "https://github.com/arun-codex/CyberTube",
           "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b822"
         },
         "instructions": [
@@ -9579,7 +9579,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0017-4000-8000-000000000001",
           "slug": "m23-l1-dns-traffic-baseline",
           "title": "Module 23 - Lesson 1: DNS traffic baseline",
-          "description": "Video instruction presented by Chris Greer: \"How DNS Works Under the Hood (Packet by Packet)\". Technical focus on Module 23 - Lesson 1: DNS traffic baseline: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Chris Greer: \"How DNS Works Under the Hood (Packet by Packet)\". Technical focus on m23-l1-dns-traffic-baseline: in-depth protocol analysis, packet dissection, defensive security implications, and hands-on investigation for SOC analysts and network engineers.",
           "youtubeVideoId": "3FPaTvCJojQ",
           "videoAttribution": {
             "creator": "Chris Greer",
@@ -9667,7 +9667,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0017-4000-8000-000000000002",
           "slug": "m23-l2-long-and-encoded-labels",
           "title": "Module 23 - Lesson 2: Long and encoded labels",
-          "description": "Video instruction presented by Tom Olzak: \"DNS Tunneling Identification and Defense\". Technical focus on Module 23 - Lesson 2: Long and encoded labels: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Tom Olzak: \"DNS Tunneling Identification and Defense\". Technical focus on m23-l2-long-and-encoded-labels: in-depth protocol analysis, packet dissection, defensive security implications, and hands-on investigation for SOC analysts and network engineers.",
           "youtubeVideoId": "CaFo83TlpPM",
           "videoAttribution": {
             "creator": "Tom Olzak",
@@ -9755,13 +9755,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0017-4000-8000-000000000003",
           "slug": "m23-l3-resolver-anomalies",
           "title": "Module 23 - Lesson 3: Resolver anomalies",
-          "description": "Video instruction presented by David Bombal: \"DNS Explained using Wireshark: You probably don't know how DNS really works.\". Technical focus on Module 23 - Lesson 3: Resolver anomalies: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
-          "youtubeVideoId": "9b4EjMsB5bg",
+          "description": "Video instruction presented by STAARKEN INFOSEC (Fortify Solutions): \"DNS Tunneling Attack & Access Target Shell | Full Hands-On Ethical Hacking Lab\". Technical focus on detecting DNS resolver anomalies, identifying high-entropy subdomain requests and abnormal TXT query volume, and uncovering DNS tunneling and covert data exfiltration channels in Wireshark.",
+          "youtubeVideoId": "N7vGxbZsyzc",
           "videoAttribution": {
-            "creator": "David Bombal",
+            "creator": "STAARKEN INFOSEC (Fortify Solutions)",
             "platform": "youtube"
           },
-          "durationMinutes": 37,
+          "durationMinutes": 11,
           "order": 3,
           "moduleTitle": "Module 23: DNS Traffic Investigation and Threat Hunting",
           "objectives": [
@@ -9843,7 +9843,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0017-4000-8000-000000000004",
           "slug": "m23-l4-triage-workflow",
           "title": "Module 23 - Lesson 4: Triage workflow",
-          "description": "Video instruction presented by Mohd Maaz: \"Detect DNS Beaconing with Splunk  Threat Hunting Tutorial\". Technical focus on Module 23 - Lesson 4: Triage workflow: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Mohd Maaz: \"Detect DNS Beaconing with Splunk  Threat Hunting Tutorial\". Technical focus on m23-l4-triage-workflow: in-depth protocol analysis, packet dissection, defensive security implications, and hands-on investigation for SOC analysts and network engineers.",
           "youtubeVideoId": "xqukCIPQ1wE",
           "videoAttribution": {
             "creator": "Mohd Maaz",
@@ -9938,9 +9938,9 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "Python"
         ],
         "pcapSource": {
-          "fileName": "cybertube-m23-analysis.pcap",
-          "fileUrl": "https://raw.githubusercontent.com/cybertube/pcaps/main/networking/m23-analysis.pcap",
-          "repositoryUrl": "https://github.com/cybertube/pcaps",
+          "fileName": "m23-lab-analysis.pcap",
+          "fileUrl": "/pcaps/networking/m23-lab-analysis.pcap",
+          "repositoryUrl": "https://github.com/arun-codex/CyberTube",
           "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b823"
         },
         "instructions": [
@@ -10003,7 +10003,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0018-4000-8000-000000000001",
           "slug": "m24-l1-web-flow-reconstruction",
           "title": "Module 24 - Lesson 1: Web flow reconstruction",
-          "description": "Video instruction presented by Chris Greer: \"Extracting Files from PCAPs with Wireshark // Lesson 9 // Wireshark Tutorial\". Technical focus on Module 24 - Lesson 1: Web flow reconstruction: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Chris Greer: \"Extracting Files from PCAPs with Wireshark // Lesson 9 // Wireshark Tutorial\". Technical focus on reconstructing HTTP and web application sessions from raw packet captures, extracting embedded files, images, and executables, and auditing web transaction headers.",
           "youtubeVideoId": "Fn__yRYW6Wo",
           "videoAttribution": {
             "creator": "Chris Greer",
@@ -10091,7 +10091,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0018-4000-8000-000000000002",
           "slug": "m24-l2-encrypted-metadata",
           "title": "Module 24 - Lesson 2: Encrypted metadata",
-          "description": "Video instruction presented by Security BSides London: \"Visualising TLS Fingerprints With TMAP To Hunt Malicious Domains - Amanda Thomson\". Technical focus on Module 24 - Lesson 2: Encrypted metadata: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Security BSides London: \"Visualising TLS Fingerprints With TMAP To Hunt Malicious Domains - Amanda Thomson\". Technical focus on m24-l2-encrypted-metadata: in-depth protocol analysis, packet dissection, defensive security implications, and hands-on investigation for SOC analysts and network engineers.",
           "youtubeVideoId": "v0tgVm-QE9E",
           "videoAttribution": {
             "creator": "Security BSides London",
@@ -10179,7 +10179,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0018-4000-8000-000000000003",
           "slug": "m24-l3-quic-basics",
           "title": "Module 24 - Lesson 3: QUIC basics",
-          "description": "Video instruction presented by David Bombal: \"Decrypting TLS, HTTP/2 and QUIC with Wireshark\". Technical focus on Module 24 - Lesson 3: QUIC basics: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by David Bombal: \"Decrypting TLS, HTTP/2 and QUIC with Wireshark\". Technical focus on m24-l3-quic-basics: in-depth protocol analysis, packet dissection, defensive security implications, and hands-on investigation for SOC analysts and network engineers.",
           "youtubeVideoId": "yodDbgoCnLM",
           "videoAttribution": {
             "creator": "David Bombal",
@@ -10267,7 +10267,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0018-4000-8000-000000000004",
           "slug": "m24-l4-incident-report",
           "title": "Module 24 - Lesson 4: Incident report",
-          "description": "Video instruction presented by Watchman: \"Incident Report Writing (LEARN CYBER SECURITY TODAY!)\". Technical focus on Module 24 - Lesson 4: Incident report: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Watchman: \"Incident Report Writing (LEARN CYBER SECURITY TODAY!)\". Technical focus on authoring forensic incident response reports, documenting network evidence timelines, presenting packet capture artifacts, and drafting executive defense summaries.",
           "youtubeVideoId": "097y4P80WnI",
           "videoAttribution": {
             "creator": "Watchman",
@@ -10361,9 +10361,9 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "Wireshark"
         ],
         "pcapSource": {
-          "fileName": "cybertube-m24-analysis.pcap",
-          "fileUrl": "https://raw.githubusercontent.com/cybertube/pcaps/main/networking/m24-analysis.pcap",
-          "repositoryUrl": "https://github.com/cybertube/pcaps",
+          "fileName": "m24-lab-analysis.pcap",
+          "fileUrl": "/pcaps/networking/m24-lab-analysis.pcap",
+          "repositoryUrl": "https://github.com/arun-codex/CyberTube",
           "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b824"
         },
         "instructions": [
@@ -10426,7 +10426,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0019-4000-8000-000000000001",
           "slug": "m25-l1-telemetry-sources",
           "title": "Module 25 - Lesson 1: Telemetry sources",
-          "description": "Video instruction presented by TechSky - Ethical Hacking: \"How to Monitor Network Traffic (SOC Analyst Lab with TShark, Zeek & Suricata)\". Technical focus on Module 25 - Lesson 1: Telemetry sources: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by TechSky - Ethical Hacking: \"How to Monitor Network Traffic (SOC Analyst Lab with TShark, Zeek & Suricata)\". Technical focus on enterprise network telemetry data sources, comparing full packet capture (PCAP) with flow metadata, proxy logs, firewall events, and endpoint telemetry.",
           "youtubeVideoId": "JSP-yOBRbrg",
           "videoAttribution": {
             "creator": "TechSky - Ethical Hacking",
@@ -10518,7 +10518,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0019-4000-8000-000000000002",
           "slug": "m25-l2-syslog-fields",
           "title": "Module 25 - Lesson 2: Syslog fields",
-          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | Syslog | Day 41 | CCNA 200-301 Complete Course\". Technical focus on Module 25 - Lesson 2: Syslog fields: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Jeremy's IT Lab: \"Free CCNA | Syslog | Day 41 | CCNA 200-301 Complete Course\". Technical focus on Syslog protocol standards (RFC 3164 / RFC 5424), facility and severity levels (0-7), message structure formatting, and secure TLS syslog transport.",
           "youtubeVideoId": "RaQPSKQ4J5A",
           "videoAttribution": {
             "creator": "Jeremy's IT Lab",
@@ -10610,7 +10610,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0019-4000-8000-000000000003",
           "slug": "m25-l3-flow-records",
           "title": "Module 25 - Lesson 3: Flow records",
-          "description": "Video instruction presented by TrainerTests: \"NetFlow & IPFIX Explained: Troubleshooting Networks with Flow Data (Networking Basics)\". Technical focus on Module 25 - Lesson 3: Flow records: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by TrainerTests: \"NetFlow & IPFIX Explained: Troubleshooting Networks with Flow Data (Networking Basics)\". Technical focus on NetFlow v5/v9, IPFIX, and sFlow architectures, flow cache generation, unidirectional session tracking, and bandwidth utilization telemetry.",
           "youtubeVideoId": "lL7xRH_BpHU",
           "videoAttribution": {
             "creator": "TrainerTests",
@@ -10702,7 +10702,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-0019-4000-8000-000000000004",
           "slug": "m25-l4-correlation-basics",
           "title": "Module 25 - Lesson 4: Correlation basics",
-          "description": "Video instruction presented by CyberWarFare Labs : \"Log Correlation & Attack Mapping: A SOC Analyst\u2019s Playbook | Free Live Cybersecurity Workshop 2026\". Technical focus on Module 25 - Lesson 4: Correlation basics: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by CyberWarFare Labs : \"Log Correlation & Attack Mapping: A SOC Analyst\u2019s Playbook | Free Live Cybersecurity Workshop 2026\". Technical focus on cross-telemetry event correlation in modern SIEM systems, joining firewall drops, IDS alerts, and flow logs to trace multi-stage attack paths.",
           "youtubeVideoId": "h2KfYmACu2s",
           "videoAttribution": {
             "creator": "CyberWarFare Labs ",
@@ -10801,9 +10801,9 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "Flow Analyzer"
         ],
         "pcapSource": {
-          "fileName": "cybertube-m25-analysis.pcap",
-          "fileUrl": "https://raw.githubusercontent.com/cybertube/pcaps/main/networking/m25-analysis.pcap",
-          "repositoryUrl": "https://github.com/cybertube/pcaps",
+          "fileName": "m25-lab-analysis.pcap",
+          "fileUrl": "/pcaps/networking/m25-lab-analysis.pcap",
+          "repositoryUrl": "https://github.com/arun-codex/CyberTube",
           "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b825"
         },
         "instructions": [
@@ -10866,7 +10866,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-001a-4000-8000-000000000001",
           "slug": "m26-l1-zeek-architecture",
           "title": "Module 26 - Lesson 1: Zeek architecture",
-          "description": "Video instruction presented by Hank Hackerson: \"SOC Lvl 1 / EP.16a / Zeek Tutorial Pt.1 / Security Analyst Training\". Technical focus on Module 26 - Lesson 1: Zeek architecture: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Hank Hackerson: \"SOC Lvl 1 / EP.16a / Zeek Tutorial Pt.1 / Security Analyst Training\". Technical focus on Zeek (formerly Bro) network security monitoring architecture, event engine parsing, policy script interpreter, and automated protocol dissection.",
           "youtubeVideoId": "e1cwKwshC9I",
           "videoAttribution": {
             "creator": "Hank Hackerson",
@@ -10958,7 +10958,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-001a-4000-8000-000000000002",
           "slug": "m26-l2-conn-log-basics",
           "title": "Module 26 - Lesson 2: conn.log basics",
-          "description": "Video instruction presented by John Hubbard: \"12 Days of Defense - Day 2: How to use Zeek for PCAP Analysis\". Technical focus on Module 26 - Lesson 2: conn.log basics: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by John Hubbard: \"12 Days of Defense - Day 2: How to use Zeek for PCAP Analysis\". Technical focus on Zeek `conn.log` forensic fields, analyzing connection duration, byte counters (orig/resp bytes), connection state history flags (SF, S0, REJ, RSTO), and session triage.",
           "youtubeVideoId": "bznH1yMyjjo",
           "videoAttribution": {
             "creator": "John Hubbard",
@@ -11050,7 +11050,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-001a-4000-8000-000000000003",
           "slug": "m26-l3-protocol-logs",
           "title": "Module 26 - Lesson 3: Protocol logs",
-          "description": "Video instruction presented by Threat Hunter's Daily: \"Introduction to Zeek network security monitoring, conn.log and pivoting with Zeek UIDs\". Technical focus on Module 26 - Lesson 3: Protocol logs: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Threat Hunter's Daily: \"Introduction to Zeek network security monitoring, conn.log and pivoting with Zeek UIDs\". Technical focus on Zeek protocol log correlation, inspecting `http.log`, `dns.log`, `ssl.log`, and `files.log`, tracking file SHA-256 hashes, and pivoting on unique connection UIDs.",
           "youtubeVideoId": "-eLI0_OCEmk",
           "videoAttribution": {
             "creator": "Threat Hunter's Daily",
@@ -11142,7 +11142,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-001a-4000-8000-000000000004",
           "slug": "m26-l4-hunting-logic",
           "title": "Module 26 - Lesson 4: Hunting logic",
-          "description": "Video instruction presented by Rajneesh Gupta: \"Splunk Basics: Zeek Connection Log Analysis\". Technical focus on Module 26 - Lesson 4: Hunting logic: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Rajneesh Gupta: \"Splunk Basics: Zeek Connection Log Analysis\". Technical focus on threat hunting with Zeek logs, writing custom Zeek scripts for behavioral anomaly detection, and querying Zeek telemetry in Splunk or ELK.",
           "youtubeVideoId": "Uvb2R8W0E-I",
           "videoAttribution": {
             "creator": "Rajneesh Gupta",
@@ -11241,9 +11241,9 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "Linux"
         ],
         "pcapSource": {
-          "fileName": "cybertube-m26-analysis.pcap",
-          "fileUrl": "https://raw.githubusercontent.com/cybertube/pcaps/main/networking/m26-analysis.pcap",
-          "repositoryUrl": "https://github.com/cybertube/pcaps",
+          "fileName": "m26-lab-analysis.pcap",
+          "fileUrl": "/pcaps/networking/m26-lab-analysis.pcap",
+          "repositoryUrl": "https://github.com/arun-codex/CyberTube",
           "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b826"
         },
         "instructions": [
@@ -11306,7 +11306,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-001b-4000-8000-000000000001",
           "slug": "m27-l1-ids-vs-ips",
           "title": "Module 27 - Lesson 1: IDS vs IPS",
-          "description": "Video instruction presented by HackerSploit: \"Introduction To Suricata IDS\". Technical focus on Module 27 - Lesson 1: IDS vs IPS: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by HackerSploit: \"Introduction To Suricata IDS\". Technical focus on Suricata multi-threaded network threat detection engine, inspecting packet acquisition modules (AF_PACKET, PF_RING), and inline IPS drop capabilities.",
           "youtubeVideoId": "91i7InHVOso",
           "videoAttribution": {
             "creator": "HackerSploit",
@@ -11398,7 +11398,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-001b-4000-8000-000000000002",
           "slug": "m27-l2-rule-anatomy",
           "title": "Module 27 - Lesson 2: Rule anatomy",
-          "description": "Video instruction presented by Insane Cyber: \"Writing Suricata Rules: Understanding The Basic Rule Format\". Technical focus on Module 27 - Lesson 2: Rule anatomy: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Insane Cyber: \"Writing Suricata Rules: Understanding The Basic Rule Format\". Technical focus on Suricata rule syntax anatomy, action keywords (alert/drop/pass), protocol definitions, direction operators, and content matching keywords (`uricontent`, `pcre`, `classtype`).",
           "youtubeVideoId": "d-t-8lJ2PII",
           "videoAttribution": {
             "creator": "Insane Cyber",
@@ -11490,7 +11490,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-001b-4000-8000-000000000003",
           "slug": "m27-l3-eve-json-events",
           "title": "Module 27 - Lesson 3: eve.json events",
-          "description": "Video instruction presented by Maurice Gardner: \"Examine alerts, logs, and rules with Suricata\". Technical focus on Module 27 - Lesson 3: eve.json events: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Maurice Gardner: \"Examine alerts, logs, and rules with Suricata\". Technical focus on Suricata `eve.json` unified event logging, parsing alert payloads, metadata tags, flow records, and streaming eve events to SIEM pipelines.",
           "youtubeVideoId": "zUqHTf-jjeA",
           "videoAttribution": {
             "creator": "Maurice Gardner",
@@ -11582,13 +11582,13 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-001b-4000-8000-000000000004",
           "slug": "m27-l4-alert-validation",
           "title": "Module 27 - Lesson 4: Alert validation",
-          "description": "Video instruction presented by Mohammed M. Alani: \"Writing Simple Custom Suricata Rules\". Technical focus on Module 27 - Lesson 4: Alert validation: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
-          "youtubeVideoId": "8h_r7brfc3E",
+          "description": "Video instruction presented by SharkFest Wireshark Developer and User Conference: \"SF20V - 18 Intrusion Analysis and Threat Hunting with Suricata (Josh Stroschein/Jack Mott)\". Technical focus on Suricata intrusion alert triage, correlating eve.json alert records with raw packet captures in Wireshark, validating true positive exploits, and tuning detection signatures to eliminate false-positive alert fatigue.",
+          "youtubeVideoId": "0WgyiOxCFzE",
           "videoAttribution": {
-            "creator": "Mohammed M. Alani",
+            "creator": "SharkFest Wireshark Developer and User Conference",
             "platform": "youtube"
           },
-          "durationMinutes": 29,
+          "durationMinutes": 75,
           "order": 4,
           "moduleTitle": "Module 27: Suricata IDS/IPS, Rules and Alert Triage",
           "objectives": [
@@ -11681,9 +11681,9 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "eve.json"
         ],
         "pcapSource": {
-          "fileName": "cybertube-m27-analysis.pcap",
-          "fileUrl": "https://raw.githubusercontent.com/cybertube/pcaps/main/networking/m27-analysis.pcap",
-          "repositoryUrl": "https://github.com/cybertube/pcaps",
+          "fileName": "m27-lab-analysis.pcap",
+          "fileUrl": "/pcaps/networking/m27-lab-analysis.pcap",
+          "repositoryUrl": "https://github.com/arun-codex/CyberTube",
           "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b827"
         },
         "instructions": [
@@ -11746,7 +11746,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-001c-4000-8000-000000000001",
           "slug": "m28-l1-discovery-basics",
           "title": "Module 28 - Lesson 1: Discovery basics",
-          "description": "Video instruction presented by Chris Greer: \"Getting Started with Nmap - Full Course with @davidbombal!!\". Technical focus on Module 28 - Lesson 1: Discovery basics: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Chris Greer: \"Getting Started with Nmap - Full Course with @davidbombal!!\". Technical focus on network reconnaissance fundamentals, passive OSINT gathering versus active network scanning, ARP sweeps, and ICMP host discovery with Nmap.",
           "youtubeVideoId": "2rRSDGNo_Uo",
           "videoAttribution": {
             "creator": "Chris Greer",
@@ -11834,7 +11834,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-001c-4000-8000-000000000002",
           "slug": "m28-l2-port-state-interpretation",
           "title": "Module 28 - Lesson 2: Port state interpretation",
-          "description": "Video instruction presented by HackerSploit: \"Nmap Tutorial For Beginners - 2 - Advanced Scanning\". Technical focus on Module 28 - Lesson 2: Port state interpretation: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by HackerSploit: \"Nmap Tutorial For Beginners - 2 - Advanced Scanning\". Technical focus on Nmap port scanning mechanics, interpreting port states (Open, Closed, Filtered, Unfiltered), and analyzing SYN scan (`-sS`) versus TCP Connect (`-sT`) packet responses.",
           "youtubeVideoId": "VFJLMOk6daQ",
           "videoAttribution": {
             "creator": "HackerSploit",
@@ -11922,7 +11922,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-001c-4000-8000-000000000003",
           "slug": "m28-l3-service-identification",
           "title": "Module 28 - Lesson 3: Service identification",
-          "description": "Video instruction presented by ACW360: \"Part 7 \u2014 Version Detection & OS Fingerprinting: -sV & -O\". Technical focus on Module 28 - Lesson 3: Service identification: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by ACW360: \"Part 7 \u2014 Version Detection & OS Fingerprinting: -sV & -O\". Technical focus on active service version probing (`-sV`) and OS fingerprinting (`-O`), evaluating banner grabbing probes, and identifying vulnerable application versions.",
           "youtubeVideoId": "j3H7O-hBrI0",
           "videoAttribution": {
             "creator": "ACW360",
@@ -12010,7 +12010,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-001c-4000-8000-000000000004",
           "slug": "m28-l4-defensive-visibility",
           "title": "Module 28 - Lesson 4: Defensive visibility",
-          "description": "Video instruction presented by Plaintext Packets: \"How NMAP Works and How to Detect Port Scans in Wireshark\". Technical focus on Module 28 - Lesson 4: Defensive visibility: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Plaintext Packets: \"How NMAP Works and How to Detect Port Scans in Wireshark\". Technical focus on detecting Nmap reconnaissance from the defensive perspective, identifying scanning footprints in Wireshark, and configuring firewall rate limiting to thwart reconnaissance.",
           "youtubeVideoId": "Maec4f2gt2c",
           "videoAttribution": {
             "creator": "Plaintext Packets",
@@ -12105,9 +12105,9 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "Wireshark"
         ],
         "pcapSource": {
-          "fileName": "cybertube-m28-analysis.pcap",
-          "fileUrl": "https://raw.githubusercontent.com/cybertube/pcaps/main/networking/m28-analysis.pcap",
-          "repositoryUrl": "https://github.com/cybertube/pcaps",
+          "fileName": "m28-lab-analysis.pcap",
+          "fileUrl": "/pcaps/networking/m28-lab-analysis.pcap",
+          "repositoryUrl": "https://github.com/arun-codex/CyberTube",
           "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b828"
         },
         "instructions": [
@@ -12170,7 +12170,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-001d-4000-8000-000000000001",
           "slug": "m29-l1-virtual-networks",
           "title": "Module 29 - Lesson 1: Virtual networks",
-          "description": "Video instruction presented by Tiny Technical Tutorials: \"Amazon/AWS VPC (Virtual Private Cloud) Basics | VPC Tutorial | AWS for Beginners\". Technical focus on Module 29 - Lesson 1: Virtual networks: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Tiny Technical Tutorials: \"Amazon/AWS VPC (Virtual Private Cloud) Basics | VPC Tutorial | AWS for Beginners\". Technical focus on Cloud Virtual Private Cloud (VPC) architecture, software-defined networking (SDN) overlays, overlay encapsulation (VXLAN/GENEVE), and multi-tenant isolation.",
           "youtubeVideoId": "7_NNlnH7sAg",
           "videoAttribution": {
             "creator": "Tiny Technical Tutorials",
@@ -12262,7 +12262,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-001d-4000-8000-000000000002",
           "slug": "m29-l2-ingress-and-egress",
           "title": "Module 29 - Lesson 2: Ingress and egress",
-          "description": "Video instruction presented by KnoDAX: \"AWS VPC Routing | VPC Routing Tutorial | Understanding Route Tables, Internet Gateway, and Subnets\". Technical focus on Module 29 - Lesson 2: Ingress and egress: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by KnoDAX: \"AWS VPC Routing | VPC Routing Tutorial | Understanding Route Tables, Internet Gateway, and Subnets\". Technical focus on cloud network ingress and egress traffic control, routing tables, Internet Gateways (IGW), NAT Gateways, and managing perimeter cloud egress points.",
           "youtubeVideoId": "ksJWwkG_p4M",
           "videoAttribution": {
             "creator": "KnoDAX",
@@ -12354,7 +12354,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-001d-4000-8000-000000000003",
           "slug": "m29-l3-security-groups-and-acls",
           "title": "Module 29 - Lesson 3: Security groups and ACLs",
-          "description": "Video instruction presented by LearnITGuide Tutorials: \"AWS Security Groups vs Network ACLs: Key Differences Explained 2026\". Technical focus on Module 29 - Lesson 3: Security groups and ACLs: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by LearnITGuide Tutorials: \"AWS Security Groups vs Network ACLs: Key Differences Explained 2026\". Technical focus on cloud defense-in-depth security, contrasting stateful Security Groups applied at elastic network interfaces with stateless Network Access Control Lists (NACLs) at subnet boundaries.",
           "youtubeVideoId": "rTs13yQq8A0",
           "videoAttribution": {
             "creator": "LearnITGuide Tutorials",
@@ -12446,7 +12446,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-001d-4000-8000-000000000004",
           "slug": "m29-l4-cloud-network-evidence",
           "title": "Module 29 - Lesson 4: Cloud network evidence",
-          "description": "Video instruction presented by Cloud Security Masterclass: \"AWS Security Labs | AWS VPC Flow Logs\". Technical focus on Module 29 - Lesson 4: Cloud network evidence: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Cloud Security Masterclass: \"AWS Security Labs | AWS VPC Flow Logs\". Technical focus on cloud network forensic investigation, analyzing AWS/Azure VPC Flow Logs, tracking ACCEPT and REJECT events, and investigating cloud lateral movement.",
           "youtubeVideoId": "noBOOD7uLJE",
           "videoAttribution": {
             "creator": "Cloud Security Masterclass",
@@ -12544,9 +12544,9 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "AWS Console / Terraform"
         ],
         "pcapSource": {
-          "fileName": "cybertube-m29-analysis.pcap",
-          "fileUrl": "https://raw.githubusercontent.com/cybertube/pcaps/main/networking/m29-analysis.pcap",
-          "repositoryUrl": "https://github.com/cybertube/pcaps",
+          "fileName": "m29-lab-analysis.pcap",
+          "fileUrl": "/pcaps/networking/m29-lab-analysis.pcap",
+          "repositoryUrl": "https://github.com/arun-codex/CyberTube",
           "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b829"
         },
         "instructions": [
@@ -12609,7 +12609,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-001e-4000-8000-000000000001",
           "slug": "m30-l1-scoping-and-timeline",
           "title": "Module 30 - Lesson 1: Scoping and timeline",
-          "description": "Video instruction presented by MyDFIR: \"Cybersecurity SOC Analyst Lab - Web Investigation (PCAP)\". Technical focus on Module 30 - Lesson 1: Scoping and timeline: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by MyDFIR: \"Cybersecurity SOC Analyst Lab - Web Investigation (PCAP)\". Technical focus on scoping enterprise network security incidents, establishing investigative boundaries, correlating multi-sensor timestamps, and building forensic event timelines.",
           "youtubeVideoId": "X3RGOPEhDw4",
           "videoAttribution": {
             "creator": "MyDFIR",
@@ -12701,7 +12701,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-001e-4000-8000-000000000002",
           "slug": "m30-l2-multi-source-analysis",
           "title": "Module 30 - Lesson 2: Multi-source analysis",
-          "description": "Video instruction presented by root: \"How zeek and kibana work in Security Onion.\". Technical focus on Module 30 - Lesson 2: Multi-source analysis: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by root: \"How zeek and kibana work in Security Onion.\". Technical focus on multi-source network evidence corroboration, fusing raw PCAPs, Zeek logs, firewall alerts, and endpoint telemetry into a unified investigation narrative.",
           "youtubeVideoId": "0Ji16Q4zdGQ",
           "videoAttribution": {
             "creator": "root",
@@ -12793,7 +12793,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-001e-4000-8000-000000000003",
           "slug": "m30-l3-judgment-and-caveats",
           "title": "Module 30 - Lesson 3: Judgment and caveats",
-          "description": "Video instruction presented by Simply Cyber - Gerald Auger, PhD: \"SOC Analyst Skills - Wireshark Malicious Traffic Analysis\". Technical focus on Module 30 - Lesson 3: Judgment and caveats: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Simply Cyber - Gerald Auger, PhD: \"SOC Analyst Skills - Wireshark Malicious Traffic Analysis\". Technical focus on analytical judgment in SOC investigations, evaluating evidence confidence levels, stating technical caveats, identifying anti-forensic indicators, and avoiding attribution bias.",
           "youtubeVideoId": "M8yoYmiL7rA",
           "videoAttribution": {
             "creator": "Simply Cyber - Gerald Auger, PhD",
@@ -12885,7 +12885,7 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "id": "e0000000-001e-4000-8000-000000000004",
           "slug": "m30-l4-communication-and-defense",
           "title": "Module 30 - Lesson 4: Communication and defense",
-          "description": "Video instruction presented by Motasem Hamdan: \"How to Write a Professional Incident Response Report (DFIR Guide)\". Technical focus on Module 30 - Lesson 4: Communication and defense: protocol mechanics, frame/packet header dissection, defensive observables, and hands-on packet inspection for SOC analysts and network security engineers.",
+          "description": "Video instruction presented by Motasem Hamdan: \"How to Write a Professional Incident Response Report (DFIR Guide)\". Technical focus on executive communication and technical incident defense, structuring professional SOC post-incident documentation, briefing leadership on business impact, and presenting containment proposals.",
           "youtubeVideoId": "GVkyFvQVlPY",
           "videoAttribution": {
             "creator": "Motasem Hamdan",
@@ -12983,9 +12983,9 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
           "Wireshark, Zeek, Suricata"
         ],
         "pcapSource": {
-          "fileName": "cybertube-m30-analysis.pcap",
-          "fileUrl": "https://raw.githubusercontent.com/cybertube/pcaps/main/networking/m30-analysis.pcap",
-          "repositoryUrl": "https://github.com/cybertube/pcaps",
+          "fileName": "m30-lab-analysis.pcap",
+          "fileUrl": "/pcaps/networking/m30-lab-analysis.pcap",
+          "repositoryUrl": "https://github.com/arun-codex/CyberTube",
           "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b830"
         },
         "instructions": [
@@ -13146,3 +13146,4 @@ export const NETWORKING_FOR_CYBERSECURITY_COURSE: Course = {
     }
   ]
 };
+export const networkingForCybersecurityCourse = NETWORKING_FOR_CYBERSECURITY_COURSE;

@@ -1,13 +1,19 @@
-# Production Verification Plan & Checklist
+# CyberTube Networking Course — Production Deployment & Route Verification
 
-## Deployment Target
-- **URL**: https://cybertube-mu.vercel.app/courses/networking-for-cybersecurity-zero-to-advanced
-- **Target Lesson**: `?lesson=m03-l2-ethernet-headers`
+> **Production Domain**: `https://cybertube-mu.vercel.app`  
+> **Course URL**: `https://cybertube-mu.vercel.app/courses/networking-for-cybersecurity-zero-to-advanced`  
+> **Verification Date**: 2026-11-25  
 
-## Verification Checkpoints
-- [x] `m03-l2` renders YouTube embed `7vzjIv2l6wY` with duration 23 minutes.
-- [x] React YouTubePlayer key includes both lesson ID and video ID, preventing stale iframe retention on lesson navigation.
-- [x] Browser Back and Forward buttons correctly trigger lesson navigation via `popstate` event listener.
-- [x] Module 30 Capstone tab renders the full interactive Enterprise Network Security Investigation with 6 submission sections and rubrics.
-- [x] Zero quiz locks or mandatory quiz gates exist on any lesson.
-- [x] All 120 lessons can be navigated without console errors or player state desynchronization.
+---
+
+## 1. Verified Key Routes
+
+- **Course Root**: `https://cybertube-mu.vercel.app/courses/networking-for-cybersecurity-zero-to-advanced`
+- **Module 01 Lesson 04 (Evidence Workflow)**: `?lesson=m01-l4-evidence-workflow` -> Video `UtDWApdO8Zk`
+- **Module 03 Lesson 02 (Ethernet Headers)**: `?lesson=m03-l2-ethernet-headers` -> Video `7vzjIv2l6wY`
+- **Module 05 Lesson 04 (Security Boundaries)**: `?lesson=m05-l4-security-use-cases` -> Video `YL0xh171m8w`
+- **Module 09 Lesson 04 (BGP Observables)**: `?lesson=m09-l4-soc-observables` -> Video `4wG8LcPzvss`
+- **Module 15 Lesson 03 (HTTP/2 vs HTTP/3)**: `?lesson=m15-l3-http-2-and-http-3` -> Video `GriONb4EfPY`
+- **Module 20 Lesson 04 (VPN Monitoring)**: `?lesson=m20-l4-soc-monitoring` -> Video `o4TFyl-FeRI`
+- **Module 27 Lesson 04 (Suricata Triage)**: `?lesson=m27-l4-alert-validation` -> Video `0WgyiOxCFzE`
+- **Module 30 Lesson 04 (SOC Capstone)**: `?lesson=m30-l4-communication-and-defense` -> Video `GVkyFvQVlPY` & Interactive Capstone View

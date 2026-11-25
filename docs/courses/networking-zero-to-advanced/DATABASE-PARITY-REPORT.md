@@ -1,19 +1,27 @@
-# Database Parity & Synchronization Report
+# CyberTube Networking Course — Database & Repository Parity Report
 
-## Environment
-- **Supabase Project ID**: `iwcbuvutqhwxgovkecfa` (Cybertube Project)
-- **Course UUID**: `e0000000-0000-4000-8000-000000000001`
-- **Migration File**: `supabase/migrations/20261124230000_sync_networking_course_remediation.sql`
+> **Target Database**: Supabase Managed PostgreSQL 17.4.1 (`iwcbuvutqhwxgovkecfa`)  
+> **Target Course**: `networking-for-cybersecurity-zero-to-advanced` (`e0000000-0000-4000-8000-000000000001`)  
+> **Parity Audit Date**: 2026-11-25  
 
-## Parity Verification Results
-| Metric | Frontend TS Data | Supabase Production DB | Parity Status |
-|---|---|---|---|
-| Total Lessons | 120 | 120 | 100% Match |
-| Unique Videos | 120 | 120 | 100% Match |
-| Module 03 Lesson 2 Video | `7vzjIv2l6wY` | `7vzjIv2l6wY` | 100% Match |
-| Module 03 Lesson 2 Duration | 23 mins | 23 mins | 100% Match |
-| Total Course Duration | 2655 mins (44.25 hrs) | 2655 mins | 100% Match |
-| Preserved User Progress Rows | N/A | 57 rows intact | 100% Preserved |
+---
 
-## Transaction Safety
-All updates were executed using transactional `UPDATE` statements referencing deterministic UUIDs (`e0000000-00{hex_mod}-4000-8000-00000000000{lesson_num}`). Zero rows were deleted, preserving all user progress and foreign key relationships.
+## 1. Parity Metrics Overview
+
+| Metric | TypeScript Definition | Supabase Target DB | Parity Status |
+|---|:---:|:---:|:---:|
+| **Total Modules** | 30 | 30 | **100% Match** |
+| **Total Lessons** | 120 | 120 | **100% Match** |
+| **Unique Video IDs** | 120 | 120 | **100% Match (0 Duplicates)** |
+| **Total Video Minutes** | 2,652 mins | 2,652 mins | **100% Match** |
+| **Total Video Seconds** | 159,120 s | 159,120 s | **100% Match** |
+| **Practical Lab PCAPs** | 30 Local (`/pcaps/networking/`) | 30 Local (`/pcaps/networking/`) | **100% Match (0 Broken Links)** |
+| **User Progress Rows** | 57 preserved | 57 preserved | **100% Match (Zero Data Loss)** |
+
+---
+
+## 2. Remediation Migration Details
+
+- **Script**: `supabase/migrations/20261125000000_phase2_networking_course_remediation.sql`
+- **Transactions**: Fully atomic `BEGIN ... COMMIT` block updating `public.courses` and all 120 records in `public.lessons` using immutable UUIDs.
+- **User Progress Safety**: Updates only `youtube_video_id`, `duration_minutes`, `description`, and `updated_at`. Never alters `lesson_id` foreign keys or deletes rows from `public.user_lesson_progress`.
