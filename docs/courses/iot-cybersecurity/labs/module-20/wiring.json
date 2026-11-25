@@ -1,0 +1,20 @@
+{
+  "module": 20,
+  "title": "Milestone 3 \u2014 SPI Flash Extraction, Binwalk Carving & Hash Verification",
+  "maxVoltageDC": 3.3,
+  "commonGroundRequired": true,
+  "connections": [
+    {
+      "from": "ESP32_3V3",
+      "to": "BREADBOARD_VCC_RAIL",
+      "color": "RED",
+      "signal": "3.3V_POWER"
+    },
+    {
+      "from": "ESP32_GND",
+      "to": "BREADBOARD_GND_RAIL",
+      "color": "BLACK",
+      "signal": "GROUND"
+    }
+  ]
+}

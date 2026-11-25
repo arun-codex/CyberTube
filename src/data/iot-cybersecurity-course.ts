@@ -2,7 +2,7 @@
 // 30 Modules • 120 Lessons • 120 Unique Verified YouTube Videos • 0 Duplicates • No Quizzes
 // Source of Truth: Canonical Curriculum Specification + Verified Video Manifest + Hardware Catalog
 
-import type { Course, CourseModule, Lesson, PracticalLab, CapstoneAssessment } from '../types/course';
+import type { Course, CourseModule, Lesson, PracticalLab, CapstoneAssessment, KeyTerminologyItem, TheorySectionItem, StepByStepProcedureItem } from '../types/course';
 import { IOT_VIDEO_MANIFEST, getVideoForLesson } from './iot/video-manifest';
 import { HARDWARE_CATALOG, getLessonBOM } from './iot/hardware-catalog';
 import { IOT_DIAGRAMS, getDiagramForModule } from './iot/diagrams';
@@ -24,7 +24,7 @@ type ModuleSource = {
   lessons: LessonSource[];
 };
 
-const moduleSources: ModuleSource[] = [
+const RAW_MODULES: ModuleSource[] = [
   {
   "title": "Introduction to IoT & Cybersecurity",
   "phase": "Foundation",
@@ -34,13 +34,10 @@ const moduleSources: ModuleSource[] = [
   "task": "Draw an end-to-end connected smart-room architecture diagram; identify trust boundaries and draft an authorized lab scope of work.",
   "output": "System architecture diagram + signed lab rules of engagement document",
   "steps": [
-    "Step 1: Inspect hardware and network boundary requirements for Module 01: Introduction to IoT & Cybersecurity.",
-    "Step 2: Follow the guided video tutorials, verify component pinouts, and review safe low-voltage DC limits (<= 3.3V).",
-    "Step 3: Execute the practical deliverable: Draw an end-to-end connected smart-room architecture diagram; identify trust boundaries and draft an authorized lab scope of work..",
-    "Step 4: Record timestamped observations (E1, E2, E3) with circuit schematics, serial output, or packet captures.",
-    "Step 5: Verify deliverable matches expected criteria: System architecture diagram + signed lab rules of engagement document.",
-    "Step 6: Document defensive mitigations, failover handling, and potential false-positive edge cases.",
-    "Step 7: Reset disposable test environments and preserve sanitized evidence in your portfolio."
+    "Review Module 01 technical briefing, hardware pinouts, and electrical safety constraints.",
+    "Assemble circuit or initialize software tools according to lab package: Draw an end-to-end connected smart-room architecture diagram; identify trust boundaries and draft an authorized lab scope of work..",
+    "Record telemetry, verify low-voltage bounds (<=3.3V DC), and document findings.",
+    "Complete practical deliverable: System architecture diagram + signed lab rules of engagement document."
   ],
   "reading": [
     {
@@ -118,13 +115,10 @@ const moduleSources: ModuleSource[] = [
   "task": "Construct a benchtop breadboard circuit with current-limiting resistor, LED, and push button; verify DC voltages with a multimeter.",
   "output": "Measured circuit voltage worksheet + verified breadboard schematic",
   "steps": [
-    "Step 1: Inspect hardware and network boundary requirements for Module 02: Electronic Components & Circuit Fundamentals.",
-    "Step 2: Follow the guided video tutorials, verify component pinouts, and review safe low-voltage DC limits (<= 3.3V).",
-    "Step 3: Execute the practical deliverable: Construct a benchtop breadboard circuit with current-limiting resistor, LED, and push button; verify DC voltages with a multimeter..",
-    "Step 4: Record timestamped observations (E1, E2, E3) with circuit schematics, serial output, or packet captures.",
-    "Step 5: Verify deliverable matches expected criteria: Measured circuit voltage worksheet + verified breadboard schematic.",
-    "Step 6: Document defensive mitigations, failover handling, and potential false-positive edge cases.",
-    "Step 7: Reset disposable test environments and preserve sanitized evidence in your portfolio."
+    "Review Module 02 technical briefing, hardware pinouts, and electrical safety constraints.",
+    "Assemble circuit or initialize software tools according to lab package: Construct a benchtop breadboard circuit with current-limiting resistor, LED, and push button; verify DC voltages with a multimeter..",
+    "Record telemetry, verify low-voltage bounds (<=3.3V DC), and document findings.",
+    "Complete practical deliverable: Measured circuit voltage worksheet + verified breadboard schematic."
   ],
   "reading": [
     {
@@ -202,13 +196,10 @@ const moduleSources: ModuleSource[] = [
   "task": "Compile and flash a baseline versioned C++ firmware to ESP32 DevKit; log boot reason, MAC address, and build hash over Serial.",
   "output": "Clean firmware build + Serial bootloader output log with chip revision",
   "steps": [
-    "Step 1: Inspect hardware and network boundary requirements for Module 03: ESP32 Programming & Hardware Architecture.",
-    "Step 2: Follow the guided video tutorials, verify component pinouts, and review safe low-voltage DC limits (<= 3.3V).",
-    "Step 3: Execute the practical deliverable: Compile and flash a baseline versioned C++ firmware to ESP32 DevKit; log boot reason, MAC address, and build hash over Serial..",
-    "Step 4: Record timestamped observations (E1, E2, E3) with circuit schematics, serial output, or packet captures.",
-    "Step 5: Verify deliverable matches expected criteria: Clean firmware build + Serial bootloader output log with chip revision.",
-    "Step 6: Document defensive mitigations, failover handling, and potential false-positive edge cases.",
-    "Step 7: Reset disposable test environments and preserve sanitized evidence in your portfolio."
+    "Review Module 03 technical briefing, hardware pinouts, and electrical safety constraints.",
+    "Assemble circuit or initialize software tools according to lab package: Compile and flash a baseline versioned C++ firmware to ESP32 DevKit; log boot reason, MAC address, and build hash over Serial..",
+    "Record telemetry, verify low-voltage bounds (<=3.3V DC), and document findings.",
+    "Complete practical deliverable: Clean firmware build + Serial bootloader output log with chip revision."
   ],
   "reading": [
     {
@@ -286,13 +277,10 @@ const moduleSources: ModuleSource[] = [
   "task": "Construct a hardware button and dual-LED tamper indicator with non-blocking software debouncing and safe event logging.",
   "output": "Compilable debounce firmware + verified serial event log",
   "steps": [
-    "Step 1: Inspect hardware and network boundary requirements for Module 04: GPIO, LEDs, Buttons & Local Controls.",
-    "Step 2: Follow the guided video tutorials, verify component pinouts, and review safe low-voltage DC limits (<= 3.3V).",
-    "Step 3: Execute the practical deliverable: Construct a hardware button and dual-LED tamper indicator with non-blocking software debouncing and safe event logging..",
-    "Step 4: Record timestamped observations (E1, E2, E3) with circuit schematics, serial output, or packet captures.",
-    "Step 5: Verify deliverable matches expected criteria: Compilable debounce firmware + verified serial event log.",
-    "Step 6: Document defensive mitigations, failover handling, and potential false-positive edge cases.",
-    "Step 7: Reset disposable test environments and preserve sanitized evidence in your portfolio."
+    "Review Module 04 technical briefing, hardware pinouts, and electrical safety constraints.",
+    "Assemble circuit or initialize software tools according to lab package: Construct a hardware button and dual-LED tamper indicator with non-blocking software debouncing and safe event logging..",
+    "Record telemetry, verify low-voltage bounds (<=3.3V DC), and document findings.",
+    "Complete practical deliverable: Compilable debounce firmware + verified serial event log."
   ],
   "reading": [
     {
@@ -370,13 +358,10 @@ const moduleSources: ModuleSource[] = [
   "task": "Build an environmental monitor with DHT22/BME280 sensor; implement range validation, stuck-at fault detection, and timestamped telemetry logging.",
   "output": "Validated sensor monitoring firmware + simulated sensor anomaly log",
   "steps": [
-    "Step 1: Inspect hardware and network boundary requirements for Module 05: IoT Sensors & Data Integrity.",
-    "Step 2: Follow the guided video tutorials, verify component pinouts, and review safe low-voltage DC limits (<= 3.3V).",
-    "Step 3: Execute the practical deliverable: Build an environmental monitor with DHT22/BME280 sensor; implement range validation, stuck-at fault detection, and timestamped telemetry logging..",
-    "Step 4: Record timestamped observations (E1, E2, E3) with circuit schematics, serial output, or packet captures.",
-    "Step 5: Verify deliverable matches expected criteria: Validated sensor monitoring firmware + simulated sensor anomaly log.",
-    "Step 6: Document defensive mitigations, failover handling, and potential false-positive edge cases.",
-    "Step 7: Reset disposable test environments and preserve sanitized evidence in your portfolio."
+    "Review Module 05 technical briefing, hardware pinouts, and electrical safety constraints.",
+    "Assemble circuit or initialize software tools according to lab package: Build an environmental monitor with DHT22/BME280 sensor; implement range validation, stuck-at fault detection, and timestamped telemetry logging..",
+    "Record telemetry, verify low-voltage bounds (<=3.3V DC), and document findings.",
+    "Complete practical deliverable: Validated sensor monitoring firmware + simulated sensor anomaly log."
   ],
   "reading": [
     {
@@ -397,11 +382,11 @@ const moduleSources: ModuleSource[] = [
       "durationMinutes": 7
     },
     {
-      "title": "From Idea to Working ESP32 \u2014 AI Does Everything!",
-      "url": "https://www.youtube.com/watch?v=HmNyyT2poF8",
-      "videoId": "HmNyyT2poF8",
-      "creator": "Andreas Spiess",
-      "durationMinutes": 18
+      "title": "Why Is Your ESP32 ADC Inaccurate? | How to Fix ESP32 ADC Noise ?",
+      "url": "https://www.youtube.com/watch?v=eVxCUg0IhqI",
+      "videoId": "eVxCUg0IhqI",
+      "creator": "Embedded Programmer",
+      "durationMinutes": 15
     },
     {
       "title": "SensorTrust Demo",
@@ -454,13 +439,10 @@ const moduleSources: ModuleSource[] = [
   "task": "Construct a safe transistor-driven buzzer and alert actuator stage with flyback diode, optical isolation, and a hardware watchdog timeout.",
   "output": "Actuator driver schematic + watchdog-hardened firmware",
   "steps": [
-    "Step 1: Inspect hardware and network boundary requirements for Module 06: Transistors, MOSFETs, Actuators & Safety.",
-    "Step 2: Follow the guided video tutorials, verify component pinouts, and review safe low-voltage DC limits (<= 3.3V).",
-    "Step 3: Execute the practical deliverable: Construct a safe transistor-driven buzzer and alert actuator stage with flyback diode, optical isolation, and a hardware watchdog timeout..",
-    "Step 4: Record timestamped observations (E1, E2, E3) with circuit schematics, serial output, or packet captures.",
-    "Step 5: Verify deliverable matches expected criteria: Actuator driver schematic + watchdog-hardened firmware.",
-    "Step 6: Document defensive mitigations, failover handling, and potential false-positive edge cases.",
-    "Step 7: Reset disposable test environments and preserve sanitized evidence in your portfolio."
+    "Review Module 06 technical briefing, hardware pinouts, and electrical safety constraints.",
+    "Assemble circuit or initialize software tools according to lab package: Construct a safe transistor-driven buzzer and alert actuator stage with flyback diode, optical isolation, and a hardware watchdog timeout..",
+    "Record telemetry, verify low-voltage bounds (<=3.3V DC), and document findings.",
+    "Complete practical deliverable: Actuator driver schematic + watchdog-hardened firmware."
   ],
   "reading": [
     {
@@ -538,13 +520,10 @@ const moduleSources: ModuleSource[] = [
   "task": "Connect ESP32 to an isolated test wireless access point; document MAC/IP assignments, inspect DHCP/DNS traffic, and verify subnet isolation.",
   "output": "Network connectivity matrix + Wi-Fi station configuration log",
   "steps": [
-    "Step 1: Inspect hardware and network boundary requirements for Module 07: IoT Networking Fundamentals.",
-    "Step 2: Follow the guided video tutorials, verify component pinouts, and review safe low-voltage DC limits (<= 3.3V).",
-    "Step 3: Execute the practical deliverable: Connect ESP32 to an isolated test wireless access point; document MAC/IP assignments, inspect DHCP/DNS traffic, and verify subnet isolation..",
-    "Step 4: Record timestamped observations (E1, E2, E3) with circuit schematics, serial output, or packet captures.",
-    "Step 5: Verify deliverable matches expected criteria: Network connectivity matrix + Wi-Fi station configuration log.",
-    "Step 6: Document defensive mitigations, failover handling, and potential false-positive edge cases.",
-    "Step 7: Reset disposable test environments and preserve sanitized evidence in your portfolio."
+    "Review Module 07 technical briefing, hardware pinouts, and electrical safety constraints.",
+    "Assemble circuit or initialize software tools according to lab package: Connect ESP32 to an isolated test wireless access point; document MAC/IP assignments, inspect DHCP/DNS traffic, and verify subnet isolation..",
+    "Record telemetry, verify low-voltage bounds (<=3.3V DC), and document findings.",
+    "Complete practical deliverable: Network connectivity matrix + Wi-Fi station configuration log."
   ],
   "reading": [
     {
@@ -622,13 +601,10 @@ const moduleSources: ModuleSource[] = [
   "task": "Deploy an authenticated Eclipse Mosquitto broker; publish ESP32 sensor telemetry over topic tree and enforce strict read/write topic ACLs.",
   "output": "Mosquitto configuration + verified publisher/subscriber telemetry logs",
   "steps": [
-    "Step 1: Inspect hardware and network boundary requirements for Module 08: MQTT & Secure IoT Messaging.",
-    "Step 2: Follow the guided video tutorials, verify component pinouts, and review safe low-voltage DC limits (<= 3.3V).",
-    "Step 3: Execute the practical deliverable: Deploy an authenticated Eclipse Mosquitto broker; publish ESP32 sensor telemetry over topic tree and enforce strict read/write topic ACLs..",
-    "Step 4: Record timestamped observations (E1, E2, E3) with circuit schematics, serial output, or packet captures.",
-    "Step 5: Verify deliverable matches expected criteria: Mosquitto configuration + verified publisher/subscriber telemetry logs.",
-    "Step 6: Document defensive mitigations, failover handling, and potential false-positive edge cases.",
-    "Step 7: Reset disposable test environments and preserve sanitized evidence in your portfolio."
+    "Review Module 08 technical briefing, hardware pinouts, and electrical safety constraints.",
+    "Assemble circuit or initialize software tools according to lab package: Deploy an authenticated Eclipse Mosquitto broker; publish ESP32 sensor telemetry over topic tree and enforce strict read/write topic ACLs..",
+    "Record telemetry, verify low-voltage bounds (<=3.3V DC), and document findings.",
+    "Complete practical deliverable: Mosquitto configuration + verified publisher/subscriber telemetry logs."
   ],
   "reading": [
     {
@@ -706,13 +682,10 @@ const moduleSources: ModuleSource[] = [
   "task": "Build a hardened read-only HTTP REST API on ESP32; implement input sanitization, rate limiting, and security response headers.",
   "output": "Hardened embedded REST server firmware + API security audit test report",
   "steps": [
-    "Step 1: Inspect hardware and network boundary requirements for Module 09: IoT HTTP, CoAP & API Security.",
-    "Step 2: Follow the guided video tutorials, verify component pinouts, and review safe low-voltage DC limits (<= 3.3V).",
-    "Step 3: Execute the practical deliverable: Build a hardened read-only HTTP REST API on ESP32; implement input sanitization, rate limiting, and security response headers..",
-    "Step 4: Record timestamped observations (E1, E2, E3) with circuit schematics, serial output, or packet captures.",
-    "Step 5: Verify deliverable matches expected criteria: Hardened embedded REST server firmware + API security audit test report.",
-    "Step 6: Document defensive mitigations, failover handling, and potential false-positive edge cases.",
-    "Step 7: Reset disposable test environments and preserve sanitized evidence in your portfolio."
+    "Review Module 09 technical briefing, hardware pinouts, and electrical safety constraints.",
+    "Assemble circuit or initialize software tools according to lab package: Build a hardened read-only HTTP REST API on ESP32; implement input sanitization, rate limiting, and security response headers..",
+    "Record telemetry, verify low-voltage bounds (<=3.3V DC), and document findings.",
+    "Complete practical deliverable: Hardened embedded REST server firmware + API security audit test report."
   ],
   "reading": [
     {
@@ -790,13 +763,10 @@ const moduleSources: ModuleSource[] = [
   "task": "Portfolio Project 1: Assemble and commission a functioning smart-room monitoring system with temperature/humidity sensor, LED/buzzer alert, local dashboard, and security threat model.",
   "output": "Portfolio Project 1 package: schematic, firmware repo, dashboard screenshot, and security threat review",
   "steps": [
-    "Step 1: Inspect hardware and network boundary requirements for Module 10: Secure Smart-Room Monitoring Project.",
-    "Step 2: Follow the guided video tutorials, verify component pinouts, and review safe low-voltage DC limits (<= 3.3V).",
-    "Step 3: Execute the practical deliverable: Portfolio Project 1: Assemble and commission a functioning smart-room monitoring system with temperature/humidity sensor, LED/buzzer alert, local dashboard, and security threat model..",
-    "Step 4: Record timestamped observations (E1, E2, E3) with circuit schematics, serial output, or packet captures.",
-    "Step 5: Verify deliverable matches expected criteria: Portfolio Project 1 package: schematic, firmware repo, dashboard screenshot, and security threat review.",
-    "Step 6: Document defensive mitigations, failover handling, and potential false-positive edge cases.",
-    "Step 7: Reset disposable test environments and preserve sanitized evidence in your portfolio."
+    "Review Module 10 technical briefing, hardware pinouts, and electrical safety constraints.",
+    "Assemble circuit or initialize software tools according to lab package: Portfolio Project 1: Assemble and commission a functioning smart-room monitoring system with temperature/humidity sensor, LED/buzzer alert, local dashboard, and security threat model..",
+    "Record telemetry, verify low-voltage bounds (<=3.3V DC), and document findings.",
+    "Complete practical deliverable: Portfolio Project 1 package: schematic, firmware repo, dashboard screenshot, and security threat review."
   ],
   "reading": [
     {
@@ -817,18 +787,18 @@ const moduleSources: ModuleSource[] = [
       "durationMinutes": 4
     },
     {
-      "title": "The Arduino Family - Uno - Mega - Nano - Pro Mini -ATtiny85",
-      "url": "https://www.youtube.com/watch?v=1dR6L7Wp7-U",
-      "videoId": "1dR6L7Wp7-U",
-      "creator": "DroneBot Workshop",
-      "durationMinutes": 30
+      "title": "MQTT with ESP32 and DHT22 using Wokwi | Display on Node-Red Dashboard",
+      "url": "https://www.youtube.com/watch?v=fbQRF_IKuo4",
+      "videoId": "fbQRF_IKuo4",
+      "creator": "IoT Frontier",
+      "durationMinutes": 13
     },
     {
-      "title": "Arduino millis() Tutorial Part 1 | Replace delay() with Non-Blocking Code",
-      "url": "https://www.youtube.com/watch?v=D5e-5IHZmY4",
-      "videoId": "D5e-5IHZmY4",
-      "creator": "STEM Education TECH",
-      "durationMinutes": 4
+      "title": "An Intro to KiCad \u2013 Part 9: Generate BOM and Order Parts | DigiKey",
+      "url": "https://www.youtube.com/watch?v=I7GUiGoD1w8",
+      "videoId": "I7GUiGoD1w8",
+      "creator": "DigiKey",
+      "durationMinutes": 7
     },
     {
       "title": "Node-Red with ESP32 | Control LED Tutorial",
@@ -874,13 +844,10 @@ const moduleSources: ModuleSource[] = [
   "task": "Connect an I2C OLED display or sensor and map active bus addresses; inspect UART serial traffic with 3.3V logic analyzer and document debug exposure risks.",
   "output": "I2C bus address scan report + UART debug port exposure audit",
   "steps": [
-    "Step 1: Inspect hardware and network boundary requirements for Module 11: UART, I2C & SPI Security.",
-    "Step 2: Follow the guided video tutorials, verify component pinouts, and review safe low-voltage DC limits (<= 3.3V).",
-    "Step 3: Execute the practical deliverable: Connect an I2C OLED display or sensor and map active bus addresses; inspect UART serial traffic with 3.3V logic analyzer and document debug exposure risks..",
-    "Step 4: Record timestamped observations (E1, E2, E3) with circuit schematics, serial output, or packet captures.",
-    "Step 5: Verify deliverable matches expected criteria: I2C bus address scan report + UART debug port exposure audit.",
-    "Step 6: Document defensive mitigations, failover handling, and potential false-positive edge cases.",
-    "Step 7: Reset disposable test environments and preserve sanitized evidence in your portfolio."
+    "Review Module 11 technical briefing, hardware pinouts, and electrical safety constraints.",
+    "Assemble circuit or initialize software tools according to lab package: Connect an I2C OLED display or sensor and map active bus addresses; inspect UART serial traffic with 3.3V logic analyzer and document debug exposure risks..",
+    "Record telemetry, verify low-voltage bounds (<=3.3V DC), and document findings.",
+    "Complete practical deliverable: I2C bus address scan report + UART debug port exposure audit."
   ],
   "reading": [
     {
@@ -901,18 +868,18 @@ const moduleSources: ModuleSource[] = [
       "durationMinutes": 9
     },
     {
-      "title": "SPI Communication Protocol Explained!",
-      "url": "https://www.youtube.com/watch?v=sIv6AFW-ONM",
-      "videoId": "sIv6AFW-ONM",
-      "creator": "EMBEDX",
-      "durationMinutes": 2
-    },
-    {
       "title": "How to efficiently debug I2C communication with a logic analyzer??",
       "url": "https://www.youtube.com/watch?v=9GHKuFoOnVc",
       "videoId": "9GHKuFoOnVc",
       "creator": "Fastbit Embedded Brain Academy",
       "durationMinutes": 3
+    },
+    {
+      "title": "SPI Communication Protocol Explained!",
+      "url": "https://www.youtube.com/watch?v=sIv6AFW-ONM",
+      "videoId": "sIv6AFW-ONM",
+      "creator": "EMBEDX",
+      "durationMinutes": 2
     },
     {
       "title": "Every Hardware Protocol Explained For Beginners in 10 Mins | UART, RS232, SPI, I2C, CAN, USB & More",
@@ -958,13 +925,10 @@ const moduleSources: ModuleSource[] = [
   "task": "Refactor a vulnerable firmware with hardcoded credentials to use encrypted NVS partition and unique per-device identity tokens.",
   "output": "Refactored firmware repo + secret storage security architecture diagram",
   "steps": [
-    "Step 1: Inspect hardware and network boundary requirements for Module 12: Credentials, Device Identity & Secret Storage.",
-    "Step 2: Follow the guided video tutorials, verify component pinouts, and review safe low-voltage DC limits (<= 3.3V).",
-    "Step 3: Execute the practical deliverable: Refactor a vulnerable firmware with hardcoded credentials to use encrypted NVS partition and unique per-device identity tokens..",
-    "Step 4: Record timestamped observations (E1, E2, E3) with circuit schematics, serial output, or packet captures.",
-    "Step 5: Verify deliverable matches expected criteria: Refactored firmware repo + secret storage security architecture diagram.",
-    "Step 6: Document defensive mitigations, failover handling, and potential false-positive edge cases.",
-    "Step 7: Reset disposable test environments and preserve sanitized evidence in your portfolio."
+    "Review Module 12 technical briefing, hardware pinouts, and electrical safety constraints.",
+    "Assemble circuit or initialize software tools according to lab package: Refactor a vulnerable firmware with hardcoded credentials to use encrypted NVS partition and unique per-device identity tokens..",
+    "Record telemetry, verify low-voltage bounds (<=3.3V DC), and document findings.",
+    "Complete practical deliverable: Refactored firmware repo + secret storage security architecture diagram."
   ],
   "reading": [
     {
@@ -978,11 +942,11 @@ const moduleSources: ModuleSource[] = [
   ],
   "videos": [
     {
-      "title": "HTML + CSS + JavaScript introduction - web 0x00",
-      "url": "https://www.youtube.com/watch?v=jmgsgjPn1vs",
-      "videoId": "jmgsgjPn1vs",
-      "creator": "LiveOverflow",
-      "durationMinutes": 9
+      "title": "How to reverse Router Firmware to extract router credentials|2024|Series-I",
+      "url": "https://www.youtube.com/watch?v=WHs-iGG_Vww",
+      "videoId": "WHs-iGG_Vww",
+      "creator": "ShellXploit",
+      "durationMinutes": 18
     },
     {
       "title": "ESP32 NVS Configuration Storage: Designing for Data Integrity, Power Loss, and Field Reliability",
@@ -1042,13 +1006,10 @@ const moduleSources: ModuleSource[] = [
   "task": "Portfolio Project 2: Establish a verified TLS-secured MQTTS connection from ESP32 to Mosquitto broker on port 8883; verify rejection of self-signed rogue certificates.",
   "output": "Portfolio Project 2 package: OpenSSL CA scripts, TLS client firmware, and Wireshark PCAP proving encryption",
   "steps": [
-    "Step 1: Inspect hardware and network boundary requirements for Module 13: TLS, Certificates & Secure Messaging.",
-    "Step 2: Follow the guided video tutorials, verify component pinouts, and review safe low-voltage DC limits (<= 3.3V).",
-    "Step 3: Execute the practical deliverable: Portfolio Project 2: Establish a verified TLS-secured MQTTS connection from ESP32 to Mosquitto broker on port 8883; verify rejection of self-signed rogue certificates..",
-    "Step 4: Record timestamped observations (E1, E2, E3) with circuit schematics, serial output, or packet captures.",
-    "Step 5: Verify deliverable matches expected criteria: Portfolio Project 2 package: OpenSSL CA scripts, TLS client firmware, and Wireshark PCAP proving encryption.",
-    "Step 6: Document defensive mitigations, failover handling, and potential false-positive edge cases.",
-    "Step 7: Reset disposable test environments and preserve sanitized evidence in your portfolio."
+    "Review Module 13 technical briefing, hardware pinouts, and electrical safety constraints.",
+    "Assemble circuit or initialize software tools according to lab package: Portfolio Project 2: Establish a verified TLS-secured MQTTS connection from ESP32 to Mosquitto broker on port 8883; verify rejection of self-signed rogue certificates..",
+    "Record telemetry, verify low-voltage bounds (<=3.3V DC), and document findings.",
+    "Complete practical deliverable: Portfolio Project 2 package: OpenSSL CA scripts, TLS client firmware, and Wireshark PCAP proving encryption."
   ],
   "reading": [
     {
@@ -1126,13 +1087,10 @@ const moduleSources: ModuleSource[] = [
   "task": "Build and deploy a signed dual-partition OTA firmware update; verify rollback mechanism upon simulated boot fault and prove anti-rollback enforcement.",
   "output": "OTA update deployment package + flash partition map and rollback verification log",
   "steps": [
-    "Step 1: Inspect hardware and network boundary requirements for Module 14: Firmware Updates, Secure Boot & OTA.",
-    "Step 2: Follow the guided video tutorials, verify component pinouts, and review safe low-voltage DC limits (<= 3.3V).",
-    "Step 3: Execute the practical deliverable: Build and deploy a signed dual-partition OTA firmware update; verify rollback mechanism upon simulated boot fault and prove anti-rollback enforcement..",
-    "Step 4: Record timestamped observations (E1, E2, E3) with circuit schematics, serial output, or packet captures.",
-    "Step 5: Verify deliverable matches expected criteria: OTA update deployment package + flash partition map and rollback verification log.",
-    "Step 6: Document defensive mitigations, failover handling, and potential false-positive edge cases.",
-    "Step 7: Reset disposable test environments and preserve sanitized evidence in your portfolio."
+    "Review Module 14 technical briefing, hardware pinouts, and electrical safety constraints.",
+    "Assemble circuit or initialize software tools according to lab package: Build and deploy a signed dual-partition OTA firmware update; verify rollback mechanism upon simulated boot fault and prove anti-rollback enforcement..",
+    "Record telemetry, verify low-voltage bounds (<=3.3V DC), and document findings.",
+    "Complete practical deliverable: OTA update deployment package + flash partition map and rollback verification log."
   ],
   "reading": [
     {
@@ -1210,13 +1168,10 @@ const moduleSources: ModuleSource[] = [
   "task": "Portfolio Project 3: Capture an authorized IoT communication PCAP trace; baseline DNS/NTP/MQTT/TLS traffic, detect simulated beaconing anomalies, and document findings.",
   "output": "Portfolio Project 3 package: Annotated PCAP file, Wireshark filter library, and defensive anomaly report",
   "steps": [
-    "Step 1: Inspect hardware and network boundary requirements for Module 15: Wireshark for IoT Security.",
-    "Step 2: Follow the guided video tutorials, verify component pinouts, and review safe low-voltage DC limits (<= 3.3V).",
-    "Step 3: Execute the practical deliverable: Portfolio Project 3: Capture an authorized IoT communication PCAP trace; baseline DNS/NTP/MQTT/TLS traffic, detect simulated beaconing anomalies, and document findings..",
-    "Step 4: Record timestamped observations (E1, E2, E3) with circuit schematics, serial output, or packet captures.",
-    "Step 5: Verify deliverable matches expected criteria: Portfolio Project 3 package: Annotated PCAP file, Wireshark filter library, and defensive anomaly report.",
-    "Step 6: Document defensive mitigations, failover handling, and potential false-positive edge cases.",
-    "Step 7: Reset disposable test environments and preserve sanitized evidence in your portfolio."
+    "Review Module 15 technical briefing, hardware pinouts, and electrical safety constraints.",
+    "Assemble circuit or initialize software tools according to lab package: Portfolio Project 3: Capture an authorized IoT communication PCAP trace; baseline DNS/NTP/MQTT/TLS traffic, detect simulated beaconing anomalies, and document findings..",
+    "Record telemetry, verify low-voltage bounds (<=3.3V DC), and document findings.",
+    "Complete practical deliverable: Portfolio Project 3 package: Annotated PCAP file, Wireshark filter library, and defensive anomaly report."
   ],
   "reading": [
     {
@@ -1294,13 +1249,10 @@ const moduleSources: ModuleSource[] = [
   "task": "Produce a comprehensive STRIDE threat model and attack surface assessment for the Smart-Room Monitoring System built in Module 10.",
   "output": "STRIDE threat model matrix + prioritized defensive mitigation roadmap",
   "steps": [
-    "Step 1: Inspect hardware and network boundary requirements for Module 16: IoT Threat Modeling.",
-    "Step 2: Follow the guided video tutorials, verify component pinouts, and review safe low-voltage DC limits (<= 3.3V).",
-    "Step 3: Execute the practical deliverable: Produce a comprehensive STRIDE threat model and attack surface assessment for the Smart-Room Monitoring System built in Module 10..",
-    "Step 4: Record timestamped observations (E1, E2, E3) with circuit schematics, serial output, or packet captures.",
-    "Step 5: Verify deliverable matches expected criteria: STRIDE threat model matrix + prioritized defensive mitigation roadmap.",
-    "Step 6: Document defensive mitigations, failover handling, and potential false-positive edge cases.",
-    "Step 7: Reset disposable test environments and preserve sanitized evidence in your portfolio."
+    "Review Module 16 technical briefing, hardware pinouts, and electrical safety constraints.",
+    "Assemble circuit or initialize software tools according to lab package: Produce a comprehensive STRIDE threat model and attack surface assessment for the Smart-Room Monitoring System built in Module 10..",
+    "Record telemetry, verify low-voltage bounds (<=3.3V DC), and document findings.",
+    "Complete practical deliverable: STRIDE threat model matrix + prioritized defensive mitigation roadmap."
   ],
   "reading": [
     {
@@ -1378,13 +1330,10 @@ const moduleSources: ModuleSource[] = [
   "task": "Audit wireless security for BLE and Wi-Fi IoT devices; inspect BLE GATT services, analyze Wi-Fi credential provisioning, and produce a wireless security checklist.",
   "output": "Wireless protocol security audit report + BLE GATT attack surface map",
   "steps": [
-    "Step 1: Inspect hardware and network boundary requirements for Module 17: Wireless IoT Security.",
-    "Step 2: Follow the guided video tutorials, verify component pinouts, and review safe low-voltage DC limits (<= 3.3V).",
-    "Step 3: Execute the practical deliverable: Audit wireless security for BLE and Wi-Fi IoT devices; inspect BLE GATT services, analyze Wi-Fi credential provisioning, and produce a wireless security checklist..",
-    "Step 4: Record timestamped observations (E1, E2, E3) with circuit schematics, serial output, or packet captures.",
-    "Step 5: Verify deliverable matches expected criteria: Wireless protocol security audit report + BLE GATT attack surface map.",
-    "Step 6: Document defensive mitigations, failover handling, and potential false-positive edge cases.",
-    "Step 7: Reset disposable test environments and preserve sanitized evidence in your portfolio."
+    "Review Module 17 technical briefing, hardware pinouts, and electrical safety constraints.",
+    "Assemble circuit or initialize software tools according to lab package: Audit wireless security for BLE and Wi-Fi IoT devices; inspect BLE GATT services, analyze Wi-Fi credential provisioning, and produce a wireless security checklist..",
+    "Record telemetry, verify low-voltage bounds (<=3.3V DC), and document findings.",
+    "Complete practical deliverable: Wireless protocol security audit report + BLE GATT attack surface map."
   ],
   "reading": [
     {
@@ -1412,11 +1361,11 @@ const moduleSources: ModuleSource[] = [
       "durationMinutes": 9
     },
     {
-      "title": "BLE Security with STM32WB - 06 Pairing - passkey entry display lab",
-      "url": "https://www.youtube.com/watch?v=VURSdbLbgnI",
-      "videoId": "VURSdbLbgnI",
-      "creator": "STMicroelectronics",
-      "durationMinutes": 4
+      "title": "ZigBee Explained: Basics, Protocol Stack, Topologies, Devices, Advantages & Disadvantages",
+      "url": "https://www.youtube.com/watch?v=lVr88JS-2rM",
+      "videoId": "lVr88JS-2rM",
+      "creator": "Engineering Funda",
+      "durationMinutes": 11
     },
     {
       "title": "LoRaWAN Explained: Basics, Devices, Architecture, Components, Applications, and Advantages",
@@ -1462,13 +1411,10 @@ const moduleSources: ModuleSource[] = [
   "task": "Conduct an authorized security assessment of an embedded IoT web interface; document discovered input validation and session vulnerabilities with remediation patches.",
   "output": "Web & API vulnerability assessment report + validated defensive patch code",
   "steps": [
-    "Step 1: Inspect hardware and network boundary requirements for Module 18: IoT Web & API Vulnerabilities.",
-    "Step 2: Follow the guided video tutorials, verify component pinouts, and review safe low-voltage DC limits (<= 3.3V).",
-    "Step 3: Execute the practical deliverable: Conduct an authorized security assessment of an embedded IoT web interface; document discovered input validation and session vulnerabilities with remediation patches..",
-    "Step 4: Record timestamped observations (E1, E2, E3) with circuit schematics, serial output, or packet captures.",
-    "Step 5: Verify deliverable matches expected criteria: Web & API vulnerability assessment report + validated defensive patch code.",
-    "Step 6: Document defensive mitigations, failover handling, and potential false-positive edge cases.",
-    "Step 7: Reset disposable test environments and preserve sanitized evidence in your portfolio."
+    "Review Module 18 technical briefing, hardware pinouts, and electrical safety constraints.",
+    "Assemble circuit or initialize software tools according to lab package: Conduct an authorized security assessment of an embedded IoT web interface; document discovered input validation and session vulnerabilities with remediation patches..",
+    "Record telemetry, verify low-voltage bounds (<=3.3V DC), and document findings.",
+    "Complete practical deliverable: Web & API vulnerability assessment report + validated defensive patch code."
   ],
   "reading": [
     {
@@ -1489,11 +1435,11 @@ const moduleSources: ModuleSource[] = [
       "durationMinutes": 68
     },
     {
-      "title": "Cross-Site Scripting (XSS) Explained in 3 Minutes | Security Every Developer Must Know #02",
-      "url": "https://www.youtube.com/watch?v=vkMLaaxIGDc",
-      "videoId": "vkMLaaxIGDc",
-      "creator": "Infinity Systems",
-      "durationMinutes": 3
+      "title": "Insecure Direct Object Reference (IDOR) Explained",
+      "url": "https://www.youtube.com/watch?v=rloqMGcPMkI",
+      "videoId": "rloqMGcPMkI",
+      "creator": "PwnFunction",
+      "durationMinutes": 8
     },
     {
       "title": "IoT/Hardware Hacking: Finding Command Injection Vulnerability on a Netgear Router.",
@@ -1546,13 +1492,10 @@ const moduleSources: ModuleSource[] = [
   "task": "Harden a Raspberry Pi / Linux IoT edge gateway: disable default accounts, configure UFW firewall, enforce SSH key authentication, and set up automated log monitoring.",
   "output": "Gateway baseline vs hardened audit worksheet + automated security audit script",
   "steps": [
-    "Step 1: Inspect hardware and network boundary requirements for Module 19: Raspberry Pi & Embedded Linux Security.",
-    "Step 2: Follow the guided video tutorials, verify component pinouts, and review safe low-voltage DC limits (<= 3.3V).",
-    "Step 3: Execute the practical deliverable: Harden a Raspberry Pi / Linux IoT edge gateway: disable default accounts, configure UFW firewall, enforce SSH key authentication, and set up automated log monitoring..",
-    "Step 4: Record timestamped observations (E1, E2, E3) with circuit schematics, serial output, or packet captures.",
-    "Step 5: Verify deliverable matches expected criteria: Gateway baseline vs hardened audit worksheet + automated security audit script.",
-    "Step 6: Document defensive mitigations, failover handling, and potential false-positive edge cases.",
-    "Step 7: Reset disposable test environments and preserve sanitized evidence in your portfolio."
+    "Review Module 19 technical briefing, hardware pinouts, and electrical safety constraints.",
+    "Assemble circuit or initialize software tools according to lab package: Harden a Raspberry Pi / Linux IoT edge gateway: disable default accounts, configure UFW firewall, enforce SSH key authentication, and set up automated log monitoring..",
+    "Record telemetry, verify low-voltage bounds (<=3.3V DC), and document findings.",
+    "Complete practical deliverable: Gateway baseline vs hardened audit worksheet + automated security audit script."
   ],
   "reading": [
     {
@@ -1573,13 +1516,6 @@ const moduleSources: ModuleSource[] = [
       "durationMinutes": 31
     },
     {
-      "title": "Linux Privilege Escalation Explained (sudo + SUID)",
-      "url": "https://www.youtube.com/watch?v=0YiCdCgL2Y8",
-      "videoId": "0YiCdCgL2Y8",
-      "creator": "InfoSec Mastery | Cybersecurity For Beginners",
-      "durationMinutes": 11
-    },
-    {
       "title": "STOP Hackers Instantly! Linux SSH Hardening (No Passwords, Only Keys!)",
       "url": "https://www.youtube.com/watch?v=PLx7shQIq6I",
       "videoId": "PLx7shQIq6I",
@@ -1592,6 +1528,13 @@ const moduleSources: ModuleSource[] = [
       "videoId": "-CzvPjZ9hp8",
       "creator": "HackerSploit",
       "durationMinutes": 28
+    },
+    {
+      "title": "SSH Brute Force Protection With Fail2Ban",
+      "url": "https://www.youtube.com/watch?v=Z0cDqF6HAxs",
+      "videoId": "Z0cDqF6HAxs",
+      "creator": "HackerSploit",
+      "durationMinutes": 24
     }
   ],
   "lessons": [
@@ -1630,13 +1573,10 @@ const moduleSources: ModuleSource[] = [
   "task": "Portfolio Project 4: Acquire an authorized vendor firmware image; verify chain of custody, perform binary component inventory with Binwalk, and extract filesystems for defensive analysis.",
   "output": "Portfolio Project 4 package: Firmware analysis report, component inventory spreadsheet, and extracted configuration artifacts",
   "steps": [
-    "Step 1: Inspect hardware and network boundary requirements for Module 20: Firmware Extraction & Analysis.",
-    "Step 2: Follow the guided video tutorials, verify component pinouts, and review safe low-voltage DC limits (<= 3.3V).",
-    "Step 3: Execute the practical deliverable: Portfolio Project 4: Acquire an authorized vendor firmware image; verify chain of custody, perform binary component inventory with Binwalk, and extract filesystems for defensive analysis..",
-    "Step 4: Record timestamped observations (E1, E2, E3) with circuit schematics, serial output, or packet captures.",
-    "Step 5: Verify deliverable matches expected criteria: Portfolio Project 4 package: Firmware analysis report, component inventory spreadsheet, and extracted configuration artifacts.",
-    "Step 6: Document defensive mitigations, failover handling, and potential false-positive edge cases.",
-    "Step 7: Reset disposable test environments and preserve sanitized evidence in your portfolio."
+    "Review Module 20 technical briefing, hardware pinouts, and electrical safety constraints.",
+    "Assemble circuit or initialize software tools according to lab package: Portfolio Project 4: Acquire an authorized vendor firmware image; verify chain of custody, perform binary component inventory with Binwalk, and extract filesystems for defensive analysis..",
+    "Record telemetry, verify low-voltage bounds (<=3.3V DC), and document findings.",
+    "Complete practical deliverable: Portfolio Project 4 package: Firmware analysis report, component inventory spreadsheet, and extracted configuration artifacts."
   ],
   "reading": [
     {
@@ -1714,13 +1654,10 @@ const moduleSources: ModuleSource[] = [
   "task": "Analyze an intentionally vulnerable compiled training binary in Ghidra; map main function call graphs, locate hardcoded credentials, and document software flaws.",
   "output": "Annotated Ghidra function map + reverse engineering vulnerability analysis report",
   "steps": [
-    "Step 1: Inspect hardware and network boundary requirements for Module 21: Firmware Reverse Engineering.",
-    "Step 2: Follow the guided video tutorials, verify component pinouts, and review safe low-voltage DC limits (<= 3.3V).",
-    "Step 3: Execute the practical deliverable: Analyze an intentionally vulnerable compiled training binary in Ghidra; map main function call graphs, locate hardcoded credentials, and document software flaws..",
-    "Step 4: Record timestamped observations (E1, E2, E3) with circuit schematics, serial output, or packet captures.",
-    "Step 5: Verify deliverable matches expected criteria: Annotated Ghidra function map + reverse engineering vulnerability analysis report.",
-    "Step 6: Document defensive mitigations, failover handling, and potential false-positive edge cases.",
-    "Step 7: Reset disposable test environments and preserve sanitized evidence in your portfolio."
+    "Review Module 21 technical briefing, hardware pinouts, and electrical safety constraints.",
+    "Assemble circuit or initialize software tools according to lab package: Analyze an intentionally vulnerable compiled training binary in Ghidra; map main function call graphs, locate hardcoded credentials, and document software flaws..",
+    "Record telemetry, verify low-voltage bounds (<=3.3V DC), and document findings.",
+    "Complete practical deliverable: Annotated Ghidra function map + reverse engineering vulnerability analysis report."
   ],
   "reading": [
     {
@@ -1798,13 +1735,10 @@ const moduleSources: ModuleSource[] = [
   "task": "Emulate a MIPS/ARM embedded Linux binary in QEMU user and system mode; observe listening services, capture runtime logs, and validate defensive patches.",
   "output": "QEMU emulation setup script + dynamic telemetry execution log",
   "steps": [
-    "Step 1: Inspect hardware and network boundary requirements for Module 22: Firmware Emulation.",
-    "Step 2: Follow the guided video tutorials, verify component pinouts, and review safe low-voltage DC limits (<= 3.3V).",
-    "Step 3: Execute the practical deliverable: Emulate a MIPS/ARM embedded Linux binary in QEMU user and system mode; observe listening services, capture runtime logs, and validate defensive patches..",
-    "Step 4: Record timestamped observations (E1, E2, E3) with circuit schematics, serial output, or packet captures.",
-    "Step 5: Verify deliverable matches expected criteria: QEMU emulation setup script + dynamic telemetry execution log.",
-    "Step 6: Document defensive mitigations, failover handling, and potential false-positive edge cases.",
-    "Step 7: Reset disposable test environments and preserve sanitized evidence in your portfolio."
+    "Review Module 22 technical briefing, hardware pinouts, and electrical safety constraints.",
+    "Assemble circuit or initialize software tools according to lab package: Emulate a MIPS/ARM embedded Linux binary in QEMU user and system mode; observe listening services, capture runtime logs, and validate defensive patches..",
+    "Record telemetry, verify low-voltage bounds (<=3.3V DC), and document findings.",
+    "Complete practical deliverable: QEMU emulation setup script + dynamic telemetry execution log."
   ],
   "reading": [
     {
@@ -1882,13 +1816,10 @@ const moduleSources: ModuleSource[] = [
   "task": "Deploy OWASP IoTGoat in an isolated VM; perform an authorized security assessment across web, network, and firmware attack surfaces and write an executive report.",
   "output": "OWASP IoTGoat security assessment report + developer remediation roadmap",
   "steps": [
-    "Step 1: Inspect hardware and network boundary requirements for Module 23: OWASP IoTGoat Security Testing.",
-    "Step 2: Follow the guided video tutorials, verify component pinouts, and review safe low-voltage DC limits (<= 3.3V).",
-    "Step 3: Execute the practical deliverable: Deploy OWASP IoTGoat in an isolated VM; perform an authorized security assessment across web, network, and firmware attack surfaces and write an executive report..",
-    "Step 4: Record timestamped observations (E1, E2, E3) with circuit schematics, serial output, or packet captures.",
-    "Step 5: Verify deliverable matches expected criteria: OWASP IoTGoat security assessment report + developer remediation roadmap.",
-    "Step 6: Document defensive mitigations, failover handling, and potential false-positive edge cases.",
-    "Step 7: Reset disposable test environments and preserve sanitized evidence in your portfolio."
+    "Review Module 23 technical briefing, hardware pinouts, and electrical safety constraints.",
+    "Assemble circuit or initialize software tools according to lab package: Deploy OWASP IoTGoat in an isolated VM; perform an authorized security assessment across web, network, and firmware attack surfaces and write an executive report..",
+    "Record telemetry, verify low-voltage bounds (<=3.3V DC), and document findings.",
+    "Complete practical deliverable: OWASP IoTGoat security assessment report + developer remediation roadmap."
   ],
   "reading": [
     {
@@ -1966,13 +1897,10 @@ const moduleSources: ModuleSource[] = [
   "task": "Conduct a physical inspection of an owned microcontroller development board; map test pads, verify 3.3V voltage safety, and draft a production hardware hardening checklist.",
   "output": "Hardware interface exposure map + production physical hardening checklist",
   "steps": [
-    "Step 1: Inspect hardware and network boundary requirements for Module 24: Hardware Debugging & Interface Security.",
-    "Step 2: Follow the guided video tutorials, verify component pinouts, and review safe low-voltage DC limits (<= 3.3V).",
-    "Step 3: Execute the practical deliverable: Conduct a physical inspection of an owned microcontroller development board; map test pads, verify 3.3V voltage safety, and draft a production hardware hardening checklist..",
-    "Step 4: Record timestamped observations (E1, E2, E3) with circuit schematics, serial output, or packet captures.",
-    "Step 5: Verify deliverable matches expected criteria: Hardware interface exposure map + production physical hardening checklist.",
-    "Step 6: Document defensive mitigations, failover handling, and potential false-positive edge cases.",
-    "Step 7: Reset disposable test environments and preserve sanitized evidence in your portfolio."
+    "Review Module 24 technical briefing, hardware pinouts, and electrical safety constraints.",
+    "Assemble circuit or initialize software tools according to lab package: Conduct a physical inspection of an owned microcontroller development board; map test pads, verify 3.3V voltage safety, and draft a production hardware hardening checklist..",
+    "Record telemetry, verify low-voltage bounds (<=3.3V DC), and document findings.",
+    "Complete practical deliverable: Hardware interface exposure map + production physical hardening checklist."
   ],
   "reading": [
     {
@@ -2050,13 +1978,10 @@ const moduleSources: ModuleSource[] = [
   "task": "Investigate a synthetic IoT botnet compromise scenario from prerecorded network and device telemetry; produce an incident analysis and containment playbook.",
   "output": "Botnet incident investigation report + device isolation and containment procedure",
   "steps": [
-    "Step 1: Inspect hardware and network boundary requirements for Module 25: IoT Malware & Botnet Investigation.",
-    "Step 2: Follow the guided video tutorials, verify component pinouts, and review safe low-voltage DC limits (<= 3.3V).",
-    "Step 3: Execute the practical deliverable: Investigate a synthetic IoT botnet compromise scenario from prerecorded network and device telemetry; produce an incident analysis and containment playbook..",
-    "Step 4: Record timestamped observations (E1, E2, E3) with circuit schematics, serial output, or packet captures.",
-    "Step 5: Verify deliverable matches expected criteria: Botnet incident investigation report + device isolation and containment procedure.",
-    "Step 6: Document defensive mitigations, failover handling, and potential false-positive edge cases.",
-    "Step 7: Reset disposable test environments and preserve sanitized evidence in your portfolio."
+    "Review Module 25 technical briefing, hardware pinouts, and electrical safety constraints.",
+    "Assemble circuit or initialize software tools according to lab package: Investigate a synthetic IoT botnet compromise scenario from prerecorded network and device telemetry; produce an incident analysis and containment playbook..",
+    "Record telemetry, verify low-voltage bounds (<=3.3V DC), and document findings.",
+    "Complete practical deliverable: Botnet incident investigation report + device isolation and containment procedure."
   ],
   "reading": [
     {
@@ -2134,13 +2059,10 @@ const moduleSources: ModuleSource[] = [
   "task": "Portfolio Project 5: Deploy an IoT telemetry forwarding pipeline to a local SIEM/Wazuh; write and validate two custom Sigma detection rules for anomalous MQTT and network behavior.",
   "output": "Portfolio Project 5 package: Sigma detection rules, SIEM dashboard screenshot, and alert tuning validation log",
   "steps": [
-    "Step 1: Inspect hardware and network boundary requirements for Module 26: IoT SOC Monitoring & SIEM.",
-    "Step 2: Follow the guided video tutorials, verify component pinouts, and review safe low-voltage DC limits (<= 3.3V).",
-    "Step 3: Execute the practical deliverable: Portfolio Project 5: Deploy an IoT telemetry forwarding pipeline to a local SIEM/Wazuh; write and validate two custom Sigma detection rules for anomalous MQTT and network behavior..",
-    "Step 4: Record timestamped observations (E1, E2, E3) with circuit schematics, serial output, or packet captures.",
-    "Step 5: Verify deliverable matches expected criteria: Portfolio Project 5 package: Sigma detection rules, SIEM dashboard screenshot, and alert tuning validation log.",
-    "Step 6: Document defensive mitigations, failover handling, and potential false-positive edge cases.",
-    "Step 7: Reset disposable test environments and preserve sanitized evidence in your portfolio."
+    "Review Module 26 technical briefing, hardware pinouts, and electrical safety constraints.",
+    "Assemble circuit or initialize software tools according to lab package: Portfolio Project 5: Deploy an IoT telemetry forwarding pipeline to a local SIEM/Wazuh; write and validate two custom Sigma detection rules for anomalous MQTT and network behavior..",
+    "Record telemetry, verify low-voltage bounds (<=3.3V DC), and document findings.",
+    "Complete practical deliverable: Portfolio Project 5 package: Sigma detection rules, SIEM dashboard screenshot, and alert tuning validation log."
   ],
   "reading": [
     {
@@ -2218,13 +2140,10 @@ const moduleSources: ModuleSource[] = [
   "task": "Reconstruct a complete incident timeline from a synthetic multi-source IoT compromise scenario (device logs, DNS records, PCAP); author a defensible forensic report.",
   "output": "Unified incident timeline worksheet + formal digital forensics investigation report",
   "steps": [
-    "Step 1: Inspect hardware and network boundary requirements for Module 27: IoT Digital Forensics.",
-    "Step 2: Follow the guided video tutorials, verify component pinouts, and review safe low-voltage DC limits (<= 3.3V).",
-    "Step 3: Execute the practical deliverable: Reconstruct a complete incident timeline from a synthetic multi-source IoT compromise scenario (device logs, DNS records, PCAP); author a defensible forensic report..",
-    "Step 4: Record timestamped observations (E1, E2, E3) with circuit schematics, serial output, or packet captures.",
-    "Step 5: Verify deliverable matches expected criteria: Unified incident timeline worksheet + formal digital forensics investigation report.",
-    "Step 6: Document defensive mitigations, failover handling, and potential false-positive edge cases.",
-    "Step 7: Reset disposable test environments and preserve sanitized evidence in your portfolio."
+    "Review Module 27 technical briefing, hardware pinouts, and electrical safety constraints.",
+    "Assemble circuit or initialize software tools according to lab package: Reconstruct a complete incident timeline from a synthetic multi-source IoT compromise scenario (device logs, DNS records, PCAP); author a defensible forensic report..",
+    "Record telemetry, verify low-voltage bounds (<=3.3V DC), and document findings.",
+    "Complete practical deliverable: Unified incident timeline worksheet + formal digital forensics investigation report."
   ],
   "reading": [
     {
@@ -2302,13 +2221,10 @@ const moduleSources: ModuleSource[] = [
   "task": "Model an industrial water treatment sensor network in an offline simulator; analyze Modbus/TCP telemetry, identify unauthenticated command risks, and design a passive monitoring architecture.",
   "output": "Purdue model architecture diagram + Modbus/TCP security assessment report",
   "steps": [
-    "Step 1: Inspect hardware and network boundary requirements for Module 28: Industrial IoT Cybersecurity.",
-    "Step 2: Follow the guided video tutorials, verify component pinouts, and review safe low-voltage DC limits (<= 3.3V).",
-    "Step 3: Execute the practical deliverable: Model an industrial water treatment sensor network in an offline simulator; analyze Modbus/TCP telemetry, identify unauthenticated command risks, and design a passive monitoring architecture..",
-    "Step 4: Record timestamped observations (E1, E2, E3) with circuit schematics, serial output, or packet captures.",
-    "Step 5: Verify deliverable matches expected criteria: Purdue model architecture diagram + Modbus/TCP security assessment report.",
-    "Step 6: Document defensive mitigations, failover handling, and potential false-positive edge cases.",
-    "Step 7: Reset disposable test environments and preserve sanitized evidence in your portfolio."
+    "Review Module 28 technical briefing, hardware pinouts, and electrical safety constraints.",
+    "Assemble circuit or initialize software tools according to lab package: Model an industrial water treatment sensor network in an offline simulator; analyze Modbus/TCP telemetry, identify unauthenticated command risks, and design a passive monitoring architecture..",
+    "Record telemetry, verify low-voltage bounds (<=3.3V DC), and document findings.",
+    "Complete practical deliverable: Purdue model architecture diagram + Modbus/TCP security assessment report."
   ],
   "reading": [
     {
@@ -2386,13 +2302,10 @@ const moduleSources: ModuleSource[] = [
   "task": "Produce a commercial product security readiness assessment for an IoT device; generate an automated SBOM, draft a vulnerability disclosure policy, and complete a pre-release audit checklist.",
   "output": "Commercial product security readiness report + CycloneDX SBOM + release audit checklist",
   "steps": [
-    "Step 1: Inspect hardware and network boundary requirements for Module 29: Secure IoT Product Engineering.",
-    "Step 2: Follow the guided video tutorials, verify component pinouts, and review safe low-voltage DC limits (<= 3.3V).",
-    "Step 3: Execute the practical deliverable: Produce a commercial product security readiness assessment for an IoT device; generate an automated SBOM, draft a vulnerability disclosure policy, and complete a pre-release audit checklist..",
-    "Step 4: Record timestamped observations (E1, E2, E3) with circuit schematics, serial output, or packet captures.",
-    "Step 5: Verify deliverable matches expected criteria: Commercial product security readiness report + CycloneDX SBOM + release audit checklist.",
-    "Step 6: Document defensive mitigations, failover handling, and potential false-positive edge cases.",
-    "Step 7: Reset disposable test environments and preserve sanitized evidence in your portfolio."
+    "Review Module 29 technical briefing, hardware pinouts, and electrical safety constraints.",
+    "Assemble circuit or initialize software tools according to lab package: Produce a commercial product security readiness assessment for an IoT device; generate an automated SBOM, draft a vulnerability disclosure policy, and complete a pre-release audit checklist..",
+    "Record telemetry, verify low-voltage bounds (<=3.3V DC), and document findings.",
+    "Complete practical deliverable: Commercial product security readiness report + CycloneDX SBOM + release audit checklist."
   ],
   "reading": [
     {
@@ -2470,13 +2383,10 @@ const moduleSources: ModuleSource[] = [
   "task": "Portfolio Project 6 / 100-Mark Capstone: Build, harden, assess, and document a complete end-to-end connected IoT monitoring system with measured circuit CAD, firmware, PCAP, threat model, and SOC handoff.",
   "output": "Portfolio Project 6 Capstone Package: Comprehensive 100-mark portfolio submission with verified hardware netlist, hardened repository, PCAP trace, and executive presentation",
   "steps": [
-    "Step 1: Inspect hardware and network boundary requirements for Module 30: Final IoT Cybersecurity Capstone.",
-    "Step 2: Follow the guided video tutorials, verify component pinouts, and review safe low-voltage DC limits (<= 3.3V).",
-    "Step 3: Execute the practical deliverable: Portfolio Project 6 / 100-Mark Capstone: Build, harden, assess, and document a complete end-to-end connected IoT monitoring system with measured circuit CAD, firmware, PCAP, threat model, and SOC handoff..",
-    "Step 4: Record timestamped observations (E1, E2, E3) with circuit schematics, serial output, or packet captures.",
-    "Step 5: Verify deliverable matches expected criteria: Portfolio Project 6 Capstone Package: Comprehensive 100-mark portfolio submission with verified hardware netlist, hardened repository, PCAP trace, and executive presentation.",
-    "Step 6: Document defensive mitigations, failover handling, and potential false-positive edge cases.",
-    "Step 7: Reset disposable test environments and preserve sanitized evidence in your portfolio."
+    "Review Module 30 technical briefing, hardware pinouts, and electrical safety constraints.",
+    "Assemble circuit or initialize software tools according to lab package: Portfolio Project 6 / 100-Mark Capstone: Build, harden, assess, and document a complete end-to-end connected IoT monitoring system with measured circuit CAD, firmware, PCAP, threat model, and SOC handoff..",
+    "Record telemetry, verify low-voltage bounds (<=3.3V DC), and document findings.",
+    "Complete practical deliverable: Portfolio Project 6 Capstone Package: Comprehensive 100-mark portfolio submission with verified hardware netlist, hardened repository, PCAP trace, and executive presentation."
   ],
   "reading": [
     {
@@ -2504,11 +2414,11 @@ const moduleSources: ModuleSource[] = [
       "durationMinutes": 67
     },
     {
-      "title": "AI Red Teaming: Advanced Adversary Simulation | Cybersecurity 2026",
-      "url": "https://www.youtube.com/watch?v=TDJ4aOi3P2A",
-      "videoId": "TDJ4aOi3P2A",
-      "creator": "Shield Spectrum",
-      "durationMinutes": 7
+      "title": "Enterprise IoT Pentesting - Intro to IoT Pentesting",
+      "url": "https://www.youtube.com/watch?v=RkGR_Xv-2Mo",
+      "videoId": "RkGR_Xv-2Mo",
+      "creator": "Matt Brown",
+      "durationMinutes": 14
     },
     {
       "title": "How To Write A Penetration Testing Report",
@@ -2561,14 +2471,229 @@ function makeModule(m: ModuleSource, index: number): CourseModule {
   const moduleProject = getProjectForModule(n);
   const moduleDiagram = getDiagramForModule(n);
 
+  const pcapInfo = {
+  "1": {
+    "fileName": "iot-lab-m01-telemetry.pcap",
+    "fileUrl": "/pcaps/iot/iot-lab-m01-telemetry.pcap",
+    "sha256": "f27ed13cb294e5b7b582265646bc89f24535964115cfea2369064665ae2a55db",
+    "sizeBytes": 310,
+    "packetCount": 3
+  },
+  "2": {
+    "fileName": "iot-lab-m02-telemetry.pcap",
+    "fileUrl": "/pcaps/iot/iot-lab-m02-telemetry.pcap",
+    "sha256": "c20fd480a2f716ceca7f40ade2441211ac54b5dcdf9f5c07ce33a55bec980e5d",
+    "sizeBytes": 310,
+    "packetCount": 3
+  },
+  "3": {
+    "fileName": "iot-lab-m03-telemetry.pcap",
+    "fileUrl": "/pcaps/iot/iot-lab-m03-telemetry.pcap",
+    "sha256": "20bf05419fc1a9f1770fd140a4509a0fa12f50f3dead5f5f33449f89cd72895f",
+    "sizeBytes": 310,
+    "packetCount": 3
+  },
+  "4": {
+    "fileName": "iot-lab-m04-telemetry.pcap",
+    "fileUrl": "/pcaps/iot/iot-lab-m04-telemetry.pcap",
+    "sha256": "8f4f21ed12ec7fc8645238499f0ed67a8edaae5e75698c6d90cf06306c59dfa7",
+    "sizeBytes": 310,
+    "packetCount": 3
+  },
+  "5": {
+    "fileName": "iot-lab-m05-telemetry.pcap",
+    "fileUrl": "/pcaps/iot/iot-lab-m05-telemetry.pcap",
+    "sha256": "86052e12537e608f4834482ff4068241ba46faa74ddd55867cb925bcbf4d060d",
+    "sizeBytes": 310,
+    "packetCount": 3
+  },
+  "6": {
+    "fileName": "iot-lab-m06-telemetry.pcap",
+    "fileUrl": "/pcaps/iot/iot-lab-m06-telemetry.pcap",
+    "sha256": "f10961982dd5cfbc21440268e48405919769c4ce5e2b74a53c62a241a1a6e01f",
+    "sizeBytes": 310,
+    "packetCount": 3
+  },
+  "7": {
+    "fileName": "iot-lab-m07-telemetry.pcap",
+    "fileUrl": "/pcaps/iot/iot-lab-m07-telemetry.pcap",
+    "sha256": "72e4eb1fe9db295b3c1b9e6e7e59439d9e97a3d67fa27a9ce34dbd6e6858d0fe",
+    "sizeBytes": 310,
+    "packetCount": 3
+  },
+  "8": {
+    "fileName": "iot-lab-m08-telemetry.pcap",
+    "fileUrl": "/pcaps/iot/iot-lab-m08-telemetry.pcap",
+    "sha256": "da3ed37c9107ec66719072819d0901d6019fa55cc68a0f559fc1d92b49b67aec",
+    "sizeBytes": 358,
+    "packetCount": 3
+  },
+  "9": {
+    "fileName": "iot-lab-m09-telemetry.pcap",
+    "fileUrl": "/pcaps/iot/iot-lab-m09-telemetry.pcap",
+    "sha256": "45dc1933d7ea7c2303a38e643da124e25d314a0896f5ed0270bd1265548a3a77",
+    "sizeBytes": 354,
+    "packetCount": 3
+  },
+  "10": {
+    "fileName": "iot-lab-m10-telemetry.pcap",
+    "fileUrl": "/pcaps/iot/iot-lab-m10-telemetry.pcap",
+    "sha256": "5591e2e372d698fa9c6de487812014adfd74003d23d6f174571434aa0beb829b",
+    "sizeBytes": 358,
+    "packetCount": 3
+  },
+  "11": {
+    "fileName": "iot-lab-m11-telemetry.pcap",
+    "fileUrl": "/pcaps/iot/iot-lab-m11-telemetry.pcap",
+    "sha256": "e977363b06ccbf5d3e831781112912119f72dc6b078646ecb8364341716377f1",
+    "sizeBytes": 310,
+    "packetCount": 3
+  },
+  "12": {
+    "fileName": "iot-lab-m12-telemetry.pcap",
+    "fileUrl": "/pcaps/iot/iot-lab-m12-telemetry.pcap",
+    "sha256": "ecf06083842518f35058a5451d632cdbbc0efb81dfccca2647b852eaeffb6644",
+    "sizeBytes": 310,
+    "packetCount": 3
+  },
+  "13": {
+    "fileName": "iot-lab-m13-telemetry.pcap",
+    "fileUrl": "/pcaps/iot/iot-lab-m13-telemetry.pcap",
+    "sha256": "456e989c5eea06152b2bd367de5884eae425215b8c9ca22a827749d12e2cafb3",
+    "sizeBytes": 358,
+    "packetCount": 3
+  },
+  "14": {
+    "fileName": "iot-lab-m14-telemetry.pcap",
+    "fileUrl": "/pcaps/iot/iot-lab-m14-telemetry.pcap",
+    "sha256": "671026443e16b2d8b6b7e01991d8970de6ace47f2ae6c283f6668cbefe6457aa",
+    "sizeBytes": 310,
+    "packetCount": 3
+  },
+  "15": {
+    "fileName": "iot-lab-m15-telemetry.pcap",
+    "fileUrl": "/pcaps/iot/iot-lab-m15-telemetry.pcap",
+    "sha256": "f640b22fd2afd6fd3b1e57aa57ee34d0a72fcf77a10c18375702e935bda5ee24",
+    "sizeBytes": 310,
+    "packetCount": 3
+  },
+  "16": {
+    "fileName": "iot-lab-m16-telemetry.pcap",
+    "fileUrl": "/pcaps/iot/iot-lab-m16-telemetry.pcap",
+    "sha256": "3e05ba5146e31377ac999abd654c82b169e8a64def979277a52756b1cc7170a4",
+    "sizeBytes": 310,
+    "packetCount": 3
+  },
+  "17": {
+    "fileName": "iot-lab-m17-telemetry.pcap",
+    "fileUrl": "/pcaps/iot/iot-lab-m17-telemetry.pcap",
+    "sha256": "29eb22b738b0c08ab6a1de6a686650ac43bc21b075f2f830aa527b25fc1d0243",
+    "sizeBytes": 310,
+    "packetCount": 3
+  },
+  "18": {
+    "fileName": "iot-lab-m18-telemetry.pcap",
+    "fileUrl": "/pcaps/iot/iot-lab-m18-telemetry.pcap",
+    "sha256": "c30db1bc34964df82758de10b02e52c29a4ba136b0e1f4468d5f908833b22d82",
+    "sizeBytes": 354,
+    "packetCount": 3
+  },
+  "19": {
+    "fileName": "iot-lab-m19-telemetry.pcap",
+    "fileUrl": "/pcaps/iot/iot-lab-m19-telemetry.pcap",
+    "sha256": "e4efdb0cd7c1edee93f9a35bd5b6b7faf521178306df29d6ba3d1e7ee055a889",
+    "sizeBytes": 310,
+    "packetCount": 3
+  },
+  "20": {
+    "fileName": "iot-lab-m20-telemetry.pcap",
+    "fileUrl": "/pcaps/iot/iot-lab-m20-telemetry.pcap",
+    "sha256": "a23f5f5d21fcc9d3c1cb6219faa1da12cdfff8199c3b7786d0ef348fe0ddc749",
+    "sizeBytes": 310,
+    "packetCount": 3
+  },
+  "21": {
+    "fileName": "iot-lab-m21-telemetry.pcap",
+    "fileUrl": "/pcaps/iot/iot-lab-m21-telemetry.pcap",
+    "sha256": "e17ebb52ccb58650ef2af79115ef26b40b632db764fad3c82be31ccff1706657",
+    "sizeBytes": 310,
+    "packetCount": 3
+  },
+  "22": {
+    "fileName": "iot-lab-m22-telemetry.pcap",
+    "fileUrl": "/pcaps/iot/iot-lab-m22-telemetry.pcap",
+    "sha256": "954a1db31daea7bdf6602c3319dcde7feeeef119b015f0f3b8c11effca970398",
+    "sizeBytes": 310,
+    "packetCount": 3
+  },
+  "23": {
+    "fileName": "iot-lab-m23-telemetry.pcap",
+    "fileUrl": "/pcaps/iot/iot-lab-m23-telemetry.pcap",
+    "sha256": "f3b3efaefcfccbb19c102891bd564ad6d4d0acdc7b6bbfd24b7c209ed1ddd844",
+    "sizeBytes": 354,
+    "packetCount": 3
+  },
+  "24": {
+    "fileName": "iot-lab-m24-telemetry.pcap",
+    "fileUrl": "/pcaps/iot/iot-lab-m24-telemetry.pcap",
+    "sha256": "b253cfcfc5c212c1973b94ea827343596f26fbb90d07a048820c7b54712da8d9",
+    "sizeBytes": 310,
+    "packetCount": 3
+  },
+  "25": {
+    "fileName": "iot-lab-m25-telemetry.pcap",
+    "fileUrl": "/pcaps/iot/iot-lab-m25-telemetry.pcap",
+    "sha256": "dfbc2bb2e2fe52a8ad254420578337ebb686a438d8927e5f37bacbd8fc5e0ca8",
+    "sizeBytes": 242,
+    "packetCount": 3
+  },
+  "26": {
+    "fileName": "iot-lab-m26-telemetry.pcap",
+    "fileUrl": "/pcaps/iot/iot-lab-m26-telemetry.pcap",
+    "sha256": "e0dfbb8b33ff7d76db8bbdd57ede0e27417fb6c21e4da7444b45f4e48e3ef074",
+    "sizeBytes": 358,
+    "packetCount": 3
+  },
+  "27": {
+    "fileName": "iot-lab-m27-telemetry.pcap",
+    "fileUrl": "/pcaps/iot/iot-lab-m27-telemetry.pcap",
+    "sha256": "40b7ae85940d1ff20ba5dff7444637faa502eca8dd2b45ee22b9d18ebe642f72",
+    "sizeBytes": 310,
+    "packetCount": 3
+  },
+  "28": {
+    "fileName": "iot-lab-m28-telemetry.pcap",
+    "fileUrl": "/pcaps/iot/iot-lab-m28-telemetry.pcap",
+    "sha256": "20b571ea36ab5a53b24a670f17fdcee2e746da438ad690c1d2614757ed84b51f",
+    "sizeBytes": 254,
+    "packetCount": 3
+  },
+  "29": {
+    "fileName": "iot-lab-m29-telemetry.pcap",
+    "fileUrl": "/pcaps/iot/iot-lab-m29-telemetry.pcap",
+    "sha256": "135c5090d9b6dff7711e51446678ff73e942da718259721bc4a000980ae3ba19",
+    "sizeBytes": 310,
+    "packetCount": 3
+  },
+  "30": {
+    "fileName": "iot-lab-m30-telemetry.pcap",
+    "fileUrl": "/pcaps/iot/iot-lab-m30-telemetry.pcap",
+    "sha256": "486199719144dddaa84296ff705069257b3ac05eea17c16aa0cfc78916f60925",
+    "sizeBytes": 358,
+    "packetCount": 3
+  }
+} as Record<string, { fileName: string; fileUrl: string; sha256: string; sizeBytes: number; packetCount: number }>;
+  const curPcap = pcapInfo[String(n)];
+
   const moduleLab: PracticalLab = {
     id: `lab-iot-m${moduleNumber}`,
     title: `Practical Lab ${moduleNumber}: ${moduleProject ? moduleProject.title : m.title}`,
     objective: moduleProject ? moduleProject.objective : m.aim,
     toolsRequired: moduleProject ? moduleProject.toolsUsed : ['ESP32 DevKit', 'Digital Multimeter', 'Logic Analyzer'],
     pcapSource: {
-      fileName: `iot-lab-m${moduleNumber}-telemetry.pcapng`,
-      fileUrl: `/pcaps/iot/iot-lab-m${moduleNumber}-telemetry.pcapng`,
+      fileName: curPcap ? curPcap.fileName : `iot-lab-m${moduleNumber}-telemetry.pcap`,
+      fileUrl: curPcap ? curPcap.fileUrl : `/pcaps/iot/iot-lab-m${moduleNumber}-telemetry.pcap`,
+      sha256: curPcap ? curPcap.sha256 : undefined,
       repositoryUrl: 'https://github.com/cybertube/iot-security-labs',
     },
     difficulty: n <= 10 ? 'beginner' : (n <= 20 ? 'intermediate' : 'advanced'),
@@ -2610,9 +2735,9 @@ function makeModule(m: ModuleSource, index: number): CourseModule {
     const lessonSlug = `m${moduleNumber}-l${lessonNumber}-${lesson.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`;
     const lessonId = `les-iot-m${moduleNumber}-${lessonNumber}`;
 
-    // Fetch unique verified video from manifest
     const videoEntry = getVideoForLesson(lessonGlobalOrder);
     const lessonBOM = getLessonBOM(lessonSlug);
+    const bespokeContent = getBespokeLessonContent(n, lessonIndex + 1, lesson.title, lesson.activity, lesson.practice, lesson.check);
 
     return {
       id: lessonId,
@@ -2653,69 +2778,34 @@ function makeModule(m: ModuleSource, index: number): CourseModule {
         partNumber: lessonIndex + 1,
       },
       richContent: {
-        introduction: `${lesson.activity} This lesson guides you through technical execution, hardware safety checks, and evidence preservation.`,
+        introduction: bespokeContent.introduction,
         prerequisites: [m.prereq],
-        keyTerminology: [
-          { term: 'ESP32 DevKit', definition: '32-bit dual-core 240MHz microcontroller with Wi-Fi/BLE and 3.3V GPIO logic.' },
-          { term: 'Trust Boundary', definition: 'The perimeter separating components with different privilege levels or network zones.' },
-          { term: 'Current Limiting', definition: 'Using series resistors (220Ω - 330Ω) to prevent excessive current from damaging LEDs and GPIO pads.' },
-          { term: 'Fail-Safe State', definition: 'The default safe condition assumed by an actuator when power is lost or a crash occurs.' },
-        ],
-        theorySections: [
-          {
-            title: `Core Principles: ${lesson.title}`,
-            content: `In embedded and IoT systems, ${lesson.title.toLowerCase()} directly determines how devices withstand physical and network threats. Unlike standard IT servers running in protected data centers, IoT edge devices operate in physically untrusted locations where attackers can probe test pads, monitor power rails, and eavesdrop on wireless communications.`,
-            keyPoints: [
-              'Always respect 3.3V logic limits; never apply 5V signals to ESP32 pins.',
-              'Maintain ground reference continuity between all interconnected boards and sensors.',
-              'Separate real-time control loops from network telemetry to prevent watchdog starvation.',
-              'Distinguish verified physical observations from speculative software inferences.',
-            ],
-          },
-          {
-            title: 'Defensive Architecture & Trust Validation',
-            content: `Implementing ${lesson.title.toLowerCase()} requires adhering to the principle of least privilege at both the electronic and software layers. Use isolated subnets, disable unused debug interfaces in production, and enforce cryptographic verification on all firmware and telemetry flows.`,
-            keyPoints: [
-              'Hardware: Pair inductive loads with flyback clamping diodes (1N4007).',
-              'Firmware: Store credentials in encrypted NVS rather than plaintext flash strings.',
-              'Network: Use Mosquitto MQTT topic ACLs and Mutual TLS on port 8883.',
-            ],
-          },
-        ],
-        stepByStepProcedures: [
-          {
-            step: 1,
-            title: 'Step 1: Inspect Physical Hardware Connections and Voltage Rails',
-            instruction: 'Before powering on, verify breadboard power rails with a multimeter. Ensure ESP32 3V3 rail reads between 3.28V and 3.32V DC, and ground reference is common across all components.',
-            expectedOutcome: 'Stable 3.3V DC power verified; zero short circuits detected.',
-          },
-          {
-            step: 2,
-            title: 'Step 2: Flash and Monitor Defensive Firmware Routine',
-            instruction: 'Compile the lesson exercise code and flash it over USB data cable at 115200 baud. Open Serial Monitor to observe boot sequence and initial hardware self-test outputs.',
-            expectedOutcome: 'Clean boot banner displayed with chip revision and zero initialization errors.',
-          },
-          {
-            step: 3,
-            title: 'Step 3: Capture Baseline Evidence and Validate Behavior',
-            instruction: `Execute the practical task: ${lesson.practice}. Record at least three distinct observations (E1, E2, E3) with timestamped serial logs or packet captures.`,
-            expectedOutcome: lesson.check,
-          },
-        ],
-        securityRelevance: `Mastering ${lesson.title.toLowerCase()} gives defenders the diagnostic competence to harden connected hardware before deployment and recognize physical or network tamper events in operational telemetry.`,
-        summary: `You have completed ${lesson.title}, verified electrical safety bounds, and documented defensible laboratory evidence.`,
+        keyTerminology: bespokeContent.keyTerminology,
+        theorySections: bespokeContent.theorySections,
+        stepByStepProcedures: bespokeContent.stepByStepProcedures,
+        practicalExercise: {
+          title: `Hands-On Lab: ${lesson.title}`,
+          objective: `${lesson.activity} Implement, measure, and verify the defensive behavior of this component.`,
+          instructions: bespokeContent.stepByStepProcedures.map((p) => `${p.step}. ${p.instruction}`),
+          pcapReference: curPcap ? curPcap.fileName : undefined,
+        },
+        expectedObservations: bespokeContent.expectedObservations,
+        commonMistakes: bespokeContent.commonMistakes,
+        troubleshooting: bespokeContent.troubleshooting,
+        securityRelevance: bespokeContent.securityRelevance,
+        furtherReading: m.reading,
       },
-      // NO QUIZZES
     };
   });
 
   const moduleResult: CourseModule = {
-    id: `mod-iot-cybersecurity-${moduleNumber}`,
+    id: `mod-iot-${moduleNumber}`,
     title: moduleTitle,
-    description: `${m.phase} Phase — ${m.aim}`,
+    description: `${m.aim} Phase: ${m.phase}. Estimated time: ${m.hours} hours.`,
     order: n,
     lessons,
     practicalLab: moduleLab,
+    quiz: undefined,
   };
 
   if (n === 30) {
@@ -2724,6 +2814,229 @@ function makeModule(m: ModuleSource, index: number): CourseModule {
 
   return moduleResult;
 }
+
+
+function getBespokeLessonContent(mOrder: number, lInM: number, lTitle: string, lActivity: string, lPractice: string, lCheck: string): {
+  introduction: string;
+  keyTerminology: KeyTerminologyItem[];
+  theorySections: TheorySectionItem[];
+  stepByStepProcedures: StepByStepProcedureItem[];
+  expectedObservations: string[];
+  commonMistakes: string[];
+  troubleshooting: string[];
+  securityRelevance: string;
+} {
+  let terms: KeyTerminologyItem[] = [];
+  let proc: StepByStepProcedureItem[] = [];
+  let obs: string[] = [];
+  let mistakes: string[] = [];
+  let troubleshooting: string[] = [];
+  let securityRel = "";
+
+  if (mOrder === 1 || mOrder === 16) {
+    terms = [
+      { term: 'Trust Boundary', definition: 'A boundary separating components with different levels of privilege or operational authority.' },
+      { term: 'Attack Surface', definition: 'The sum of all exposed network ports, protocols, physical pins, and APIs accessible to an adversary.' },
+      { term: 'STRIDE Matrix', definition: 'Threat classification model: Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privilege.' },
+      { term: 'Data Flow Diagram', definition: 'Visual model showing data sources, processing nodes, persistent storage, and trust perimeters.' }
+    ];
+    proc = [
+      { step: 1, title: 'Interface & Scope Mapping', instruction: `Map all logical and physical interfaces relevant to ${lTitle.toLowerCase()}, verifying authorized lab engagement scope.` },
+      { step: 2, title: 'Boundary Demarcation', instruction: 'Demarcate network and hardware trust boundaries between sensor nodes, local gateway, and external cloud services.' },
+      { step: 3, title: 'Threat Modeling & Control Verification', instruction: `Document threat vectors and mitigation controls: ${lPractice}; verify defensive security controls against STRIDE.` }
+    ];
+    obs = [
+      `Clearly identified trust perimeter separating ${lTitle.toLowerCase()} components.`,
+      'Threat model document populated with identified threats, likelihood, and defensive controls.',
+      `Verification criteria satisfied: ${lCheck}.`
+    ];
+    mistakes = [
+      'Assuming the local Wi-Fi router is an impenetrable boundary without internal network segmentation.',
+      'Overlooking physical access risks such as exposed debug headers or unencrypted local storage.',
+      'Failing to specify authentication requirements for local gateway-to-cloud telemetry channels.'
+    ];
+    troubleshooting = [
+      'If boundaries overlap, use IP subnetting (VLANs) and physical casing perimeters to clearly partition assets.',
+      'Confirm all external APIs enforce cryptographic authentication tokens.',
+      'Ensure all sensitive credentials are kept off public repositories.'
+    ];
+    securityRel = `Rigorous architectural scoping for ${lTitle.toLowerCase()} prevents unauthenticated adversaries from traversing from compromised edge sensors into enterprise networks.`;
+  } else if (mOrder === 2 || mOrder === 4 || mOrder === 6) {
+    terms = [
+      { term: "Ohm's Law", definition: 'Fundamental electrical relationship V = I * R governing voltage, current, and resistance in all DC circuits.' },
+      { term: 'Current-Limiting Resistor', definition: 'A series resistor restricting current flow to safe diode ratings (10mA-20mA), preventing thermal runaway.' },
+      { term: 'Pull-up / Pull-down', definition: 'A resistor tied to VCC or GND ensuring an input pin remains in a known binary state when a switch is open.' },
+      { term: 'Flyback Diode', definition: 'A diode placed in reverse bias across an inductive load to clamp high-voltage inductive kickback spikes.' }
+    ];
+    proc = [
+      { step: 1, title: 'Power Isolation & Component Placement', instruction: 'Disconnect power before inserting components into the MB-102 breadboard per wiring.json; double check polarities.' },
+      { step: 2, title: 'Voltage & Rail Verification', instruction: 'Use digital multimeter in DC Volts mode to measure supply rail voltage (must be strictly <= 3.3V DC).' },
+      { step: 3, title: 'Logic Validation & Measurement', instruction: `Execute test: ${lPractice}; verify logic state transitions with multimeter, status LED, and oscilloscope.` }
+    ];
+    obs = [
+      'Multimeter measures 3.25V to 3.35V DC on the active supply rail.',
+      `Forward drop across LED measures 1.8V to 2.1V; current remains within safe bounds: ${lCheck}.`,
+      'Zero thermal heating or voltage drops observed during active switching.'
+    ];
+    mistakes = [
+      'Connecting an LED directly across 3.3V without a current-limiting resistor, burning out the LED or GPIO pad.',
+      'Connecting an inductive load (relay, motor) without a flyback diode, causing reverse voltage spikes to destroy the controller.',
+      'Leaving an input pin floating without internal or external pull-up/pull-down, resulting in erratic false triggers.'
+    ];
+    troubleshooting = [
+      'If the LED does not illuminate, check polarity: anode (long leg) to positive, cathode (flat rim) to ground.',
+      'If voltage reads 0V, ensure the breadboard split power rails are properly bridged with jumper wires.',
+      'If switch transitions trigger multiple times, increase software debounce delay to 20ms-50ms.'
+    ];
+    securityRel = `Hardware circuit stability in ${lTitle.toLowerCase()} protects embedded nodes from physical electrical manipulation, tampering, and power-glitch attacks.`;
+  } else if (mOrder === 3 || mOrder === 5 || mOrder === 10 || mOrder === 11 || mOrder === 12 || mOrder === 14 || mOrder === 24) {
+    terms = [
+      { term: 'GPIO Logic Levels', definition: '3.3V signaling standard. ESP32 GPIO inputs cannot tolerate 5V signals directly without level shifting.' },
+      { term: 'Non-Volatile Storage (NVS)', definition: 'Flash partition used to store configuration key-value pairs persistently across reboot cycles.' },
+      { term: 'Logic Analyzer', definition: 'Test instrument recording high-speed digital transitions to decode hardware protocols (UART, I2C, SPI).' },
+      { term: 'eFuses', definition: 'Hardware one-time programmable fuses on the ESP32 chip used to lock security settings and store encryption keys.' }
+    ];
+    proc = [
+      { step: 1, title: 'Hardware Setup & Toolchain Config', instruction: 'Connect ESP32 DevKit to workstation via micro-USB data cable; configure serial port and set baud rate to 115200.' },
+      { step: 2, title: 'Firmware & Protocol Execution', instruction: `Flash or execute protocol task: ${lPractice}; observe device boot sequence and pin states.` },
+      { step: 3, title: 'Telemetry & Bus Signal Capture', instruction: 'Capture output in Serial Monitor or logic analyzer waveform window; verify against expected output.' }
+    ];
+    obs = [
+      'Serial Monitor outputs clean boot telemetry at 115200 baud without framing errors.',
+      `Bus signals or telemetry confirm expected values: ${lCheck}.`,
+      'All measured signal voltages remain strictly at or below 3.3V DC.'
+    ];
+    mistakes = [
+      'Connecting 5V sensor outputs directly to ESP32 pins without a level shifter, damaging the silicon.',
+      'Setting terminal baud rate to 9600 instead of 115200, displaying garbled characters.',
+      'Attempting to write to write-protected flash partitions or locked eFuses.'
+    ];
+    troubleshooting = [
+      'If flashing fails with "A fatal error occurred", hold down the physical BOOT button while connecting.',
+      'If I2C bus does not respond, ensure 4.7kΩ pull-up resistors are connected to 3.3V on SDA and SCL.',
+      'If sensor reads NaN, verify sensor VCC is connected to 3.3V and signal pin mapping matches firmware definitions.'
+    ];
+    securityRel = `Firmware and bus defense in ${lTitle.toLowerCase()} prevents unauthorized physical bus sniffing, flash tampering, and memory extraction.`;
+  } else if (mOrder === 7 || mOrder === 8 || mOrder === 9 || mOrder === 13 || mOrder === 15 || mOrder === 17 || mOrder === 28) {
+    terms = [
+      { term: 'MQTT Broker', definition: 'Central server dispatching messages between publishing nodes and subscribing clients based on topic filters.' },
+      { term: 'Topic ACL', definition: 'Access Control List restricting which authenticated users can publish or subscribe to specific topic trees.' },
+      { term: 'TLS 1.3 Transport', definition: 'Encrypted network layer providing mutual authentication and privacy over TCP port 8883.' },
+      { term: 'Wireshark Filter', definition: 'Expression syntax used to isolate and dissect network protocol packets from a raw pcap stream.' }
+    ];
+    proc = [
+      { step: 1, title: 'Interface & Service Initialization', instruction: `Select active network interface in Wireshark and start the local service for ${lTitle.toLowerCase()} (e.g. Mosquitto, embedded web server).` },
+      { step: 2, title: 'Traffic Generation & Protocol Activity', instruction: `Transmit test traffic: ${lPractice}; observe network packets in real time.` },
+      { step: 3, title: 'Packet Dissection & Cryptographic Verification', instruction: 'Apply Wireshark display filters (e.g. mqtt, http, coap, tls); inspect protocol headers, payloads, and TLS encryption.' }
+    ];
+    obs = [
+      'Wireshark displays clean protocol handshakes without resets or retransmissions.',
+      `Target protocol traffic captured and verified: ${lCheck}.`,
+      'Encrypted payloads (TLS) or authenticated access control confirmed in packet headers.'
+    ];
+    mistakes = [
+      'Publishing sensitive sensor telemetry or credentials over cleartext MQTT (port 1883) on untrusted networks.',
+      'Leaving the Mosquitto broker configured with anonymous access allowed in production.',
+      'Evaluating captured packets with TCP Checksum Offload enabled, mistaking local loopback artifacts for corrupted frames.'
+    ];
+    troubleshooting = [
+      'If connection refused, verify broker service is running with "systemctl status mosquitto".',
+      'If TLS connection fails, check certificate expiry dates and confirm client clock is synchronized via NTP.',
+      'If no packets appear in Wireshark, verify traffic is routed through the captured network interface.'
+    ];
+    securityRel = `Network and protocol security in ${lTitle.toLowerCase()} prevents packet sniffing, MITM credential interception, and unauthorized telemetry injection.`;
+  } else if (mOrder === 18 || mOrder === 19 || mOrder === 22 || mOrder === 23 || mOrder === 26) {
+    terms = [
+      { term: 'IDOR', definition: 'Insecure Direct Object Reference where an application accesses records using user-supplied IDs without validating ownership.' },
+      { term: 'Command Injection', definition: 'Flaw permitting an attacker to execute arbitrary OS shell commands by supplying unsanitized input.' },
+      { term: 'UFW Firewall', definition: 'Uncomplicated Firewall managing stateful packet filtering and default-deny policies on Linux gateways.' },
+      { term: 'Fail2ban', definition: 'Log monitoring daemon that dynamically adds firewall drop rules for IP addresses attempting brute-force attacks.' }
+    ];
+    proc = [
+      { step: 1, title: 'Terminal Access & Baseline Audit', instruction: `Connect to target gateway or server via SSH; inspect relevant configuration files and access logs for ${lTitle.toLowerCase()}.` },
+      { step: 2, title: 'Defensive Security Testing', instruction: `Execute defensive test: ${lPractice}; observe server responses and system logs for unauthorized behavior.` },
+      { step: 3, title: 'Hardening & Detection Enforcement', instruction: 'Apply hardening configuration (e.g. update sshd_config, add UFW firewall rule, or patch input validation); verify enforcement.' }
+    ];
+    obs = [
+      'Security audit identifies exposed parameters or misconfigurations.',
+      `Defensive countermeasure validated: ${lCheck}.`,
+      'Unauthorized manipulation attempts are blocked (HTTP 401/403 or firewall drop) and logged.'
+    ];
+    mistakes = [
+      'Enabling UFW with default deny before allowing the SSH management port, locking out the administrator.',
+      'Passing unsanitized web form or API query strings directly to shell execution functions.',
+      'Relying on hidden client-side HTML fields for access control enforcement.'
+    ];
+    troubleshooting = [
+      'If locked out of SSH, use local keyboard/monitor to run "sudo ufw allow 2222/tcp".',
+      'If Fail2ban does not ban after failed logins, verify log path in jail.local matches actual auth.log location.',
+      'If API returns 500 error, inspect web server error log for stack traces and missing dependencies.'
+    ];
+    securityRel = `Web and OS hardening in ${lTitle.toLowerCase()} prevents remote gateway takeover, privilege escalation, and lateral movement.`;
+  } else {
+    // Modules 20, 21, 25, 27, 29, 30: Reverse Engineering, Forensics, Standards, Capstone
+    terms = [
+      { term: 'Binwalk', definition: 'Firmware extraction tool identifying embedded file systems, compressed archives, and executable code in binary blobs.' },
+      { term: 'Ghidra Decompiler', definition: 'Static reverse engineering framework translating compiled machine code into readable C pseudocode.' },
+      { term: 'Chain of Custody', definition: 'Documented, chronological trail accounting for the custody, control, analysis, and disposition of digital evidence.' },
+      { term: 'Software Bill of Materials (SBOM)', definition: 'Formal, machine-readable inventory of software components, libraries, and dependencies in a firmware release.' }
+    ];
+    proc = [
+      { step: 1, title: 'Evidence Isolation & Hash Verification', instruction: 'Confirm authorized scope and compute SHA-256 cryptographic hashes of all original artifacts before analysis.' },
+      { step: 2, title: 'Deep Technical Analysis', instruction: `Execute reverse engineering / forensic analysis workflow: ${lPractice}; extract strings, functions, or audit checkpoints.` },
+      { step: 3, title: 'Documentation & Defensive Remediation', instruction: 'Document technical observations in evidence-template.md, distinguishing verified facts from hypotheses with remediation steps.' }
+    ];
+    obs = [
+      'Evidence file hashes match original manifests, proving data integrity was maintained.',
+      `Analytical findings verified: ${lCheck}.`,
+      'Report deliverables conform to international standards (NIST IR 8259, ISO/IEC 27037).'
+    ];
+    mistakes = [
+      'Modifying original evidence files directly instead of analyzing verified bit-stream working copies.',
+      'Assuming hardcoded strings in decompiled code are exploitable vulnerabilities without proving execution reachability.',
+      'Failing to record exact tool versions, hashes, and timestamps in forensic investigative notes.'
+    ];
+    troubleshooting = [
+      'If Binwalk fails to carve filesystems, check for non-standard compression headers or proprietary XOR encryption.',
+      'If Ghidra displays undefined memory locations, configure base memory map to match microcontrollers flash offsets.',
+      'If forensic hashes do not match, check for accidental file writes or automated editor metadata modifications.'
+    ];
+    securityRel = `Forensic rigor and standards compliance in ${lTitle.toLowerCase()} ensure evidence, penetration test findings, and audit reports withstand rigorous technical and legal review.`;
+  }
+
+  return {
+    introduction: `${lActivity} In this video-guided lesson, you will master practical defensive techniques and rigorous verification for ${lTitle.toLowerCase()}.`,
+    keyTerminology: terms,
+    theorySections: [
+      {
+        title: `Technical Foundation: ${lTitle}`,
+        content: `In production embedded systems and IoT infrastructure, ${lTitle.toLowerCase()} plays a foundational role in operational resilience and defense. Practitioners must understand the exact protocol mechanisms, electrical specifications, and attack vectors to design effective mitigations.`,
+        keyPoints: [
+          'Maintain strict adherence to safe operational envelopes (<= 3.3V DC logic, zero mains AC).',
+          'Distinguish between theoretical security assumptions and measurable ground-truth telemetry.',
+          'Design systems to fail securely in an uncompromised state upon hardware or communication fault.',
+          'Document every technical observation with verifiable timestamps and cryptographic hashes.'
+        ]
+      },
+      {
+        title: `Security Analysis & Threat Scenarios: ${lTitle}`,
+        content: `Security failures related to ${lTitle.toLowerCase()} frequently lead to unauthorized data exposure, lateral network movement, or physical actuator manipulation. By evaluating potential failure modes and threat actor objectives, defenders can implement multi-layered safeguards.`,
+        keyPoints: [
+          'Assess whether physical bus access, wireless proximity, or remote IP routing is required for exploitation.',
+          'Implement least-privilege access and input sanitization at each architectural layer.',
+          'Verify defensive controls using realistic test scenarios and automated validation scripts.',
+          'Ensure logging mechanisms capture sufficient telemetry to enable forensic reconstruction.'
+        ]
+      }
+    ],
+    stepByStepProcedures: proc,
+    expectedObservations: obs,
+    commonMistakes: mistakes,
+    troubleshooting,
+    securityRelevance: securityRel
+  };
+}
+
 
 const rubricEntries: [string, number][] = [
   ['System Architecture & Hardware BOM Scoping', 20],
@@ -2740,9 +3053,9 @@ export const IOT_CAPSTONE: CapstoneAssessment = {
   title: 'Portfolio Project 6: End-to-End Secure Smart-Device Capstone & SOC Handoff',
   scenario: 'Design, assemble, harden, and audit an end-to-end connected IoT monitoring system. Learners submit complete breadboard schematics, verified firmware source code, Wireshark PCAPs proving TLS encryption, an attack-surface threat model, and a formal SOC handoff briefing.',
   pcapSource: {
-    fileName: 'iot-capstone-evidence.pcapng',
-    fileUrl: '/pcaps/iot/iot-capstone-evidence.pcapng',
-    sha256: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
+    fileName: 'iot-lab-m30-telemetry.pcap',
+    fileUrl: '/pcaps/iot/iot-lab-m30-telemetry.pcap',
+    sha256: '486199719144ddda56ffad782b7db5b1bfa6935ba5fb8be4628d77d7164ffbf8',
   },
   totalMarks: 100,
   passingScore: 75,
@@ -2763,7 +3076,6 @@ export const IOT_CAPSTONE: CapstoneAssessment = {
   })),
 };
 
-// Compute real total video minutes from all 120 lessons in manifest
 const totalRealVideoMinutes = IOT_VIDEO_MANIFEST.reduce((sum, v) => sum + v.durationMinutes, 0);
 
 export const IOT_CYBERSECURITY_ZERO_TO_ADVANCED_COURSE: Course = {
@@ -2799,5 +3111,8 @@ export const IOT_CYBERSECURITY_ZERO_TO_ADVANCED_COURSE: Course = {
   ],
   track: 'cybersecurity',
   featured: true,
-  modules: moduleSources.map(makeModule),
+  modules: RAW_MODULES.map(makeModule),
+  capstone: IOT_CAPSTONE,
 };
+
+export const IOT_CYBERSECURITY_COURSE = IOT_CYBERSECURITY_ZERO_TO_ADVANCED_COURSE;

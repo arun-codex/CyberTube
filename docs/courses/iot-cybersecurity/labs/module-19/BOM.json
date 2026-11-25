@@ -1,0 +1,14 @@
+{
+  "module": 19,
+  "title": "Raspberry Pi Linux Gateway Hardening (SSH, UFW, Fail2ban)",
+  "components": [
+    {
+      "itemNumber": 1,
+      "description": "Raspberry Pi 4 / Linux Gateway VM",
+      "quantity": 1,
+      "operatingVoltage": "3.3V DC (or 5V USB regulated)",
+      "safetyLimit": "<= 3.3V on GPIO pins",
+      "sourceType": "Hardware component / lab gear"
+    }
+  ]
+}

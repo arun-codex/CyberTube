@@ -1,0 +1,14 @@
+{
+  "module": 16,
+  "title": "STRIDE Threat Modeling & DFD Security Matrix for Smart Room",
+  "components": [
+    {
+      "itemNumber": 1,
+      "description": "Workstation",
+      "quantity": 1,
+      "operatingVoltage": "3.3V DC (or 5V USB regulated)",
+      "safetyLimit": "<= 3.3V on GPIO pins",
+      "sourceType": "Hardware component / lab gear"
+    }
+  ]
+}

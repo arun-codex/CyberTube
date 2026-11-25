@@ -1,0 +1,38 @@
+{
+  "module": 5,
+  "title": "Calibrated DHT22 / BME280 Environmental Telemetry & Tamper Filtering",
+  "components": [
+    {
+      "itemNumber": 1,
+      "description": "ESP32 DevKit",
+      "quantity": 1,
+      "operatingVoltage": "3.3V DC (or 5V USB regulated)",
+      "safetyLimit": "<= 3.3V on GPIO pins",
+      "sourceType": "Hardware component / lab gear"
+    },
+    {
+      "itemNumber": 2,
+      "description": "BME280 I2C Sensor (or DHT22)",
+      "quantity": 1,
+      "operatingVoltage": "3.3V DC (or 5V USB regulated)",
+      "safetyLimit": "<= 3.3V on GPIO pins",
+      "sourceType": "Hardware component / lab gear"
+    },
+    {
+      "itemNumber": 3,
+      "description": "4.7k\u03a9 I2C Pull-up Resistors",
+      "quantity": 1,
+      "operatingVoltage": "3.3V DC (or 5V USB regulated)",
+      "safetyLimit": "<= 3.3V on GPIO pins",
+      "sourceType": "Hardware component / lab gear"
+    },
+    {
+      "itemNumber": 4,
+      "description": "Breadboard",
+      "quantity": 1,
+      "operatingVoltage": "3.3V DC (or 5V USB regulated)",
+      "safetyLimit": "<= 3.3V on GPIO pins",
+      "sourceType": "Hardware component / lab gear"
+    }
+  ]
+}

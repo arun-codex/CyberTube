@@ -1,0 +1,30 @@
+{
+  "module": 1,
+  "title": "Smart-Room Connected Architecture & Threat Boundary Diagram",
+  "components": [
+    {
+      "itemNumber": 1,
+      "description": "ESP32 DevKit V1 (30-pin)",
+      "quantity": 1,
+      "operatingVoltage": "3.3V DC (or 5V USB regulated)",
+      "safetyLimit": "<= 3.3V on GPIO pins",
+      "sourceType": "Hardware component / lab gear"
+    },
+    {
+      "itemNumber": 2,
+      "description": "USB Data Cable",
+      "quantity": 1,
+      "operatingVoltage": "3.3V DC (or 5V USB regulated)",
+      "safetyLimit": "<= 3.3V on GPIO pins",
+      "sourceType": "Hardware component / lab gear"
+    },
+    {
+      "itemNumber": 3,
+      "description": "Laptop Workstation",
+      "quantity": 1,
+      "operatingVoltage": "3.3V DC (or 5V USB regulated)",
+      "safetyLimit": "<= 3.3V on GPIO pins",
+      "sourceType": "Hardware component / lab gear"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "module": 18,
+  "title": "Embedded Web Interface Command Injection & Broken Access (IDOR) Testing",
+  "components": [
+    {
+      "itemNumber": 1,
+      "description": "ESP32 Web Server Node",
+      "quantity": 1,
+      "operatingVoltage": "3.3V DC (or 5V USB regulated)",
+      "safetyLimit": "<= 3.3V on GPIO pins",
+      "sourceType": "Hardware component / lab gear"
+    }
+  ]
+}

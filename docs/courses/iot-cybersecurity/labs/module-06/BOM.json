@@ -1,0 +1,46 @@
+{
+  "module": 6,
+  "title": "2N2222 / N-Channel MOSFET Actuator Driver with Flyback Diode",
+  "components": [
+    {
+      "itemNumber": 1,
+      "description": "ESP32 DevKit",
+      "quantity": 1,
+      "operatingVoltage": "3.3V DC (or 5V USB regulated)",
+      "safetyLimit": "<= 3.3V on GPIO pins",
+      "sourceType": "Hardware component / lab gear"
+    },
+    {
+      "itemNumber": 2,
+      "description": "2N2222 NPN BJT (or 2N7000 MOSFET)",
+      "quantity": 1,
+      "operatingVoltage": "3.3V DC (or 5V USB regulated)",
+      "safetyLimit": "<= 3.3V on GPIO pins",
+      "sourceType": "Hardware component / lab gear"
+    },
+    {
+      "itemNumber": 3,
+      "description": "1k\u03a9 Base Resistor",
+      "quantity": 1,
+      "operatingVoltage": "3.3V DC (or 5V USB regulated)",
+      "safetyLimit": "<= 3.3V on GPIO pins",
+      "sourceType": "Hardware component / lab gear"
+    },
+    {
+      "itemNumber": 4,
+      "description": "1N4001 Flyback Diode",
+      "quantity": 1,
+      "operatingVoltage": "3.3V DC (or 5V USB regulated)",
+      "safetyLimit": "<= 3.3V on GPIO pins",
+      "sourceType": "Hardware component / lab gear"
+    },
+    {
+      "itemNumber": 5,
+      "description": "5V DC Buzzer / Fan (external power with common GND)",
+      "quantity": 1,
+      "operatingVoltage": "3.3V DC (or 5V USB regulated)",
+      "safetyLimit": "<= 3.3V on GPIO pins",
+      "sourceType": "Hardware component / lab gear"
+    }
+  ]
+}

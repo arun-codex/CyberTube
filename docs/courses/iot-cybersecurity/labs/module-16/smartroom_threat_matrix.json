@@ -1,0 +1,47 @@
+{
+  "systemName": "CyberTube Smart-Room IoT Prototype",
+  "threats": [
+    {
+      "id": "T1_SPOOFING",
+      "category": "Spoofing",
+      "target": "MQTT Broker",
+      "description": "Attacker connects with forged client ID to impersonate sensor node.",
+      "mitigation": "Enforce username/password or X.509 client certificate authentication."
+    },
+    {
+      "id": "T2_TAMPERING",
+      "category": "Tampering",
+      "target": "DHT22 / BME280 Bus",
+      "description": "Attacker clamps test leads to I2C lines to inject false temperature telemetry.",
+      "mitigation": "Physical tamper enclosure and data anomaly filtering in firmware."
+    },
+    {
+      "id": "T3_REPUDIATION",
+      "category": "Repudiation",
+      "target": "Actuator Commands",
+      "description": "User denies issuing emergency fan cutoff command.",
+      "mitigation": "Cryptographic command signing and immutable append-only syslog logging."
+    },
+    {
+      "id": "T4_INFO_DISCLOSURE",
+      "category": "Information Disclosure",
+      "target": "Wi-Fi Airwaves",
+      "description": "Cleartext MQTT/HTTP leaks room occupancy status.",
+      "mitigation": "Enforce TLS 1.3 / MQTTS on port 8883."
+    },
+    {
+      "id": "T5_DOS",
+      "category": "Denial of Service",
+      "target": "ESP32 IP Stack",
+      "description": "TCP SYN flood exhausts ESP32 lwIP socket descriptors.",
+      "mitigation": "Limit concurrent connections and rate-limit ingress packets at gateway."
+    },
+    {
+      "id": "T6_ELEVATION",
+      "category": "Elevation of Privilege",
+      "target": "OTA Update Endpoint",
+      "description": "Malicious unsigned binary flashed over OTA.",
+      "mitigation": "Dual-slot OTA with RSA-3072 / ECDSA digital signature verification before flashing."
+    }
+  ]
+}

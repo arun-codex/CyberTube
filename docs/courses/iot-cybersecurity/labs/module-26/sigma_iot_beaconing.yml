@@ -1,0 +1,26 @@
+title: Suspicious IoT Gateway Periodic External C2 Beaconing
+id: a874f631-54b2-4d51-9e23-74b8f01b3126
+status: production
+description: Detects an internal IoT sensor node communicating with high regularity to an external IP on non-standard ports.
+references:
+    - https://attack.mitre.org/techniques/T1071/
+author: CyberTube Open Threat Intelligence Faculty
+date: 2026-11-25
+logsource:
+    category: network_connection
+    product: zeek
+detection:
+    selection:
+        src_ip|startswith: '192.168.1.'
+        dest_port:
+            - 4444
+            - 1337
+            - 6667
+            - 48101
+    condition: selection
+falsepositives:
+    - Authorized remote management tunnels configured by systems engineering.
+level: high
+tags:
+    - attack.command_and_control
+    - attack.t1071

@@ -1,0 +1,50 @@
+{
+  "module": 2,
+  "title": "Benchtop LED & Switch Circuit with Multimeter Voltage Verification",
+  "maxVoltageDC": 3.3,
+  "commonGroundRequired": true,
+  "connections": [
+    {
+      "from": "ESP32_3V3",
+      "to": "BREADBOARD_VCC_RAIL",
+      "color": "RED",
+      "signal": "3.3V_POWER"
+    },
+    {
+      "from": "ESP32_GND",
+      "to": "BREADBOARD_GND_RAIL",
+      "color": "BLACK",
+      "signal": "GROUND"
+    },
+    {
+      "from": "ESP32_GPIO02",
+      "to": "RESISTOR_220R_PIN1",
+      "color": "YELLOW",
+      "signal": "STATUS_LED"
+    },
+    {
+      "from": "RESISTOR_220R_PIN2",
+      "to": "LED_ANODE",
+      "color": "YELLOW",
+      "signal": "CURRENT_LIMITED_LED"
+    },
+    {
+      "from": "LED_CATHODE",
+      "to": "BREADBOARD_GND_RAIL",
+      "color": "BLACK",
+      "signal": "GROUND"
+    },
+    {
+      "from": "ESP32_GPIO04",
+      "to": "PUSHBUTTON_PIN1",
+      "color": "BLUE",
+      "signal": "BUTTON_INPUT"
+    },
+    {
+      "from": "PUSHBUTTON_PIN2",
+      "to": "BREADBOARD_VCC_RAIL",
+      "color": "RED",
+      "signal": "PULL_UP"
+    }
+  ]
+}

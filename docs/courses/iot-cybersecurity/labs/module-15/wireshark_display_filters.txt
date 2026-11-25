@@ -1,0 +1,20 @@
+# CyberTube Module 15: Wireshark Display Filters for IoT
+# Display filters for baseline telemetry and anomaly detection
+
+# 1. Isolate MQTT traffic
+mqtt
+
+# 2. Isolate MQTT CONNECT and PUBLISH messages only
+mqtt.msgtype == 1 || mqtt.msgtype == 3
+
+# 3. Detect unencrypted HTTP GET / POST from embedded nodes
+http.request && ip.addr == 192.168.1.0/24
+
+# 4. Filter for CoAP messages
+coap
+
+# 5. Detect DNS requests to external resolvers bypassing local gateway
+dns && !ip.dst == 192.168.1.1
+
+# 6. Detect anomalous TCP RST or SYN scans
+tcp.flags.reset == 1 || (tcp.flags.syn == 1 && tcp.flags.ack == 0)

@@ -1,0 +1,22 @@
+{
+  "module": 28,
+  "title": "Industrial Modbus/TCP Telemetry Security & OT Protocol Analysis",
+  "components": [
+    {
+      "itemNumber": 1,
+      "description": "ESP32 Modbus/TCP Bridge Node",
+      "quantity": 1,
+      "operatingVoltage": "3.3V DC (or 5V USB regulated)",
+      "safetyLimit": "<= 3.3V on GPIO pins",
+      "sourceType": "Hardware component / lab gear"
+    },
+    {
+      "itemNumber": 2,
+      "description": "Workstation",
+      "quantity": 1,
+      "operatingVoltage": "3.3V DC (or 5V USB regulated)",
+      "safetyLimit": "<= 3.3V on GPIO pins",
+      "sourceType": "Hardware component / lab gear"
+    }
+  ]
+}

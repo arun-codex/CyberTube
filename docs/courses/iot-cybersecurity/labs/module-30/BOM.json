@@ -1,0 +1,14 @@
+{
+  "module": 30,
+  "title": "Capstone \u2014 Enterprise IoT Security Architecture & Penetration Testing",
+  "components": [
+    {
+      "itemNumber": 1,
+      "description": "Fully Integrated IoT Multi-Sensor Node, Gateway, and Broker Enclave",
+      "quantity": 1,
+      "operatingVoltage": "3.3V DC (or 5V USB regulated)",
+      "safetyLimit": "<= 3.3V on GPIO pins",
+      "sourceType": "Hardware component / lab gear"
+    }
+  ]
+}

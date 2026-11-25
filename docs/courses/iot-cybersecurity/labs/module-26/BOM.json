@@ -1,0 +1,22 @@
+{
+  "module": 26,
+  "title": "Wazuh SIEM Telemetry Ingestion & Custom Sigma IoT Detection Rules",
+  "components": [
+    {
+      "itemNumber": 1,
+      "description": "Linux Gateway / SIEM Server",
+      "quantity": 1,
+      "operatingVoltage": "3.3V DC (or 5V USB regulated)",
+      "safetyLimit": "<= 3.3V on GPIO pins",
+      "sourceType": "Hardware component / lab gear"
+    },
+    {
+      "itemNumber": 2,
+      "description": "ESP32 Sensor Nodes",
+      "quantity": 1,
+      "operatingVoltage": "3.3V DC (or 5V USB regulated)",
+      "safetyLimit": "<= 3.3V on GPIO pins",
+      "sourceType": "Hardware component / lab gear"
+    }
+  ]
+}

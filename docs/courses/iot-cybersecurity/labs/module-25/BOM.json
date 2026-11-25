@@ -1,0 +1,14 @@
+{
+  "module": 25,
+  "title": "Milestone 4 \u2014 Mirai Botnet Attack Chain Forensics & Telemetry Triage",
+  "components": [
+    {
+      "itemNumber": 1,
+      "description": "Isolated Lab Subnet",
+      "quantity": 1,
+      "operatingVoltage": "3.3V DC (or 5V USB regulated)",
+      "safetyLimit": "<= 3.3V on GPIO pins",
+      "sourceType": "Hardware component / lab gear"
+    }
+  ]
+}

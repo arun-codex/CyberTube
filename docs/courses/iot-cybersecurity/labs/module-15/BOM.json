@@ -1,0 +1,22 @@
+{
+  "module": 15,
+  "title": "Milestone 2 \u2014 Wireshark IoT Telemetry Baseline & Anomaly Hunter",
+  "components": [
+    {
+      "itemNumber": 1,
+      "description": "Isolated Test Network",
+      "quantity": 1,
+      "operatingVoltage": "3.3V DC (or 5V USB regulated)",
+      "safetyLimit": "<= 3.3V on GPIO pins",
+      "sourceType": "Hardware component / lab gear"
+    },
+    {
+      "itemNumber": 2,
+      "description": "ESP32 Sensor Node",
+      "quantity": 1,
+      "operatingVoltage": "3.3V DC (or 5V USB regulated)",
+      "safetyLimit": "<= 3.3V on GPIO pins",
+      "sourceType": "Hardware component / lab gear"
+    }
+  ]
+}

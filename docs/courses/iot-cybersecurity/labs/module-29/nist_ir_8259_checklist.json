@@ -1,0 +1,42 @@
+{
+  "standard": "NIST IR 8259A / EN 303 645 Core IoT Capabilities",
+  "evaluationDate": "2026-11-25",
+  "capabilities": [
+    {
+      "id": "CAP-1-DEVICE-IDENTITY",
+      "title": "Device Identification",
+      "status": "COMPLIANT",
+      "evidence": "Unique MAC address and burned SHA-256 device certificate in eFuse."
+    },
+    {
+      "id": "CAP-2-CONFIGURATION",
+      "title": "Device Configuration",
+      "status": "COMPLIANT",
+      "evidence": "Protected NVS encrypted partition for local configuration items."
+    },
+    {
+      "id": "CAP-3-DATA-PROTECTION",
+      "title": "Data Protection",
+      "status": "COMPLIANT",
+      "evidence": "TLS 1.3 encryption on external MQTT telemetry, zero cleartext passwords."
+    },
+    {
+      "id": "CAP-4-INTERFACE-ACCESS",
+      "title": "Logical Interface Access",
+      "status": "COMPLIANT",
+      "evidence": "Authentication required on all REST API and MQTT endpoints."
+    },
+    {
+      "id": "CAP-5-SOFTWARE-UPDATE",
+      "title": "Software Update",
+      "status": "COMPLIANT",
+      "evidence": "Dual-slot OTA with cryptographic signature validation before boot."
+    },
+    {
+      "id": "CAP-6-CYBER-AWARENESS",
+      "title": "Cybersecurity State Awareness",
+      "status": "COMPLIANT",
+      "evidence": "Firmware records boot reasons, fault interrupts, and auth failure counts."
+    }
+  ]
+}

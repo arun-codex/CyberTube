@@ -1,0 +1,20 @@
+{
+  "module": 17,
+  "title": "BLE Beacon Auditing, GATT Attribute Probing & Zigbee Analysis",
+  "maxVoltageDC": 3.3,
+  "commonGroundRequired": true,
+  "connections": [
+    {
+      "from": "ESP32_3V3",
+      "to": "BREADBOARD_VCC_RAIL",
+      "color": "RED",
+      "signal": "3.3V_POWER"
+    },
+    {
+      "from": "ESP32_GND",
+      "to": "BREADBOARD_GND_RAIL",
+      "color": "BLACK",
+      "signal": "GROUND"
+    }
+  ]
+}

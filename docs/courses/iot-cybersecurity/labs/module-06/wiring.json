@@ -1,0 +1,50 @@
+{
+  "module": 6,
+  "title": "2N2222 / N-Channel MOSFET Actuator Driver with Flyback Diode",
+  "maxVoltageDC": 3.3,
+  "commonGroundRequired": true,
+  "connections": [
+    {
+      "from": "ESP32_3V3",
+      "to": "BREADBOARD_VCC_RAIL",
+      "color": "RED",
+      "signal": "3.3V_POWER"
+    },
+    {
+      "from": "ESP32_GND",
+      "to": "BREADBOARD_GND_RAIL",
+      "color": "BLACK",
+      "signal": "GROUND"
+    },
+    {
+      "from": "ESP32_GPIO25",
+      "to": "BASE_RESISTOR_1K",
+      "color": "YELLOW",
+      "signal": "PWM_GATE_DRIVE"
+    },
+    {
+      "from": "BASE_RESISTOR_1K",
+      "to": "2N2222_BASE",
+      "color": "YELLOW",
+      "signal": "BASE_CURRENT"
+    },
+    {
+      "from": "2N2222_EMITTER",
+      "to": "BREADBOARD_GND_RAIL",
+      "color": "BLACK",
+      "signal": "GROUND"
+    },
+    {
+      "from": "2N2222_COLLECTOR",
+      "to": "LOAD_CATHODE",
+      "color": "BLUE",
+      "signal": "SWITCHED_LOW_SIDE"
+    },
+    {
+      "from": "LOAD_ANODE",
+      "to": "FLYBACK_DIODE_CATHODE",
+      "color": "RED",
+      "signal": "CLAMPED_RAIL"
+    }
+  ]
+}

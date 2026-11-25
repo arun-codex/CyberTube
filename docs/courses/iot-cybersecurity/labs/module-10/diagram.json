@@ -1,0 +1,20 @@
+{
+  "module": 10,
+  "diagramConfigId": "diagram-m10",
+  "title": "Milestone 1 \u2014 Integrated Smart-Room Monitoring Prototype",
+  "svgCategory": "hardware",
+  "testPoints": [
+    {
+      "id": "TP1_VCC",
+      "label": "3.3V Power Rail",
+      "expectedDC": 3.3,
+      "tolerance": 0.1
+    },
+    {
+      "id": "TP2_GND",
+      "label": "Ground Reference",
+      "expectedDC": 0.0,
+      "tolerance": 0.05
+    }
+  ]
+}

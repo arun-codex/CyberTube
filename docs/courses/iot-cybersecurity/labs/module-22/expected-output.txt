@@ -1,0 +1,10 @@
+=================================================
+[CYBERTUBE] Module 22 Practical Lab Firmware Loaded
+[CYBERTUBE] Target: ESP32 DevKit V1 (Xtensa Dual-Core)
+[CYBERTUBE] Logic Voltage: 3.3V DC Verified
+[CYBERTUBE] Chip Revision: 1
+[CYBERTUBE] MAC Address: 24:0A:C4:12:34:56
+=================================================
+[TELEMETRY] Uptime(ms)=2000 | SensorState=0 | VCC=3.30V | Module=22 | Integrity=OK
+[TELEMETRY] Uptime(ms)=4000 | SensorState=0 | VCC=3.30V | Module=22 | Integrity=OK
+[TELEMETRY] Uptime(ms)=6000 | SensorState=1 | VCC=3.30V | Module=22 | Integrity=OK

@@ -1,0 +1,14 @@
+{
+  "module": 14,
+  "title": "Cryptographically Signed Dual-Slot OTA Update & Rollback Protection",
+  "components": [
+    {
+      "itemNumber": 1,
+      "description": "ESP32 DevKit (4MB Flash minimum)",
+      "quantity": 1,
+      "operatingVoltage": "3.3V DC (or 5V USB regulated)",
+      "safetyLimit": "<= 3.3V on GPIO pins",
+      "sourceType": "Hardware component / lab gear"
+    }
+  ]
+}

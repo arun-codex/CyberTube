@@ -1,0 +1,4 @@
+# CyberTube Module 25: Suricata Detection Rules for Mirai C2 & Telnet Brute Force
+alert tcp any any -> 192.168.1.0/24 23 (msg:"CYBERTUBE IOT Mirai Inbound Telnet Brute Force Attempt"; flow:to_server,established; content:"admin"; depth:16; sid:2026101; rev:1;)
+alert tcp any any -> 192.168.1.0/24 23 (msg:"CYBERTUBE IOT Mirai Default Credential 7ujMko0vizxv"; flow:to_server,established; content:"7ujMko0vizxv"; sid:2026102; rev:1;)
+alert tcp 192.168.1.0/24 any -> any 48101 (msg:"CYBERTUBE IOT Mirai Scanner C2 Check-in Port 48101"; flow:to_server; flags:S; threshold:type both, track by_src, count 5, seconds 10; sid:2026103; rev:1;)

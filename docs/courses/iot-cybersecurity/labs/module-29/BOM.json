@@ -1,0 +1,14 @@
+{
+  "module": 29,
+  "title": "Milestone 5 \u2014 NIST IR 8259 Compliance & CRA Pre-Production Audit",
+  "components": [
+    {
+      "itemNumber": 1,
+      "description": "Complete Smart-Room Prototype",
+      "quantity": 1,
+      "operatingVoltage": "3.3V DC (or 5V USB regulated)",
+      "safetyLimit": "<= 3.3V on GPIO pins",
+      "sourceType": "Hardware component / lab gear"
+    }
+  ]
+}
