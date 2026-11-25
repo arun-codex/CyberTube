@@ -1,20 +1,78 @@
 {
-  "module": 6,
-  "diagramConfigId": "diagram-m06",
-  "title": "2N2222 / N-Channel MOSFET Actuator Driver with Flyback Diode",
-  "svgCategory": "hardware",
-  "testPoints": [
+  "version": 1,
+  "author": "CyberTube Open Learning Consortium",
+  "editor": "wokwi",
+  "parts": [
     {
-      "id": "TP1_VCC",
-      "label": "3.3V Power Rail",
-      "expectedDC": 3.3,
-      "tolerance": 0.1
+      "type": "board-esp32-devkit-c-v4",
+      "id": "esp",
+      "top": 0,
+      "left": 0,
+      "attrs": {}
     },
     {
-      "id": "TP2_GND",
-      "label": "Ground Reference",
-      "expectedDC": 0.0,
-      "tolerance": 0.05
+      "type": "wokwi-led",
+      "id": "led_relay",
+      "top": -40,
+      "left": 80,
+      "attrs": {
+        "color": "orange"
+      }
+    },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btn_fault",
+      "top": 100,
+      "left": 80,
+      "attrs": {
+        "color": "red"
+      }
     }
+  ],
+  "connections": [
+    [
+      "esp:TX",
+      "$serialMonitor:RX",
+      "",
+      []
+    ],
+    [
+      "esp:RX",
+      "$serialMonitor:TX",
+      "",
+      []
+    ],
+    [
+      "esp:5",
+      "led_relay:A",
+      "orange",
+      [
+        "v0"
+      ]
+    ],
+    [
+      "led_relay:C",
+      "esp:GND.1",
+      "black",
+      [
+        "v0"
+      ]
+    ],
+    [
+      "esp:4",
+      "btn_fault:2.1",
+      "red",
+      [
+        "v0"
+      ]
+    ],
+    [
+      "btn_fault:1.1",
+      "esp:GND.1",
+      "black",
+      [
+        "v0"
+      ]
+    ]
   ]
 }

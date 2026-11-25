@@ -1,20 +1,109 @@
 {
-  "module": 10,
-  "diagramConfigId": "diagram-m10",
-  "title": "Milestone 1 \u2014 Integrated Smart-Room Monitoring Prototype",
-  "svgCategory": "hardware",
-  "testPoints": [
+  "version": 1,
+  "author": "CyberTube Open Learning Consortium",
+  "editor": "wokwi",
+  "parts": [
     {
-      "id": "TP1_VCC",
-      "label": "3.3V Power Rail",
-      "expectedDC": 3.3,
-      "tolerance": 0.1
+      "type": "board-esp32-devkit-c-v4",
+      "id": "esp",
+      "top": 0,
+      "left": 0,
+      "attrs": {}
     },
     {
-      "id": "TP2_GND",
-      "label": "Ground Reference",
-      "expectedDC": 0.0,
-      "tolerance": 0.05
+      "type": "wokwi-dht22",
+      "id": "dht",
+      "top": -80,
+      "left": 100,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "tamper",
+      "top": 120,
+      "left": 100,
+      "attrs": {
+        "color": "red"
+      }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led_stat",
+      "top": -30,
+      "left": -80,
+      "attrs": {
+        "color": "green"
+      }
     }
+  ],
+  "connections": [
+    [
+      "esp:TX",
+      "$serialMonitor:RX",
+      "",
+      []
+    ],
+    [
+      "esp:RX",
+      "$serialMonitor:TX",
+      "",
+      []
+    ],
+    [
+      "dht:VCC",
+      "esp:3V3",
+      "red",
+      [
+        "v0"
+      ]
+    ],
+    [
+      "dht:GND",
+      "esp:GND.1",
+      "black",
+      [
+        "v0"
+      ]
+    ],
+    [
+      "dht:SDA",
+      "esp:4",
+      "gold",
+      [
+        "v0"
+      ]
+    ],
+    [
+      "esp:14",
+      "tamper:2.1",
+      "red",
+      [
+        "v0"
+      ]
+    ],
+    [
+      "tamper:1.1",
+      "esp:GND.1",
+      "black",
+      [
+        "v0"
+      ]
+    ],
+    [
+      "esp:2",
+      "led_stat:A",
+      "green",
+      [
+        "v0"
+      ]
+    ],
+    [
+      "led_stat:C",
+      "esp:GND.1",
+      "black",
+      [
+        "v0"
+      ]
+    ]
   ]
 }

@@ -1,54 +1,98 @@
-// CyberTube Lab 05 Firmware: Calibrated DHT22 / BME280 Environmental Telemetry & Tamper Filtering
+// CyberTube Lab 05: IoT Sensors & Telemetry Data Integrity Verification
 // Target: ESP32 DevKit V1 (ESP-WROOM-32)
 // Safety Invariant: Strictly <= 3.3V DC logic bounds. Zero mains AC.
 
 #include <Arduino.h>
+#include <DHT.h>
 
-#define STATUS_LED_PIN 2
-#define INPUT_SENSOR_PIN 4
-#define BAUD_RATE 115200
+#define DHTPIN 4
+#define DHTTYPE DHT22
+#define ANALOG_LDR_PIN 34
+#define ALARM_LED_PIN 2
 
-unsigned long lastTelemetryTime = 0;
-const unsigned long TELEMETRY_INTERVAL_MS = 2000;
-uint32_t bootCount = 1;
+DHT dht(DHTPIN, DHTTYPE);
+
+unsigned long lastSensorRead = 0;
+const unsigned long READ_INTERVAL_MS = 2000;
+uint32_t packetSequence = 0;
 
 void setup() {
-  Serial.begin(BAUD_RATE);
-  while (!Serial && millis() < 3000); // Wait for serial connection
-  
-  pinMode(STATUS_LED_PIN, OUTPUT);
-  pinMode(INPUT_SENSOR_PIN, INPUT_PULLDOWN);
-  
-  digitalWrite(STATUS_LED_PIN, HIGH);
-  delay(100);
-  digitalWrite(STATUS_LED_PIN, LOW);
-  
-  Serial.println("=================================================");
-  Serial.println("[CYBERTUBE] Module 05 Practical Lab Firmware Loaded");
-  Serial.println("[CYBERTUBE] Target: ESP32 DevKit V1 (Xtensa Dual-Core)");
-  Serial.println("[CYBERTUBE] Logic Voltage: 3.3V DC Verified");
-  Serial.print("[CYBERTUBE] Chip Revision: ");
-  Serial.println(ESP.getChipRevision());
-  Serial.print("[CYBERTUBE] MAC Address: ");
-  Serial.println(WiFi.macAddress());
-  Serial.println("=================================================");
+  Serial.begin(115200);
+  while (!Serial && millis() < 3000);
+
+  pinMode(ALARM_LED_PIN, OUTPUT);
+  digitalWrite(ALARM_LED_PIN, LOW);
+
+  analogReadResolution(12);
+  analogSetAttenuation(ADC_11db);
+
+  dht.begin();
+
+  Serial.println("==================================================");
+  Serial.println("[CYBERTUBE] Lab 05: Sensor Telemetry & Range Integrity");
+  Serial.println("[SENSORS] DHT22 (Digital Temp/Humidity on GPIO 4)");
+  Serial.println("[SENSORS] LDR Analog Sensor (ADC1 CH6 on GPIO 34)");
+  Serial.println("==================================================");
 }
 
 void loop() {
   unsigned long now = millis();
-  
-  // Non-blocking telemetry loop
-  if (now - lastTelemetryTime >= TELEMETRY_INTERVAL_MS) {
-    lastTelemetryTime = now;
-    
-    int rawInput = digitalRead(INPUT_SENSOR_PIN);
-    digitalWrite(STATUS_LED_PIN, rawInput ? HIGH : LOW);
-    
-    Serial.print("[TELEMETRY] Uptime(ms)=");
-    Serial.print(now);
-    Serial.print(" | SensorState=");
-    Serial.print(rawInput);
-    Serial.print(" | VCC=3.30V | Module=05");
-    Serial.println(" | Integrity=OK");
+
+  if (now - lastSensorRead >= READ_INTERVAL_MS) {
+    lastSensorRead = now;
+    packetSequence++;
+
+    // 1. Read Digital Sensor
+    float humidity = dht.readHumidity();
+    float temperature = dht.readTemperature();
+
+    // 2. Read and average analog sensor (16 samples)
+    uint32_t ldrSum = 0;
+    for (int i = 0; i < 16; i++) {
+      ldrSum += analogRead(ANALOG_LDR_PIN);
+      delayMicroseconds(50);
+    }
+    uint32_t rawLdr = ldrSum / 16;
+    float ldrVoltage = (rawLdr * 3.3f) / 4095.0f;
+
+    // 3. Telemetry Sanity and Anomaly Checks
+    bool dhtValid = !isnan(humidity) && !isnan(temperature);
+    bool tempInRange = dhtValid && (temperature >= -20.0f && temperature <= 60.0f);
+    bool humInRange = dhtValid && (humidity >= 0.0f && humidity <= 100.0f);
+    bool ldrInRange = (rawLdr >= 0 && rawLdr <= 4095);
+
+    bool integrityPass = dhtValid && tempInRange && humInRange && ldrInRange;
+    digitalWrite(ALARM_LED_PIN, integrityPass ? LOW : HIGH);
+
+    Serial.print("[TELEMETRY] Seq=");
+    Serial.print(packetSequence);
+    Serial.print(" | Temp=");
+    if (dhtValid) {
+      Serial.print(temperature, 1);
+      Serial.print("C");
+    } else {
+      Serial.print("SENSOR_FAIL");
+    }
+
+    Serial.print(" | Humidity=");
+    if (dhtValid) {
+      Serial.print(humidity, 1);
+      Serial.print("%");
+    } else {
+      Serial.print("SENSOR_FAIL");
+    }
+
+    Serial.print(" | LightADC=");
+    Serial.print(rawLdr);
+    Serial.print(" (");
+    Serial.print(ldrVoltage, 2);
+    Serial.print("V)");
+
+    Serial.print(" | Integrity=");
+    if (integrityPass) {
+      Serial.println("VALID");
+    } else {
+      Serial.println("ANOMALY_DETECTED");
+    }
   }
 }

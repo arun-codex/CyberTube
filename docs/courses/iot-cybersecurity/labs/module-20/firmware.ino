@@ -1,54 +1,24 @@
-// CyberTube Lab 20 Firmware: Milestone 3 — SPI Flash Extraction, Binwalk Carving & Hash Verification
+// CyberTube Lab 20: Production Flash Target for Extraction & Reverse Engineering
 // Target: ESP32 DevKit V1 (ESP-WROOM-32)
 // Safety Invariant: Strictly <= 3.3V DC logic bounds. Zero mains AC.
 
 #include <Arduino.h>
 
-#define STATUS_LED_PIN 2
-#define INPUT_SENSOR_PIN 4
-#define BAUD_RATE 115200
-
-unsigned long lastTelemetryTime = 0;
-const unsigned long TELEMETRY_INTERVAL_MS = 2000;
-uint32_t bootCount = 1;
+const char* FW_VERSION = "2.4.1-apex-embedded-release";
+const char* BUILD_HASH = "d41d8cd98f00b204e9800998ecf8427e";
+const char* HARDCODED_FLAG_FOR_REVERSING = "FLAG{ESP32_FLASH_EXTRACT_SUCCESS_2026}";
 
 void setup() {
-  Serial.begin(BAUD_RATE);
-  while (!Serial && millis() < 3000); // Wait for serial connection
-  
-  pinMode(STATUS_LED_PIN, OUTPUT);
-  pinMode(INPUT_SENSOR_PIN, INPUT_PULLDOWN);
-  
-  digitalWrite(STATUS_LED_PIN, HIGH);
-  delay(100);
-  digitalWrite(STATUS_LED_PIN, LOW);
-  
-  Serial.println("=================================================");
-  Serial.println("[CYBERTUBE] Module 20 Practical Lab Firmware Loaded");
-  Serial.println("[CYBERTUBE] Target: ESP32 DevKit V1 (Xtensa Dual-Core)");
-  Serial.println("[CYBERTUBE] Logic Voltage: 3.3V DC Verified");
-  Serial.print("[CYBERTUBE] Chip Revision: ");
-  Serial.println(ESP.getChipRevision());
-  Serial.print("[CYBERTUBE] MAC Address: ");
-  Serial.println(WiFi.macAddress());
-  Serial.println("=================================================");
+  Serial.begin(115200);
+  while (!Serial && millis() < 3000);
+
+  Serial.println("==================================================");
+  Serial.println("[CYBERTUBE] Lab 20: Target Binary for Flash Extraction");
+  Serial.printf("[METADATA] Firmware: %s | Hash: %s\n", FW_VERSION, BUILD_HASH);
+  Serial.println("==================================================");
 }
 
 void loop() {
-  unsigned long now = millis();
-  
-  // Non-blocking telemetry loop
-  if (now - lastTelemetryTime >= TELEMETRY_INTERVAL_MS) {
-    lastTelemetryTime = now;
-    
-    int rawInput = digitalRead(INPUT_SENSOR_PIN);
-    digitalWrite(STATUS_LED_PIN, rawInput ? HIGH : LOW);
-    
-    Serial.print("[TELEMETRY] Uptime(ms)=");
-    Serial.print(now);
-    Serial.print(" | SensorState=");
-    Serial.print(rawInput);
-    Serial.print(" | VCC=3.30V | Module=20");
-    Serial.println(" | Integrity=OK");
-  }
+  delay(5000);
+  Serial.println("[RUNTIME] System operating normal. Flash ready for esptool.py dump.");
 }

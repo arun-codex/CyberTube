@@ -1,54 +1,93 @@
-// CyberTube Lab 09 Firmware: Protected Embedded HTTP Endpoint with Token Authentication & Rate Limiting
+// CyberTube Lab 09: Embedded REST API & HTTP Access Control
 // Target: ESP32 DevKit V1 (ESP-WROOM-32)
 // Safety Invariant: Strictly <= 3.3V DC logic bounds. Zero mains AC.
 
 #include <Arduino.h>
+#include <WiFi.h>
+#include <WebServer.h>
 
-#define STATUS_LED_PIN 2
-#define INPUT_SENSOR_PIN 4
-#define BAUD_RATE 115200
+const char* WIFI_SSID = "Wokwi-GUEST";
+const char* WIFI_PASS = "";
+const char* API_KEY = "apex-iot-auth-token-2026"; // Enforced on write endpoints
 
-unsigned long lastTelemetryTime = 0;
-const unsigned long TELEMETRY_INTERVAL_MS = 2000;
-uint32_t bootCount = 1;
+const int STATUS_LED_PIN = 2;
+bool actuatorState = false;
+
+WebServer server(80);
+
+bool isAuthorized() {
+  if (server.hasHeader("X-API-Key")) {
+    String token = server.header("X-API-Key");
+    return token.equals(API_KEY);
+  }
+  return false;
+}
+
+void handleRoot() {
+  server.send(200, "text/plain", "CyberTube Lab 09: Embedded REST Server Online\nEndpoints: GET /api/telemetry, POST /api/actuator");
+}
+
+void handleGetTelemetry() {
+  char jsonBuffer[128];
+  snprintf(jsonBuffer, sizeof(jsonBuffer),
+           "{\"uptime_sec\":%lu,\"actuator_state\":%s,\"free_heap\":%u}",
+           millis() / 1000, actuatorState ? "true" : "false", ESP.getFreeHeap());
+  server.send(200, "application/json", jsonBuffer);
+}
+
+void handlePostActuator() {
+  if (!isAuthorized()) {
+    server.send(401, "application/json", "{\"error\":\"Unauthorized: Missing or invalid X-API-Key\"}");
+    return;
+  }
+
+  if (!server.hasArg("state")) {
+    server.send(400, "application/json", "{\"error\":\"Bad Request: 'state' parameter required (0 or 1)\"}");
+    return;
+  }
+
+  String requestedState = server.arg("state");
+  // Strict input sanitization (reject buffer injection or unexpected chars)
+  if (requestedState == "1" || requestedState == "true") {
+    actuatorState = true;
+  } else if (requestedState == "0" || requestedState == "false") {
+    actuatorState = false;
+  } else {
+    server.send(422, "application/json", "{\"error\":\"Unprocessable Entity: Invalid state value\"}");
+    return;
+  }
+
+  digitalWrite(STATUS_LED_PIN, actuatorState ? HIGH : LOW);
+  Serial.print("[API-SET] Actuator state updated via authenticated REST call: ");
+  Serial.println(actuatorState ? "ON" : "OFF");
+
+  server.send(200, "application/json", actuatorState ? "{\"actuator\":\"ON\"}" : "{\"actuator\":\"OFF\"}");
+}
 
 void setup() {
-  Serial.begin(BAUD_RATE);
-  while (!Serial && millis() < 3000); // Wait for serial connection
-  
+  Serial.begin(115200);
+  while (!Serial && millis() < 3000);
+
   pinMode(STATUS_LED_PIN, OUTPUT);
-  pinMode(INPUT_SENSOR_PIN, INPUT_PULLDOWN);
-  
-  digitalWrite(STATUS_LED_PIN, HIGH);
-  delay(100);
   digitalWrite(STATUS_LED_PIN, LOW);
-  
-  Serial.println("=================================================");
-  Serial.println("[CYBERTUBE] Module 09 Practical Lab Firmware Loaded");
-  Serial.println("[CYBERTUBE] Target: ESP32 DevKit V1 (Xtensa Dual-Core)");
-  Serial.println("[CYBERTUBE] Logic Voltage: 3.3V DC Verified");
-  Serial.print("[CYBERTUBE] Chip Revision: ");
-  Serial.println(ESP.getChipRevision());
-  Serial.print("[CYBERTUBE] MAC Address: ");
-  Serial.println(WiFi.macAddress());
-  Serial.println("=================================================");
+
+  WiFi.mode(WIFI_STA);
+  WiFi.begin(WIFI_SSID, WIFI_PASS);
+
+  server.on("/", HTTP_GET, handleRoot);
+  server.on("/api/telemetry", HTTP_GET, handleGetTelemetry);
+  server.on("/api/actuator", HTTP_POST, handlePostActuator);
+
+  // Collect custom headers
+  const char* headerKeys[] = {"X-API-Key"};
+  server.collectHeaders(headerKeys, 1);
+
+  server.begin();
+  Serial.println("==================================================");
+  Serial.println("[CYBERTUBE] Lab 09: Embedded REST API Started on port 80");
+  Serial.println("==================================================");
 }
 
 void loop() {
-  unsigned long now = millis();
-  
-  // Non-blocking telemetry loop
-  if (now - lastTelemetryTime >= TELEMETRY_INTERVAL_MS) {
-    lastTelemetryTime = now;
-    
-    int rawInput = digitalRead(INPUT_SENSOR_PIN);
-    digitalWrite(STATUS_LED_PIN, rawInput ? HIGH : LOW);
-    
-    Serial.print("[TELEMETRY] Uptime(ms)=");
-    Serial.print(now);
-    Serial.print(" | SensorState=");
-    Serial.print(rawInput);
-    Serial.print(" | VCC=3.30V | Module=09");
-    Serial.println(" | Integrity=OK");
-  }
+  server.handleClient();
 }

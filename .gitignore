@@ -40,7 +40,10 @@ tmp/
 *.pdf
 
 
-# Private study source archives and validation artifacts
+# Local tooling & temporary sketches
+tools/
+scripts/__pycache__/
+*.txt
 *.zip
 data/repaired_pdfs/
 __pycache__/

@@ -1,54 +1,77 @@
-// CyberTube Lab 07 Firmware: WLAN Station Hardening, Static IP & Port Minimization
+// CyberTube Lab 07: ESP32 Wi-Fi Station Networking & Telemetry Baseline
 // Target: ESP32 DevKit V1 (ESP-WROOM-32)
 // Safety Invariant: Strictly <= 3.3V DC logic bounds. Zero mains AC.
 
 #include <Arduino.h>
+#include <WiFi.h>
 
-#define STATUS_LED_PIN 2
-#define INPUT_SENSOR_PIN 4
-#define BAUD_RATE 115200
+// Authorized isolated lab Wi-Fi credentials
+const char* WIFI_SSID = "Wokwi-GUEST"; // Standard Wokwi simulation Wi-Fi SSID
+const char* WIFI_PASS = "";
 
-unsigned long lastTelemetryTime = 0;
-const unsigned long TELEMETRY_INTERVAL_MS = 2000;
-uint32_t bootCount = 1;
+unsigned long lastNetStatus = 0;
+const unsigned long STATUS_INTERVAL_MS = 3000;
+
+void onWiFiEvent(WiFiEvent_t event) {
+  switch (event) {
+    case ARDUINO_EVENT_WIFI_STA_START:
+      Serial.println("[WIFI-EVENT] Station Interface Started");
+      break;
+    case ARDUINO_EVENT_WIFI_STA_CONNECTED:
+      Serial.println("[WIFI-EVENT] Connected to Access Point");
+      break;
+    case ARDUINO_EVENT_WIFI_STA_GOT_IP:
+      Serial.print("[WIFI-EVENT] IP Address Acquired: ");
+      Serial.println(WiFi.localIP());
+      break;
+    case ARDUINO_EVENT_WIFI_STA_DISCONNECTED:
+      Serial.println("[WIFI-EVENT] Disconnected from Access Point, Reconnecting...");
+      WiFi.begin(WIFI_SSID, WIFI_PASS);
+      break;
+    default:
+      break;
+  }
+}
 
 void setup() {
-  Serial.begin(BAUD_RATE);
-  while (!Serial && millis() < 3000); // Wait for serial connection
-  
-  pinMode(STATUS_LED_PIN, OUTPUT);
-  pinMode(INPUT_SENSOR_PIN, INPUT_PULLDOWN);
-  
-  digitalWrite(STATUS_LED_PIN, HIGH);
+  Serial.begin(115200);
+  while (!Serial && millis() < 3000);
+
+  Serial.println("==================================================");
+  Serial.println("[CYBERTUBE] Lab 07: Wi-Fi Stack & IP Diagnostics");
+  Serial.println("==================================================");
+
+  WiFi.disconnect(true);
   delay(100);
-  digitalWrite(STATUS_LED_PIN, LOW);
-  
-  Serial.println("=================================================");
-  Serial.println("[CYBERTUBE] Module 07 Practical Lab Firmware Loaded");
-  Serial.println("[CYBERTUBE] Target: ESP32 DevKit V1 (Xtensa Dual-Core)");
-  Serial.println("[CYBERTUBE] Logic Voltage: 3.3V DC Verified");
-  Serial.print("[CYBERTUBE] Chip Revision: ");
-  Serial.println(ESP.getChipRevision());
-  Serial.print("[CYBERTUBE] MAC Address: ");
-  Serial.println(WiFi.macAddress());
-  Serial.println("=================================================");
+
+  WiFi.onEvent(onWiFiEvent);
+  WiFi.mode(WIFI_STA);
+  Serial.print("[NET] Connecting to SSID: ");
+  Serial.println(WIFI_SSID);
+
+  WiFi.begin(WIFI_SSID, WIFI_PASS);
 }
 
 void loop() {
   unsigned long now = millis();
-  
-  // Non-blocking telemetry loop
-  if (now - lastTelemetryTime >= TELEMETRY_INTERVAL_MS) {
-    lastTelemetryTime = now;
-    
-    int rawInput = digitalRead(INPUT_SENSOR_PIN);
-    digitalWrite(STATUS_LED_PIN, rawInput ? HIGH : LOW);
-    
-    Serial.print("[TELEMETRY] Uptime(ms)=");
-    Serial.print(now);
-    Serial.print(" | SensorState=");
-    Serial.print(rawInput);
-    Serial.print(" | VCC=3.30V | Module=07");
-    Serial.println(" | Integrity=OK");
+
+  if (now - lastNetStatus >= STATUS_INTERVAL_MS) {
+    lastNetStatus = now;
+
+    if (WiFi.status() == WL_CONNECTED) {
+      Serial.print("[NET-STATUS] IP: ");
+      Serial.print(WiFi.localIP());
+      Serial.print(" | Subnet: ");
+      Serial.print(WiFi.subnetMask());
+      Serial.print(" | Gateway: ");
+      Serial.print(WiFi.gatewayIP());
+      Serial.print(" | DNS: ");
+      Serial.print(WiFi.dnsIP());
+      Serial.print(" | RSSI: ");
+      Serial.print(WiFi.RSSI());
+      Serial.println(" dBm");
+    } else {
+      Serial.println("[NET-STATUS] Wi-Fi Status: CONNECTING...");
+    }
   }
 }

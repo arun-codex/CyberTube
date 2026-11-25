@@ -1,0 +1,253 @@
+{
+  "total_modules_checked": 30,
+  "successfully_compiled": 30,
+  "failed": 0,
+  "results": {
+    "module-01": {
+      "module": "module-01",
+      "status": "COMPILED",
+      "exit_code": 0,
+      "flash_usage": "292317 bytes (22%)",
+      "ram_usage": "23208 bytes (7%)"
+    },
+    "module-02": {
+      "module": "module-02",
+      "status": "COMPILED",
+      "exit_code": 0,
+      "flash_usage": "300697 bytes (22%)",
+      "ram_usage": "23304 bytes (7%)"
+    },
+    "module-03": {
+      "module": "module-03",
+      "status": "COMPILED",
+      "exit_code": 0,
+      "flash_usage": "293637 bytes (22%)",
+      "ram_usage": "23216 bytes (7%)"
+    },
+    "module-04": {
+      "module": "module-04",
+      "status": "COMPILED",
+      "exit_code": 0,
+      "flash_usage": "294393 bytes (22%)",
+      "ram_usage": "23728 bytes (7%)"
+    },
+    "module-05": {
+      "module": "module-05",
+      "status": "COMPILED",
+      "exit_code": 0,
+      "flash_usage": "302529 bytes (23%)",
+      "ram_usage": "23328 bytes (7%)"
+    },
+    "module-06": {
+      "module": "module-06",
+      "status": "COMPILED",
+      "exit_code": 0,
+      "flash_usage": "292097 bytes (22%)",
+      "ram_usage": "23216 bytes (7%)"
+    },
+    "module-07": {
+      "module": "module-07",
+      "status": "COMPILED",
+      "exit_code": 0,
+      "flash_usage": "946441 bytes (72%)",
+      "ram_usage": "48648 bytes (14%)"
+    },
+    "module-08": {
+      "module": "module-08",
+      "status": "COMPILED",
+      "exit_code": 0,
+      "flash_usage": "964649 bytes (73%)",
+      "ram_usage": "50088 bytes (15%)"
+    },
+    "module-09": {
+      "module": "module-09",
+      "status": "COMPILED",
+      "exit_code": 0,
+      "flash_usage": "992809 bytes (75%)",
+      "ram_usage": "50304 bytes (15%)"
+    },
+    "module-10": {
+      "module": "module-10",
+      "status": "COMPILED",
+      "exit_code": 0,
+      "flash_usage": "965749 bytes (73%)",
+      "ram_usage": "50080 bytes (15%)"
+    },
+    "module-11": {
+      "module": "module-11",
+      "status": "COMPILED",
+      "exit_code": 0,
+      "flash_usage": "318641 bytes (24%)",
+      "ram_usage": "24696 bytes (7%)"
+    },
+    "module-12": {
+      "module": "module-12",
+      "status": "COMPILED",
+      "exit_code": 0,
+      "flash_usage": "302341 bytes (23%)",
+      "ram_usage": "23280 bytes (7%)"
+    },
+    "module-13": {
+      "module": "module-13",
+      "status": "COMPILED",
+      "exit_code": 0,
+      "flash_usage": "1066423 bytes (81%)",
+      "ram_usage": "50532 bytes (15%)"
+    },
+    "module-14": {
+      "module": "module-14",
+      "status": "COMPILED",
+      "exit_code": 0,
+      "flash_usage": "1021444 bytes (77%)",
+      "ram_usage": "54540 bytes (16%)"
+    },
+    "module-15": {
+      "module": "module-15",
+      "status": "COMPILED",
+      "exit_code": 0,
+      "flash_usage": "301960 bytes (23%)",
+      "ram_usage": "23480 bytes (7%)"
+    },
+    "module-16": {
+      "module": "module-16",
+      "status": "COMPILED",
+      "exit_code": 0,
+      "flash_usage": "949261 bytes (72%)",
+      "ram_usage": "48640 bytes (14%)"
+    },
+    "module-17": {
+      "module": "module-17",
+      "status": "COMPILED",
+      "exit_code": 0,
+      "flash_bytes": 1128117,
+      "flash_percent": "86%",
+      "ram_bytes": 42400,
+      "ram_percent": "12%",
+      "flash_usage": "1128117 bytes (86%)",
+      "ram_usage": "42400 bytes (12%)",
+      "compiler_output": "Sketch uses 1128117 bytes (86%) of program storage space. Maximum is 1310720 bytes.\nGlobal variables use 42400 bytes (12%) of dynamic memory, leaving 285280 bytes for local variables. Maximum is 327680 bytes.\n",
+      "compiler_errors": ""
+    },
+    "module-18": {
+      "module": "module-18",
+      "status": "COMPILED",
+      "exit_code": 0,
+      "flash_usage": "291729 bytes (22%)",
+      "ram_usage": "23208 bytes (7%)"
+    },
+    "module-19": {
+      "module": "module-19",
+      "status": "COMPILED",
+      "exit_code": 0,
+      "flash_usage": "291661 bytes (22%)",
+      "ram_usage": "23208 bytes (7%)"
+    },
+    "module-20": {
+      "module": "module-20",
+      "status": "COMPILED",
+      "exit_code": 0,
+      "flash_usage": "288961 bytes (22%)",
+      "ram_usage": "23224 bytes (7%)"
+    },
+    "module-21": {
+      "module": "module-21",
+      "status": "COMPILED",
+      "exit_code": 0,
+      "flash_usage": "300073 bytes (22%)",
+      "ram_usage": "23232 bytes (7%)"
+    },
+    "module-22": {
+      "module": "module-22",
+      "status": "COMPILED",
+      "exit_code": 0,
+      "flash_usage": "291873 bytes (22%)",
+      "ram_usage": "23208 bytes (7%)"
+    },
+    "module-23": {
+      "module": "module-23",
+      "status": "COMPILED",
+      "exit_code": 0,
+      "flash_usage": "291317 bytes (22%)",
+      "ram_usage": "23208 bytes (7%)"
+    },
+    "module-24": {
+      "module": "module-24",
+      "status": "COMPILED",
+      "exit_code": 0,
+      "flash_usage": "291465 bytes (22%)",
+      "ram_usage": "23208 bytes (7%)"
+    },
+    "module-25": {
+      "module": "module-25",
+      "status": "COMPILED",
+      "exit_code": 0,
+      "flash_usage": "435565 bytes (33%)",
+      "ram_usage": "32704 bytes (9%)"
+    },
+    "module-26": {
+      "module": "module-26",
+      "status": "COMPILED",
+      "exit_code": 0,
+      "flash_bytes": 294757,
+      "flash_percent": "22%",
+      "ram_bytes": 23728,
+      "ram_percent": "7%",
+      "flash_usage": "294757 bytes (22%)",
+      "ram_usage": "23728 bytes (7%)",
+      "compiler_output": "Sketch uses 294757 bytes (22%) of program storage space. Maximum is 1310720 bytes.\nGlobal variables use 23728 bytes (7%) of dynamic memory, leaving 303952 bytes for local variables. Maximum is 327680 bytes.\n",
+      "compiler_errors": ""
+    },
+    "module-27": {
+      "module": "module-27",
+      "status": "COMPILED",
+      "exit_code": 0,
+      "flash_bytes": 291533,
+      "flash_percent": "22%",
+      "ram_bytes": 23208,
+      "ram_percent": "7%",
+      "flash_usage": "291533 bytes (22%)",
+      "ram_usage": "23208 bytes (7%)",
+      "compiler_output": "Sketch uses 291533 bytes (22%) of program storage space. Maximum is 1310720 bytes.\nGlobal variables use 23208 bytes (7%) of dynamic memory, leaving 304472 bytes for local variables. Maximum is 327680 bytes.\n",
+      "compiler_errors": ""
+    },
+    "module-28": {
+      "module": "module-28",
+      "status": "COMPILED",
+      "exit_code": 0,
+      "flash_bytes": 291441,
+      "flash_percent": "22%",
+      "ram_bytes": 23208,
+      "ram_percent": "7%",
+      "flash_usage": "291441 bytes (22%)",
+      "ram_usage": "23208 bytes (7%)",
+      "compiler_output": "Sketch uses 291441 bytes (22%) of program storage space. Maximum is 1310720 bytes.\nGlobal variables use 23208 bytes (7%) of dynamic memory, leaving 304472 bytes for local variables. Maximum is 327680 bytes.\n",
+      "compiler_errors": ""
+    },
+    "module-29": {
+      "module": "module-29",
+      "status": "COMPILED",
+      "exit_code": 0,
+      "flash_bytes": 291321,
+      "flash_percent": "22%",
+      "ram_bytes": 23208,
+      "ram_percent": "7%",
+      "flash_usage": "291321 bytes (22%)",
+      "ram_usage": "23208 bytes (7%)",
+      "compiler_output": "Sketch uses 291321 bytes (22%) of program storage space. Maximum is 1310720 bytes.\nGlobal variables use 23208 bytes (7%) of dynamic memory, leaving 304472 bytes for local variables. Maximum is 327680 bytes.\n",
+      "compiler_errors": ""
+    },
+    "module-30": {
+      "module": "module-30",
+      "status": "COMPILED",
+      "exit_code": 0,
+      "flash_bytes": 969793,
+      "flash_percent": "73%",
+      "ram_bytes": 50072,
+      "ram_percent": "15%",
+      "flash_usage": "969793 bytes (73%)",
+      "ram_usage": "50072 bytes (15%)",
+      "compiler_output": "Sketch uses 969793 bytes (73%) of program storage space. Maximum is 1310720 bytes.\nGlobal variables use 50072 bytes (15%) of dynamic memory, leaving 277608 bytes for local variables. Maximum is 327680 bytes.\n",
+      "compiler_errors": ""
+    }
+  }
+}

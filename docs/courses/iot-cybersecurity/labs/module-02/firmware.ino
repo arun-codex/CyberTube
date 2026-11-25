@@ -1,54 +1,66 @@
-// CyberTube Lab 02 Firmware: Benchtop LED & Switch Circuit with Multimeter Voltage Verification
+// CyberTube Lab 02: Discrete Circuit Instrumentation & DC Voltage Measurement
 // Target: ESP32 DevKit V1 (ESP-WROOM-32)
-// Safety Invariant: Strictly <= 3.3V DC logic bounds. Zero mains AC.
+// Logic Level Invariant: Strictly <= 3.3V DC logic. Zero mains AC.
 
 #include <Arduino.h>
 
-#define STATUS_LED_PIN 2
-#define INPUT_SENSOR_PIN 4
-#define BAUD_RATE 115200
+const int LED_PIN = 2;          // Active-HIGH status LED via 220-ohm resistor
+const int BUTTON_PIN = 4;       // Active-LOW push button with 10k-ohm external pull-up
+const int VOLTAGE_SENSE_PIN = 34; // Analog sense input (ADC1_CH6, input only)
 
-unsigned long lastTelemetryTime = 0;
-const unsigned long TELEMETRY_INTERVAL_MS = 2000;
-uint32_t bootCount = 1;
+unsigned long lastSampleTime = 0;
+const unsigned long SAMPLE_INTERVAL_MS = 1000;
 
 void setup() {
-  Serial.begin(BAUD_RATE);
-  while (!Serial && millis() < 3000); // Wait for serial connection
-  
-  pinMode(STATUS_LED_PIN, OUTPUT);
-  pinMode(INPUT_SENSOR_PIN, INPUT_PULLDOWN);
-  
-  digitalWrite(STATUS_LED_PIN, HIGH);
-  delay(100);
-  digitalWrite(STATUS_LED_PIN, LOW);
-  
-  Serial.println("=================================================");
-  Serial.println("[CYBERTUBE] Module 02 Practical Lab Firmware Loaded");
-  Serial.println("[CYBERTUBE] Target: ESP32 DevKit V1 (Xtensa Dual-Core)");
-  Serial.println("[CYBERTUBE] Logic Voltage: 3.3V DC Verified");
-  Serial.print("[CYBERTUBE] Chip Revision: ");
-  Serial.println(ESP.getChipRevision());
-  Serial.print("[CYBERTUBE] MAC Address: ");
-  Serial.println(WiFi.macAddress());
-  Serial.println("=================================================");
+  Serial.begin(115200);
+  while (!Serial && millis() < 3000);
+
+  pinMode(LED_PIN, OUTPUT);
+  pinMode(BUTTON_PIN, INPUT_PULLUP);
+  // ADC configuration: 12-bit resolution (0-4095), 11dB attenuation (up to ~3.3V)
+  analogReadResolution(12);
+  analogSetAttenuation(ADC_11db);
+
+  digitalWrite(LED_PIN, LOW);
+
+  Serial.println("==================================================");
+  Serial.println("[CYBERTUBE] Lab 02: DC Circuit Measurement Initialized");
+  Serial.println("[CYBERTUBE] Architecture: 3.3V Low-Voltage Discrete DC");
+  Serial.println("[CYBERTUBE] Hardware: ESP32 DevKit, MB-102 Breadboard");
+  Serial.println("==================================================");
 }
 
 void loop() {
   unsigned long now = millis();
-  
-  // Non-blocking telemetry loop
-  if (now - lastTelemetryTime >= TELEMETRY_INTERVAL_MS) {
-    lastTelemetryTime = now;
-    
-    int rawInput = digitalRead(INPUT_SENSOR_PIN);
-    digitalWrite(STATUS_LED_PIN, rawInput ? HIGH : LOW);
-    
-    Serial.print("[TELEMETRY] Uptime(ms)=");
-    Serial.print(now);
-    Serial.print(" | SensorState=");
-    Serial.print(rawInput);
-    Serial.print(" | VCC=3.30V | Module=02");
-    Serial.println(" | Integrity=OK");
+
+  // Read button state (LOW when pressed due to pull-up)
+  bool buttonPressed = (digitalRead(BUTTON_PIN) == LOW);
+  digitalWrite(LED_PIN, buttonPressed ? HIGH : LOW);
+
+  if (now - lastSampleTime >= SAMPLE_INTERVAL_MS) {
+    lastSampleTime = now;
+
+    // Multisampling ADC to reduce thermal and switching noise
+    uint32_t adcSum = 0;
+    const int SAMPLES = 32;
+    for (int i = 0; i < SAMPLES; i++) {
+      adcSum += analogRead(VOLTAGE_SENSE_PIN);
+      delayMicroseconds(50);
+    }
+    uint32_t rawAdc = adcSum / SAMPLES;
+
+    // Convert raw ADC (0-4095) to measured millivolts (3.3V reference)
+    float measuredVolts = (rawAdc * 3.3f) / 4095.0f;
+
+    Serial.print("[MEASURE] Time=");
+    Serial.print(now / 1000);
+    Serial.print("s | RawADC=");
+    Serial.print(rawAdc);
+    Serial.print(" | RailVoltage=");
+    Serial.print(measuredVolts, 3);
+    Serial.print("V | ButtonState=");
+    Serial.print(buttonPressed ? "PRESSED(0)" : "RELEASED(1)");
+    Serial.print(" | LEDState=");
+    Serial.println(buttonPressed ? "ON" : "OFF");
   }
 }

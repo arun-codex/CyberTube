@@ -1,4 +1,1 @@
-WiFi@2.0.0
-PubSubClient@2.8
-ArduinoJson@6.21.3
-Adafruit Unified Sensor@1.1.14
+WiFi

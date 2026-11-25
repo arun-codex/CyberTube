@@ -31,6 +31,7 @@ import { IoTForensicTimeline } from '../iot/IoTForensicTimeline';
 import { HardwareExplorer } from '../iot/HardwareExplorer';
 import { LessonKitPanel } from '../iot/LessonKitPanel';
 import { IoTProjectPanel } from '../iot/IoTProjectPanel';
+import { IoTExecutableLabConsole } from '../iot/IoTExecutableLabConsole';
 
 // Dynamically imported heavy IoT components with ssr: false for optimal bundle performance
 const Device3DViewer = dynamic(
@@ -382,10 +383,17 @@ export const LessonContentSections: React.FC<LessonContentSectionsProps> = ({
           {activeTab === 'lab' && (
             <div className="space-y-6">
               {isIotCourse && (
-                <IoTProjectPanel
-                  moduleNumber={moduleNumber}
-                  projectTitle={activeLesson.moduleTitle}
-                />
+                <>
+                  <IoTExecutableLabConsole
+                    moduleNumber={moduleNumber}
+                    projectTitle={activeLesson.moduleTitle}
+                    onOpenDiagramTab={() => setActiveTab('diagram')}
+                  />
+                  <IoTProjectPanel
+                    moduleNumber={moduleNumber}
+                    projectTitle={activeLesson.moduleTitle}
+                  />
+                </>
               )}
               {activeLesson.practicalLab && (
                 <PracticalLabView lab={activeLesson.practicalLab} courseId={courseId} />

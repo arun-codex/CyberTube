@@ -1,20 +1,95 @@
 {
-  "module": 2,
-  "diagramConfigId": "diagram-m02",
-  "title": "Benchtop LED & Switch Circuit with Multimeter Voltage Verification",
-  "svgCategory": "hardware",
-  "testPoints": [
+  "version": 1,
+  "author": "CyberTube Open Learning Consortium",
+  "editor": "wokwi",
+  "parts": [
     {
-      "id": "TP1_VCC",
-      "label": "3.3V Power Rail",
-      "expectedDC": 3.3,
-      "tolerance": 0.1
+      "type": "board-esp32-devkit-c-v4",
+      "id": "esp",
+      "top": 0,
+      "left": 0,
+      "attrs": {}
     },
     {
-      "id": "TP2_GND",
-      "label": "Ground Reference",
-      "expectedDC": 0.0,
-      "tolerance": 0.05
+      "type": "wokwi-led",
+      "id": "led1",
+      "top": -60,
+      "left": 100,
+      "attrs": {
+        "color": "red"
+      }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r1",
+      "top": -30,
+      "left": 100,
+      "attrs": {
+        "value": "220"
+      }
+    },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btn1",
+      "top": 120,
+      "left": 100,
+      "attrs": {
+        "color": "green"
+      }
     }
+  ],
+  "connections": [
+    [
+      "esp:TX",
+      "$serialMonitor:RX",
+      "",
+      []
+    ],
+    [
+      "esp:RX",
+      "$serialMonitor:TX",
+      "",
+      []
+    ],
+    [
+      "esp:2",
+      "r1:1",
+      "green",
+      [
+        "v0"
+      ]
+    ],
+    [
+      "r1:2",
+      "led1:A",
+      "green",
+      [
+        "v0"
+      ]
+    ],
+    [
+      "led1:C",
+      "esp:GND.1",
+      "black",
+      [
+        "v0"
+      ]
+    ],
+    [
+      "esp:4",
+      "btn1:2.1",
+      "blue",
+      [
+        "v0"
+      ]
+    ],
+    [
+      "btn1:1.1",
+      "esp:GND.1",
+      "black",
+      [
+        "v0"
+      ]
+    ]
   ]
 }
